@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using System.Net;
 using System.IO;
 
+
 namespace Disp_WinForm
 {
+
     public class MyWebRequest
     {
         private WebRequest request;

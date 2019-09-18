@@ -1,0 +1,3 @@
+mysqldump --single-transaction -u root -p btk > /home/disp_12.06.19.sql
+
+mysql -u root -p btk < /home/bkp/disp_12.06.19.sql
