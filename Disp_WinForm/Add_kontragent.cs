@@ -34,7 +34,7 @@ namespace Disp_WinForm
             if (textBox_mail1.Text != "")
             {
                 macros.sql_command("insert into btk.Emails(Emailscol_email) values('" + textBox_mail1.Text + "');");
-                emailID1 = macros.sql_command2("SELECT MAX(idEmails) FROM btk.Emails;");
+                emailID1 = macros.sql_command("SELECT MAX(idEmails) FROM btk.Emails;");
             }
             else
             { emailID1 = "1"; }
@@ -44,7 +44,7 @@ namespace Disp_WinForm
             if (textBox_mail2.Text != "")
             {
                 macros.sql_command("insert into btk.Emails(Emailscol_email) values('" + textBox_mail2.Text + "');");
-                emailID2 = macros.sql_command2("SELECT MAX(idEmails) FROM btk.Emails;");
+                emailID2 = macros.sql_command("SELECT MAX(idEmails) FROM btk.Emails;");
             }
             else
             { emailID2 = "1"; }
@@ -54,7 +54,7 @@ namespace Disp_WinForm
             if (textBox_phone1.Text != "")
             {
                 macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone) values('" + textBox_phone1.Text + "');");
-                phoneID1 = macros.sql_command2("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
+                phoneID1 = macros.sql_command("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
             }
             else
             { phoneID1 = "1"; }
@@ -64,7 +64,7 @@ namespace Disp_WinForm
             if (textBox_phone2.Text != "")
             {
                 macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone) values('" + textBox_phone2.Text + "');");
-                phoneID2 = macros.sql_command2("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
+                phoneID2 = macros.sql_command("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
             }
             else
             { phoneID2 = "1"; }

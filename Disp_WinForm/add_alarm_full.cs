@@ -14,6 +14,7 @@ namespace Disp_WinForm
 {
     public partial class add_alarm_full : Form
     {
+        Macros macros = new Macros();
         string object_name;
         string object_product = "CNTK";
         public add_alarm_full()
@@ -23,37 +24,24 @@ namespace Disp_WinForm
 
         }
 
-        private void update_session()
-        {
-            try
-            {
-                MyWebRequest myRequest = new MyWebRequest("https://navi.venbest.com.ua/wialon/ajax.html?", "POST", "&svc=token/login&params={\"token\":\"d1207c47958c32b224682b5b080fb908CAF3A4507360712CD18AE69617A54F2FC61EFF5D\"}");
-                string json = myRequest.GetResponse();
-                var m = JsonConvert.DeserializeObject<RootObject>(json);
-                vars_form.eid = m.eid;
-            }
-
-
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
-        }
-
         private void TreeView_zapolnyaem()//Получаем произвольные поля из Виалона и заполняем дерево
         {
             try
             {
-                MyWebRequest myRequest = new MyWebRequest("https://navi.venbest.com.ua/wialon/ajax.html?", "POST", "sid=" + vars_form.eid + "&svc=core/search_items&params={\"spec\":{" + "\"itemsType\":\"avl_unit\"," + "\"propName\":\"sys_id\"," + "\"propValueMask\":\"" +  vars_form.add_alarm_unit_id  + "\", " + "\"sortType\":\"sys_name\"," + "\"or_logic\":\"1\"}," + "\"or_logic\":\"1\"," + "\"force\":\"1\"," + "\"flags\":\"15208907\"," + "\"from\":\"0\"," + "\"to\":\"5\"}");//15208907
-                string json = myRequest.GetResponse();
+                string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+                                                        "\"spec\":{" +
+                                                        "\"itemsType\":\"avl_unit\"," +
+                                                        "\"propName\":\"sys_id\"," +
+                                                        "\"propValueMask\":\"" + vars_form.add_alarm_unit_id + "\", " +
+                                                        "\"sortType\":\"sys_name\"," +
+                                                        "\"or_logic\":\"1\"}," +
+                                                        "\"force\":\"1\"," +
+                                                        "\"flags\":\"15208907\"," +
+                                                        "\"from\":\"0\"," +
+                                                        "\"to\":\"5\"}");
+
                 var m = JsonConvert.DeserializeObject<RootObject>(json);
-                if (m.error == 1)
-                {
-                    update_session();
-                    myRequest = new MyWebRequest("https://navi.venbest.com.ua/wialon/ajax.html?", "POST", "sid=" + vars_form.eid + "&svc=core/search_items&params={\"spec\":{" + "\"itemsType\":\"avl_unit\"," + "\"propName\":\"sys_id\"," + "\"propValueMask\":\"" +  vars_form.add_alarm_unit_id  + "\", " + "\"sortType\":\"sys_name\"," + "\"or_logic\":\"1\"}," + "\"or_logic\":\"1\"," + "\"force\":\"1\"," + "\"flags\":\"15208907\"," + "\"from\":\"0\"," + "\"to\":\"5\"}");//15208907
-                    json = myRequest.GetResponse();
-                    m = JsonConvert.DeserializeObject<RootObject>(json);
-                }
+
                 object_name = m.items[0].nm.ToString();
 
 
@@ -134,20 +122,22 @@ namespace Disp_WinForm
             //    MessageBox.Show("Опишіть суть звернення");
             //    return;
             //}
-            try
-            {
-                MySqlConnection myConnection = new MySqlConnection("server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True; charset=utf8");
-                string sql = string.Format("INSERT INTO btk.notification(unit_name, unit_id, curr_time, msg_time, product, type_alarm, Users_idUsers) VALUES('" + object_name + "','" + vars_form.add_alarm_unit_id + "','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + object_product + "','" + comboBox_source_in.GetItemText(comboBox_source_in.SelectedItem) + "','" + vars_form.user_login_id + "')");//Убрал суть звернення: информация ложилась в speed,
-                MySqlCommand MyCommand2 = new MySqlCommand(sql, myConnection);
-                MySqlDataReader MyReader2;
-                myConnection.Open();
-                MyReader2 = MyCommand2.ExecuteReader();
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
+            macros.sql_command("INSERT INTO btk.notification(" +
+                               "unit_name, " +
+                               "unit_id, " +
+                               "curr_time, " +
+                               "msg_time, " +
+                               "product, " +
+                               "type_alarm, " +
+                               "Users_idUsers) " +
+                               "VALUES('" + object_name + "'," +
+                               "'" + vars_form.add_alarm_unit_id + "'," +
+                               "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                               "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                               "'" + object_product + "'," +
+                               "'" + comboBox_source_in.GetItemText(comboBox_source_in.SelectedItem) + "'," +
+                               "'" + vars_form.user_login_id + "')");
 
             this.Close();
         }

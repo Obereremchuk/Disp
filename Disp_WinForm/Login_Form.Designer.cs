@@ -28,88 +28,49 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox_Login = new System.Windows.Forms.TextBox();
-            this.textBox_Pass = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.geckoWebBrowser1 = new Gecko.GeckoWebBrowser();
+            this.label_Version = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox_font = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // textBox_Login
-            // 
-            this.textBox_Login.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_Login.Location = new System.Drawing.Point(70, 23);
-            this.textBox_Login.Name = "textBox_Login";
-            this.textBox_Login.Size = new System.Drawing.Size(100, 20);
-            this.textBox_Login.TabIndex = 0;
-            this.textBox_Login.Enter += new System.EventHandler(this.textBox_Login_Enter);
-            // 
-            // textBox_Pass
-            // 
-            this.textBox_Pass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_Pass.Location = new System.Drawing.Point(70, 46);
-            this.textBox_Pass.Name = "textBox_Pass";
-            this.textBox_Pass.PasswordChar = '*';
-            this.textBox_Pass.Size = new System.Drawing.Size(100, 20);
-            this.textBox_Pass.TabIndex = 1;
-            this.textBox_Pass.Enter += new System.EventHandler(this.textBox_Pass_Enter);
-            this.textBox_Pass.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_Pass_KeyDown);
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(70, 77);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Увійти";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button_Login);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 26);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(34, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Логін";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 49);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Пароль";
-            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.textBox_font);
-            this.groupBox1.Controls.Add(this.textBox_Pass);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.textBox_Login);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.geckoWebBrowser1);
             this.groupBox1.Location = new System.Drawing.Point(3, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(184, 142);
+            this.groupBox1.Size = new System.Drawing.Size(687, 340);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Обліковий запис";
+            // 
+            // geckoWebBrowser1
+            // 
+            this.geckoWebBrowser1.FrameEventsPropagateToMainWindow = false;
+            this.geckoWebBrowser1.Location = new System.Drawing.Point(9, 19);
+            this.geckoWebBrowser1.Name = "geckoWebBrowser1";
+            this.geckoWebBrowser1.Size = new System.Drawing.Size(672, 315);
+            this.geckoWebBrowser1.TabIndex = 1;
+            this.geckoWebBrowser1.UseHttpActivityObserver = false;
+            this.geckoWebBrowser1.DocumentCompleted += new System.EventHandler<Gecko.Events.GeckoDocumentCompletedEventArgs>(this.geckoWebBrowser1_DocumentCompleted);
+            // 
+            // label_Version
+            // 
+            this.label_Version.AutoSize = true;
+            this.label_Version.Location = new System.Drawing.Point(9, 353);
+            this.label_Version.Name = "label_Version";
+            this.label_Version.Size = new System.Drawing.Size(35, 13);
+            this.label_Version.TabIndex = 7;
+            this.label_Version.Text = "label4";
             // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.label3.Location = new System.Drawing.Point(82, 119);
+            this.label3.Location = new System.Drawing.Point(602, 353);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(44, 13);
             this.label3.TabIndex = 6;
@@ -118,7 +79,7 @@
             // textBox_font
             // 
             this.textBox_font.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_font.Location = new System.Drawing.Point(133, 116);
+            this.textBox_font.Location = new System.Drawing.Point(653, 350);
             this.textBox_font.Name = "textBox_font";
             this.textBox_font.Size = new System.Drawing.Size(37, 20);
             this.textBox_font.TabIndex = 5;
@@ -127,25 +88,24 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(192, 158);
+            this.ClientSize = new System.Drawing.Size(698, 383);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label_Version);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.textBox_font);
             this.Name = "Login_Form";
             this.Text = "Авторизація";
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textBox_Login;
-        private System.Windows.Forms.TextBox textBox_Pass;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox_font;
+        private System.Windows.Forms.Label label_Version;
+        private Gecko.GeckoWebBrowser geckoWebBrowser1;
     }
 }

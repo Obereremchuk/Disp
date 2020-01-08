@@ -62,7 +62,7 @@
             this.Column_time_stamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column_Users_chenge = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.geckoWebBrowser1 = new Gecko.GeckoWebBrowser();
             this.dataGridView_group_alarm = new System.Windows.Forms.DataGridView();
             this.Column_id_alarm_group_alarm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column_unit_name_group_alarm = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -114,6 +114,16 @@
             this.msg_time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.last_location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage_dii_z_obectom = new System.Windows.Forms.TabPage();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.button_close_stop = new System.Windows.Forms.Button();
+            this.textBox_close_start_user = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox_close_reason = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dateTimePicker_close_plan_date = new System.Windows.Forms.DateTimePicker();
+            this.button_close_start = new System.Windows.Forms.Button();
             this.checkBox_vizov_gmr = new System.Windows.Forms.CheckBox();
             this.checkBox_vizov_police = new System.Windows.Forms.CheckBox();
             this.button_sinhronize_time = new System.Windows.Forms.Button();
@@ -138,6 +148,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_rezultat_trevog)).BeginInit();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_trivogi_objecta)).BeginInit();
+            this.tabPage_dii_z_obectom.SuspendLayout();
+            this.groupBox11.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -394,7 +406,7 @@
             this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox7.Controls.Add(this.webBrowser1);
+            this.groupBox7.Controls.Add(this.geckoWebBrowser1);
             this.groupBox7.Location = new System.Drawing.Point(779, 199);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(473, 501);
@@ -402,17 +414,17 @@
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Об\"єкт на мапі";
             // 
-            // webBrowser1
+            // geckoWebBrowser1
             // 
-            this.webBrowser1.AllowWebBrowserDrop = false;
-            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser1.Location = new System.Drawing.Point(3, 16);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.ScrollBarsEnabled = false;
-            this.webBrowser1.Size = new System.Drawing.Size(467, 482);
-            this.webBrowser1.TabIndex = 0;
-            this.webBrowser1.WebBrowserShortcutsEnabled = false;
+            this.geckoWebBrowser1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.geckoWebBrowser1.FrameEventsPropagateToMainWindow = false;
+            this.geckoWebBrowser1.Location = new System.Drawing.Point(2, 19);
+            this.geckoWebBrowser1.Name = "geckoWebBrowser1";
+            this.geckoWebBrowser1.Size = new System.Drawing.Size(471, 483);
+            this.geckoWebBrowser1.TabIndex = 2;
+            this.geckoWebBrowser1.UseHttpActivityObserver = false;
             // 
             // dataGridView_group_alarm
             // 
@@ -548,7 +560,6 @@
             this.label_arm.Size = new System.Drawing.Size(37, 13);
             this.label_arm.TabIndex = 14;
             this.label_arm.Text = "          ";
-            this.label_arm.Click += new System.EventHandler(this.label_arm_Click);
             // 
             // label_door
             // 
@@ -559,7 +570,6 @@
             this.label_door.Size = new System.Drawing.Size(25, 13);
             this.label_door.TabIndex = 15;
             this.label_door.Text = "      ";
-            this.label_door.Click += new System.EventHandler(this.label_door_Click);
             // 
             // label_udar
             // 
@@ -570,7 +580,6 @@
             this.label_udar.Size = new System.Drawing.Size(31, 13);
             this.label_udar.TabIndex = 16;
             this.label_udar.Text = "        ";
-            this.label_udar.Click += new System.EventHandler(this.label_udar_Click);
             // 
             // label_relay_bl
             // 
@@ -581,7 +590,6 @@
             this.label_relay_bl.Size = new System.Drawing.Size(31, 13);
             this.label_relay_bl.TabIndex = 17;
             this.label_relay_bl.Text = "        ";
-            this.label_relay_bl.Click += new System.EventHandler(this.label_relay_bl_Click);
             // 
             // label_akb
             // 
@@ -592,7 +600,6 @@
             this.label_akb.Size = new System.Drawing.Size(28, 13);
             this.label_akb.TabIndex = 18;
             this.label_akb.Text = "       ";
-            this.label_akb.Click += new System.EventHandler(this.label_akb_Click);
             // 
             // groupBox8
             // 
@@ -725,6 +732,7 @@
             this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Controls.Add(this.tabPage6);
+            this.tabControl2.Controls.Add(this.tabPage_dii_z_obectom);
             this.tabControl2.Location = new System.Drawing.Point(5, 5);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
@@ -1031,6 +1039,102 @@
             this.Status.Name = "Status";
             this.Status.Width = 66;
             // 
+            // tabPage_dii_z_obectom
+            // 
+            this.tabPage_dii_z_obectom.Controls.Add(this.groupBox11);
+            this.tabPage_dii_z_obectom.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_dii_z_obectom.Name = "tabPage_dii_z_obectom";
+            this.tabPage_dii_z_obectom.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_dii_z_obectom.Size = new System.Drawing.Size(759, 670);
+            this.tabPage_dii_z_obectom.TabIndex = 4;
+            this.tabPage_dii_z_obectom.Text = "Дії з об\"єктом";
+            this.tabPage_dii_z_obectom.UseVisualStyleBackColor = true;
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.button_close_stop);
+            this.groupBox11.Controls.Add(this.textBox_close_start_user);
+            this.groupBox11.Controls.Add(this.label4);
+            this.groupBox11.Controls.Add(this.textBox_close_reason);
+            this.groupBox11.Controls.Add(this.label3);
+            this.groupBox11.Controls.Add(this.label2);
+            this.groupBox11.Controls.Add(this.dateTimePicker_close_plan_date);
+            this.groupBox11.Controls.Add(this.button_close_start);
+            this.groupBox11.Location = new System.Drawing.Point(6, 6);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(337, 212);
+            this.groupBox11.TabIndex = 1;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "Запустити процесс зупинки обслуговування";
+            // 
+            // button_close_stop
+            // 
+            this.button_close_stop.Location = new System.Drawing.Point(9, 175);
+            this.button_close_stop.Name = "button_close_stop";
+            this.button_close_stop.Size = new System.Drawing.Size(311, 23);
+            this.button_close_stop.TabIndex = 4;
+            this.button_close_stop.Text = "Стоп";
+            this.button_close_stop.UseVisualStyleBackColor = true;
+            this.button_close_stop.Click += new System.EventHandler(this.button_close_stop_Click);
+            // 
+            // textBox_close_start_user
+            // 
+            this.textBox_close_start_user.Location = new System.Drawing.Point(122, 101);
+            this.textBox_close_start_user.Name = "textBox_close_start_user";
+            this.textBox_close_start_user.Size = new System.Drawing.Size(198, 20);
+            this.textBox_close_start_user.TabIndex = 3;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 104);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(65, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Користувач";
+            // 
+            // textBox_close_reason
+            // 
+            this.textBox_close_reason.Location = new System.Drawing.Point(122, 75);
+            this.textBox_close_reason.Name = "textBox_close_reason";
+            this.textBox_close_reason.Size = new System.Drawing.Size(198, 20);
+            this.textBox_close_reason.TabIndex = 3;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 78);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(94, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Причина зупинки";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 53);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(103, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "План-дата зупинки";
+            // 
+            // dateTimePicker_close_plan_date
+            // 
+            this.dateTimePicker_close_plan_date.Location = new System.Drawing.Point(122, 49);
+            this.dateTimePicker_close_plan_date.Name = "dateTimePicker_close_plan_date";
+            this.dateTimePicker_close_plan_date.Size = new System.Drawing.Size(198, 20);
+            this.dateTimePicker_close_plan_date.TabIndex = 1;
+            // 
+            // button_close_start
+            // 
+            this.button_close_start.Location = new System.Drawing.Point(9, 146);
+            this.button_close_start.Name = "button_close_start";
+            this.button_close_start.Size = new System.Drawing.Size(311, 23);
+            this.button_close_start.TabIndex = 0;
+            this.button_close_start.Text = "Старт";
+            this.button_close_start.UseVisualStyleBackColor = true;
+            this.button_close_start.Click += new System.EventHandler(this.button_close_start_Click);
+            // 
             // checkBox_vizov_gmr
             // 
             this.checkBox_vizov_gmr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1120,6 +1224,7 @@
             this.Text = "Обробка тривоги/звернення";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.detail_FormClosing);
             this.Load += new System.EventHandler(this.detail_Load);
+            this.Shown += new System.EventHandler(this.detail_Shown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_hronologija_trivog)).EndInit();
@@ -1140,6 +1245,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_rezultat_trevog)).EndInit();
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_trivogi_objecta)).EndInit();
+            this.tabPage_dii_z_obectom.ResumeLayout(false);
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
@@ -1156,7 +1264,6 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.TreeView treeView_client_info;
         private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.DataGridView dataGridView_group_alarm;
         private System.Windows.Forms.Button button_group_alarm;
         private System.Windows.Forms.Button button_ungroup_alarm;
@@ -1226,5 +1333,16 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn username;
         private System.Windows.Forms.CheckBox remaynder_checkBox;
         private System.Windows.Forms.DateTimePicker remaynder_dateTimePicker;
+        private System.Windows.Forms.TabPage tabPage_dii_z_obectom;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.Button button_close_stop;
+        private System.Windows.Forms.TextBox textBox_close_reason;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_close_plan_date;
+        private System.Windows.Forms.Button button_close_start;
+        private System.Windows.Forms.TextBox textBox_close_start_user;
+        private System.Windows.Forms.Label label4;
+        private Gecko.GeckoWebBrowser geckoWebBrowser1;
     }
 }

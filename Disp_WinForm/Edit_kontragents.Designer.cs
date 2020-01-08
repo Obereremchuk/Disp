@@ -35,7 +35,7 @@
             this.groupBox_phone2 = new System.Windows.Forms.GroupBox();
             this.textBox_vulitsa = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBox_misto = new System.Windows.Forms.ComboBox();
+            this.comboBox_misto_ = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.textBox_mail1 = new System.Windows.Forms.TextBox();
@@ -56,6 +56,7 @@
             this.textBox_rekvizity = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.comboBox_misto = new System.Windows.Forms.ComboBox();
             this.groupBox3.SuspendLayout();
             this.groupBox_phone2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -101,9 +102,10 @@
             // 
             // groupBox_phone2
             // 
+            this.groupBox_phone2.Controls.Add(this.comboBox_misto);
             this.groupBox_phone2.Controls.Add(this.textBox_vulitsa);
             this.groupBox_phone2.Controls.Add(this.label3);
-            this.groupBox_phone2.Controls.Add(this.comboBox_misto);
+            this.groupBox_phone2.Controls.Add(this.comboBox_misto_);
             this.groupBox_phone2.Controls.Add(this.label2);
             this.groupBox_phone2.Controls.Add(this.label6);
             this.groupBox_phone2.Controls.Add(this.textBox_mail1);
@@ -136,18 +138,18 @@
             this.label3.TabIndex = 38;
             this.label3.Text = "Вулиция";
             // 
-            // comboBox_misto
+            // comboBox_misto_
             // 
-            this.comboBox_misto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_misto.FormattingEnabled = true;
-            this.comboBox_misto.Items.AddRange(new object[] {
+            this.comboBox_misto_.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_misto_.FormattingEnabled = true;
+            this.comboBox_misto_.Items.AddRange(new object[] {
             "Київ",
             "Харків",
             "Дніпро"});
-            this.comboBox_misto.Location = new System.Drawing.Point(117, 23);
-            this.comboBox_misto.Name = "comboBox_misto";
-            this.comboBox_misto.Size = new System.Drawing.Size(186, 21);
-            this.comboBox_misto.TabIndex = 6;
+            this.comboBox_misto_.Location = new System.Drawing.Point(25, 186);
+            this.comboBox_misto_.Name = "comboBox_misto_";
+            this.comboBox_misto_.Size = new System.Drawing.Size(186, 21);
+            this.comboBox_misto_.TabIndex = 6;
             // 
             // label2
             // 
@@ -336,6 +338,44 @@
             this.label11.TabIndex = 35;
             this.label11.Text = "Тип Властності";
             // 
+            // comboBox_misto
+            // 
+            this.comboBox_misto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_misto.FormattingEnabled = true;
+            this.comboBox_misto.Items.AddRange(new object[] {
+            "Київ",
+            "Харків",
+            "Одесса",
+            "Днепр",
+            "Запорожье",
+            "Львов",
+            "Кривой Рог",
+            "Николаев",
+            "Мариуполь",
+            "Винница",
+            "Херсон",
+            "Полтава",
+            "Чернигов",
+            "Черкассы",
+            "Хмельницкий",
+            "Черновцы",
+            "Житомир",
+            "Сумы",
+            "Ровно",
+            "Ивано-Франковск",
+            "Каменское",
+            "Кропивницкий",
+            "Тернополь",
+            "Кременчуг",
+            "Луцк",
+            "Краматорск",
+            "Ужгород",
+            "Павлоград"});
+            this.comboBox_misto.Location = new System.Drawing.Point(117, 23);
+            this.comboBox_misto.Name = "comboBox_misto";
+            this.comboBox_misto.Size = new System.Drawing.Size(186, 21);
+            this.comboBox_misto.TabIndex = 39;
+            // 
             // Edit_kontragents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -367,7 +407,7 @@
         private System.Windows.Forms.GroupBox groupBox_phone2;
         private System.Windows.Forms.TextBox textBox_vulitsa;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox_misto;
+        private System.Windows.Forms.ComboBox comboBox_misto_;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBox_mail1;
@@ -388,5 +428,6 @@
         private System.Windows.Forms.TextBox textBox_rekvizity;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox comboBox_misto;
     }
 }

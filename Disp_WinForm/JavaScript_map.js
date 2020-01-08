@@ -71,7 +71,7 @@ function initMap() {
 // execute when DOM ready
 $(document).ready(function () {
 
-    wialon.core.Session.getInstance().initSession("https://navi.venbest.com.ua"); // init session
+    wialon.core.Session.getInstance().initSession("http://navi.venbest.com.ua"); // init session
     // For more info about how to generate token check
     // http://sdk.wialon.com/playground/demo/app_auth_token
     wialon.core.Session.getInstance().loginToken("d1207c47958c32b224682b5b080fb908EBC9D556C26BA1E5E98DE8B1AAFD654EE09678C1", "", // try to login

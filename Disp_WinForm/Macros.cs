@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using DocumentFormat.OpenXml.Packaging;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using FontStyle = System.Drawing.FontStyle;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Disp_WinForm
 {
@@ -65,134 +69,53 @@ namespace Disp_WinForm
                     return false;
             return true;
         }//check form (by name) is opened?
-        public object sql_request_dataTable(string sql)
-        {
-            try
-            {
-                MySqlConnection myConnection = new MySqlConnection(
-                    "server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True; charset=utf8");
-                MySqlDataAdapter myDataAdapter = new MySqlDataAdapter(sql, myConnection);
-                DataTable data = new DataTable();
-
-                myDataAdapter.Fill(data);
-
-                myDataAdapter.Dispose();
-                myConnection.Close();
-
-                return data;
-            }
-            catch (Exception)
-            {
-                DataTable data = new DataTable();
-                return data;
-            }
-
-
-        }//Request 2DB - dataTable
-        public void sql_command(string sql)
-        {
-            try
-            {
-                MySqlConnection myConnection = new MySqlConnection(
-                    "server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True ; charset=utf8");
-                myConnection.Open();
-                MySqlCommand command = myConnection.CreateCommand();
-                command.CommandText = sql;
-                command.ExecuteNonQuery();
-                myConnection.Close();
-            }   
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message.ToString() + "");
-            }
-        }
-        public DataSet sql_request_dataSet(string sql)
-        {
-            try
-            {
-                MySqlConnection myConnection = new MySqlConnection(
-                    "server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True; charset=utf8");
-                MySqlDataAdapter myDataAdapter = new MySqlDataAdapter(sql, myConnection);
-                DataSet data = new DataSet();
-
-                myDataAdapter.Fill(data);
-
-                myDataAdapter.Dispose();
-                myConnection.Close();
-
-                return data;
-            }
-            catch (Exception)
-            {
-                DataSet data = new DataSet();
-                return data;
-            }
-        }//Request 2DB - dataSet
-        public DataTable sql_request_dataTable_new(string sql)
-        {
-            try
-            {
-                MySqlConnection myConnection = new MySqlConnection(
-                    "server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True; charset=utf8");
-                MySqlDataAdapter myDataAdapter = new MySqlDataAdapter(sql, myConnection);
-                DataTable data = new DataTable();
-
-                myDataAdapter.Fill(data);
-
-                myDataAdapter.Dispose();
-                myConnection.Close();
-
-                return data;
-            }
-            catch (Exception)
-            {
-                DataTable data = new DataTable();
-                return data;
-            }
-        }//Request 2DB - dataTable
-        public string sql_command2(string sql)
-        {
-            try
-            {
-                MySqlConnection myConnection = new MySqlConnection("server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True; charset=utf8");
-                MySqlCommand command = new MySqlCommand(sql, myConnection);
-                command.CommandType = CommandType.Text;
-                myConnection.Open();
-                string answer = command.ExecuteScalar().ToString();
-                myConnection.Close();
-                return answer;
-            }
-            catch (Exception)
-            {
-                string answer = "";
-                return answer;
-
-            }
-            
-        }
 
         public string wialon_request_new(string request)
         {
-            MyWebRequest myRequest = new MyWebRequest("https://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + request);
-            string json = myRequest.GetResponse();
-            var test_out = JsonConvert.DeserializeObject<RootObject>(json);
-            if (test_out.error != 0)
+            string json = "";
+            try
             {
-                get_eid_from_token();
+                MyWebRequest myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + request);
                 json = myRequest.GetResponse();
-                test_out = JsonConvert.DeserializeObject<RootObject>(json);
-                if (test_out.error != 0)
+                var test_out = JsonConvert.DeserializeObject<RootObject>(json);
+                if (test_out.error == 1)
                 {
-                    string text = Get_wl_text_error(test_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
-                    System.Windows.Forms.MessageBox.Show("Wialon Error: " + text);
+                    get_eid_from_token();
+                    myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + request);
+                    json = myRequest.GetResponse();
+                    test_out = JsonConvert.DeserializeObject<RootObject>(json);
+                }
+                else if (test_out.error > 1)
+                {
+
+                    vars_form.error = Get_wl_text_error(test_out.error); //Показіваем диалог бокс с ошибкой, преріваем создание
+                    if (!System.Windows.Forms.Application.OpenForms.OfType<Conn_error>().Any())
+                    {
+                        Conn_error error_box = new Conn_error();
+                        error_box.Show();
+                    }
                     return json;
                 }
+                if (test_out.error == 0)
+                {
+                    if (System.Windows.Forms.Application.OpenForms.OfType<Conn_error>().Any())
+                    {
+                        Conn_error obj = (Conn_error)System.Windows.Forms.Application.OpenForms["Conn_error"];
+                        obj.Close();
+                        vars_form.error = "";
+                        return json;
+                    }
+                }
+                return json;
             }
-            return json;
+            catch(Exception)
+            {
+                return json;
+            }
         }
         public string wialon_request_lite(string request)
         {
-            MyWebRequest myRequest = new MyWebRequest("https://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + request);
+            MyWebRequest myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + request);
             string json = myRequest.GetResponse();
             try
             {
@@ -200,7 +123,7 @@ namespace Disp_WinForm
                 if (test_out.error == 1)
                 {
                     get_eid_from_token();
-                    myRequest = new MyWebRequest("https://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid +
+                    myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid +
                                                  request);
                     json = myRequest.GetResponse();
                     return json;
@@ -222,13 +145,13 @@ namespace Disp_WinForm
         }
         public void get_eid_from_token()
         {
-            MyWebRequest myRequest = new MyWebRequest("https://navi.venbest.com.ua/wialon/ajax.html?", "POST", "&svc=token/login&params={\"token\":\"" + vars_form.user_token + "\"}");
+            MyWebRequest myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?" + "&svc=token/login&params={\"token\":\"" + vars_form.user_token + "\"}");
             string json = myRequest.GetResponse();
             var m = JsonConvert.DeserializeObject<RootObject>(json);
             if (m.error == 1)
             {
                 get_eid_from_token();
-                myRequest = new MyWebRequest("https://navi.venbest.com.ua/wialon/ajax.html?", "POST", "&svc=token/login&params={\"token\":\"" + vars_form.user_token + "\"}");
+                myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?", "POST", "&svc=token/login&params={\"token\":\"" + vars_form.user_token + "\"}");
                 json = myRequest.GetResponse();
             }
             else if (m.error >= 2)
@@ -347,29 +270,263 @@ namespace Disp_WinForm
             return Get_wl_text_error;
         }
         
+        // sql command
+        public string sql_command2(string sql)
+        {
+            try
+            {
+                using (MySqlConnection myConnection = new MySqlConnection(
+                    "server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=true; SslMode=none; Convert Zero Datetime = True ; charset=utf8")
+                )
+                {
+                    myConnection.Open();
+                    MySqlCommand command = myConnection.CreateCommand();
+                    command.CommandText = sql;
+                    string answer = command.ExecuteNonQuery().ToString();
+                    return answer;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message.ToString() + "");
+                string answer = "";
+                return answer;
+            }
+        }
+
+        public string sql_command(string sql)
+        {
+            try
+            {
+                using (MySqlConnection myConnection = new MySqlConnection(
+                    "server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=true; SslMode=none; Convert Zero Datetime = True; charset=utf8")
+                )
+                {
+                    MySqlCommand command = new MySqlCommand(sql, myConnection);
+                    command.CommandType = CommandType.Text;
+                    myConnection.Open();
+                    string answer = command.ExecuteScalar().ToString();
+                    //myConnection.Close();
+                    return answer;
+                }
+            }
+            catch (Exception)
+            {
+                string answer = "";
+                return answer;
+
+            }
+
+        }
+
+        public DataSet GetData_dataset(string sqlCommand)
+        {
+            string connectionString = "server = 10.44.30.32; " +
+                                      "user id=lozik;" +
+                                      "password=lozik;" +
+                                      "database=btk;" +
+                                      "pooling=true;" +
+                                      "SslMode=none;" +
+                                      "Convert Zero Datetime = True;" + 
+                                      "charset=utf8;";
+
+            using (MySqlConnection northwindConnection = new MySqlConnection(connectionString))
+            {
+                MySqlCommand command = new MySqlCommand(sqlCommand, northwindConnection);
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                adapter.SelectCommand = command;
+
+                DataSet table = new DataSet();
+                table.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                adapter.Fill(table);
+                //northwindConnection.Close();
+
+                return table;
+            }
+        }
+
         public DataTable GetData(string sqlCommand)
         {
             string connectionString = "server = 10.44.30.32; " +
                                       "user id=lozik;" +
                                       "password=lozik;" +
                                       "database=btk;" +
-                                      "pooling=false;" +
+                                      "pooling=true;" +
                                       "SslMode=none;" +
-                                      "Convert Zero Datetime = True;" + 
+                                      "MaximumPoolsize=3;" +
+                                      "ConnectionLifeTime=60;" +
+                                      "Convert Zero Datetime = True;" +
                                       "charset=utf8;";
 
-            MySqlConnection northwindConnection = new MySqlConnection(connectionString);
+            using (MySqlConnection northwindConnection = new MySqlConnection(connectionString))
+            { 
+                MySqlCommand command = new MySqlCommand(sqlCommand, northwindConnection);
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                adapter.SelectCommand = command;
+                DataTable table = new DataTable();
+                table.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                adapter.Fill(table);
+                return table;
+            }
 
-            MySqlCommand command = new MySqlCommand(sqlCommand, northwindConnection);
-            MySqlDataAdapter adapter = new MySqlDataAdapter();
-            adapter.SelectCommand = command;
-
-            DataTable table = new DataTable();
-            table.Locale = System.Globalization.CultureInfo.InvariantCulture;
-            adapter.Fill(table);
-
-            return table;
         }
+
+        //other
+        public void ExportDataSet(DataSet ds)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.InitialDirectory = @"C:\";      
+            saveFileDialog1.Title = "Save text Files";
+            saveFileDialog1.CheckFileExists = false;
+            saveFileDialog1.CheckPathExists = true;
+            saveFileDialog1.DefaultExt = "xlsx";
+            saveFileDialog1.Filter = "Excel files (*.xlsx)|*.xlsx";
+            saveFileDialog1.FilterIndex = 2;
+            saveFileDialog1.RestoreDirectory = true;
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                //textBox1.Text = saveFileDialog1.FileName;
+                string folderPath = saveFileDialog1.FileName;
+
+                using (var workbook = SpreadsheetDocument.Create(folderPath, DocumentFormat.OpenXml.SpreadsheetDocumentType.Workbook))
+                {
+                    var workbookPart = workbook.AddWorkbookPart();
+
+                    workbook.WorkbookPart.Workbook = new DocumentFormat.OpenXml.Spreadsheet.Workbook();
+
+                    workbook.WorkbookPart.Workbook.Sheets = new DocumentFormat.OpenXml.Spreadsheet.Sheets();
+
+                    foreach (System.Data.DataTable table in ds.Tables)
+                    {
+
+                        var sheetPart = workbook.WorkbookPart.AddNewPart<WorksheetPart>();
+                        var sheetData = new DocumentFormat.OpenXml.Spreadsheet.SheetData();
+                        sheetPart.Worksheet = new DocumentFormat.OpenXml.Spreadsheet.Worksheet(sheetData);
+
+                        DocumentFormat.OpenXml.Spreadsheet.Sheets sheets = workbook.WorkbookPart.Workbook.GetFirstChild<DocumentFormat.OpenXml.Spreadsheet.Sheets>();
+                        string relationshipId = workbook.WorkbookPart.GetIdOfPart(sheetPart);
+
+                        uint sheetId = 1;
+                        if (sheets.Elements<DocumentFormat.OpenXml.Spreadsheet.Sheet>().Count() > 0)
+                        {
+                            sheetId =
+                                sheets.Elements<DocumentFormat.OpenXml.Spreadsheet.Sheet>().Select(s => s.SheetId.Value).Max() + 1;
+                        }
+
+                        DocumentFormat.OpenXml.Spreadsheet.Sheet sheet = new DocumentFormat.OpenXml.Spreadsheet.Sheet() { Id = relationshipId, SheetId = sheetId, Name = table.TableName };
+                        sheets.Append(sheet);
+
+                        DocumentFormat.OpenXml.Spreadsheet.Row headerRow = new DocumentFormat.OpenXml.Spreadsheet.Row();
+
+                        List<String> columns = new List<string>();
+                        foreach (System.Data.DataColumn column in table.Columns)
+                        {
+                            columns.Add(column.ColumnName);
+
+                            DocumentFormat.OpenXml.Spreadsheet.Cell cell = new DocumentFormat.OpenXml.Spreadsheet.Cell();
+                            cell.DataType = DocumentFormat.OpenXml.Spreadsheet.CellValues.String;
+                            cell.CellValue = new DocumentFormat.OpenXml.Spreadsheet.CellValue(column.ColumnName);
+                            headerRow.AppendChild(cell);
+                        }
+
+
+                        sheetData.AppendChild(headerRow);
+
+                        foreach (System.Data.DataRow dsrow in table.Rows)
+                        {
+                            DocumentFormat.OpenXml.Spreadsheet.Row newRow = new DocumentFormat.OpenXml.Spreadsheet.Row();
+                            foreach (String col in columns)
+                            {
+                                DocumentFormat.OpenXml.Spreadsheet.Cell cell = new DocumentFormat.OpenXml.Spreadsheet.Cell();
+                                cell.DataType = DocumentFormat.OpenXml.Spreadsheet.CellValues.String;
+                                cell.CellValue = new DocumentFormat.OpenXml.Spreadsheet.CellValue(dsrow[col].ToString()); //
+                                newRow.AppendChild(cell);
+                            }
+
+                            sheetData.AppendChild(newRow);
+                        }
+
+                    }
+                }
+            }
+        } //export to xlsx
+
+        public void send_mail(string recipient, string subject, string body)
+        {
+            try
+            {
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient("mail.venbest.com.ua");
+
+                mail.From = new MailAddress("noreply@venbest.com.ua");
+                mail.To.Add(recipient);
+                mail.Subject = subject;
+                
+
+                mail.IsBodyHtml = true;
+                mail.Body = body;
+
+                SmtpServer.Port = 25;
+                SmtpServer.Credentials = new System.Net.NetworkCredential("noreply@venbest.com.ua", "L2TPr6");
+                SmtpServer.EnableSsl = false;
+                SmtpServer.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString() + "send_email()");
+            }
+        }
+        public StringBuilder htmlMessageBody(DataGridView dg)
+        {
+            StringBuilder strB = new StringBuilder();
+            //create html & table
+            strB.AppendLine("<html><body><left><" +
+                            "table border='1' cellpadding='0' cellspacing='0'>");
+            strB.AppendLine("<tr>");
+            //cteate table header
+            for (int i = 0; i < dg.Columns.Count; i++)
+            {
+                strB.AppendLine("<td align='center' valign='middle'>" +
+                                dg.Columns[i].HeaderText + "</td>");
+            }
+            //create table body
+            strB.AppendLine("<tr>");
+            for (int i = 0; i < dg.Rows.Count; i++)
+            {
+                strB.AppendLine("<tr>");
+                foreach (DataGridViewCell dgvc in dg.Rows[i].Cells)
+                {
+                    strB.AppendLine("<td align='center' valign='middle'>" +
+                                    dgvc.Value.ToString() + "</td>");
+                }
+                strB.AppendLine("</tr>");
+
+            }
+            //table footer & end of html file
+            strB.AppendLine("</table></center></body></html>");
+            return strB;
+        } //Готовим таблицу для оправки
+
+        public string ConvertDataTableToHTML(DataTable dt)
+        {
+            string html = "<table>";
+            //add header row
+            html += "<tr>";
+            for (int i = 0; i < dt.Columns.Count; i++)
+                html += "<td>" + dt.Columns[i].ColumnName + "</td>";
+            html += "</tr>";
+            //add rows
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                html += "<tr>";
+                for (int j = 0; j < dt.Columns.Count; j++)
+                    html += "<td>" + dt.Rows[i][j].ToString() + "</td>";
+                html += "</tr>";
+            }
+            html += "</table>";
+            return html;
+        }
+
 
     }
     public class PlaceHolderTextBox : TextBox
@@ -433,4 +590,6 @@ namespace Disp_WinForm
             removePlaceHolder();
         }
     }
+
 }
+

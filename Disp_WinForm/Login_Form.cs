@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
+using Gecko;
+using System.Net;
 //using System.Threading;
 
 namespace Disp_WinForm
@@ -19,138 +21,101 @@ namespace Disp_WinForm
         Macros macros = new Macros();
         public Login_Form()
         {
-            def_Font_get();
+            
             InitializeComponent();
-            textBox_font.Text = Convert.ToString(vars_form.setting_font_size);
+            string t = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Firefox";
+            Xpcom.Initialize(t);
+            Gecko.CertOverrideService.GetService().ValidityOverride += geckoWebBrowser1_ValidityOverride;
+            wialon_login_form();
+            vars_form.version = "074";
+            label_Version.Text= "v." + vars_form.version;
         }
 
-        private void def_Font_get()
+        private void geckoWebBrowser1_ValidityOverride(object sender, Gecko.Events.CertOverrideEventArgs e)
         {
-            var config = File.ReadAllLines("Settings.txt");
-            string[] split = config[0].Split(new Char[] { '=' });
-            int i = 0;
-            Int32.TryParse(split[1], out i);
-            vars_form.setting_font_size = i;
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", vars_form.setting_font_size);
+            e.OverrideResult = Gecko.CertOverride.Mismatch | Gecko.CertOverride.Time | Gecko.CertOverride.Untrusted;
+            e.Temporary = true;
+            e.Handled = true;
+        }
+
+        private void wialon_login_form()
+        {
+            GeckoPreferences.User["browser.xul.error_pages.enabled"] = true;
+
+            geckoWebBrowser1.Navigate("https://navi.venbest.com.ua/login.html?client_id=disp&access_type=-1&activation_time=0&duration=100000&flags=1&lang=ru");
+
+        }
+
+        private void geckoWebBrowser1_DocumentCompleted(object sender, Gecko.Events.GeckoDocumentCompletedEventArgs e)
+        {
+            string response = geckoWebBrowser1.Url.Query.ToString();
+            string username = "";
+            string token = "";
+            response = response.Replace('&', '=');
+            var buf_data = response.Split('=');
+
+                if (buf_data.Length >= 4)
+                {
+                    if (buf_data[2] == "access_token")
+                    {
+                        token = buf_data[3].ToString();
+                        username = buf_data[5].ToString();
+                        vars_form.user_token = token;
+
+                    macros.sql_command("update btk.Users set user_token='" + token + "' where username='" +
+                                           username +
+                                           "';");
+
+
+                        DataTable data = new DataTable();
+                        data = macros.GetData("Select " +
+                                              "idUsers," +
+                                              "username," +
+                                              "user_mail," +
+                                              "user_token," +
+                                              "user_font " +
+                                              "From btk.Users WHERE " +
+                                              "username='" + username + "' ;");
+                        if (data.Rows.Count == 1)
+                        {
+                            vars_form.user_login_id = data.Rows[0][0].ToString();
+                            vars_form.user_login_name = data.Rows[0][1].ToString();
+                            vars_form.user_login_email = data.Rows[0][2].ToString();
+                            vars_form.user_token = data.Rows[0][3].ToString();
+                            vars_form.setting_font_size = Convert.ToInt32(data.Rows[0][4]);
+                        }
+
+
+
+
+                        if (textBox_font.Text == "")
+                        {
+                            //Font = new Font("Microsoft Sans Serif", vars_form.setting_font_size);
+                        }
+                        else if (Int16.Parse(textBox_font.Text) >= 8 & Int16.Parse(textBox_font.Text) <= 18)
+                        {
+                            vars_form.setting_font_size = Int16.Parse(textBox_font.Text);
+                            //Font = new Font("Microsoft Sans Serif", vars_form.setting_font_size);
+
+                            macros.sql_command("update btk.Users set user_font='" + vars_form.setting_font_size +
+                                               "' where username='" + username + "';");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Введіть коректний розмір шрифта");
+                            return;
+                        }
+
+                       macros.get_eid_from_token();
+
+
+
+                        Main_window form = new Main_window();
+                        form.Show();
+                        this.Hide();
+                    }
+                }
             
-        }
-
-        private void def_Font_set()
-        {
-            try
-            {
-                var config = File.ReadAllLines("Settings.txt");
-                string[] split = config[0].Split(new Char[] { '=' });
-                int n;
-                bool isNumeric = Int32.TryParse(textBox_font.Text, out n);
-                if (isNumeric is true || textBox_font.Text.ToString() != "")
-                {
-                    split[0] += "=" + textBox_font.Text;
-                    split[1] = "";
-                    File.WriteAllLines("Settings.txt", split);
-                }
-                else
-                {
-                    File.WriteAllLines("Settings.txt", split, Encoding.UTF8);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString() + "def_Font_set()");
-            }
-
-        }
-
-
-        private void Login()
-        {
-            def_Font_set();
-
-            try
-            {
-                MySqlConnection myConnection = new MySqlConnection("server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True");
-                string sql = string.Format("Select * From Users WHERE username='" + textBox_Login.Text + "' AND Password='" + textBox_Pass.Text + "' AND State='" + 1 + "';");
-                MySqlCommand myDataAdapter = new MySqlCommand(sql, myConnection);
-                myConnection.Open();
-                MySqlDataReader reader = myDataAdapter.ExecuteReader();
-                List<string> results = new List<string>();
-
-                while (reader.Read())
-                {                    
-                    results.Add(reader["idUsers"].ToString());
-                    results.Add(reader["username"].ToString());
-                    results.Add(reader["user_mail"].ToString());
-                    results.Add(reader["user_token"].ToString());
-
-                }
-                if (results.Count != 0)
-                {
-                    vars_form.user_login_id = results[0].ToString();
-                    vars_form.user_login_name = textBox_Login.Text;
-                    vars_form.user_login_email = results[2].ToString();
-                    vars_form.user_token = results[3].ToString();
-                }
-                
-                reader.Close();
-                
-                if (myDataAdapter.ExecuteScalar() != null)
-                {
-                    Main_window form = new Main_window();
-                    form.Show();
-                    this.Hide();
-                    macros.get_eid_from_token();
-
-                    //try
-                    //{
-                    //    MyWebRequest myRequest = new MyWebRequest("https://navi.venbest.com.ua/wialon/ajax.html?", "POST", "&svc=token/login&params={\"token\":\"d1207c47958c32b224682b5b080fb908CAF3A4507360712CD18AE69617A54F2FC61EFF5D\"}");
-                    //    string json = myRequest.GetResponse();
-                    //    var m = JsonConvert.DeserializeObject<RootObject>(json);
-                    //    vars_form.eid = m.eid;
-                    //}
-
-
-                    //catch (Exception ex)
-                    //{
-                    //    MessageBox.Show(ex.Message.ToString() + "Login()");
-                    //}
-                }
-                else
-                {
-                    MessageBox.Show("Неверный логин или пароль");
-                }
-                myDataAdapter.Dispose();
-                myConnection.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
-        }
-
-
-        private void button_Login(object sender, EventArgs e)
-        {
-            
-            Login();
-
-        }
-
-        private void textBox_Pass_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                Login();
-            }
-        }
-
-        private void textBox_Pass_Enter(object sender, EventArgs e)
-        {
-            textBox_Pass.SelectAll();
-        }
-
-        private void textBox_Login_Enter(object sender, EventArgs e)
-        {
-            textBox_Login.SelectAll();
         }
     }
 }

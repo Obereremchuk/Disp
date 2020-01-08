@@ -29,45 +29,48 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.send_email_button = new System.Windows.Forms.Button();
-            this.account_create_button = new System.Windows.Forms.Button();
-            this.save_button = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button_chenge_uvaga = new System.Windows.Forms.Button();
+            this.five_vo_comboBox = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.four_vo_comboBox = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.three_vo_comboBox = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.two_VO_comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.one_vo_comboBox = new System.Windows.Forms.ComboBox();
+            this.imei_object_textBox = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.status_tk_textBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView_activation = new System.Windows.Forms.DataGridView();
             this.label25 = new System.Windows.Forms.Label();
             this.name_object_current_textBox = new System.Windows.Forms.TextBox();
             this.name_obj_new_textBox = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
-            this.email_textBox = new System.Windows.Forms.TextBox();
             this.uvaga_textBox = new System.Windows.Forms.TextBox();
             this.kodove_slovo_textBox = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.kontacts_open_button = new System.Windows.Forms.Button();
+            this.send_email_button = new System.Windows.Forms.Button();
+            this.account_create_button = new System.Windows.Forms.Button();
+            this.save_button = new System.Windows.Forms.Button();
+            this.email_textBox = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.pass_reset_button = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.accaunt_name_textBox = new System.Windows.Forms.TextBox();
+            this.account_delete_button = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.accaunt_name_textBox = new System.Windows.Forms.TextBox();
             this.cancel_button = new System.Windows.Forms.Button();
-            this.imei_object_textBox = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.one_vo_comboBox = new System.Windows.Forms.ComboBox();
-            this.two_VO_comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.three_vo_comboBox = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.four_vo_comboBox = new System.Windows.Forms.ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.five_vo_comboBox = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.edite_date_textBox = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.edit_user_textBox = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.account_2_delete_button = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.accaunt_name_2_textBox = new System.Windows.Forms.TextBox();
             this.account_2_create_button = new System.Windows.Forms.Button();
@@ -75,16 +78,16 @@
             this.send_email_2_button = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.email_2_textBox = new System.Windows.Forms.TextBox();
-            this.account_delete_button = new System.Windows.Forms.Button();
-            this.account_2_delete_button = new System.Windows.Forms.Button();
+            this.treeView_user_accounts = new System.Windows.Forms.TreeView();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_activation)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.button_chenge_uvaga);
             this.groupBox1.Controls.Add(this.five_vo_comboBox);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.four_vo_comboBox);
@@ -115,32 +118,117 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Інформація про клієнта";
             // 
-            // send_email_button
+            // button1
             // 
-            this.send_email_button.Location = new System.Drawing.Point(6, 96);
-            this.send_email_button.Name = "send_email_button";
-            this.send_email_button.Size = new System.Drawing.Size(317, 23);
-            this.send_email_button.TabIndex = 121;
-            this.send_email_button.Text = "Нідіслани інформаційний лист клієнту";
-            this.send_email_button.UseVisualStyleBackColor = true;
+            this.button1.Location = new System.Drawing.Point(302, 95);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 130;
+            this.button1.Text = "Змінити";
+            this.button1.UseVisualStyleBackColor = true;
             // 
-            // account_create_button
+            // button_chenge_uvaga
             // 
-            this.account_create_button.Location = new System.Drawing.Point(6, 67);
-            this.account_create_button.Name = "account_create_button";
-            this.account_create_button.Size = new System.Drawing.Size(317, 23);
-            this.account_create_button.TabIndex = 119;
-            this.account_create_button.Text = "Сворити кабінет користувача";
-            this.account_create_button.UseVisualStyleBackColor = true;
+            this.button_chenge_uvaga.Location = new System.Drawing.Point(302, 70);
+            this.button_chenge_uvaga.Name = "button_chenge_uvaga";
+            this.button_chenge_uvaga.Size = new System.Drawing.Size(75, 23);
+            this.button_chenge_uvaga.TabIndex = 129;
+            this.button_chenge_uvaga.Text = "Змінити";
+            this.button_chenge_uvaga.UseVisualStyleBackColor = true;
+            this.button_chenge_uvaga.Click += new System.EventHandler(this.button_chenge_uvaga_Click);
             // 
-            // save_button
+            // five_vo_comboBox
             // 
-            this.save_button.Location = new System.Drawing.Point(824, 415);
-            this.save_button.Name = "save_button";
-            this.save_button.Size = new System.Drawing.Size(75, 23);
-            this.save_button.TabIndex = 118;
-            this.save_button.Text = "Зберегти";
-            this.save_button.UseVisualStyleBackColor = true;
+            this.five_vo_comboBox.FormattingEnabled = true;
+            this.five_vo_comboBox.Location = new System.Drawing.Point(6, 260);
+            this.five_vo_comboBox.Name = "five_vo_comboBox";
+            this.five_vo_comboBox.Size = new System.Drawing.Size(372, 21);
+            this.five_vo_comboBox.TabIndex = 128;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(383, 263);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(144, 13);
+            this.label10.TabIndex = 127;
+            this.label10.Text = "П\"ята Відповідальна особа";
+            // 
+            // four_vo_comboBox
+            // 
+            this.four_vo_comboBox.FormattingEnabled = true;
+            this.four_vo_comboBox.Location = new System.Drawing.Point(6, 233);
+            this.four_vo_comboBox.Name = "four_vo_comboBox";
+            this.four_vo_comboBox.Size = new System.Drawing.Size(372, 21);
+            this.four_vo_comboBox.TabIndex = 126;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(383, 236);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(165, 13);
+            this.label9.TabIndex = 125;
+            this.label9.Text = "Четверта Відповідальна особа ";
+            // 
+            // three_vo_comboBox
+            // 
+            this.three_vo_comboBox.FormattingEnabled = true;
+            this.three_vo_comboBox.Location = new System.Drawing.Point(6, 206);
+            this.three_vo_comboBox.Name = "three_vo_comboBox";
+            this.three_vo_comboBox.Size = new System.Drawing.Size(372, 21);
+            this.three_vo_comboBox.TabIndex = 124;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(383, 209);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(147, 13);
+            this.label8.TabIndex = 123;
+            this.label8.Text = "Третя Відповідальна особа ";
+            // 
+            // two_VO_comboBox2
+            // 
+            this.two_VO_comboBox2.FormattingEnabled = true;
+            this.two_VO_comboBox2.Location = new System.Drawing.Point(6, 179);
+            this.two_VO_comboBox2.Name = "two_VO_comboBox2";
+            this.two_VO_comboBox2.Size = new System.Drawing.Size(372, 21);
+            this.two_VO_comboBox2.TabIndex = 122;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(383, 182);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(148, 13);
+            this.label7.TabIndex = 121;
+            this.label7.Text = "Друга Відповідальна особа ";
+            // 
+            // one_vo_comboBox
+            // 
+            this.one_vo_comboBox.FormattingEnabled = true;
+            this.one_vo_comboBox.Location = new System.Drawing.Point(6, 152);
+            this.one_vo_comboBox.Name = "one_vo_comboBox";
+            this.one_vo_comboBox.Size = new System.Drawing.Size(372, 21);
+            this.one_vo_comboBox.TabIndex = 120;
+            // 
+            // imei_object_textBox
+            // 
+            this.imei_object_textBox.Location = new System.Drawing.Point(6, 45);
+            this.imei_object_textBox.Name = "imei_object_textBox";
+            this.imei_object_textBox.ReadOnly = true;
+            this.imei_object_textBox.Size = new System.Drawing.Size(371, 20);
+            this.imei_object_textBox.TabIndex = 119;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(384, 52);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(72, 13);
+            this.label4.TabIndex = 118;
+            this.label4.Text = "IMEI об\"єкта";
             // 
             // label2
             // 
@@ -168,16 +256,6 @@
             this.label1.TabIndex = 115;
             this.label1.Text = "Перевірити Тривожну кнопку";
             // 
-            // dataGridView_activation
-            // 
-            this.dataGridView_activation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_activation.Enabled = false;
-            this.dataGridView_activation.Location = new System.Drawing.Point(509, 415);
-            this.dataGridView_activation.Name = "dataGridView_activation";
-            this.dataGridView_activation.Size = new System.Drawing.Size(139, 20);
-            this.dataGridView_activation.TabIndex = 114;
-            this.dataGridView_activation.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView_activation_EditingControlShowing);
-            // 
             // label25
             // 
             this.label25.AutoSize = true;
@@ -199,7 +277,7 @@
             // 
             this.name_obj_new_textBox.Location = new System.Drawing.Point(6, 71);
             this.name_obj_new_textBox.Name = "name_obj_new_textBox";
-            this.name_obj_new_textBox.Size = new System.Drawing.Size(371, 20);
+            this.name_obj_new_textBox.Size = new System.Drawing.Size(290, 20);
             this.name_obj_new_textBox.TabIndex = 92;
             // 
             // label24
@@ -211,18 +289,11 @@
             this.label24.TabIndex = 111;
             this.label24.Text = "Назва об\"єкту";
             // 
-            // email_textBox
-            // 
-            this.email_textBox.Location = new System.Drawing.Point(130, 16);
-            this.email_textBox.Name = "email_textBox";
-            this.email_textBox.Size = new System.Drawing.Size(193, 20);
-            this.email_textBox.TabIndex = 101;
-            // 
             // uvaga_textBox
             // 
             this.uvaga_textBox.Location = new System.Drawing.Point(6, 96);
             this.uvaga_textBox.Name = "uvaga_textBox";
-            this.uvaga_textBox.Size = new System.Drawing.Size(371, 20);
+            this.uvaga_textBox.Size = new System.Drawing.Size(290, 20);
             this.uvaga_textBox.TabIndex = 93;
             // 
             // kodove_slovo_textBox
@@ -241,15 +312,6 @@
             this.label22.TabIndex = 109;
             this.label22.Text = "УВАГА";
             // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 19);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(118, 13);
-            this.label14.TabIndex = 106;
-            this.label14.Text = "Електронна скринька";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -267,6 +329,49 @@
             this.kontacts_open_button.TabIndex = 104;
             this.kontacts_open_button.Text = "Відкрити довідник";
             this.kontacts_open_button.UseVisualStyleBackColor = true;
+            // 
+            // send_email_button
+            // 
+            this.send_email_button.Location = new System.Drawing.Point(6, 96);
+            this.send_email_button.Name = "send_email_button";
+            this.send_email_button.Size = new System.Drawing.Size(317, 23);
+            this.send_email_button.TabIndex = 121;
+            this.send_email_button.Text = "Нідіслани інформаційний лист клієнту";
+            this.send_email_button.UseVisualStyleBackColor = true;
+            // 
+            // account_create_button
+            // 
+            this.account_create_button.Location = new System.Drawing.Point(6, 67);
+            this.account_create_button.Name = "account_create_button";
+            this.account_create_button.Size = new System.Drawing.Size(317, 23);
+            this.account_create_button.TabIndex = 119;
+            this.account_create_button.Text = "Сворити кабінет користувача";
+            this.account_create_button.UseVisualStyleBackColor = true;
+            // 
+            // save_button
+            // 
+            this.save_button.Location = new System.Drawing.Point(824, 415);
+            this.save_button.Name = "save_button";
+            this.save_button.Size = new System.Drawing.Size(75, 23);
+            this.save_button.TabIndex = 118;
+            this.save_button.Text = "Зберегти";
+            this.save_button.UseVisualStyleBackColor = true;
+            // 
+            // email_textBox
+            // 
+            this.email_textBox.Location = new System.Drawing.Point(130, 16);
+            this.email_textBox.Name = "email_textBox";
+            this.email_textBox.Size = new System.Drawing.Size(193, 20);
+            this.email_textBox.TabIndex = 101;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 19);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(118, 13);
+            this.label14.TabIndex = 106;
+            this.label14.Text = "Електронна скринька";
             // 
             // pass_reset_button
             // 
@@ -287,20 +392,21 @@
             this.groupBox2.Controls.Add(this.send_email_button);
             this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Controls.Add(this.email_textBox);
-            this.groupBox2.Location = new System.Drawing.Point(570, 12);
+            this.groupBox2.Location = new System.Drawing.Point(912, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(329, 183);
             this.groupBox2.TabIndex = 125;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Основний особистий кабінет";
             // 
-            // accaunt_name_textBox
+            // account_delete_button
             // 
-            this.accaunt_name_textBox.Location = new System.Drawing.Point(130, 42);
-            this.accaunt_name_textBox.Name = "accaunt_name_textBox";
-            this.accaunt_name_textBox.ReadOnly = true;
-            this.accaunt_name_textBox.Size = new System.Drawing.Size(193, 20);
-            this.accaunt_name_textBox.TabIndex = 118;
+            this.account_delete_button.Location = new System.Drawing.Point(6, 154);
+            this.account_delete_button.Name = "account_delete_button";
+            this.account_delete_button.Size = new System.Drawing.Size(317, 23);
+            this.account_delete_button.TabIndex = 124;
+            this.account_delete_button.Text = "Видалити кабінет користувача";
+            this.account_delete_button.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
@@ -311,6 +417,14 @@
             this.label3.TabIndex = 118;
             this.label3.Text = "Обліковий запис";
             // 
+            // accaunt_name_textBox
+            // 
+            this.accaunt_name_textBox.Location = new System.Drawing.Point(130, 42);
+            this.accaunt_name_textBox.Name = "accaunt_name_textBox";
+            this.accaunt_name_textBox.ReadOnly = true;
+            this.accaunt_name_textBox.Size = new System.Drawing.Size(193, 20);
+            this.accaunt_name_textBox.TabIndex = 118;
+            // 
             // cancel_button
             // 
             this.cancel_button.Location = new System.Drawing.Point(743, 415);
@@ -319,99 +433,7 @@
             this.cancel_button.TabIndex = 126;
             this.cancel_button.Text = "Відмінити";
             this.cancel_button.UseVisualStyleBackColor = true;
-            // 
-            // imei_object_textBox
-            // 
-            this.imei_object_textBox.Location = new System.Drawing.Point(6, 45);
-            this.imei_object_textBox.Name = "imei_object_textBox";
-            this.imei_object_textBox.ReadOnly = true;
-            this.imei_object_textBox.Size = new System.Drawing.Size(371, 20);
-            this.imei_object_textBox.TabIndex = 119;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(384, 52);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 13);
-            this.label4.TabIndex = 118;
-            this.label4.Text = "IMEI об\"єкта";
-            // 
-            // one_vo_comboBox
-            // 
-            this.one_vo_comboBox.FormattingEnabled = true;
-            this.one_vo_comboBox.Location = new System.Drawing.Point(6, 152);
-            this.one_vo_comboBox.Name = "one_vo_comboBox";
-            this.one_vo_comboBox.Size = new System.Drawing.Size(372, 21);
-            this.one_vo_comboBox.TabIndex = 120;
-            // 
-            // two_VO_comboBox2
-            // 
-            this.two_VO_comboBox2.FormattingEnabled = true;
-            this.two_VO_comboBox2.Location = new System.Drawing.Point(6, 179);
-            this.two_VO_comboBox2.Name = "two_VO_comboBox2";
-            this.two_VO_comboBox2.Size = new System.Drawing.Size(372, 21);
-            this.two_VO_comboBox2.TabIndex = 122;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(383, 182);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(148, 13);
-            this.label7.TabIndex = 121;
-            this.label7.Text = "Друга Відповідальна особа ";
-            // 
-            // three_vo_comboBox
-            // 
-            this.three_vo_comboBox.FormattingEnabled = true;
-            this.three_vo_comboBox.Location = new System.Drawing.Point(6, 206);
-            this.three_vo_comboBox.Name = "three_vo_comboBox";
-            this.three_vo_comboBox.Size = new System.Drawing.Size(372, 21);
-            this.three_vo_comboBox.TabIndex = 124;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(383, 209);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(147, 13);
-            this.label8.TabIndex = 123;
-            this.label8.Text = "Третя Відповідальна особа ";
-            // 
-            // four_vo_comboBox
-            // 
-            this.four_vo_comboBox.FormattingEnabled = true;
-            this.four_vo_comboBox.Location = new System.Drawing.Point(6, 233);
-            this.four_vo_comboBox.Name = "four_vo_comboBox";
-            this.four_vo_comboBox.Size = new System.Drawing.Size(372, 21);
-            this.four_vo_comboBox.TabIndex = 126;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(383, 236);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(165, 13);
-            this.label9.TabIndex = 125;
-            this.label9.Text = "Четверта Відповідальна особа ";
-            // 
-            // five_vo_comboBox
-            // 
-            this.five_vo_comboBox.FormattingEnabled = true;
-            this.five_vo_comboBox.Location = new System.Drawing.Point(6, 260);
-            this.five_vo_comboBox.Name = "five_vo_comboBox";
-            this.five_vo_comboBox.Size = new System.Drawing.Size(372, 21);
-            this.five_vo_comboBox.TabIndex = 128;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(383, 263);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(144, 13);
-            this.label10.TabIndex = 127;
-            this.label10.Text = "П\"ята Відповідальна особа";
+            this.cancel_button.Click += new System.EventHandler(this.cancel_button_Click);
             // 
             // label6
             // 
@@ -464,6 +486,15 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Додатковий особистий кабінет";
             // 
+            // account_2_delete_button
+            // 
+            this.account_2_delete_button.Location = new System.Drawing.Point(6, 154);
+            this.account_2_delete_button.Name = "account_2_delete_button";
+            this.account_2_delete_button.Size = new System.Drawing.Size(317, 23);
+            this.account_2_delete_button.TabIndex = 125;
+            this.account_2_delete_button.Text = "Видалити кабінет користувача";
+            this.account_2_delete_button.UseVisualStyleBackColor = true;
+            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -475,7 +506,7 @@
             // 
             // accaunt_name_2_textBox
             // 
-            this.accaunt_name_2_textBox.Location = new System.Drawing.Point(130, 42);
+            this.accaunt_name_2_textBox.Location = new System.Drawing.Point(129, 42);
             this.accaunt_name_2_textBox.Name = "accaunt_name_2_textBox";
             this.accaunt_name_2_textBox.ReadOnly = true;
             this.accaunt_name_2_textBox.Size = new System.Drawing.Size(193, 20);
@@ -519,34 +550,24 @@
             // 
             // email_2_textBox
             // 
-            this.email_2_textBox.Location = new System.Drawing.Point(130, 16);
+            this.email_2_textBox.Location = new System.Drawing.Point(129, 16);
             this.email_2_textBox.Name = "email_2_textBox";
             this.email_2_textBox.Size = new System.Drawing.Size(193, 20);
             this.email_2_textBox.TabIndex = 101;
             // 
-            // account_delete_button
+            // treeView_user_accounts
             // 
-            this.account_delete_button.Location = new System.Drawing.Point(6, 154);
-            this.account_delete_button.Name = "account_delete_button";
-            this.account_delete_button.Size = new System.Drawing.Size(317, 23);
-            this.account_delete_button.TabIndex = 124;
-            this.account_delete_button.Text = "Видалити кабінет користувача";
-            this.account_delete_button.UseVisualStyleBackColor = true;
-            // 
-            // account_2_delete_button
-            // 
-            this.account_2_delete_button.Location = new System.Drawing.Point(6, 154);
-            this.account_2_delete_button.Name = "account_2_delete_button";
-            this.account_2_delete_button.Size = new System.Drawing.Size(317, 23);
-            this.account_2_delete_button.TabIndex = 125;
-            this.account_2_delete_button.Text = "Видалити кабінет користувача";
-            this.account_2_delete_button.UseVisualStyleBackColor = true;
+            this.treeView_user_accounts.Location = new System.Drawing.Point(579, 28);
+            this.treeView_user_accounts.Name = "treeView_user_accounts";
+            this.treeView_user_accounts.Size = new System.Drawing.Size(314, 97);
+            this.treeView_user_accounts.TabIndex = 128;
             // 
             // Activation_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(911, 450);
+            this.ClientSize = new System.Drawing.Size(1253, 450);
+            this.Controls.Add(this.treeView_user_accounts);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.edit_user_textBox);
@@ -556,12 +577,10 @@
             this.Controls.Add(this.edite_date_textBox);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.save_button);
-            this.Controls.Add(this.dataGridView_activation);
             this.Name = "Activation_Form";
             this.Text = "Активація об\"єкту";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_activation)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -585,7 +604,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button kontacts_open_button;
-        private System.Windows.Forms.DataGridView dataGridView_activation;
         private System.Windows.Forms.Button send_email_button;
         private System.Windows.Forms.Button account_create_button;
         private System.Windows.Forms.Button save_button;
@@ -622,5 +640,8 @@
         private System.Windows.Forms.Button send_email_2_button;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox email_2_textBox;
+        private System.Windows.Forms.Button button_chenge_uvaga;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TreeView treeView_user_accounts;
     }
 }

@@ -44,10 +44,10 @@ namespace Disp_WinForm
                 id_mail2 = reader["Emails_idEmails1"].ToString();
                 textBox_coment.Text= reader["Kontakti_comment"].ToString();
                 textBox_coment.Text= reader["Kontakti_comment"].ToString();
-                string t = macros.sql_command2("SELECT Kontragenti_idKontragenti FROM btk.Kontakti_has_Kontragenti where Kontakti_idKontakti='" +
+                string t = macros.sql_command("SELECT Kontragenti_idKontragenti FROM btk.Kontakti_has_Kontragenti where Kontakti_idKontakti='" +
                                                reader["idKontakti"].ToString() + "';");
                 comboBox_work_in.Text =
-                    macros.sql_command2(
+                    macros.sql_command(
                         "select  concat(Kontragenti.Kontragenti_short_name, '(',Kontragenti.Kontragenti_full_name, ')') AS full_short  FROM btk.Kontragenti where idKontragenti='" +
                         t + "'");
 
@@ -56,10 +56,10 @@ namespace Disp_WinForm
             myDataAdapter.Dispose();
             myConnection.Close();
 
-            textBox_tel1.Text = macros.sql_command2("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook=" + id_phon1 + "; ");
-            textBox_tel2.Text = macros.sql_command2("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook=" + id_phon2 + "; ");
-            textBox_mail.Text = macros.sql_command2("SELECT Emailscol_email FROM btk.Emails where idEmails=" + id_mail1 + "; ");
-            textBox_mail2.Text = macros.sql_command2("SELECT Emailscol_email FROM btk.Emails where idEmails=" + id_mail2 + "; ");
+            textBox_tel1.Text = macros.sql_command("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook=" + id_phon1 + "; ");
+            textBox_tel2.Text = macros.sql_command("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook=" + id_phon2 + "; ");
+            textBox_mail.Text = macros.sql_command("SELECT Emailscol_email FROM btk.Emails where idEmails=" + id_mail1 + "; ");
+            textBox_mail2.Text = macros.sql_command("SELECT Emailscol_email FROM btk.Emails where idEmails=" + id_mail2 + "; ");
 
         }
 
@@ -99,7 +99,7 @@ namespace Disp_WinForm
                 if (textBox_mail.Text != "")//если поле не пустое
                 {
                     macros.sql_command("insert into btk.Emails(Emailscol_email) values('" + textBox_mail.Text + "');");
-                    id_mail1 = macros.sql_command2("SELECT MAX(idEmails) FROM btk.Emails;");
+                    id_mail1 = macros.sql_command("SELECT MAX(idEmails) FROM btk.Emails;");
                 }
                 else
                 { id_mail1 = "1"; }
@@ -126,7 +126,7 @@ namespace Disp_WinForm
                 if (textBox_mail2.Text != "")//если поле не пустое
                 {
                     macros.sql_command("insert into btk.Emails(Emailscol_email) values('" + textBox_mail2.Text + "');");
-                    id_mail2 = macros.sql_command2("SELECT MAX(idEmails) FROM btk.Emails;");
+                    id_mail2 = macros.sql_command("SELECT MAX(idEmails) FROM btk.Emails;");
                 }
                 else
                 { id_mail2 = "1"; }
@@ -151,7 +151,7 @@ namespace Disp_WinForm
                 if (textBox_tel1.Text != "")//если поле не пустое
                 {
                     macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone) values('" + textBox_tel1.Text + "');");
-                    id_phon1 = macros.sql_command2("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
+                    id_phon1 = macros.sql_command("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
                 }
                 else
                 { id_phon1 = "1"; }
@@ -176,7 +176,7 @@ namespace Disp_WinForm
                 if (textBox_tel2.Text != "")//если поле не пустое
                 {
                     macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone) values('" + textBox_tel2.Text + "');");
-                    id_phon2 = macros.sql_command2("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
+                    id_phon2 = macros.sql_command("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
                 }
                 else
                 { id_phon2 = "1"; }
@@ -216,16 +216,14 @@ namespace Disp_WinForm
             string sql = string.Format("select Kontragenti.idKontragenti, concat(btk.Kontragenti.Kontragenti_short_name, '(',btk.Kontragenti.Kontragenti_full_name, ')') AS full_short  FROM btk.Kontragenti where Kontragenticol_kategory='Диллер/СТО'");
             comboBox_work_in.DisplayMember = "full_short";
             comboBox_work_in.ValueMember = "idKontragenti";
-            DataSet temp = macros.sql_request_dataSet(sql);
-            comboBox_work_in.DataSource = temp.Tables[0];
+            comboBox_work_in.DataSource = macros.GetData(sql);
         }
 
         private void comboBox_work_in_TextUpdate(object sender, EventArgs e)
         {
             string from_textbox = comboBox_work_in.Text.ToString();
             string sql = string.Format("select Kontragenti.idKontragenti, concat(btk.Kontragenti.Kontragenti_short_name, '(',btk.Kontragenti.Kontragenti_full_name, ')') AS full_short  FROM btk.Kontragenti where Kontragenticol_kategory = 'Диллер/СТО' and (Kontragenti_short_name like '%" + comboBox_work_in.Text + "%' or Kontragenti_full_name like '%" + comboBox_work_in.Text + "%')");
-            DataSet temp = macros.sql_request_dataSet(sql);
-            comboBox_work_in.DataSource = temp.Tables[0];
+            comboBox_work_in.DataSource = macros.GetData(sql);
             comboBox_work_in.DisplayMember = "full_short";
             comboBox_work_in.ValueMember = "idKontragenti";
             comboBox_work_in.Text = from_textbox;

@@ -56,10 +56,10 @@ namespace Disp_WinForm
             myDataAdapter.Dispose();
             myConnection.Close();
 
-            textBox_phone1.Text= macros.sql_command2("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook="+id_phon1+"; ");
-            textBox_phone2.Text = macros.sql_command2("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook=" + id_phon2 + "; ");
-            textBox_mail1.Text = macros.sql_command2("SELECT Emailscol_email FROM btk.Emails where idEmails=" + id_mail1 + "; ");
-            textBox_mail2.Text = macros.sql_command2("SELECT Emailscol_email FROM btk.Emails where idEmails=" + id_mail2 + "; ");
+            textBox_phone1.Text= macros.sql_command("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook="+id_phon1+"; ");
+            textBox_phone2.Text = macros.sql_command("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook=" + id_phon2 + "; ");
+            textBox_mail1.Text = macros.sql_command("SELECT Emailscol_email FROM btk.Emails where idEmails=" + id_mail1 + "; ");
+            textBox_mail2.Text = macros.sql_command("SELECT Emailscol_email FROM btk.Emails where idEmails=" + id_mail2 + "; ");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -76,7 +76,7 @@ namespace Disp_WinForm
                 if (textBox_mail1.Text != "")//если поле не пустое
                 {
                     macros.sql_command("insert into btk.Emails(Emailscol_email) values('" + textBox_mail1.Text + "');");
-                    id_mail1 = macros.sql_command2("SELECT MAX(idEmails) FROM btk.Emails;");
+                    id_mail1 = macros.sql_command("SELECT MAX(idEmails) FROM btk.Emails;");
                 }
                 else
                 { id_mail1 = "1"; }
@@ -103,7 +103,7 @@ namespace Disp_WinForm
                 if (textBox_mail2.Text != "")//если поле не пустое
                 {
                     macros.sql_command("insert into btk.Emails(Emailscol_email) values('" + textBox_mail2.Text + "');");
-                    id_mail2 = macros.sql_command2("SELECT MAX(idEmails) FROM btk.Emails;");
+                    id_mail2 = macros.sql_command("SELECT MAX(idEmails) FROM btk.Emails;");
                 }
                 else
                 { id_mail2 = "1"; }
@@ -128,7 +128,7 @@ namespace Disp_WinForm
                 if (textBox_phone1.Text != "")//если поле не пустое
                 {
                     macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone) values('" + textBox_phone1.Text + "');");
-                    id_phon1 = macros.sql_command2("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
+                    id_phon1 = macros.sql_command("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
                 }
                 else
                 { id_phon1 = "1"; }
@@ -153,7 +153,7 @@ namespace Disp_WinForm
                 if (textBox_phone2.Text != "")//если поле не пустое
                 {
                     macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone) values('" + textBox_phone2.Text + "');");
-                    id_phon2 = macros.sql_command2("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
+                    id_phon2 = macros.sql_command("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
                 }
                 else
                 { id_phon2 = "1"; }

@@ -41,7 +41,7 @@
             this.button_create = new System.Windows.Forms.Button();
             this.textBox_mail2 = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.button_add_kontragent = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox_coment = new System.Windows.Forms.TextBox();
@@ -161,14 +161,15 @@
             this.label14.TabIndex = 29;
             this.label14.Text = "Е-mail";
             // 
-            // button1
+            // button_add_kontragent
             // 
-            this.button1.Location = new System.Drawing.Point(204, 17);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 31;
-            this.button1.Text = "Новий";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button_add_kontragent.Location = new System.Drawing.Point(204, 17);
+            this.button_add_kontragent.Name = "button_add_kontragent";
+            this.button_add_kontragent.Size = new System.Drawing.Size(75, 23);
+            this.button_add_kontragent.TabIndex = 31;
+            this.button_add_kontragent.Text = "Новий";
+            this.button_add_kontragent.UseVisualStyleBackColor = true;
+            this.button_add_kontragent.Click += new System.EventHandler(this.button_add_kontragent_Click);
             // 
             // groupBox1
             // 
@@ -230,7 +231,7 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.button1);
+            this.groupBox4.Controls.Add(this.button_add_kontragent);
             this.groupBox4.Controls.Add(this.comboBox_work_in);
             this.groupBox4.Location = new System.Drawing.Point(12, 91);
             this.groupBox4.Name = "groupBox4";
@@ -288,7 +289,7 @@
         private System.Windows.Forms.Button button_create;
         private System.Windows.Forms.TextBox textBox_mail2;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button_add_kontragent;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;

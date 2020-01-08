@@ -116,6 +116,13 @@ namespace Disp_WinForm
         public User user { get; set; }
         public deserialize_Item item { get; set; }
 
+
+    }
+
+    public class accounts
+    {
+        public string acl { get; set; }
+        public string dacl { get; set; }
     }
 
     public class User

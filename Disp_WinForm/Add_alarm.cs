@@ -13,43 +13,31 @@ namespace Disp_WinForm
 {
     public partial class Add_alarm : Form
     {
+        Macros macros = new Macros();
         public Add_alarm()
         {
             InitializeComponent();
         }
 
-        private void update_session()
-        {
-            try
-            {
-                MyWebRequest myRequest = new MyWebRequest("https://navi.venbest.com.ua/wialon/ajax.html?", "POST", "&svc=token/login&params={\"token\":\"d1207c47958c32b224682b5b080fb908CAF3A4507360712CD18AE69617A54F2FC61EFF5D\"}");
-                string json = myRequest.GetResponse();
-                var m = JsonConvert.DeserializeObject<RootObject>(json);
-                vars_form.eid = m.eid;
-            }
-
-
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
-        }
+        
 
         private void textBox_filter_object_ohrani_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                MyWebRequest myRequest = new MyWebRequest("https://navi.venbest.com.ua/wialon/ajax.html?", "POST", "sid=" + vars_form.eid + "&svc=core/search_items&params={\"spec\":{" + "\"itemsType\":\"avl_unit\"," + "\"propName\":\"sys_unique_id|sys_name|rel_customfield_value|rel_profilefield_value\"," + "\"propValueMask\":\"" + "*" + textBox_filter_object_ohrani.Text + "*" + "\", " + "\"sortType\":\"sys_name\"," + "\"or_logic\":\"1\"}," + "\"or_logic\":\"1\"," + "\"force\":\"1\"," + "\"flags\":\"257\"," + "\"from\":\"0\"," + "\"to\":\"5\"}");//16008907
-                string json = myRequest.GetResponse();
+                string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+                                                        "\"spec\":{" +
+                                                        "\"itemsType\":\"avl_unit\"," +
+                                                        "\"propName\":\"sys_unique_id|sys_name|rel_customfield_value|rel_profilefield_value\"," +
+                                                        "\"propValueMask\":\"" + "*" + textBox_filter_object_ohrani.Text + "*" + "\", " +
+                                                        "\"sortType\":\"sys_name\"," +
+                                                        "\"or_logic\":\"1\"}," +
+                                                        "\"force\":\"1\"," +
+                                                        "\"flags\":\"4611686018427387903\"," +
+                                                        "\"from\":\"0\"," +
+                                                        "\"to\":\"5\"}");
                 var m = JsonConvert.DeserializeObject<RootObject>(json);
-                if (m.error == 1)
-                {
-                    update_session();
-                    myRequest = new MyWebRequest("https://navi.venbest.com.ua/wialon/ajax.html?", "POST", "sid=" + vars_form.eid + "&svc=core/search_items&params={\"spec\":{" + "\"itemsType\":\"avl_unit\"," + "\"propName\":\"sys_unique_id|sys_name|rel_customfield_value|rel_profilefield_value\"," + "\"propValueMask\":\"" + "*" + textBox_filter_object_ohrani.Text + "*" + "\", " + "\"sortType\":\"sys_name\"," + "\"or_logic\":\"1\"}," + "\"or_logic\":\"1\"," + "\"force\":\"1\"," + "\"flags\":\"257\"," + "\"from\":\"0\"," + "\"to\":\"5\"}");//15208907
-                    json = myRequest.GetResponse();
-                    m = JsonConvert.DeserializeObject<RootObject>(json);
 
-                }
                 List<object> list_add_alarm = new List<object>();
                 foreach (var keyvalue in m.items)
                 {
@@ -64,9 +52,9 @@ namespace Disp_WinForm
                     listBox_object_ohrani.DataSource = null;
                 }
             }
-            catch (Exception ex)
+            catch 
             {
-                MessageBox.Show(ex.Message.ToString() + "textBox_filter_object_ohrani_TextChanged");
+
             }
         }
         private class List_add_alarm
