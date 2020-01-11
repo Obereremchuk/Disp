@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Activation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,70 +15,410 @@ namespace Disp_WinForm
     public partial class Activation_Form : Form
     {
         Macros macros = new Macros();
+        private string id_new_user;
         public Activation_Form()
         {
             InitializeComponent();
             load_form();
             build_list_account();
+            button_add_2_account.Enabled = false;
 
 
         }
 
+        public string CreatePassword(int length)
+        {
+            const string valid = "abcdefghjklmnpqrstuvwxyz123456789";
+            StringBuilder res = new StringBuilder();
+            Random rnd = new Random();
+            while (0 < length--)
+            {
+                res.Append(valid[rnd.Next(valid.Length)]);
+            }
+            return res.ToString();
+        }
+
         private void build_list_account()
         {
-            string json1 = macros.wialon_request_new("&svc=core/search_items&params={" +
-                                                    "\"spec\":{" +
-                                                    "\"itemsType\":\"\"," +
-                                                    "\"propName\":\"sys_id\"," +
-                                                    "\"propValueMask\":\"" + "27,57,58,206,207,213,244,356,494,919" + "\", " +
-                                                    "\"sortType\":\"sys_name\"," +
-                                                    "\"or_logic\":\"1\"}," +
-                                                    "\"force\":\"1\"," +
-                                                    "\"flags\":\"4611686018427387903\"," +
-                                                    "\"from\":\"\"," +
-                                                    "\"to\":\"\"}");
 
-            var m = JsonConvert.DeserializeObject<RootObject>(json1);
 
+            vars_form.id_object_for_activation = "1098";
 
             string json = macros.wialon_request_new("&svc=core/check_accessors&params={" +
                                                     "\"items\":[\"1098\"]," +
-                                                    "\"flags\":\"1\"}");
+                                                    "\"flags\":\"1\"}");//Получаем айди всех елементов у которых есть доступ к данному объекту
+
+            //Dictionary<string, string> openWith1 =new Dictionary<string,string>();
+            //Dictionary<string, Dictionary<string,string>> openWith = new Dictionary<string, Dictionary<string, string>>();
             
-            var wl_accounts = JsonConvert.DeserializeObject < Dictionary <int, Dictionary<int, Dictionary<string, string>>>>(json);
-            string t = "";
 
-            for (int index = 0; index < wl_accounts[1098].Values.Count; index++)
+            var wl_accounts = JsonConvert.DeserializeObject < Dictionary <string, Dictionary<int, Dictionary<string, string>>>>(json);
+            string get="";
+            for (int index = 0; index < wl_accounts[vars_form.id_object_for_activation].Values.Count; index++)
             {
-                var item = wl_accounts.ElementAt(index);
-                var itemKey = item.Key;
-                var itemValue = item.Value;
-            }
+                var item = wl_accounts.ElementAt(0);
+                int key_index = item.Value.ElementAt(index).Key;
+                get = get+ "," + key_index.ToString();
+                //string json3 = macros.wialon_request_new("&svc=core/search_items&params={" +
+                //                                         "\"spec\":{" +
+                //                                         "\"itemsType\":\"\"," +
+                //                                         "\"propName\":\"sys_id\"," +
+                //                                         "\"propValueMask\":\"" + key_index + "\", " +
+                //                                         "\"sortType\":\"sys_name\"," +
+                //                                         "\"or_logic\":\"1\"}," +
+                //                                         "\"force\":\"1\"," +
+                //                                         "\"flags\":\"1\"," +
+                //                                         "\"from\":\"0\"," +
+                //                                         "\"to\":\"0\"}");
+                //var m2 = JsonConvert.DeserializeObject<RootObject>(json3);
+                //string nm = m2.items[0].nm;
+                //string acl = item.Value[key_index]["acl"].ToString();
+                //string dacl = item.Value[key_index]["dacl"].ToString();
+                //openWith1.Clear();
+                //openWith1.Add("acl",acl);
+                //openWith1.Add("dacl", dacl);
+                //openWith.Add(nm, openWith1);
+            }// стрим список айди в один запрос 
+            string json2 = macros.wialon_request_new("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"\"," +
+                                                     "\"propName\":\"sys_id\"," +
+                                                     "\"propValueMask\":\"" + get + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Получаем подробности от елементов для полуяения имени логина
 
+            var m = JsonConvert.DeserializeObject<RootObject>(json2);
 
-            TreeNode node1 = new TreeNode("Кабінети користувача:");
+            Font boldFont = new Font(treeView_user_accounts.Font, FontStyle.Bold);
+            TreeNode node1 = new TreeNode("");
+            node1.NodeFont = boldFont;
             treeView_user_accounts.Nodes.Add(node1);
-            treeView_user_accounts.Nodes[0].Expand();
-            var stuff = JsonConvert.DeserializeObject<string[]>(json);
+            
+            treeView_user_accounts.BeginUpdate();
+
+
             try
             {
-                foreach (var keyvalue in m.items[0].pflds)
+                int tree_index = 0;
+                for (int index = 0; index < m.items.Count; index++)
                 {
-                    if (keyvalue.Value.n.Contains("vehicle_type"))
+                    
+                    if (m.items[index].nm.Contains("@"))
                     {
-                        treeView_user_accounts.Nodes[0].Nodes.Add(new TreeNode(keyvalue.Value.v));
-                    }
-                    else if (keyvalue.Value.n.Contains("vin"))
-                    {
-                        treeView_user_accounts.Nodes[0].Nodes.Add(new TreeNode(keyvalue.Value.v));
+                        treeView_user_accounts.Nodes[0].Nodes.Add(new TreeNode(m.items[index].nm)); //выводим в дерево все учетки которые похожи на почту, ищем по @
+                        treeView_user_accounts.Nodes[0].Nodes[tree_index].NodeFont = boldFont;
+
+                        string json1 = macros.wialon_request_new("&svc=core/search_items&params={" +
+                                                                 "\"spec\":{" +
+                                                                 "\"itemsType\":\"user\"," +
+                                                                 "\"propName\":\"sys_name\"," +
+                                                                 "\"propValueMask\":\"" + m.items[index].nm + "\"," +
+                                                                 "\"sortType\":\"sys_name\"," +
+                                                                 "\"or_logic\":\"1\"}," +
+                                                                 "\"force\":\"1\"," +
+                                                                 "\"flags\":\"1\"," +
+                                                                 "\"from\":\"0\"," +
+                                                                 "\"to\":\"0\"}"); //запрашиваем все елементі с искомім имайлом
+                        var m1 = JsonConvert.DeserializeObject<RootObject>(json1);
+                        string json3 = macros.wialon_request_new("&svc=user/get_items_access&params={" +
+                                                                 "\"userId\":\"" + m1.items[0].id + "\"," +
+                                                                 "\"directAccess\":\"true\"," +
+                                                                 "\"itemSuperclass\":\"avl_unit\"," +
+                                                                 "\"flags\":\"1\"}");
+                        var m3 = JsonConvert.DeserializeObject<Dictionary<string, string>>(json3);
+                        string d = "";
+                        foreach (KeyValuePair<string, string> kvp in m3)
+                        {
+                            d = d + "," + kvp.Key;
+                        }
+
+                        string json4 = macros.wialon_request_new("&svc=core/search_items&params={" +
+                                                                 "\"spec\":{" +
+                                                                 "\"itemsType\":\"avl_unit\"," +
+                                                                 "\"propName\":\"sys_id\"," +
+                                                                 "\"propValueMask\":\"" + d + "\"," +
+                                                                 "\"sortType\":\"sys_name\"," +
+                                                                 "\"or_logic\":\"1\"}," +
+                                                                 "\"force\":\"1\"," +
+                                                                 "\"flags\":\"1\"," +
+                                                                 "\"from\":\"0\"," +
+                                                                 "\"to\":\"0\"}"); //запрашиваем все елементі с искомім имайлом
+                        var m4 = JsonConvert.DeserializeObject<RootObject>(json4);
+
+                        for (int index1 = 0; index1 < m4.items.Count; index1++)
+                        {
+                            treeView_user_accounts.Nodes[0].Nodes[tree_index].Nodes.Add(m4.items[index1].nm);
+                        }
+                        tree_index ++;
+
                     }
                 }
+                treeView_user_accounts.EndUpdate();
+                treeView_user_accounts.ExpandAll();
             }
             catch (Exception e)
             {
                 string er = e.ToString();
             }
             
+        }
+
+
+        private void account_delete_button_Click(object sender, EventArgs e)
+        {
+            if (treeView_user_accounts.SelectedNode is null)
+            {
+                MessageBox.Show("Вибери який кабінет відалити!");
+            }
+            else
+            {
+                if (treeView_user_accounts.SelectedNode.Text == "Кабінети користувача:")
+                {
+                    MessageBox.Show("Вибери який кабінет відалити!");
+                }
+                else
+                {
+                    DialogResult dialogResult = MessageBox.Show("Видалити кабінет: " + treeView_user_accounts.SelectedNode.Text + "", "Видалити?", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        string json1 = macros.wialon_request_new("&svc=core/search_items&params={" +
+                                                             "\"spec\":{" +
+                                                             "\"itemsType\":\"\"," +
+                                                             "\"propName\":\"sys_name\"," +
+                                                             "\"propValueMask\":\"*" + treeView_user_accounts.SelectedNode.Text + "*\"," +
+                                                             "\"sortType\":\"sys_name\"," +
+                                                             "\"or_logic\":\"1\"}," +
+                                                             "\"force\":\"1\"," +
+                                                             "\"flags\":\"1\"," +
+                                                             "\"from\":\"0\"," +
+                                                             "\"to\":\"0\"}");//запрашиваем все елементі с искомім имайлом
+
+                        var m = JsonConvert.DeserializeObject<RootObject>(json1);
+                        try
+                        {
+                            foreach (var t in m.items)
+                            {
+                                if (t.cls == 3)
+                                {
+                                    string json2 = macros.wialon_request_new("&svc=item/delete_item&params={" +
+                                                                             "\"itemId\":\"" + t.id + "\"}");
+                                }
+                            }//удаляем сначала все ресурсы cls=3
+
+                            foreach (var t in m.items)
+                            {
+                                if (t.cls == 1)
+                                {
+                                    string json2 = macros.wialon_request_new("&svc=item/delete_item&params={" +
+                                                                             "\"itemId\":\"" + t.id + "\"}");
+                                }
+                            }// После пользователя.cls=1
+                        }
+                        catch
+                        {
+                        }
+
+                        treeView_user_accounts.Nodes.Clear();
+                        build_list_account();//обновляем тривив
+                        treeView_user_accounts.Nodes[0].Expand();
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+
+                    }
+                }
+            }
+        }
+
+        private void email_textBox_TextChanged(object sender, EventArgs e)
+        {
+            if (email_textBox.Text.Contains("@"))
+            {
+                string json1 = macros.wialon_request_new("&svc=core/search_items&params={" +
+                                                         "\"spec\":{" +
+                                                         "\"itemsType\":\"user\"," +
+                                                         "\"propName\":\"sys_name\"," +
+                                                         "\"propValueMask\":\"" + email_textBox.Text + "\"," +
+                                                         "\"sortType\":\"sys_name\"," +
+                                                         "\"or_logic\":\"1\"}," +
+                                                         "\"force\":\"1\"," +
+                                                         "\"flags\":\"1\"," +
+                                                         "\"from\":\"0\"," +
+                                                         "\"to\":\"1\"}"); //запрашиваем все елементі с искомім имайлом
+                var m = JsonConvert.DeserializeObject<RootObject>(json1);
+                
+
+                if (m.items.Count>=1)
+                {
+                    id_new_user = m.items[0].id.ToString();
+                    accaunt_name_textBox.Text= email_textBox.Text;
+                    account_create_button.Enabled = false;
+                    button_add_2_account.Enabled = true;
+                }
+                else
+                {
+                    accaunt_name_textBox.Text = "";
+                    account_create_button.Enabled = true;
+                    button_add_2_account.Enabled = false;
+                }
+            }
+            else
+            {
+                accaunt_name_textBox.Text = "";
+            }
+
+
+        }
+
+        private void button_add_2_account_Click(object sender, EventArgs e)
+        {
+
+            DialogResult dialogResult = MessageBox.Show("Надати авто в доступ: "+email_textBox.Text+"?", "Дозволити?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+                                                         "\"spec\":{" +
+                                                         "\"itemsType\":\"user\"," +
+                                                         "\"propName\":\"sys_name\"," +
+                                                         "\"propValueMask\":\"" + email_textBox.Text + "\"," +
+                                                         "\"sortType\":\"sys_name\"," +
+                                                         "\"or_logic\":\"1\"}," +
+                                                         "\"force\":\"1\"," +
+                                                         "\"flags\":\"1\"," +
+                                                         "\"from\":\"0\"," +
+                                                         "\"to\":\"0\"}"); //запрашиваем все елементі с искомім имайлом
+                var m = JsonConvert.DeserializeObject<RootObject>(json);
+
+                ///////////
+                //Доступ на объект
+                string json4 = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                         "\"userId\":\"" + m.items[0].id + "\"," +
+                                                         "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
+                                                         "\"accessMask\":\"550594678661\"}");
+                var m4 = JsonConvert.DeserializeObject<RootObject>(json4);
+
+                treeView_user_accounts.Nodes.Clear();
+                build_list_account();//обновляем тривив
+                treeView_user_accounts.Nodes[0].Expand();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+            }
+        }
+
+        private void button_remove_2_account_Click(object sender, EventArgs e)
+        {
+            if (treeView_user_accounts.SelectedNode is null)
+            {
+                MessageBox.Show("Вибери який кабінет відалити!");
+            }
+            else
+            {
+                if (treeView_user_accounts.SelectedNode.Text == "Кабінети користувача:")
+                {
+                    MessageBox.Show("Вибери який кабінет відалити!");
+                }
+                else
+                {
+                    DialogResult dialogResult =
+                        MessageBox.Show("Відалити авто з доступу: " + treeView_user_accounts.SelectedNode.Text + "?",
+                            "Видалити?", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+                                                                "\"spec\":{" +
+                                                                "\"itemsType\":\"user\"," +
+                                                                "\"propName\":\"sys_name\"," +
+                                                                "\"propValueMask\":\"" +
+                                                                treeView_user_accounts.SelectedNode.Text + "\"," +
+                                                                "\"sortType\":\"sys_name\"," +
+                                                                "\"or_logic\":\"1\"}," +
+                                                                "\"force\":\"1\"," +
+                                                                "\"flags\":\"1\"," +
+                                                                "\"from\":\"0\"," +
+                                                                "\"to\":\"0\"}"); //запрашиваем все елементі с искомім имайлом
+                        var m = JsonConvert.DeserializeObject<RootObject>(json);
+
+                        ///////////
+                        //Доступ на объект
+                        string json4 = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                                 "\"userId\":\"" + m.items[0].id + "\"," +
+                                                                 "\"itemId\":\"" + vars_form.id_object_for_activation +
+                                                                 "\"," +
+                                                                 "\"accessMask\":\"0\"}");
+                        var m4 = JsonConvert.DeserializeObject<RootObject>(json4);
+
+                        treeView_user_accounts.Nodes.Clear();
+                        build_list_account(); //обновляем тривив
+                        treeView_user_accounts.Nodes[0].Expand();
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                    }
+                }
+            }
+        }
+
+        private void account_create_button_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Стровити кабінет: "+email_textBox.Text+"?", "Створити?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                string g = CreatePassword(6);
+                string json = macros.wialon_request_new("&svc=core/create_user&params={" +
+                                                        "\"creatorId\":\"25\"," +
+                                                        "\"name\":\"" + email_textBox.Text + "\"," +
+                                                        "\"password\":\""+ g + "\"," +
+                                                        "\"dataFlags\":\"1\"}");   
+                var m = JsonConvert.DeserializeObject<RootObject>(json);
+
+                string json2 = macros.wialon_request_new("&svc=core/create_resource&params={" +
+                                                        "\"creatorId\":\"" + m.item.id + "\"," +
+                                                        "\"name\":\"" + email_textBox.Text + "\"," +
+                                                        "\"dataFlags\":\"1\"," +
+                                                        "\"skipCreatorCheck\":\"1\"}");
+                var m2 = JsonConvert.DeserializeObject<RootObject>(json2);
+
+                string json3 = macros.wialon_request_new("&svc=core/create_resource&params={" +
+                                                         "\"creatorId\":\"" + m.item.id + "\"," +
+                                                         "\"name\":\"" + email_textBox.Text+ "_user" + "\"," +
+                                                         "\"dataFlags\":\"1\"," +
+                                                         "\"skipCreatorCheck\":\"1\"}");
+                var m3 = JsonConvert.DeserializeObject<RootObject>(json3);
+
+
+                ///////////
+                //Доступ на объект
+                string json4 = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                        "\"userId\":\"" + m.item.id + "\"," +
+                                                        "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
+                                                        "\"accessMask\":\"550594678661\"}");
+                var m4 = JsonConvert.DeserializeObject<RootObject>(json4);
+                //Доступ на ресурс 1
+                string json5 = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                         "\"userId\":\"" + m.item.id + "\"," +
+                                                         "\"itemId\":\"" +m2.item.id + "\"," +
+                                                         "\"accessMask\":\"4648339329\"}");
+                var m5 = JsonConvert.DeserializeObject<RootObject>(json5);
+                //Доступ на ресурс 2
+                string json6 = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                         "\"userId\":\"" + m.item.id + "\"," +
+                                                         "\"itemId\":\"" + m3.item.id + "\"," +
+                                                         "\"accessMask\":\"52785134440321\"}");
+                var m6 = JsonConvert.DeserializeObject<RootObject>(json6);
+
+                treeView_user_accounts.Nodes.Clear();
+                build_list_account();//обновляем тривив
+                treeView_user_accounts.Nodes[0].Expand();
+
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+            }
         }
 
         private void load_form()
@@ -154,5 +495,7 @@ namespace Disp_WinForm
                 }
             }
         }
+
+        
     }
 }

@@ -244,14 +244,18 @@ namespace Disp_WinForm
             textBox_other_alarm.Text = db_TS_info.Rows[0]["TS_infocol_other_alarm"].ToString();
             textBox_licence_plate.Text = db_TS_info.Rows[0]["TS_infocol_licence_plate"].ToString();
             textBox_vin.Text = db_TS_info.Rows[0]["TS_infocol_vin"].ToString();
+
             int m = Convert.ToInt16(db_TS_info.Rows[0]["TS_model_idTS_model"]);
-            comboBox_test_model.SelectedIndex = m - 1;
+            comboBox_test_model.SelectedValue = m;
+
             int b = Convert.ToInt16(db_TS_info.Rows[0]["TS_brand_idTS_brand"]);
-            comboBox_test_brand.SelectedIndex = b - 1;
+            comboBox_test_brand.SelectedValue = b;
+
             int k = Convert.ToInt16(db_TS_info.Rows[0]["Kuzov_type_idKuzov_type"]);
-            comboBox_kuzov_type.SelectedIndex = k - 1;
+            comboBox_kuzov_type.SelectedValue = k;
+
             int p = Convert.ToInt16(db_TS_info.Rows[0]["Production_date_idProduction_date"]);
-            comboBox_test_production_date.SelectedIndex = p - 1;
+            comboBox_test_production_date.SelectedValue = p;
 
             
             //DataTable dt = (DataTable)comboBox_ustanoshik_poisk.DataSource;

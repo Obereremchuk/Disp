@@ -109,7 +109,7 @@ namespace Disp_WinForm
 
     public class RootObject
     {
-        public int flags { get; set; }
+        public long flags { get; set; }
         public int error { get; set; }
         public List<deserialize_Item> items { get; set; }
         public string eid { get; set; }

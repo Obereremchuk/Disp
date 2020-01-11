@@ -61,26 +61,26 @@
             this.label14 = new System.Windows.Forms.Label();
             this.pass_reset_button = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.treeView_user_accounts = new System.Windows.Forms.TreeView();
             this.account_delete_button = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
+            this.button_remove_2_account = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button_add_2_account = new System.Windows.Forms.Button();
             this.accaunt_name_textBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBox_pass = new System.Windows.Forms.TextBox();
             this.cancel_button = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.edite_date_textBox = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.edit_user_textBox = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.account_2_delete_button = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
-            this.accaunt_name_2_textBox = new System.Windows.Forms.TextBox();
-            this.account_2_create_button = new System.Windows.Forms.Button();
-            this.pass_2_reset_button = new System.Windows.Forms.Button();
-            this.send_email_2_button = new System.Windows.Forms.Button();
-            this.label13 = new System.Windows.Forms.Label();
-            this.email_2_textBox = new System.Windows.Forms.TextBox();
-            this.treeView_user_accounts = new System.Windows.Forms.TreeView();
+            this.checkBox_manual_pass = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -332,25 +332,26 @@
             // 
             // send_email_button
             // 
-            this.send_email_button.Location = new System.Drawing.Point(6, 96);
+            this.send_email_button.Location = new System.Drawing.Point(16, 19);
             this.send_email_button.Name = "send_email_button";
-            this.send_email_button.Size = new System.Drawing.Size(317, 23);
+            this.send_email_button.Size = new System.Drawing.Size(220, 56);
             this.send_email_button.TabIndex = 121;
             this.send_email_button.Text = "Нідіслани інформаційний лист клієнту";
             this.send_email_button.UseVisualStyleBackColor = true;
             // 
             // account_create_button
             // 
-            this.account_create_button.Location = new System.Drawing.Point(6, 67);
+            this.account_create_button.Location = new System.Drawing.Point(7, 73);
             this.account_create_button.Name = "account_create_button";
-            this.account_create_button.Size = new System.Drawing.Size(317, 23);
+            this.account_create_button.Size = new System.Drawing.Size(317, 51);
             this.account_create_button.TabIndex = 119;
-            this.account_create_button.Text = "Сворити кабінет користувача";
+            this.account_create_button.Text = "Сворити кабінет користувача до вибранного авто";
             this.account_create_button.UseVisualStyleBackColor = true;
+            this.account_create_button.Click += new System.EventHandler(this.account_create_button_Click);
             // 
             // save_button
             // 
-            this.save_button.Location = new System.Drawing.Point(824, 415);
+            this.save_button.Location = new System.Drawing.Point(1283, 474);
             this.save_button.Name = "save_button";
             this.save_button.Size = new System.Drawing.Size(75, 23);
             this.save_button.TabIndex = 118;
@@ -359,15 +360,16 @@
             // 
             // email_textBox
             // 
-            this.email_textBox.Location = new System.Drawing.Point(130, 16);
+            this.email_textBox.Location = new System.Drawing.Point(131, 22);
             this.email_textBox.Name = "email_textBox";
             this.email_textBox.Size = new System.Drawing.Size(193, 20);
             this.email_textBox.TabIndex = 101;
+            this.email_textBox.TextChanged += new System.EventHandler(this.email_textBox_TextChanged);
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 19);
+            this.label14.Location = new System.Drawing.Point(7, 25);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(118, 13);
             this.label14.TabIndex = 106;
@@ -375,59 +377,116 @@
             // 
             // pass_reset_button
             // 
-            this.pass_reset_button.Location = new System.Drawing.Point(6, 125);
+            this.pass_reset_button.Location = new System.Drawing.Point(16, 110);
             this.pass_reset_button.Name = "pass_reset_button";
-            this.pass_reset_button.Size = new System.Drawing.Size(317, 23);
+            this.pass_reset_button.Size = new System.Drawing.Size(220, 23);
             this.pass_reset_button.TabIndex = 123;
             this.pass_reset_button.Text = "Встановити новий пароль та надіслати";
             this.pass_reset_button.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.account_delete_button);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.accaunt_name_textBox);
-            this.groupBox2.Controls.Add(this.account_create_button);
-            this.groupBox2.Controls.Add(this.pass_reset_button);
-            this.groupBox2.Controls.Add(this.send_email_button);
-            this.groupBox2.Controls.Add(this.label14);
-            this.groupBox2.Controls.Add(this.email_textBox);
-            this.groupBox2.Location = new System.Drawing.Point(912, 12);
+            this.groupBox2.Controls.Add(this.groupBox5);
+            this.groupBox2.Controls.Add(this.groupBox4);
+            this.groupBox2.Location = new System.Drawing.Point(570, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(329, 183);
+            this.groupBox2.Size = new System.Drawing.Size(788, 307);
             this.groupBox2.TabIndex = 125;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Основний особистий кабінет";
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.treeView_user_accounts);
+            this.groupBox5.Controls.Add(this.account_delete_button);
+            this.groupBox5.Controls.Add(this.button_remove_2_account);
+            this.groupBox5.Location = new System.Drawing.Point(362, 19);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(408, 276);
+            this.groupBox5.TabIndex = 131;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "groupBox5";
+            // 
+            // treeView_user_accounts
+            // 
+            this.treeView_user_accounts.Location = new System.Drawing.Point(17, 19);
+            this.treeView_user_accounts.Name = "treeView_user_accounts";
+            this.treeView_user_accounts.Size = new System.Drawing.Size(373, 190);
+            this.treeView_user_accounts.TabIndex = 128;
+            // 
             // account_delete_button
             // 
-            this.account_delete_button.Location = new System.Drawing.Point(6, 154);
+            this.account_delete_button.Location = new System.Drawing.Point(17, 244);
             this.account_delete_button.Name = "account_delete_button";
-            this.account_delete_button.Size = new System.Drawing.Size(317, 23);
+            this.account_delete_button.Size = new System.Drawing.Size(373, 23);
             this.account_delete_button.TabIndex = 124;
-            this.account_delete_button.Text = "Видалити кабінет користувача";
+            this.account_delete_button.Text = "Видалити вибранний кабінет користувача";
             this.account_delete_button.UseVisualStyleBackColor = true;
+            this.account_delete_button.Click += new System.EventHandler(this.account_delete_button_Click);
             // 
-            // label3
+            // button_remove_2_account
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 45);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(92, 13);
-            this.label3.TabIndex = 118;
-            this.label3.Text = "Обліковий запис";
+            this.button_remove_2_account.Location = new System.Drawing.Point(17, 215);
+            this.button_remove_2_account.Name = "button_remove_2_account";
+            this.button_remove_2_account.Size = new System.Drawing.Size(373, 23);
+            this.button_remove_2_account.TabIndex = 129;
+            this.button_remove_2_account.Text = "Відвязати автомобіль від вибранного кабінету користувача";
+            this.button_remove_2_account.UseVisualStyleBackColor = true;
+            this.button_remove_2_account.Click += new System.EventHandler(this.button_remove_2_account_Click);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label14);
+            this.groupBox4.Controls.Add(this.email_textBox);
+            this.groupBox4.Controls.Add(this.account_create_button);
+            this.groupBox4.Controls.Add(this.button_add_2_account);
+            this.groupBox4.Controls.Add(this.accaunt_name_textBox);
+            this.groupBox4.Controls.Add(this.label3);
+            this.groupBox4.Location = new System.Drawing.Point(16, 19);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(340, 276);
+            this.groupBox4.TabIndex = 129;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "groupBox4";
+            // 
+            // button_add_2_account
+            // 
+            this.button_add_2_account.Location = new System.Drawing.Point(7, 130);
+            this.button_add_2_account.Name = "button_add_2_account";
+            this.button_add_2_account.Size = new System.Drawing.Size(317, 50);
+            this.button_add_2_account.TabIndex = 126;
+            this.button_add_2_account.Text = "Додати авто до існуючого кабінету";
+            this.button_add_2_account.UseVisualStyleBackColor = true;
+            this.button_add_2_account.Click += new System.EventHandler(this.button_add_2_account_Click);
             // 
             // accaunt_name_textBox
             // 
-            this.accaunt_name_textBox.Location = new System.Drawing.Point(130, 42);
+            this.accaunt_name_textBox.Location = new System.Drawing.Point(131, 48);
             this.accaunt_name_textBox.Name = "accaunt_name_textBox";
             this.accaunt_name_textBox.ReadOnly = true;
             this.accaunt_name_textBox.Size = new System.Drawing.Size(193, 20);
             this.accaunt_name_textBox.TabIndex = 118;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, 51);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(95, 13);
+            this.label3.TabIndex = 118;
+            this.label3.Text = "Поточний кабінет";
+            // 
+            // textBox_pass
+            // 
+            this.textBox_pass.Location = new System.Drawing.Point(16, 84);
+            this.textBox_pass.Name = "textBox_pass";
+            this.textBox_pass.ReadOnly = true;
+            this.textBox_pass.Size = new System.Drawing.Size(91, 20);
+            this.textBox_pass.TabIndex = 125;
+            // 
             // cancel_button
             // 
-            this.cancel_button.Location = new System.Drawing.Point(743, 415);
+            this.cancel_button.Location = new System.Drawing.Point(1202, 474);
             this.cancel_button.Name = "cancel_button";
             this.cancel_button.Size = new System.Drawing.Size(75, 23);
             this.cancel_button.TabIndex = 126;
@@ -471,118 +530,49 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.account_2_delete_button);
-            this.groupBox3.Controls.Add(this.label12);
-            this.groupBox3.Controls.Add(this.accaunt_name_2_textBox);
-            this.groupBox3.Controls.Add(this.account_2_create_button);
-            this.groupBox3.Controls.Add(this.pass_2_reset_button);
-            this.groupBox3.Controls.Add(this.send_email_2_button);
-            this.groupBox3.Controls.Add(this.label13);
-            this.groupBox3.Controls.Add(this.email_2_textBox);
-            this.groupBox3.Location = new System.Drawing.Point(570, 201);
+            this.groupBox3.Controls.Add(this.checkBox_manual_pass);
+            this.groupBox3.Controls.Add(this.send_email_button);
+            this.groupBox3.Controls.Add(this.textBox_pass);
+            this.groupBox3.Controls.Add(this.pass_reset_button);
+            this.groupBox3.Location = new System.Drawing.Point(570, 328);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(329, 184);
-            this.groupBox3.TabIndex = 126;
+            this.groupBox3.Size = new System.Drawing.Size(788, 140);
+            this.groupBox3.TabIndex = 128;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Додатковий особистий кабінет";
+            this.groupBox3.Text = "Налаштування";
             // 
-            // account_2_delete_button
+            // checkBox_manual_pass
             // 
-            this.account_2_delete_button.Location = new System.Drawing.Point(6, 154);
-            this.account_2_delete_button.Name = "account_2_delete_button";
-            this.account_2_delete_button.Size = new System.Drawing.Size(317, 23);
-            this.account_2_delete_button.TabIndex = 125;
-            this.account_2_delete_button.Text = "Видалити кабінет користувача";
-            this.account_2_delete_button.UseVisualStyleBackColor = true;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 45);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(92, 13);
-            this.label12.TabIndex = 118;
-            this.label12.Text = "Обліковий запис";
-            // 
-            // accaunt_name_2_textBox
-            // 
-            this.accaunt_name_2_textBox.Location = new System.Drawing.Point(129, 42);
-            this.accaunt_name_2_textBox.Name = "accaunt_name_2_textBox";
-            this.accaunt_name_2_textBox.ReadOnly = true;
-            this.accaunt_name_2_textBox.Size = new System.Drawing.Size(193, 20);
-            this.accaunt_name_2_textBox.TabIndex = 118;
-            // 
-            // account_2_create_button
-            // 
-            this.account_2_create_button.Location = new System.Drawing.Point(6, 67);
-            this.account_2_create_button.Name = "account_2_create_button";
-            this.account_2_create_button.Size = new System.Drawing.Size(317, 23);
-            this.account_2_create_button.TabIndex = 119;
-            this.account_2_create_button.Text = "Сворити кабінет користувача";
-            this.account_2_create_button.UseVisualStyleBackColor = true;
-            // 
-            // pass_2_reset_button
-            // 
-            this.pass_2_reset_button.Location = new System.Drawing.Point(6, 125);
-            this.pass_2_reset_button.Name = "pass_2_reset_button";
-            this.pass_2_reset_button.Size = new System.Drawing.Size(317, 23);
-            this.pass_2_reset_button.TabIndex = 123;
-            this.pass_2_reset_button.Text = "Встановити новий пароль та надіслати";
-            this.pass_2_reset_button.UseVisualStyleBackColor = true;
-            // 
-            // send_email_2_button
-            // 
-            this.send_email_2_button.Location = new System.Drawing.Point(6, 96);
-            this.send_email_2_button.Name = "send_email_2_button";
-            this.send_email_2_button.Size = new System.Drawing.Size(317, 23);
-            this.send_email_2_button.TabIndex = 121;
-            this.send_email_2_button.Text = "Нідіслани інформаційний лист клієнту";
-            this.send_email_2_button.UseVisualStyleBackColor = true;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 19);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(118, 13);
-            this.label13.TabIndex = 106;
-            this.label13.Text = "Електронна скринька";
-            // 
-            // email_2_textBox
-            // 
-            this.email_2_textBox.Location = new System.Drawing.Point(129, 16);
-            this.email_2_textBox.Name = "email_2_textBox";
-            this.email_2_textBox.Size = new System.Drawing.Size(193, 20);
-            this.email_2_textBox.TabIndex = 101;
-            // 
-            // treeView_user_accounts
-            // 
-            this.treeView_user_accounts.Location = new System.Drawing.Point(579, 28);
-            this.treeView_user_accounts.Name = "treeView_user_accounts";
-            this.treeView_user_accounts.Size = new System.Drawing.Size(314, 97);
-            this.treeView_user_accounts.TabIndex = 128;
+            this.checkBox_manual_pass.AutoSize = true;
+            this.checkBox_manual_pass.Location = new System.Drawing.Point(113, 87);
+            this.checkBox_manual_pass.Name = "checkBox_manual_pass";
+            this.checkBox_manual_pass.Size = new System.Drawing.Size(107, 17);
+            this.checkBox_manual_pass.TabIndex = 126;
+            this.checkBox_manual_pass.Text = "Вказати в ручну";
+            this.checkBox_manual_pass.UseVisualStyleBackColor = true;
             // 
             // Activation_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1253, 450);
-            this.Controls.Add(this.treeView_user_accounts);
+            this.ClientSize = new System.Drawing.Size(1378, 514);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.label11);
+            this.Controls.Add(this.save_button);
             this.Controls.Add(this.edit_user_textBox);
-            this.Controls.Add(this.cancel_button);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.cancel_button);
             this.Controls.Add(this.edite_date_textBox);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.save_button);
             this.Name = "Activation_Form";
             this.Text = "Активація об\"єкту";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
@@ -631,17 +621,15 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox edite_date_textBox;
         private System.Windows.Forms.Button account_delete_button;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button account_2_delete_button;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox accaunt_name_2_textBox;
-        private System.Windows.Forms.Button account_2_create_button;
-        private System.Windows.Forms.Button pass_2_reset_button;
-        private System.Windows.Forms.Button send_email_2_button;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox email_2_textBox;
         private System.Windows.Forms.Button button_chenge_uvaga;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TreeView treeView_user_accounts;
+        private System.Windows.Forms.Button button_add_2_account;
+        private System.Windows.Forms.TextBox textBox_pass;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.CheckBox checkBox_manual_pass;
+        private System.Windows.Forms.Button button_remove_2_account;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupBox4;
     }
 }
