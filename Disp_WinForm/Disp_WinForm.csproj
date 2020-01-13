@@ -184,6 +184,12 @@
     <Compile Include="Testing_obj.Designer.cs">
       <DependentUpon>Testing_obj.cs</DependentUpon>
     </Compile>
+    <Compile Include="VO_add.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VO_add.Designer.cs">
+      <DependentUpon>VO_add.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Activation_Form.resx">
       <DependentUpon>Activation_Form.cs</DependentUpon>
     </EmbeddedResource>
@@ -238,6 +244,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Testing_obj.resx">
       <DependentUpon>Testing_obj.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VO_add.resx">
+      <DependentUpon>VO_add.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Firefox\omni.ja" />
     <None Include="packages.config" />

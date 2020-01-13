@@ -16,6 +16,8 @@ namespace Disp_WinForm
     {
         Macros macros = new Macros();
         private string id_new_user;
+        private List<TreeNode> _unselectableNodes = new List<TreeNode>();
+        private string new_pass = "";
         public Activation_Form()
         {
             InitializeComponent();
@@ -94,10 +96,11 @@ namespace Disp_WinForm
             var m = JsonConvert.DeserializeObject<RootObject>(json2);
 
             Font boldFont = new Font(treeView_user_accounts.Font, FontStyle.Bold);
-            TreeNode node1 = new TreeNode("");
-            node1.NodeFont = boldFont;
+            TreeNode node1 = new TreeNode("Кабінети користувача приєднані до авто");
             treeView_user_accounts.Nodes.Add(node1);
-            
+            _unselectableNodes.Add(node1);
+
+
             treeView_user_accounts.BeginUpdate();
 
 
@@ -111,6 +114,7 @@ namespace Disp_WinForm
                     {
                         treeView_user_accounts.Nodes[0].Nodes.Add(new TreeNode(m.items[index].nm)); //выводим в дерево все учетки которые похожи на почту, ищем по @
                         treeView_user_accounts.Nodes[0].Nodes[tree_index].NodeFont = boldFont;
+                        
 
                         string json1 = macros.wialon_request_new("&svc=core/search_items&params={" +
                                                                  "\"spec\":{" +
@@ -152,6 +156,7 @@ namespace Disp_WinForm
                         for (int index1 = 0; index1 < m4.items.Count; index1++)
                         {
                             treeView_user_accounts.Nodes[0].Nodes[tree_index].Nodes.Add(m4.items[index1].nm);
+                            _unselectableNodes.Add(treeView_user_accounts.Nodes[0].Nodes[tree_index].Nodes[index1]);
                         }
                         tree_index ++;
 
@@ -236,40 +241,96 @@ namespace Disp_WinForm
 
         private void email_textBox_TextChanged(object sender, EventArgs e)
         {
-            if (email_textBox.Text.Contains("@"))
+            if (email_textBox.Text != "")
             {
-                string json1 = macros.wialon_request_new("&svc=core/search_items&params={" +
-                                                         "\"spec\":{" +
-                                                         "\"itemsType\":\"user\"," +
-                                                         "\"propName\":\"sys_name\"," +
-                                                         "\"propValueMask\":\"" + email_textBox.Text + "\"," +
-                                                         "\"sortType\":\"sys_name\"," +
-                                                         "\"or_logic\":\"1\"}," +
-                                                         "\"force\":\"1\"," +
-                                                         "\"flags\":\"1\"," +
-                                                         "\"from\":\"0\"," +
-                                                         "\"to\":\"1\"}"); //запрашиваем все елементі с искомім имайлом
-                var m = JsonConvert.DeserializeObject<RootObject>(json1);
-                
+                string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+                                                        "\"spec\":{" +
+                                                        "\"itemsType\":\"user\"," +
+                                                        "\"propName\":\"sys_name\"," +
+                                                        "\"propValueMask\":\"*" + email_textBox.Text + "*\"," +
+                                                        "\"sortType\":\"sys_name\"," +
+                                                        "\"or_logic\":\"1\"}," +
+                                                        "\"force\":\"1\"," +
+                                                        "\"flags\":\"1\"," +
+                                                        "\"from\":\"0\"," +
+                                                        "\"to\":\"5\"}"); //запрашиваем все елементі с искомім имайлом
+                var m1 = JsonConvert.DeserializeObject<RootObject>(json);
 
-                if (m.items.Count>=1)
+                List<string> list = new List<string>();
+                foreach (var t in m1.items)
                 {
-                    id_new_user = m.items[0].id.ToString();
-                    accaunt_name_textBox.Text= email_textBox.Text;
-                    account_create_button.Enabled = false;
-                    button_add_2_account.Enabled = true;
+                    if (t.nm.Contains("@"))
+                        list.Add(t.nm);
                 }
-                else
+
+                listBox_activation_list_search.DataSource = list;
+                if (m1.items.Count >=1)
                 {
-                    accaunt_name_textBox.Text = "";
-                    account_create_button.Enabled = true;
-                    button_add_2_account.Enabled = false;
+                    if (email_textBox.Text == m1.items[0].nm)
+                    {
+                        id_new_user = m1.items[0].id.ToString();
+                        accaunt_name_textBox.Text = email_textBox.Text;
+                        account_create_button.Enabled = false;
+                        button_add_2_account.Enabled = true;
+                        accaunt_name_textBox.BackColor = Color.YellowGreen;
+                    }
+                    else
+                    {
+                        accaunt_name_textBox.Text = "";
+                        account_create_button.Enabled = true;
+                        button_add_2_account.Enabled = false;
+                        accaunt_name_textBox.BackColor = Color.Empty;
+                    }
                 }
+
+               
             }
             else
             {
+                listBox_activation_list_search.DataSource = null;
                 accaunt_name_textBox.Text = "";
+                account_create_button.Enabled = true;
+                button_add_2_account.Enabled = false;
+                accaunt_name_textBox.BackColor = Color.Empty;
             }
+
+
+
+            //if (email_textBox.Text.Contains("@"))
+            //{
+            //    string json1 = macros.wialon_request_new("&svc=core/search_items&params={" +
+            //                                             "\"spec\":{" +
+            //                                             "\"itemsType\":\"user\"," +
+            //                                             "\"propName\":\"sys_name\"," +
+            //                                             "\"propValueMask\":\"" + email_textBox.Text + "\"," +
+            //                                             "\"sortType\":\"sys_name\"," +
+            //                                             "\"or_logic\":\"1\"}," +
+            //                                             "\"force\":\"1\"," +
+            //                                             "\"flags\":\"1\"," +
+            //                                             "\"from\":\"0\"," +
+            //                                             "\"to\":\"1\"}"); //запрашиваем все елементі с искомім имайлом
+            //    var m = JsonConvert.DeserializeObject<RootObject>(json1);
+
+                
+
+            //    if (m.items.Count>=1)
+            //    {
+            //        id_new_user = m.items[0].id.ToString();
+            //        accaunt_name_textBox.Text= email_textBox.Text;
+            //        account_create_button.Enabled = false;
+            //        button_add_2_account.Enabled = true;
+            //    }
+            //    else
+            //    {
+            //        accaunt_name_textBox.Text = "";
+            //        account_create_button.Enabled = true;
+            //        button_add_2_account.Enabled = false;
+            //    }
+            //}
+            //else
+            //{
+            //    accaunt_name_textBox.Text = "";
+            //}
 
 
         }
@@ -365,60 +426,69 @@ namespace Disp_WinForm
 
         private void account_create_button_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Стровити кабінет: "+email_textBox.Text+"?", "Створити?", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
+            if (email_textBox.Text.Contains("@") & email_textBox.Text.Contains("."))
             {
-                string g = CreatePassword(6);
-                string json = macros.wialon_request_new("&svc=core/create_user&params={" +
-                                                        "\"creatorId\":\"25\"," +
-                                                        "\"name\":\"" + email_textBox.Text + "\"," +
-                                                        "\"password\":\""+ g + "\"," +
-                                                        "\"dataFlags\":\"1\"}");   
-                var m = JsonConvert.DeserializeObject<RootObject>(json);
+                DialogResult dialogResult = MessageBox.Show("Стровити кабінет: " + email_textBox.Text + "?", "Створити?", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    string g = CreatePassword(6);
+                    string json = macros.wialon_request_new("&svc=core/create_user&params={" +
+                                                            "\"creatorId\":\"25\"," +
+                                                            "\"name\":\"" + email_textBox.Text + "\"," +
+                                                            "\"password\":\"" + g + "\"," +
+                                                            "\"dataFlags\":\"1\"}");
+                    var m = JsonConvert.DeserializeObject<RootObject>(json);
 
-                string json2 = macros.wialon_request_new("&svc=core/create_resource&params={" +
-                                                        "\"creatorId\":\"" + m.item.id + "\"," +
-                                                        "\"name\":\"" + email_textBox.Text + "\"," +
-                                                        "\"dataFlags\":\"1\"," +
-                                                        "\"skipCreatorCheck\":\"1\"}");
-                var m2 = JsonConvert.DeserializeObject<RootObject>(json2);
+                    string json2 = macros.wialon_request_new("&svc=core/create_resource&params={" +
+                                                            "\"creatorId\":\"" + m.item.id + "\"," +
+                                                            "\"name\":\"" + email_textBox.Text + "\"," +
+                                                            "\"dataFlags\":\"1\"," +
+                                                            "\"skipCreatorCheck\":\"1\"}");
+                    var m2 = JsonConvert.DeserializeObject<RootObject>(json2);
 
-                string json3 = macros.wialon_request_new("&svc=core/create_resource&params={" +
-                                                         "\"creatorId\":\"" + m.item.id + "\"," +
-                                                         "\"name\":\"" + email_textBox.Text+ "_user" + "\"," +
-                                                         "\"dataFlags\":\"1\"," +
-                                                         "\"skipCreatorCheck\":\"1\"}");
-                var m3 = JsonConvert.DeserializeObject<RootObject>(json3);
+                    string json3 = macros.wialon_request_new("&svc=core/create_resource&params={" +
+                                                             "\"creatorId\":\"" + m.item.id + "\"," +
+                                                             "\"name\":\"" + email_textBox.Text + "_user" + "\"," +
+                                                             "\"dataFlags\":\"1\"," +
+                                                             "\"skipCreatorCheck\":\"1\"}");
+                    var m3 = JsonConvert.DeserializeObject<RootObject>(json3);
 
 
-                ///////////
-                //Доступ на объект
-                string json4 = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                        "\"userId\":\"" + m.item.id + "\"," +
-                                                        "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
-                                                        "\"accessMask\":\"550594678661\"}");
-                var m4 = JsonConvert.DeserializeObject<RootObject>(json4);
-                //Доступ на ресурс 1
-                string json5 = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                         "\"userId\":\"" + m.item.id + "\"," +
-                                                         "\"itemId\":\"" +m2.item.id + "\"," +
-                                                         "\"accessMask\":\"4648339329\"}");
-                var m5 = JsonConvert.DeserializeObject<RootObject>(json5);
-                //Доступ на ресурс 2
-                string json6 = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                         "\"userId\":\"" + m.item.id + "\"," +
-                                                         "\"itemId\":\"" + m3.item.id + "\"," +
-                                                         "\"accessMask\":\"52785134440321\"}");
-                var m6 = JsonConvert.DeserializeObject<RootObject>(json6);
+                    ///////////
+                    //Доступ на объект
+                    string json4 = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                            "\"userId\":\"" + m.item.id + "\"," +
+                                                            "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
+                                                            "\"accessMask\":\"550594678661\"}");
+                    var m4 = JsonConvert.DeserializeObject<RootObject>(json4);
+                    //Доступ на ресурс 1
+                    string json5 = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                             "\"userId\":\"" + m.item.id + "\"," +
+                                                             "\"itemId\":\"" + m2.item.id + "\"," +
+                                                             "\"accessMask\":\"4648339329\"}");
+                    var m5 = JsonConvert.DeserializeObject<RootObject>(json5);
+                    //Доступ на ресурс 2
+                    string json6 = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                             "\"userId\":\"" + m.item.id + "\"," +
+                                                             "\"itemId\":\"" + m3.item.id + "\"," +
+                                                             "\"accessMask\":\"52785134440321\"}");
+                    var m6 = JsonConvert.DeserializeObject<RootObject>(json6);
 
-                treeView_user_accounts.Nodes.Clear();
-                build_list_account();//обновляем тривив
-                treeView_user_accounts.Nodes[0].Expand();
+                    treeView_user_accounts.Nodes.Clear();
+                    build_list_account();//обновляем тривив
+                    treeView_user_accounts.Nodes[0].Expand();
 
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                }
             }
-            else if (dialogResult == DialogResult.No)
+            else
             {
+                MessageBox.Show("Перевірьте імя користувача");
             }
+
+            
         }
 
         private void load_form()
@@ -485,7 +555,7 @@ namespace Disp_WinForm
                 DialogResult dialogResult = MessageBox.Show("Назва обєкту змінена", "Зберегти?", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    button_chenge_uvaga.PerformClick();
+                    //button_chenge_uvaga.PerformClick();
                     this.Close();
 
                 }
@@ -496,6 +566,90 @@ namespace Disp_WinForm
             }
         }
 
-        
+        private void treeView_user_accounts_BeforeSelect(object sender, TreeViewCancelEventArgs e)
+        {
+            if (_unselectableNodes.Contains(e.Node))
+            {
+                e.Cancel = true;
+            }   
+        }
+
+        private void listBox_activation_list_search_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (listBox_activation_list_search.SelectedItem != null)
+            {
+                email_textBox.Text = listBox_activation_list_search.SelectedValue.ToString();
+            }
+            
+           
+        }
+
+        private void pass_reset_button_Click(object sender, EventArgs e)
+        {
+            if (treeView_user_accounts.SelectedNode is null)
+            {
+                MessageBox.Show("Вибери користувача");
+            }
+            else
+            {
+                DialogResult dialogResult = MessageBox.Show("Встановити та відправити новий пароль?", "Відправити?", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+                                                            "\"spec\":{" +
+                                                            "\"itemsType\":\"user\"," +
+                                                            "\"propName\":\"sys_name\"," +
+                                                            "\"propValueMask\":\"" + treeView_user_accounts.SelectedNode.Text + "\"," +
+                                                            "\"sortType\":\"sys_name\"," +
+                                                            "\"or_logic\":\"1\"}," +
+                                                            "\"force\":\"1\"," +
+                                                            "\"flags\":\"1\"," +
+                                                            "\"from\":\"0\"," +
+                                                            "\"to\":\"0\"}"); //запрашиваем все елементі с искомім имайлом
+                    var m = JsonConvert.DeserializeObject<RootObject>(json);
+                    new_pass = CreatePassword(6);
+                    string json1 = macros.wialon_request_new("&svc=user/update_password&params={" +
+                                                             "\"userId\":\"" + m.items[0].id + "\"," +
+                                                             "\"oldPassword\":\"\"," +
+                                                             "\"newPassword\":\"" + new_pass + "\"}");
+                    var m1 = JsonConvert.DeserializeObject<RootObject>(json1);
+
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                }
+                
+            }
+        }
+
+        private void button_add_vo1_Click(object sender, EventArgs e)
+        {
+            VO_add vo_add_form = new VO_add();
+            vo_add_form.Show();
+        }
+
+        private void button_add_vo2_Click(object sender, EventArgs e)
+        {
+            VO_add vo_add_form = new VO_add();
+            vo_add_form.Show();
+        }
+
+        private void button_add_vo3_Click(object sender, EventArgs e)
+        {
+            VO_add vo_add_form = new VO_add();
+            vo_add_form.Show();
+        }
+
+        private void button_add_vo4_Click(object sender, EventArgs e)
+        {
+            VO_add vo_add_form = new VO_add();
+            vo_add_form.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            VO_add vo_add_form = new VO_add();
+            vo_add_form.Show();
+        }
     }
 }
