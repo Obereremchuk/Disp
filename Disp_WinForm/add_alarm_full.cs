@@ -130,14 +130,14 @@ namespace Disp_WinForm
                                "msg_time, " +
                                "product, " +
                                "type_alarm, " +
-                               "Users_idUsers) " +
+                               "Users_idUsers, status) " +
                                "VALUES('" + object_name + "'," +
                                "'" + vars_form.add_alarm_unit_id + "'," +
                                "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                "'" + object_product + "'," +
                                "'" + comboBox_source_in.GetItemText(comboBox_source_in.SelectedItem) + "'," +
-                               "'" + vars_form.user_login_id + "')");
+                               "'" + vars_form.user_login_id + "','Відкрито')");
 
             this.Close();
         }

@@ -592,7 +592,7 @@ namespace Disp_WinForm
                                    "unit_id as 'ID'," +
                                    "Status as 'Статус'," +
                                    "alarm_locked_user as 'Обробляє'," +
-                                   "msg_time as 'Час створення'," +
+                                   "notification.time_stamp as 'Дата зміни'," +
                                    "group_alarm as 'Згруповано до', " +
                                    "Users.username as 'Створив'," +
                                    "speed, " +
@@ -611,7 +611,7 @@ namespace Disp_WinForm
             int scrollPosition = dataGridView_dilery.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
 
             DataView dv = table.DefaultView;
-            dv.Sort = "Час створення desc";
+            dv.Sort = "Дата зміни desc";
             DataTable sortedDT = dv.ToTable();
 
             dataGridView_dilery.DataSource = table;
@@ -661,7 +661,7 @@ namespace Disp_WinForm
                 int scrollPosition = dataGridView_dilery.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
 
                 DataView dv = table.DefaultView;
-                dv.Sort = "Час створення desc";
+                dv.Sort = "Дата зміни desc";
                 DataTable sortedDT = dv.ToTable();
 
                 dataGridView_dilery.DataSource = table;
@@ -800,7 +800,7 @@ namespace Disp_WinForm
                                    "unit_id as 'ID'," +
                                    "Status as 'Статус'," +
                                    "alarm_locked_user as 'Обробляє'," +
-                                   "msg_time as 'Час створення'," +
+                                   "notification.time_stamp as 'Дата зміни'," +
                                    "group_alarm as 'Згруповано до', " +
                                    "Users.username as 'Створив'," +
                                    "speed, " +
@@ -819,7 +819,7 @@ namespace Disp_WinForm
             int scrollPosition = dataGridView_sales.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
 
             DataView dv = table.DefaultView;
-            dv.Sort = "Час створення desc";
+            dv.Sort = "Дата зміни desc";
             DataTable sortedDT = dv.ToTable();
 
             dataGridView_sales.DataSource = table;
@@ -855,7 +855,7 @@ namespace Disp_WinForm
                 int scrollPosition = dataGridView_sales.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
 
                 DataView dv = table.DefaultView;
-                dv.Sort = "Час створення desc";
+                dv.Sort = "Дата зміни desc";
                 DataTable sortedDT = dv.ToTable();
 
                 dataGridView_sales.DataSource = table;
@@ -984,7 +984,7 @@ namespace Disp_WinForm
                                    "unit_id as 'ID'," +
                                    "Status as 'Статус'," +
                                    "alarm_locked_user as 'Обробляє'," +
-                                   "msg_time as 'Час створення'," +
+                                   "notification.time_stamp as 'Дата зміни'," +
                                    "group_alarm as 'Згруповано до', " +
                                    "Users.username as 'Створив'," +
                                    "speed, " +
@@ -1003,7 +1003,7 @@ namespace Disp_WinForm
             int scrollPosition = this.dataGridView_808_n.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
 
             DataView dv = table.DefaultView;
-            dv.Sort = "Час створення desc";
+            dv.Sort = "Дата зміни desc";
             DataTable sortedDT = dv.ToTable();
 
             dataGridView_808_n.DataSource = table;
@@ -1038,7 +1038,7 @@ namespace Disp_WinForm
                 int scrollPosition = this.dataGridView_808_n.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
 
                 DataView dv = table.DefaultView;
-                dv.Sort = "Час створення desc";
+                dv.Sort = "Дата зміни desc";
                 DataTable sortedDT = dv.ToTable();
 
                 dataGridView_808_n.DataSource = table;
@@ -1162,7 +1162,7 @@ namespace Disp_WinForm
                                    "notification.unit_id as 'ID'," +
                                    "notification.Status as 'Статус'," +
                                    "notification.alarm_locked_user as 'Обробляє'," +
-                                   "notification.msg_time as 'Час створення'," +
+                                   "notification.time_stamp as 'Дата зміни'," +
                                    "notification.group_alarm as 'Згруповано до', " +
                                    "Users.username as 'Створив'," +
                                    "notification.speed, " +
@@ -1184,7 +1184,7 @@ namespace Disp_WinForm
             int scrollPosition = dataGridView_909_n.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
 
             DataView dv = table.DefaultView;
-            dv.Sort = "Час створення desc";
+            dv.Sort = "Дата зміни desc";
             DataTable sortedDT = dv.ToTable();
 
             dataGridView_909_n.DataSource = table;
@@ -1220,7 +1220,7 @@ namespace Disp_WinForm
                 int scrollPosition = dataGridView_909_n.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
 
                 DataView dv = table.DefaultView;
-                dv.Sort = "Час створення desc";
+                dv.Sort = "Дата зміни desc";
                 DataTable sortedDT = dv.ToTable();
 
                 dataGridView_909_n.DataSource = table;
@@ -1793,15 +1793,6 @@ namespace Disp_WinForm
             }
         }
 
-        private void dateTimePicker_testing_date_ValueChanged(object sender, EventArgs e)
-        {
-            update_dilery_dgv();
-        }
-
-        private void textBox_search_testing_TextChanged(object sender, EventArgs e)
-        {
-            update_dilery_dgv();
-        }
 
         private void button_start_activation_Click(object sender, EventArgs e)
         {

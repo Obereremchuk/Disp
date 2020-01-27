@@ -24,6 +24,7 @@ namespace Disp_WinForm
             load_form();
             build_list_account();
             button_add_2_account.Enabled = false;
+            create_notif();
 
 
         }
@@ -39,15 +40,102 @@ namespace Disp_WinForm
             }
             return res.ToString();
         }
+        private void create_notif()
+        {
+            string json3 = macros.wialon_request_new("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_resource\"," +
+                                                     "\"propName\":\"sys_name\"," +
+                                                     "\"propValueMask\":\"operator_messages\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");
+            var m2 = JsonConvert.DeserializeObject<RootObject>(json3);
+
+            string json6 = macros.wialon_request_new("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_name\"," +
+                                                     "\"propValueMask\":\"C_N 354836080344970 ТЕСТ\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");
+
+            string json5 = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+                                                            "\"itemId\":\"241\"," +
+                                                            "\"id\":\"0\"," +
+                                                            "\"callMode\":\"create\"," +
+                                                            "\"e\":\"1\"," + 
+                                                            "\"n\":\"АХА охрана, двери 72 часа\"," +
+                                                            "\"txt\":\"АХА охрана, двери 72 часа не менялось значение\"," +
+                                                            "\"ta\":\"0\"," +
+                                                            "\"td\":\"0\"," +
+                                                            "\"ma\":\"0\"," +
+                                                            "\"mmtd\":\"0\"," +
+                                                            "\"cdt\":\"0\"," +
+                                                            "\"mast\":\"90000\"," +
+                                                            "\"mpst\":\"0\"," +
+                                                            "\"cp\":\"0\"," +
+                                                            "\"fl\":\"0\"," +
+                                                            "\"tz\":\"7200\"," +
+                                                            "\"la\":\"ru\"," +
+                                                            "\"un\":[" + vars_form.id_object_for_activation + ", 16994]," +
+                                                            "\"sch\":{" +
+                                                                        "\"f1\":\"0\"," +
+                                                                        "\"f2\":\"0\"," +
+                                                                        "\"t1\":\"0\"," +
+                                                                        "\"t2\":\"0\"," +
+                                                                        "\"m\":\"0\"," +
+                                                                        "\"y\":\"0\"," +
+                                                                        "\"w\":\"0\"" +
+                                                            "}," +
+                                                            "\"ctrl_sch\":{" +
+                                                                        "\"f1\":\"0\"," +
+                                                                        "\"f2\":\"0\"," +
+                                                                        "\"t1\":\"0\"," +
+                                                                        "\"t2\":\"0\"," +
+                                                                        "\"m\":\"0\"," +
+                                                                        "\"y\":\"0\"," +
+                                                                        "\"w\":\"0\"" +
+                                                            "}," +
+                                                            "\"trg\":{" +
+                                                                        "\"t\":\"sensor_value\"," +
+                                                                        "\"p\":{" +
+                                                                                "\"lower_bound\":\"0\"," +
+                                                                                "\"merge\":\"1\"," +
+                                                                                "\"prev_msg_diff\":\"0\"," +
+                                                                                "\"sensor_name_mask\":\"*охран*\"," +
+                                                                                "\"sensor_type\":\"digital\"," +
+                                                                                "\"type\":\"0\"," +
+                                                                                "\"upper_bound\":\"0\"" +
+                                                                        "}" +
+                                                            "}," +
+                                                            "\"act\":[" +
+                                                                        "{" +
+                                                                            "\"t\":\"event\"," +
+                                                                            "\"p\":{" +
+                                                                                    "\"flags\":\"0\"" +
+                                                                            "}" +
+                                                                        "}"+
+                                                            "]" +
+                                                    "}"
+                                                    );//Получаем айди всех елементов у которых есть доступ к данному объекту
+
+        }
 
         private void build_list_account()
         {
-
-
-            vars_form.id_object_for_activation = "1098";
+            
+            //vars_form.id_object_for_activation = "1098";
 
             string json = macros.wialon_request_new("&svc=core/check_accessors&params={" +
-                                                    "\"items\":[\"1098\"]," +
+                                                    "\"items\":[\""+ vars_form.id_object_for_activation + "\"]," +
                                                     "\"flags\":\"1\"}");//Получаем айди всех елементов у которых есть доступ к данному объекту
 
             //Dictionary<string, string> openWith1 =new Dictionary<string,string>();
