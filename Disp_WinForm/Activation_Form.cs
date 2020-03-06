@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.Remoting.Activation;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Forms;
 
 namespace Disp_WinForm
@@ -24,11 +25,10 @@ namespace Disp_WinForm
             load_form();
             build_list_account();
             button_add_2_account.Enabled = false;
-            create_notif();
-
 
         }
 
+        //Function fo generete password
         public string CreatePassword(int length)
         {
             const string valid = "abcdefghjklmnpqrstuvwxyz123456789";
@@ -40,107 +40,115 @@ namespace Disp_WinForm
             }
             return res.ToString();
         }
-        private void create_notif()
+
+
+        //init command on load form
+        private void load_form()
         {
-            string json3 = macros.wialon_request_new("&svc=core/search_items&params={" +
-                                                     "\"spec\":{" +
-                                                     "\"itemsType\":\"avl_resource\"," +
-                                                     "\"propName\":\"sys_name\"," +
-                                                     "\"propValueMask\":\"operator_messages\", " +
-                                                     "\"sortType\":\"sys_name\"," +
-                                                     "\"or_logic\":\"1\"}," +
-                                                     "\"force\":\"1\"," +
-                                                     "\"flags\":\"1\"," +
-                                                     "\"from\":\"0\"," +
-                                                     "\"to\":\"0\"}");
-            var m2 = JsonConvert.DeserializeObject<RootObject>(json3);
+            string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+                                                    "\"spec\":{" +
+                                                    "\"itemsType\":\"avl_unit\"," +
+                                                    "\"propName\":\"sys_id\"," +
+                                                    "\"propValueMask\":\"" + vars_form.id_object_for_activation + "\", " +
+                                                    "\"sortType\":\"sys_name\"," +
+                                                    "\"or_logic\":\"1\"}," +
+                                                    "\"force\":\"1\"," +
+                                                    "\"flags\":\"4611686018427387903\"," +
+                                                    "\"from\":\"0\"," +
+                                                    "\"to\":\"1\"}");
+            var m = JsonConvert.DeserializeObject<RootObject>(json);
 
-            string json6 = macros.wialon_request_new("&svc=core/search_items&params={" +
-                                                     "\"spec\":{" +
-                                                     "\"itemsType\":\"avl_unit\"," +
-                                                     "\"propName\":\"sys_name\"," +
-                                                     "\"propValueMask\":\"C_N 354836080344970 ТЕСТ\", " +
-                                                     "\"sortType\":\"sys_name\"," +
-                                                     "\"or_logic\":\"1\"}," +
-                                                     "\"force\":\"1\"," +
-                                                     "\"flags\":\"1\"," +
-                                                     "\"from\":\"0\"," +
-                                                     "\"to\":\"0\"}");
+            name_object_current_textBox.Text = m.items[0].nm;
+            imei_object_textBox.Text = m.items[0].uid;
+            name_obj_new_textBox.Text = m.items[0].nm;
 
-            string json5 = macros.wialon_request_new("&svc=resource/update_notification&params={" +
-                                                            "\"itemId\":\"241\"," +
-                                                            "\"id\":\"0\"," +
-                                                            "\"callMode\":\"create\"," +
-                                                            "\"e\":\"1\"," + 
-                                                            "\"n\":\"АХА охрана, двери 72 часа\"," +
-                                                            "\"txt\":\"АХА охрана, двери 72 часа не менялось значение\"," +
-                                                            "\"ta\":\"0\"," +
-                                                            "\"td\":\"0\"," +
-                                                            "\"ma\":\"0\"," +
-                                                            "\"mmtd\":\"0\"," +
-                                                            "\"cdt\":\"0\"," +
-                                                            "\"mast\":\"90000\"," +
-                                                            "\"mpst\":\"0\"," +
-                                                            "\"cp\":\"0\"," +
-                                                            "\"fl\":\"0\"," +
-                                                            "\"tz\":\"7200\"," +
-                                                            "\"la\":\"ru\"," +
-                                                            "\"un\":[" + vars_form.id_object_for_activation + ", 16994]," +
-                                                            "\"sch\":{" +
-                                                                        "\"f1\":\"0\"," +
-                                                                        "\"f2\":\"0\"," +
-                                                                        "\"t1\":\"0\"," +
-                                                                        "\"t2\":\"0\"," +
-                                                                        "\"m\":\"0\"," +
-                                                                        "\"y\":\"0\"," +
-                                                                        "\"w\":\"0\"" +
-                                                            "}," +
-                                                            "\"ctrl_sch\":{" +
-                                                                        "\"f1\":\"0\"," +
-                                                                        "\"f2\":\"0\"," +
-                                                                        "\"t1\":\"0\"," +
-                                                                        "\"t2\":\"0\"," +
-                                                                        "\"m\":\"0\"," +
-                                                                        "\"y\":\"0\"," +
-                                                                        "\"w\":\"0\"" +
-                                                            "}," +
-                                                            "\"trg\":{" +
-                                                                        "\"t\":\"sensor_value\"," +
-                                                                        "\"p\":{" +
-                                                                                "\"lower_bound\":\"0\"," +
-                                                                                "\"merge\":\"1\"," +
-                                                                                "\"prev_msg_diff\":\"0\"," +
-                                                                                "\"sensor_name_mask\":\"*охран*\"," +
-                                                                                "\"sensor_type\":\"digital\"," +
-                                                                                "\"type\":\"0\"," +
-                                                                                "\"upper_bound\":\"0\"" +
-                                                                        "}" +
-                                                            "}," +
-                                                            "\"act\":[" +
-                                                                        "{" +
-                                                                            "\"t\":\"event\"," +
-                                                                            "\"p\":{" +
-                                                                                    "\"flags\":\"0\"" +
-                                                                            "}" +
-                                                                        "}"+
-                                                            "]" +
-                                                    "}"
-                                                    );//Получаем айди всех елементов у которых есть доступ к данному объекту
+            foreach (var keyvalue in m.items[0].flds)
+            {
 
+                if (keyvalue.Value.n.Contains("УВАГА"))
+                {
+                    //Chenge feild Uvaga
+                    uvaga_textBox.Text = keyvalue.Value.v;
+                }
+                if (keyvalue.Value.n.Contains("Кодове "))
+                {
+                    //Chenge feild Кодове слово
+                    kodove_slovo_textBox.Text = keyvalue.Value.v;
+                }
+
+                
+                
+
+            }
+            //Открітие отработаніх активаций. ХЗ ли нужно
+            ////load VO
+            //DataTable VO = macros.GetData("SELECT Users_idUsers, comment, alarm_button FROM btk.Activation_object where Object_idObject = '"+vars_form.id_db_object_for_activation+"';");
+
+
+            //load VO
+            DataTable VO = macros.GetData("select Kontakti_idKontakti, VOcol_num_vo from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "';");
+            if (VO.Rows.Count >= 1)
+            {
+                foreach (DataRow row in VO.Rows)
+                {
+                    if (row[1].ToString() == "1")
+                    {
+                        textBox_vo1.Text = macros.sql_command("SELECT concat(Kontakti_imya ,' ', Kontakti_familia)  as fio FROM btk.Kontakti where idKontakti = '" + row[0].ToString() + "'; ");
+                    }
+                    if (row[1].ToString() == "2")
+                    {
+                        textBox_vo2.Text = macros.sql_command("SELECT concat(Kontakti_imya ,' ', Kontakti_familia)  as fio FROM btk.Kontakti where idKontakti = '" + row[0].ToString() + "'; ");
+                    }
+                    if (row[1].ToString() == "3")
+                    {
+                        textBox_vo3.Text = macros.sql_command("SELECT concat(Kontakti_imya ,' ', Kontakti_familia)  as fio FROM btk.Kontakti where idKontakti = '" + row[0].ToString() + "'; ");
+                    }
+                    if (row[1].ToString() == "4")
+                    {
+                        textBox_vo4.Text = macros.sql_command("SELECT concat(Kontakti_imya ,' ', Kontakti_familia)  as fio FROM btk.Kontakti where idKontakti = '" + row[0].ToString() + "'; ");
+                    }
+                    if (row[1].ToString() == "5")
+                    {
+                        textBox_vo5.Text = macros.sql_command("SELECT concat(Kontakti_imya ,' ', Kontakti_familia)  as fio FROM btk.Kontakti where idKontakti = '" + row[0].ToString() + "'; ");
+                    }
+
+                }
+
+
+            }
         }
 
+        private void cancel_button_Click(object sender, EventArgs e)
+        {
+            if (name_obj_new_textBox.Text == name_object_current_textBox.Text)
+            {
+                this.Close();
+            }
+            else
+            {
+                DialogResult dialogResult = MessageBox.Show("Назва обєкту змінена", "Зберегти?", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    //button_chenge_uvaga.PerformClick();
+                    this.Close();
+
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    this.Close();
+                }
+            }
+        }
+
+        //build list of user account where exist right for object
         private void build_list_account()
         {
-            
             //vars_form.id_object_for_activation = "1098";
+
 
             string json = macros.wialon_request_new("&svc=core/check_accessors&params={" +
                                                     "\"items\":[\""+ vars_form.id_object_for_activation + "\"]," +
-                                                    "\"flags\":\"1\"}");//Получаем айди всех елементов у которых есть доступ к данному объекту
-
-            //Dictionary<string, string> openWith1 =new Dictionary<string,string>();
-            //Dictionary<string, Dictionary<string,string>> openWith = new Dictionary<string, Dictionary<string, string>>();
-            
+                                                    "\"flags\":\"1\"}");//Получаем айди всех елементов у которых есть доступ к данному объекту            
 
             var wl_accounts = JsonConvert.DeserializeObject < Dictionary <string, Dictionary<int, Dictionary<string, string>>>>(json);
             string get="";
@@ -183,14 +191,12 @@ namespace Disp_WinForm
 
             var m = JsonConvert.DeserializeObject<RootObject>(json2);
 
+            treeView_user_accounts.Nodes.Clear();
             Font boldFont = new Font(treeView_user_accounts.Font, FontStyle.Bold);
             TreeNode node1 = new TreeNode("Кабінети користувача приєднані до авто");
             treeView_user_accounts.Nodes.Add(node1);
             _unselectableNodes.Add(node1);
-
-
             treeView_user_accounts.BeginUpdate();
-
 
             try
             {
@@ -260,7 +266,83 @@ namespace Disp_WinForm
             
         }
 
+        // set node of treeview as unselectable
+        private void treeView_user_accounts_BeforeSelect(object sender, TreeViewCancelEventArgs e)
+        {
+            if (_unselectableNodes.Contains(e.Node))
+            {
+                e.Cancel = true;
+            }
+        }
 
+
+        /// User account manage
+        ///
+        // User account live search with outout to listBox_activation_list_search. Or new user name input
+        private void email_textBox_TextChanged(object sender, EventArgs e)
+        {
+            if (email_textBox.Text != "")
+            {
+                string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+                                                        "\"spec\":{" +
+                                                        "\"itemsType\":\"user\"," +
+                                                        "\"propName\":\"sys_name\"," +
+                                                        "\"propValueMask\":\"*" + email_textBox.Text + "*\"," +
+                                                        "\"sortType\":\"sys_name\"," +
+                                                        "\"or_logic\":\"1\"}," +
+                                                        "\"force\":\"1\"," +
+                                                        "\"flags\":\"1\"," +
+                                                        "\"from\":\"0\"," +
+                                                        "\"to\":\"5\"}"); //запрашиваем все елементі с искомім имайлом
+                var m1 = JsonConvert.DeserializeObject<RootObject>(json);
+
+                List<string> list = new List<string>();
+                foreach (var t in m1.items) //Get user account where name like email, contains @
+                {
+                    if (t.nm.Contains("@"))
+                        list.Add(t.nm);
+                }
+
+                listBox_activation_list_search.DataSource = list;
+                if (m1.items.Count >= 1)
+                {
+                    if (email_textBox.Text == m1.items[0].nm)//if entered in textbox username is exist in WL => disable button create new user, enable button for update right fo exist user, abd make it green
+                    {
+                        id_new_user = m1.items[0].id.ToString();
+                        accaunt_name_textBox.Text = email_textBox.Text;
+                        account_create_button.Enabled = false;
+                        button_add_2_account.Enabled = true;
+                        accaunt_name_textBox.BackColor = Color.YellowGreen;
+                    }
+                    else
+                    {
+                        accaunt_name_textBox.Text = "";
+                        account_create_button.Enabled = true;
+                        button_add_2_account.Enabled = false;
+                        accaunt_name_textBox.BackColor = Color.Empty;
+                    }
+                }
+            }
+            else
+            {
+                listBox_activation_list_search.DataSource = null;
+                accaunt_name_textBox.Text = "";
+                account_create_button.Enabled = true;
+                button_add_2_account.Enabled = false;
+                accaunt_name_textBox.BackColor = Color.Empty;
+            }
+        }
+
+        //On two double mouse click selectet needed user account for add right for object
+        private void listBox_activation_list_search_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (listBox_activation_list_search.SelectedItem != null)
+            {
+                email_textBox.Text = listBox_activation_list_search.SelectedValue.ToString();
+            }
+        }
+
+        //Remove selected user account
         private void account_delete_button_Click(object sender, EventArgs e)
         {
             if (treeView_user_accounts.SelectedNode is null)
@@ -315,9 +397,13 @@ namespace Disp_WinForm
                         {
                         }
 
-                        treeView_user_accounts.Nodes.Clear();
+                        //log user action
+                        macros.LogUserAction(vars_form.user_login_id, "Видалити вибранного користувача", "", treeView_user_accounts.SelectedNode.Text, Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
+
+
                         build_list_account();//обновляем тривив
-                        treeView_user_accounts.Nodes[0].Expand();
+                        
+                        
                     }
                     else if (dialogResult == DialogResult.No)
                     {
@@ -327,109 +413,14 @@ namespace Disp_WinForm
             }
         }
 
-        private void email_textBox_TextChanged(object sender, EventArgs e)
-        {
-            if (email_textBox.Text != "")
-            {
-                string json = macros.wialon_request_new("&svc=core/search_items&params={" +
-                                                        "\"spec\":{" +
-                                                        "\"itemsType\":\"user\"," +
-                                                        "\"propName\":\"sys_name\"," +
-                                                        "\"propValueMask\":\"*" + email_textBox.Text + "*\"," +
-                                                        "\"sortType\":\"sys_name\"," +
-                                                        "\"or_logic\":\"1\"}," +
-                                                        "\"force\":\"1\"," +
-                                                        "\"flags\":\"1\"," +
-                                                        "\"from\":\"0\"," +
-                                                        "\"to\":\"5\"}"); //запрашиваем все елементі с искомім имайлом
-                var m1 = JsonConvert.DeserializeObject<RootObject>(json);
-
-                List<string> list = new List<string>();
-                foreach (var t in m1.items)
-                {
-                    if (t.nm.Contains("@"))
-                        list.Add(t.nm);
-                }
-
-                listBox_activation_list_search.DataSource = list;
-                if (m1.items.Count >=1)
-                {
-                    if (email_textBox.Text == m1.items[0].nm)
-                    {
-                        id_new_user = m1.items[0].id.ToString();
-                        accaunt_name_textBox.Text = email_textBox.Text;
-                        account_create_button.Enabled = false;
-                        button_add_2_account.Enabled = true;
-                        accaunt_name_textBox.BackColor = Color.YellowGreen;
-                    }
-                    else
-                    {
-                        accaunt_name_textBox.Text = "";
-                        account_create_button.Enabled = true;
-                        button_add_2_account.Enabled = false;
-                        accaunt_name_textBox.BackColor = Color.Empty;
-                    }
-                }
-
-               
-            }
-            else
-            {
-                listBox_activation_list_search.DataSource = null;
-                accaunt_name_textBox.Text = "";
-                account_create_button.Enabled = true;
-                button_add_2_account.Enabled = false;
-                accaunt_name_textBox.BackColor = Color.Empty;
-            }
-
-
-
-            //if (email_textBox.Text.Contains("@"))
-            //{
-            //    string json1 = macros.wialon_request_new("&svc=core/search_items&params={" +
-            //                                             "\"spec\":{" +
-            //                                             "\"itemsType\":\"user\"," +
-            //                                             "\"propName\":\"sys_name\"," +
-            //                                             "\"propValueMask\":\"" + email_textBox.Text + "\"," +
-            //                                             "\"sortType\":\"sys_name\"," +
-            //                                             "\"or_logic\":\"1\"}," +
-            //                                             "\"force\":\"1\"," +
-            //                                             "\"flags\":\"1\"," +
-            //                                             "\"from\":\"0\"," +
-            //                                             "\"to\":\"1\"}"); //запрашиваем все елементі с искомім имайлом
-            //    var m = JsonConvert.DeserializeObject<RootObject>(json1);
-
-                
-
-            //    if (m.items.Count>=1)
-            //    {
-            //        id_new_user = m.items[0].id.ToString();
-            //        accaunt_name_textBox.Text= email_textBox.Text;
-            //        account_create_button.Enabled = false;
-            //        button_add_2_account.Enabled = true;
-            //    }
-            //    else
-            //    {
-            //        accaunt_name_textBox.Text = "";
-            //        account_create_button.Enabled = true;
-            //        button_add_2_account.Enabled = false;
-            //    }
-            //}
-            //else
-            //{
-            //    accaunt_name_textBox.Text = "";
-            //}
-
-
-        }
-
+        // give right on selectetd object to exist user account
         private void button_add_2_account_Click(object sender, EventArgs e)
         {
 
             DialogResult dialogResult = MessageBox.Show("Надати авто в доступ: "+email_textBox.Text+"?", "Дозволити?", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+                string user_data_answer = macros.wialon_request_new("&svc=core/search_items&params={" +
                                                          "\"spec\":{" +
                                                          "\"itemsType\":\"user\"," +
                                                          "\"propName\":\"sys_name\"," +
@@ -440,25 +431,57 @@ namespace Disp_WinForm
                                                          "\"flags\":\"1\"," +
                                                          "\"from\":\"0\"," +
                                                          "\"to\":\"0\"}"); //запрашиваем все елементі с искомім имайлом
-                var m = JsonConvert.DeserializeObject<RootObject>(json);
+                var user_data = JsonConvert.DeserializeObject<RootObject>(user_data_answer);
 
                 ///////////
                 //Доступ на объект
-                string json4 = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                         "\"userId\":\"" + m.items[0].id + "\"," +
+                string set_object_accsess_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                         "\"userId\":\"" + user_data.items[0].id + "\"," +
                                                          "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
-                                                         "\"accessMask\":\"550594678661\"}");
-                var m4 = JsonConvert.DeserializeObject<RootObject>(json4);
+                                                         "\"accessMask\":\"550611455877\"}");
+                var set_object_accsess = JsonConvert.DeserializeObject<RootObject>(set_object_accsess_answer);
 
-                treeView_user_accounts.Nodes.Clear();
-                build_list_account();//обновляем тривив
-                treeView_user_accounts.Nodes[0].Expand();
+                //get data resource for selected user account
+                string get_resource_user_answer = macros.wl_core_search_items("avl_resource", "sys_name", email_textBox.Text, "sys_name",1,0,1);
+                var get_resource_user = JsonConvert.DeserializeObject<RootObject>(get_resource_user_answer);
+
+                //get data resource_user for selected user account
+                string get_resource_user_user_answer = macros.wl_core_search_items("avl_resource", "sys_name", email_textBox.Text + "_user", "sys_name", 1, 0, 1);
+                var get_resource_user_user = JsonConvert.DeserializeObject<RootObject>(get_resource_user_user_answer);
+
+                
+
+                //get product id from id object
+                string product_id = get_product_from_id_object(vars_form.id_object_for_activation);
+
+                //create notif depends product id
+
+                if (product_id == "10" || product_id == "11")//CNTP_910, CNTK_910
+                {
+                    create_notif_910(email_textBox.Text, user_data.items[0].id, vars_form.id_object_for_activation, get_resource_user.items[0].id, get_resource_user_user.items[0].id);
+                }
+                else if (product_id == "2" || product_id == "3")//CNTP, CNTK
+                {
+                    create_notif_730(email_textBox.Text, user_data.items[0].id, vars_form.id_object_for_activation, get_resource_user.items[0].id, get_resource_user_user.items[0].id);
+                }
+                else
+                {
+                    MessageBox.Show("Невідомий продукт, сповіщення не створені");
+                }
+
+                //log user action
+                macros.LogUserAction(vars_form.user_login_id, "Дозволити користувачу перегляд авто", "", "Надано доступ Account: " + email_textBox.Text + "до обєкту" + vars_form.id_object_for_activation, Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
+
+                //update treeView_user_accounts after making chenge
+                build_list_account();
+
             }
             else if (dialogResult == DialogResult.No)
             {
             }
         }
 
+        // remove right to object on selectes user account  
         private void button_remove_2_account_Click(object sender, EventArgs e)
         {
             if (treeView_user_accounts.SelectedNode is null)
@@ -473,37 +496,72 @@ namespace Disp_WinForm
                 }
                 else
                 {
+                    string saving_selected_account = treeView_user_accounts.SelectedNode.Text;
                     DialogResult dialogResult =
                         MessageBox.Show("Відалити авто з доступу: " + treeView_user_accounts.SelectedNode.Text + "?",
                             "Видалити?", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
-                        string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+                        //get user data
+                        string UserDataAnswer = macros.wialon_request_new("&svc=core/search_items&params={" +
                                                                 "\"spec\":{" +
                                                                 "\"itemsType\":\"user\"," +
                                                                 "\"propName\":\"sys_name\"," +
-                                                                "\"propValueMask\":\"" +
-                                                                treeView_user_accounts.SelectedNode.Text + "\"," +
+                                                                "\"propValueMask\":\"" + treeView_user_accounts.SelectedNode.Text + "\"," +
                                                                 "\"sortType\":\"sys_name\"," +
                                                                 "\"or_logic\":\"1\"}," +
                                                                 "\"force\":\"1\"," +
                                                                 "\"flags\":\"1\"," +
                                                                 "\"from\":\"0\"," +
                                                                 "\"to\":\"0\"}"); //запрашиваем все елементі с искомім имайлом
-                        var m = JsonConvert.DeserializeObject<RootObject>(json);
+                        var UserData = JsonConvert.DeserializeObject<RootObject>(UserDataAnswer);
+
+                        //get resource data
+                        string ResourceDataAnswer = macros.wialon_request_new("&svc=core/search_items&params={" +
+                                                                "\"spec\":{" +
+                                                                "\"itemsType\":\"avl_resource\"," +
+                                                                "\"propName\":\"sys_name\"," +
+                                                                "\"propValueMask\":\"" + treeView_user_accounts.SelectedNode.Text + "\"," +
+                                                                "\"sortType\":\"sys_name\"," +
+                                                                "\"or_logic\":\"1\"}," +
+                                                                "\"force\":\"1\"," +
+                                                                "\"flags\":\"1025\"," +
+                                                                "\"from\":\"0\"," +
+                                                                "\"to\":\"0\"}"); //запрашиваем все елементі с искомім имайлом
+                        var ResourceData = JsonConvert.DeserializeObject<RootObject>(UserDataAnswer);
+
+                        if (ResourceData.items.Count >= 1)
+                        {
+                            if (ResourceData.items[0].Unf != null)
+                            {
+                                foreach (var num in ResourceData.items[0].Unf)
+                                {
+                                    if (num.Value.Un[0].ToString() == vars_form.id_object_for_activation)
+                                    {
+                                       string result = delete_notif(ResourceData.items[0].id, num.Value.Id);
+                                    }
+
+                                }
+                            }
+                        }
+                        
 
                         ///////////
                         //Доступ на объект
                         string json4 = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                                 "\"userId\":\"" + m.items[0].id + "\"," +
-                                                                 "\"itemId\":\"" + vars_form.id_object_for_activation +
-                                                                 "\"," +
+                                                                 "\"userId\":\"" + UserData.items[0].id + "\"," +
+                                                                 "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
                                                                  "\"accessMask\":\"0\"}");
                         var m4 = JsonConvert.DeserializeObject<RootObject>(json4);
 
-                        treeView_user_accounts.Nodes.Clear();
-                        build_list_account(); //обновляем тривив
-                        treeView_user_accounts.Nodes[0].Expand();
+                        //log user action
+                        macros.LogUserAction(vars_form.user_login_id, "Прибрати з доступу користувача", saving_selected_account, vars_form.id_object_for_activation, Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
+
+
+                        //update treeView_user_accounts after making chenge
+                        build_list_account();
+
+                        
                     }
                     else if (dialogResult == DialogResult.No)
                     {
@@ -512,6 +570,7 @@ namespace Disp_WinForm
             }
         }
 
+        //create new user account and giv right to object
         private void account_create_button_Click(object sender, EventArgs e)
         {
             if (email_textBox.Text.Contains("@") & email_textBox.Text.Contains("."))
@@ -519,53 +578,189 @@ namespace Disp_WinForm
                 DialogResult dialogResult = MessageBox.Show("Стровити кабінет: " + email_textBox.Text + "?", "Створити?", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    string g = CreatePassword(6);
-                    string json = macros.wialon_request_new("&svc=core/create_user&params={" +
-                                                            "\"creatorId\":\"25\"," +
-                                                            "\"name\":\"" + email_textBox.Text + "\"," +
-                                                            "\"password\":\"" + g + "\"," +
-                                                            "\"dataFlags\":\"1\"}");
-                    var m = JsonConvert.DeserializeObject<RootObject>(json);
+                    //generete password
+                    string pass = CreatePassword(6); 
 
-                    string json2 = macros.wialon_request_new("&svc=core/create_resource&params={" +
-                                                            "\"creatorId\":\"" + m.item.id + "\"," +
+                    // cteate new user 
+                    string created_user_answer = macros.wialon_request_new("&svc=core/create_user&params={" +
+                                                            "\"creatorId\":\""+vars_form.wl_user_id+"\"," +
+                                                            "\"name\":\"" + email_textBox.Text + "\"," +
+                                                            "\"password\":\"" +pass+ "\"," +
+                                                            "\"dataFlags\":\"1\"}");
+                    var created_user_data = JsonConvert.DeserializeObject<RootObject>(created_user_answer);
+
+                    // create resours name: newuser
+                    string created_resource_answer = macros.wialon_request_new("&svc=core/create_resource&params={" +
+                                                            "\"creatorId\":\"" + created_user_data.item.id + "\"," +
                                                             "\"name\":\"" + email_textBox.Text + "\"," +
                                                             "\"dataFlags\":\"1\"," +
                                                             "\"skipCreatorCheck\":\"1\"}");
-                    var m2 = JsonConvert.DeserializeObject<RootObject>(json2);
+                    var created_resource_data = JsonConvert.DeserializeObject<RootObject>(created_resource_answer);
 
-                    string json3 = macros.wialon_request_new("&svc=core/create_resource&params={" +
-                                                             "\"creatorId\":\"" + m.item.id + "\"," +
+                    // create resours name: newuser_user
+                    string created_resource_user_answer = macros.wialon_request_new("&svc=core/create_resource&params={" +
+                                                             "\"creatorId\":\"" + created_user_data.item.id + "\"," +
                                                              "\"name\":\"" + email_textBox.Text + "_user" + "\"," +
                                                              "\"dataFlags\":\"1\"," +
                                                              "\"skipCreatorCheck\":\"1\"}");
-                    var m3 = JsonConvert.DeserializeObject<RootObject>(json3);
+                    var created_resource_user_data = JsonConvert.DeserializeObject<RootObject>(created_resource_user_answer);
 
 
-                    ///////////
                     //Доступ на объект
-                    string json4 = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                            "\"userId\":\"" + m.item.id + "\"," +
+                    string set_right_object_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                            "\"userId\":\"" + created_user_data.item.id + "\"," +
                                                             "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
-                                                            "\"accessMask\":\"550594678661\"}");
-                    var m4 = JsonConvert.DeserializeObject<RootObject>(json4);
-                    //Доступ на ресурс 1
-                    string json5 = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                             "\"userId\":\"" + m.item.id + "\"," +
-                                                             "\"itemId\":\"" + m2.item.id + "\"," +
+                                                            "\"accessMask\":\"550611455877‬\"}");
+                    var set_right_object = JsonConvert.DeserializeObject<RootObject>(set_right_object_answer);
+
+
+                    if (vars_form.wl_user_id == 9605)
+                    {
+                        //Доступ username support
+                        string set_right_user_suport_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                                 "\"userId\":\"3413\"," +
+                                                                 "\"itemId\":\"" + created_user_data.item.id + "\"," +
+                                                                 "\"accessMask\":\"-1\"}");
+                        var set_right_user_suport_ = JsonConvert.DeserializeObject<RootObject>(set_right_user_suport_answer);
+
+                        //Доступ на ресурс: username for support
+                        string set_right_resource_support_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                                 "\"userId\":\"" + "3413" + "\"," +
+                                                                 "\"itemId\":\"" + created_resource_data.item.id + "\"," +
+                                                                 "\"accessMask\":\"-1\"}");
+                        var set_right_resourc_support = JsonConvert.DeserializeObject<RootObject>(set_right_resource_support_answer);
+
+                        //Доступ на ресурс: username_user support
+                        string set_right_resource_user_support_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                                 "\"userId\":\"" + "3413" + "\"," +
+                                                                 "\"itemId\":\"" + created_resource_user_data.item.id + "\"," +
+                                                                 "\"accessMask\":\"-1\"}");
+                        var set_right_resource_user_support = JsonConvert.DeserializeObject<RootObject>(set_right_resource_user_support_answer);
+                    }
+                    else if (vars_form.wl_user_id == 3413)
+                    {
+                        //Доступ username support2
+                        string set_right_user_suport2_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                             "\"userId\":\"9605\"," +
+                                                             "\"itemId\":\"" + created_user_data.item.id + "\"," +
+                                                             "\"accessMask\":\"-1\"}");
+                        var set_right_user_suport2_ = JsonConvert.DeserializeObject<RootObject>(set_right_user_suport2_answer);
+
+                        //Доступ на ресурс: username for support2
+                        string set_right_resource_support2_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                                 "\"userId\":\"" + "9605" + "\"," +
+                                                                 "\"itemId\":\"" + created_resource_data.item.id + "\"," +
+                                                                 "\"accessMask\":\"-1\"}");
+                        var set_right_resourc_support2 = JsonConvert.DeserializeObject<RootObject>(set_right_resource_support2_answer);
+                        //Доступ на ресурс: username_user support2
+                        string set_right_resource_user_support2_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                                 "\"userId\":\"" + "9605" + "\"," +
+                                                                 "\"itemId\":\"" + created_resource_user_data.item.id + "\"," +
+                                                                 "\"accessMask\":\"-1\"}");
+                        var set_right_resource_user_support2 = JsonConvert.DeserializeObject<RootObject>(set_right_resource_user_support2_answer);
+
+
+                    }
+                    else if (vars_form.wl_user_id == 25)
+                    {
+                        //Доступ username support
+                        string set_right_user_suport_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                                 "\"userId\":\"3413\"," +
+                                                                 "\"itemId\":\"" + created_user_data.item.id + "\"," +
+                                                                 "\"accessMask\":\"-1\"}");
+                        var set_right_user_suport_ = JsonConvert.DeserializeObject<RootObject>(set_right_user_suport_answer);
+
+                        //Доступ username support2
+                        string set_right_user_suport2_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                             "\"userId\":\"9605\"," +
+                                                             "\"itemId\":\"" + created_user_data.item.id + "\"," +
+                                                             "\"accessMask\":\"-1\"}");
+                        var set_right_user_suport2_ = JsonConvert.DeserializeObject<RootObject>(set_right_user_suport2_answer);
+
+                        //Доступ на ресурс: username for support
+                        string set_right_resource_support_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                                 "\"userId\":\"" + "3413" + "\"," +
+                                                                 "\"itemId\":\"" + created_resource_data.item.id + "\"," +
+                                                                 "\"accessMask\":\"-1\"}");
+                        var set_right_resourc_support = JsonConvert.DeserializeObject<RootObject>(set_right_resource_support_answer);
+
+
+
+                        //Доступ на ресурс: username for support2
+                        string set_right_resource_support2_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                                 "\"userId\":\"" + "9605" + "\"," +
+                                                                 "\"itemId\":\"" + created_resource_data.item.id + "\"," +
+                                                                 "\"accessMask\":\"-1\"}");
+                        var set_right_resourc_support2 = JsonConvert.DeserializeObject<RootObject>(set_right_resource_support2_answer);
+
+
+                        //Доступ на ресурс: username_user support
+                        string set_right_resource_user_support_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                                 "\"userId\":\"" + "3413" + "\"," +
+                                                                 "\"itemId\":\"" + created_resource_user_data.item.id + "\"," +
+                                                                 "\"accessMask\":\"-1\"}");
+                        var set_right_resource_user_support = JsonConvert.DeserializeObject<RootObject>(set_right_resource_user_support_answer);
+
+                        //Доступ на ресурс: username_user support2
+                        string set_right_resource_user_support2_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                                 "\"userId\":\"" + "9605" + "\"," +
+                                                                 "\"itemId\":\"" + created_resource_user_data.item.id + "\"," +
+                                                                 "\"accessMask\":\"-1\"}");
+                        var set_right_resource_user_support2 = JsonConvert.DeserializeObject<RootObject>(set_right_resource_user_support2_answer);
+                    }
+
+                    //Доступ на ресурс: username
+                    string set_right_resource_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                             "\"userId\":\"" + created_user_data.item.id + "\"," +
+                                                             "\"itemId\":\"" + created_resource_data.item.id + "\"," +
                                                              "\"accessMask\":\"4648339329\"}");
-                    var m5 = JsonConvert.DeserializeObject<RootObject>(json5);
-                    //Доступ на ресурс 2
-                    string json6 = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                             "\"userId\":\"" + m.item.id + "\"," +
-                                                             "\"itemId\":\"" + m3.item.id + "\"," +
+                    var set_right_resource = JsonConvert.DeserializeObject<RootObject>(set_right_resource_answer);
+
+                    
+
+
+
+
+                    //Доступ на ресурс: username_user
+                    string set_right_resource_user_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                             "\"userId\":\"" + created_user_data.item.id + "\"," +
+                                                             "\"itemId\":\"" + created_resource_user_data.item.id + "\"," +
                                                              "\"accessMask\":\"52785134440321\"}");
-                    var m6 = JsonConvert.DeserializeObject<RootObject>(json6);
+                    var set_right_resource_user = JsonConvert.DeserializeObject<RootObject>(set_right_resource_user_answer);
 
-                    treeView_user_accounts.Nodes.Clear();
-                    build_list_account();//обновляем тривив
-                    treeView_user_accounts.Nodes[0].Expand();
+                   
 
+
+
+                    //get product id from id object
+                    string product_id = get_product_from_id_object(vars_form.id_object_for_activation);
+
+                    //create notif depends product id
+                    
+                    if (product_id == "10" || product_id == "11")//CNTP_910, CNTK_910
+                    {
+                        create_notif_910(email_textBox.Text, created_user_data.item.id, vars_form.id_object_for_activation, created_resource_data.item.id, created_resource_user_data.item.id);
+                    }
+                    else if (product_id == "2" || product_id == "3")//CNTP, CNTK
+                    {
+                        create_notif_730(email_textBox.Text, created_user_data.item.id, vars_form.id_object_for_activation, created_resource_data.item.id, created_resource_user_data.item.id);
+                    }
+                    else 
+                    { 
+                        MessageBox.Show("Невідомий продукт, сповіщення не створені"); 
+                    }
+                    string Body = "<p>Добрий день!</p><p></p><p>На Ваш запит</p><p>Для Вас було відновлено пароль для доступу в систему моніторингу ВЕНБЕСТ. </p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою мобільного додатку:</p><p>1.Завантажте мобільний додаток Wialon Local: https://venbest.ua/gps-prilozheniia/</p> <p>2.При першому вході в мобільний додаток введіть такі дані:</p><p>a.Адреса серверу: https://navi.venbest.com.ua/;</p> <p>Посилання вводиться зверху сторінки вводу логіну та паролю. Після його введення необхідно натиснути на іконку у вигляді щита (праворуч рядка вводу).</p><p>b.Логін: " + email_textBox.Text + "</p><p>c.Пароль: " + pass + " </p><p>Зверніть, будь ласка, увагу, що логін та пароль чутливий до регістру символів, які ви вводите.</p><p> <br></p><p>3.Якщо ви бажаєте отримувати сповіщення, увімкніть їх в налаштуваннях.</p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою браузеру:</p><p>1.Перейдіть за посиланням: https://navi.venbest.com.ua/</p> <p>2.Введіть логін: " + email_textBox.Text + "</p><p>3.Введіть пароль: " + pass + "</p><p>  <br></p><p>Змініть, будь ласка, пароль в налаштуваннях користувача при вході через браузер.</p><p>----------------------------------------------</p><p>Департамент супутникових систем охорони</p><p>Група Компаній «ВЕНБЕСТ»</p><p>Т 044 501 33 77;</p><p>auto@venbest.com.ua | https://venbest.ua/ohrana-avto-i-zashchita-ot-ugona</p>";
+                    macros.send_mail_auto(email_textBox.Text, "ВЕНБЕСТ. Вхід в систему моніторингу", Body);
+                    macros.send_mail_auto("auto@venbest.com.ua", "ВЕНБЕСТ. Вхід в систему моніторингу", Body);
+
+                    //log user action
+                    macros.LogUserAction(vars_form.user_login_id, "Сворити користувача та дозолити перегляд авто", "", "Created user: " + email_textBox.Text + ", Pass: " +pass+ ", Rights for object: " + vars_form.id_object_for_activation + "", Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
+                    
+                    
+                    //update treeView_user_accounts after making chenge
+                    build_list_account();
+
+                    textBox_account_pss.Text = pass;
                 }
                 else if (dialogResult == DialogResult.No)
                 {
@@ -575,103 +770,28 @@ namespace Disp_WinForm
             {
                 MessageBox.Show("Перевірьте імя користувача");
             }
-
-            
         }
 
-        private void load_form()
+
+
+
+        private string get_product_from_id_object(string id_oject)
         {
-            string json = macros.wialon_request_new("&svc=core/search_items&params={" +
-                                                    "\"spec\":{" +
-                                                    "\"itemsType\":\"avl_unit\"," +
-                                                    "\"propName\":\"sys_id\"," +
-                                                    "\"propValueMask\":\"" + vars_form.id_object_for_activation + "\", " +
-                                                    "\"sortType\":\"sys_name\"," +
-                                                    "\"or_logic\":\"1\"}," +
-                                                    "\"force\":\"1\"," +
-                                                    "\"flags\":\"4611686018427387903\"," +
-                                                    "\"from\":\"0\"," +
-                                                    "\"to\":\"5\"}");
-            var m = JsonConvert.DeserializeObject<RootObject>(json);
+            //get product of testing device
+            string get_produt_testing_device = macros.sql_command("select " +
+                                                                   "products_has_Tarif.products_idproducts " +
+                                                                   "from " +
+                                                                   "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
+                                                                   "where " +
+                                                                   "Object.Object_id_wl = " + id_oject + " and " +
+                                                                   "Object.idObject=Object_idObject and " +
+                                                                   "Subscription_idSubscr=idSubscr and " +
+                                                                   "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
 
-            name_object_current_textBox.Text = m.items[0].nm;
-            imei_object_textBox.Text = m.items[0].uid;
-            uvaga_textBox.Text = m.items[0].flds[1].v;
-            name_obj_new_textBox.Text = m.items[0].nm;
+            return get_produt_testing_device;
         }
 
-        private void button_chenge_uvaga_Click(object sender, EventArgs e)
-        {
-            string json = macros.wialon_request_new("&svc=item/update_name&params={" +
-                                                    "\"itemId\":\""+vars_form.id_object_for_activation+"\"," +
-                                                    "\"name\":\""+name_obj_new_textBox.Text.ToString()+"\"}");
-            var m = JsonConvert.DeserializeObject<RootObject>(json);
-
-            if (m.error == 0)
-            {
-                
-                string st =macros.sql_command("UPDATE btk.Object " +
-                               "SET " +
-                               "Object_name = '" + name_obj_new_textBox.Text + "' " +
-                               "WHERE " +
-                               "idObject = '" + vars_form.id_db_object_for_activation + "';");
-                if (st == "")
-                {
-                    load_form();
-                    MessageBox.Show("Змінено!");
-                }
-                else
-                {
-                    MessageBox.Show("Упс, здається не вийшло");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Упс, здається не вийшло");
-            }
-
-        }
-
-        private void cancel_button_Click(object sender, EventArgs e)
-        {
-            if (name_obj_new_textBox.Text == name_object_current_textBox.Text)
-            {
-                this.Close();
-            }
-            else
-            {
-                DialogResult dialogResult = MessageBox.Show("Назва обєкту змінена", "Зберегти?", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    //button_chenge_uvaga.PerformClick();
-                    this.Close();
-
-                }
-                else if (dialogResult == DialogResult.No)
-                {
-                    this.Close();
-                }
-            }
-        }
-
-        private void treeView_user_accounts_BeforeSelect(object sender, TreeViewCancelEventArgs e)
-        {
-            if (_unselectableNodes.Contains(e.Node))
-            {
-                e.Cancel = true;
-            }   
-        }
-
-        private void listBox_activation_list_search_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            if (listBox_activation_list_search.SelectedItem != null)
-            {
-                email_textBox.Text = listBox_activation_list_search.SelectedValue.ToString();
-            }
-            
-           
-        }
-
+        //generate new pass for user account, send email to user
         private void pass_reset_button_Click(object sender, EventArgs e)
         {
             if (treeView_user_accounts.SelectedNode is null)
@@ -702,42 +822,1189 @@ namespace Disp_WinForm
                                                              "\"newPassword\":\"" + new_pass + "\"}");
                     var m1 = JsonConvert.DeserializeObject<RootObject>(json1);
 
+                    string Body = "<p>Добрий день!</p><p>;</p><p>Відповідно до Вашого запиту,</p><p>Для Вас було відновлено пароль для доступу в систему моніторингу ВЕНБЕСТ. </p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою мобільного додатку:</p><p>1.Завантажте мобільний додаток Wialon Local: https://venbest.ua/gps-prilozheniia/</p> <p>2.При першому вході в мобільний додаток введіть такі дані:</p><p>a.Адреса серверу: https://navi.venbest.com.ua/;</p> <p>Посилання вводиться зверху сторінки вводу логіну та паролю. Після його введення необхідно натиснути на іконку у вигляді щита (праворуч рядка вводу).</p><p>b.Логін: "+ treeView_user_accounts.SelectedNode.Text + "</p><p>c.Пароль: " + new_pass + " </p><p>Зверніть, будь ласка, увагу, що логін та пароль чутливий до регістру символів, які ви вводите.</p><p> <br></p><p>3.Якщо ви бажаєте отримувати сповіщення, увімкніть їх в налаштуваннях.</p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою браузеру:</p><p>1.Перейдіть за посиланням: https://navi.venbest.com.ua/</p> <p>2.Введіть логін: "+ treeView_user_accounts.SelectedNode.Text + "</p><p>3.Введіть пароль: "+new_pass+"</p><p>  <br></p><p>Змініть, будь ласка, пароль в налаштуваннях користувача при вході через браузер.</p><p>----------------------------------------------</p><p>Департамент супутникових систем охорони</p><p>Група Компаній «ВЕНБЕСТ»</p><p>Т 044 501 33 77;</p><p>auto@venbest.com.ua | https://venbest.ua/ohrana-avto-i-zashchita-ot-ugona</p>";
+                    macros.send_mail_auto(treeView_user_accounts.SelectedNode.Text, "ВЕНБЕСТ. Вхід в систему моніторингу", Body+new_pass);
+                    macros.send_mail_auto("auto@venbest.com.ua", "ВЕНБЕСТ. Вхід в систему моніторингу", Body + new_pass);
+
+                    //log user action
+                    macros.LogUserAction(vars_form.user_login_id, "Встановити новий пароль та надіслати вибранному користувачу", treeView_user_accounts.SelectedNode.Text, new_pass, Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
+
+                    textBox_account_pss.Text = new_pass;
                 }
                 else if (dialogResult == DialogResult.No)
                 {
                 }
-                
+
             }
+        }
+
+        // Delete notif for needed resource
+        private string delete_notif(int resours_id, int notif_id)
+        {
+            string CreteNotifAnswer = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+                                                            "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
+                                                            "\"id\":\""+notif_id+"\"," +                                                   /* ID уведомления (0 для создания) */
+                                                            "\"callMode\":\"delete\"" +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
+                                                        "}"
+                                                    );
+            return CreteNotifAnswer;
+        }
+
+        // CNTP_910 create nitif for new user account
+        private void create_notif_910(string user_account_name, int user_account_id, string object_id, int resours_id, int resours_user_id)
+        {
+            //Cработка: Датчик удара/наклона/буксировки
+            string CreteNotifAnswer = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+                                                            "\"itemId\":\""+ resours_id +"\"," +                                             /* ID ресурса */ 
+                                                            "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
+                                                            "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
+                                                            "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
+                                                            "\"n\":\"Cработка: Датчик удара/наклона\"," +                            /* название */
+                                                            "\"txt\":\"%UNIT%: сработал датчик удара/наклона. Время сработки: %MSG_TIME%. В %POS_TIME% автомобиль находился около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
+                                                            "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
+                                                            "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
+                                                            "\"mmtd\":\"0\"," +                                                 /* максимальный временной интервал между сообщениями (секунд) */
+                                                            "\"cdt\":\"0\"," +                                                  /* таймаут срабатывания(секунд) */
+                                                            "\"mast\":\"0\"," +                                                 /* минимальная продолжительность тревожного состояния (секунд) */
+                                                            "\"mpst\":\"30\"," +                                                 /* минимальная продолжительность предыдущего состояния (секунд) */
+                                                            "\"cp\":\"0\"," +                                                   /* период контроля относительно текущего времени (секунд) */
+                                                            "\"fl\":\"0\"," +                                                   /* флаги: 0=уведомление срабатывает на первое сообщение, 1=уведомление срабатывает на каждое сообщение, 2=уведомление выключено */
+                                                            "\"tz\":\"7200\"," +                                                /* часовой пояс */
+                                                            "\"la\":\"ru\"," +                                                  /* язык пользователя (двухбуквенный код) */
+                                                            "\"ac\":\"0\"," +                                                   /* количество срабатываний */
+                                                            "\"un\":[" + object_id + "]," +     /* массив ID объектов/групп объектов */
+                                                            "\"sch\":{" +                                                       /* ограничение по времени */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"ctrl_sch\":{" +                                                  /* расписание периодов ограничения количества срабатывания */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"trg\":{" +                                                       /* контроль */
+                                                                        "\"t\":\"sensor_value\"," +                             /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_kontrolja */
+                                                                        "\"p\":{" +
+                                                                                "\"lower_bound\":\"1\"," +                          /* значение датчика от */
+                                                                                "\"merge\":\"1\"," +                                /* одинаковые датчики: 0 - считать отдельно, 1 - суммировать значения */
+                                                                                "\"prev_msg_diff\":\"0\"," +                        /* флаг, позволяющий сформировать диапазон для текущего значения с помощью предыдущего значения(prev) следующим образом: [prev+lower_bound ; prev+upper_bound] -- таким образом диапазон для текущего значения всегда относителен и зависит от предыдущего значения; 0 - выключить опцию, 1 - включить опцию */
+                                                                                "\"sensor_name_mask\":\"Сработка датчика ударов\"," +               /* маска названия датчика */
+                                                                                "\"sensor_type\":\"digital\"," +                    /* тип датчика */
+                                                                                "\"type\":\"0\"," +                                 /* срабатывать: 0 - в рамках установленных значений, 1 - за пределами установленных значений */
+                                                                                "\"upper_bound\":\"1\"" +                           /* значение датчика до */
+                                                                        "}" +
+                                                            "}," +
+                                                            "\"act\":[" +                                                       /* действия */
+                                                                        "{" +
+                                                                            "\"t\":\"message\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"color\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"email\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"email_to\":\""+ user_account_name +"\"," +
+                                                                                    "\"html\":\"0\"," +
+                                                                                    "\"img_attach\":\"0\"," +
+                                                                                    "\"subj\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"event\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"flags\":\"0\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"mobile_apps\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"apps\":\"{" + "\\" + "\"Wialon Local" + "\\"+"\"" + ":" + "[" + user_account_id + "]" + "}\"" +
+                                                                                   "}" +
+                                                                        "}" +
+                                                                 "]" +
+                                                        "}"
+                                                    );
+
+            //Блокировка двигателя
+            string CreteNotifAnswer2 = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+                                                            "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
+                                                            "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
+                                                            "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
+                                                            "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
+                                                            "\"n\":\"Блокировка двигателя\"," +                                 /* название */
+                                                            "\"txt\":\"%UNIT%: Произошла блокировка двигателя. Время сработки: %MSG_TIME%  В %POS_TIME% автомобиль двигался со скоростью %SPEED% около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
+                                                            "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
+                                                            "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
+                                                            "\"mmtd\":\"0\"," +                                                 /* максимальный временной интервал между сообщениями (секунд) */
+                                                            "\"cdt\":\"0\"," +                                                  /* таймаут срабатывания(секунд) */
+                                                            "\"mast\":\"0\"," +                                                 /* минимальная продолжительность тревожного состояния (секунд) */
+                                                            "\"mpst\":\"30\"," +                                                 /* минимальная продолжительность предыдущего состояния (секунд) */
+                                                            "\"cp\":\"0\"," +                                                   /* период контроля относительно текущего времени (секунд) */
+                                                            "\"fl\":\"0\"," +                                                   /* флаги: 0=уведомление срабатывает на первое сообщение, 1=уведомление срабатывает на каждое сообщение, 2=уведомление выключено */
+                                                            "\"tz\":\"7200\"," +                                                /* часовой пояс */
+                                                            "\"la\":\"ru\"," +                                                  /* язык пользователя (двухбуквенный код) */
+                                                            "\"ac\":\"0\"," +                                                   /* количество срабатываний */
+                                                            "\"un\":[" + object_id + "]," +     /* массив ID объектов/групп объектов */
+                                                            "\"sch\":{" +                                                       /* ограничение по времени */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"ctrl_sch\":{" +                                                  /* расписание периодов ограничения количества срабатывания */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"trg\":{" +                                                       /* контроль */
+                                                                        "\"t\":\"sensor_value\"," +                             /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_kontrolja */
+                                                                        "\"p\":{" +
+                                                                                "\"lower_bound\":\"1\"," +                          /* значение датчика от */
+                                                                                "\"merge\":\"1\"," +                                /* одинаковые датчики: 0 - считать отдельно, 1 - суммировать значения */
+                                                                                "\"prev_msg_diff\":\"0\"," +                        /* флаг, позволяющий сформировать диапазон для текущего значения с помощью предыдущего значения(prev) следующим образом: [prev+lower_bound ; prev+upper_bound] -- таким образом диапазон для текущего значения всегда относителен и зависит от предыдущего значения; 0 - выключить опцию, 1 - включить опцию */
+                                                                                "\"sensor_name_mask\":\"Автоматическая блокировка двигателя\"," +               /* маска названия датчика */
+                                                                                "\"sensor_type\":\"digital\"," +                    /* тип датчика */
+                                                                                "\"type\":\"0\"," +                                 /* срабатывать: 0 - в рамках установленных значений, 1 - за пределами установленных значений */
+                                                                                "\"upper_bound\":\"1\"" +                           /* значение датчика до */
+                                                                        "}" +
+                                                            "}," +
+                                                            "\"act\":[" +                                                       /* действия */
+                                                                        "{" +
+                                                                            "\"t\":\"message\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"color\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"email\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"email_to\":\"" + user_account_name + "\"," +
+                                                                                    "\"html\":\"0\"," +
+                                                                                    "\"img_attach\":\"0\"," +
+                                                                                    "\"subj\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"event\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"flags\":\"0\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"mobile_apps\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"apps\":\"{" + "\\" + "\"Wialon Local" + "\\" + "\"" + ":" + "[" + user_account_id + "]" + "}\"" +
+                                                                                   "}" +
+                                                                        "}" +
+                                                                 "]" +
+                                                        "}"
+                                                    );
+
+            //Низкое напряжения АКБ
+            string CreteNotifAnswer3 = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+                                                            "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
+                                                            "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
+                                                            "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
+                                                            "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
+                                                            "\"n\":\"Низкое напряжения АКБ\"," +                                 /* название */
+                                                            "\"txt\":\"%UNIT%: низкое напряжение АКБ. Автомобиль находился около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
+                                                            "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
+                                                            "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
+                                                            "\"mmtd\":\"0\"," +                                                 /* максимальный временной интервал между сообщениями (секунд) */
+                                                            "\"cdt\":\"0\"," +                                                  /* таймаут срабатывания(секунд) */
+                                                            "\"mast\":\"300\"," +                                                 /* минимальная продолжительность тревожного состояния (секунд) */
+                                                            "\"mpst\":\"60\"," +                                                 /* минимальная продолжительность предыдущего состояния (секунд) */
+                                                            "\"cp\":\"0\"," +                                                   /* период контроля относительно текущего времени (секунд) */
+                                                            "\"fl\":\"0\"," +                                                   /* флаги: 0=уведомление срабатывает на первое сообщение, 1=уведомление срабатывает на каждое сообщение, 2=уведомление выключено */
+                                                            "\"tz\":\"7200\"," +                                                /* часовой пояс */
+                                                            "\"la\":\"ru\"," +                                                  /* язык пользователя (двухбуквенный код) */
+                                                            "\"ac\":\"0\"," +                                                   /* количество срабатываний */
+                                                            "\"un\":[" + object_id + "]," +     /* массив ID объектов/групп объектов */
+                                                            "\"sch\":{" +                                                       /* ограничение по времени */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"ctrl_sch\":{" +                                                  /* расписание периодов ограничения количества срабатывания */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"trg\":{" +                                                       /* контроль */
+                                                                        "\"t\":\"sensor_value\"," +                             /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_kontrolja */
+                                                                        "\"p\":{" +
+                                                                                "\"lower_bound\":\"0\"," +                          /* значение датчика от */
+                                                                                "\"merge\":\"1\"," +                                /* одинаковые датчики: 0 - считать отдельно, 1 - суммировать значения */
+                                                                                "\"prev_msg_diff\":\"0\"," +                        /* флаг, позволяющий сформировать диапазон для текущего значения с помощью предыдущего значения(prev) следующим образом: [prev+lower_bound ; prev+upper_bound] -- таким образом диапазон для текущего значения всегда относителен и зависит от предыдущего значения; 0 - выключить опцию, 1 - включить опцию */
+                                                                                "\"sensor_name_mask\":\"Напряжение АКБ\"," +               /* маска названия датчика */
+                                                                                "\"sensor_type\":\"voltage\"," +                    /* тип датчика */
+                                                                                "\"type\":\"0\"," +                                 /* срабатывать: 0 - в рамках установленных значений, 1 - за пределами установленных значений */
+                                                                                "\"upper_bound\":\"11.08\"" +                           /* значение датчика до */
+                                                                        "}" +
+                                                            "}," +
+                                                            "\"act\":[" +                                                       /* действия */
+                                                                        "{" +
+                                                                            "\"t\":\"message\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"color\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"email\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"email_to\":\"" + user_account_name + "\"," +
+                                                                                    "\"html\":\"0\"," +
+                                                                                    "\"img_attach\":\"0\"," +
+                                                                                    "\"subj\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"event\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"flags\":\"0\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"mobile_apps\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"apps\":\"{" + "\\" + "\"Wialon Local" + "\\" + "\"" + ":" + "[" + user_account_id + "]" + "}\"" +
+                                                                                   "}" +
+                                                                        "}" +
+                                                                 "]" +
+                                                        "}"
+                                                    );
+
+            //Сработка: Датчики взлома
+            string CreteNotifAnswer4 = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+                                                            "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
+                                                            "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
+                                                            "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
+                                                            "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
+                                                            "\"n\":\"Сработка: Датчики взлома\"," +                                 /* название */
+                                                            "\"txt\":\"%UNIT%: Несанкционированное открытие дверей, капота или багажника. Время сработки: %MSG_TIME%. Автомобиль находился около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
+                                                            "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
+                                                            "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
+                                                            "\"mmtd\":\"0\"," +                                                 /* максимальный временной интервал между сообщениями (секунд) */
+                                                            "\"cdt\":\"0\"," +                                                  /* таймаут срабатывания(секунд) */
+                                                            "\"mast\":\"0\"," +                                                 /* минимальная продолжительность тревожного состояния (секунд) */
+                                                            "\"mpst\":\"60\"," +                                                 /* минимальная продолжительность предыдущего состояния (секунд) */
+                                                            "\"cp\":\"0\"," +                                                   /* период контроля относительно текущего времени (секунд) */
+                                                            "\"fl\":\"0\"," +                                                   /* флаги: 0=уведомление срабатывает на первое сообщение, 1=уведомление срабатывает на каждое сообщение, 2=уведомление выключено */
+                                                            "\"tz\":\"7200\"," +                                                /* часовой пояс */
+                                                            "\"la\":\"ru\"," +                                                  /* язык пользователя (двухбуквенный код) */
+                                                            "\"ac\":\"0\"," +                                                   /* количество срабатываний */
+                                                            "\"un\":[" + object_id + "]," +     /* массив ID объектов/групп объектов */
+                                                            "\"sch\":{" +                                                       /* ограничение по времени */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"ctrl_sch\":{" +                                                  /* расписание периодов ограничения количества срабатывания */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"trg\":{" +                                                       /* контроль */
+                                                                        "\"t\":\"sensor_value\"," +                             /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_kontrolja */
+                                                                        "\"p\":{" +
+                                                                                "\"lower_bound\":\"1\"," +                          /* значение датчика от */
+                                                                                "\"merge\":\"1\"," +                                /* одинаковые датчики: 0 - считать отдельно, 1 - суммировать значения */
+                                                                                "\"prev_msg_diff\":\"0\"," +                        /* флаг, позволяющий сформировать диапазон для текущего значения с помощью предыдущего значения(prev) следующим образом: [prev+lower_bound ; prev+upper_bound] -- таким образом диапазон для текущего значения всегда относителен и зависит от предыдущего значения; 0 - выключить опцию, 1 - включить опцию */
+                                                                                "\"sensor_name_mask\":\"Сработка открытие дверей в охране\"," +               /* маска названия датчика */
+                                                                                "\"sensor_type\":\"digital\"," +                    /* тип датчика */
+                                                                                "\"type\":\"0\"," +                                 /* срабатывать: 0 - в рамках установленных значений, 1 - за пределами установленных значений */
+                                                                                "\"upper_bound\":\"1\"" +                           /* значение датчика до */
+                                                                        "}" +
+                                                            "}," +
+                                                            "\"act\":[" +                                                       /* действия */
+                                                                        "{" +
+                                                                            "\"t\":\"message\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"color\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"email\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"email_to\":\"" + user_account_name + "\"," +
+                                                                                    "\"html\":\"0\"," +
+                                                                                    "\"img_attach\":\"0\"," +
+                                                                                    "\"subj\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"event\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"flags\":\"0\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"mobile_apps\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"apps\":\"{" + "\\" + "\"Wialon Local" + "\\" + "\"" + ":" + "[" + user_account_id + "]" + "}\"" +
+                                                                                   "}" +
+                                                                        "}" +
+                                                                 "]" +
+                                                        "}"
+                                                    );
+
+            //Сработка: Датчики взлома
+            string CreteNotifAnswer5 = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+                                                            "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
+                                                            "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
+                                                            "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
+                                                            "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
+                                                            "\"n\":\"ТРЕВОЖНАЯ КНОПКА\"," +                                 /* название */
+                                                            "\"txt\":\"%UNIT%: НАЖАТА ТРЕВОЖНАЯ КНОПКА!!!!! Время сработки: %MSG_TIME%. В %POS_TIME% объект двигался со скоростью %SPEED% около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
+                                                            "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
+                                                            "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
+                                                            "\"mmtd\":\"0\"," +                                                 /* максимальный временной интервал между сообщениями (секунд) */
+                                                            "\"cdt\":\"0\"," +                                                  /* таймаут срабатывания(секунд) */
+                                                            "\"mast\":\"0\"," +                                                 /* минимальная продолжительность тревожного состояния (секунд) */
+                                                            "\"mpst\":\"0\"," +                                                 /* минимальная продолжительность предыдущего состояния (секунд) */
+                                                            "\"cp\":\"0\"," +                                                   /* период контроля относительно текущего времени (секунд) */
+                                                            "\"fl\":\"0\"," +                                                   /* флаги: 0=уведомление срабатывает на первое сообщение, 1=уведомление срабатывает на каждое сообщение, 2=уведомление выключено */
+                                                            "\"tz\":\"7200\"," +                                                /* часовой пояс */
+                                                            "\"la\":\"ru\"," +                                                  /* язык пользователя (двухбуквенный код) */
+                                                            "\"ac\":\"0\"," +                                                   /* количество срабатываний */
+                                                            "\"un\":[" + object_id + "]," +     /* массив ID объектов/групп объектов */
+                                                            "\"sch\":{" +                                                       /* ограничение по времени */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"ctrl_sch\":{" +                                                  /* расписание периодов ограничения количества срабатывания */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"trg\":{" +                                                       /* контроль */
+                                                                        "\"t\":\"sensor_value\"," +                             /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_kontrolja */
+                                                                        "\"p\":{" +
+                                                                                "\"lower_bound\":\"1\"," +                          /* значение датчика от */
+                                                                                "\"merge\":\"1\"," +                                /* одинаковые датчики: 0 - считать отдельно, 1 - суммировать значения */
+                                                                                "\"prev_msg_diff\":\"0\"," +                        /* флаг, позволяющий сформировать диапазон для текущего значения с помощью предыдущего значения(prev) следующим образом: [prev+lower_bound ; prev+upper_bound] -- таким образом диапазон для текущего значения всегда относителен и зависит от предыдущего значения; 0 - выключить опцию, 1 - включить опцию */
+                                                                                "\"sensor_name_mask\":\"Тревожная кнопка_\"," +               /* маска названия датчика */
+                                                                                "\"sensor_type\":\"digital\"," +                    /* тип датчика */
+                                                                                "\"type\":\"0\"," +                                 /* срабатывать: 0 - в рамках установленных значений, 1 - за пределами установленных значений */
+                                                                                "\"upper_bound\":\"1\"" +                           /* значение датчика до */
+                                                                        "}" +
+                                                            "}," +
+                                                            "\"act\":[" +                                                       /* действия */
+                                                                        "{" +
+                                                                            "\"t\":\"message\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"color\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"email\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"email_to\":\"" + user_account_name + "\"," +
+                                                                                    "\"html\":\"0\"," +
+                                                                                    "\"img_attach\":\"0\"," +
+                                                                                    "\"subj\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"event\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"flags\":\"0\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"mobile_apps\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"apps\":\"{" + "\\" + "\"Wialon Local" + "\\" + "\"" + ":" + "[" + user_account_id + "]" + "}\"" +
+                                                                                   "}" +
+                                                                        "}" +
+                                                                 "]" +
+                                                        "}"
+                                                    );
+
+        }
+
+        // CNTP_910 create nitif for new user account
+        private void create_notif_730(string user_account_name, int user_account_id, string object_id, int resours_id, int resours_user_id)
+        {
+            //Cработка: Датчик удара/наклона/буксировки
+            string CreteNotifAnswer = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+                                                            "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
+                                                            "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
+                                                            "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
+                                                            "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
+                                                            "\"n\":\"Cработка: Датчик удара/наклона\"," +                            /* название */
+                                                            "\"txt\":\"%UNIT%: сработал датчик удара/наклона/буксировки. Время сработки: %MSG_TIME%. В %POS_TIME% автомобиль находился около '%LOCATION%'.'.\"," +     /* текст уведомления */
+                                                            "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
+                                                            "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
+                                                            "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
+                                                            "\"mmtd\":\"0\"," +                                                 /* максимальный временной интервал между сообщениями (секунд) */
+                                                            "\"cdt\":\"0\"," +                                                  /* таймаут срабатывания(секунд) */
+                                                            "\"mast\":\"0\"," +                                                 /* минимальная продолжительность тревожного состояния (секунд) */
+                                                            "\"mpst\":\"0\"," +                                                 /* минимальная продолжительность предыдущего состояния (секунд) */
+                                                            "\"cp\":\"0\"," +                                                   /* период контроля относительно текущего времени (секунд) */
+                                                            "\"fl\":\"0\"," +                                                   /* флаги: 0=уведомление срабатывает на первое сообщение, 1=уведомление срабатывает на каждое сообщение, 2=уведомление выключено */
+                                                            "\"tz\":\"7200\"," +                                                /* часовой пояс */
+                                                            "\"la\":\"ru\"," +                                                  /* язык пользователя (двухбуквенный код) */
+                                                            "\"ac\":\"0\"," +                                                   /* количество срабатываний */
+                                                            "\"un\":[" + object_id + "]," +     /* массив ID объектов/групп объектов */
+                                                            "\"sch\":{" +                                                       /* ограничение по времени */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"ctrl_sch\":{" +                                                  /* расписание периодов ограничения количества срабатывания */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"trg\":{" +                                                       /* контроль */
+                                                                        "\"t\":\"sensor_value\"," +                             /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_kontrolja */
+                                                                        "\"p\":{" +
+                                                                                "\"lower_bound\":\"1\"," +                          /* значение датчика от */
+                                                                                "\"merge\":\"1\"," +                                /* одинаковые датчики: 0 - считать отдельно, 1 - суммировать значения */
+                                                                                "\"prev_msg_diff\":\"0\"," +                        /* флаг, позволяющий сформировать диапазон для текущего значения с помощью предыдущего значения(prev) следующим образом: [prev+lower_bound ; prev+upper_bound] -- таким образом диапазон для текущего значения всегда относителен и зависит от предыдущего значения; 0 - выключить опцию, 1 - включить опцию */
+                                                                                "\"sensor_name_mask\":\"Датчик удара\"," +               /* маска названия датчика */
+                                                                                "\"sensor_type\":\"digital\"," +                    /* тип датчика */
+                                                                                "\"type\":\"0\"," +                                 /* срабатывать: 0 - в рамках установленных значений, 1 - за пределами установленных значений */
+                                                                                "\"upper_bound\":\"1\"" +                           /* значение датчика до */
+                                                                        "}" +
+                                                            "}," +
+                                                            "\"act\":[" +                                                       /* действия */
+                                                                        "{" +
+                                                                            "\"t\":\"message\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"color\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"email\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"email_to\":\"" + user_account_name + "\"," +
+                                                                                    "\"html\":\"0\"," +
+                                                                                    "\"img_attach\":\"0\"," +
+                                                                                    "\"subj\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"event\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"flags\":\"0\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"mobile_apps\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"apps\":\"{" + "\\" + "\"Wialon Local" + "\\" + "\"" + ":" + "[" + user_account_id + "]" + "}\"" +
+                                                                                   "}" +
+                                                                        "}" +
+                                                                 "]" +
+                                                        "}"
+                                                    );
+
+            //Блокировка двигателя
+            string CreteNotifAnswer2 = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+                                                            "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
+                                                            "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
+                                                            "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
+                                                            "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
+                                                            "\"n\":\"Блокировка двигателя\"," +                                 /* название */
+                                                            "\"txt\":\"%UNIT%: Произошла блокировка двигателя. Время сработки: %MSG_TIME%  В %POS_TIME% автомобиль двигался со скоростью %SPEED% около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
+                                                            "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
+                                                            "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
+                                                            "\"mmtd\":\"0\"," +                                                 /* максимальный временной интервал между сообщениями (секунд) */
+                                                            "\"cdt\":\"0\"," +                                                  /* таймаут срабатывания(секунд) */
+                                                            "\"mast\":\"0\"," +                                                 /* минимальная продолжительность тревожного состояния (секунд) */
+                                                            "\"mpst\":\"0\"," +                                                 /* минимальная продолжительность предыдущего состояния (секунд) */
+                                                            "\"cp\":\"0\"," +                                                   /* период контроля относительно текущего времени (секунд) */
+                                                            "\"fl\":\"0\"," +                                                   /* флаги: 0=уведомление срабатывает на первое сообщение, 1=уведомление срабатывает на каждое сообщение, 2=уведомление выключено */
+                                                            "\"tz\":\"7200\"," +                                                /* часовой пояс */
+                                                            "\"la\":\"ru\"," +                                                  /* язык пользователя (двухбуквенный код) */
+                                                            "\"ac\":\"0\"," +                                                   /* количество срабатываний */
+                                                            "\"un\":[" + object_id + "]," +     /* массив ID объектов/групп объектов */
+                                                            "\"sch\":{" +                                                       /* ограничение по времени */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"ctrl_sch\":{" +                                                  /* расписание периодов ограничения количества срабатывания */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"trg\":{" +                                                       /* контроль */
+                                                                        "\"t\":\"sensor_value\"," +                             /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_kontrolja */
+                                                                        "\"p\":{" +
+                                                                                "\"lower_bound\":\"1\"," +                          /* значение датчика от */
+                                                                                "\"merge\":\"1\"," +                                /* одинаковые датчики: 0 - считать отдельно, 1 - суммировать значения */
+                                                                                "\"prev_msg_diff\":\"0\"," +                        /* флаг, позволяющий сформировать диапазон для текущего значения с помощью предыдущего значения(prev) следующим образом: [prev+lower_bound ; prev+upper_bound] -- таким образом диапазон для текущего значения всегда относителен и зависит от предыдущего значения; 0 - выключить опцию, 1 - включить опцию */
+                                                                                "\"sensor_name_mask\":\"Блокировка иммобилайзера\"," +               /* маска названия датчика */
+                                                                                "\"sensor_type\":\"digital\"," +                    /* тип датчика */
+                                                                                "\"type\":\"0\"," +                                 /* срабатывать: 0 - в рамках установленных значений, 1 - за пределами установленных значений */
+                                                                                "\"upper_bound\":\"1\"" +                           /* значение датчика до */
+                                                                        "}" +
+                                                            "}," +
+                                                            "\"act\":[" +                                                       /* действия */
+                                                                        "{" +
+                                                                            "\"t\":\"message\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"color\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"email\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"email_to\":\"" + user_account_name + "\"," +
+                                                                                    "\"html\":\"0\"," +
+                                                                                    "\"img_attach\":\"0\"," +
+                                                                                    "\"subj\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"event\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"flags\":\"0\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"mobile_apps\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"apps\":\"{" + "\\" + "\"Wialon Local" + "\\" + "\"" + ":" + "[" + user_account_id + "]" + "}\"" +
+                                                                                   "}" +
+                                                                        "}" +
+                                                                 "]" +
+                                                        "}"
+                                                    );
+
+            //Низкое напряжения АКБ
+            string CreteNotifAnswer3 = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+                                                            "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
+                                                            "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
+                                                            "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
+                                                            "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
+                                                            "\"n\":\"Напряжение АКБ\"," +                                 /* название */
+                                                            "\"txt\":\"%UNIT%: низкое напряжение АКБ. Автомобиль находился около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
+                                                            "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
+                                                            "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
+                                                            "\"mmtd\":\"0\"," +                                                 /* максимальный временной интервал между сообщениями (секунд) */
+                                                            "\"cdt\":\"0\"," +                                                  /* таймаут срабатывания(секунд) */
+                                                            "\"mast\":\"300\"," +                                                 /* минимальная продолжительность тревожного состояния (секунд) */
+                                                            "\"mpst\":\"0\"," +                                                 /* минимальная продолжительность предыдущего состояния (секунд) */
+                                                            "\"cp\":\"0\"," +                                                   /* период контроля относительно текущего времени (секунд) */
+                                                            "\"fl\":\"0\"," +                                                   /* флаги: 0=уведомление срабатывает на первое сообщение, 1=уведомление срабатывает на каждое сообщение, 2=уведомление выключено */
+                                                            "\"tz\":\"7200\"," +                                                /* часовой пояс */
+                                                            "\"la\":\"ru\"," +                                                  /* язык пользователя (двухбуквенный код) */
+                                                            "\"ac\":\"0\"," +                                                   /* количество срабатываний */
+                                                            "\"un\":[" + object_id + "]," +     /* массив ID объектов/групп объектов */
+                                                            "\"sch\":{" +                                                       /* ограничение по времени */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"ctrl_sch\":{" +                                                  /* расписание периодов ограничения количества срабатывания */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"trg\":{" +                                                       /* контроль */
+                                                                        "\"t\":\"sensor_value\"," +                             /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_kontrolja */
+                                                                        "\"p\":{" +
+                                                                                "\"lower_bound\":\"0\"," +                          /* значение датчика от */
+                                                                                "\"merge\":\"1\"," +                                /* одинаковые датчики: 0 - считать отдельно, 1 - суммировать значения */
+                                                                                "\"prev_msg_diff\":\"0\"," +                        /* флаг, позволяющий сформировать диапазон для текущего значения с помощью предыдущего значения(prev) следующим образом: [prev+lower_bound ; prev+upper_bound] -- таким образом диапазон для текущего значения всегда относителен и зависит от предыдущего значения; 0 - выключить опцию, 1 - включить опцию */
+                                                                                "\"sensor_name_mask\":\"Напряжение АКБ\"," +               /* маска названия датчика */
+                                                                                "\"sensor_type\":\"voltage\"," +                    /* тип датчика */
+                                                                                "\"type\":\"0\"," +                                 /* срабатывать: 0 - в рамках установленных значений, 1 - за пределами установленных значений */
+                                                                                "\"upper_bound\":\"11.08\"" +                           /* значение датчика до */
+                                                                        "}" +
+                                                            "}," +
+                                                            "\"act\":[" +                                                       /* действия */
+                                                                        "{" +
+                                                                            "\"t\":\"message\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"color\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"email\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"email_to\":\"" + user_account_name + "\"," +
+                                                                                    "\"html\":\"0\"," +
+                                                                                    "\"img_attach\":\"0\"," +
+                                                                                    "\"subj\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"event\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"flags\":\"0\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"mobile_apps\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"apps\":\"{" + "\\" + "\"Wialon Local" + "\\" + "\"" + ":" + "[" + user_account_id + "]" + "}\"" +
+                                                                                   "}" +
+                                                                        "}" +
+                                                                 "]" +
+                                                        "}"
+                                                    );
+
+            //Сработка: Датчики взлома
+            string CreteNotifAnswer4 = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+                                                            "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
+                                                            "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
+                                                            "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
+                                                            "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
+                                                            "\"n\":\"Сработка: Датчики взлома\"," +                                 /* название */
+                                                            "\"txt\":\"%UNIT%: Несанкционированное открытие дверей, капота или багажника. Время сработки: %MSG_TIME%. Автомобиль находился около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
+                                                            "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
+                                                            "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
+                                                            "\"mmtd\":\"0\"," +                                                 /* максимальный временной интервал между сообщениями (секунд) */
+                                                            "\"cdt\":\"0\"," +                                                  /* таймаут срабатывания(секунд) */
+                                                            "\"mast\":\"0\"," +                                                 /* минимальная продолжительность тревожного состояния (секунд) */
+                                                            "\"mpst\":\"0\"," +                                                 /* минимальная продолжительность предыдущего состояния (секунд) */
+                                                            "\"cp\":\"0\"," +                                                   /* период контроля относительно текущего времени (секунд) */
+                                                            "\"fl\":\"0\"," +                                                   /* флаги: 0=уведомление срабатывает на первое сообщение, 1=уведомление срабатывает на каждое сообщение, 2=уведомление выключено */
+                                                            "\"tz\":\"7200\"," +                                                /* часовой пояс */
+                                                            "\"la\":\"ru\"," +                                                  /* язык пользователя (двухбуквенный код) */
+                                                            "\"ac\":\"0\"," +                                                   /* количество срабатываний */
+                                                            "\"un\":[" + object_id + "]," +     /* массив ID объектов/групп объектов */
+                                                            "\"sch\":{" +                                                       /* ограничение по времени */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"ctrl_sch\":{" +                                                  /* расписание периодов ограничения количества срабатывания */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"trg\":{" +                                                       /* контроль */
+                                                                        "\"t\":\"sensor_value\"," +                             /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_kontrolja */
+                                                                        "\"p\":{" +
+                                                                                "\"lower_bound\":\"1\"," +                          /* значение датчика от */
+                                                                                "\"merge\":\"1\"," +                                /* одинаковые датчики: 0 - считать отдельно, 1 - суммировать значения */
+                                                                                "\"prev_msg_diff\":\"0\"," +                        /* флаг, позволяющий сформировать диапазон для текущего значения с помощью предыдущего значения(prev) следующим образом: [prev+lower_bound ; prev+upper_bound] -- таким образом диапазон для текущего значения всегда относителен и зависит от предыдущего значения; 0 - выключить опцию, 1 - включить опцию */
+                                                                                "\"sensor_name_mask\":\"Сработка сигнализации: двери\"," +               /* маска названия датчика */
+                                                                                "\"sensor_type\":\"digital\"," +                    /* тип датчика */
+                                                                                "\"type\":\"0\"," +                                 /* срабатывать: 0 - в рамках установленных значений, 1 - за пределами установленных значений */
+                                                                                "\"upper_bound\":\"1\"" +                           /* значение датчика до */
+                                                                        "}" +
+                                                            "}," +
+                                                            "\"act\":[" +                                                       /* действия */
+                                                                        "{" +
+                                                                            "\"t\":\"message\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"color\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"email\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"email_to\":\"" + user_account_name + "\"," +
+                                                                                    "\"html\":\"0\"," +
+                                                                                    "\"img_attach\":\"0\"," +
+                                                                                    "\"subj\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"event\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"flags\":\"0\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"mobile_apps\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"apps\":\"{" + "\\" + "\"Wialon Local" + "\\" + "\"" + ":" + "[" + user_account_id + "]" + "}\"" +
+                                                                                   "}" +
+                                                                        "}" +
+                                                                 "]" +
+                                                        "}"
+                                                    );
+
+            //Сработка: ТРЕВОЖНАЯ КНОПКА
+            string CreteNotifAnswer5 = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+                                                            "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
+                                                            "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
+                                                            "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
+                                                            "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
+                                                            "\"n\":\"ТРЕВОЖНАЯ КНОПКА\"," +                                 /* название */
+                                                            "\"txt\":\"%UNIT%: НАЖАТА ТРЕВОЖНАЯ КНОПКА!!!!! Время сработки: %MSG_TIME%. В %POS_TIME% объект двигался со скоростью %SPEED% около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
+                                                            "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
+                                                            "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
+                                                            "\"mmtd\":\"0\"," +                                                 /* максимальный временной интервал между сообщениями (секунд) */
+                                                            "\"cdt\":\"0\"," +                                                  /* таймаут срабатывания(секунд) */
+                                                            "\"mast\":\"0\"," +                                                 /* минимальная продолжительность тревожного состояния (секунд) */
+                                                            "\"mpst\":\"0\"," +                                                 /* минимальная продолжительность предыдущего состояния (секунд) */
+                                                            "\"cp\":\"0\"," +                                                   /* период контроля относительно текущего времени (секунд) */
+                                                            "\"fl\":\"0\"," +                                                   /* флаги: 0=уведомление срабатывает на первое сообщение, 1=уведомление срабатывает на каждое сообщение, 2=уведомление выключено */
+                                                            "\"tz\":\"7200\"," +                                                /* часовой пояс */
+                                                            "\"la\":\"ru\"," +                                                  /* язык пользователя (двухбуквенный код) */
+                                                            "\"ac\":\"0\"," +                                                   /* количество срабатываний */
+                                                            "\"un\":[" + object_id + "]," +     /* массив ID объектов/групп объектов */
+                                                            "\"sch\":{" +                                                       /* ограничение по времени */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"ctrl_sch\":{" +                                                  /* расписание периодов ограничения количества срабатывания */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"trg\":{" +                                                       /* контроль */
+                                                                        "\"t\":\"sensor_value\"," +                             /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_kontrolja */
+                                                                        "\"p\":{" +
+                                                                                "\"lower_bound\":\"1\"," +                          /* значение датчика от */
+                                                                                "\"merge\":\"1\"," +                                /* одинаковые датчики: 0 - считать отдельно, 1 - суммировать значения */
+                                                                                "\"prev_msg_diff\":\"0\"," +                        /* флаг, позволяющий сформировать диапазон для текущего значения с помощью предыдущего значения(prev) следующим образом: [prev+lower_bound ; prev+upper_bound] -- таким образом диапазон для текущего значения всегда относителен и зависит от предыдущего значения; 0 - выключить опцию, 1 - включить опцию */
+                                                                                "\"sensor_name_mask\":\"Тревожная кнопка\"," +               /* маска названия датчика */
+                                                                                "\"sensor_type\":\"digital\"," +                    /* тип датчика */
+                                                                                "\"type\":\"0\"," +                                 /* срабатывать: 0 - в рамках установленных значений, 1 - за пределами установленных значений */
+                                                                                "\"upper_bound\":\"1\"" +                           /* значение датчика до */
+                                                                        "}" +
+                                                            "}," +
+                                                            "\"act\":[" +                                                       /* действия */
+                                                                        "{" +
+                                                                            "\"t\":\"message\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"color\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"email\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"email_to\":\"" + user_account_name + "\"," +
+                                                                                    "\"html\":\"0\"," +
+                                                                                    "\"img_attach\":\"0\"," +
+                                                                                    "\"subj\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"event\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"flags\":\"0\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"mobile_apps\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"apps\":\"{" + "\\" + "\"Wialon Local" + "\\" + "\"" + ":" + "[" + user_account_id + "]" + "}\"" +
+                                                                                   "}" +
+                                                                        "}" +
+                                                                 "]" +
+                                                        "}"
+                                                    );
+
+        }
+
+        private void button_chenge_uvaga_Click(object sender, EventArgs e)
+        {
+            string json = macros.wialon_request_new("&svc=item/update_name&params={" +
+                                                    "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
+                                                    "\"name\":\"" + name_obj_new_textBox.Text.ToString() + "\"}");
+            var m = JsonConvert.DeserializeObject<RootObject>(json);
+
+            if (m.error == 0)
+            {
+
+                string st = macros.sql_command("UPDATE btk.Object " +
+                               "SET " +
+                               "Object_name = '" + name_obj_new_textBox.Text + "' " +
+                               "WHERE " +
+                               "idObject = '" + vars_form.id_db_object_for_activation + "';");
+                if (st == "")
+                {
+                    load_form();
+
+                    //log user action
+                    macros.LogUserAction(vars_form.user_login_id, "Зміна поля Увага", name_object_current_textBox.Text, vars_form.id_db_object_for_activation , Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
+
+                    MessageBox.Show("Змінено!");
+                }
+                else
+                {
+                    MessageBox.Show("Упс, здається не вийшло");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Упс, здається не вийшло");
+            }
+
         }
 
         private void button_add_vo1_Click(object sender, EventArgs e)
         {
+            vars_form.num_vo = 1;
             VO_add vo_add_form = new VO_add();
+            vo_add_form.Activated += new EventHandler(form_vo_add_activated);
+            vo_add_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
             vo_add_form.Show();
+        }
+
+        private void form_vo_add_activated(object sender, EventArgs e)
+        {
+            this.Visible = false;// блокируем окно контрагентов пока открыто окно добавления контрагента
+        }
+
+        private void form_vo_add_deactivated(object sender, FormClosedEventArgs e)
+        {
+            if (vars_form.num_vo == 1)
+            {
+                textBox_vo1.Text = macros.sql_command("SELECT concat(Kontakti_familia, ' ' , Kontakti_imya) FROM btk.Kontakti where idKontakti = '"+ vars_form.transfer_vo1_vo_form + "';");
+            }
+            if (vars_form.num_vo == 2)
+            {
+                textBox_vo2.Text = macros.sql_command("SELECT concat(Kontakti_familia, ' ' , Kontakti_imya) FROM btk.Kontakti where idKontakti = '" + vars_form.transfer_vo2_vo_form + "';");
+            }
+            if (vars_form.num_vo == 3)
+            {
+                textBox_vo3.Text = macros.sql_command("SELECT concat(Kontakti_familia, ' ' , Kontakti_imya) FROM btk.Kontakti where idKontakti = '" + vars_form.transfer_vo3_vo_form + "';");
+            }
+            if (vars_form.num_vo == 4)
+            {
+                textBox_vo4.Text = macros.sql_command("SELECT concat(Kontakti_familia, ' ' , Kontakti_imya) FROM btk.Kontakti where idKontakti = '" + vars_form.transfer_vo4_vo_form + "';");
+            }
+            if (vars_form.num_vo == 5)
+            {
+                textBox_vo5.Text = macros.sql_command("SELECT concat(Kontakti_familia, ' ' , Kontakti_imya) FROM btk.Kontakti where idKontakti = '" + vars_form.transfer_vo5_vo_form + "';");
+            }
+            this.Visible = true;// разблокируем окно контрагентов кактолько закрыто окно добавления контрагента
         }
 
         private void button_add_vo2_Click(object sender, EventArgs e)
         {
+            vars_form.num_vo = 2;
             VO_add vo_add_form = new VO_add();
+            vo_add_form.Activated += new EventHandler(form_vo_add_activated);
+            vo_add_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
             vo_add_form.Show();
         }
 
         private void button_add_vo3_Click(object sender, EventArgs e)
         {
+            vars_form.num_vo = 3;
             VO_add vo_add_form = new VO_add();
+            vo_add_form.Activated += new EventHandler(form_vo_add_activated);
+            vo_add_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
             vo_add_form.Show();
         }
 
         private void button_add_vo4_Click(object sender, EventArgs e)
         {
+            vars_form.num_vo = 4;
             VO_add vo_add_form = new VO_add();
+            vo_add_form.Activated += new EventHandler(form_vo_add_activated);
+            vo_add_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
+            vo_add_form.Show();
+        }
+        private void button_add_vo5_Click(object sender, EventArgs e)
+        {
+            vars_form.num_vo = 5;
+            VO_add vo_add_form = new VO_add();
+            vo_add_form.Activated += new EventHandler(form_vo_add_activated);
+            vo_add_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
             vo_add_form.Show();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button_user_account_on_off_Click(object sender, EventArgs e)
         {
-            VO_add vo_add_form = new VO_add();
-            vo_add_form.Show();
+            
+
+            if (treeView_user_accounts.SelectedNode is null)
+            {
+                MessageBox.Show("Вибери користувача");
+            }
+            else
+            {
+                DialogResult dialogResult = MessageBox.Show("Відключити користувача", "Відключити?", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+                                                            "\"spec\":{" +
+                                                            "\"itemsType\":\"user\"," +
+                                                            "\"propName\":\"sys_name\"," +
+                                                            "\"propValueMask\":\"" + treeView_user_accounts.SelectedNode.Text + "\"," +
+                                                            "\"sortType\":\"sys_name\"," +
+                                                            "\"or_logic\":\"1\"}," +
+                                                            "\"force\":\"1\"," +
+                                                            "\"flags\":\"1\"," +
+                                                            "\"from\":\"0\"," +
+                                                            "\"to\":\"0\"}"); //запрашиваем все елементі с искомім имайлом
+                    var m = JsonConvert.DeserializeObject<RootObject>(json);
+
+                    string json2 = macros.wialon_request_new("&svc=user/update_user_flags&params={" +
+                                                    "\"userId\":\"" + m.items[0].id + "\"," +
+                                                    "\"flags\":\"1\"," +
+                                                    "\"flagsMask\":\"1\"}");
+                    var m2 = JsonConvert.DeserializeObject<RootObject>(json2);
+
+                    //log user action
+                    macros.LogUserAction(vars_form.user_login_id, "Відключити користувача", treeView_user_accounts.SelectedNode.Text, "", Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
+
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                }
+
+            }
+        }
+
+        private void save_button_Click(object sender, EventArgs e)
+        {
+            if (comboBox_activation_result.SelectedIndex == -1)
+            {
+                MessageBox.Show("Оберіть результат тестування");
+                return;
+            }
+            else if ((comboBox_activation_result.SelectedIndex == 1 | comboBox_activation_result.SelectedIndex == 2) & textBox_comments.Text=="")
+            {
+                MessageBox.Show("Опишіть ситуацію в коментрі.");
+                return;
+            }
+
+            //set VO
+            if (vars_form.transfer_vo1_vo_form != "")
+            {
+                macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation+"','"+vars_form.transfer_vo1_vo_form+"','1','"+ Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','"+vars_form.user_login_id+"');");
+            }
+            if (vars_form.transfer_vo2_vo_form != "")
+            {
+                macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo2_vo_form + "','2','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
+            }
+            if (vars_form.transfer_vo3_vo_form != "")
+            {
+                macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo3_vo_form + "','3','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
+            }
+            if (vars_form.transfer_vo4_vo_form != "")
+            {
+                macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo4_vo_form + "','4','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
+            }
+            if (vars_form.transfer_vo5_vo_form != "")
+            {
+                macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo5_vo_form + "','5','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
+            }
+
+            //Меняем имя об"екта
+            string name_answer = macros.wialon_request_lite("&svc=item/update_name&params={"
+                                                            + "\"itemId\":\"" + vars_form.id_object_for_activation + "\","
+                                                            + "\"name\":\"" + name_obj_new_textBox.Text + "\"}");
+            //Search for neme feild 
+            string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_id\"," +
+                                                     "\"propValueMask\":\"" + vars_form.id_object_for_activation + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"or_logic\":\"1\"," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"15208907\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"1\"}");//15208907
+
+            var object_data = JsonConvert.DeserializeObject<RootObject>(json);
+
+            
+
+            foreach (var keyvalue in object_data.items[0].flds)
+            {
+
+                if (keyvalue.Value.n.Contains("УВАГА"))
+                {
+                    //Chenge feild Uvaga
+                    string json2 = macros.wialon_request_new("&svc=item/update_custom_field&params={" +
+                                                             "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
+                                                             "\"id\":\""+keyvalue.Value.id+"\"," +
+                                                             "\"callMode\":\"update\"," +
+                                                             "\"n\":\"" + keyvalue.Value.n + "\"," +
+                                                             "\"v\":\"" + uvaga_textBox.Text + "\"}");
+                }
+                if (keyvalue.Value.n.Contains("Кодове "))
+                {
+                    //Chenge feild Кодове слово
+                    string json2 = macros.wialon_request_new("&svc=item/update_custom_field&params={" +
+                                                             "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
+                                                             "\"id\":\"" + keyvalue.Value.id + "\"," +
+                                                             "\"callMode\":\"update\"," +
+                                                             "\"n\":\"" + keyvalue.Value.n + "\"," +
+                                                             "\"v\":\"" + kodove_slovo_textBox.Text + "\"}");
+                }
+            }
+
+
+
+
+            // insert activation
+
+            
+            macros.sql_command("insert into btk.Activation_object (" +
+                                                                    "Activation_date, " +
+                                                                    "Users_idUsers, " +
+                                                                    "Object_idObject," +
+                                                                    "Activation_objectcol_result," +
+                                                                    "new_name_obj," +
+                                                                    "new_pole_uvaga," +
+                                                                    "vo1," +
+                                                                    "vo2," +
+                                                                    "vo3," +
+                                                                    "vo4," +
+                                                                    "vo5, " +
+                                                                    "kodove_slovo," +
+                                                                    "alarm_button," +
+                                                                    "comment" +
+                                                                    ") " +
+                                                                    "values (" +
+                                                                    "'"+ Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                                                    "'"+vars_form.user_login_id+"'," +
+                                                                    "'"+vars_form.id_db_object_for_activation+"'," +
+                                                                    "'"+ comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem)+ "'," +
+                                                                    "'" + name_obj_new_textBox.Text + "'," +
+                                                                    "'" + uvaga_textBox.Text +"'," +
+                                                                    "'" + vars_form.transfer_vo1_vo_form +"'," +
+                                                                    "'" + vars_form.transfer_vo2_vo_form + "'," +
+                                                                    "'" + vars_form.transfer_vo3_vo_form + "'," +
+                                                                    "'" + vars_form.transfer_vo4_vo_form + "'," +
+                                                                    "'" + vars_form.transfer_vo5_vo_form + "'," +
+                                                                    "'" + kodove_slovo_textBox.Text +"'," +
+                                                                    "'" + status_tk_textBox.Text + "'," +
+                                                                    "'" + textBox_comments.Text + "'" +
+                                                                    ");");
+            this.Close();
+        }
+
+        private void button_user_on_Click(object sender, EventArgs e)
+        {
+            if (treeView_user_accounts.SelectedNode is null)
+            {
+                MessageBox.Show("Вибери користувача");
+            }
+            else
+            {
+                DialogResult dialogResult = MessageBox.Show("Включити користувача", "Включити?", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+                                                            "\"spec\":{" +
+                                                            "\"itemsType\":\"user\"," +
+                                                            "\"propName\":\"sys_name\"," +
+                                                            "\"propValueMask\":\"" + treeView_user_accounts.SelectedNode.Text + "\"," +
+                                                            "\"sortType\":\"sys_name\"," +
+                                                            "\"or_logic\":\"1\"}," +
+                                                            "\"force\":\"1\"," +
+                                                            "\"flags\":\"1\"," +
+                                                            "\"from\":\"0\"," +
+                                                            "\"to\":\"0\"}"); //запрашиваем все елементі с искомім имайлом
+                    var m = JsonConvert.DeserializeObject<RootObject>(json);
+
+                    string json2 = macros.wialon_request_new("&svc=user/update_user_flags&params={" +
+                                                    "\"userId\":\"" + m.items[0].id + "\"," +
+                                                    "\"flags\":\"0\"," +
+                                                    "\"flagsMask\":\"1\"}");
+                    var m2 = JsonConvert.DeserializeObject<RootObject>(json2);
+
+                    //log user action
+                    macros.LogUserAction(vars_form.user_login_id, "Відключити користувача", treeView_user_accounts.SelectedNode.Text, "", Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
+
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                }
+
+            }
         }
     }
 }

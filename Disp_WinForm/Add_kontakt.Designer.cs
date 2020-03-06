@@ -32,14 +32,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox_familia = new System.Windows.Forms.TextBox();
-            this.textBox_tel1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox_tel2 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox_mail = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.button_create = new System.Windows.Forms.Button();
-            this.textBox_mail2 = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.button_add_kontragent = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -49,6 +45,10 @@
             this.comboBox_work_in = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.maskedTextBox_tel1 = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBox_tel2 = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBox_mail = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBox_mail2 = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -87,13 +87,6 @@
             this.textBox_familia.Size = new System.Drawing.Size(202, 20);
             this.textBox_familia.TabIndex = 3;
             // 
-            // textBox_tel1
-            // 
-            this.textBox_tel1.Location = new System.Drawing.Point(82, 16);
-            this.textBox_tel1.Name = "textBox_tel1";
-            this.textBox_tel1.Size = new System.Drawing.Size(202, 20);
-            this.textBox_tel1.TabIndex = 4;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -103,13 +96,6 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Тел. дод.";
             // 
-            // textBox_tel2
-            // 
-            this.textBox_tel2.Location = new System.Drawing.Point(82, 42);
-            this.textBox_tel2.Name = "textBox_tel2";
-            this.textBox_tel2.Size = new System.Drawing.Size(202, 20);
-            this.textBox_tel2.TabIndex = 6;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -118,13 +104,6 @@
             this.label4.Size = new System.Drawing.Size(35, 13);
             this.label4.TabIndex = 7;
             this.label4.Text = "Е-mail";
-            // 
-            // textBox_mail
-            // 
-            this.textBox_mail.Location = new System.Drawing.Point(82, 68);
-            this.textBox_mail.Name = "textBox_mail";
-            this.textBox_mail.Size = new System.Drawing.Size(202, 20);
-            this.textBox_mail.TabIndex = 8;
             // 
             // label5
             // 
@@ -144,13 +123,6 @@
             this.button_create.Text = "Створити";
             this.button_create.UseVisualStyleBackColor = true;
             this.button_create.Click += new System.EventHandler(this.button_create_Click);
-            // 
-            // textBox_mail2
-            // 
-            this.textBox_mail2.Location = new System.Drawing.Point(82, 94);
-            this.textBox_mail2.Name = "textBox_mail2";
-            this.textBox_mail2.Size = new System.Drawing.Size(202, 20);
-            this.textBox_mail2.TabIndex = 30;
             // 
             // label14
             // 
@@ -204,12 +176,12 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.textBox_tel1);
+            this.groupBox3.Controls.Add(this.maskedTextBox_tel1);
+            this.groupBox3.Controls.Add(this.maskedTextBox_mail2);
             this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.textBox_tel2);
+            this.groupBox3.Controls.Add(this.maskedTextBox_mail);
+            this.groupBox3.Controls.Add(this.maskedTextBox_tel2);
             this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Controls.Add(this.textBox_mail2);
-            this.groupBox3.Controls.Add(this.textBox_mail);
             this.groupBox3.Controls.Add(this.label14);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Location = new System.Drawing.Point(309, 12);
@@ -250,6 +222,36 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // maskedTextBox_tel1
+            // 
+            this.maskedTextBox_tel1.Location = new System.Drawing.Point(82, 16);
+            this.maskedTextBox_tel1.Mask = "999-000-0000";
+            this.maskedTextBox_tel1.Name = "maskedTextBox_tel1";
+            this.maskedTextBox_tel1.Size = new System.Drawing.Size(202, 20);
+            this.maskedTextBox_tel1.TabIndex = 38;
+            // 
+            // maskedTextBox_tel2
+            // 
+            this.maskedTextBox_tel2.Location = new System.Drawing.Point(82, 42);
+            this.maskedTextBox_tel2.Mask = "999-000-0000";
+            this.maskedTextBox_tel2.Name = "maskedTextBox_tel2";
+            this.maskedTextBox_tel2.Size = new System.Drawing.Size(202, 20);
+            this.maskedTextBox_tel2.TabIndex = 39;
+            // 
+            // maskedTextBox_mail
+            // 
+            this.maskedTextBox_mail.Location = new System.Drawing.Point(82, 68);
+            this.maskedTextBox_mail.Name = "maskedTextBox_mail";
+            this.maskedTextBox_mail.Size = new System.Drawing.Size(202, 20);
+            this.maskedTextBox_mail.TabIndex = 40;
+            // 
+            // maskedTextBox_mail2
+            // 
+            this.maskedTextBox_mail2.Location = new System.Drawing.Point(82, 94);
+            this.maskedTextBox_mail2.Name = "maskedTextBox_mail2";
+            this.maskedTextBox_mail2.Size = new System.Drawing.Size(202, 20);
+            this.maskedTextBox_mail2.TabIndex = 41;
+            // 
             // Add_kontakt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -280,14 +282,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox_familia;
-        private System.Windows.Forms.TextBox textBox_tel1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox_tel2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox_mail;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button_create;
-        private System.Windows.Forms.TextBox textBox_mail2;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button button_add_kontragent;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -297,5 +295,9 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox textBox_coment;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox_mail2;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox_mail;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox_tel2;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox_tel1;
     }
 }

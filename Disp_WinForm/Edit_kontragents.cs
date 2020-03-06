@@ -56,14 +56,20 @@ namespace Disp_WinForm
             myDataAdapter.Dispose();
             myConnection.Close();
 
-            textBox_phone1.Text= macros.sql_command("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook="+id_phon1+"; ");
-            textBox_phone2.Text = macros.sql_command("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook=" + id_phon2 + "; ");
+            maskedTextBox_phone1.Text= macros.sql_command("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook="+id_phon1+"; ");
+            maskedTextBox_phone2.Text = macros.sql_command("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook=" + id_phon2 + "; ");
             textBox_mail1.Text = macros.sql_command("SELECT Emailscol_email FROM btk.Emails where idEmails=" + id_mail1 + "; ");
             textBox_mail2.Text = macros.sql_command("SELECT Emailscol_email FROM btk.Emails where idEmails=" + id_mail2 + "; ");
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (comboBox_kategory.SelectedIndex == -1)
+            {
+                comboBox_kategory.BackColor = Color.Red;
+                return;
+            }
+
             if (textBox_full_name.Text == "")
             {
                 textBox_full_name.BackColor = Color.Red;
@@ -125,9 +131,9 @@ namespace Disp_WinForm
             if (id_phon1 == "1")//если редактируем пустіе данніе
             {
                 //Создаем имел, в ответ получаем айди созданой записи. Если пусто то присваиваем айди №1 = пусто.
-                if (textBox_phone1.Text != "")//если поле не пустое
+                if (maskedTextBox_phone1.Text != "")//если поле не пустое
                 {
-                    macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone) values('" + textBox_phone1.Text + "');");
+                    macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone) values('" + maskedTextBox_phone1.Text + "');");
                     id_phon1 = macros.sql_command("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
                 }
                 else
@@ -137,9 +143,9 @@ namespace Disp_WinForm
             {
                 //Создаем имел, в ответ получаем айди созданой записи. Если пусто то присваиваем айди №1 = пусто.
 
-                if (textBox_phone1.Text != "")
+                if (maskedTextBox_phone1.Text != "")
                 {
-                    macros.sql_command("update btk.Phonebook set Phonebookcol_phone='" + textBox_phone1.Text + "' where idPhonebook=" + id_phon1 + ";");
+                    macros.sql_command("update btk.Phonebook set Phonebookcol_phone='" + maskedTextBox_phone1.Text + "' where idPhonebook=" + id_phon1 + ";");
                 }
                 else
                 {
@@ -150,9 +156,9 @@ namespace Disp_WinForm
             if (id_phon2 == "1")//если редактируем пустіе данніе
             {
                 //Создаем имел, в ответ получаем айди созданой записи. Если пусто то присваиваем айди №1 = пусто.
-                if (textBox_phone2.Text != "")//если поле не пустое
+                if (maskedTextBox_phone2.Text != "")//если поле не пустое
                 {
-                    macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone) values('" + textBox_phone2.Text + "');");
+                    macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone) values('" + maskedTextBox_phone2.Text + "');");
                     id_phon2 = macros.sql_command("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
                 }
                 else
@@ -162,9 +168,9 @@ namespace Disp_WinForm
             {
                 //Создаем имел, в ответ получаем айди созданой записи. Если пусто то присваиваем айди №1 = пусто.
 
-                if (textBox_phone2.Text != "")
+                if (maskedTextBox_phone2.Text != "")
                 {
-                    macros.sql_command("update btk.Phonebook set Phonebookcol_phone='" + textBox_phone2.Text + "' where idPhonebook=" + id_phon2 + ";");
+                    macros.sql_command("update btk.Phonebook set Phonebookcol_phone='" + maskedTextBox_phone2.Text + "' where idPhonebook=" + id_phon2 + ";");
                 }
                 else
                 {
@@ -195,6 +201,11 @@ namespace Disp_WinForm
         private void button2_Click_1(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void comboBox_kategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBox_kategory.BackColor = Color.Empty;
         }
     }
 }

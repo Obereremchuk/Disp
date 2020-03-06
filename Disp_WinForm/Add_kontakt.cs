@@ -21,6 +21,12 @@ namespace Disp_WinForm
 
         private void button_create_Click(object sender, EventArgs e)
         {
+            if (comboBox_work_in.SelectedIndex == -1)
+            {
+                comboBox_work_in.BackColor = Color.Red;
+                return;
+            }
+
             if (textBox_name.Text == "")
             {
                 textBox_name.BackColor = Color.Red;
@@ -28,18 +34,18 @@ namespace Disp_WinForm
             }
 
             string emailID = "";
-            if (textBox_mail.Text != "")
+            if (maskedTextBox_mail.Text != "")
             {
-                macros.sql_command("insert into btk.Emails(Emailscol_email) values('" + textBox_mail.Text + "');");
+                macros.sql_command("insert into btk.Emails(Emailscol_email) values('" + maskedTextBox_mail.Text + "');");
                 emailID= macros.sql_command("SELECT MAX(idEmails) FROM btk.Emails;");
             }
             else
             { emailID = "1"; }
 
             string email2ID = "";
-            if (textBox_mail2.Text != "")
+            if (maskedTextBox_mail2.Text != "")
             {
-                macros.sql_command("insert into btk.Emails(Emailscol_email) values('" + textBox_mail2.Text + "');");
+                macros.sql_command("insert into btk.Emails(Emailscol_email) values('" + maskedTextBox_mail2.Text + "');");
                 email2ID = macros.sql_command("SELECT MAX(idEmails) FROM btk.Emails;");
             }
             else
@@ -47,18 +53,18 @@ namespace Disp_WinForm
 
 
             string phoneID = "";
-            if (textBox_tel1.Text != "")
+            if (maskedTextBox_tel1.Text != "")
             {
-                macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone) values('" + textBox_tel1.Text.ToString() + "');");
+                macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone) values('" + maskedTextBox_tel1.Text.ToString() + "');");
                 phoneID = macros.sql_command("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
             }
             else
             { phoneID = "1"; }
 
             string phone2ID = "";
-            if (textBox_tel2.Text != "")
+            if (maskedTextBox_tel2.Text != "")
             {
-                macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone) values('" + textBox_tel2.Text.ToString() + "');");
+                macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone) values('" + maskedTextBox_tel2.Text.ToString() + "');");
                 phone2ID = macros.sql_command("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
             }
             else
@@ -84,6 +90,7 @@ namespace Disp_WinForm
 
         private void comboBox_work_in_DropDown(object sender, EventArgs e)
         {
+            comboBox_work_in.BackColor = Color.Empty;
             string sql = string.Format("select Kontragenti.idKontragenti, concat(btk.Kontragenti.Kontragenti_short_name, '(',btk.Kontragenti.Kontragenti_full_name, ')') AS full_short  FROM btk.Kontragenti where Kontragenticol_kategory='Диллер/СТО'");
             comboBox_work_in.DisplayMember = "full_short";
             comboBox_work_in.ValueMember = "idKontragenti";

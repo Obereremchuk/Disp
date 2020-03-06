@@ -35,9 +35,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.textBox_mail1 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox_phone1 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox_phone2 = new System.Windows.Forms.TextBox();
             this.textBox_short_name = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -56,6 +54,8 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.maskedTextBox_phone1 = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBox_phone2 = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox_phone2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -92,6 +92,7 @@
             this.comboBox_type_vlastnosti.FormattingEnabled = true;
             this.comboBox_type_vlastnosti.Items.AddRange(new object[] {
             "ТОВ",
+            "ФО",
             "ФОП",
             "АТ",
             "ПрАТ",
@@ -126,13 +127,6 @@
             this.label7.TabIndex = 31;
             this.label7.Text = "e-mail";
             // 
-            // textBox_phone1
-            // 
-            this.textBox_phone1.Location = new System.Drawing.Point(117, 76);
-            this.textBox_phone1.Name = "textBox_phone1";
-            this.textBox_phone1.Size = new System.Drawing.Size(186, 20);
-            this.textBox_phone1.TabIndex = 30;
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -141,13 +135,6 @@
             this.label8.Size = new System.Drawing.Size(61, 13);
             this.label8.TabIndex = 29;
             this.label8.Text = "Телефон 2";
-            // 
-            // textBox_phone2
-            // 
-            this.textBox_phone2.Location = new System.Drawing.Point(117, 102);
-            this.textBox_phone2.Name = "textBox_phone2";
-            this.textBox_phone2.Size = new System.Drawing.Size(186, 20);
-            this.textBox_phone2.TabIndex = 28;
             // 
             // textBox_short_name
             // 
@@ -237,6 +224,7 @@
             this.comboBox_kategory.Name = "comboBox_kategory";
             this.comboBox_kategory.Size = new System.Drawing.Size(186, 21);
             this.comboBox_kategory.TabIndex = 36;
+            this.comboBox_kategory.SelectedIndexChanged += new System.EventHandler(this.comboBox_kategory_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -249,18 +237,18 @@
             // 
             // groupBox_phone2
             // 
+            this.groupBox_phone2.Controls.Add(this.maskedTextBox_phone2);
+            this.groupBox_phone2.Controls.Add(this.maskedTextBox_phone1);
             this.groupBox_phone2.Controls.Add(this.textBox_vulitsa);
             this.groupBox_phone2.Controls.Add(this.label3);
             this.groupBox_phone2.Controls.Add(this.comboBox_misto);
             this.groupBox_phone2.Controls.Add(this.label2);
             this.groupBox_phone2.Controls.Add(this.label6);
             this.groupBox_phone2.Controls.Add(this.textBox_mail1);
-            this.groupBox_phone2.Controls.Add(this.textBox_phone2);
             this.groupBox_phone2.Controls.Add(this.textBox_mail2);
             this.groupBox_phone2.Controls.Add(this.label7);
             this.groupBox_phone2.Controls.Add(this.label8);
             this.groupBox_phone2.Controls.Add(this.label12);
-            this.groupBox_phone2.Controls.Add(this.textBox_phone1);
             this.groupBox_phone2.Location = new System.Drawing.Point(339, 12);
             this.groupBox_phone2.Name = "groupBox_phone2";
             this.groupBox_phone2.Size = new System.Drawing.Size(321, 218);
@@ -361,6 +349,22 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // maskedTextBox_phone1
+            // 
+            this.maskedTextBox_phone1.Location = new System.Drawing.Point(117, 76);
+            this.maskedTextBox_phone1.Mask = "999-000-0000";
+            this.maskedTextBox_phone1.Name = "maskedTextBox_phone1";
+            this.maskedTextBox_phone1.Size = new System.Drawing.Size(186, 20);
+            this.maskedTextBox_phone1.TabIndex = 40;
+            // 
+            // maskedTextBox_phone2
+            // 
+            this.maskedTextBox_phone2.Location = new System.Drawing.Point(117, 102);
+            this.maskedTextBox_phone2.Mask = "999-000-0000";
+            this.maskedTextBox_phone2.Name = "maskedTextBox_phone2";
+            this.maskedTextBox_phone2.Size = new System.Drawing.Size(186, 20);
+            this.maskedTextBox_phone2.TabIndex = 41;
+            // 
             // Add_kontragent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -392,9 +396,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBox_mail1;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox_phone1;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox_phone2;
         private System.Windows.Forms.TextBox textBox_short_name;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
@@ -413,5 +415,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox comboBox_kategory;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox_phone2;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox_phone1;
     }
 }

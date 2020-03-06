@@ -37,11 +37,13 @@
             // 
             // listView_kontragents
             // 
+            this.listView_kontragents.HideSelection = false;
             this.listView_kontragents.Location = new System.Drawing.Point(12, 41);
             this.listView_kontragents.Name = "listView_kontragents";
             this.listView_kontragents.Size = new System.Drawing.Size(775, 323);
             this.listView_kontragents.TabIndex = 0;
             this.listView_kontragents.UseCompatibleStateImageBehavior = false;
+            this.listView_kontragents.DoubleClick += new System.EventHandler(this.listView_kontragents_DoubleClick);
             // 
             // button_add_kontragents
             // 

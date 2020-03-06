@@ -39,12 +39,11 @@ namespace Disp_WinForm
 
         private void Get_kontragents()
         {
-            MySqlConnection myConnection = new MySqlConnection("server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True");
+            MySqlConnection myConnection = new MySqlConnection("server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True;  charset=utf8");
             string sql = string.Format("SELECT * FROM btk.Kontragenti where Kontragenti_full_name like '%"+textBox_search_kontragents.Text+ "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_kategory like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%';");
             MySqlCommand myDataAdapter = new MySqlCommand(sql, myConnection);
             myConnection.Open();
             MySqlDataReader reader = myDataAdapter.ExecuteReader();
-            List<string> results = new List<string>();
 
             listView_kontragents.Items.Clear();
 
@@ -129,6 +128,25 @@ namespace Disp_WinForm
         {
             this.Enabled = true;// разблокируем окно контрагентов кактолько закрыто окно добавления контрагента
             Get_kontragents();
+        }
+
+        private void listView_kontragents_DoubleClick(object sender, EventArgs e)
+        {
+            for (int i = 0; i < listView_kontragents.Items.Count; i++)
+                // is i the index of the row I selected?
+                if (listView_kontragents.Items[i].Selected == true)
+                {
+                    if (vars_form.select_sto_or_zakazchik_for_zayavki == 1)
+                    {
+                        vars_form.id_kontragent_sto_for_zayavki = listView_kontragents.Items[i].SubItems[0].Text;
+                    }
+                    else if (vars_form.select_sto_or_zakazchik_for_zayavki == 0)
+                    {
+                        vars_form.id_kontragent_zakazchik_for_zayavki = listView_kontragents.Items[i].SubItems[0].Text;
+                    }
+                    break;
+                }
+            this.Close();
         }
     }
 }

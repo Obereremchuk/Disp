@@ -29,6 +29,12 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button_add_vo5 = new System.Windows.Forms.Button();
+            this.comboBox_activation_result = new System.Windows.Forms.ComboBox();
+            this.button_add_vo2 = new System.Windows.Forms.Button();
+            this.button_add_vo3 = new System.Windows.Forms.Button();
+            this.button_add_vo4 = new System.Windows.Forms.Button();
+            this.button_add_vo1 = new System.Windows.Forms.Button();
             this.textBox_vo1 = new System.Windows.Forms.TextBox();
             this.textBox_vo5 = new System.Windows.Forms.TextBox();
             this.textBox_vo4 = new System.Windows.Forms.TextBox();
@@ -42,6 +48,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.status_tk_textBox = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.name_object_current_textBox = new System.Windows.Forms.TextBox();
@@ -51,6 +58,8 @@
             this.kodove_slovo_textBox = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.textBox_comments = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.account_create_button = new System.Windows.Forms.Button();
             this.save_button = new System.Windows.Forms.Button();
             this.email_textBox = new System.Windows.Forms.TextBox();
@@ -63,7 +72,10 @@
             this.accaunt_name_textBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.button_user_on = new System.Windows.Forms.Button();
             this.treeView_user_accounts = new System.Windows.Forms.TreeView();
+            this.label15 = new System.Windows.Forms.Label();
+            this.button_user_account_on_off = new System.Windows.Forms.Button();
             this.account_delete_button = new System.Windows.Forms.Button();
             this.button_remove_2_account = new System.Windows.Forms.Button();
             this.cancel_button = new System.Windows.Forms.Button();
@@ -71,11 +83,8 @@
             this.edite_date_textBox = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.edit_user_textBox = new System.Windows.Forms.TextBox();
-            this.button_add_vo2 = new System.Windows.Forms.Button();
-            this.button_add_vo3 = new System.Windows.Forms.Button();
-            this.button_add_vo4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button_add_vo1 = new System.Windows.Forms.Button();
+            this.textBox_account_pss = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -84,10 +93,11 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button_add_vo5);
+            this.groupBox1.Controls.Add(this.comboBox_activation_result);
             this.groupBox1.Controls.Add(this.button_add_vo2);
             this.groupBox1.Controls.Add(this.button_add_vo3);
             this.groupBox1.Controls.Add(this.button_add_vo4);
-            this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.button_add_vo1);
             this.groupBox1.Controls.Add(this.textBox_vo1);
             this.groupBox1.Controls.Add(this.textBox_vo5);
@@ -102,6 +112,7 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.status_tk_textBox);
+            this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label25);
             this.groupBox1.Controls.Add(this.name_object_current_textBox);
@@ -113,10 +124,72 @@
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(552, 356);
+            this.groupBox1.Size = new System.Drawing.Size(552, 345);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Інформація про клієнта";
+            // 
+            // button_add_vo5
+            // 
+            this.button_add_vo5.Location = new System.Drawing.Point(330, 224);
+            this.button_add_vo5.Name = "button_add_vo5";
+            this.button_add_vo5.Size = new System.Drawing.Size(46, 23);
+            this.button_add_vo5.TabIndex = 148;
+            this.button_add_vo5.Text = "+";
+            this.button_add_vo5.UseVisualStyleBackColor = true;
+            this.button_add_vo5.Click += new System.EventHandler(this.button_add_vo5_Click);
+            // 
+            // comboBox_activation_result
+            // 
+            this.comboBox_activation_result.FormattingEnabled = true;
+            this.comboBox_activation_result.Items.AddRange(new object[] {
+            "Успінно",
+            "Незавершено",
+            "Неуспішно"});
+            this.comboBox_activation_result.Location = new System.Drawing.Point(6, 304);
+            this.comboBox_activation_result.Name = "comboBox_activation_result";
+            this.comboBox_activation_result.Size = new System.Drawing.Size(370, 21);
+            this.comboBox_activation_result.TabIndex = 147;
+            // 
+            // button_add_vo2
+            // 
+            this.button_add_vo2.Location = new System.Drawing.Point(330, 148);
+            this.button_add_vo2.Name = "button_add_vo2";
+            this.button_add_vo2.Size = new System.Drawing.Size(46, 23);
+            this.button_add_vo2.TabIndex = 145;
+            this.button_add_vo2.Text = "+";
+            this.button_add_vo2.UseVisualStyleBackColor = true;
+            this.button_add_vo2.Click += new System.EventHandler(this.button_add_vo2_Click);
+            // 
+            // button_add_vo3
+            // 
+            this.button_add_vo3.Location = new System.Drawing.Point(330, 174);
+            this.button_add_vo3.Name = "button_add_vo3";
+            this.button_add_vo3.Size = new System.Drawing.Size(46, 23);
+            this.button_add_vo3.TabIndex = 144;
+            this.button_add_vo3.Text = "+";
+            this.button_add_vo3.UseVisualStyleBackColor = true;
+            this.button_add_vo3.Click += new System.EventHandler(this.button_add_vo3_Click);
+            // 
+            // button_add_vo4
+            // 
+            this.button_add_vo4.Location = new System.Drawing.Point(330, 200);
+            this.button_add_vo4.Name = "button_add_vo4";
+            this.button_add_vo4.Size = new System.Drawing.Size(46, 23);
+            this.button_add_vo4.TabIndex = 143;
+            this.button_add_vo4.Text = "+";
+            this.button_add_vo4.UseVisualStyleBackColor = true;
+            this.button_add_vo4.Click += new System.EventHandler(this.button_add_vo4_Click);
+            // 
+            // button_add_vo1
+            // 
+            this.button_add_vo1.Location = new System.Drawing.Point(330, 122);
+            this.button_add_vo1.Name = "button_add_vo1";
+            this.button_add_vo1.Size = new System.Drawing.Size(46, 23);
+            this.button_add_vo1.TabIndex = 141;
+            this.button_add_vo1.Text = "+";
+            this.button_add_vo1.UseVisualStyleBackColor = true;
+            this.button_add_vo1.Click += new System.EventHandler(this.button_add_vo1_Click);
             // 
             // textBox_vo1
             // 
@@ -228,6 +301,15 @@
             this.status_tk_textBox.Size = new System.Drawing.Size(371, 20);
             this.status_tk_textBox.TabIndex = 116;
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(387, 307);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(93, 13);
+            this.label13.TabIndex = 115;
+            this.label13.Text = "Статус активаціїї";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -302,6 +384,23 @@
             this.label5.TabIndex = 107;
             this.label5.Text = "Кодове слово";
             // 
+            // textBox_comments
+            // 
+            this.textBox_comments.Location = new System.Drawing.Point(18, 394);
+            this.textBox_comments.Multiline = true;
+            this.textBox_comments.Name = "textBox_comments";
+            this.textBox_comments.Size = new System.Drawing.Size(370, 85);
+            this.textBox_comments.TabIndex = 146;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(15, 378);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(57, 13);
+            this.label12.TabIndex = 115;
+            this.label12.Text = "Коментар";
+            // 
             // account_create_button
             // 
             this.account_create_button.Location = new System.Drawing.Point(17, 201);
@@ -314,12 +413,13 @@
             // 
             // save_button
             // 
-            this.save_button.Location = new System.Drawing.Point(1283, 413);
+            this.save_button.Location = new System.Drawing.Point(1271, 456);
             this.save_button.Name = "save_button";
             this.save_button.Size = new System.Drawing.Size(75, 23);
             this.save_button.TabIndex = 118;
             this.save_button.Text = "Зберегти";
             this.save_button.UseVisualStyleBackColor = true;
+            this.save_button.Click += new System.EventHandler(this.save_button_Click);
             // 
             // email_textBox
             // 
@@ -353,13 +453,15 @@
             this.groupBox2.Controls.Add(this.groupBox5);
             this.groupBox2.Location = new System.Drawing.Point(570, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(776, 356);
+            this.groupBox2.Size = new System.Drawing.Size(776, 414);
             this.groupBox2.TabIndex = 125;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Кабінети користувача";
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.label16);
+            this.groupBox4.Controls.Add(this.textBox_account_pss);
             this.groupBox4.Controls.Add(this.email_textBox);
             this.groupBox4.Controls.Add(this.listBox_activation_list_search);
             this.groupBox4.Controls.Add(this.label14);
@@ -369,7 +471,7 @@
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Location = new System.Drawing.Point(6, 26);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(350, 321);
+            this.groupBox4.Size = new System.Drawing.Size(350, 369);
             this.groupBox4.TabIndex = 129;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Керування";
@@ -412,16 +514,29 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.pass_reset_button);
+            this.groupBox5.Controls.Add(this.button_user_on);
             this.groupBox5.Controls.Add(this.treeView_user_accounts);
+            this.groupBox5.Controls.Add(this.label15);
+            this.groupBox5.Controls.Add(this.button_user_account_on_off);
+            this.groupBox5.Controls.Add(this.pass_reset_button);
             this.groupBox5.Controls.Add(this.account_delete_button);
             this.groupBox5.Controls.Add(this.button_remove_2_account);
             this.groupBox5.Location = new System.Drawing.Point(362, 26);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(405, 321);
+            this.groupBox5.Size = new System.Drawing.Size(405, 369);
             this.groupBox5.TabIndex = 131;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Редагування";
+            // 
+            // button_user_on
+            // 
+            this.button_user_on.Location = new System.Drawing.Point(213, 230);
+            this.button_user_on.Name = "button_user_on";
+            this.button_user_on.Size = new System.Drawing.Size(177, 37);
+            this.button_user_on.TabIndex = 131;
+            this.button_user_on.Text = "Включити користувача";
+            this.button_user_on.UseVisualStyleBackColor = true;
+            this.button_user_on.Click += new System.EventHandler(this.button_user_on_Click);
             // 
             // treeView_user_accounts
             // 
@@ -431,9 +546,27 @@
             this.treeView_user_accounts.TabIndex = 128;
             this.treeView_user_accounts.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView_user_accounts_BeforeSelect);
             // 
+            // label15
+            // 
+            this.label15.Location = new System.Drawing.Point(14, 26);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(233, 26);
+            this.label15.TabIndex = 128;
+            this.label15.Text = "Іерархія користувачів";
+            // 
+            // button_user_account_on_off
+            // 
+            this.button_user_account_on_off.Location = new System.Drawing.Point(17, 230);
+            this.button_user_account_on_off.Name = "button_user_account_on_off";
+            this.button_user_account_on_off.Size = new System.Drawing.Size(190, 37);
+            this.button_user_account_on_off.TabIndex = 130;
+            this.button_user_account_on_off.Text = "Відключити користувача";
+            this.button_user_account_on_off.UseVisualStyleBackColor = true;
+            this.button_user_account_on_off.Click += new System.EventHandler(this.button_user_account_on_off_Click);
+            // 
             // account_delete_button
             // 
-            this.account_delete_button.Location = new System.Drawing.Point(17, 274);
+            this.account_delete_button.Location = new System.Drawing.Point(17, 317);
             this.account_delete_button.Name = "account_delete_button";
             this.account_delete_button.Size = new System.Drawing.Size(373, 37);
             this.account_delete_button.TabIndex = 124;
@@ -443,7 +576,7 @@
             // 
             // button_remove_2_account
             // 
-            this.button_remove_2_account.Location = new System.Drawing.Point(17, 231);
+            this.button_remove_2_account.Location = new System.Drawing.Point(17, 274);
             this.button_remove_2_account.Name = "button_remove_2_account";
             this.button_remove_2_account.Size = new System.Drawing.Size(373, 37);
             this.button_remove_2_account.TabIndex = 129;
@@ -453,7 +586,7 @@
             // 
             // cancel_button
             // 
-            this.cancel_button.Location = new System.Drawing.Point(1202, 413);
+            this.cancel_button.Location = new System.Drawing.Point(1190, 456);
             this.cancel_button.Name = "cancel_button";
             this.cancel_button.Size = new System.Drawing.Size(75, 23);
             this.cancel_button.TabIndex = 126;
@@ -464,7 +597,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(261, 418);
+            this.label6.Location = new System.Drawing.Point(401, 440);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(64, 13);
             this.label6.TabIndex = 124;
@@ -472,7 +605,7 @@
             // 
             // edite_date_textBox
             // 
-            this.edite_date_textBox.Location = new System.Drawing.Point(97, 415);
+            this.edite_date_textBox.Location = new System.Drawing.Point(402, 410);
             this.edite_date_textBox.Name = "edite_date_textBox";
             this.edite_date_textBox.ReadOnly = true;
             this.edite_date_textBox.Size = new System.Drawing.Size(150, 20);
@@ -481,7 +614,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(16, 418);
+            this.label11.Location = new System.Drawing.Point(401, 394);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(75, 13);
             this.label11.TabIndex = 126;
@@ -489,68 +622,36 @@
             // 
             // edit_user_textBox
             // 
-            this.edit_user_textBox.Location = new System.Drawing.Point(342, 415);
+            this.edit_user_textBox.Location = new System.Drawing.Point(402, 456);
             this.edit_user_textBox.Name = "edit_user_textBox";
             this.edit_user_textBox.ReadOnly = true;
             this.edit_user_textBox.Size = new System.Drawing.Size(150, 20);
             this.edit_user_textBox.TabIndex = 127;
             // 
-            // button_add_vo2
+            // textBox_account_pss
             // 
-            this.button_add_vo2.Location = new System.Drawing.Point(330, 148);
-            this.button_add_vo2.Name = "button_add_vo2";
-            this.button_add_vo2.Size = new System.Drawing.Size(46, 23);
-            this.button_add_vo2.TabIndex = 145;
-            this.button_add_vo2.Text = "+";
-            this.button_add_vo2.UseVisualStyleBackColor = true;
-            this.button_add_vo2.Click += new System.EventHandler(this.button_add_vo2_Click);
+            this.textBox_account_pss.Location = new System.Drawing.Point(6, 343);
+            this.textBox_account_pss.Name = "textBox_account_pss";
+            this.textBox_account_pss.ReadOnly = true;
+            this.textBox_account_pss.Size = new System.Drawing.Size(100, 20);
+            this.textBox_account_pss.TabIndex = 132;
             // 
-            // button_add_vo3
+            // label16
             // 
-            this.button_add_vo3.Location = new System.Drawing.Point(330, 174);
-            this.button_add_vo3.Name = "button_add_vo3";
-            this.button_add_vo3.Size = new System.Drawing.Size(46, 23);
-            this.button_add_vo3.TabIndex = 144;
-            this.button_add_vo3.Text = "+";
-            this.button_add_vo3.UseVisualStyleBackColor = true;
-            this.button_add_vo3.Click += new System.EventHandler(this.button_add_vo3_Click);
-            // 
-            // button_add_vo4
-            // 
-            this.button_add_vo4.Location = new System.Drawing.Point(330, 200);
-            this.button_add_vo4.Name = "button_add_vo4";
-            this.button_add_vo4.Size = new System.Drawing.Size(46, 23);
-            this.button_add_vo4.TabIndex = 143;
-            this.button_add_vo4.Text = "+";
-            this.button_add_vo4.UseVisualStyleBackColor = true;
-            this.button_add_vo4.Click += new System.EventHandler(this.button_add_vo4_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(330, 226);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(46, 23);
-            this.button3.TabIndex = 142;
-            this.button3.Text = "+";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button_add_vo1
-            // 
-            this.button_add_vo1.Location = new System.Drawing.Point(330, 122);
-            this.button_add_vo1.Name = "button_add_vo1";
-            this.button_add_vo1.Size = new System.Drawing.Size(46, 23);
-            this.button_add_vo1.TabIndex = 141;
-            this.button_add_vo1.Text = "+";
-            this.button_add_vo1.UseVisualStyleBackColor = true;
-            this.button_add_vo1.Click += new System.EventHandler(this.button_add_vo1_Click);
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(112, 346);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(124, 13);
+            this.label16.TabIndex = 133;
+            this.label16.Text = "Встановленний пароль";
             // 
             // Activation_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1370, 446);
+            this.ClientSize = new System.Drawing.Size(1361, 491);
             this.Controls.Add(this.label11);
+            this.Controls.Add(this.textBox_comments);
             this.Controls.Add(this.save_button);
             this.Controls.Add(this.edit_user_textBox);
             this.Controls.Add(this.label6);
@@ -558,6 +659,7 @@
             this.Controls.Add(this.cancel_button);
             this.Controls.Add(this.edite_date_textBox);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.label12);
             this.Name = "Activation_Form";
             this.Text = "Активація об\"єкту";
             this.groupBox1.ResumeLayout(false);
@@ -619,7 +721,16 @@
         private System.Windows.Forms.Button button_add_vo2;
         private System.Windows.Forms.Button button_add_vo3;
         private System.Windows.Forms.Button button_add_vo4;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button_add_vo1;
+        private System.Windows.Forms.Button button_user_account_on_off;
+        private System.Windows.Forms.ComboBox comboBox_activation_result;
+        private System.Windows.Forms.TextBox textBox_comments;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Button button_add_vo5;
+        private System.Windows.Forms.Button button_user_on;
+        private System.Windows.Forms.TextBox textBox_account_pss;
+        private System.Windows.Forms.Label label16;
     }
 }

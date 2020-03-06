@@ -35,6 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Devart.Data, Version=5.0.2333.0, Culture=neutral, PublicKeyToken=09af7300eec23701" />
+    <Reference Include="Devart.Data.MySql, Version=8.16.1541.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL" />
     <Reference Include="DocumentFormat.OpenXml, Version=2.9.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
       <HintPath>..\packages\DocumentFormat.OpenXml.2.9.1\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
@@ -70,6 +72,7 @@
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -89,6 +92,14 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activation_done_btkDataSet.cs">
+      <DependentUpon>Activation_done_btkDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Activation_done_btkDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Activation_done_btkDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Activation_Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -190,6 +201,12 @@
     <Compile Include="VO_add.Designer.cs">
       <DependentUpon>VO_add.cs</DependentUpon>
     </Compile>
+    <Compile Include="Zayavki.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Zayavki.Designer.cs">
+      <DependentUpon>Zayavki.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Activation_Form.resx">
       <DependentUpon>Activation_Form.cs</DependentUpon>
     </EmbeddedResource>
@@ -248,6 +265,20 @@
     <EmbeddedResource Include="VO_add.resx">
       <DependentUpon>VO_add.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Zayavki.resx">
+      <DependentUpon>Zayavki.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Activation_done_btkDataSet.xsc">
+      <DependentUpon>Activation_done_btkDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Activation_done_btkDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Activation_done_btkDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Activation_done_btkDataSet.xss">
+      <DependentUpon>Activation_done_btkDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Firefox\omni.ja" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Main_window.datasource" />
@@ -285,8 +316,6 @@
     <Content Include="Firefox\softokn3.dll" />
     <Content Include="Firefox\xul.dll" />
     <Content Include="HTMLPage_map.html" />
-    <Content Include="JavaScript_map.js" />
-    <Content Include="Stylesheet_map.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Geckofx45.45.0.34\build\Geckofx45.targets" Condition="Exists('..\packages\Geckofx45.45.0.34\build\Geckofx45.targets')" />

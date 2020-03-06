@@ -75,6 +75,7 @@ namespace Disp_WinForm
             string json = "";
             try
             {
+
                 MyWebRequest myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + request);
                 json = myRequest.GetResponse();
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
@@ -115,6 +116,8 @@ namespace Disp_WinForm
         }
         public string wialon_request_lite(string request)
         {
+            
+
             MyWebRequest myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + request);
             string json = myRequest.GetResponse();
             try
@@ -146,6 +149,9 @@ namespace Disp_WinForm
         public void get_eid_from_token()
         {
             MyWebRequest myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?" + "&svc=token/login&params={\"token\":\"" + vars_form.user_token + "\"}");
+            
+            //loginAs
+            //MyWebRequest myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?" + "&svc=token/login&params={\"token\":\"" + vars_form.user_token + "\",\"operateAs\":\"support\"}");
             string json = myRequest.GetResponse();
             var m = JsonConvert.DeserializeObject<RootObject>(json);
             if (m.error == 1)
@@ -269,7 +275,23 @@ namespace Disp_WinForm
 
             return Get_wl_text_error;
         }
-        
+
+        public string wl_core_search_items(string itemsType, string propName, string propValueMask, string sortType, int flags, int from, int to)
+        {
+            string answer = wialon_request_new("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +                                         /* https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/core/search_items */
+                                                     "\"itemsType\":\"" + itemsType + "\"," +                /* тип искомых элементов: avl_resource, avl_unit, avl_unit_group, user   */
+                                                     "\"propName\":\"" + propName + "\"," +                 /* имя свойства: sys_name, sys_id, sys_unique_id, sys_phone_number, sys_user_creator */
+                                                     "\"propValueMask\":\"" + propValueMask + "\", " +      /* Искомое значение. Mогут быть использованы * | , > < = */
+                                                     "\"sortType\":\"" + sortType + "\"," +                 /* имя свойства, по которому будет осуществляться сортировка ответа */
+                                                     "\"or_logic\":\"1\"}," +                               /* флаг «ИЛИ»-логики для propName-поля */
+                                                     "\"force\":\"1\"," +                                   /* 0 - если такой поиск уже запрашивался, то вернет полученный результат, 1 - будет искать заново */
+                                                     "\"flags\":\"" + flags + "\"," +                       /* https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/format/format */
+                                                     "\"from\":\"" + from + "\"," +                         /* индекс, начиная с которого возвращать элементы результирующего списка (для нового поиска используйте значение 0) */
+                                                     "\"to\":\"" + to + "\"}");                             /* индекс последнего возвращаемого элемента (если 0, то вернет все элементы, начиная с указанного в параметре «from») */
+            return answer;
+        }
+
         // sql command
         public string sql_command2(string sql)
         {
@@ -476,6 +498,33 @@ namespace Disp_WinForm
                 MessageBox.Show(ex.ToString() + "send_email()");
             }
         }
+
+        public void send_mail_auto(string recipient, string subject, string body)
+        {
+            try
+            {
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient("mail.venbest.com.ua");
+
+                mail.From = new MailAddress("auto@venbest.com.ua");
+                mail.To.Add(recipient);
+                mail.Subject = subject;
+
+
+                mail.IsBodyHtml = true;
+                mail.Body = body;
+
+                SmtpServer.Port = 25;
+                SmtpServer.Credentials = new System.Net.NetworkCredential("auto@venbest.com.ua", "876345");
+                SmtpServer.EnableSsl = false;
+                SmtpServer.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString() + "send_email()");
+            }
+        }
+
         public StringBuilder htmlMessageBody(DataGridView dg)
         {
             StringBuilder strB = new StringBuilder();
@@ -525,6 +574,12 @@ namespace Disp_WinForm
             }
             html += "</table>";
             return html;
+        }
+
+        public string LogUserAction(string idUser, string reason, string old_data, string new_data, string create_date_time)
+        {
+            string answer = sql_command("insert into btk.Logging(Users_idUsers, Loggingcol_reason, Loggingcol_new_data, Loggingcol_old_data, Loggingcol_create_date) value ('" + idUser + "', '" + reason + "', '" + old_data + "', '" + new_data + "', '" + create_date_time + "');");
+            return answer;
         }
 
 

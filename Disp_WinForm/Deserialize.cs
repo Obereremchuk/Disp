@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +9,7 @@ using Newtonsoft.Json;
 
 namespace Disp_WinForm
 {
+    
     
     public class Flds
     {
@@ -53,6 +56,50 @@ namespace Disp_WinForm
         //public Dictionary<int, Lmsg> lmsg { get; set; }
         public Lmsg lmsg { get; set; }
         public List<int> u { get; set; }
+        
+        public Dictionary<string, Unf1> Unf { get; set; }
+
+        public partial class Unf1
+        {
+            [JsonProperty("id")]
+            public int Id { get; set; }
+
+            [JsonProperty("n")]
+            public string N { get; set; }
+
+            [JsonProperty("txt")]
+            public string Txt { get; set; }
+
+            [JsonProperty("ta")]
+            public long Ta { get; set; }
+
+            [JsonProperty("td")]
+            public long Td { get; set; }
+
+            [JsonProperty("ma")]
+            public long Ma { get; set; }
+
+            [JsonProperty("fl")]
+            public long Fl { get; set; }
+
+            [JsonProperty("ac")]
+            public long Ac { get; set; }
+
+            [JsonProperty("un")]
+            public int[] Un { get; set; }
+
+            [JsonProperty("trg")]
+            public string Trg { get; set; }
+
+            [JsonProperty("crc")]
+            public long Crc { get; set; }
+
+            [JsonProperty("ct")]
+            public long Ct { get; set; }
+
+            [JsonProperty("mt")]
+            public long Mt { get; set; }
+        }
     }
 
     public class Lmsg

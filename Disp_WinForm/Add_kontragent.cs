@@ -20,6 +20,11 @@ namespace Disp_WinForm
 
         private void button_add_kontragets_Click(object sender, EventArgs e)
         {
+            if (comboBox_kategory.SelectedIndex == -1)
+            {
+                comboBox_kategory.BackColor = Color.Red;
+                return;
+            }
 
             if (textBox_full_name.Text == "")
             {
@@ -51,9 +56,9 @@ namespace Disp_WinForm
 
             //Создаем тел1, в ответ получаем айди созданой записи. Если пусто то присваиваем айди №1 = пусто.
             string phoneID1 = "";
-            if (textBox_phone1.Text != "")
+            if (maskedTextBox_phone1.Text != "")
             {
-                macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone) values('" + textBox_phone1.Text + "');");
+                macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone) values('" + maskedTextBox_phone1.Text + "');");
                 phoneID1 = macros.sql_command("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
             }
             else
@@ -61,9 +66,9 @@ namespace Disp_WinForm
 
             //Создаем тел2, в ответ получаем айди созданой записи. Если пусто то присваиваем айди №1 = пусто.
             string phoneID2 = "";
-            if (textBox_phone2.Text != "")
+            if (maskedTextBox_phone2.Text != "")
             {
-                macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone) values('" + textBox_phone2.Text + "');");
+                macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone) values('" + maskedTextBox_phone2.Text + "');");
                 phoneID2 = macros.sql_command("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
             }
             else
@@ -93,6 +98,11 @@ namespace Disp_WinForm
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void comboBox_kategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBox_kategory.BackColor = Color.Empty;
         }
     }
 }

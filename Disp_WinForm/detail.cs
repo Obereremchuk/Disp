@@ -381,7 +381,7 @@ namespace Disp_WinForm
             }
             if (comboBox_status_trevogi.SelectedItem.ToString() == "Дилеры" & (_id_status == "Обробляется" || _id_status == "Відкрито" || _id_status == "808" || _id_status == "Продажи"))//если изменяем статус с Обробляется на 808  - отправляем меил со всейхронологией обработки тревоги
             {
-                string recipient = "<" + vars_form.user_login_email + ">," + "<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>";
+                string recipient = "<" + vars_form.user_login_email + ">," + "<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<s.gregul@venbest.com.ua>";
                 send_email(recipient);
             }
 
@@ -596,8 +596,13 @@ namespace Disp_WinForm
             var m = JsonConvert.DeserializeObject<RootObject>(json2);
             if (m.items.Count!=0)
             {
-                var lat = m.items[0].pos["y"];
-                var lon = m.items[0].pos["x"];
+                var lat = "";
+                var lon = "";
+                if (m.items[0].pos != null)
+                {
+                    lat = m.items[0].pos["y"];
+                    lon = m.items[0].pos["x"];
+                }
 
                 listBox_commads_wl.Items.Clear();
                 if (m.items[0].cmds != null)
@@ -676,8 +681,9 @@ namespace Disp_WinForm
 
                 }
 
-
-                string json3 = macros.wialon_request_new("&svc=resource/get_zones_by_point&params={" +
+                if (m.items[0].pos != null)
+                {
+                    string json3 = macros.wialon_request_new("&svc=resource/get_zones_by_point&params={" +
                                                          "\"spec\":{" +
                                                          "\"zoneId\":{" +
                                                          "\"28\":[],\"" +
@@ -685,9 +691,10 @@ namespace Disp_WinForm
                                                          "\"lat\":" + lat + "," +
                                                          "\"lon\":" + lon + "}}");//получаем id геозон в которых находится объект, ресурс res_service id=28
 
-                var geozone = JsonConvert.DeserializeObject<Dictionary<int, List<dynamic>>>(json3);
-                var array_geozone = geozone.Values.ToArray();//по другому не вышло, не могу достать из лист значения, перевем в аррай
-                var array_geozone_keys = geozone.Keys.ToArray();
+                    var geozone = JsonConvert.DeserializeObject<Dictionary<int, List<dynamic>>>(json3);
+                    var array_geozone = geozone.Values.ToArray();//по другому не вышло, не могу достать из лист значения, перевем в аррай
+                    var array_geozone_keys = geozone.Keys.ToArray();
+                }
 
             }
 
@@ -881,12 +888,13 @@ namespace Disp_WinForm
 
             var m = JsonConvert.DeserializeObject<RootObject>(json);
 
+
             string json2 = macros.wialon_request_new("&svc=item/update_custom_field&params={" +
                                                      "\"itemId\":\"" + _search_id + "\"," + 
                                                      "\"id\":\"1\"," + 
                                                      "\"callMode\":\"update\"," +
-                                                     "\"n\":\"" + m.items[0].flds[1].n + "\"," + 
-                                                     "\"v\":\"" + textBox_Uvaga.Text + "\"}");//получаем датчики объекта
+                                                     "\"n\":\"" + m.items[0].flds[1].n + "\"," +
+                                                     "\"v\":\"" + textBox_Uvaga.Text.Replace("\"", "%5C%22") + "\"}");//получаем датчики объекта
 
             MessageBox.Show("Поле Увага змінено!", "Повідомлення");
 

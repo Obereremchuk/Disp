@@ -27,7 +27,7 @@ namespace Disp_WinForm
             Xpcom.Initialize(t);
             Gecko.CertOverrideService.GetService().ValidityOverride += geckoWebBrowser1_ValidityOverride;
             wialon_login_form();
-            vars_form.version = "075";
+            vars_form.version = "079";
             label_Version.Text= "v." + vars_form.version;
         }
 
@@ -73,7 +73,8 @@ namespace Disp_WinForm
                                               "username," +
                                               "user_mail," +
                                               "user_token," +
-                                              "user_font " +
+                                              "user_font," +
+                                              "accsess_lvl " +
                                               "From btk.Users WHERE " +
                                               "username='" + username + "' ;");
                         if (data.Rows.Count == 1)
@@ -83,7 +84,8 @@ namespace Disp_WinForm
                             vars_form.user_login_email = data.Rows[0][2].ToString();
                             vars_form.user_token = data.Rows[0][3].ToString();
                             vars_form.setting_font_size = Convert.ToInt32(data.Rows[0][4]);
-                        }
+                            vars_form.user_accsess_lvl = Convert.ToInt32(data.Rows[0][5]);
+                    }
 
 
 
