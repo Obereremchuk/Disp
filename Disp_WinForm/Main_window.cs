@@ -29,19 +29,14 @@ namespace Disp_WinForm
             aTimer = new System.Timers.Timer();
 
             panel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            dateTimePicker1.ValueChanged -= dateTimePicker1_ValueChanged;
-            dateTimePicker2.ValueChanged -= dateTimePicker2_ValueChanged;
+
             TimeSpan ts1 = new TimeSpan(00, 00, 0);
-            dateTimePicker1.Value = DateTime.Now.Date;
-            dateTimePicker1.Value = dateTimePicker1.Value + ts1;
+
             dateTimePicker_testing_date.Value = DateTime.Now.Date + ts1;
             dateTimePicker_for_zayavki_na_activation_W2.Value = DateTime.Now.Date + ts1;
 
             TimeSpan ts2 = new TimeSpan(23, 59, 59);
-            dateTimePicker2.Value = DateTime.Now.Date;
-            dateTimePicker2.Value = dateTimePicker2.Value + ts2;
-            dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
-            dateTimePicker2.ValueChanged += dateTimePicker2_ValueChanged;
+
             comboBox_activovani_select.SelectedIndex = 0;
             comboBox_prikripleno_select.SelectedIndex = 0;
 
@@ -1738,6 +1733,38 @@ namespace Disp_WinForm
         {
 
             DataTable ds_close_alarm = new DataTable();
+            //ds_close_alarm = macros.GetData("SELECT " +
+            //                                        "idnotification, " +
+            //                                        "unit_id, " +
+            //                                        "unit_name, " +
+            //                                        "type_alarm, " +
+            //                                        "product, " +
+            //                                        "speed, " +
+            //                                        "curr_time, " +
+            //                                        "msg_time, " +
+            //                                        "location, " +
+            //                                        "last_location, " +
+            //                                        "btk.notification.time_stamp, " +
+            //                                        "group_alarm, Status, " +
+            //                                        "Users_idUsers, " +
+            //                                        "alarm_locked_user, (" +
+            //                                        "SELECT " +
+            //                                        "username " +
+            //                                        "FROM btk.Users " +
+            //                                        "WHERE " +
+            //                                        "idUsers = btk.notification.Users_idUsers) " +
+            //                                        "FROM btk.notification " +
+            //                                        "WHERE Status = 'Закрито' " +
+            //                                vars_form.hide_group_alarm + "  and btk.notification.unit_name LIKE '%" +
+            //                                search_close_alarm.Text.ToString() + "%' and btk.notification.type_alarm like '%" +
+            //                                comboBox_close_alarm_type.Text.ToString() +
+            //                                "%' and (SELECT username FROM btk.Users WHERE idUsers = btk.notification.Users_idUsers) like '%" +
+            //                                textBox_close_user_chenge.Text.ToString() + "%' AND (btk.notification.time_stamp BETWEEN '" +
+            //                                Convert.ToDateTime(dateTimePicker1.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' AND '" +
+            //                                Convert.ToDateTime(dateTimePicker2.Value).ToString("yyyy-MM-dd HH:mm:ss") +
+            //                                "') order by btk.notification." + vars_form.sort_close + " " + " " +
+            //                                vars_form.order_close_sort + " limit " + textBox_limit_close.Text.ToString() + " ");
+
             ds_close_alarm = macros.GetData("SELECT " +
                                                     "idnotification, " +
                                                     "unit_id, " +
@@ -1752,23 +1779,17 @@ namespace Disp_WinForm
                                                     "btk.notification.time_stamp, " +
                                                     "group_alarm, Status, " +
                                                     "Users_idUsers, " +
-                                                    "alarm_locked_user, (" +
-                                                    "SELECT " +
-                                                    "username " +
-                                                    "FROM btk.Users " +
+                                                    "alarm_locked_user," +
+                                                    "Users.username " +
+                                                    "FROM btk.notification, btk.Users " +
                                                     "WHERE " +
-                                                    "idUsers = btk.notification.Users_idUsers) " +
-                                                    "FROM btk.notification " +
-                                                    "WHERE Status = 'Закрито' " +
-                                            vars_form.hide_group_alarm + "  and btk.notification.unit_name LIKE '%" +
-                                            search_close_alarm.Text.ToString() + "%' and btk.notification.type_alarm like '%" +
-                                            comboBox_close_alarm_type.Text.ToString() +
-                                            "%' and (SELECT username FROM btk.Users WHERE idUsers = btk.notification.Users_idUsers) like '%" +
-                                            textBox_close_user_chenge.Text.ToString() + "%' AND (btk.notification.time_stamp BETWEEN '" +
-                                            Convert.ToDateTime(dateTimePicker1.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' AND '" +
-                                            Convert.ToDateTime(dateTimePicker2.Value).ToString("yyyy-MM-dd HH:mm:ss") +
-                                            "') order by btk.notification." + vars_form.sort_close + " " + " " +
-                                            vars_form.order_close_sort + " limit " + textBox_limit_close.Text.ToString() + " ");
+                                                    "Users.idUsers = notification.Users_idUsers " +
+                                                    "and group_alarm is null " +
+                                                    "and btk.notification.unit_name LIKE '%" + search_close_alarm.Text + "%' " +
+                                                    "and btk.notification.type_alarm like '%" + comboBox_close_alarm_type.Text + "%' " +
+                                                    "and Users.username like '%" + textBox_close_user_chenge.Text + "%' " +
+                                                    "order by notification.idnotification DESC " +
+                                                    "limit " + textBox_limit_close.Text.ToString() + " ");
 
 
 
@@ -1907,11 +1928,6 @@ namespace Disp_WinForm
         }
 
         private void search_close_alarm_TextChanged(object sender, EventArgs e)
-        {
-            mysql_close_alarm();
-        }
-
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             mysql_close_alarm();
         }
