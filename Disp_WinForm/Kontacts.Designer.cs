@@ -51,6 +51,7 @@
             this.textBox_search_kontackts.Name = "textBox_search_kontackts";
             this.textBox_search_kontackts.Size = new System.Drawing.Size(134, 20);
             this.textBox_search_kontackts.TabIndex = 8;
+            this.textBox_search_kontackts.TextChanged += new System.EventHandler(this.textBox_search_kontackts_TextChanged);
             // 
             // button_delete_kontackts
             // 
@@ -74,9 +75,13 @@
             // 
             // listView_kontackts
             // 
+            this.listView_kontackts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView_kontackts.HideSelection = false;
             this.listView_kontackts.Location = new System.Drawing.Point(11, 41);
             this.listView_kontackts.Name = "listView_kontackts";
-            this.listView_kontackts.Size = new System.Drawing.Size(775, 323);
+            this.listView_kontackts.Size = new System.Drawing.Size(775, 397);
             this.listView_kontackts.TabIndex = 5;
             this.listView_kontackts.UseCompatibleStateImageBehavior = false;
             // 

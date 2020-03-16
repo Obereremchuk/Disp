@@ -47,6 +47,8 @@
             this.comboBox_kategory = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox_phone2 = new System.Windows.Forms.GroupBox();
+            this.maskedTextBox_phone2 = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBox_phone1 = new System.Windows.Forms.MaskedTextBox();
             this.textBox_vulitsa = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBox_misto = new System.Windows.Forms.ComboBox();
@@ -54,8 +56,6 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.maskedTextBox_phone1 = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox_phone2 = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox_phone2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -256,6 +256,22 @@
             this.groupBox_phone2.TabStop = false;
             this.groupBox_phone2.Text = "Контактна інформація";
             // 
+            // maskedTextBox_phone2
+            // 
+            this.maskedTextBox_phone2.Location = new System.Drawing.Point(117, 102);
+            this.maskedTextBox_phone2.Mask = "999-000-0000";
+            this.maskedTextBox_phone2.Name = "maskedTextBox_phone2";
+            this.maskedTextBox_phone2.Size = new System.Drawing.Size(186, 20);
+            this.maskedTextBox_phone2.TabIndex = 41;
+            // 
+            // maskedTextBox_phone1
+            // 
+            this.maskedTextBox_phone1.Location = new System.Drawing.Point(117, 76);
+            this.maskedTextBox_phone1.Mask = "999-000-0000";
+            this.maskedTextBox_phone1.Name = "maskedTextBox_phone1";
+            this.maskedTextBox_phone1.Size = new System.Drawing.Size(186, 20);
+            this.maskedTextBox_phone1.TabIndex = 40;
+            // 
             // textBox_vulitsa
             // 
             this.textBox_vulitsa.Location = new System.Drawing.Point(117, 50);
@@ -304,7 +320,8 @@
             "Луцк",
             "Краматорск",
             "Ужгород",
-            "Павлоград"});
+            "Павлоград",
+            "Угринів"});
             this.comboBox_misto.Location = new System.Drawing.Point(117, 23);
             this.comboBox_misto.Name = "comboBox_misto";
             this.comboBox_misto.Size = new System.Drawing.Size(186, 21);
@@ -331,7 +348,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(585, 335);
+            this.button1.Location = new System.Drawing.Point(502, 335);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 45;
@@ -341,29 +358,13 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(504, 335);
+            this.button2.Location = new System.Drawing.Point(583, 335);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 46;
             this.button2.Text = "Відмінити";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // maskedTextBox_phone1
-            // 
-            this.maskedTextBox_phone1.Location = new System.Drawing.Point(117, 76);
-            this.maskedTextBox_phone1.Mask = "999-000-0000";
-            this.maskedTextBox_phone1.Name = "maskedTextBox_phone1";
-            this.maskedTextBox_phone1.Size = new System.Drawing.Size(186, 20);
-            this.maskedTextBox_phone1.TabIndex = 40;
-            // 
-            // maskedTextBox_phone2
-            // 
-            this.maskedTextBox_phone2.Location = new System.Drawing.Point(117, 102);
-            this.maskedTextBox_phone2.Mask = "999-000-0000";
-            this.maskedTextBox_phone2.Name = "maskedTextBox_phone2";
-            this.maskedTextBox_phone2.Size = new System.Drawing.Size(186, 20);
-            this.maskedTextBox_phone2.TabIndex = 41;
             // 
             // Add_kontragent
             // 

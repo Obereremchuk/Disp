@@ -1945,7 +1945,7 @@ namespace Disp_WinForm
 
         private void button_test_sel_obj_yes_Click(object sender, EventArgs e)
         {
-            //get_sensor_value();
+            
             if (listBox_test_search_result.SelectedItems.Count <= 0)
             {
                 return;
@@ -1963,12 +1963,12 @@ namespace Disp_WinForm
 
         private void form_Testing_activated(object sender, EventArgs e)
         {
-            this.Visible = false;// блокируем окно контрагентов пока открыто окно добавления контрагента
+            //this.Visible = false;// блокируем окно контрагентов пока открыто окно добавления контрагента
         }
 
         private void form_Testing_deactivated(object sender, FormClosedEventArgs e)
         {
-            this.Visible = true;// разблокируем окно контрагентов кактолько закрыто окно добавления контрагента
+            //this.Visible = true;// разблокируем окно контрагентов кактолько закрыто окно добавления контрагента
         }
 
         private void label_status_ohoroni_Paint(object sender, PaintEventArgs e)

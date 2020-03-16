@@ -570,6 +570,8 @@ namespace Disp_WinForm
             }
         }
 
+        
+
         //create new user account and giv right to object
         private void account_create_button_Click(object sender, EventArgs e)
         {
@@ -613,8 +615,9 @@ namespace Disp_WinForm
                                                             "\"accessMask\":\"550611455877‬\"}");
                     var set_right_object = JsonConvert.DeserializeObject<RootObject>(set_right_object_answer);
 
+                    DataTable users = macros.GetData("SELECT username FROM btk.Users where accsess_lvl = '8' and accsess_lvl = '13' and accsess_lvl = '';");
 
-                    if (vars_form.wl_user_id == 9605)
+                    if (vars_form.wl_user_id == 9605) // если создает Сапорт2 даем доступ пользователям:
                     {
                         //Доступ username support
                         string set_right_user_suport_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
@@ -636,6 +639,29 @@ namespace Disp_WinForm
                                                                  "\"itemId\":\"" + created_resource_user_data.item.id + "\"," +
                                                                  "\"accessMask\":\"-1\"}");
                         var set_right_resource_user_support = JsonConvert.DeserializeObject<RootObject>(set_right_resource_user_support_answer);
+                        
+                        //----------------------------------
+
+                        //Доступ username d.lenik
+                        string set_right_user_lenik_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                                 "\"userId\":\"3413\"," +
+                                                                 "\"itemId\":\"" + created_user_data.item.id + "\"," +
+                                                                 "\"accessMask\":\"-1\"}");
+                        var set_right_user_lenik_ = JsonConvert.DeserializeObject<RootObject>(set_right_user_lenik_answer);
+
+                        //Доступ на ресурс: username for support
+                        string set_right_resource_lenik_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                                 "\"userId\":\"" + "3413" + "\"," +
+                                                                 "\"itemId\":\"" + created_resource_data.item.id + "\"," +
+                                                                 "\"accessMask\":\"-1\"}");
+                        var set_right_resourc_lenik = JsonConvert.DeserializeObject<RootObject>(set_right_resource_lenik_answer);
+
+                        //Доступ на ресурс: username_user support
+                        string set_right_resource_user_lenik_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                                 "\"userId\":\"" + "3413" + "\"," +
+                                                                 "\"itemId\":\"" + created_resource_user_data.item.id + "\"," +
+                                                                 "\"accessMask\":\"-1\"}");
+                        var set_right_resource_user_lenik = JsonConvert.DeserializeObject<RootObject>(set_right_resource_user_lenik_answer);
                     }
                     else if (vars_form.wl_user_id == 3413)
                     {

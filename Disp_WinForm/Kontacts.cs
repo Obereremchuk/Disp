@@ -16,9 +16,20 @@ namespace Disp_WinForm
         Macros macros = new Macros();
         public Kontacts()
         {
+            Right_set();
             InitializeComponent();
             Bild_listview_kontackts();
             Get_kontackts();
+        }
+
+        private void Right_set()
+        {
+            if (vars_form.user_accsess_lvl >= 9)
+            {
+                button_add_kontackts.Enabled = false;
+                button_edit_kontackts.Enabled = false;
+                button_delete_kontackts.Enabled = false;
+            }
         }
 
         private void Bild_listview_kontackts()
@@ -40,7 +51,7 @@ namespace Disp_WinForm
 
         private void Get_kontackts()
         {
-            MySqlConnection myConnection = new MySqlConnection("server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True");
+            MySqlConnection myConnection = new MySqlConnection("server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True; charset=utf8");
             string sql = string.Format("SELECT * FROM btk.Kontakti where Kontakti_imya like '%" + textBox_search_kontackts.Text + "%' or Kontakti_familia like '%" + textBox_search_kontackts.Text + "%' or Phonebook_idPhonebook like '%" + textBox_search_kontackts.Text + "%' or Phonebook_idPhonebook1 like '%" + textBox_search_kontackts.Text + "%';");
             MySqlCommand myDataAdapter = new MySqlCommand(sql, myConnection);
             myConnection.Open();
@@ -48,6 +59,8 @@ namespace Disp_WinForm
             List<string> results = new List<string>();
 
             listView_kontackts.Items.Clear();
+            listView_kontackts.View = View.List;
+
 
             while (reader.Read())
             {
@@ -68,7 +81,7 @@ namespace Disp_WinForm
             myDataAdapter.Dispose();
             myConnection.Close();
 
-            
+            listView_kontackts.Visible = true;
             listView_kontackts.View = View.Details;
         }
 
@@ -130,6 +143,11 @@ namespace Disp_WinForm
         private void form_edit_kontakts_deactivated(object sender, FormClosedEventArgs e)
         {
             this.Enabled = true;// разблокируем окно контрагентов кактолько закрыто окно добавления контрагента
+            Get_kontackts();
+        }
+
+        private void textBox_search_kontackts_TextChanged(object sender, EventArgs e)
+        {
             Get_kontackts();
         }
     }

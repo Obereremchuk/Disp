@@ -42,13 +42,13 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox_coment = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.maskedTextBox_tel1 = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBox_mail2 = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBox_mail = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBox_tel2 = new System.Windows.Forms.MaskedTextBox();
             this.comboBox_work_in = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.maskedTextBox_tel1 = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox_tel2 = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox_mail = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox_mail2 = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -59,7 +59,7 @@
             // 
             this.textBox_name.Location = new System.Drawing.Point(77, 16);
             this.textBox_name.Name = "textBox_name";
-            this.textBox_name.Size = new System.Drawing.Size(202, 20);
+            this.textBox_name.Size = new System.Drawing.Size(341, 20);
             this.textBox_name.TabIndex = 0;
             // 
             // label1
@@ -84,7 +84,7 @@
             // 
             this.textBox_familia.Location = new System.Drawing.Point(77, 42);
             this.textBox_familia.Name = "textBox_familia";
-            this.textBox_familia.Size = new System.Drawing.Size(202, 20);
+            this.textBox_familia.Size = new System.Drawing.Size(341, 20);
             this.textBox_familia.TabIndex = 3;
             // 
             // label3
@@ -116,7 +116,7 @@
             // 
             // button_create
             // 
-            this.button_create.Location = new System.Drawing.Point(531, 248);
+            this.button_create.Location = new System.Drawing.Point(583, 248);
             this.button_create.Name = "button_create";
             this.button_create.Size = new System.Drawing.Size(75, 23);
             this.button_create.TabIndex = 24;
@@ -135,7 +135,7 @@
             // 
             // button_add_kontragent
             // 
-            this.button_add_kontragent.Location = new System.Drawing.Point(204, 17);
+            this.button_add_kontragent.Location = new System.Drawing.Point(343, 18);
             this.button_add_kontragent.Name = "button_add_kontragent";
             this.button_add_kontragent.Size = new System.Drawing.Size(75, 23);
             this.button_add_kontragent.TabIndex = 31;
@@ -151,7 +151,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(291, 73);
+            this.groupBox1.Size = new System.Drawing.Size(424, 73);
             this.groupBox1.TabIndex = 32;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "ПІБ";
@@ -161,7 +161,7 @@
             this.groupBox2.Controls.Add(this.textBox_coment);
             this.groupBox2.Location = new System.Drawing.Point(12, 151);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(594, 91);
+            this.groupBox2.Size = new System.Drawing.Size(728, 91);
             this.groupBox2.TabIndex = 33;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Коментар";
@@ -171,7 +171,7 @@
             this.textBox_coment.Location = new System.Drawing.Point(6, 19);
             this.textBox_coment.Multiline = true;
             this.textBox_coment.Name = "textBox_coment";
-            this.textBox_coment.Size = new System.Drawing.Size(575, 50);
+            this.textBox_coment.Size = new System.Drawing.Size(716, 50);
             this.textBox_coment.TabIndex = 0;
             // 
             // groupBox3
@@ -184,19 +184,49 @@
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.label14);
             this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Location = new System.Drawing.Point(309, 12);
+            this.groupBox3.Location = new System.Drawing.Point(442, 12);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(297, 133);
             this.groupBox3.TabIndex = 34;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Контактна інформація";
             // 
+            // maskedTextBox_tel1
+            // 
+            this.maskedTextBox_tel1.Location = new System.Drawing.Point(82, 16);
+            this.maskedTextBox_tel1.Mask = "999-000-0000";
+            this.maskedTextBox_tel1.Name = "maskedTextBox_tel1";
+            this.maskedTextBox_tel1.Size = new System.Drawing.Size(202, 20);
+            this.maskedTextBox_tel1.TabIndex = 38;
+            // 
+            // maskedTextBox_mail2
+            // 
+            this.maskedTextBox_mail2.Location = new System.Drawing.Point(82, 94);
+            this.maskedTextBox_mail2.Name = "maskedTextBox_mail2";
+            this.maskedTextBox_mail2.Size = new System.Drawing.Size(202, 20);
+            this.maskedTextBox_mail2.TabIndex = 41;
+            // 
+            // maskedTextBox_mail
+            // 
+            this.maskedTextBox_mail.Location = new System.Drawing.Point(82, 68);
+            this.maskedTextBox_mail.Name = "maskedTextBox_mail";
+            this.maskedTextBox_mail.Size = new System.Drawing.Size(202, 20);
+            this.maskedTextBox_mail.TabIndex = 40;
+            // 
+            // maskedTextBox_tel2
+            // 
+            this.maskedTextBox_tel2.Location = new System.Drawing.Point(82, 42);
+            this.maskedTextBox_tel2.Mask = "999-000-0000";
+            this.maskedTextBox_tel2.Name = "maskedTextBox_tel2";
+            this.maskedTextBox_tel2.Size = new System.Drawing.Size(202, 20);
+            this.maskedTextBox_tel2.TabIndex = 39;
+            // 
             // comboBox_work_in
             // 
             this.comboBox_work_in.FormattingEnabled = true;
-            this.comboBox_work_in.Location = new System.Drawing.Point(6, 18);
+            this.comboBox_work_in.Location = new System.Drawing.Point(77, 18);
             this.comboBox_work_in.Name = "comboBox_work_in";
-            this.comboBox_work_in.Size = new System.Drawing.Size(192, 21);
+            this.comboBox_work_in.Size = new System.Drawing.Size(260, 21);
             this.comboBox_work_in.TabIndex = 35;
             this.comboBox_work_in.DropDown += new System.EventHandler(this.comboBox_work_in_DropDown);
             this.comboBox_work_in.TextUpdate += new System.EventHandler(this.comboBox_work_in_TextUpdate);
@@ -207,14 +237,14 @@
             this.groupBox4.Controls.Add(this.comboBox_work_in);
             this.groupBox4.Location = new System.Drawing.Point(12, 91);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(291, 54);
+            this.groupBox4.Size = new System.Drawing.Size(424, 54);
             this.groupBox4.TabIndex = 36;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Працює в:";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(450, 248);
+            this.button2.Location = new System.Drawing.Point(664, 248);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 37;
@@ -222,41 +252,11 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // maskedTextBox_tel1
-            // 
-            this.maskedTextBox_tel1.Location = new System.Drawing.Point(82, 16);
-            this.maskedTextBox_tel1.Mask = "999-000-0000";
-            this.maskedTextBox_tel1.Name = "maskedTextBox_tel1";
-            this.maskedTextBox_tel1.Size = new System.Drawing.Size(202, 20);
-            this.maskedTextBox_tel1.TabIndex = 38;
-            // 
-            // maskedTextBox_tel2
-            // 
-            this.maskedTextBox_tel2.Location = new System.Drawing.Point(82, 42);
-            this.maskedTextBox_tel2.Mask = "999-000-0000";
-            this.maskedTextBox_tel2.Name = "maskedTextBox_tel2";
-            this.maskedTextBox_tel2.Size = new System.Drawing.Size(202, 20);
-            this.maskedTextBox_tel2.TabIndex = 39;
-            // 
-            // maskedTextBox_mail
-            // 
-            this.maskedTextBox_mail.Location = new System.Drawing.Point(82, 68);
-            this.maskedTextBox_mail.Name = "maskedTextBox_mail";
-            this.maskedTextBox_mail.Size = new System.Drawing.Size(202, 20);
-            this.maskedTextBox_mail.TabIndex = 40;
-            // 
-            // maskedTextBox_mail2
-            // 
-            this.maskedTextBox_mail2.Location = new System.Drawing.Point(82, 94);
-            this.maskedTextBox_mail2.Name = "maskedTextBox_mail2";
-            this.maskedTextBox_mail2.Size = new System.Drawing.Size(202, 20);
-            this.maskedTextBox_mail2.TabIndex = 41;
-            // 
             // Add_kontakt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(616, 281);
+            this.ClientSize = new System.Drawing.Size(752, 281);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);

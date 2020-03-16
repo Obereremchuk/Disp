@@ -32,6 +32,8 @@ namespace Disp_WinForm
             
         }
 
+        
+
         private void adaptation_UI_for_product()
         {
             //get product of testing device
@@ -328,31 +330,40 @@ namespace Disp_WinForm
         }
         private void button_write_Click(object sender, EventArgs e)
         {
+            if (comboBox_test_sto.SelectedIndex == -1 | comboBox_ustanoshik_poisk.SelectedIndex == -1)
+            {
+                MessageBox.Show("Не вибрано встановника");
+                return;
+            }
+
             commands_fill_anketa();
             commands_add_testing();
         }
 
         private void commands_fill_anketa()
         {
+            
+
             string id_db_TS_info = macros.sql_command("SELECT TS_info_idTS_info FROM btk.Object where Object_id_wl = " + vars_form.id_object_for_test + ";");
 
             /////////////////
             ///Заполняем произвольные поля в БД
             /////////////////
             ///
+
             macros.sql_command("update btk.TS_info set " +
                                "TS_infocol_place_treker='" + textBox_device1.Text + "', " +
                                "TS_infocol_place_alarm='" + TextBox_device2.Text + "', " +
                                "TS_infocol_place_relay='" + textBox_place_relay.Text + "', " +
                                "TS_infocol_wire_cut='" + textBox_wire_cut.Text + "', " +
                                "TS_infocol_place_tk='" + textBox_place_tk.Text + "', " +
-                               "TS_infocol_wireless_tk='"+ textBox_tk_wirreless_or_wire.Text+ "', " +
+                               "TS_infocol_wireless_tk='" + textBox_tk_wirreless_or_wire.Text + "', " +
                                "TS_infocol_place_service_button='" + textBox_service_button.Text + "', " +
                                "TS_infocol_button_for_pin='" + textBox_buttons_for_pin.Text + "', " +
                                "TS_infocol_set_pin='" + textBox_current_pin.Text + "', " +
                                "TS_infocol_pin_button_external='" + textBox_pin_button_external.Text + "', " +
                                "TS_infocol_other_alarm='" + textBox_other_alarm.Text + "', " +
-                               "TS_infocol_other_sensor='"+textBox_instaled_sensor.Text+"', " +
+                               "TS_infocol_other_sensor='" + textBox_instaled_sensor.Text + "', " +
                                "TS_infocol_arm_bagagnik='" + textBox_arm_bagagnik.Text + "', " +
                                "TS_infocol_uvaga='" + textBox_uvaga.Text + "', " +
                                "Kuzov_type_idKuzov_type='" + comboBox_kuzov_type.SelectedValue.ToString() + "', " +
@@ -366,8 +377,8 @@ namespace Disp_WinForm
                                "Kontragenti_idKontragenti='" + comboBox_test_sto.SelectedValue.ToString() + "', " +
                                "TS_infocol_relay_on_plus='" + (checkBox_test_relay_plus.Checked ? "1" : "0") + "', " +
                                "TS_infocol_comfort_accsess='" + textBox_komfort.Text.ToString() + "', " +
-                               "TS_infocol_new_pin='"+ textBox_current_pin.Text.ToString() +"' " +
-                               "where idTS_info="+ id_db_TS_info + ";");
+                               "TS_infocol_new_pin='" + textBox_current_pin.Text.ToString() + "' " +
+                               "where idTS_info=" + id_db_TS_info + ";");
 
             macros.sql_command("update btk.Object set " +
                                "Object_name='" + name_obj_textBox.Text + "'" +
@@ -756,19 +767,21 @@ namespace Disp_WinForm
                                                                + "\"n\":\"3.1.1 Оператор, що тестував\","
                                                                + "\"v\":\"" + vars_form.user_login_name + "\"}");
                 //Произвольное поле СТО
+                
                 string pp18_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
                                                                 + "\"id\":\"11\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.2.1 Установник: назва, адреса\","
-                                                                + "\"v\":\"" + comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem).ToString() + "\"}");
+                                                                + "\"v\":\"" + comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле Установщик
-                string pp19_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                
+                    string pp19_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
                                                                 + "\"id\":\"12\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.2.2 Установник - монтажник: ПІБ, №тел.\","
-                                                                  + "\"v\":\"" + comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem).ToString() + "\"}");
+                                                                  + "\"v\":\"" + comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле дата установки = дата тестирования
                 string pp20_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_object_for_test + "\","

@@ -17,8 +17,19 @@ namespace Disp_WinForm
         public Kontragents()
         {
             InitializeComponent();
+            Right_set();
             Bild_listview_kontragets();
             Get_kontragents();
+        }
+
+        private void Right_set()
+        {
+            if (vars_form.user_accsess_lvl >= 9)
+            {
+                button_add_kontragents.Enabled = false;
+                button_edit_kontragents.Enabled = false;
+                button_delete_kontragents.Enabled = false;
+            }
         }
 
         private void Bild_listview_kontragets()

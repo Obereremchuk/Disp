@@ -38,6 +38,10 @@
             this.comboBox_test_sto = new System.Windows.Forms.ComboBox();
             this.comboBox_ustanoshik_poisk = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox_pin_button_external = new System.Windows.Forms.TextBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.textBox_tk_wirreless_or_wire = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.imei_obj_textBox = new System.Windows.Forms.TextBox();
             this.name_obj_textBox = new System.Windows.Forms.TextBox();
@@ -125,10 +129,6 @@
             this.label_ign = new System.Windows.Forms.Label();
             this.button_cancel = new System.Windows.Forms.Button();
             this.button_write = new System.Windows.Forms.Button();
-            this.textBox_tk_wirreless_or_wire = new System.Windows.Forms.TextBox();
-            this.label33 = new System.Windows.Forms.Label();
-            this.textBox_pin_button_external = new System.Windows.Forms.TextBox();
-            this.label34 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel_move_active.SuspendLayout();
@@ -139,21 +139,21 @@
             // 
             // comboBox_test_production_date
             // 
+            this.comboBox_test_production_date.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_test_production_date.FormattingEnabled = true;
             this.comboBox_test_production_date.Location = new System.Drawing.Point(581, 619);
             this.comboBox_test_production_date.Name = "comboBox_test_production_date";
             this.comboBox_test_production_date.Size = new System.Drawing.Size(76, 21);
-            this.comboBox_test_production_date.TabIndex = 23;
-            this.comboBox_test_production_date.Text = "Рік вип.";
+            this.comboBox_test_production_date.TabIndex = 26;
             // 
             // comboBox_test_brand
             // 
+            this.comboBox_test_brand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_test_brand.FormattingEnabled = true;
             this.comboBox_test_brand.Location = new System.Drawing.Point(6, 619);
             this.comboBox_test_brand.Name = "comboBox_test_brand";
             this.comboBox_test_brand.Size = new System.Drawing.Size(116, 21);
-            this.comboBox_test_brand.TabIndex = 19;
-            this.comboBox_test_brand.Text = "Марка";
+            this.comboBox_test_brand.TabIndex = 22;
             this.comboBox_test_brand.DropDown += new System.EventHandler(this.comboBox_test_brand_DropDown);
             this.comboBox_test_brand.DropDownClosed += new System.EventHandler(this.comboBox_test_brand_DropDownClosed);
             // 
@@ -163,27 +163,27 @@
             this.checkBox_test_relay_plus.Location = new System.Drawing.Point(6, 309);
             this.checkBox_test_relay_plus.Name = "checkBox_test_relay_plus";
             this.checkBox_test_relay_plus.Size = new System.Drawing.Size(291, 17);
-            this.checkBox_test_relay_plus.TabIndex = 9;
+            this.checkBox_test_relay_plus.TabIndex = 10;
             this.checkBox_test_relay_plus.Text = "Чи на постійний плюс підключене реле блокування?";
             this.checkBox_test_relay_plus.UseVisualStyleBackColor = true;
             // 
             // comboBox_color
             // 
+            this.comboBox_color.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_color.FormattingEnabled = true;
             this.comboBox_color.Location = new System.Drawing.Point(386, 619);
             this.comboBox_color.Name = "comboBox_color";
             this.comboBox_color.Size = new System.Drawing.Size(189, 21);
-            this.comboBox_color.TabIndex = 22;
-            this.comboBox_color.Text = "Колір";
+            this.comboBox_color.TabIndex = 25;
             // 
             // comboBox_test_model
             // 
+            this.comboBox_test_model.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_test_model.FormattingEnabled = true;
             this.comboBox_test_model.Location = new System.Drawing.Point(128, 619);
             this.comboBox_test_model.Name = "comboBox_test_model";
             this.comboBox_test_model.Size = new System.Drawing.Size(159, 21);
-            this.comboBox_test_model.TabIndex = 20;
-            this.comboBox_test_model.Text = "Модель";
+            this.comboBox_test_model.TabIndex = 23;
             // 
             // button2
             // 
@@ -207,12 +207,12 @@
             // 
             // comboBox_test_sto
             // 
+            this.comboBox_test_sto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_test_sto.FormattingEnabled = true;
             this.comboBox_test_sto.Location = new System.Drawing.Point(6, 122);
             this.comboBox_test_sto.Name = "comboBox_test_sto";
             this.comboBox_test_sto.Size = new System.Drawing.Size(371, 21);
-            this.comboBox_test_sto.TabIndex = 4;
-            this.comboBox_test_sto.Text = "Установник (СТО)";
+            this.comboBox_test_sto.TabIndex = 3;
             // 
             // comboBox_ustanoshik_poisk
             // 
@@ -220,7 +220,7 @@
             this.comboBox_ustanoshik_poisk.Location = new System.Drawing.Point(6, 95);
             this.comboBox_ustanoshik_poisk.Name = "comboBox_ustanoshik_poisk";
             this.comboBox_ustanoshik_poisk.Size = new System.Drawing.Size(371, 21);
-            this.comboBox_ustanoshik_poisk.TabIndex = 3;
+            this.comboBox_ustanoshik_poisk.TabIndex = 2;
             this.comboBox_ustanoshik_poisk.Text = "Установник-монтажник (ПІБ, телефон)";
             this.comboBox_ustanoshik_poisk.SelectionChangeCommitted += new System.EventHandler(this.comboBox_ustanoshik_poisk_SelectionChangeCommitted);
             this.comboBox_ustanoshik_poisk.TextUpdate += new System.EventHandler(this.comboBox_ustanovshik_poisk_TextUpdate);
@@ -283,6 +283,38 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Анкета";
             // 
+            // textBox_pin_button_external
+            // 
+            this.textBox_pin_button_external.Location = new System.Drawing.Point(6, 541);
+            this.textBox_pin_button_external.Name = "textBox_pin_button_external";
+            this.textBox_pin_button_external.Size = new System.Drawing.Size(371, 20);
+            this.textBox_pin_button_external.TabIndex = 19;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(383, 544);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(271, 13);
+            this.label34.TabIndex = 95;
+            this.label34.Text = "Кнопки введення PIN коду: додатково встановленні";
+            // 
+            // textBox_tk_wirreless_or_wire
+            // 
+            this.textBox_tk_wirreless_or_wire.Location = new System.Drawing.Point(6, 515);
+            this.textBox_tk_wirreless_or_wire.Name = "textBox_tk_wirreless_or_wire";
+            this.textBox_tk_wirreless_or_wire.Size = new System.Drawing.Size(371, 20);
+            this.textBox_tk_wirreless_or_wire.TabIndex = 18;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(383, 518);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(215, 13);
+            this.label33.TabIndex = 93;
+            this.label33.Text = "Тривожна кнопка: провідна, безпровідна";
+            // 
             // label25
             // 
             this.label25.AutoSize = true;
@@ -323,28 +355,28 @@
             this.textBox_place_tk.Location = new System.Drawing.Point(6, 331);
             this.textBox_place_tk.Name = "textBox_place_tk";
             this.textBox_place_tk.Size = new System.Drawing.Size(371, 20);
-            this.textBox_place_tk.TabIndex = 10;
+            this.textBox_place_tk.TabIndex = 11;
             // 
             // textBox_vin
             // 
             this.textBox_vin.Location = new System.Drawing.Point(6, 567);
             this.textBox_vin.Name = "textBox_vin";
             this.textBox_vin.Size = new System.Drawing.Size(371, 20);
-            this.textBox_vin.TabIndex = 17;
+            this.textBox_vin.TabIndex = 20;
             // 
             // textBox_uvaga
             // 
             this.textBox_uvaga.Location = new System.Drawing.Point(6, 69);
             this.textBox_uvaga.Name = "textBox_uvaga";
             this.textBox_uvaga.Size = new System.Drawing.Size(371, 20);
-            this.textBox_uvaga.TabIndex = 2;
+            this.textBox_uvaga.TabIndex = 1;
             // 
             // textBox_licence_plate
             // 
             this.textBox_licence_plate.Location = new System.Drawing.Point(6, 593);
             this.textBox_licence_plate.Name = "textBox_licence_plate";
             this.textBox_licence_plate.Size = new System.Drawing.Size(371, 20);
-            this.textBox_licence_plate.TabIndex = 18;
+            this.textBox_licence_plate.TabIndex = 21;
             this.textBox_licence_plate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_licence_plate_KeyPress);
             // 
             // textBox_komfort
@@ -352,42 +384,42 @@
             this.textBox_komfort.Location = new System.Drawing.Point(6, 489);
             this.textBox_komfort.Name = "textBox_komfort";
             this.textBox_komfort.Size = new System.Drawing.Size(371, 20);
-            this.textBox_komfort.TabIndex = 16;
+            this.textBox_komfort.TabIndex = 17;
             // 
             // textBox_other_alarm
             // 
             this.textBox_other_alarm.Location = new System.Drawing.Point(6, 463);
             this.textBox_other_alarm.Name = "textBox_other_alarm";
             this.textBox_other_alarm.Size = new System.Drawing.Size(371, 20);
-            this.textBox_other_alarm.TabIndex = 15;
+            this.textBox_other_alarm.TabIndex = 16;
             // 
             // textBox_current_pin
             // 
             this.textBox_current_pin.Location = new System.Drawing.Point(6, 437);
             this.textBox_current_pin.Name = "textBox_current_pin";
             this.textBox_current_pin.Size = new System.Drawing.Size(371, 20);
-            this.textBox_current_pin.TabIndex = 14;
+            this.textBox_current_pin.TabIndex = 15;
             // 
             // textBox_buttons_for_pin
             // 
             this.textBox_buttons_for_pin.Location = new System.Drawing.Point(6, 411);
             this.textBox_buttons_for_pin.Name = "textBox_buttons_for_pin";
             this.textBox_buttons_for_pin.Size = new System.Drawing.Size(371, 20);
-            this.textBox_buttons_for_pin.TabIndex = 13;
+            this.textBox_buttons_for_pin.TabIndex = 14;
             // 
             // textBox_service_button
             // 
             this.textBox_service_button.Location = new System.Drawing.Point(6, 385);
             this.textBox_service_button.Name = "textBox_service_button";
             this.textBox_service_button.Size = new System.Drawing.Size(371, 20);
-            this.textBox_service_button.TabIndex = 12;
+            this.textBox_service_button.TabIndex = 13;
             // 
             // textBox_wire_cut
             // 
             this.textBox_wire_cut.Location = new System.Drawing.Point(6, 279);
             this.textBox_wire_cut.Name = "textBox_wire_cut";
             this.textBox_wire_cut.Size = new System.Drawing.Size(371, 20);
-            this.textBox_wire_cut.TabIndex = 8;
+            this.textBox_wire_cut.TabIndex = 9;
             // 
             // textBox_instaled_sensor
             // 
@@ -401,7 +433,7 @@
             this.textBox_place_relay.Location = new System.Drawing.Point(6, 253);
             this.textBox_place_relay.Name = "textBox_place_relay";
             this.textBox_place_relay.Size = new System.Drawing.Size(371, 20);
-            this.textBox_place_relay.TabIndex = 7;
+            this.textBox_place_relay.TabIndex = 8;
             // 
             // textBox_arm_bagagnik
             // 
@@ -415,7 +447,7 @@
             this.TextBox_device2.Location = new System.Drawing.Point(6, 175);
             this.TextBox_device2.Name = "TextBox_device2";
             this.TextBox_device2.Size = new System.Drawing.Size(371, 20);
-            this.TextBox_device2.TabIndex = 6;
+            this.TextBox_device2.TabIndex = 5;
             // 
             // label22
             // 
@@ -557,7 +589,7 @@
             this.textBox_device1.Location = new System.Drawing.Point(6, 149);
             this.textBox_device1.Name = "textBox_device1";
             this.textBox_device1.Size = new System.Drawing.Size(371, 20);
-            this.textBox_device1.TabIndex = 5;
+            this.textBox_device1.TabIndex = 4;
             // 
             // comboBox_pin_or_tag
             // 
@@ -570,17 +602,17 @@
             this.comboBox_pin_or_tag.Location = new System.Drawing.Point(6, 358);
             this.comboBox_pin_or_tag.Name = "comboBox_pin_or_tag";
             this.comboBox_pin_or_tag.Size = new System.Drawing.Size(371, 21);
-            this.comboBox_pin_or_tag.TabIndex = 11;
+            this.comboBox_pin_or_tag.TabIndex = 12;
             this.comboBox_pin_or_tag.Text = "Як запрограмована ідентифікація водія. Правильно мітка або PIN";
             // 
             // comboBox_kuzov_type
             // 
+            this.comboBox_kuzov_type.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_kuzov_type.FormattingEnabled = true;
             this.comboBox_kuzov_type.Location = new System.Drawing.Point(293, 619);
             this.comboBox_kuzov_type.Name = "comboBox_kuzov_type";
             this.comboBox_kuzov_type.Size = new System.Drawing.Size(89, 21);
-            this.comboBox_kuzov_type.TabIndex = 21;
-            this.comboBox_kuzov_type.Text = "Тип кузову";
+            this.comboBox_kuzov_type.TabIndex = 24;
             // 
             // groupBox2
             // 
@@ -643,7 +675,7 @@
             this.textBox_commets.Multiline = true;
             this.textBox_commets.Name = "textBox_commets";
             this.textBox_commets.Size = new System.Drawing.Size(449, 82);
-            this.textBox_commets.TabIndex = 33;
+            this.textBox_commets.TabIndex = 37;
             // 
             // tableLayoutPanel1
             // 
@@ -718,7 +750,7 @@
             this.checkBox_test_conn.Location = new System.Drawing.Point(4, 4);
             this.checkBox_test_conn.Name = "checkBox_test_conn";
             this.checkBox_test_conn.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_test_conn.TabIndex = 89;
+            this.checkBox_test_conn.TabIndex = 27;
             this.checkBox_test_conn.UseVisualStyleBackColor = true;
             // 
             // label__test_vzlom
@@ -778,7 +810,7 @@
             this.checkBox_test_zablocovano.Location = new System.Drawing.Point(4, 26);
             this.checkBox_test_zablocovano.Name = "checkBox_test_zablocovano";
             this.checkBox_test_zablocovano.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_test_zablocovano.TabIndex = 24;
+            this.checkBox_test_zablocovano.TabIndex = 28;
             this.checkBox_test_zablocovano.UseVisualStyleBackColor = true;
             this.checkBox_test_zablocovano.CheckedChanged += new System.EventHandler(this.checkBox_test_zablocovano_CheckedChanged);
             // 
@@ -788,7 +820,7 @@
             this.checkBox_test_hood_in_arm.Location = new System.Drawing.Point(4, 136);
             this.checkBox_test_hood_in_arm.Name = "checkBox_test_hood_in_arm";
             this.checkBox_test_hood_in_arm.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_test_hood_in_arm.TabIndex = 26;
+            this.checkBox_test_hood_in_arm.TabIndex = 33;
             this.checkBox_test_hood_in_arm.UseVisualStyleBackColor = true;
             // 
             // label26
@@ -808,7 +840,7 @@
             this.checkBox_test_koordinati.Location = new System.Drawing.Point(4, 114);
             this.checkBox_test_koordinati.Name = "checkBox_test_koordinati";
             this.checkBox_test_koordinati.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_test_koordinati.TabIndex = 31;
+            this.checkBox_test_koordinati.TabIndex = 32;
             this.checkBox_test_koordinati.UseVisualStyleBackColor = true;
             this.checkBox_test_koordinati.CheckedChanged += new System.EventHandler(this.checkBox_test_koordinati_CheckedChanged);
             // 
@@ -841,7 +873,7 @@
             this.label2.Location = new System.Drawing.Point(26, 5);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(108, 13);
-            this.label2.TabIndex = 72;
+            this.label2.TabIndex = 27;
             this.label2.Text = "1. Наявність звязку";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -873,7 +905,7 @@
             this.checkBox_test_du.Location = new System.Drawing.Point(4, 70);
             this.checkBox_test_du.Name = "checkBox_test_du";
             this.checkBox_test_du.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_test_du.TabIndex = 27;
+            this.checkBox_test_du.TabIndex = 30;
             this.checkBox_test_du.UseVisualStyleBackColor = true;
             this.checkBox_test_du.CheckedChanged += new System.EventHandler(this.checkBox_test_sirene_CheckedChanged);
             // 
@@ -916,7 +948,7 @@
             this.checkBox_test_tk.Location = new System.Drawing.Point(4, 92);
             this.checkBox_test_tk.Name = "checkBox_test_tk";
             this.checkBox_test_tk.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_test_tk.TabIndex = 30;
+            this.checkBox_test_tk.TabIndex = 31;
             this.checkBox_test_tk.UseVisualStyleBackColor = true;
             this.checkBox_test_tk.CheckedChanged += new System.EventHandler(this.checkBox_test_tk_CheckedChanged);
             // 
@@ -926,7 +958,7 @@
             this.checkBox__test_vzlom.Location = new System.Drawing.Point(4, 48);
             this.checkBox__test_vzlom.Name = "checkBox__test_vzlom";
             this.checkBox__test_vzlom.Size = new System.Drawing.Size(15, 14);
-            this.checkBox__test_vzlom.TabIndex = 28;
+            this.checkBox__test_vzlom.TabIndex = 29;
             this.checkBox__test_vzlom.UseVisualStyleBackColor = true;
             this.checkBox__test_vzlom.CheckedChanged += new System.EventHandler(this.checkBox__test_vzlom_CheckedChanged);
             // 
@@ -1013,7 +1045,7 @@
             this.checkBox_test_autostart.Location = new System.Drawing.Point(4, 287);
             this.checkBox_test_autostart.Name = "checkBox_test_autostart";
             this.checkBox_test_autostart.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_test_autostart.TabIndex = 31;
+            this.checkBox_test_autostart.TabIndex = 36;
             this.checkBox_test_autostart.UseVisualStyleBackColor = true;
             this.checkBox_test_autostart.CheckedChanged += new System.EventHandler(this.checkBox_test_koordinati_CheckedChanged);
             // 
@@ -1063,7 +1095,7 @@
             this.checkBox_test_dop_2.Location = new System.Drawing.Point(4, 266);
             this.checkBox_test_dop_2.Name = "checkBox_test_dop_2";
             this.checkBox_test_dop_2.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_test_dop_2.TabIndex = 25;
+            this.checkBox_test_dop_2.TabIndex = 35;
             this.checkBox_test_dop_2.UseVisualStyleBackColor = true;
             // 
             // label11
@@ -1094,7 +1126,7 @@
             this.checkBox_dop_1.Location = new System.Drawing.Point(4, 245);
             this.checkBox_dop_1.Name = "checkBox_dop_1";
             this.checkBox_dop_1.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_dop_1.TabIndex = 29;
+            this.checkBox_dop_1.TabIndex = 34;
             this.checkBox_dop_1.UseVisualStyleBackColor = true;
             // 
             // label9
@@ -1157,7 +1189,7 @@
             this.button_cancel.Location = new System.Drawing.Point(1078, 680);
             this.button_cancel.Name = "button_cancel";
             this.button_cancel.Size = new System.Drawing.Size(75, 23);
-            this.button_cancel.TabIndex = 35;
+            this.button_cancel.TabIndex = 39;
             this.button_cancel.Text = "Відмінити";
             this.button_cancel.UseVisualStyleBackColor = true;
             this.button_cancel.Click += new System.EventHandler(this.button_cancel_Click);
@@ -1167,42 +1199,10 @@
             this.button_write.Location = new System.Drawing.Point(997, 680);
             this.button_write.Name = "button_write";
             this.button_write.Size = new System.Drawing.Size(75, 23);
-            this.button_write.TabIndex = 34;
+            this.button_write.TabIndex = 38;
             this.button_write.Text = "Зберегти";
             this.button_write.UseVisualStyleBackColor = true;
             this.button_write.Click += new System.EventHandler(this.button_write_Click);
-            // 
-            // textBox_tk_wirreless_or_wire
-            // 
-            this.textBox_tk_wirreless_or_wire.Location = new System.Drawing.Point(6, 515);
-            this.textBox_tk_wirreless_or_wire.Name = "textBox_tk_wirreless_or_wire";
-            this.textBox_tk_wirreless_or_wire.Size = new System.Drawing.Size(371, 20);
-            this.textBox_tk_wirreless_or_wire.TabIndex = 92;
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(383, 518);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(215, 13);
-            this.label33.TabIndex = 93;
-            this.label33.Text = "Тривожна кнопка: провідна, безпровідна";
-            // 
-            // textBox_pin_button_external
-            // 
-            this.textBox_pin_button_external.Location = new System.Drawing.Point(6, 541);
-            this.textBox_pin_button_external.Name = "textBox_pin_button_external";
-            this.textBox_pin_button_external.Size = new System.Drawing.Size(371, 20);
-            this.textBox_pin_button_external.TabIndex = 94;
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(383, 544);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(271, 13);
-            this.label34.TabIndex = 95;
-            this.label34.Text = "Кнопки введення PIN коду: додатково встановленні";
             // 
             // Testing
             // 
