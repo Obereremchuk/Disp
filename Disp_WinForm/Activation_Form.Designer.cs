@@ -67,6 +67,7 @@
             this.pass_reset_button = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.textBox_account_pss = new System.Windows.Forms.TextBox();
             this.listBox_activation_list_search = new System.Windows.Forms.ListBox();
             this.button_add_2_account = new System.Windows.Forms.Button();
             this.accaunt_name_textBox = new System.Windows.Forms.TextBox();
@@ -83,8 +84,7 @@
             this.edite_date_textBox = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.edit_user_textBox = new System.Windows.Forms.TextBox();
-            this.textBox_account_pss = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
+            this.checkBox_manual_pass = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -460,8 +460,6 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.label16);
-            this.groupBox4.Controls.Add(this.textBox_account_pss);
             this.groupBox4.Controls.Add(this.email_textBox);
             this.groupBox4.Controls.Add(this.listBox_activation_list_search);
             this.groupBox4.Controls.Add(this.label14);
@@ -476,6 +474,14 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Керування";
             // 
+            // textBox_account_pss
+            // 
+            this.textBox_account_pss.Location = new System.Drawing.Point(290, 19);
+            this.textBox_account_pss.Name = "textBox_account_pss";
+            this.textBox_account_pss.ReadOnly = true;
+            this.textBox_account_pss.Size = new System.Drawing.Size(100, 20);
+            this.textBox_account_pss.TabIndex = 132;
+            // 
             // listBox_activation_list_search
             // 
             this.listBox_activation_list_search.FormattingEnabled = true;
@@ -489,7 +495,7 @@
             // 
             this.button_add_2_account.Location = new System.Drawing.Point(17, 244);
             this.button_add_2_account.Name = "button_add_2_account";
-            this.button_add_2_account.Size = new System.Drawing.Size(275, 37);
+            this.button_add_2_account.Size = new System.Drawing.Size(276, 37);
             this.button_add_2_account.TabIndex = 126;
             this.button_add_2_account.Text = "Дозволити користувачу перегляд авто";
             this.button_add_2_account.UseVisualStyleBackColor = true;
@@ -514,6 +520,8 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.checkBox_manual_pass);
+            this.groupBox5.Controls.Add(this.textBox_account_pss);
             this.groupBox5.Controls.Add(this.button_user_on);
             this.groupBox5.Controls.Add(this.treeView_user_accounts);
             this.groupBox5.Controls.Add(this.label15);
@@ -628,22 +636,15 @@
             this.edit_user_textBox.Size = new System.Drawing.Size(150, 20);
             this.edit_user_textBox.TabIndex = 127;
             // 
-            // textBox_account_pss
+            // checkBox_manual_pass
             // 
-            this.textBox_account_pss.Location = new System.Drawing.Point(6, 343);
-            this.textBox_account_pss.Name = "textBox_account_pss";
-            this.textBox_account_pss.ReadOnly = true;
-            this.textBox_account_pss.Size = new System.Drawing.Size(100, 20);
-            this.textBox_account_pss.TabIndex = 132;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(112, 346);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(124, 13);
-            this.label16.TabIndex = 133;
-            this.label16.Text = "Встановленний пароль";
+            this.checkBox_manual_pass.AutoSize = true;
+            this.checkBox_manual_pass.Location = new System.Drawing.Point(19, 190);
+            this.checkBox_manual_pass.Name = "checkBox_manual_pass";
+            this.checkBox_manual_pass.Size = new System.Drawing.Size(15, 14);
+            this.checkBox_manual_pass.TabIndex = 132;
+            this.checkBox_manual_pass.UseVisualStyleBackColor = true;
+            this.checkBox_manual_pass.CheckedChanged += new System.EventHandler(this.checkBox_manual_pass_CheckedChanged);
             // 
             // Activation_Form
             // 
@@ -668,6 +669,7 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -731,6 +733,6 @@
         private System.Windows.Forms.Button button_add_vo5;
         private System.Windows.Forms.Button button_user_on;
         private System.Windows.Forms.TextBox textBox_account_pss;
-        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.CheckBox checkBox_manual_pass;
     }
 }

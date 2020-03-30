@@ -115,7 +115,7 @@ namespace Disp_WinForm
     {
         public double y { get; set; }
         public double x { get; set; }
-        public int z { get; set; }
+        public string z { get; set; }
         public int s { get; set; }
         public int c { get; set; }
         public int sc { get; set; }

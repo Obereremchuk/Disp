@@ -17,6 +17,7 @@ namespace Disp_WinForm
         string idtesting_object = "";
         public Zayavki()
         {
+            TopMost = true;
             InitializeComponent();
             // Строим список Продуктов
             TimeSpan ts2 = new TimeSpan(23, 59, 59);

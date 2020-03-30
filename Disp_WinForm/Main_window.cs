@@ -2030,6 +2030,23 @@ namespace Disp_WinForm
             form_Testing.Show();
         }
 
+        private void dataGridView_testing_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (listBox_test_search_result.SelectedItems.Count <= 0)
+            {
+                return;
+            }
+
+            vars_form.id_object_for_test = listBox_test_search_result.SelectedValue.ToString();
+            vars_form.id_db_object_for_test = macros.sql_command("SELECT idObject FROM btk.Object where Object_id_wl=" + vars_form.id_object_for_test + ";");
+
+
+            Testing form_Testing = new Testing();
+            form_Testing.Activated += new EventHandler(form_Testing_activated);
+            form_Testing.FormClosed += new FormClosedEventHandler(form_Testing_deactivated);
+            form_Testing.Show();
+        }
+
         private void checkBox_hide_groupe_alarm_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox_hide_groupe_alarm.Checked == true)
@@ -2063,12 +2080,12 @@ namespace Disp_WinForm
 
         private void activation_form_activated(object sender, EventArgs e)
         {
-            this.Visible = false;// блокируем окно  пока открыто окно добавления 
+            //this.Visible = false;// блокируем окно  пока открыто окно добавления 
         }
 
         private void activation_form_deactivated(object sender, FormClosedEventArgs e)
         {
-            this.Visible = true;// разблокируем окно  кактолько закрыто окно добавления 
+            //this.Visible = true;// разблокируем окно  кактолько закрыто окно добавления 
         }
 
 
@@ -2154,8 +2171,7 @@ namespace Disp_WinForm
             }
 
             vars_form.id_object_for_activation = listBox_activation_result_search.SelectedValue.ToString();
-            vars_form.id_db_object_for_activation = macros.sql_command("SELECT idObject FROM btk.Object where Object_id_wl=" + vars_form.id_object_for_test + ";");
-
+            vars_form.id_db_object_for_activation = macros.sql_command("SELECT idObject FROM btk.Object where Object_id_wl=" + vars_form.id_object_for_activation + ";");
 
 
             Activation_Form activation_form = new Activation_Form();
@@ -2173,12 +2189,12 @@ namespace Disp_WinForm
 
         private void form_form_Zayavki_activated(object sender, EventArgs e)
         {
-            this.Visible = false;// блокируем окно контрагентов пока открыто окно добавления контрагента
+            //this.Visible = false;// блокируем окно контрагентов пока открыто окно добавления контрагента
         }
         private void form_form_Zayavki_deactivated(object sender, FormClosedEventArgs e)
         {
             vars_form.if_open_created_zayavka = 0;
-            this.Visible = true;// разблокируем окно контрагентов кактолько закрыто окно добавления контрагента
+            //this.Visible = true;// разблокируем окно контрагентов кактолько закрыто окно добавления контрагента
             update_zayavki_na_aktivation_2W();
 
         }
@@ -2224,7 +2240,7 @@ namespace Disp_WinForm
             update_zayavki_na_aktivation_2W();
         }
 
-
+        
     }
 
     internal class List_add_alarm

@@ -111,7 +111,7 @@ namespace Disp_WinForm
                 {
 
                     get_sensor_value();
-                    Thread.Sleep(2000);
+                    Thread.Sleep(10000);
                 }
             });
             task.Start();
@@ -357,7 +357,7 @@ namespace Disp_WinForm
                                 "" + police + "', " +
                                 "'" + gmr + "'); UPDATE btk.notification SET Status = '" + comboBox_status_trevogi.Text + "', time_stamp = now(), Users_idUsers='" + _user_login_id + "' WHERE idnotification = '" + _id_notif + "'OR group_alarm = '" + _id_notif + "'; ");
 
-            macros.sql_command("update btk.notification set time_stamp="+ Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + " where idnotification = "+_id_notif+"");
+            macros.sql_command("update btk.notification set time_stamp='"+ Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "' where idnotification = '"+_id_notif+"';");
 
             mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
 
@@ -585,15 +585,25 @@ namespace Disp_WinForm
                                                      "\"sortType\":\"sys_name\"," + 
                                                      "\"or_logic\":\"1\"}," + 
                                                      "\"or_logic\":\"1\"," + 
-                                                     "\"force\":\"1\"," + 
-                                                     "\"flags\":\"6820354\"," + 
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"6821378\"," + 
                                                      "\"from\":\"0\"," + 
                                                      "\"to\":\"5\"}");//получаем текущее местоположение объекта
 
 
-            
-
             var m = JsonConvert.DeserializeObject<RootObject>(json2);
+
+            if(m.items.Count != 0)
+            {
+                if (m.items[0].lmsg !=null)
+                {
+                    DateTime lmsg = macros.UnixTimeStampToDateTime(m.items[0].lmsg.t);
+                    groupBox7.Text = "Об’єкт на мапі. Останнє повідомлення: " + macros.UnixTimeStampToDateTime(m.items[0].lmsg.t).ToString();
+
+
+                }
+            }
+
             if (m.items.Count!=0)
             {
                 var lat = "";

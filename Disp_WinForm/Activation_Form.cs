@@ -18,9 +18,9 @@ namespace Disp_WinForm
         Macros macros = new Macros();
         private string id_new_user;
         private List<TreeNode> _unselectableNodes = new List<TreeNode>();
-        private string new_pass = "";
         public Activation_Form()
         {
+            //TopMost = true;
             InitializeComponent();
             load_form();
             build_list_account();
@@ -397,11 +397,13 @@ namespace Disp_WinForm
                         {
                         }
 
-                        //log user action
-                        macros.LogUserAction(vars_form.user_login_id, "Видалити вибранного користувача", "", treeView_user_accounts.SelectedNode.Text, Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
-
+                        
+                        //Save in db client account
+                        macros.GetData("insert into btk.Client_accounts (name, pass, date, reason, Object_idObject, Users_idUsers) value ('" + treeView_user_accounts.SelectedNode.Text + "','','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','Delete account','" + vars_form.id_db_object_for_activation + "','" + vars_form.user_login_id + "');");
 
                         build_list_account();//обновляем тривив
+
+
                         
                         
                     }
@@ -569,9 +571,6 @@ namespace Disp_WinForm
                 }
             }
         }
-
-        
-
         //create new user account and giv right to object
         private void account_create_button_Click(object sender, EventArgs e)
         {
@@ -581,7 +580,29 @@ namespace Disp_WinForm
                 if (dialogResult == DialogResult.Yes)
                 {
                     //generete password
-                    string pass = CreatePassword(6); 
+                    //---------------------------------------------------------------
+                    string pass = "";
+
+                    if (checkBox_manual_pass.Checked == true)
+                    {
+                        if (textBox_account_pss.Text == "")
+                        {
+                            pass = CreatePassword(6);
+                            textBox_account_pss.Text = pass;
+                        }
+                        else
+                        {
+                            pass = textBox_account_pss.Text;
+                        }
+                        checkBox_manual_pass.Checked = false;
+                    }
+                    else
+                    {
+                        pass = CreatePassword(6);
+                        textBox_account_pss.Text = pass;
+                    }
+                    //---------------------------------------------------------------
+
 
                     // cteate new user 
                     string created_user_answer = macros.wialon_request_new("&svc=core/create_user&params={" +
@@ -608,131 +629,46 @@ namespace Disp_WinForm
                     var created_resource_user_data = JsonConvert.DeserializeObject<RootObject>(created_resource_user_answer);
 
 
-                    //Доступ на объект
+                    //Доступ на объект for nwe user
                     string set_right_object_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
                                                             "\"userId\":\"" + created_user_data.item.id + "\"," +
                                                             "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
                                                             "\"accessMask\":\"550611455877‬\"}");
                     var set_right_object = JsonConvert.DeserializeObject<RootObject>(set_right_object_answer);
 
-                    DataTable users = macros.GetData("SELECT username FROM btk.Users where accsess_lvl = '8' and accsess_lvl = '13' and accsess_lvl = '';");
+                    DataTable users = macros.GetData("SELECT user_id_wl FROM btk.Users where accsess_lvl = '1' or accsess_lvl = '5' or accsess_lvl = '8' or accsess_lvl = '9';");
 
-                    if (vars_form.wl_user_id == 9605) // если создает Сапорт2 даем доступ пользователям:
+                    List<DataRow> woruser_list = users.AsEnumerable().ToList();
+                    foreach (DataRow workuser in woruser_list)
                     {
-                        //Доступ username support
-                        string set_right_user_suport_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                                 "\"userId\":\"3413\"," +
-                                                                 "\"itemId\":\"" + created_user_data.item.id + "\"," +
-                                                                 "\"accessMask\":\"-1\"}");
-                        var set_right_user_suport_ = JsonConvert.DeserializeObject<RootObject>(set_right_user_suport_answer);
+                        if (workuser[0].ToString() != vars_form.user_login_id)
+                        {
 
-                        //Доступ на ресурс: username for support
-                        string set_right_resource_support_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                                 "\"userId\":\"" + "3413" + "\"," +
-                                                                 "\"itemId\":\"" + created_resource_data.item.id + "\"," +
-                                                                 "\"accessMask\":\"-1\"}");
-                        var set_right_resourc_support = JsonConvert.DeserializeObject<RootObject>(set_right_resource_support_answer);
+                            //set full Accsess client account for workuser 
+                            string set_right_user_suport_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                                     "\"userId\":\"" + workuser[0].ToString() + "\"," +
+                                                                     "\"itemId\":\"" + created_user_data.item.id + "\"," +
+                                                                     "\"accessMask\":\"-1\"}");
+                            var set_right_user_suport_ = JsonConvert.DeserializeObject<RootObject>(set_right_user_suport_answer);
 
-                        //Доступ на ресурс: username_user support
-                        string set_right_resource_user_support_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                                 "\"userId\":\"" + "3413" + "\"," +
-                                                                 "\"itemId\":\"" + created_resource_user_data.item.id + "\"," +
-                                                                 "\"accessMask\":\"-1\"}");
-                        var set_right_resource_user_support = JsonConvert.DeserializeObject<RootObject>(set_right_resource_user_support_answer);
-                        
-                        //----------------------------------
+                            //set full Accsess client resourse "username" for workuser 
+                            string set_right_resource_support_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                                     "\"userId\":\"" + workuser[0].ToString() + "\"," +
+                                                                     "\"itemId\":\"" + created_resource_data.item.id + "\"," +
+                                                                     "\"accessMask\":\"-1\"}");
+                            var set_right_resourc_support = JsonConvert.DeserializeObject<RootObject>(set_right_resource_support_answer);
 
-                        //Доступ username d.lenik
-                        string set_right_user_lenik_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                                 "\"userId\":\"3413\"," +
-                                                                 "\"itemId\":\"" + created_user_data.item.id + "\"," +
-                                                                 "\"accessMask\":\"-1\"}");
-                        var set_right_user_lenik_ = JsonConvert.DeserializeObject<RootObject>(set_right_user_lenik_answer);
+                            //set full Accsess client resourse "username.._user" for workuser 
+                            string set_right_resource_user_support_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                                                                     "\"userId\":\"" + workuser[0].ToString() + "\"," +
+                                                                     "\"itemId\":\"" + created_resource_user_data.item.id + "\"," +
+                                                                     "\"accessMask\":\"-1\"}");
+                            var set_right_resource_user_support = JsonConvert.DeserializeObject<RootObject>(set_right_resource_user_support_answer);
+                        }
+                        else
+                        { 
+                        }
 
-                        //Доступ на ресурс: username for support
-                        string set_right_resource_lenik_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                                 "\"userId\":\"" + "3413" + "\"," +
-                                                                 "\"itemId\":\"" + created_resource_data.item.id + "\"," +
-                                                                 "\"accessMask\":\"-1\"}");
-                        var set_right_resourc_lenik = JsonConvert.DeserializeObject<RootObject>(set_right_resource_lenik_answer);
-
-                        //Доступ на ресурс: username_user support
-                        string set_right_resource_user_lenik_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                                 "\"userId\":\"" + "3413" + "\"," +
-                                                                 "\"itemId\":\"" + created_resource_user_data.item.id + "\"," +
-                                                                 "\"accessMask\":\"-1\"}");
-                        var set_right_resource_user_lenik = JsonConvert.DeserializeObject<RootObject>(set_right_resource_user_lenik_answer);
-                    }
-                    else if (vars_form.wl_user_id == 3413)
-                    {
-                        //Доступ username support2
-                        string set_right_user_suport2_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                             "\"userId\":\"9605\"," +
-                                                             "\"itemId\":\"" + created_user_data.item.id + "\"," +
-                                                             "\"accessMask\":\"-1\"}");
-                        var set_right_user_suport2_ = JsonConvert.DeserializeObject<RootObject>(set_right_user_suport2_answer);
-
-                        //Доступ на ресурс: username for support2
-                        string set_right_resource_support2_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                                 "\"userId\":\"" + "9605" + "\"," +
-                                                                 "\"itemId\":\"" + created_resource_data.item.id + "\"," +
-                                                                 "\"accessMask\":\"-1\"}");
-                        var set_right_resourc_support2 = JsonConvert.DeserializeObject<RootObject>(set_right_resource_support2_answer);
-                        //Доступ на ресурс: username_user support2
-                        string set_right_resource_user_support2_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                                 "\"userId\":\"" + "9605" + "\"," +
-                                                                 "\"itemId\":\"" + created_resource_user_data.item.id + "\"," +
-                                                                 "\"accessMask\":\"-1\"}");
-                        var set_right_resource_user_support2 = JsonConvert.DeserializeObject<RootObject>(set_right_resource_user_support2_answer);
-
-
-                    }
-                    else if (vars_form.wl_user_id == 25)
-                    {
-                        //Доступ username support
-                        string set_right_user_suport_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                                 "\"userId\":\"3413\"," +
-                                                                 "\"itemId\":\"" + created_user_data.item.id + "\"," +
-                                                                 "\"accessMask\":\"-1\"}");
-                        var set_right_user_suport_ = JsonConvert.DeserializeObject<RootObject>(set_right_user_suport_answer);
-
-                        //Доступ username support2
-                        string set_right_user_suport2_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                             "\"userId\":\"9605\"," +
-                                                             "\"itemId\":\"" + created_user_data.item.id + "\"," +
-                                                             "\"accessMask\":\"-1\"}");
-                        var set_right_user_suport2_ = JsonConvert.DeserializeObject<RootObject>(set_right_user_suport2_answer);
-
-                        //Доступ на ресурс: username for support
-                        string set_right_resource_support_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                                 "\"userId\":\"" + "3413" + "\"," +
-                                                                 "\"itemId\":\"" + created_resource_data.item.id + "\"," +
-                                                                 "\"accessMask\":\"-1\"}");
-                        var set_right_resourc_support = JsonConvert.DeserializeObject<RootObject>(set_right_resource_support_answer);
-
-
-
-                        //Доступ на ресурс: username for support2
-                        string set_right_resource_support2_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                                 "\"userId\":\"" + "9605" + "\"," +
-                                                                 "\"itemId\":\"" + created_resource_data.item.id + "\"," +
-                                                                 "\"accessMask\":\"-1\"}");
-                        var set_right_resourc_support2 = JsonConvert.DeserializeObject<RootObject>(set_right_resource_support2_answer);
-
-
-                        //Доступ на ресурс: username_user support
-                        string set_right_resource_user_support_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                                 "\"userId\":\"" + "3413" + "\"," +
-                                                                 "\"itemId\":\"" + created_resource_user_data.item.id + "\"," +
-                                                                 "\"accessMask\":\"-1\"}");
-                        var set_right_resource_user_support = JsonConvert.DeserializeObject<RootObject>(set_right_resource_user_support_answer);
-
-                        //Доступ на ресурс: username_user support2
-                        string set_right_resource_user_support2_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
-                                                                 "\"userId\":\"" + "9605" + "\"," +
-                                                                 "\"itemId\":\"" + created_resource_user_data.item.id + "\"," +
-                                                                 "\"accessMask\":\"-1\"}");
-                        var set_right_resource_user_support2 = JsonConvert.DeserializeObject<RootObject>(set_right_resource_user_support2_answer);
                     }
 
                     //Доступ на ресурс: username
@@ -742,11 +678,6 @@ namespace Disp_WinForm
                                                              "\"accessMask\":\"4648339329\"}");
                     var set_right_resource = JsonConvert.DeserializeObject<RootObject>(set_right_resource_answer);
 
-                    
-
-
-
-
                     //Доступ на ресурс: username_user
                     string set_right_resource_user_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
                                                              "\"userId\":\"" + created_user_data.item.id + "\"," +
@@ -754,16 +685,14 @@ namespace Disp_WinForm
                                                              "\"accessMask\":\"52785134440321\"}");
                     var set_right_resource_user = JsonConvert.DeserializeObject<RootObject>(set_right_resource_user_answer);
 
-                   
-
-
+                    
 
                     //get product id from id object
                     string product_id = get_product_from_id_object(vars_form.id_object_for_activation);
 
                     //create notif depends product id
                     
-                    if (product_id == "10" || product_id == "11")//CNTP_910, CNTK_910
+                    if (product_id == "10" || product_id == "11" || product_id == "12" || product_id == "13")//CNTP_910, CNTK_910
                     {
                         create_notif_910(email_textBox.Text, created_user_data.item.id, vars_form.id_object_for_activation, created_resource_data.item.id, created_resource_user_data.item.id);
                     }
@@ -779,14 +708,15 @@ namespace Disp_WinForm
                     macros.send_mail_auto(email_textBox.Text, "ВЕНБЕСТ. Вхід в систему моніторингу", Body);
                     macros.send_mail_auto("auto@venbest.com.ua", "ВЕНБЕСТ. Вхід в систему моніторингу", Body);
 
-                    //log user action
-                    macros.LogUserAction(vars_form.user_login_id, "Сворити користувача та дозолити перегляд авто", "", "Created user: " + email_textBox.Text + ", Pass: " +pass+ ", Rights for object: " + vars_form.id_object_for_activation + "", Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
-                    
-                    
+                    //Save in db client account
+
+                    macros.GetData("insert into btk.Client_accounts (name, pass, date, reason, Object_idObject, Users_idUsers) value ('" + email_textBox.Text + "','" + pass + "','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','Create account','" + vars_form.id_db_object_for_activation + "','" + vars_form.user_login_id + "');");
+
+
                     //update treeView_user_accounts after making chenge
                     build_list_account();
+                    email_textBox_TextChanged(email_textBox, EventArgs.Empty);
 
-                    textBox_account_pss.Text = pass;
                 }
                 else if (dialogResult == DialogResult.No)
                 {
@@ -829,6 +759,30 @@ namespace Disp_WinForm
                 DialogResult dialogResult = MessageBox.Show("Встановити та відправити новий пароль?", "Відправити?", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
+                    //generete password
+                    //---------------------------------------------------------------
+                    string pass = "";
+
+                    if (checkBox_manual_pass.Checked == true)
+                    {
+                        if (textBox_account_pss.Text == "")
+                        {
+                            pass = CreatePassword(6);
+                            textBox_account_pss.Text = pass;
+                        }
+                        else 
+                        {
+                            pass = textBox_account_pss.Text;
+                        }
+                        checkBox_manual_pass.Checked = false;
+                    }
+                    else
+                    {
+                        pass = CreatePassword(6);
+                        textBox_account_pss.Text = pass;
+                    }
+                    //---------------------------------------------------------------
+
                     string json = macros.wialon_request_new("&svc=core/search_items&params={" +
                                                             "\"spec\":{" +
                                                             "\"itemsType\":\"user\"," +
@@ -841,21 +795,20 @@ namespace Disp_WinForm
                                                             "\"from\":\"0\"," +
                                                             "\"to\":\"0\"}"); //запрашиваем все елементі с искомім имайлом
                     var m = JsonConvert.DeserializeObject<RootObject>(json);
-                    new_pass = CreatePassword(6);
+
                     string json1 = macros.wialon_request_new("&svc=user/update_password&params={" +
                                                              "\"userId\":\"" + m.items[0].id + "\"," +
                                                              "\"oldPassword\":\"\"," +
-                                                             "\"newPassword\":\"" + new_pass + "\"}");
+                                                             "\"newPassword\":\"" + pass + "\"}");
                     var m1 = JsonConvert.DeserializeObject<RootObject>(json1);
 
-                    string Body = "<p>Добрий день!</p><p>;</p><p>Відповідно до Вашого запиту,</p><p>Для Вас було відновлено пароль для доступу в систему моніторингу ВЕНБЕСТ. </p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою мобільного додатку:</p><p>1.Завантажте мобільний додаток Wialon Local: https://venbest.ua/gps-prilozheniia/</p> <p>2.При першому вході в мобільний додаток введіть такі дані:</p><p>a.Адреса серверу: https://navi.venbest.com.ua/;</p> <p>Посилання вводиться зверху сторінки вводу логіну та паролю. Після його введення необхідно натиснути на іконку у вигляді щита (праворуч рядка вводу).</p><p>b.Логін: "+ treeView_user_accounts.SelectedNode.Text + "</p><p>c.Пароль: " + new_pass + " </p><p>Зверніть, будь ласка, увагу, що логін та пароль чутливий до регістру символів, які ви вводите.</p><p> <br></p><p>3.Якщо ви бажаєте отримувати сповіщення, увімкніть їх в налаштуваннях.</p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою браузеру:</p><p>1.Перейдіть за посиланням: https://navi.venbest.com.ua/</p> <p>2.Введіть логін: "+ treeView_user_accounts.SelectedNode.Text + "</p><p>3.Введіть пароль: "+new_pass+"</p><p>  <br></p><p>Змініть, будь ласка, пароль в налаштуваннях користувача при вході через браузер.</p><p>----------------------------------------------</p><p>Департамент супутникових систем охорони</p><p>Група Компаній «ВЕНБЕСТ»</p><p>Т 044 501 33 77;</p><p>auto@venbest.com.ua | https://venbest.ua/ohrana-avto-i-zashchita-ot-ugona</p>";
-                    macros.send_mail_auto(treeView_user_accounts.SelectedNode.Text, "ВЕНБЕСТ. Вхід в систему моніторингу", Body+new_pass);
-                    macros.send_mail_auto("auto@venbest.com.ua", "ВЕНБЕСТ. Вхід в систему моніторингу", Body + new_pass);
+                    string Body = "<p>Добрий день!</p><p>;</p><p>Відповідно до Вашого запиту,</p><p>Для Вас було відновлено пароль для доступу в систему моніторингу ВЕНБЕСТ. </p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою мобільного додатку:</p><p>1.Завантажте мобільний додаток Wialon Local: https://venbest.ua/gps-prilozheniia/</p> <p>2.При першому вході в мобільний додаток введіть такі дані:</p><p>a.Адреса серверу: https://navi.venbest.com.ua/;</p> <p>Посилання вводиться зверху сторінки вводу логіну та паролю. Після його введення необхідно натиснути на іконку у вигляді щита (праворуч рядка вводу).</p><p>b.Логін: "+ treeView_user_accounts.SelectedNode.Text + "</p><p>c.Пароль: " + pass + " </p><p>Зверніть, будь ласка, увагу, що логін та пароль чутливий до регістру символів, які ви вводите.</p><p> <br></p><p>3.Якщо ви бажаєте отримувати сповіщення, увімкніть їх в налаштуваннях.</p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою браузеру:</p><p>1.Перейдіть за посиланням: https://navi.venbest.com.ua/</p> <p>2.Введіть логін: "+ treeView_user_accounts.SelectedNode.Text + "</p><p>3.Введіть пароль: "+ pass + "</p><p>  <br></p><p>Змініть, будь ласка, пароль в налаштуваннях користувача при вході через браузер.</p><p>----------------------------------------------</p><p>Департамент супутникових систем охорони</p><p>Група Компаній «ВЕНБЕСТ»</p><p>Т 044 501 33 77;</p><p>auto@venbest.com.ua | https://venbest.ua/ohrana-avto-i-zashchita-ot-ugona</p>";
+                    macros.send_mail_auto(treeView_user_accounts.SelectedNode.Text, "ВЕНБЕСТ. Вхід в систему моніторингу", Body+ pass);
+                    macros.send_mail_auto("auto@venbest.com.ua", "ВЕНБЕСТ. Вхід в систему моніторингу", Body + pass);
 
-                    //log user action
-                    macros.LogUserAction(vars_form.user_login_id, "Встановити новий пароль та надіслати вибранному користувачу", treeView_user_accounts.SelectedNode.Text, new_pass, Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
-
-                    textBox_account_pss.Text = new_pass;
+                    //Save in db client account
+                    macros.GetData("insert into btk.Client_accounts (name, pass, date, reason, Object_idObject, Users_idUsers) value ('" + treeView_user_accounts.SelectedNode.Text + "','" + pass + "','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','Chenge pass account','" + vars_form.id_db_object_for_activation + "','" + vars_form.user_login_id + "');");
+                    
                 }
                 else if (dialogResult == DialogResult.No)
                 {
@@ -1211,6 +1164,8 @@ namespace Disp_WinForm
                                                         "}"
                                                     );
 
+
+
             //Сработка: Датчики взлома
             string CreteNotifAnswer5 = macros.wialon_request_new("&svc=resource/update_notification&params={" +
                                                             "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
@@ -1257,6 +1212,89 @@ namespace Disp_WinForm
                                                                                 "\"merge\":\"1\"," +                                /* одинаковые датчики: 0 - считать отдельно, 1 - суммировать значения */
                                                                                 "\"prev_msg_diff\":\"0\"," +                        /* флаг, позволяющий сформировать диапазон для текущего значения с помощью предыдущего значения(prev) следующим образом: [prev+lower_bound ; prev+upper_bound] -- таким образом диапазон для текущего значения всегда относителен и зависит от предыдущего значения; 0 - выключить опцию, 1 - включить опцию */
                                                                                 "\"sensor_name_mask\":\"Тревожная кнопка_\"," +               /* маска названия датчика */
+                                                                                "\"sensor_type\":\"digital\"," +                    /* тип датчика */
+                                                                                "\"type\":\"0\"," +                                 /* срабатывать: 0 - в рамках установленных значений, 1 - за пределами установленных значений */
+                                                                                "\"upper_bound\":\"1\"" +                           /* значение датчика до */
+                                                                        "}" +
+                                                            "}," +
+                                                            "\"act\":[" +                                                       /* действия */
+                                                                        "{" +
+                                                                            "\"t\":\"message\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"color\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"email\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"email_to\":\"" + user_account_name + "\"," +
+                                                                                    "\"html\":\"0\"," +
+                                                                                    "\"img_attach\":\"0\"," +
+                                                                                    "\"subj\":\"\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"event\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"flags\":\"0\"" +
+                                                                                   "}" +
+                                                                        "}," +
+                                                                        "{" +
+                                                                            "\"t\":\"mobile_apps\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
+                                                                            "\"p\":{" +
+                                                                                    "\"apps\":\"{" + "\\" + "\"Wialon Local" + "\\" + "\"" + ":" + "[" + user_account_id + "]" + "}\"" +
+                                                                                   "}" +
+                                                                        "}" +
+                                                                 "]" +
+                                                        "}"
+                                                    );
+
+            //Сработка датчика глушения
+            string CreteNotifAnswer6 = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+                                                            "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
+                                                            "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
+                                                            "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
+                                                            "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
+                                                            "\"n\":\"Сработка: датчика глушения\"," +                                 /* название */
+                                                            "\"txt\":\"%UNIT%: Сработка датчика глушения. Время сработки: %MSG_TIME%. В %POS_TIME% объект двигался со скоростью %SPEED% около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
+                                                            "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
+                                                            "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
+                                                            "\"mmtd\":\"0\"," +                                                 /* максимальный временной интервал между сообщениями (секунд) */
+                                                            "\"cdt\":\"0\"," +                                                  /* таймаут срабатывания(секунд) */
+                                                            "\"mast\":\"0\"," +                                                 /* минимальная продолжительность тревожного состояния (секунд) */
+                                                            "\"mpst\":\"0\"," +                                                 /* минимальная продолжительность предыдущего состояния (секунд) */
+                                                            "\"cp\":\"0\"," +                                                   /* период контроля относительно текущего времени (секунд) */
+                                                            "\"fl\":\"0\"," +                                                   /* флаги: 0=уведомление срабатывает на первое сообщение, 1=уведомление срабатывает на каждое сообщение, 2=уведомление выключено */
+                                                            "\"tz\":\"7200\"," +                                                /* часовой пояс */
+                                                            "\"la\":\"ru\"," +                                                  /* язык пользователя (двухбуквенный код) */
+                                                            "\"ac\":\"0\"," +                                                   /* количество срабатываний */
+                                                            "\"un\":[" + object_id + "]," +     /* массив ID объектов/групп объектов */
+                                                            "\"sch\":{" +                                                       /* ограничение по времени */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"ctrl_sch\":{" +                                                  /* расписание периодов ограничения количества срабатывания */
+                                                                        "\"f1\":\"0\"," +                                       /* время начала интервала 1 (количество минут от полуночи) */
+                                                                        "\"f2\":\"0\"," +                                       /* время начала интервала 2 (количество минут от полуночи) */
+                                                                        "\"t1\":\"0\"," +                                       /* время окончания интервала 1 (количество минут от полуночи) */
+                                                                        "\"t2\":\"0\"," +                                       /* время окончания интервала 2 (количество минут от полуночи) */
+                                                                        "\"m\":\"0\"," +                                        /* маска дней месяца [1: 2^0, 31: 2^30] */
+                                                                        "\"y\":\"0\"," +                                        /* маска месяцев [янв: 2^0, дек: 2^11] */
+                                                                        "\"w\":\"0\"" +                                         /* маска дней недели [пн: 2^0, вс: 2^6] */
+                                                            "}," +
+                                                            "\"trg\":{" +                                                       /* контроль */
+                                                                        "\"t\":\"sensor_value\"," +                             /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_kontrolja */
+                                                                        "\"p\":{" +
+                                                                                "\"lower_bound\":\"1\"," +                          /* значение датчика от */
+                                                                                "\"merge\":\"1\"," +                                /* одинаковые датчики: 0 - считать отдельно, 1 - суммировать значения */
+                                                                                "\"prev_msg_diff\":\"0\"," +                        /* флаг, позволяющий сформировать диапазон для текущего значения с помощью предыдущего значения(prev) следующим образом: [prev+lower_bound ; prev+upper_bound] -- таким образом диапазон для текущего значения всегда относителен и зависит от предыдущего значения; 0 - выключить опцию, 1 - включить опцию */
+                                                                                "\"sensor_name_mask\":\"Сработка датчика глушения\"," +               /* маска названия датчика */
                                                                                 "\"sensor_type\":\"digital\"," +                    /* тип датчика */
                                                                                 "\"type\":\"0\"," +                                 /* срабатывать: 0 - в рамках установленных значений, 1 - за пределами установленных значений */
                                                                                 "\"upper_bound\":\"1\"" +                           /* значение датчика до */
@@ -2030,6 +2068,18 @@ namespace Disp_WinForm
                 {
                 }
 
+            }
+        }
+
+        private void checkBox_manual_pass_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_manual_pass.Checked == true)
+            {
+                textBox_account_pss.ReadOnly = false;
+            }
+            else
+            {
+                textBox_account_pss.ReadOnly = true;
             }
         }
     }

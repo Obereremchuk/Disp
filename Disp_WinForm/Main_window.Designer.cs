@@ -182,7 +182,7 @@
             this.tabControl_testing.Location = new System.Drawing.Point(0, 0);
             this.tabControl_testing.Name = "tabControl_testing";
             this.tabControl_testing.SelectedIndex = 0;
-            this.tabControl_testing.Size = new System.Drawing.Size(1418, 653);
+            this.tabControl_testing.Size = new System.Drawing.Size(1370, 653);
             this.tabControl_testing.TabIndex = 0;
             this.tabControl_testing.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl_testing_Selecting);
             // 
@@ -196,7 +196,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1410, 627);
+            this.tabPage1.Size = new System.Drawing.Size(1362, 627);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Відкриті тривоги";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -205,7 +205,7 @@
             // 
             this.checkBox_hide_groupe_alarm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox_hide_groupe_alarm.AutoSize = true;
-            this.checkBox_hide_groupe_alarm.Location = new System.Drawing.Point(1096, 598);
+            this.checkBox_hide_groupe_alarm.Location = new System.Drawing.Point(1048, 598);
             this.checkBox_hide_groupe_alarm.Name = "checkBox_hide_groupe_alarm";
             this.checkBox_hide_groupe_alarm.Size = new System.Drawing.Size(67, 17);
             this.checkBox_hide_groupe_alarm.TabIndex = 4;
@@ -217,7 +217,7 @@
             // 
             this.checkBox_sort_order.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox_sort_order.AutoSize = true;
-            this.checkBox_sort_order.Location = new System.Drawing.Point(1195, 598);
+            this.checkBox_sort_order.Location = new System.Drawing.Point(1147, 598);
             this.checkBox_sort_order.Name = "checkBox_sort_order";
             this.checkBox_sort_order.Size = new System.Drawing.Size(70, 17);
             this.checkBox_sort_order.TabIndex = 3;
@@ -242,7 +242,7 @@
             "Звернення",
             "ID обєкту",
             "Згруповано до ID тривоги"});
-            this.comboBox_sort_column.Location = new System.Drawing.Point(1281, 596);
+            this.comboBox_sort_column.Location = new System.Drawing.Point(1233, 596);
             this.comboBox_sort_column.Name = "comboBox_sort_column";
             this.comboBox_sort_column.Size = new System.Drawing.Size(121, 21);
             this.comboBox_sort_column.TabIndex = 2;
@@ -300,7 +300,7 @@
             this.dataGridView_open_alarm.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView_open_alarm.RowHeadersVisible = false;
             this.dataGridView_open_alarm.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_open_alarm.Size = new System.Drawing.Size(1399, 580);
+            this.dataGridView_open_alarm.Size = new System.Drawing.Size(1351, 580);
             this.dataGridView_open_alarm.TabIndex = 0;
             this.dataGridView_open_alarm.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView_open_alarm.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
@@ -313,7 +313,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1410, 627);
+            this.tabPage2.Size = new System.Drawing.Size(1362, 627);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Пошук по тривогам";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -324,7 +324,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 82);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1404, 542);
+            this.groupBox2.Size = new System.Drawing.Size(1356, 542);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Архів відпрацьованих тривог";
@@ -383,7 +383,7 @@
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView_close_alarm.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView_close_alarm.RowHeadersVisible = false;
-            this.dataGridView_close_alarm.Size = new System.Drawing.Size(1398, 497);
+            this.dataGridView_close_alarm.Size = new System.Drawing.Size(1350, 521);
             this.dataGridView_close_alarm.TabIndex = 1;
             this.dataGridView_close_alarm.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
             this.dataGridView_close_alarm.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView3_CellFormatting);
@@ -516,7 +516,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1404, 79);
+            this.groupBox1.Size = new System.Drawing.Size(1356, 79);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Критерії пошуку";
@@ -631,7 +631,7 @@
             dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            this.dataGridView2.Size = new System.Drawing.Size(1404, 621);
+            this.dataGridView2.Size = new System.Drawing.Size(1356, 621);
             this.dataGridView2.TabIndex = 0;
             // 
             // tabPage_909_n
@@ -640,7 +640,7 @@
             this.tabPage_909_n.Location = new System.Drawing.Point(4, 22);
             this.tabPage_909_n.Name = "tabPage_909_n";
             this.tabPage_909_n.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_909_n.Size = new System.Drawing.Size(1410, 561);
+            this.tabPage_909_n.Size = new System.Drawing.Size(1362, 627);
             this.tabPage_909_n.TabIndex = 8;
             this.tabPage_909_n.Text = "909";
             this.tabPage_909_n.UseVisualStyleBackColor = true;
@@ -657,7 +657,7 @@
             this.dataGridView_909_n.ReadOnly = true;
             this.dataGridView_909_n.RowHeadersVisible = false;
             this.dataGridView_909_n.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_909_n.Size = new System.Drawing.Size(1404, 555);
+            this.dataGridView_909_n.Size = new System.Drawing.Size(1356, 621);
             this.dataGridView_909_n.TabIndex = 0;
             this.dataGridView_909_n.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_909_n_CellDoubleClick);
             this.dataGridView_909_n.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_909_n_CellFormatting);
@@ -668,7 +668,7 @@
             this.tabPage_808.Location = new System.Drawing.Point(4, 22);
             this.tabPage_808.Name = "tabPage_808";
             this.tabPage_808.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_808.Size = new System.Drawing.Size(1410, 561);
+            this.tabPage_808.Size = new System.Drawing.Size(1362, 627);
             this.tabPage_808.TabIndex = 5;
             this.tabPage_808.Text = "808";
             this.tabPage_808.UseVisualStyleBackColor = true;
@@ -685,7 +685,7 @@
             this.dataGridView_808_n.Name = "dataGridView_808_n";
             this.dataGridView_808_n.ReadOnly = true;
             this.dataGridView_808_n.RowHeadersVisible = false;
-            this.dataGridView_808_n.Size = new System.Drawing.Size(1404, 555);
+            this.dataGridView_808_n.Size = new System.Drawing.Size(1356, 621);
             this.dataGridView_808_n.TabIndex = 1;
             this.dataGridView_808_n.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_808_n_CellDoubleClick);
             this.dataGridView_808_n.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_808_n_CellFormatting);
@@ -696,7 +696,7 @@
             this.tabPage_p.Location = new System.Drawing.Point(4, 22);
             this.tabPage_p.Name = "tabPage_p";
             this.tabPage_p.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_p.Size = new System.Drawing.Size(1410, 561);
+            this.tabPage_p.Size = new System.Drawing.Size(1362, 627);
             this.tabPage_p.TabIndex = 6;
             this.tabPage_p.Text = "Дилеры";
             this.tabPage_p.UseVisualStyleBackColor = true;
@@ -734,7 +734,7 @@
             dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView_dilery.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridView_dilery.RowHeadersVisible = false;
-            this.dataGridView_dilery.Size = new System.Drawing.Size(1270, 659);
+            this.dataGridView_dilery.Size = new System.Drawing.Size(1404, 621);
             this.dataGridView_dilery.TabIndex = 0;
             this.dataGridView_dilery.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_dilery_CellDoubleClick);
             this.dataGridView_dilery.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_dilery_CellFormatting);
@@ -745,7 +745,7 @@
             this.tabPage_sales.Location = new System.Drawing.Point(4, 22);
             this.tabPage_sales.Name = "tabPage_sales";
             this.tabPage_sales.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_sales.Size = new System.Drawing.Size(1410, 561);
+            this.tabPage_sales.Size = new System.Drawing.Size(1362, 627);
             this.tabPage_sales.TabIndex = 7;
             this.tabPage_sales.Text = "Продажи";
             this.tabPage_sales.UseVisualStyleBackColor = true;
@@ -783,7 +783,7 @@
             dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView_sales.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.dataGridView_sales.RowHeadersVisible = false;
-            this.dataGridView_sales.Size = new System.Drawing.Size(1269, 658);
+            this.dataGridView_sales.Size = new System.Drawing.Size(1400, 617);
             this.dataGridView_sales.TabIndex = 0;
             this.dataGridView_sales.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_sales_CellDoubleClick);
             this.dataGridView_sales.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_sales_CellFormatting);
@@ -796,7 +796,7 @@
             this.tabPage_testing.Location = new System.Drawing.Point(4, 22);
             this.tabPage_testing.Name = "tabPage_testing";
             this.tabPage_testing.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_testing.Size = new System.Drawing.Size(1410, 561);
+            this.tabPage_testing.Size = new System.Drawing.Size(1362, 627);
             this.tabPage_testing.TabIndex = 3;
             this.tabPage_testing.Text = "Тестування";
             this.tabPage_testing.UseVisualStyleBackColor = true;
@@ -816,8 +816,9 @@
             this.dataGridView_testing.RowHeadersVisible = false;
             this.dataGridView_testing.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridView_testing.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_testing.Size = new System.Drawing.Size(1135, 452);
+            this.dataGridView_testing.Size = new System.Drawing.Size(1404, 518);
             this.dataGridView_testing.TabIndex = 13;
+            this.dataGridView_testing.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_testing_CellContentClick);
             this.dataGridView_testing.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_testing_CellFormatting);
             // 
             // groupBox7
@@ -895,7 +896,7 @@
             this.tabPage_activation.Location = new System.Drawing.Point(4, 22);
             this.tabPage_activation.Name = "tabPage_activation";
             this.tabPage_activation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_activation.Size = new System.Drawing.Size(1410, 561);
+            this.tabPage_activation.Size = new System.Drawing.Size(1362, 627);
             this.tabPage_activation.TabIndex = 4;
             this.tabPage_activation.Text = "Активація";
             this.tabPage_activation.UseVisualStyleBackColor = true;
@@ -905,9 +906,9 @@
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Location = new System.Drawing.Point(724, 117);
+            this.groupBox3.Location = new System.Drawing.Point(802, 117);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(414, 438);
+            this.groupBox3.Size = new System.Drawing.Size(557, 504);
             this.groupBox3.TabIndex = 44;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Про ведені активації";
@@ -920,23 +921,27 @@
             this.groupBox4.Controls.Add(this.dataGridView_for_activation);
             this.groupBox4.Location = new System.Drawing.Point(3, 117);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(793, 511);
+            this.groupBox4.Size = new System.Drawing.Size(793, 504);
             this.groupBox4.TabIndex = 43;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Необхідно активувати";
             // 
             // dataGridView_for_activation
             // 
+            this.dataGridView_for_activation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView_for_activation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_for_activation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_for_activation.Location = new System.Drawing.Point(3, 16);
             this.dataGridView_for_activation.Name = "dataGridView_for_activation";
             this.dataGridView_for_activation.RowHeadersVisible = false;
-            this.dataGridView_for_activation.Size = new System.Drawing.Size(787, 492);
+            this.dataGridView_for_activation.Size = new System.Drawing.Size(787, 482);
             this.dataGridView_for_activation.TabIndex = 0;
             // 
             // groupBox5
             // 
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox5.Controls.Add(this.button2);
             this.groupBox5.Controls.Add(this.textBox2);
             this.groupBox5.Controls.Add(this.dateTimePicker3);
@@ -945,7 +950,7 @@
             this.groupBox5.Controls.Add(this.listBox_activation_result_search);
             this.groupBox5.Location = new System.Drawing.Point(3, 6);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(1054, 105);
+            this.groupBox5.Size = new System.Drawing.Size(1356, 105);
             this.groupBox5.TabIndex = 0;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Пошук";
@@ -953,7 +958,7 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(973, 68);
+            this.button2.Location = new System.Drawing.Point(1275, 68);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 12;
@@ -963,7 +968,7 @@
             // textBox2
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(724, 14);
+            this.textBox2.Location = new System.Drawing.Point(1026, 14);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(161, 20);
             this.textBox2.TabIndex = 14;
@@ -971,7 +976,7 @@
             // dateTimePicker3
             // 
             this.dateTimePicker3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateTimePicker3.Location = new System.Drawing.Point(891, 14);
+            this.dateTimePicker3.Location = new System.Drawing.Point(1193, 14);
             this.dateTimePicker3.Name = "dateTimePicker3";
             this.dateTimePicker3.Size = new System.Drawing.Size(157, 20);
             this.dateTimePicker3.TabIndex = 13;
@@ -1010,7 +1015,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1410, 561);
+            this.tabPage3.Size = new System.Drawing.Size(1362, 627);
             this.tabPage3.TabIndex = 9;
             this.tabPage3.Text = "Зупення обслуговування";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1020,7 +1025,7 @@
             this.groupBox9.Controls.Add(this.dataGridView_close_object);
             this.groupBox9.Location = new System.Drawing.Point(3, 78);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(1267, 579);
+            this.groupBox9.Size = new System.Drawing.Size(1404, 546);
             this.groupBox9.TabIndex = 4;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "groupBox9";
@@ -1030,7 +1035,7 @@
             this.dataGridView_close_object.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_close_object.Location = new System.Drawing.Point(0, 19);
             this.dataGridView_close_object.Name = "dataGridView_close_object";
-            this.dataGridView_close_object.Size = new System.Drawing.Size(899, 379);
+            this.dataGridView_close_object.Size = new System.Drawing.Size(1401, 524);
             this.dataGridView_close_object.TabIndex = 3;
             // 
             // groupBox8
@@ -1080,7 +1085,7 @@
             this.tabPage_zvit.Location = new System.Drawing.Point(4, 22);
             this.tabPage_zvit.Name = "tabPage_zvit";
             this.tabPage_zvit.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_zvit.Size = new System.Drawing.Size(1410, 561);
+            this.tabPage_zvit.Size = new System.Drawing.Size(1362, 627);
             this.tabPage_zvit.TabIndex = 10;
             this.tabPage_zvit.Text = "Звіти";
             this.tabPage_zvit.UseVisualStyleBackColor = true;
@@ -1149,7 +1154,7 @@
             this.tabPage_zayavki_activation.Location = new System.Drawing.Point(4, 22);
             this.tabPage_zayavki_activation.Name = "tabPage_zayavki_activation";
             this.tabPage_zayavki_activation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_zayavki_activation.Size = new System.Drawing.Size(1410, 561);
+            this.tabPage_zayavki_activation.Size = new System.Drawing.Size(1362, 627);
             this.tabPage_zayavki_activation.TabIndex = 11;
             this.tabPage_zayavki_activation.Text = "Заявки на активацію";
             this.tabPage_zayavki_activation.UseVisualStyleBackColor = true;
@@ -1167,7 +1172,7 @@
             this.dataGridView_zayavki_na_activation.ReadOnly = true;
             this.dataGridView_zayavki_na_activation.RowHeadersVisible = false;
             this.dataGridView_zayavki_na_activation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_zayavki_na_activation.Size = new System.Drawing.Size(1124, 448);
+            this.dataGridView_zayavki_na_activation.Size = new System.Drawing.Size(1398, 525);
             this.dataGridView_zayavki_na_activation.TabIndex = 2;
             this.dataGridView_zayavki_na_activation.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_zayavki_na_activation_CellContentDoubleClick);
             // 
@@ -1179,19 +1184,20 @@
             this.groupBox10.Controls.Add(this.dateTimePicker_for_zayavki_na_activation_W2);
             this.groupBox10.Location = new System.Drawing.Point(3, 3);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(1127, 90);
+            this.groupBox10.Size = new System.Drawing.Size(1401, 90);
             this.groupBox10.TabIndex = 0;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Керування заявками на активацію";
             // 
             // comboBox_prikripleno_select
             // 
+            this.comboBox_prikripleno_select.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_prikripleno_select.FormattingEnabled = true;
             this.comboBox_prikripleno_select.Items.AddRange(new object[] {
             "Всі",
             "Прикріплені",
             "Не прикріплені"});
-            this.comboBox_prikripleno_select.Location = new System.Drawing.Point(690, 58);
+            this.comboBox_prikripleno_select.Location = new System.Drawing.Point(137, 61);
             this.comboBox_prikripleno_select.Name = "comboBox_prikripleno_select";
             this.comboBox_prikripleno_select.Size = new System.Drawing.Size(121, 21);
             this.comboBox_prikripleno_select.TabIndex = 8;
@@ -1199,12 +1205,13 @@
             // 
             // comboBox_activovani_select
             // 
+            this.comboBox_activovani_select.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_activovani_select.FormattingEnabled = true;
             this.comboBox_activovani_select.Items.AddRange(new object[] {
             "Всі",
             "Активовані",
             "Неактивовані"});
-            this.comboBox_activovani_select.Location = new System.Drawing.Point(535, 58);
+            this.comboBox_activovani_select.Location = new System.Drawing.Point(10, 61);
             this.comboBox_activovani_select.Name = "comboBox_activovani_select";
             this.comboBox_activovani_select.Size = new System.Drawing.Size(121, 21);
             this.comboBox_activovani_select.TabIndex = 7;
@@ -1212,9 +1219,10 @@
             // 
             // button
             // 
-            this.button.Location = new System.Drawing.Point(827, 58);
+            this.button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button.Location = new System.Drawing.Point(10, 19);
             this.button.Name = "button";
-            this.button.Size = new System.Drawing.Size(136, 23);
+            this.button.Size = new System.Drawing.Size(392, 36);
             this.button.TabIndex = 6;
             this.button.Text = "Створити нову заявку";
             this.button.UseVisualStyleBackColor = true;
@@ -1222,7 +1230,8 @@
             // 
             // dateTimePicker_for_zayavki_na_activation_W2
             // 
-            this.dateTimePicker_for_zayavki_na_activation_W2.Location = new System.Drawing.Point(986, 58);
+            this.dateTimePicker_for_zayavki_na_activation_W2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePicker_for_zayavki_na_activation_W2.Location = new System.Drawing.Point(264, 62);
             this.dateTimePicker_for_zayavki_na_activation_W2.Name = "dateTimePicker_for_zayavki_na_activation_W2";
             this.dateTimePicker_for_zayavki_na_activation_W2.Size = new System.Drawing.Size(138, 20);
             this.dateTimePicker_for_zayavki_na_activation_W2.TabIndex = 4;
@@ -1234,14 +1243,14 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1418, 653);
+            this.panel1.Size = new System.Drawing.Size(1370, 653);
             this.panel1.TabIndex = 1;
             // 
             // Main_window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1418, 653);
+            this.ClientSize = new System.Drawing.Size(1370, 653);
             this.Controls.Add(this.panel1);
             this.Name = "Main_window";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

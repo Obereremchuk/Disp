@@ -260,11 +260,12 @@ namespace Disp_WinForm
             textBox_arm_bagagnik.Text = db_TS_info.Rows[0]["TS_infocol_arm_bagagnik"].ToString();
             textBox_instaled_sensor.Text = db_TS_info.Rows[0]["TS_infocol_other_sensor"].ToString();
             textBox_uvaga.Text = db_TS_info.Rows[0]["TS_infocol_uvaga"].ToString();
-            textBox_tk_wirreless_or_wire.Text = db_TS_info.Rows[0]["TS_infocol_wireless_tk"].ToString();
+            comboBox__tk_wirreless_or_wire.Text = db_TS_info.Rows[0]["TS_infocol_wireless_tk"].ToString();
             textBox_pin_button_external.Text = db_TS_info.Rows[0]["TS_infocol_pin_button_external"].ToString();
 
             int m = Convert.ToInt16(db_TS_info.Rows[0]["TS_model_idTS_model"]);
             comboBox_test_model.SelectedValue = m;
+
 
             int b = Convert.ToInt16(db_TS_info.Rows[0]["TS_brand_idTS_brand"]);
             comboBox_test_brand.SelectedValue = b;
@@ -313,6 +314,7 @@ namespace Disp_WinForm
             textBox_komfort.Text = db_TS_info.Rows[0]["TS_infocol_comfort_accsess"].ToString();
             int c = Convert.ToInt16(db_TS_info.Rows[0]["Color_idColor"]);
             comboBox_color.SelectedIndex = c - 1;
+
             if (db_TS_info.Rows[0]["TS_infocol_relay_on_plus"].ToString() == "1")
             {
                 checkBox_test_relay_plus.Checked = true;
@@ -330,11 +332,18 @@ namespace Disp_WinForm
         }
         private void button_write_Click(object sender, EventArgs e)
         {
-            if (comboBox_test_sto.SelectedIndex == -1 | comboBox_ustanoshik_poisk.SelectedIndex == -1)
+            if (comboBox_kuzov_type.SelectedIndex == -1
+                || comboBox_color.SelectedIndex == -1
+                || comboBox_test_production_date.SelectedIndex == -1
+                || comboBox_test_brand.SelectedIndex == -1
+                || comboBox_test_model.SelectedIndex == -1
+                || comboBox_ustanoshik_poisk.SelectedIndex == -1
+                || comboBox_test_sto.SelectedIndex == -1)
             {
-                MessageBox.Show("Не вибрано встановника");
+                MessageBox.Show("Перевірь щось, можливо зір..");
                 return;
             }
+
 
             commands_fill_anketa();
             commands_add_testing();
@@ -351,13 +360,15 @@ namespace Disp_WinForm
             /////////////////
             ///
 
+            
+
             macros.sql_command("update btk.TS_info set " +
                                "TS_infocol_place_treker='" + textBox_device1.Text + "', " +
                                "TS_infocol_place_alarm='" + TextBox_device2.Text + "', " +
                                "TS_infocol_place_relay='" + textBox_place_relay.Text + "', " +
                                "TS_infocol_wire_cut='" + textBox_wire_cut.Text + "', " +
                                "TS_infocol_place_tk='" + textBox_place_tk.Text + "', " +
-                               "TS_infocol_wireless_tk='" + textBox_tk_wirreless_or_wire.Text + "', " +
+                               "TS_infocol_wireless_tk='" + comboBox__tk_wirreless_or_wire.GetItemText(comboBox__tk_wirreless_or_wire.SelectedItem).ToString() + "', " +
                                "TS_infocol_place_service_button='" + textBox_service_button.Text + "', " +
                                "TS_infocol_button_for_pin='" + textBox_buttons_for_pin.Text + "', " +
                                "TS_infocol_set_pin='" + textBox_current_pin.Text + "', " +
@@ -589,7 +600,7 @@ namespace Disp_WinForm
                                                                 + "\"id\":\"17\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.8.1 Тривожна кнопка: провідна, безпровідна\","
-                                                                + "\"v\":\"" + textBox_tk_wirreless_or_wire.Text.Replace("\"", "%5C%22") + "\"}");
+                                                                + "\"v\":\"" + comboBox__tk_wirreless_or_wire.GetItemText(comboBox__tk_wirreless_or_wire.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
 
                 //3.9.1 Кнопки введення PIN коду: штатні, додатково встановленні
                 string pp234_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
@@ -803,7 +814,7 @@ namespace Disp_WinForm
                                                                 + "\"id\":\"19\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.8.1 Тривожна кнопка: провідна, безпровідна\","
-                                                                + "\"v\":\"" + textBox_tk_wirreless_or_wire.Text.Replace("\"", "%5C%22") + "\"}");
+                                                                + "\"v\":\"" + comboBox__tk_wirreless_or_wire.GetItemText(comboBox__tk_wirreless_or_wire.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
 
                 //3.9.1 Кнопки введення PIN коду: штатні, додатково встановленні
                 string pp23_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
@@ -1523,6 +1534,7 @@ namespace Disp_WinForm
             }
         }
 
+        // escape non utf charter
         private void textBox_licence_plate_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (System.Text.Encoding.UTF8.GetByteCount(new char[] { e.KeyChar }) > 1)

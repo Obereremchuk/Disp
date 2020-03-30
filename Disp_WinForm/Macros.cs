@@ -86,6 +86,28 @@ namespace Disp_WinForm
                     json = myRequest.GetResponse();
                     test_out = JsonConvert.DeserializeObject<RootObject>(json);
                 }
+                //if (test_out.error == 8)
+                //{
+                //    List<Form> openForms = new List<Form>();
+                //    foreach (Form f in System.Windows.Forms.Application.OpenForms)
+                //        openForms.Add(f);
+                //    foreach (Form f in openForms)
+                //    {
+                //        if (f.Name != "Login_Form")
+                //        {
+                //            f.Dispose();
+                //        }
+                //        else
+                //        {
+                //            f.Show();
+                //        }
+                //    }
+
+                //    //если токен истек то необходимо візвать форму повторной авторизации
+                //    //Main_window form = new Main_window();
+                //    //form.Show();
+                //    //this.Hide();
+                //}
                 else if (test_out.error > 1)
                 {
 
@@ -166,6 +188,24 @@ namespace Disp_WinForm
                     Get_wl_text_error(m.error); //Показіваем диалог бокс с ошибкой, преріваем создание
                 System.Windows.Forms.MessageBox.Show("Wialon Error: " + text);
             }
+            
+            //if (m.error == 8)
+            //{
+            //    List<Form> openForms = new List<Form>();
+            //    foreach (Form f in System.Windows.Forms.Application.OpenForms)
+            //        openForms.Add(f);
+            //    foreach (Form f in openForms)
+            //    {
+            //        if (f.Name != "Login_Form")
+            //            f.Close();
+                    
+            //    }
+
+            //    //если токен истек то необходимо візвать форму повторной авторизации
+            //    //Main_window form = new Main_window();
+            //    //form.Show();
+            //    //this.Hide();
+            //}
             vars_form.eid = m.eid;
             vars_form.wl_user_id = m.user.id;
             vars_form.wl_user_nm = m.user.nm;
@@ -293,39 +333,38 @@ namespace Disp_WinForm
         }
 
         // sql command
+        public string sql_command(string sql)
+        {
+            string answer = "";
+            using (MySqlConnection myConnection = new MySqlConnection("server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=true; SslMode=none; Convert Zero Datetime = True ; charset=utf8"))
+            {
+                myConnection.Open();
+                using (MySqlCommand command = new MySqlCommand(sql, myConnection))
+                {
+                    MySqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        answer = reader[0].ToString();
+                    }
+                    return answer;
+                }
+            }
+        }
+    
+
         public string sql_command2(string sql)
         {
             try
             {
-                using (MySqlConnection myConnection = new MySqlConnection(
-                    "server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=true; SslMode=none; Convert Zero Datetime = True ; charset=utf8")
-                )
-                {
-                    myConnection.Open();
-                    MySqlCommand command = myConnection.CreateCommand();
-                    command.CommandText = sql;
-                    string answer = command.ExecuteNonQuery().ToString();
-                    return answer;
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message.ToString() + "");
-                string answer = "";
-                return answer;
-            }
-        }
+               
+                
 
-        public string sql_command(string sql)
-        {
-            try
-            {
-                using (MySqlConnection myConnection = new MySqlConnection(
-                    "server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=true; SslMode=none; Convert Zero Datetime = True; charset=utf8")
-                )
+
+                using (MySqlConnection myConnection = new MySqlConnection("server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=true; SslMode=none; Convert Zero Datetime = True; charset=utf8"))
                 {
                     MySqlCommand command = new MySqlCommand(sql, myConnection);
-                    command.CommandType = CommandType.Text;
+                    //command.CommandType = CommandType.Text;
+                    command.CommandText = sql;
                     myConnection.Open();
                     string answer = command.ExecuteScalar().ToString();
                     //myConnection.Close();
@@ -472,6 +511,14 @@ namespace Disp_WinForm
                 }
             }
         } //export to xlsx
+
+        public DateTime UnixTimeStampToDateTime(double unixTimeStamp)
+        {
+            // Unix timestamp is seconds past epoch
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            return dtDateTime;
+        }
 
         public void send_mail(string recipient, string subject, string body)
         {

@@ -38,9 +38,9 @@
             this.comboBox_test_sto = new System.Windows.Forms.ComboBox();
             this.comboBox_ustanoshik_poisk = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBox__tk_wirreless_or_wire = new System.Windows.Forms.ComboBox();
             this.textBox_pin_button_external = new System.Windows.Forms.TextBox();
             this.label34 = new System.Windows.Forms.Label();
-            this.textBox_tk_wirreless_or_wire = new System.Windows.Forms.TextBox();
             this.label33 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.imei_obj_textBox = new System.Windows.Forms.TextBox();
@@ -227,9 +227,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.comboBox__tk_wirreless_or_wire);
             this.groupBox1.Controls.Add(this.textBox_pin_button_external);
             this.groupBox1.Controls.Add(this.label34);
-            this.groupBox1.Controls.Add(this.textBox_tk_wirreless_or_wire);
             this.groupBox1.Controls.Add(this.label33);
             this.groupBox1.Controls.Add(this.label25);
             this.groupBox1.Controls.Add(this.imei_obj_textBox);
@@ -283,6 +283,19 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Анкета";
             // 
+            // comboBox__tk_wirreless_or_wire
+            // 
+            this.comboBox__tk_wirreless_or_wire.FormattingEnabled = true;
+            this.comboBox__tk_wirreless_or_wire.Items.AddRange(new object[] {
+            "Провідна",
+            "Безпровідна",
+            "Провідна та безпровідна",
+            "Відсутня"});
+            this.comboBox__tk_wirreless_or_wire.Location = new System.Drawing.Point(6, 514);
+            this.comboBox__tk_wirreless_or_wire.Name = "comboBox__tk_wirreless_or_wire";
+            this.comboBox__tk_wirreless_or_wire.Size = new System.Drawing.Size(371, 21);
+            this.comboBox__tk_wirreless_or_wire.TabIndex = 18;
+            // 
             // textBox_pin_button_external
             // 
             this.textBox_pin_button_external.Location = new System.Drawing.Point(6, 541);
@@ -298,13 +311,6 @@
             this.label34.Size = new System.Drawing.Size(271, 13);
             this.label34.TabIndex = 95;
             this.label34.Text = "Кнопки введення PIN коду: додатково встановленні";
-            // 
-            // textBox_tk_wirreless_or_wire
-            // 
-            this.textBox_tk_wirreless_or_wire.Location = new System.Drawing.Point(6, 515);
-            this.textBox_tk_wirreless_or_wire.Name = "textBox_tk_wirreless_or_wire";
-            this.textBox_tk_wirreless_or_wire.Size = new System.Drawing.Size(371, 20);
-            this.textBox_tk_wirreless_or_wire.TabIndex = 18;
             // 
             // label33
             // 
@@ -337,7 +343,6 @@
             // 
             this.name_obj_textBox.Location = new System.Drawing.Point(6, 44);
             this.name_obj_textBox.Name = "name_obj_textBox";
-            this.name_obj_textBox.ReadOnly = true;
             this.name_obj_textBox.Size = new System.Drawing.Size(371, 20);
             this.name_obj_textBox.TabIndex = 1;
             // 
@@ -363,6 +368,7 @@
             this.textBox_vin.Name = "textBox_vin";
             this.textBox_vin.Size = new System.Drawing.Size(371, 20);
             this.textBox_vin.TabIndex = 20;
+            this.textBox_vin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_licence_plate_KeyPress);
             // 
             // textBox_uvaga
             // 
@@ -377,7 +383,6 @@
             this.textBox_licence_plate.Name = "textBox_licence_plate";
             this.textBox_licence_plate.Size = new System.Drawing.Size(371, 20);
             this.textBox_licence_plate.TabIndex = 21;
-            this.textBox_licence_plate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_licence_plate_KeyPress);
             // 
             // textBox_komfort
             // 
@@ -1333,7 +1338,7 @@
         private System.Windows.Forms.ComboBox comboBox_result;
         private System.Windows.Forms.TextBox textBox_pin_button_external;
         private System.Windows.Forms.Label label34;
-        private System.Windows.Forms.TextBox textBox_tk_wirreless_or_wire;
         private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.ComboBox comboBox__tk_wirreless_or_wire;
     }
 }

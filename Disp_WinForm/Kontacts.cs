@@ -16,8 +16,9 @@ namespace Disp_WinForm
         Macros macros = new Macros();
         public Kontacts()
         {
-            Right_set();
+            
             InitializeComponent();
+            Right_set();
             Bild_listview_kontackts();
             Get_kontackts();
         }
