@@ -101,7 +101,7 @@ namespace Disp_WinForm
         {
 
 
-            if (vars_form.user_login_id == "5" || vars_form.user_login_id == "9")//разрешаем Ленику, Пустовит доступ к вкладке Звит
+            if (vars_form.user_login_id == "5" || vars_form.user_login_id == "9" || vars_form.user_login_id == "34")//разрешаем Ленику, Пустовит доступ к вкладке Звит
             {
 
             }
