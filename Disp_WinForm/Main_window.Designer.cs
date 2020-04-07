@@ -174,11 +174,11 @@
             this.tabControl_testing.Controls.Add(this.tabPage_808);
             this.tabControl_testing.Controls.Add(this.tabPage_p);
             this.tabControl_testing.Controls.Add(this.tabPage_sales);
+            this.tabControl_testing.Controls.Add(this.tabPage_zayavki_activation);
             this.tabControl_testing.Controls.Add(this.tabPage_testing);
             this.tabControl_testing.Controls.Add(this.tabPage_activation);
             this.tabControl_testing.Controls.Add(this.tabPage3);
             this.tabControl_testing.Controls.Add(this.tabPage_zvit);
-            this.tabControl_testing.Controls.Add(this.tabPage_zayavki_activation);
             this.tabControl_testing.Location = new System.Drawing.Point(0, 0);
             this.tabControl_testing.Name = "tabControl_testing";
             this.tabControl_testing.SelectedIndex = 0;
