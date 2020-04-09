@@ -1180,7 +1180,7 @@ namespace Disp_WinForm
                                                             "\"mmtd\":\"0\"," +                                                 /* максимальный временной интервал между сообщениями (секунд) */
                                                             "\"cdt\":\"0\"," +                                                  /* таймаут срабатывания(секунд) */
                                                             "\"mast\":\"0\"," +                                                 /* минимальная продолжительность тревожного состояния (секунд) */
-                                                            "\"mpst\":\"0\"," +                                                 /* минимальная продолжительность предыдущего состояния (секунд) */
+                                                            "\"mpst\":\"30\"," +                                                 /* минимальная продолжительность предыдущего состояния (секунд) */
                                                             "\"cp\":\"0\"," +                                                   /* период контроля относительно текущего времени (секунд) */
                                                             "\"fl\":\"0\"," +                                                   /* флаги: 0=уведомление срабатывает на первое сообщение, 1=уведомление срабатывает на каждое сообщение, 2=уведомление выключено */
                                                             "\"tz\":\"7200\"," +                                                /* часовой пояс */
@@ -1263,7 +1263,7 @@ namespace Disp_WinForm
                                                             "\"mmtd\":\"0\"," +                                                 /* максимальный временной интервал между сообщениями (секунд) */
                                                             "\"cdt\":\"0\"," +                                                  /* таймаут срабатывания(секунд) */
                                                             "\"mast\":\"0\"," +                                                 /* минимальная продолжительность тревожного состояния (секунд) */
-                                                            "\"mpst\":\"0\"," +                                                 /* минимальная продолжительность предыдущего состояния (секунд) */
+                                                            "\"mpst\":\"30\"," +                                                 /* минимальная продолжительность предыдущего состояния (секунд) */
                                                             "\"cp\":\"0\"," +                                                   /* период контроля относительно текущего времени (секунд) */
                                                             "\"fl\":\"0\"," +                                                   /* флаги: 0=уведомление срабатывает на первое сообщение, 1=уведомление срабатывает на каждое сообщение, 2=уведомление выключено */
                                                             "\"tz\":\"7200\"," +                                                /* часовой пояс */
@@ -1334,7 +1334,7 @@ namespace Disp_WinForm
 
         }
 
-        // CNTP_910 create nitif for new user account
+        // CNTP_730 create nitif for new user account
         private void create_notif_730(string user_account_name, int user_account_id, string object_id, int resours_id, int resours_user_id)
         {
             //Cработка: Датчик удара/наклона/буксировки
@@ -1806,25 +1806,46 @@ namespace Disp_WinForm
 
         private void form_vo_add_deactivated(object sender, FormClosedEventArgs e)
         {
-            if (vars_form.num_vo == 1)
+            if (vars_form.num_vo == 1)//VO1 1 familia make upper case
             {
-                textBox_vo1.Text = macros.sql_command("SELECT concat(Kontakti_familia, ' ' , Kontakti_imya) FROM btk.Kontakti where idKontakti = '"+ vars_form.transfer_vo1_vo_form + "';");
+                string VO_falilia = macros.sql_command("SELECT Kontakti_familia FROM btk.Kontakti where idKontakti = '" + vars_form.transfer_vo1_vo_form + "';");
+                string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo1_vo_form + "';");
+                string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo1_vo_form + "';");
+                if (VO_phone2 == "   -   -")
+                { VO_phone2 = ""; }
+                textBox_vo1.Text = VO_falilia.ToUpper() + " " + VO_imya_phone + ", " + VO_phone2;
             }
             if (vars_form.num_vo == 2)
             {
-                textBox_vo2.Text = macros.sql_command("SELECT concat(Kontakti_familia, ' ' , Kontakti_imya) FROM btk.Kontakti where idKontakti = '" + vars_form.transfer_vo2_vo_form + "';");
+                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo2_vo_form + "';");
+                string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo2_vo_form + "';");
+                if (VO_phone2 == "   -   -")
+                { VO_phone2 = ""; }
+                textBox_vo2.Text = VO_familia_imya_phone + ", " + VO_phone2;
             }
             if (vars_form.num_vo == 3)
             {
-                textBox_vo3.Text = macros.sql_command("SELECT concat(Kontakti_familia, ' ' , Kontakti_imya) FROM btk.Kontakti where idKontakti = '" + vars_form.transfer_vo3_vo_form + "';");
+                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo3_vo_form + "';");
+                string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo3_vo_form + "';");
+                if (VO_phone2 == "   -   -")
+                { VO_phone2 = ""; }
+                textBox_vo3.Text = VO_familia_imya_phone + ", " + VO_phone2;
             }
             if (vars_form.num_vo == 4)
             {
-                textBox_vo4.Text = macros.sql_command("SELECT concat(Kontakti_familia, ' ' , Kontakti_imya) FROM btk.Kontakti where idKontakti = '" + vars_form.transfer_vo4_vo_form + "';");
+                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo4_vo_form + "';");
+                string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo4_vo_form + "';");
+                if (VO_phone2 == "   -   -")
+                { VO_phone2 = ""; }
+                textBox_vo4.Text = VO_familia_imya_phone + ", " + VO_phone2;
             }
             if (vars_form.num_vo == 5)
             {
-                textBox_vo5.Text = macros.sql_command("SELECT concat(Kontakti_familia, ' ' , Kontakti_imya) FROM btk.Kontakti where idKontakti = '" + vars_form.transfer_vo5_vo_form + "';");
+                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo5_vo_form + "';");
+                string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo5_vo_form + "';");
+                if (VO_phone2 == "   -   -")
+                { VO_phone2 = ""; }
+                textBox_vo5.Text = VO_familia_imya_phone + ", " + VO_phone2;
             }
             this.Visible = true;// разблокируем окно контрагентов кактолько закрыто окно добавления контрагента
         }
@@ -1920,33 +1941,7 @@ namespace Disp_WinForm
                 return;
             }
 
-            //set VO
-            if (vars_form.transfer_vo1_vo_form != "")
-            {
-                macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation+"','"+vars_form.transfer_vo1_vo_form+"','1','"+ Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','"+vars_form.user_login_id+"');");
-            }
-            if (vars_form.transfer_vo2_vo_form != "")
-            {
-                macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo2_vo_form + "','2','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
-            }
-            if (vars_form.transfer_vo3_vo_form != "")
-            {
-                macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo3_vo_form + "','3','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
-            }
-            if (vars_form.transfer_vo4_vo_form != "")
-            {
-                macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo4_vo_form + "','4','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
-            }
-            if (vars_form.transfer_vo5_vo_form != "")
-            {
-                macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo5_vo_form + "','5','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
-            }
-
-            //Меняем имя об"екта
-            string name_answer = macros.wialon_request_lite("&svc=item/update_name&params={"
-                                                            + "\"itemId\":\"" + vars_form.id_object_for_activation + "\","
-                                                            + "\"name\":\"" + name_obj_new_textBox.Text + "\"}");
-            //Search for neme feild 
+            //Загружаем произвольные поля объекта
             string json = macros.wialon_request_new("&svc=core/search_items&params={" +
                                                      "\"spec\":{" +
                                                      "\"itemsType\":\"avl_unit\"," +
@@ -1962,30 +1957,93 @@ namespace Disp_WinForm
 
             var object_data = JsonConvert.DeserializeObject<RootObject>(json);
 
+
             
 
+            if (name_object_current_textBox.Text != name_obj_new_textBox.Text)
+            {
+                //Меняем имя об"екта
+                string name_answer = macros.wialon_request_lite("&svc=item/update_name&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_object_for_activation + "\","
+                                                                + "\"name\":\"" + name_obj_new_textBox.Text + "\"}");
+            }
+            
             foreach (var keyvalue in object_data.items[0].flds)
             {
 
                 if (keyvalue.Value.n.Contains("УВАГА"))
                 {
-                    //Chenge feild Uvaga
-                    string json2 = macros.wialon_request_new("&svc=item/update_custom_field&params={" +
-                                                             "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
-                                                             "\"id\":\""+keyvalue.Value.id+"\"," +
-                                                             "\"callMode\":\"update\"," +
-                                                             "\"n\":\"" + keyvalue.Value.n + "\"," +
-                                                             "\"v\":\"" + uvaga_textBox.Text + "\"}");
+                    if (keyvalue.Value.v != uvaga_textBox.Text)
+                    {
+                        //Chenge feild Uvaga
+                        string json2 = macros.wialon_request_new("&svc=item/update_custom_field&params={" +
+                                                                 "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
+                                                                 "\"id\":\"" + keyvalue.Value.id + "\"," +
+                                                                 "\"callMode\":\"update\"," +
+                                                                 "\"n\":\"" + keyvalue.Value.n + "\"," +
+                                                                 "\"v\":\"" + uvaga_textBox.Text + "\"}");
+                    }
                 }
                 if (keyvalue.Value.n.Contains("Кодове "))
                 {
-                    //Chenge feild Кодове слово
-                    string json2 = macros.wialon_request_new("&svc=item/update_custom_field&params={" +
+                    if (keyvalue.Value.v != kodove_slovo_textBox.Text)
+                    {
+                        //Chenge feild Кодове слово
+                        string json2 = macros.wialon_request_new("&svc=item/update_custom_field&params={" +
                                                              "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
                                                              "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                              "\"callMode\":\"update\"," +
                                                              "\"n\":\"" + keyvalue.Value.n + "\"," +
                                                              "\"v\":\"" + kodove_slovo_textBox.Text + "\"}");
+                    }
+                }
+
+                if (keyvalue.Value.n.Contains("2.1 І Від"))
+                {
+                    if (keyvalue.Value.v != textBox_vo1.Text)
+                    {
+                        //Chenge feild ВО1
+                        macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo1_vo_form + "','1','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
+                        
+                        string json2 = macros.wialon_request_new("&svc=item/update_custom_field&params={" +
+                                                             "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
+                                                             "\"id\":\"" + keyvalue.Value.id + "\"," +
+                                                             "\"callMode\":\"update\"," +
+                                                             "\"n\":\"" + keyvalue.Value.n + "\"," +
+                                                             "\"v\":\"" + textBox_vo1.Text + "\"}");
+                    }
+                }
+
+                if (keyvalue.Value.n.Contains("2.2 ІІ Від"))
+                {
+                    if (keyvalue.Value.v != textBox_vo2.Text)
+                    {
+                        //Chenge feild ВО2
+                        macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo2_vo_form + "','2','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
+
+                        string json2 = macros.wialon_request_new("&svc=item/update_custom_field&params={" +
+                                                             "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
+                                                             "\"id\":\"" + keyvalue.Value.id + "\"," +
+                                                             "\"callMode\":\"update\"," +
+                                                             "\"n\":\"" + keyvalue.Value.n + "\"," +
+                                                             "\"v\":\"" + textBox_vo2.Text + "\"}");
+                    }
+                }
+
+                if (keyvalue.Value.n.Contains("2.3 ІІІ Від"))
+                {
+                    if (keyvalue.Value.v != textBox_vo3.Text)
+                    {
+                        //Chenge feild ВО3
+                        macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo3_vo_form + "','3','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
+
+                        string json2 = macros.wialon_request_new("&svc=item/update_custom_field&params={" +
+                                                             "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
+                                                             "\"id\":\"" + keyvalue.Value.id + "\"," +
+                                                             "\"callMode\":\"update\"," +
+                                                             "\"n\":\"" + keyvalue.Value.n + "\"," +
+                                                             "\"v\":\"" + textBox_vo3.Text + "\"}");
+                    }
                 }
             }
 
@@ -2027,6 +2085,10 @@ namespace Disp_WinForm
                                                                     "'" + status_tk_textBox.Text + "'," +
                                                                     "'" + textBox_comments.Text + "'" +
                                                                     ");");
+
+            string get_id_activacii = macros.sql_command("SELECT MAX(idActivation_object) FROM btk.Activation_object;");
+            macros.sql_command("update btk.Zayavki set Activation_object_idActivation_object = '"+ get_id_activacii + "' where idZayavki = '"+ vars_form.id_db_zayavki_for_activation + "';");
+
             this.Close();
         }
 

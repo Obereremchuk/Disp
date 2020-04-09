@@ -160,7 +160,8 @@ namespace Disp_WinForm
         }
         private void OnTimedEvent_activation(object sender, EventArgs e)
         {
-            update_testing_dgv();
+            update_actication_dgv();
+            update_activation_start_dgv();
         }
         private void OnTimedEvent_zayavki_na_aktivation(object sender, EventArgs e)
         {
@@ -246,6 +247,7 @@ namespace Disp_WinForm
             }
             else if (tabControl_testing.SelectedTab.Name == "tabPage_testing")
             {
+                update_testing_dgv();
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_808);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_909);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_open);
@@ -255,11 +257,12 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.Enabled = true;
-                mysql_close_alarm();
+                
 
             }
             else if (tabControl_testing.SelectedTab.Name == "tabPage2")
             {
+                mysql_close_alarm();
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_808);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_909);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_open);
@@ -269,12 +272,14 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.Enabled = false;
-                mysql_close_alarm();
+                
+
 
             }
             else if (tabControl_testing.SelectedTab.Name == "tabPage_activation")
             {
                 update_actication_dgv();
+                update_activation_start_dgv();
                 aTimer.Interval = 2000;
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_808);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_909);
@@ -286,6 +291,7 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.AutoReset = true;
                 aTimer.Enabled = true;
+                
             }
             else if (tabControl_testing.SelectedTab.Name == "tabPage_zayavki_activation")
             {
@@ -302,140 +308,6 @@ namespace Disp_WinForm
             }
 
 
-        }
-
-        void get_mqsql_data()
-        {
-            string connectionString = "server = 10.44.30.32; " +
-                                      "user id=lozik;" +
-                                      "password=lozik;" +
-                                      "database=btk;" +
-                                      "pooling=false;" +
-                                      "SslMode=none;" +
-                                      "Convert Zero Datetime = True;" +
-                                      "charset=utf8;";
-
-
-            string dilery = "SELECT idnotification as 'ID тривоги'," +
-                            "product as 'Продукт'," +
-                            "unit_name as 'Назва об’єкту'," +
-                            "type_alarm as 'Тип тривоги'," +
-                            "unit_id as 'ID'," +
-                            "Status as 'Статус'," +
-                            "alarm_locked_user as 'Обробляє'," +
-                            "msg_time as 'Час створення'," +
-                            "group_alarm as 'Згруповано до', " +
-                            "Users.username as 'Створив'," +
-                            "speed, " +
-                            "remaynder_activate as 'Нагадати', " +
-                            "remayder_date as 'Дата нагадування'  FROM btk.notification, btk.Users WHERE Users.idUsers=notification.Users_idUsers and Status = 'Дилеры' " +
-                            vars_form.hide_group_alarm + "  order by btk.notification." + vars_form.sort.ToString() +
-                            " " + vars_form.order_sort + ";";
-            string sale = "SELECT idnotification as 'ID тривоги'," +
-                          "product as 'Продукт'," +
-                          "unit_name as 'Назва об’єкту'," +
-                          "type_alarm as 'Тип тривоги'," +
-                          "unit_id as 'ID'," +
-                          "Status as 'Статус'," +
-                          "alarm_locked_user as 'Обробляє'," +
-                          "msg_time as 'Час створення'," +
-                          "group_alarm as 'Згруповано до', " +
-                          "Users.username as 'Створив'," +
-                          "speed, " +
-                          "remaynder_activate as 'Нагадати', " +
-                          "remayder_date as 'Дата нагадування'  FROM btk.notification, btk.Users WHERE Users.idUsers=notification.Users_idUsers and Status = 'Продажи' " +
-                          vars_form.hide_group_alarm + "  order by btk.notification." + vars_form.sort.ToString() +
-                          " " + vars_form.order_sort + ";";
-            string a_808 = "SELECT idnotification as 'ID тривоги'," +
-                         "product as 'Продукт'," +
-                         "unit_name as 'Назва об’єкту'," +
-                         "type_alarm as 'Тип тривоги'," +
-                         "unit_id as 'ID'," +
-                         "Status as 'Статус'," +
-                         "alarm_locked_user as 'Обробляє'," +
-                         "msg_time as 'Час створення'," +
-                         "group_alarm as 'Згруповано до', " +
-                         "Users.username as 'Створив'," +
-                         "speed, " +
-                         "remaynder_activate as 'Нагадати', " +
-                         "remayder_date as 'Дата нагадування'  FROM btk.notification, btk.Users WHERE Users.idUsers=notification.Users_idUsers and Status = '808' " +
-                         vars_form.hide_group_alarm + "  order by btk.notification." + vars_form.sort.ToString() + " " +
-                         vars_form.order_sort + ";";
-            string a_909 = "SELECT idnotification as 'ID тривоги'," +
-                          "notification.product as 'Продукт'," +
-                          "notification.unit_name as 'Назва об’єкту'," +
-                          "notification.type_alarm as 'Тип тривоги'," +
-                          "notification.unit_id as 'ID'," +
-                          "notification.Status as 'Статус'," +
-                          "notification.alarm_locked_user as 'Обробляє'," +
-                          "notification.msg_time as 'Час створення'," +
-                          "notification.group_alarm as 'Згруповано до', " +
-                          "Users.username as 'Створив'," +
-                          "notification.speed, " +
-                          "notification.remaynder_activate as 'Нагадати', " +
-                          "notification.remayder_date as 'Дата нагадування'  " +
-                          "FROM btk.notification, btk.Users " +
-                          "WHERE Users.idUsers=notification.Users_idUsers " +
-                          "and notification.Status = '909' " + vars_form.hide_group_alarm +
-                          "  order by btk.notification." + vars_form.sort.ToString() + " " + vars_form.order_sort + ";";
-            string open = "SELECT idnotification as 'ID тривоги'," +
-                          "product as 'Продукт'," +
-                          "unit_name as 'Назва об’єкту'," +
-                          "type_alarm as 'Тип тривоги'," +
-                          "Status as 'Статус'," +
-                          "alarm_locked_user as 'Обробляє'," +
-                          "msg_time as 'Час створення'," +
-                          "curr_time as 'Час отримання тривоги'," +
-                          "unit_id as 'ID обєкту'," +
-                          "group_alarm as 'Згруповано до' FROM btk.notification WHERE Status = 'Відкрито' OR Status = 'Обробляется' " +
-                          vars_form.hide_group_alarm + "  order by btk.notification." + vars_form.sort.ToString() +
-                          " " + vars_form.order_sort + ";";
-
-            DataTable table = new DataTable();
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                conn.Open();
-                using (MySqlCommand command = new MySqlCommand(dilery, conn))
-                {
-                    MySqlDataAdapter adapter = new MySqlDataAdapter();
-                    adapter.SelectCommand = command;
-                    adapter.Fill(table);
-                    vars_form.table_dilery = table;
-                }
-                using (MySqlCommand command = new MySqlCommand(open, conn))
-                {
-                    MySqlDataAdapter adapter = new MySqlDataAdapter();
-                    adapter.SelectCommand = command;
-                    table.Clear();
-                    adapter.Fill(table);
-                    vars_form.table_open = table;
-                }
-                using (MySqlCommand command = new MySqlCommand(sale, conn))
-                {
-                    MySqlDataAdapter adapter = new MySqlDataAdapter();
-                    adapter.SelectCommand = command;
-                    table.Clear();
-                    adapter.Fill(table);
-                    vars_form.table_sales = table;
-                }
-                using (MySqlCommand command = new MySqlCommand(a_808, conn))
-                {
-                    MySqlDataAdapter adapter = new MySqlDataAdapter();
-                    adapter.SelectCommand = command;
-                    table.Clear();
-                    adapter.Fill(table);
-                    vars_form.table_808 = table;
-                }
-                using (MySqlCommand command = new MySqlCommand(a_909, conn))
-                {
-                    MySqlDataAdapter adapter = new MySqlDataAdapter();
-                    adapter.SelectCommand = command;
-                    table.Clear();
-                    adapter.Fill(table);
-                    vars_form.table_909 = table;
-                }
-                conn.Close();
-            }
         }
 
         /// Обновляем вкладку zayavki Activation W2 
@@ -658,13 +530,37 @@ namespace Disp_WinForm
 
 
 
-        /// Обновляем вкладку Activation  
+        /// Обновляем вкладку For Activation  
         /// 
         private void update_actication_dgv()
         {
             //ПОлучим последний созданный айди тестирование, и возмем из него дату для верного отображения которую покладем в даттаймпикер
             DataTable table = new DataTable();
-            table = macros.GetData("SELECT * FROM btk.testing_object;");
+            table = macros.GetData(
+                "SELECT " +
+                "testing_object.Object_idObject as 'object_id_db', " +
+                "idZayavki , " +
+                "Zayavkicol_name as 'Назва заявки', " +
+                "product_name as 'Продукт', " +
+                "TS_brand.TS_brandcol_brand as 'Бренд', " +
+                "TS_model.TS_modelcol_name as 'Модель', " +
+                "Zayavkicol_VIN as 'VIN', " +
+                "Zayavkicol_reason as 'Причина' " +
+                "FROM " +
+                "btk.Zayavki, " +
+                "btk.TS_brand, " +
+                "btk.TS_model, " +
+                "btk.products, " +
+                "btk.testing_object " +
+                "where " +
+                "Activation_object_idActivation_object = '1' " +
+                "and testing_object_idtesting_object != '1' " +
+                "and TS_brand.idTS_brand = Zayavki.TS_brand_idTS_brand " +
+                "and TS_model.idTS_model = Zayavki.TS_model_idTS_model " +
+                "and products.idproducts = Zayavki.products_idproducts " +
+                "and testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
+                "; ");
+
 
             UpdateGridHandler ug = UpdateGrid_activation;
             ug.BeginInvoke(table, cb_activation, null);
@@ -677,6 +573,8 @@ namespace Disp_WinForm
         {
             int scrollPosition = dataGridView_for_activation.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
             dataGridView_for_activation.DataSource = table;
+            dataGridView_for_activation.Columns["object_id_db"].Visible = false;
+            dataGridView_for_activation.Columns["idZayavki"].Visible = false;
             if (dataGridView_for_activation.Rows.Count >= 1)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
             {
                 if (scrollPosition == -1)
@@ -697,6 +595,8 @@ namespace Disp_WinForm
             {
                 int scrollPosition = dataGridView_for_activation.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
                 dataGridView_for_activation.DataSource = table;
+                dataGridView_for_activation.Columns["object_id_db"].Visible = false;
+                dataGridView_for_activation.Columns["idZayavki"].Visible = false;
                 if (dataGridView_for_activation.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
                 {
                     if (scrollPosition == -1)
@@ -704,6 +604,78 @@ namespace Disp_WinForm
                         scrollPosition = 0;
                     }
                     dataGridView_for_activation.FirstDisplayedScrollingRowIndex = scrollPosition;
+                }
+            }
+        }
+
+
+        /// Обновляем вкладку For Activation  
+        /// 
+        private void update_activation_start_dgv()
+        {
+            //ПОлучим последний созданный айди тестирование, и возмем из него дату для верного отображения которую покладем в даттаймпикер
+            DataTable table = new DataTable();
+            table = macros.GetData(
+                "SELECT " +
+                "idActivation_object, " +
+                "Object_idObject, " +
+                "new_name_obj as 'Назва обєкту', " +
+                "Activation_objectcol_result as 'Результат', " +
+                "Users.username as 'Активував', " +
+                "comment as 'Коментар' " +
+                "FROM " +
+                "btk.Activation_object, " +
+                "btk.Users " +
+                "where " +
+                "Users.idUsers = Activation_object.Users_idUsers " +
+                "and idActivation_object != '1' " +
+                "and Activation_objectcol_result != 'Успінно' " +
+                "and idActivation_object " +
+                "; ");
+
+
+            UpdateGridHandler ug = UpdateGrid_activation_start;
+            ug.BeginInvoke(table, cb_activation_start, null);
+        }
+        private void cb_activation_start(IAsyncResult res)
+        {
+
+        }
+        private void UpdateGrid1_activation_start(DataTable table)
+        {
+            int scrollPosition = dataGridView_activation_start.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+            dataGridView_activation_start.DataSource = table;
+            dataGridView_activation_start.Columns["idActivation_object"].Visible = false;
+            dataGridView_activation_start.Columns["Object_idObject"].Visible = false;
+            if (dataGridView_activation_start.Rows.Count >= 1)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
+            {
+                if (scrollPosition == -1)
+                {
+                    scrollPosition = 0;
+                }
+                dataGridView_activation_start.FirstDisplayedScrollingRowIndex = scrollPosition;
+            }
+        }
+        private void UpdateGrid_activation_start(DataTable table)
+        {
+            if (dataGridView_activation_start.InvokeRequired)
+            {
+                UpdateGridThreadHandler handler = UpdateGrid1_activation_start;
+                dataGridView_activation_start.BeginInvoke(handler, table);
+            }
+            else
+            {
+                int scrollPosition = dataGridView_activation_start.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+                dataGridView_activation_start.DataSource = table;
+                dataGridView_activation_start.Columns["idActivation_object"].Visible = false;
+                dataGridView_activation_start.Columns["Object_idObject"].Visible = false;
+                if (dataGridView_activation_start.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
+                {
+                    if (scrollPosition == -1)
+                    {
+                        scrollPosition = 0;
+                    }
+                    dataGridView_activation_start.FirstDisplayedScrollingRowIndex = scrollPosition;
                 }
             }
         }
@@ -1967,8 +1939,28 @@ namespace Disp_WinForm
                 return;
             }
 
-            vars_form.id_object_for_test = listBox_test_search_result.SelectedValue.ToString();
-            vars_form.id_db_object_for_test = macros.sql_command("SELECT idObject FROM btk.Object where Object_id_wl=" + vars_form.id_object_for_test + ";");
+            vars_form.id_wl_object_for_test = listBox_test_search_result.SelectedValue.ToString();
+            vars_form.id_db_object_for_test = macros.sql_command("SELECT idObject FROM btk.Object where Object_id_wl=" + vars_form.id_wl_object_for_test + ";");
+
+
+            Testing form_Testing = new Testing();
+            form_Testing.Activated += new EventHandler(form_Testing_activated);
+            form_Testing.FormClosed += new FormClosedEventHandler(form_Testing_deactivated);
+            form_Testing.Show();
+        }
+
+        private void dataGridView_testing_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            if (e.RowIndex <= -1 || e.ColumnIndex <= -1)
+            {
+                return;
+            }
+
+            vars_form.id_db_object_for_test = macros.sql_command("SELECT Object_idObject FROM btk.testing_object where idtesting_object ='" + dataGridView_testing.Rows[e.RowIndex].Cells[0].Value.ToString() + "';"); 
+            vars_form.id_wl_object_for_test = macros.sql_command("SELECT Object_id_wl FROM btk.Object where idObject ='" + vars_form.id_db_object_for_test + "';");
+            vars_form.id_db_openning_testing = dataGridView_testing.Rows[e.RowIndex].Cells[0].Value.ToString();
+            vars_form.if_open_created_testing = 1;
 
 
             Testing form_Testing = new Testing();
@@ -1984,6 +1976,8 @@ namespace Disp_WinForm
 
         private void form_Testing_deactivated(object sender, FormClosedEventArgs e)
         {
+            vars_form.if_open_created_zayavka = 0;
+            update_testing_dgv();
             //this.Visible = true;// разблокируем окно контрагентов кактолько закрыто окно добавления контрагента
         }
 
@@ -2020,25 +2014,8 @@ namespace Disp_WinForm
                 return;
             }
 
-            vars_form.id_object_for_test = listBox_test_search_result.SelectedValue.ToString();
-            vars_form.id_db_object_for_test = macros.sql_command("SELECT idObject FROM btk.Object where Object_id_wl=" + vars_form.id_object_for_test + ";");
-
-
-            Testing form_Testing = new Testing();
-            form_Testing.Activated += new EventHandler(form_Testing_activated);
-            form_Testing.FormClosed += new FormClosedEventHandler(form_Testing_deactivated);
-            form_Testing.Show();
-        }
-
-        private void dataGridView_testing_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (listBox_test_search_result.SelectedItems.Count <= 0)
-            {
-                return;
-            }
-
-            vars_form.id_object_for_test = listBox_test_search_result.SelectedValue.ToString();
-            vars_form.id_db_object_for_test = macros.sql_command("SELECT idObject FROM btk.Object where Object_id_wl=" + vars_form.id_object_for_test + ";");
+            vars_form.id_wl_object_for_test = listBox_test_search_result.SelectedValue.ToString();
+            vars_form.id_db_object_for_test = macros.sql_command("SELECT idObject FROM btk.Object where Object_id_wl=" + vars_form.id_wl_object_for_test + ";");
 
 
             Testing form_Testing = new Testing();
@@ -2191,6 +2168,7 @@ namespace Disp_WinForm
         {
             //this.Visible = false;// блокируем окно контрагентов пока открыто окно добавления контрагента
         }
+
         private void form_form_Zayavki_deactivated(object sender, FormClosedEventArgs e)
         {
             vars_form.if_open_created_zayavka = 0;
@@ -2199,7 +2177,16 @@ namespace Disp_WinForm
 
         }
 
-        private void dataGridView_zayavki_na_activation_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void button_Click(object sender, EventArgs e)
+        {
+
+            Zayavki form_Zayavki = new Zayavki();
+            form_Zayavki.Activated += new EventHandler(form_form_Zayavki_activated);
+            form_Zayavki.FormClosed += new FormClosedEventHandler(form_form_Zayavki_deactivated);
+            form_Zayavki.Show();
+        }
+
+        private void dataGridView_zayavki_na_activation_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex <= -1 || e.ColumnIndex <= -1)
             {
@@ -2208,16 +2195,6 @@ namespace Disp_WinForm
 
             vars_form.id_testing_for_zayavki = dataGridView_zayavki_na_activation.Rows[e.RowIndex].Cells[0].Value.ToString();
             vars_form.if_open_created_zayavka = 1;
-
-            Zayavki form_Zayavki = new Zayavki();
-            form_Zayavki.Activated += new EventHandler(form_form_Zayavki_activated);
-            form_Zayavki.FormClosed += new FormClosedEventHandler(form_form_Zayavki_deactivated);
-            form_Zayavki.Show();
-
-        }
-
-        private void button_Click(object sender, EventArgs e)
-        {
 
             Zayavki form_Zayavki = new Zayavki();
             form_Zayavki.Activated += new EventHandler(form_form_Zayavki_activated);
@@ -2239,6 +2216,42 @@ namespace Disp_WinForm
         {
             update_zayavki_na_aktivation_2W();
         }
+
+        private void dataGridView_for_activation_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex <= -1 || e.ColumnIndex <= -1)
+            {
+                return;
+            }
+
+            vars_form.id_db_object_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[0].Value.ToString();
+            vars_form.id_db_zayavki_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[1].Value.ToString();
+            vars_form.id_object_for_activation = macros.sql_command("SELECT Object_id_wl FROM btk.Object where idObject = '" + vars_form.id_db_object_for_activation + "';");
+
+            Activation_Form activation_form = new Activation_Form();
+            activation_form.Activated += new EventHandler(activation_form_activated);
+            activation_form.FormClosed += new FormClosedEventHandler(activation_form_deactivated);
+            activation_form.Show();
+        }
+
+        private void dataGridView_activation_start_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex <= -1 || e.ColumnIndex <= -1)
+            {
+                return;
+            }
+
+            vars_form.id_db_object_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[0].Value.ToString();
+            vars_form.id_db_zayavki_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[1].Value.ToString();
+            vars_form.id_object_for_activation = macros.sql_command("SELECT Object_id_wl FROM btk.Object where idObject = '" + vars_form.id_db_object_for_activation + "';");
+
+            Activation_Form activation_form = new Activation_Form();
+            activation_form.Activated += new EventHandler(activation_form_activated);
+            activation_form.FormClosed += new FormClosedEventHandler(activation_form_deactivated);
+            activation_form.Show();
+        }
+
+        
 
         
     }
@@ -2279,10 +2292,12 @@ namespace Disp_WinForm
         public static string test_id { get; set; }
         public static string hide_group_alarm { get; set; }
         public static string btk_idkontragents { get; set; }
-        public static string id_object_for_test { get; set; }
+        public static string id_wl_object_for_test { get; set; }
         public static string id_db_object_for_test { get; set; }
+        public static string id_db_openning_testing { get; set; }
         public static string id_object_for_activation { get; set; }
         public static string id_db_object_for_activation { get; set; }
+        public static string id_db_zayavki_for_activation { get; set; }
         public static string eid { get; set; }//Храним eid ссесии для Wialon
         public static string wl_user_nm { get; set; }//Храним имя пользователя в Wialon который прошел авторизацию по токену
         public static int wl_user_id { get; set; }//Храним id пользователя в Wialon который прошел авторизацию по токену
@@ -2307,5 +2322,6 @@ namespace Disp_WinForm
         public static string id_kontragent_zakazchik_for_zayavki { get; set; }
         public static int select_sto_or_zakazchik_for_zayavki { get; set; }//if 1 ->STO, if 0-> zakazchik
         public static int if_open_created_zayavka { get; set; }
+        public static int if_open_created_testing { get; set; }
     }
 }

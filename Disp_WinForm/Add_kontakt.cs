@@ -71,7 +71,7 @@ namespace Disp_WinForm
             { phone2ID = "1"; }
 
 
-            macros.sql_command("insert into btk.Kontakti (Emails_idEmails1,Phonebook_idPhonebook1,Kontakti_user_creator,Kontakti_user_edit, Kontakti_imya, Kontakti_familia,Emails_idEmails,Phonebook_idPhonebook) values('" + email2ID + "','" + phone2ID + "','" + vars_form.user_login_id + "','" + vars_form.user_login_id+"','" + textBox_name.Text.ToString() + "','" + textBox_familia.Text.ToString() + "','" + emailID + "','" + phoneID + "');");
+            macros.sql_command("insert into btk.Kontakti (Emails_idEmails1,Phonebook_idPhonebook1,Kontakti_user_creator,Kontakti_user_edit, Kontakti_imya, Kontakti_familia,Emails_idEmails,Phonebook_idPhonebook, Kontact_type_idKontact_type) values('" + email2ID + "','" + phone2ID + "','" + vars_form.user_login_id + "','" + vars_form.user_login_id+"','" + textBox_name.Text.ToString() + "','" + textBox_familia.Text.ToString() + "','" + emailID + "','" + phoneID + "', '2');");
 
             string contactID = macros.sql_command("SELECT MAX(idKontakti) FROM btk.Kontakti;");
 

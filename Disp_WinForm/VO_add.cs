@@ -21,7 +21,7 @@ namespace Disp_WinForm
         }
         private void init()
         {
-            string sql = string.Format("SELECT idKontakti, concat(Kontakti_imya ,' ', Kontakti_familia ,' ',  Phonebook.Phonebookcol_phone)  as fio FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and Kontakti_familia like '%" + textBox_familiya_vo.Text + "%'; ");
+            string sql = string.Format("SELECT idKontakti, concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,' ',  COALESCE (Phonebook.Phonebookcol_phone,''))  as fio FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and Kontakti.Kontact_type_idKontact_type = '1' and Kontakti_familia like '%" + textBox_familiya_vo.Text + "%'; ");
             listBox_kontakts_list.DataSource = macros.GetData(sql);
             listBox_kontakts_list.DisplayMember = "fio";
             listBox_kontakts_list.ValueMember = "idKontakti";
@@ -35,17 +35,19 @@ namespace Disp_WinForm
                 //textBox_familiya_vo.Text = "";
                 maskedTextBox_phone1_vo.Text = "";
                 maskedTextBox_phone2_vo.Text = "";
+                textBox_otchestvo_vo.Text = "";
+
                 comboBox_messanger_1.Items.Clear();
                 comboBox_messanger_2.Items.Clear();
 
-                string sql = string.Format("SELECT idKontakti, concat(Kontakti_imya ,' ', Kontakti_familia ,' ',  Phonebook.Phonebookcol_phone)  as fio FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and Kontakti_familia like '%" + textBox_familiya_vo.Text + "%'; ");
+                string sql = string.Format("SELECT idKontakti, concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,' ',  COALESCE (Phonebook.Phonebookcol_phone,''))  as fio FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and Kontakti.Kontact_type_idKontact_type = '1' and Kontakti_familia like '%" + textBox_familiya_vo.Text + "%'; ");
                 listBox_kontakts_list.DataSource = macros.GetData(sql);
                 listBox_kontakts_list.DisplayMember = "fio";
                 listBox_kontakts_list.ValueMember = "idKontakti";
             }
             else
             {
-                string sql = string.Format("SELECT idKontakti, concat(Kontakti_imya ,' ', Kontakti_familia ,' ',  Phonebook.Phonebookcol_phone)  as fio FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and Kontakti_familia like '%" + textBox_familiya_vo.Text + "%'; ");
+                string sql = string.Format("SELECT idKontakti, concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,' ',  COALESCE (Phonebook.Phonebookcol_phone,''))  as fio FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and Kontakti.Kontact_type_idKontact_type = '1' and Kontakti_familia like '%" + textBox_familiya_vo.Text + "%'; ");
                 listBox_kontakts_list.DataSource = macros.GetData(sql);
                 listBox_kontakts_list.DisplayMember = "fio";
                 listBox_kontakts_list.ValueMember = "idKontakti";
@@ -57,7 +59,7 @@ namespace Disp_WinForm
         {
             if (listBox_kontakts_list.Items.Count > 0)
             {
-                string sql = string.Format("SELECT Kontakti_imya ,Kontakti_familia, Kontakti_comment,Emails_idEmails,Emails_idEmails1,Phonebook_idPhonebook,Phonebook_idPhonebook1 FROM btk.Kontakti where idKontakti = " + listBox_kontakts_list.SelectedValue.ToString() + "; ");
+                string sql = string.Format("SELECT Kontakti_imya ,Kontakti_familia, Kontakti_comment,Emails_idEmails,Emails_idEmails1,Phonebook_idPhonebook,Phonebook_idPhonebook1, Kontakti_otchestvo FROM btk.Kontakti where idKontakti = " + listBox_kontakts_list.SelectedValue.ToString() + "; ");
                 DataTable table = new DataTable();
                 table = macros.GetData(sql);
 
@@ -65,6 +67,7 @@ namespace Disp_WinForm
                 textBox_familiya_vo.Text = table.Rows[0][1].ToString();
                 textBox_imya_vo.Text = table.Rows[0][0].ToString();
                 textBox_comment.Text = table.Rows[0][2].ToString();
+                textBox_otchestvo_vo.Text = table.Rows[0][7].ToString();
 
                 maskedTextBox_phone1_vo.Text = macros.sql_command("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook = '" + table.Rows[0][5].ToString() + "';");
                 maskedTextBox_phone2_vo.Text = macros.sql_command("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook = '" + table.Rows[0][6].ToString() + "';");
@@ -117,7 +120,7 @@ namespace Disp_WinForm
             { phone2ID = "1"; }
 
 
-            macros.sql_command("insert into btk.Kontakti (Emails_idEmails1,Phonebook_idPhonebook1,Kontakti_user_creator,Kontakti_user_edit, Kontakti_imya, Kontakti_familia,Emails_idEmails,Phonebook_idPhonebook, Kontakti_comment) values('" + email2ID + "','" + phone2ID + "','" + vars_form.user_login_id + "','" + vars_form.user_login_id + "','" + textBox_imya_vo.Text.ToString() + "','" + textBox_familiya_vo.Text.ToString() + "','" + emailID + "','" + phoneID + "','" +textBox_comment.Text + "');");
+            macros.sql_command("insert into btk.Kontakti (Emails_idEmails1,Phonebook_idPhonebook1,Kontakti_user_creator,Kontakti_user_edit, Kontakti_imya, Kontakti_familia,Emails_idEmails,Phonebook_idPhonebook, Kontakti_comment, Kontact_type_idKontact_type, Kontakti_otchestvo) values('" + email2ID + "','" + phone2ID + "','" + vars_form.user_login_id + "','" + vars_form.user_login_id + "','" + textBox_imya_vo.Text.ToString() + "','" + textBox_familiya_vo.Text.ToString() + "','" + emailID + "','" + phoneID + "','" +textBox_comment.Text + "','1','"+textBox_otchestvo_vo.Text+"');");
 
             string contactID = macros.sql_command("SELECT MAX(idKontakti) FROM btk.Kontakti;");
             init();

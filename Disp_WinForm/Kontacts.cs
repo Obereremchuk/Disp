@@ -73,8 +73,7 @@ namespace Disp_WinForm
                 item.SubItems.Add(macros.sql_command("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook=" + reader["Phonebook_idPhonebook"].ToString() + ";"));
                 //item.SubItems.Add(reader["Phonebook_idPhonebook1"].ToString());
                 item.SubItems.Add(macros.sql_command("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook=" + reader["Phonebook_idPhonebook1"].ToString() + ";"));
-                string t = macros.sql_command("SELECT Kontragenti_idKontragenti FROM btk.Kontakti_has_Kontragenti where Kontakti_idKontakti='" +
-                                               reader["idKontakti"].ToString() + "';");
+                string t = macros.sql_command("SELECT Kontragenti_idKontragenti FROM btk.Kontakti_has_Kontragenti where Kontakti_idKontakti='" + reader["idKontakti"].ToString() + "';");
                 item.SubItems.Add(macros.sql_command("select  concat(Kontragenti.Kontragenti_short_name, '(',Kontragenti.Kontragenti_full_name, ')') AS full_short  FROM btk.Kontragenti where idKontragenti='"+t+"'"));
                 listView_kontackts.Items.Add(item);
             }

@@ -67,12 +67,13 @@
             this.pass_reset_button = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.textBox_account_pss = new System.Windows.Forms.TextBox();
             this.listBox_activation_list_search = new System.Windows.Forms.ListBox();
             this.button_add_2_account = new System.Windows.Forms.Button();
             this.accaunt_name_textBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.checkBox_manual_pass = new System.Windows.Forms.CheckBox();
+            this.textBox_account_pss = new System.Windows.Forms.TextBox();
             this.button_user_on = new System.Windows.Forms.Button();
             this.treeView_user_accounts = new System.Windows.Forms.TreeView();
             this.label15 = new System.Windows.Forms.Label();
@@ -84,7 +85,6 @@
             this.edite_date_textBox = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.edit_user_textBox = new System.Windows.Forms.TextBox();
-            this.checkBox_manual_pass = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -131,6 +131,7 @@
             // 
             // button_add_vo5
             // 
+            this.button_add_vo5.Enabled = false;
             this.button_add_vo5.Location = new System.Drawing.Point(330, 224);
             this.button_add_vo5.Name = "button_add_vo5";
             this.button_add_vo5.Size = new System.Drawing.Size(46, 23);
@@ -173,6 +174,7 @@
             // 
             // button_add_vo4
             // 
+            this.button_add_vo4.Enabled = false;
             this.button_add_vo4.Location = new System.Drawing.Point(330, 200);
             this.button_add_vo4.Name = "button_add_vo4";
             this.button_add_vo4.Size = new System.Drawing.Size(46, 23);
@@ -474,14 +476,6 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Керування";
             // 
-            // textBox_account_pss
-            // 
-            this.textBox_account_pss.Location = new System.Drawing.Point(290, 19);
-            this.textBox_account_pss.Name = "textBox_account_pss";
-            this.textBox_account_pss.ReadOnly = true;
-            this.textBox_account_pss.Size = new System.Drawing.Size(100, 20);
-            this.textBox_account_pss.TabIndex = 132;
-            // 
             // listBox_activation_list_search
             // 
             this.listBox_activation_list_search.FormattingEnabled = true;
@@ -535,6 +529,24 @@
             this.groupBox5.TabIndex = 131;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Редагування";
+            // 
+            // checkBox_manual_pass
+            // 
+            this.checkBox_manual_pass.AutoSize = true;
+            this.checkBox_manual_pass.Location = new System.Drawing.Point(19, 190);
+            this.checkBox_manual_pass.Name = "checkBox_manual_pass";
+            this.checkBox_manual_pass.Size = new System.Drawing.Size(15, 14);
+            this.checkBox_manual_pass.TabIndex = 132;
+            this.checkBox_manual_pass.UseVisualStyleBackColor = true;
+            this.checkBox_manual_pass.CheckedChanged += new System.EventHandler(this.checkBox_manual_pass_CheckedChanged);
+            // 
+            // textBox_account_pss
+            // 
+            this.textBox_account_pss.Location = new System.Drawing.Point(290, 19);
+            this.textBox_account_pss.Name = "textBox_account_pss";
+            this.textBox_account_pss.ReadOnly = true;
+            this.textBox_account_pss.Size = new System.Drawing.Size(100, 20);
+            this.textBox_account_pss.TabIndex = 132;
             // 
             // button_user_on
             // 
@@ -635,16 +647,6 @@
             this.edit_user_textBox.ReadOnly = true;
             this.edit_user_textBox.Size = new System.Drawing.Size(150, 20);
             this.edit_user_textBox.TabIndex = 127;
-            // 
-            // checkBox_manual_pass
-            // 
-            this.checkBox_manual_pass.AutoSize = true;
-            this.checkBox_manual_pass.Location = new System.Drawing.Point(19, 190);
-            this.checkBox_manual_pass.Name = "checkBox_manual_pass";
-            this.checkBox_manual_pass.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_manual_pass.TabIndex = 132;
-            this.checkBox_manual_pass.UseVisualStyleBackColor = true;
-            this.checkBox_manual_pass.CheckedChanged += new System.EventHandler(this.checkBox_manual_pass_CheckedChanged);
             // 
             // Activation_Form
             // 

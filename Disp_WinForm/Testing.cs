@@ -22,6 +22,7 @@ namespace Disp_WinForm
         public Testing()
         {
             InitializeComponent();
+            Read_data();
             aTimer3 = new System.Timers.Timer();
             comboBox_ustanoshik_poisk_DropDown();
             build_list_color();
@@ -29,7 +30,59 @@ namespace Disp_WinForm
             timer();
             textBox_licence_plate.CharacterCasing = CharacterCasing.Upper;
             adaptation_UI_for_product();
+
+            group_debug();
             
+        }
+
+        private void group_debug()
+        {
+            
+
+
+        }
+
+        private void Read_data()
+        {
+            if (vars_form.if_open_created_testing == 1)
+            {
+                button_write.Text = "Оновити";
+                DataTable table = new DataTable();
+                table = macros.GetData("SELECT * FROM btk.testing_object where idtesting_object = '" + vars_form.id_db_openning_testing + "';");
+                
+                if (table.Rows[0]["testing_objectcol_block"].ToString() == "1")
+                { checkBox_test_zablocovano.Checked = true; }
+
+                if (table.Rows[0]["testing_objectcol_alarm_door"].ToString() == "1")
+                { checkBox__test_vzlom.Checked = true; }
+
+                if (table.Rows[0]["testing_objectcol_udar"].ToString() == "1")
+                { checkBox_test_du.Checked = true; }
+
+                if (table.Rows[0]["testing_objectcol_tk"].ToString() == "1")
+                { checkBox_test_tk.Checked = true; }
+
+                if (table.Rows[0]["testing_objectcol_adress"].ToString() == "1")
+                { checkBox_test_koordinati.Checked = true; }
+
+                if (table.Rows[0]["testing_objectcol_arm_hood"].ToString() == "1")
+                { checkBox_test_hood_in_arm.Checked = true; }
+
+                if (table.Rows[0]["testing_objectcol_dop1"].ToString() == "1")
+                { checkBox_dop_1.Checked = true; }
+
+                if (table.Rows[0]["testing_objectcol_dop1"].ToString() == "1")
+                { checkBox_dop_1.Checked = true; }
+
+                if (table.Rows[0]["testing_objectcol_dop2"].ToString() == "1")
+                { checkBox_test_dop_2.Checked = true; }
+
+                if (table.Rows[0]["testing_objectcol_autostart"].ToString() == "1")
+                { checkBox_test_autostart.Checked = true; }
+
+
+
+            }
         }
 
         
@@ -42,7 +95,7 @@ namespace Disp_WinForm
                                                                    "from " +
                                                                    "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
                                                                    "where " +
-                                                                   "Object.Object_id_wl = " + vars_form.id_object_for_test + " and " +
+                                                                   "Object.Object_id_wl = " + vars_form.id_wl_object_for_test + " and " +
                                                                    "Object.idObject=Object_idObject and " +
                                                                    "Subscription_idSubscr=idSubscr and " +
                                                                    "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
@@ -232,7 +285,7 @@ namespace Disp_WinForm
             name_obj_textBox.Text = name_obj;
             imei_obj_textBox.Text = macros.sql_command("SELECT Object_imei FROM btk.Object where idObject = " + vars_form.id_db_object_for_test + ";");
 
-            string id_db_TS_info = macros.sql_command("SELECT TS_info_idTS_info FROM btk.Object where Object_id_wl = " + vars_form.id_object_for_test + ";");
+            string id_db_TS_info = macros.sql_command("SELECT TS_info_idTS_info FROM btk.Object where Object_id_wl = " + vars_form.id_wl_object_for_test + ";");
 
             
 
@@ -242,7 +295,7 @@ namespace Disp_WinForm
                 macros.sql_command("insert into btk.TS_info(Kuzov_type_idKuzov_type, Color_idColor, Production_date_idProduction_date, TS_brand_idTS_brand, TS_model_idTS_model, Kontakti_idKontakti, Kontragenti_idKontragenti)values('1', '1', '1', '1', '1', '1', '1');");
                 string TS_infoID = macros.sql_command("SELECT MAX(idTS_info) FROM btk.TS_info;");
 
-                macros.sql_command("update btk.Object set TS_info_idTS_info=" + TS_infoID + " where Object_id_wl=" + vars_form.id_object_for_test + "");
+                macros.sql_command("update btk.Object set TS_info_idTS_info=" + TS_infoID + " where Object_id_wl=" + vars_form.id_wl_object_for_test + "");
             }//Если не установленно значения в информации об автомобиле - устанавливаем дефоллтніе значения
 
             DataTable db_TS_info = macros.GetData("SELECT * FROM btk.TS_info where idTS_info = "+ id_db_TS_info +"; ");
@@ -353,7 +406,7 @@ namespace Disp_WinForm
         {
             
 
-            string id_db_TS_info = macros.sql_command("SELECT TS_info_idTS_info FROM btk.Object where Object_id_wl = " + vars_form.id_object_for_test + ";");
+            string id_db_TS_info = macros.sql_command("SELECT TS_info_idTS_info FROM btk.Object where Object_id_wl = " + vars_form.id_wl_object_for_test + ";");
 
             /////////////////
             ///Заполняем произвольные поля в БД
@@ -401,30 +454,30 @@ namespace Disp_WinForm
                                                                    "from " +
                                                                    "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
                                                                    "where " +
-                                                                   "Object.Object_id_wl = " + vars_form.id_object_for_test + " and " +
+                                                                   "Object.Object_id_wl = " + vars_form.id_wl_object_for_test + " and " +
                                                                    "Object.idObject=Object_idObject and " +
                                                                    "Subscription_idSubscr=idSubscr and " +
                                                                    "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
 
-            if (get_produt_testing_device=="10" || get_produt_testing_device=="11")
+            if (get_produt_testing_device=="10" || get_produt_testing_device=="11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")
             {
 
                 string json = macros.wialon_request_lite("&svc=core/search_item&params={"
-                                                         + "\"id\":\"" + vars_form.id_object_for_test + "\","
+                                                         + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
                                                          + "\"flags\":\"‭‭‭‭5257‬‬‬‬\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
 
                 //Меняем имя об"екта
                 string name_answer = macros.wialon_request_lite("&svc=item/update_name&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"name\":\"" + name_obj_textBox.Text.Replace("\"", "%5C%22") + "\"}");
 
 
 
                 //Произвольное поле  name operator
                 string pp6_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"6\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.1.1 Оператор, що тестував\","
@@ -432,7 +485,7 @@ namespace Disp_WinForm
 
                 //Произвольное поле 0 УВАГА
                 string pp1_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"1\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"0 УВАГА\","
@@ -440,7 +493,7 @@ namespace Disp_WinForm
 
                 //Произвольное поле  other alarm
                 string pp7_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"id\":\"7\","
                                                                + "\"callMode\":\"update\","
                                                                + "\"n\":\"3.11 Додатково встановлені сигналізації\","
@@ -448,7 +501,7 @@ namespace Disp_WinForm
 
                 //Произвольное поле  в охрану с багажника
                 string pp8_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"id\":\"8\","
                                                                + "\"callMode\":\"update\","
                                                                + "\"n\":\"3.12 Постановка авто под охрану через багажник?\","
@@ -456,7 +509,7 @@ namespace Disp_WinForm
 
                 //Произвольное поле  в охрану с багажника
                 string pp9_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"9\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.15 Додатково встановлені датчики\","
@@ -465,7 +518,7 @@ namespace Disp_WinForm
 
                 //Произвольное поле Установщик
                 string pp10_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"10\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.2.2 Установник - монтажник: ПІБ, №тел.\","
@@ -473,7 +526,7 @@ namespace Disp_WinForm
 
                 //Произвольное поле СТО
                 string pp11_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"11\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.2.1 Установник: назва, адреса\","
@@ -481,7 +534,7 @@ namespace Disp_WinForm
 
                 //Произвольное поле дата установки = дата тестирования
                 string pp12_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"12\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.3 Дата установки\","
@@ -489,7 +542,7 @@ namespace Disp_WinForm
 
                 //Произвольное поле место установки сигналызації
                 string pp13_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"13\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.4 Місце установки пристрою ВЕНБЕСТ\","
@@ -497,14 +550,14 @@ namespace Disp_WinForm
                 
                 //Произвольное поле place relay
                 string pp14_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"14\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.6.1  Реле блокування: місце встановлення\","
                                                               + "\"v\":\"" + textBox_place_relay.Text.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле wire cut
                 string pp15_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"15\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.6.2 Реле блокування: елемент блокування\","
@@ -512,7 +565,7 @@ namespace Disp_WinForm
 
                 //Произвольное поле service button
                 string pp16_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"id\":\"16\","
                                                                + "\"callMode\":\"update\","
                                                                + "\"n\":\"3.7 Місце встановлення сервісної кнопки\","
@@ -520,14 +573,14 @@ namespace Disp_WinForm
 
                     // Произвольное поле place wireles tk
                 string pp17_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"id\":\"17\","
                                                                + "\"callMode\":\"update\","
                                                                + "\"n\":\"3.8.1 Тривожна кнопка: провідна, безпровідна\","
                                                                + "\"v\":\"\"}");
                 //Произвольное поле place tk
                 string pp18_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"18\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.8.2 Місце установки тривожної кнопки\","
@@ -536,7 +589,7 @@ namespace Disp_WinForm
                 
                 //Произвольное поле  button fo pin
                 string pp20_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"20\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.9.2 Штатні кнопки введення PIN-коду\","
@@ -544,7 +597,7 @@ namespace Disp_WinForm
 
                 //Произвольное поле новій ПИН
                 string pp21_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"24\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"4.3 PIN-код встановлено особою(клієнт / установлник)\","
@@ -552,7 +605,7 @@ namespace Disp_WinForm
 
                 //Произвольное поле Гарантія до
                 string pp211_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"28\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"5.3 Гарантія до\","
@@ -560,43 +613,43 @@ namespace Disp_WinForm
 
                 //Характеристики kuzov type
                 string pp22_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"n\":\"vehicle_type\","
                                                               + "\"v\":\"" + comboBox_kuzov_type.GetItemText(this.comboBox_kuzov_type.SelectedItem).ToString() + "\"}");
                 //Характеристики color
                 string pp23_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"n\":\"color\","
                                                               + "\"v\":\"" + comboBox_color.GetItemText(this.comboBox_color.SelectedItem).ToString() + "\"}");
                 //Характеристики prod date
                 string pp24_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"year\","
                                                                + "\"v\":\"" + comboBox_test_production_date.GetItemText(this.comboBox_test_production_date.SelectedItem).ToString() + "\"}");
                 //Характеристики licence plate
                 string pp25_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"registration_plate\","
                                                                + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
                 //Характеристики brend
                 string pp26_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"brand\","
                                                                + "\"v\":\"" + comboBox_test_brand.GetItemText(this.comboBox_test_brand.SelectedItem).ToString() + "\"}");
                 //Характеристики model
                 string pp27_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"model\","
                                                                + "\"v\":\"" + comboBox_test_model.GetItemText(this.comboBox_test_model.SelectedItem).ToString() + "\"}");
                 //Характеристики vin
                 string pp28_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"vin\","
                                                                + "\"v\":\"" + textBox_vin.Text.Replace("\"", "%5C%22") + "\"}");
 
                 //3.8.1 Тривожна кнопка: провідна, безпровідна
                 string pp224_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"17\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.8.1 Тривожна кнопка: провідна, безпровідна\","
@@ -604,7 +657,7 @@ namespace Disp_WinForm
 
                 //3.9.1 Кнопки введення PIN коду: штатні, додатково встановленні
                 string pp234_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"19\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.9.1 Кнопки введення PIN коду: штатні, додатково встановленні\","
@@ -613,23 +666,23 @@ namespace Disp_WinForm
 
 
 
-            }///Создаем произвольные поля, меняем имя обекта new 910 CNTP, CNTK
+            }///Создаем произвольные поля, меняем имя обекта new 710/730 CNTP, CNTK
 
-            else if (get_produt_testing_device == "2" || get_produt_testing_device == "3")
+            else if (get_produt_testing_device == "2" || get_produt_testing_device == "3" )
             {
                 string json = macros.wialon_request_lite("&svc=core/search_item&params={"
-                                                         + "\"id\":\"" + vars_form.id_object_for_test + "\","
+                                                         + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
                                                          + "\"flags\":\"‭‭‭‭5257‬‬‬‬\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
                 //Меняем имя об"екта
                 string name_answer = macros.wialon_request_lite("&svc=item/update_name&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"name\":\"" + name_obj_textBox.Text.Replace("\"", "%5C%22") + "\"}");
 
                 //Произвольное поле  name operator
                 string pp6_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"7\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.1.1 Оператор, що тестував\","
@@ -639,35 +692,35 @@ namespace Disp_WinForm
 
                 //Произвольное поле 0 УВАГА
                 string pp1_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"1\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"0 УВАГА\","
                                                                 + "\"v\":\"" + textBox_uvaga.Text.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле device1
                 string pp100_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"14\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.4 Місце установки пристрою ВЕНБЕСТ\","
                                                                 + "\"v\":\"" + textBox_device1.Text.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле device2
                 string pp2_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"15\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.5 Назва та місце установки сигналізації\","
                                                               + "\"v\":\"" + TextBox_device2.Text.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле place relay
                 string pp3_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"16\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.6.1  Реле блокування: місце встановлення\","
                                                               + "\"v\":\"" + textBox_place_relay.Text.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле wire cut
                 string pp4_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"17\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.6.2 Реле блокування: елемент блокування\","
@@ -676,28 +729,28 @@ namespace Disp_WinForm
                 
                 //Произвольное поле place tk
                 string pp5_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"20\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.8.2 Місце установки тривожної кнопки\","
                                                               + "\"v\":\"" + textBox_place_tk.Text.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле place wireles tk
                 string pp60_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"19\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.8.1 Тривожна кнопка: провідна, безпровідна\","
                                                               + "\"v\":\"\"}");
                 //Произвольное поле service button
                 string pp7_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"18\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.7 Місце встановлення сервісної кнопки\","
                                                               + "\"v\":\"" + textBox_service_button.Text.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле  button fo pin
                 string pp8_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"22\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.9.2 Штатні кнопки введення PIN-коду\","
@@ -705,7 +758,7 @@ namespace Disp_WinForm
                 
                 //Додатково встановлені сигналізації\
                 string pp9_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"8\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.11 Додатково встановлені сигналізації\","
@@ -713,7 +766,7 @@ namespace Disp_WinForm
 
                 //3.15 Додатково встановлені датчики
                 string pp99_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"10\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.15 Додатково встановлені датчики\","
@@ -721,7 +774,7 @@ namespace Disp_WinForm
 
                 //Постановка авто под охрану через багажник?
                 string pp90_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"9\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.12 Постановка авто под охрану через багажник?\","
@@ -729,37 +782,37 @@ namespace Disp_WinForm
 
                 //Характеристики kuzov type
                 string pp10_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"n\":\"vehicle_type\","
                                                               + "\"v\":\"" + comboBox_kuzov_type.GetItemText(this.comboBox_kuzov_type.SelectedItem).ToString() + "\"}");
                 //Характеристики color
                 string pp11_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"n\":\"color\","
                                                               + "\"v\":\"" + comboBox_color.GetItemText(this.comboBox_color.SelectedItem).ToString() + "\"}");
                 //Характеристики prod date
                 string pp12_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"year\","
                                                                + "\"v\":\"" + comboBox_test_production_date.GetItemText(this.comboBox_test_production_date.SelectedItem).ToString() + "\"}");
                 //Характеристики licence plate
                 string pp13_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"registration_plate\","
                                                                + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
                 //Характеристики brend
                 string pp14_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"brand\","
                                                                + "\"v\":\"" + comboBox_test_brand.GetItemText(this.comboBox_test_brand.SelectedItem).ToString() + "\"}");
                 //Характеристики model
                 string pp15_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"model\","
                                                                + "\"v\":\"" + comboBox_test_model.GetItemText(this.comboBox_test_model.SelectedItem).ToString() + "\"}");
                 //Характеристики vin
                 string pp16_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"vin\","
                                                                + "\"v\":\"" + textBox_vin.Text.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле  relay plus?
@@ -772,7 +825,7 @@ namespace Disp_WinForm
                 
                 //Произвольное поле  relay plus?
                 string pp17_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"id\":\"7\","
                                                                + "\"callMode\":\"update\","
                                                                + "\"n\":\"3.1.1 Оператор, що тестував\","
@@ -780,7 +833,7 @@ namespace Disp_WinForm
                 //Произвольное поле СТО
                 
                 string pp18_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"11\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.2.1 Установник: назва, адреса\","
@@ -788,21 +841,21 @@ namespace Disp_WinForm
                 //Произвольное поле Установщик
                 
                     string pp19_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"12\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.2.2 Установник - монтажник: ПІБ, №тел.\","
                                                                   + "\"v\":\"" + comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле дата установки = дата тестирования
                 string pp20_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"13\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.3 Дата установки\","
                                                                 + "\"v\":\"" + DateTime.Now.Date + "\"}");
                 //Произвольное поле новій ПИН
                 string pp21_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"26\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"4.3 PIN-код встановлено особою(клієнт/установлник)\","
@@ -810,7 +863,7 @@ namespace Disp_WinForm
 
                 //3.8.1 Тривожна кнопка: провідна, безпровідна
                 string pp22_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"19\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.8.1 Тривожна кнопка: провідна, безпровідна\","
@@ -818,7 +871,7 @@ namespace Disp_WinForm
 
                 //3.9.1 Кнопки введення PIN коду: штатні, додатково встановленні
                 string pp23_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"21\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.9.1 Кнопки введення PIN коду: штатні, додатково встановленні\","
@@ -826,7 +879,7 @@ namespace Disp_WinForm
 
                 //Произвольное поле Гарантія до
                 string pp211_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"30\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"5.3 Гарантія до\","
@@ -841,169 +894,570 @@ namespace Disp_WinForm
 
         private void commands_add_testing()
         {
-            
-
-            int result ;
-            if (checkBox_test_tk.Checked is false || checkBox_test_zablocovano.Checked is false ||
-                checkBox_test_du.Checked is false || checkBox__test_vzlom.Checked is false ||
-                checkBox_test_koordinati.Checked is false)
+            if (vars_form.if_open_created_testing == 1)//
             {
-                if (textBox_commets.Text == "")
+                if (checkBox_test_tk.Checked is false || checkBox_test_zablocovano.Checked is false ||
+                    checkBox_test_du.Checked is false || checkBox__test_vzlom.Checked is false ||
+                    checkBox_test_koordinati.Checked is false)
                 {
-                    MessageBox.Show("тестування не успішне? Додай коментар");
-                    return;
+                    if (textBox_commets.Text == "")
+                    {
+                        MessageBox.Show("тестування не успішне? Додай коментар");
+                        return;
+                    }
+
+                    macros.sql_command("update btk.testing_object set " +
+                        "testing_objectcol_edit_timestamp = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                        "testing_objectcol_block = '" + (checkBox_test_zablocovano.Checked ? "1" : "0") + "', " +
+                        "testing_objectcol_alarm_door = '" + (checkBox__test_vzlom.Checked ? "1" : "0") + "', " +
+                        "testing_objectcol_udar = '" + (checkBox_test_du.Checked ? "1" : "0") + "', " +
+                        "testing_objectcol_tk = '" + (checkBox_test_tk.Checked ? "1" : "0") + "', " +
+                        "testing_objectcol_adress = '" + (checkBox_test_koordinati.Checked ? "1" : "0") + "', " +
+                        "testing_objectcol_arm_hood = '" + (checkBox_test_hood_in_arm.Checked ? "1" : "0") + "', " +
+                        "testing_objectcol_dop1 = '" + (checkBox_dop_1.Checked ? "1" : "0") + "', " +
+                        "testing_objectcol_dop2 = '" + (checkBox_test_dop_2.Checked ? "1" : "0") + "', " +
+                        "testing_objectcol_autostart = '" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
+                        "testing_objectcol_comments = '" + textBox_commets.Text.ToString() + "', " +
+                        "Users_idUsers = '" + vars_form.user_login_id + "', " +
+                        "testing_objectcol_result = '" + comboBox_result.GetItemText(comboBox_result.SelectedItem).ToString() + "' " +
+                        "where " +
+                        "idtesting_object = '" + vars_form.id_db_openning_testing + "' " +
+                        ";");
+
+
+                    //macros.sql_command("insert into btk.testing_object (" +
+                    //                       "Object_idObject, " +
+                    //                       "testing_objectcol_edit_timestamp, " +
+                    //                       "testing_objectcol_block, " +
+                    //                       "testing_objectcol_alarm_door, " +
+                    //                       "testing_objectcol_udar, " +
+                    //                       "testing_objectcol_tk, " +
+                    //                       "testing_objectcol_adress, " +
+                    //                       "testing_objectcol_arm_hood, " +
+                    //                       "testing_objectcol_dop1, " +
+                    //                       "testing_objectcol_dop2, " +
+                    //                       "testing_objectcol_autostart, " +
+                    //                       "testing_objectcol_comments, " +
+                    //                       "Users_idUsers, " +
+                    //                       "testing_objectcol_result) " +
+                    //                       "values(" +
+                    //                       "'" + vars_form.id_db_object_for_test + "', " +
+                    //                       "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                    //                       "'" + (checkBox_test_zablocovano.Checked ? "1" : "0") + "', " +
+                    //                       "'" + (checkBox__test_vzlom.Checked ? "1" : "0") + "', " +
+                    //                       "'" + (checkBox_test_du.Checked ? "1" : "0") + "', " +
+                    //                       "'" + (checkBox_test_tk.Checked ? "1" : "0") + "', " +
+                    //                       "'" + (checkBox_test_koordinati.Checked ? "1" : "0") + "', " +
+                    //                       "'" + (checkBox_test_hood_in_arm.Checked ? "1" : "0") + "', " +
+                    //                       "'" + (checkBox_dop_1.Checked ? "1" : "0") + "', " +
+                    //                       "'" + (checkBox_test_dop_2.Checked ? "1" : "0") + "', " +
+                    //                       "'" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
+                    //                       "'" + textBox_commets.Text.ToString() + "', " +
+                    //                       "'" + vars_form.user_login_id + "', " +
+                    //                       "'" + result + "'" +
+                    //                       ");");
+
+                    macros.sql_command("update btk.Object set Objectcol_testing_ok = 0 where idObject = '" +
+                                       vars_form.id_db_object_for_test + "';");
                 }
+                else
+                {
+                    if (wl_group_activ_checkBox.Checked is true)
+                    {
+                        /////////////////
+                        ///Добавляем в группу Объекты All
+                        /////////////////
+                        ///
+                        ///
+                        ///
+                        //string ev = macros.wialon_request_lite("&svc=core/search_items&params={" +
+                        //                                       "\"spec\":{"
+                        //                                       + "\"itemsType\":\"avl_unit_group\","
+                        //                                       + "\"propName\":\"sys_name\","
+                        //                                       + "\"propValueMask\":\"*актив*\", " 
+                        //                                       + "\"sortType\":\"sys_name\"," 
+                        //                                       + "\"or_logic\":\"1\"}," 
+                        //                                       + "\"or_logic\":\"1\"," 
+                        //                                       + "\"force\":\"1\"," 
+                        //                                       + "\"flags\":\"1\"," 
+                        //                                       + "\"from\":\"0\"," 
+                        //                                       + "\"to\":\"0\"}");//получаем текущее местоположение объекта
 
-                result = 0;
 
-                macros.sql_command("insert into btk.testing_object (" +
-                                       "Object_idObject, " +
-                                       "testing_objectcol_edit_timestamp, " +
-                                       "testing_objectcol_block, " +
-                                       "testing_objectcol_alarm_door, " +
-                                       "testing_objectcol_udar, " +
-                                       "testing_objectcol_tk, " +
-                                       "testing_objectcol_adress, " +
-                                       "testing_objectcol_arm_hood, " +
-                                       "testing_objectcol_dop1, " +
-                                       "testing_objectcol_dop2, " +
-                                       "testing_objectcol_autostart, " +
-                                       "testing_objectcol_comments, " +
-                                       "Users_idUsers, " +
-                                       "testing_objectcol_result) " +
-                                       "values(" +
-                                       "'" + vars_form.id_db_object_for_test + "', " +
-                                       "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
-                                       "'" + (checkBox_test_zablocovano.Checked ? "1" : "0") + "', " +
-                                       "'" + (checkBox__test_vzlom.Checked ? "1" : "0") + "', " +
-                                       "'" + (checkBox_test_du.Checked ? "1" : "0") + "', " +
-                                       "'" + (checkBox_test_tk.Checked ? "1" : "0") + "', " +
-                                       "'" + (checkBox_test_koordinati.Checked ? "1" : "0") + "', " +
-                                       "'" + (checkBox_test_hood_in_arm.Checked ? "1" : "0") + "', " +
-                                       "'" + (checkBox_dop_1.Checked ? "1" : "0") + "', " +
-                                       "'" + (checkBox_test_dop_2.Checked ? "1" : "0") + "', " +
-                                       "'" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
-                                       "'" + textBox_commets.Text.ToString() + "', " +
-                                       "'" + vars_form.user_login_id + "', " +
-                                       "'" + result + "'" +
-                                       ");");
-                macros.sql_command("update btk.Object set Objectcol_testing_ok = 0 where idObject = '" +
-                                   vars_form.id_db_object_for_test + "';");
+                        string get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                              + "\"id\":\"1759\","
+                                                                                                              + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                        var list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                        list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                        string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                        string gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                         + "\"itemId\":\"1759\","
+                                                                                                         + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый  
+                    }
+
+                    macros.sql_command("update btk.testing_object set " +
+                        "testing_objectcol_edit_timestamp = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                        "testing_objectcol_block = '" + (checkBox_test_zablocovano.Checked ? "1" : "0") + "', " +
+                        "testing_objectcol_alarm_door = '" + (checkBox__test_vzlom.Checked ? "1" : "0") + "', " +
+                        "testing_objectcol_udar = '" + (checkBox_test_du.Checked ? "1" : "0") + "', " +
+                        "testing_objectcol_tk = '" + (checkBox_test_tk.Checked ? "1" : "0") + "', " +
+                        "testing_objectcol_adress = '" + (checkBox_test_koordinati.Checked ? "1" : "0") + "', " +
+                        "testing_objectcol_arm_hood = '" + (checkBox_test_hood_in_arm.Checked ? "1" : "0") + "', " +
+                        "testing_objectcol_dop1 = '" + (checkBox_dop_1.Checked ? "1" : "0") + "', " +
+                        "testing_objectcol_dop2 = '" + (checkBox_test_dop_2.Checked ? "1" : "0") + "', " +
+                        "testing_objectcol_autostart = '" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
+                        "testing_objectcol_comments = '" + textBox_commets.Text.ToString() + "', " +
+                        "Users_idUsers = '" + vars_form.user_login_id + "', " +
+                        "testing_objectcol_result = '" + comboBox_result.GetItemText(comboBox_result.SelectedItem).ToString() + "' " +
+                        "where " +
+                        "idtesting_object = '" + vars_form.id_db_openning_testing + "' " +
+                        ";");
+
+                    //macros.sql_command("insert into btk.testing_object (" +
+                    //                       "Object_idObject, " +
+                    //                       "testing_objectcol_edit_timestamp, " +
+                    //                       "testing_objectcol_block, " +
+                    //                       "testing_objectcol_alarm_door, " +
+                    //                       "testing_objectcol_udar, " +
+                    //                       "testing_objectcol_tk, " +
+                    //                       "testing_objectcol_adress, " +
+                    //                       "testing_objectcol_arm_hood, " +
+                    //                       "testing_objectcol_dop1, " +
+                    //                       "testing_objectcol_dop2, " +
+                    //                       "testing_objectcol_autostart, " +
+                    //                       "testing_objectcol_comments, " +
+                    //                       "Users_idUsers, " +
+                    //                       "testing_objectcol_result) " +
+                    //                       "values(" +
+                    //                       "'" + vars_form.id_db_object_for_test + "', " +
+                    //                       "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                    //                       "'" + (checkBox_test_zablocovano.Checked ? "1" : "0") + "', " +
+                    //                       "'" + (checkBox__test_vzlom.Checked ? "1" : "0") + "', " +
+                    //                       "'" + (checkBox_test_du.Checked ? "1" : "0") + "', " +
+                    //                       "'" + (checkBox_test_tk.Checked ? "1" : "0") + "', " +
+                    //                       "'" + (checkBox_test_koordinati.Checked ? "1" : "0") + "', " +
+                    //                       "'" + (checkBox_test_hood_in_arm.Checked ? "1" : "0") + "', " +
+                    //                       "'" + (checkBox_dop_1.Checked ? "1" : "0") + "', " +
+                    //                       "'" + (checkBox_test_dop_2.Checked ? "1" : "0") + "', " +
+                    //                       "'" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
+                    //                       "'" + textBox_commets.Text.ToString() + "', " +
+                    //                       "'" + vars_form.user_login_id + "', " +
+                    //                       "'" + comboBox_result.GetItemText(comboBox_result.SelectedItem).ToString() + "'" +
+                    //                       ");");
+
+                    macros.sql_command("update btk.Object set Objectcol_testing_ok = '" + comboBox_result.GetItemText(comboBox_result.SelectedItem).ToString() + "' where idObject = '" + vars_form.id_db_object_for_test + "';");
+
+                    string Subject = "505 Протестовано успішно! VIN: " + textBox_vin.Text + ", Обєкт: " + name_obj_textBox.Text;
+                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua><e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>";
+                    DataTable dt = new DataTable();
+
+                    dt.Columns.Add("Параметр");
+                    dt.Columns.Add("Значення");
+                    object[] row = { "VIN", textBox_vin.Text };
+                    dt.Rows.Add(row);
+                    object[] row1 = { "Обєкт", name_obj_textBox.Text };
+                    dt.Rows.Add(row1);
+                    object[] row2 = { "IMEI", imei_obj_textBox.Text };
+                    dt.Rows.Add(row2);
+                    if (checkBox_test_autostart.Checked is true)
+                    {
+                        object[] row3 = { "Автозапуск", "Встановлено" };
+                        dt.Rows.Add(row3);
+                    }
+                    if (checkBox_dop_1.Checked is true)
+                    {
+                        object[] row12 = { "Додатковий датчик 1", textBox_instaled_sensor.Text };
+                        dt.Rows.Add(row12);
+                    }
+                    object[] row4 = { "Марка", comboBox_test_brand.GetItemText(this.comboBox_test_brand.SelectedItem) };
+                    dt.Rows.Add(row4);
+                    object[] row5 = { "Модель", comboBox_test_model.GetItemText(this.comboBox_test_model.SelectedItem) };
+                    dt.Rows.Add(row5);
+                    object[] row6 = { "Колір", comboBox_color.GetItemText(this.comboBox_color.SelectedItem) };
+                    dt.Rows.Add(row6);
+                    object[] row7 = { "Рік випуску", comboBox_test_production_date.GetItemText(this.comboBox_test_production_date.SelectedItem) };
+                    dt.Rows.Add(row7);
+                    object[] row8 = { "Держ. Номер", textBox_licence_plate.Text };
+                    dt.Rows.Add(row8);
+                    object[] row9 = { "СТО", comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem) };
+                    dt.Rows.Add(row9);
+                    object[] row10 = { "Установник", comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem) };
+                    dt.Rows.Add(row10);
+                    object[] row11 = { "Дата тестування", DateTime.Now.ToString() };
+                    dt.Rows.Add(row11);
+
+                    string Body = macros.ConvertDataTableToHTML(dt);
+
+                    macros.send_mail(recip, Subject, Body);
+                }
             }
             else
             {
-                result = 1;
-
-                if (wl_group_activ_checkBox.Checked is true)
+                int result;
+                if (checkBox_test_tk.Checked is false || checkBox_test_zablocovano.Checked is false ||
+                    checkBox_test_du.Checked is false || checkBox__test_vzlom.Checked is false ||
+                    checkBox_test_koordinati.Checked is false)
                 {
-                    /////////////////
-                    ///Добавляем в группу Объекты All
-                    /////////////////
-                    ///
-                    ///
-                    ///
-                    //string ev = macros.wialon_request_lite("&svc=core/search_items&params={" +
-                    //                                       "\"spec\":{"
-                    //                                       + "\"itemsType\":\"avl_unit_group\","
-                    //                                       + "\"propName\":\"sys_name\","
-                    //                                       + "\"propValueMask\":\"*актив*\", " 
-                    //                                       + "\"sortType\":\"sys_name\"," 
-                    //                                       + "\"or_logic\":\"1\"}," 
-                    //                                       + "\"or_logic\":\"1\"," 
-                    //                                       + "\"force\":\"1\"," 
-                    //                                       + "\"flags\":\"1\"," 
-                    //                                       + "\"from\":\"0\"," 
-                    //                                       + "\"to\":\"0\"}");//получаем текущее местоположение объекта
-                    
+                    if (textBox_commets.Text == "")
+                    {
+                        MessageBox.Show("тестування не успішне? Додай коментар");
+                        return;
+                    }
 
-                    string get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
-                                                                                                          + "\"id\":\"1759\","
-                                                                                                          + "\"flags\":\"1\"}");//получаем все объекты группы
+                    result = 0;
 
-                    var list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
-
-                    list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_object_for_test));//Доповляем в список новый объект
-                    string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
-
-                    string gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
-                                                                                                     + "\"itemId\":\"1759\","
-                                                                                                     + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый  
+                    macros.sql_command("insert into btk.testing_object (" +
+                                           "Object_idObject, " +
+                                           "testing_objectcol_edit_timestamp, " +
+                                           "testing_objectcol_block, " +
+                                           "testing_objectcol_alarm_door, " +
+                                           "testing_objectcol_udar, " +
+                                           "testing_objectcol_tk, " +
+                                           "testing_objectcol_adress, " +
+                                           "testing_objectcol_arm_hood, " +
+                                           "testing_objectcol_dop1, " +
+                                           "testing_objectcol_dop2, " +
+                                           "testing_objectcol_autostart, " +
+                                           "testing_objectcol_comments, " +
+                                           "Users_idUsers, " +
+                                           "testing_objectcol_result) " +
+                                           "values(" +
+                                           "'" + vars_form.id_db_object_for_test + "', " +
+                                           "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                                           "'" + (checkBox_test_zablocovano.Checked ? "1" : "0") + "', " +
+                                           "'" + (checkBox__test_vzlom.Checked ? "1" : "0") + "', " +
+                                           "'" + (checkBox_test_du.Checked ? "1" : "0") + "', " +
+                                           "'" + (checkBox_test_tk.Checked ? "1" : "0") + "', " +
+                                           "'" + (checkBox_test_koordinati.Checked ? "1" : "0") + "', " +
+                                           "'" + (checkBox_test_hood_in_arm.Checked ? "1" : "0") + "', " +
+                                           "'" + (checkBox_dop_1.Checked ? "1" : "0") + "', " +
+                                           "'" + (checkBox_test_dop_2.Checked ? "1" : "0") + "', " +
+                                           "'" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
+                                           "'" + textBox_commets.Text.ToString() + "', " +
+                                           "'" + vars_form.user_login_id + "', " +
+                                           "'" + result + "'" +
+                                           ");");
+                    macros.sql_command("update btk.Object set Objectcol_testing_ok = 0 where idObject = '" +
+                                       vars_form.id_db_object_for_test + "';");
                 }
-                macros.sql_command("insert into btk.testing_object (" +
-                                       "Object_idObject, " +
-                                       "testing_objectcol_edit_timestamp, " +
-                                       "testing_objectcol_block, " +
-                                       "testing_objectcol_alarm_door, " +
-                                       "testing_objectcol_udar, " +
-                                       "testing_objectcol_tk, " +
-                                       "testing_objectcol_adress, " +
-                                       "testing_objectcol_arm_hood, " +
-                                       "testing_objectcol_dop1, " +
-                                       "testing_objectcol_dop2, " +
-                                       "testing_objectcol_autostart, " +
-                                       "testing_objectcol_comments, " +
-                                       "Users_idUsers, " +
-                                       "testing_objectcol_result) " +
-                                       "values(" +
-                                       "'" + vars_form.id_db_object_for_test + "', " +
-                                       "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
-                                       "'" + (checkBox_test_zablocovano.Checked ? "1" : "0") + "', " +
-                                       "'" + (checkBox__test_vzlom.Checked ? "1" : "0") + "', " +
-                                       "'" + (checkBox_test_du.Checked ? "1" : "0") + "', " +
-                                       "'" + (checkBox_test_tk.Checked ? "1" : "0") + "', " +
-                                       "'" + (checkBox_test_koordinati.Checked ? "1" : "0") + "', " +
-                                       "'" + (checkBox_test_hood_in_arm.Checked ? "1" : "0") + "', " +
-                                       "'" + (checkBox_dop_1.Checked ? "1" : "0") + "', " +
-                                       "'" + (checkBox_test_dop_2.Checked ? "1" : "0") + "', " +
-                                       "'" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
-                                       "'" + textBox_commets.Text.ToString() + "', " +
-                                       "'" + vars_form.user_login_id + "', " +
-                                       "'" + comboBox_result.GetItemText(comboBox_result.SelectedItem).ToString() + "'" +
-                                       ");");
-                macros.sql_command("update btk.Object set Objectcol_testing_ok = '"+ comboBox_result.GetItemText(comboBox_result.SelectedItem).ToString() +"' where idObject = '"+vars_form.id_db_object_for_test+"';");
-
-                string Subject = "505 Протестовано успішно! VIN: " + textBox_vin.Text + ", Обєкт: " + name_obj_textBox.Text;
-                string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua><e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>";
-                DataTable dt = new DataTable();
-
-                dt.Columns.Add("Параметр");
-                dt.Columns.Add("Значення");
-                object[] row = { "VIN", textBox_vin.Text };
-                dt.Rows.Add(row);
-                object[] row1 = { "Обєкт", name_obj_textBox.Text };
-                dt.Rows.Add(row1);
-                object[] row2 = { "IMEI", imei_obj_textBox.Text };
-                dt.Rows.Add(row2);
-                if (checkBox_test_autostart.Checked is true)
+                else
                 {
-                    object[] row3 = { "Автозапуск", "Встановлено" };
-                    dt.Rows.Add(row3);
-                }
-                if (checkBox_dop_1.Checked is true)
-                {
-                    object[] row12 = { "Додатковий датчик 1", textBox_instaled_sensor.Text };
-                    dt.Rows.Add(row12);
-                }
-                object[] row4 = { "Марка", comboBox_test_brand.GetItemText(this.comboBox_test_brand.SelectedItem) };
-                dt.Rows.Add(row4);
-                object[] row5 = { "Модель", comboBox_test_model.GetItemText(this.comboBox_test_model.SelectedItem) };
-                dt.Rows.Add(row5);
-                object[] row6 = { "Колір", comboBox_color.GetItemText(this.comboBox_color.SelectedItem) };
-                dt.Rows.Add(row6);
-                object[] row7 = { "Рік випуску", comboBox_test_production_date.GetItemText(this.comboBox_test_production_date.SelectedItem) };
-                dt.Rows.Add(row7);
-                object[] row8 = { "Держ. Номер", textBox_licence_plate.Text };
-                dt.Rows.Add(row8);
-                object[] row9 = { "СТО", comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem) };
-                dt.Rows.Add(row9);
-                object[] row10 = { "Установник", comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem) };
-                dt.Rows.Add(row10);
-                object[] row11 = { "Дата тестування", DateTime.Now.ToString() };
-                dt.Rows.Add(row11);
+                    result = 1;
 
-                string Body = macros.ConvertDataTableToHTML(dt);
+                    if (wl_group_activ_checkBox.Checked is true)
+                    {
+                        //Запрашиваем айди продукта тестируемого обїекта
+                        string get_produt_testing_device = macros.sql_command("select " +
+                                                                               "products_has_Tarif.products_idproducts " +
+                                                                               "from " +
+                                                                               "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
+                                                                               "where " +
+                                                                               "Object.Object_id_wl = " + vars_form.id_wl_object_for_test + " and " +
+                                                                               "Object.idObject=Object_idObject and " +
+                                                                               "Subscription_idSubscr=idSubscr and " +
+                                                                               "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
 
-                macros.send_mail(recip,Subject,Body);
+                        //string ev = macros.wialon_request_lite("&svc=core/search_items&params={" +
+                        //                                        "\"spec\":{"
+                        //                                        + "\"itemsType\":\"avl_unit_group\","
+                        //                                        + "\"propName\":\"sys_name\","
+                        //                                        + "\"propValueMask\":\"*актив*\", "
+                        //                                        + "\"sortType\":\"sys_name\","
+                        //                                        + "\"or_logic\":\"1\"},"
+                        //                                        + "\"or_logic\":\"1\","
+                        //                                        + "\"force\":\"1\","
+                        //                                        + "\"flags\":\"1\","
+                        //                                        + "\"from\":\"0\","
+                        //                                        + "\"to\":\"0\"}");//получаем текущее местоположение объекта
+
+                        //string ev2 = macros.wialon_request_lite("&svc=core/search_items&params={" +
+                        //                                        "\"spec\":{"
+                        //                                        + "\"itemsType\":\"avl_unit_group\","
+                        //                                        + "\"propName\":\"sys_name\","
+                        //                                        + "\"propValueMask\":\"*srv*\", "
+                        //                                        + "\"sortType\":\"sys_name\","
+                        //                                        + "\"or_logic\":\"1\"},"
+                        //                                        + "\"or_logic\":\"1\","
+                        //                                        + "\"force\":\"1\","
+                        //                                        + "\"flags\":\"1\","
+                        //                                        + "\"from\":\"0\","
+                        //                                        + "\"to\":\"0\"}");//получаем текущее местоположение объекта
+
+
+
+                        //Установка Групп в зависимсти от продукта
+                        if (get_produt_testing_device == "11" || get_produt_testing_device == "3")//Добавляем в группы для CNTP_910, CNTP_730
+                        {
+
+                            // ADD to groupe: ^ CONNECT - KEYLESS - PLUS - КОНДОР+: активные
+                            string get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"1759\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            var list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            string gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"1759\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+
+
+                            // ADD to groupe: ^ Активні (all)
+                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"46\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"46\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+
+                            // ADD to groupe: ^ Активні (all)
+                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"6409\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"6409\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+
+                            // ADD to groupe: srv_CNTP
+                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"7669\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"7669\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+                        }
+                        else if (get_produt_testing_device == "10" || get_produt_testing_device == "2")//Добавляем в группы для CNTK_910, CNTK_710
+                        {
+
+                            // ADD to groupe: ^ CONNECT - KEYLESS - PLUS - КОНДОР+: активные
+                            string get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"1759\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            var list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            string gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"1759\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+
+
+                            // ADD to groupe: ^ Активні (all)
+                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"46\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"46\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+
+                            // ADD to groupe: ^ Активні (all)
+                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"6409\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"6409\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+
+                            // ADD to groupe: srv_CNTP
+                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"7668\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"7668\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+                        }
+                        else if (get_produt_testing_device == "4" || get_produt_testing_device == "13" || get_produt_testing_device == "14")//Добавляем в группы для CNTP_910_SE_N, CNTP_910_SE_P, CNTP_SE
+                        {
+
+                            // ADD to groupe: ^ CONNECT - KEYLESS - PLUS - КОНДОР+: активные
+                            string get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"1759\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            var list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            string gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"1759\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+
+
+                            // ADD to groupe: ^ Активні (all)
+                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"46\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"46\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+
+                            // ADD to groupe: ^ Активні (all)
+                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"6409\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"6409\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+
+                            // ADD to groupe: srv_CNTP
+                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"7668\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"7668\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+                        }
+                    }
+                    macros.sql_command("insert into btk.testing_object (" +
+                                           "Object_idObject, " +
+                                           "testing_objectcol_edit_timestamp, " +
+                                           "testing_objectcol_block, " +
+                                           "testing_objectcol_alarm_door, " +
+                                           "testing_objectcol_udar, " +
+                                           "testing_objectcol_tk, " +
+                                           "testing_objectcol_adress, " +
+                                           "testing_objectcol_arm_hood, " +
+                                           "testing_objectcol_dop1, " +
+                                           "testing_objectcol_dop2, " +
+                                           "testing_objectcol_autostart, " +
+                                           "testing_objectcol_comments, " +
+                                           "Users_idUsers, " +
+                                           "testing_objectcol_result) " +
+                                           "values(" +
+                                           "'" + vars_form.id_db_object_for_test + "', " +
+                                           "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                                           "'" + (checkBox_test_zablocovano.Checked ? "1" : "0") + "', " +
+                                           "'" + (checkBox__test_vzlom.Checked ? "1" : "0") + "', " +
+                                           "'" + (checkBox_test_du.Checked ? "1" : "0") + "', " +
+                                           "'" + (checkBox_test_tk.Checked ? "1" : "0") + "', " +
+                                           "'" + (checkBox_test_koordinati.Checked ? "1" : "0") + "', " +
+                                           "'" + (checkBox_test_hood_in_arm.Checked ? "1" : "0") + "', " +
+                                           "'" + (checkBox_dop_1.Checked ? "1" : "0") + "', " +
+                                           "'" + (checkBox_test_dop_2.Checked ? "1" : "0") + "', " +
+                                           "'" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
+                                           "'" + textBox_commets.Text.ToString() + "', " +
+                                           "'" + vars_form.user_login_id + "', " +
+                                           "'" + comboBox_result.GetItemText(comboBox_result.SelectedItem).ToString() + "'" +
+                                           ");");
+                    macros.sql_command("update btk.Object set Objectcol_testing_ok = '" + comboBox_result.GetItemText(comboBox_result.SelectedItem).ToString() + "' where idObject = '" + vars_form.id_db_object_for_test + "';");
+
+                    string Subject = "505 Протестовано успішно! VIN: " + textBox_vin.Text + ", Обєкт: " + name_obj_textBox.Text;
+                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua><e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>";
+                    DataTable dt = new DataTable();
+
+                    dt.Columns.Add("Параметр");
+                    dt.Columns.Add("Значення");
+                    object[] row = { "VIN", textBox_vin.Text };
+                    dt.Rows.Add(row);
+                    object[] row1 = { "Обєкт", name_obj_textBox.Text };
+                    dt.Rows.Add(row1);
+                    object[] row2 = { "IMEI", imei_obj_textBox.Text };
+                    dt.Rows.Add(row2);
+                    if (checkBox_test_autostart.Checked is true)
+                    {
+                        object[] row3 = { "Автозапуск", "Встановлено" };
+                        dt.Rows.Add(row3);
+                    }
+                    if (checkBox_dop_1.Checked is true)
+                    {
+                        object[] row12 = { "Додатковий датчик 1", textBox_instaled_sensor.Text };
+                        dt.Rows.Add(row12);
+                    }
+                    object[] row4 = { "Марка", comboBox_test_brand.GetItemText(this.comboBox_test_brand.SelectedItem) };
+                    dt.Rows.Add(row4);
+                    object[] row5 = { "Модель", comboBox_test_model.GetItemText(this.comboBox_test_model.SelectedItem) };
+                    dt.Rows.Add(row5);
+                    object[] row6 = { "Колір", comboBox_color.GetItemText(this.comboBox_color.SelectedItem) };
+                    dt.Rows.Add(row6);
+                    object[] row7 = { "Рік випуску", comboBox_test_production_date.GetItemText(this.comboBox_test_production_date.SelectedItem) };
+                    dt.Rows.Add(row7);
+                    object[] row8 = { "Держ. Номер", textBox_licence_plate.Text };
+                    dt.Rows.Add(row8);
+                    object[] row9 = { "СТО", comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem) };
+                    dt.Rows.Add(row9);
+                    object[] row10 = { "Установник", comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem) };
+                    dt.Rows.Add(row10);
+                    object[] row11 = { "Дата тестування", DateTime.Now.ToString() };
+                    dt.Rows.Add(row11);
+
+                    string Body = macros.ConvertDataTableToHTML(dt);
+
+                    macros.send_mail(recip, Subject, Body);
+                }
             }
             MessageBox.Show("Збережено!");
             this.Close();
@@ -1018,7 +1472,7 @@ namespace Disp_WinForm
                                                                    "from " +
                                                                    "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
                                                                    "where " +
-                                                                   "Object.Object_id_wl = " + vars_form.id_object_for_test + " and " +
+                                                                   "Object.Object_id_wl = " + vars_form.id_wl_object_for_test + " and " +
                                                                    "Object.idObject=Object_idObject and " +
                                                                    "Subscription_idSubscr=idSubscr and " +
                                                                    "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
@@ -1026,7 +1480,7 @@ namespace Disp_WinForm
             if (get_produt_testing_device == "2" || get_produt_testing_device == "3")
             {
                 string json = macros.wialon_request_lite("&svc=core/search_item&params={"
-                                                         + "\"id\":\"" + vars_form.id_object_for_test + "\","
+                                                         + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
                                                          + "\"flags\":\"‭‭‭‭2098177‬‬‬‬\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
@@ -1165,7 +1619,7 @@ namespace Disp_WinForm
                                                           "\"spec\":{"
                                                           + "\"itemsType\":\"avl_unit\","
                                                           + "\"propName\":\"sys_id\","
-                                                          + "\"propValueMask\":\"" + vars_form.id_object_for_test + "\", "
+                                                          + "\"propValueMask\":\"" + vars_form.id_wl_object_for_test + "\", "
                                                           + "\"sortType\":\"sys_name\"," 
                                                           + "\"or_logic\":\"1\"}," 
                                                           + "\"or_logic\":\"1\"," 
@@ -1178,12 +1632,12 @@ namespace Disp_WinForm
 
 
                 string json = macros.wialon_request_lite("&svc=unit/calc_last_message&params={"
-                                                         + "\"unitId\":\"" + vars_form.id_object_for_test + "\","
+                                                         + "\"unitId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                          + "\"sensors\":\"\","
                                                          + "\"flags\":\"1\"}"); //
 
                 string json1 = macros.wialon_request_lite("&svc=core/search_item&params={"
-                                                          + "\"id\":\"" + vars_form.id_object_for_test + "\","
+                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
                                                           + "\"flags\":\"‭‭‭‭2098177‬‬‬‬\"}"); //
 
 
@@ -1381,7 +1835,7 @@ namespace Disp_WinForm
                                                                    "from " +
                                                                    "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
                                                                    "where " +
-                                                                   "Object.Object_id_wl = " + vars_form.id_object_for_test + " and " +
+                                                                   "Object.Object_id_wl = " + vars_form.id_wl_object_for_test + " and " +
                                                                    "Object.idObject=Object_idObject and " +
                                                                    "Subscription_idSubscr=idSubscr and " +
                                                                    "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
@@ -1391,7 +1845,7 @@ namespace Disp_WinForm
                 if (checkBox_block_engine.Checked == true)
                 {
                     string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
-                                                            "\"itemId\":\"" + vars_form.id_object_for_test + "\"," +
+                                                            "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
                                                             "\"commandName\":\"3 - СТОП двигатель\"," +
                                                             "\"linkType\":\"tcp\"," +
                                                             "\"param\":\"\"," +
@@ -1401,7 +1855,7 @@ namespace Disp_WinForm
                 else
                 {
                     string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
-                                                            "\"itemId\":\"" + vars_form.id_object_for_test + "\"," +
+                                                            "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
                                                             "\"commandName\":\"3 - СТАРТ двигатель\"," +
                                                             "\"linkType\":\"tcp\"," +
                                                             "\"param\":\"\"," +
@@ -1414,7 +1868,7 @@ namespace Disp_WinForm
                 if (checkBox_block_engine.Checked == true)
                 {
                     string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
-                                                            "\"itemId\":\"" + vars_form.id_object_for_test + "\"," +
+                                                            "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
                                                             "\"commandName\":\"2. СТОП Двигатель\"," +
                                                             "\"linkType\":\"tcp\"," +
                                                             "\"param\":\"\"," +
@@ -1424,7 +1878,7 @@ namespace Disp_WinForm
                 else
                 {
                     string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
-                                                            "\"itemId\":\"" + vars_form.id_object_for_test + "\"," +
+                                                            "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
                                                             "\"commandName\":\"1. СТАРТ Двигатель\"," +
                                                             "\"linkType\":\"tcp\"," +
                                                             "\"param\":\"\"," +
@@ -1552,7 +2006,7 @@ namespace Disp_WinForm
                                                                    "from " +
                                                                    "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
                                                                    "where " +
-                                                                   "Object.Object_id_wl = " + vars_form.id_object_for_test + " and " +
+                                                                   "Object.Object_id_wl = " + vars_form.id_wl_object_for_test + " and " +
                                                                    "Object.idObject=Object_idObject and " +
                                                                    "Subscription_idSubscr=idSubscr and " +
                                                                    "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
@@ -1560,7 +2014,7 @@ namespace Disp_WinForm
             if (get_produt_testing_device == "10" || get_produt_testing_device == "11")
             {
                 string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
-                                                        "\"itemId\":\"" + vars_form.id_object_for_test + "\"," +
+                                                        "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
                                                         "\"commandName\":\"2 - Автозапуск старт\"," +
                                                         "\"linkType\":\"tcp\"," +
                                                         "\"param\":\"\"," +

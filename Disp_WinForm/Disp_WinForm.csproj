@@ -92,14 +92,6 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activation_done_btkDataSet.cs">
-      <DependentUpon>Activation_done_btkDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Activation_done_btkDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Activation_done_btkDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Activation_Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -268,17 +260,6 @@
     <EmbeddedResource Include="Zayavki.resx">
       <DependentUpon>Zayavki.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Activation_done_btkDataSet.xsc">
-      <DependentUpon>Activation_done_btkDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="Activation_done_btkDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>Activation_done_btkDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Activation_done_btkDataSet.xss">
-      <DependentUpon>Activation_done_btkDataSet.xsd</DependentUpon>
-    </None>
     <None Include="Firefox\omni.ja" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Main_window.datasource" />
