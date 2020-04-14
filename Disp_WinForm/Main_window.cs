@@ -2044,8 +2044,8 @@ namespace Disp_WinForm
                 return;
             }
 
-            vars_form.id_object_for_activation = listBox_activation_result_search.SelectedValue.ToString();
-            vars_form.id_db_object_for_activation = macros.sql_command("SELECT idObject FROM btk.Object where Object_id_wl=" + vars_form.id_object_for_activation + ";");
+            vars_form.id_wl_object_for_activation = listBox_activation_result_search.SelectedValue.ToString();
+            vars_form.id_db_object_for_activation = macros.sql_command("SELECT idObject FROM btk.Object where Object_id_wl=" + vars_form.id_wl_object_for_activation + ";");
 
 
 
@@ -2147,8 +2147,8 @@ namespace Disp_WinForm
                 return;
             }
 
-            vars_form.id_object_for_activation = listBox_activation_result_search.SelectedValue.ToString();
-            vars_form.id_db_object_for_activation = macros.sql_command("SELECT idObject FROM btk.Object where Object_id_wl=" + vars_form.id_object_for_activation + ";");
+            vars_form.id_wl_object_for_activation = listBox_activation_result_search.SelectedValue.ToString();
+            vars_form.id_db_object_for_activation = macros.sql_command("SELECT idObject FROM btk.Object where Object_id_wl=" + vars_form.id_wl_object_for_activation + ";");
 
 
             Activation_Form activation_form = new Activation_Form();
@@ -2177,7 +2177,7 @@ namespace Disp_WinForm
 
         }
 
-        private void button_Click(object sender, EventArgs e)
+        private void button_create_zayavka_Click(object sender, EventArgs e)
         {
 
             Zayavki form_Zayavki = new Zayavki();
@@ -2226,7 +2226,8 @@ namespace Disp_WinForm
 
             vars_form.id_db_object_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[0].Value.ToString();
             vars_form.id_db_zayavki_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[1].Value.ToString();
-            vars_form.id_object_for_activation = macros.sql_command("SELECT Object_id_wl FROM btk.Object where idObject = '" + vars_form.id_db_object_for_activation + "';");
+            vars_form.id_wl_object_for_activation = macros.sql_command("SELECT Object_id_wl FROM btk.Object where idObject = '" + vars_form.id_db_object_for_activation + "';");
+            vars_form.if_open_created_activation = 1;
 
             Activation_Form activation_form = new Activation_Form();
             activation_form.Activated += new EventHandler(activation_form_activated);
@@ -2241,9 +2242,9 @@ namespace Disp_WinForm
                 return;
             }
 
-            vars_form.id_db_object_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[0].Value.ToString();
-            vars_form.id_db_zayavki_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[1].Value.ToString();
-            vars_form.id_object_for_activation = macros.sql_command("SELECT Object_id_wl FROM btk.Object where idObject = '" + vars_form.id_db_object_for_activation + "';");
+            vars_form.id_db_object_for_activation = dataGridView_activation_start.Rows[e.RowIndex].Cells[0].Value.ToString();
+            vars_form.id_db_zayavki_for_activation = dataGridView_activation_start.Rows[e.RowIndex].Cells[1].Value.ToString();
+            vars_form.id_wl_object_for_activation = macros.sql_command("SELECT Object_id_wl FROM btk.Object where idObject = '" + vars_form.id_db_object_for_activation + "';");
 
             Activation_Form activation_form = new Activation_Form();
             activation_form.Activated += new EventHandler(activation_form_activated);
@@ -2295,7 +2296,7 @@ namespace Disp_WinForm
         public static string id_wl_object_for_test { get; set; }
         public static string id_db_object_for_test { get; set; }
         public static string id_db_openning_testing { get; set; }
-        public static string id_object_for_activation { get; set; }
+        public static string id_wl_object_for_activation { get; set; }
         public static string id_db_object_for_activation { get; set; }
         public static string id_db_zayavki_for_activation { get; set; }
         public static string eid { get; set; }//Храним eid ссесии для Wialon
@@ -2323,5 +2324,6 @@ namespace Disp_WinForm
         public static int select_sto_or_zakazchik_for_zayavki { get; set; }//if 1 ->STO, if 0-> zakazchik
         public static int if_open_created_zayavka { get; set; }
         public static int if_open_created_testing { get; set; }
+        public static int if_open_created_activation { get; set; }
     }
 }

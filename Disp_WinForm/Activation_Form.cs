@@ -49,7 +49,7 @@ namespace Disp_WinForm
                                                     "\"spec\":{" +
                                                     "\"itemsType\":\"avl_unit\"," +
                                                     "\"propName\":\"sys_id\"," +
-                                                    "\"propValueMask\":\"" + vars_form.id_object_for_activation + "\", " +
+                                                    "\"propValueMask\":\"" + vars_form.id_wl_object_for_activation + "\", " +
                                                     "\"sortType\":\"sys_name\"," +
                                                     "\"or_logic\":\"1\"}," +
                                                     "\"force\":\"1\"," +
@@ -147,12 +147,12 @@ namespace Disp_WinForm
 
 
             string json = macros.wialon_request_new("&svc=core/check_accessors&params={" +
-                                                    "\"items\":[\""+ vars_form.id_object_for_activation + "\"]," +
+                                                    "\"items\":[\""+ vars_form.id_wl_object_for_activation + "\"]," +
                                                     "\"flags\":\"1\"}");//Получаем айди всех елементов у которых есть доступ к данному объекту            
 
             var wl_accounts = JsonConvert.DeserializeObject < Dictionary <string, Dictionary<int, Dictionary<string, string>>>>(json);
             string get="";
-            for (int index = 0; index < wl_accounts[vars_form.id_object_for_activation].Values.Count; index++)
+            for (int index = 0; index < wl_accounts[vars_form.id_wl_object_for_activation].Values.Count; index++)
             {
                 var item = wl_accounts.ElementAt(0);
                 int key_index = item.Value.ElementAt(index).Key;
@@ -439,7 +439,7 @@ namespace Disp_WinForm
                 //Доступ на объект
                 string set_object_accsess_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
                                                          "\"userId\":\"" + user_data.items[0].id + "\"," +
-                                                         "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
+                                                         "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
                                                          "\"accessMask\":\"550611455877\"}");
                 var set_object_accsess = JsonConvert.DeserializeObject<RootObject>(set_object_accsess_answer);
 
@@ -454,17 +454,17 @@ namespace Disp_WinForm
                 
 
                 //get product id from id object
-                string product_id = get_product_from_id_object(vars_form.id_object_for_activation);
+                string product_id = get_product_from_id_object(vars_form.id_wl_object_for_activation);
 
                 //create notif depends product id
 
                 if (product_id == "10" || product_id == "11")//CNTP_910, CNTK_910
                 {
-                    create_notif_910(email_textBox.Text, user_data.items[0].id, vars_form.id_object_for_activation, get_resource_user.items[0].id, get_resource_user_user.items[0].id);
+                    create_notif_910(email_textBox.Text, user_data.items[0].id, vars_form.id_wl_object_for_activation, get_resource_user.items[0].id, get_resource_user_user.items[0].id);
                 }
                 else if (product_id == "2" || product_id == "3")//CNTP, CNTK
                 {
-                    create_notif_730(email_textBox.Text, user_data.items[0].id, vars_form.id_object_for_activation, get_resource_user.items[0].id, get_resource_user_user.items[0].id);
+                    create_notif_730(email_textBox.Text, user_data.items[0].id, vars_form.id_wl_object_for_activation, get_resource_user.items[0].id, get_resource_user_user.items[0].id);
                 }
                 else
                 {
@@ -472,7 +472,7 @@ namespace Disp_WinForm
                 }
 
                 //log user action
-                macros.LogUserAction(vars_form.user_login_id, "Дозволити користувачу перегляд авто", "", "Надано доступ Account: " + email_textBox.Text + "до обєкту" + vars_form.id_object_for_activation, Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
+                macros.LogUserAction(vars_form.user_login_id, "Дозволити користувачу перегляд авто", "", "Надано доступ Account: " + email_textBox.Text + "до обєкту" + vars_form.id_wl_object_for_activation, Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
 
                 //update treeView_user_accounts after making chenge
                 build_list_account();
@@ -538,7 +538,7 @@ namespace Disp_WinForm
                             {
                                 foreach (var num in ResourceData.items[0].Unf)
                                 {
-                                    if (num.Value.Un[0].ToString() == vars_form.id_object_for_activation)
+                                    if (num.Value.Un[0].ToString() == vars_form.id_wl_object_for_activation)
                                     {
                                        string result = delete_notif(ResourceData.items[0].id, num.Value.Id);
                                     }
@@ -552,12 +552,12 @@ namespace Disp_WinForm
                         //Доступ на объект
                         string json4 = macros.wialon_request_new("&svc=user/update_item_access&params={" +
                                                                  "\"userId\":\"" + UserData.items[0].id + "\"," +
-                                                                 "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
+                                                                 "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
                                                                  "\"accessMask\":\"0\"}");
                         var m4 = JsonConvert.DeserializeObject<RootObject>(json4);
 
                         //log user action
-                        macros.LogUserAction(vars_form.user_login_id, "Прибрати з доступу користувача", saving_selected_account, vars_form.id_object_for_activation, Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
+                        macros.LogUserAction(vars_form.user_login_id, "Прибрати з доступу користувача", saving_selected_account, vars_form.id_wl_object_for_activation, Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
 
 
                         //update treeView_user_accounts after making chenge
@@ -632,7 +632,7 @@ namespace Disp_WinForm
                     //Доступ на объект for nwe user
                     string set_right_object_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
                                                             "\"userId\":\"" + created_user_data.item.id + "\"," +
-                                                            "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
+                                                            "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
                                                             "\"accessMask\":\"550611455877‬\"}");
                     var set_right_object = JsonConvert.DeserializeObject<RootObject>(set_right_object_answer);
 
@@ -688,23 +688,23 @@ namespace Disp_WinForm
                     
 
                     //get product id from id object
-                    string product_id = get_product_from_id_object(vars_form.id_object_for_activation);
+                    string product_id = get_product_from_id_object(vars_form.id_wl_object_for_activation);
 
                     //create notif depends product id
                     
                     if (product_id == "10" || product_id == "11" || product_id == "12" || product_id == "13")//CNTP_910, CNTK_910
                     {
-                        create_notif_910(email_textBox.Text, created_user_data.item.id, vars_form.id_object_for_activation, created_resource_data.item.id, created_resource_user_data.item.id);
+                        create_notif_910(email_textBox.Text, created_user_data.item.id, vars_form.id_wl_object_for_activation, created_resource_data.item.id, created_resource_user_data.item.id);
                     }
                     else if (product_id == "2" || product_id == "3")//CNTP, CNTK
                     {
-                        create_notif_730(email_textBox.Text, created_user_data.item.id, vars_form.id_object_for_activation, created_resource_data.item.id, created_resource_user_data.item.id);
+                        create_notif_730(email_textBox.Text, created_user_data.item.id, vars_form.id_wl_object_for_activation, created_resource_data.item.id, created_resource_user_data.item.id);
                     }
                     else 
                     { 
                         MessageBox.Show("Невідомий продукт, сповіщення не створені"); 
                     }
-                    string Body = "<p>Добрий день!</p><p></p><p>На Ваш запит</p><p>Для Вас було відновлено пароль для доступу в систему моніторингу ВЕНБЕСТ. </p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою мобільного додатку:</p><p>1.Завантажте мобільний додаток Wialon Local: https://venbest.ua/gps-prilozheniia/</p> <p>2.При першому вході в мобільний додаток введіть такі дані:</p><p>a.Адреса серверу: https://navi.venbest.com.ua/;</p> <p>Посилання вводиться зверху сторінки вводу логіну та паролю. Після його введення необхідно натиснути на іконку у вигляді щита (праворуч рядка вводу).</p><p>b.Логін: " + email_textBox.Text + "</p><p>c.Пароль: " + pass + " </p><p>Зверніть, будь ласка, увагу, що логін та пароль чутливий до регістру символів, які ви вводите.</p><p> <br></p><p>3.Якщо ви бажаєте отримувати сповіщення, увімкніть їх в налаштуваннях.</p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою браузеру:</p><p>1.Перейдіть за посиланням: https://navi.venbest.com.ua/</p> <p>2.Введіть логін: " + email_textBox.Text + "</p><p>3.Введіть пароль: " + pass + "</p><p>  <br></p><p>Змініть, будь ласка, пароль в налаштуваннях користувача при вході через браузер.</p><p>----------------------------------------------</p><p>Департамент супутникових систем охорони</p><p>Група Компаній «ВЕНБЕСТ»</p><p>Т 044 501 33 77;</p><p>auto@venbest.com.ua | https://venbest.ua/ohrana-avto-i-zashchita-ot-ugona</p>";
+                    string Body = "<p>Добрий день!</p><p></p><p>Дякуємо за ваш вибір!</p><p>Для вас було створено доступ в систему моніторингу ВЕНБЕСТ. </p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою мобільного додатку:</p><p>1.Завантажте мобільний додаток Wialon Local: https://venbest.ua/gps-prilozheniia/</p> <p>2.При першому вході в мобільний додаток введіть такі дані:</p><p>a.Адреса серверу: https://navi.venbest.com.ua/;</p> <p>Посилання вводиться зверху сторінки вводу логіну та паролю. Після його введення необхідно натиснути на іконку у вигляді щита (праворуч рядка вводу).</p><p>b.Логін: " + email_textBox.Text + "</p><p>c.Пароль: " + pass + " </p><p>Зверніть, будь ласка, увагу, що логін та пароль чутливий до регістру символів, які ви вводите.</p><p> <br></p><p>3.Якщо ви бажаєте отримувати сповіщення, увімкніть їх в налаштуваннях.</p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою браузеру:</p><p>1.Перейдіть за посиланням: https://navi.venbest.com.ua/</p> <p>2.Введіть логін: " + email_textBox.Text + "</p><p>3.Введіть пароль: " + pass + "</p><p>  <br></p><p>Змініть, будь ласка, пароль в налаштуваннях користувача при вході через браузер.</p><p>----------------------------------------------</p><p>Департамент супутникових систем охорони</p><p>Група Компаній «ВЕНБЕСТ»</p><p>Т 044 501 33 77;</p><p>auto@venbest.com.ua | https://venbest.ua/ohrana-avto-i-zashchita-ot-ugona</p>";
                     macros.send_mail_auto(email_textBox.Text, "ВЕНБЕСТ. Вхід в систему моніторингу", Body);
                     macros.send_mail_auto("auto@venbest.com.ua", "ВЕНБЕСТ. Вхід в систему моніторингу", Body);
 
@@ -1757,7 +1757,7 @@ namespace Disp_WinForm
         private void button_chenge_uvaga_Click(object sender, EventArgs e)
         {
             string json = macros.wialon_request_new("&svc=item/update_name&params={" +
-                                                    "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
+                                                    "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
                                                     "\"name\":\"" + name_obj_new_textBox.Text.ToString() + "\"}");
             var m = JsonConvert.DeserializeObject<RootObject>(json);
 
@@ -1946,7 +1946,7 @@ namespace Disp_WinForm
                                                      "\"spec\":{" +
                                                      "\"itemsType\":\"avl_unit\"," +
                                                      "\"propName\":\"sys_id\"," +
-                                                     "\"propValueMask\":\"" + vars_form.id_object_for_activation + "\", " +
+                                                     "\"propValueMask\":\"" + vars_form.id_wl_object_for_activation + "\", " +
                                                      "\"sortType\":\"sys_name\"," +
                                                      "\"or_logic\":\"1\"}," +
                                                      "\"or_logic\":\"1\"," +
@@ -1964,7 +1964,7 @@ namespace Disp_WinForm
             {
                 //Меняем имя об"екта
                 string name_answer = macros.wialon_request_lite("&svc=item/update_name&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_object_for_activation + "\","
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
                                                                 + "\"name\":\"" + name_obj_new_textBox.Text + "\"}");
             }
             
@@ -1977,7 +1977,7 @@ namespace Disp_WinForm
                     {
                         //Chenge feild Uvaga
                         string json2 = macros.wialon_request_new("&svc=item/update_custom_field&params={" +
-                                                                 "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
+                                                                 "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
                                                                  "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                                  "\"callMode\":\"update\"," +
                                                                  "\"n\":\"" + keyvalue.Value.n + "\"," +
@@ -1990,7 +1990,7 @@ namespace Disp_WinForm
                     {
                         //Chenge feild Кодове слово
                         string json2 = macros.wialon_request_new("&svc=item/update_custom_field&params={" +
-                                                             "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
+                                                             "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
                                                              "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                              "\"callMode\":\"update\"," +
                                                              "\"n\":\"" + keyvalue.Value.n + "\"," +
@@ -2006,7 +2006,7 @@ namespace Disp_WinForm
                         macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo1_vo_form + "','1','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
                         
                         string json2 = macros.wialon_request_new("&svc=item/update_custom_field&params={" +
-                                                             "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
+                                                             "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
                                                              "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                              "\"callMode\":\"update\"," +
                                                              "\"n\":\"" + keyvalue.Value.n + "\"," +
@@ -2022,7 +2022,7 @@ namespace Disp_WinForm
                         macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo2_vo_form + "','2','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
 
                         string json2 = macros.wialon_request_new("&svc=item/update_custom_field&params={" +
-                                                             "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
+                                                             "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
                                                              "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                              "\"callMode\":\"update\"," +
                                                              "\"n\":\"" + keyvalue.Value.n + "\"," +
@@ -2038,7 +2038,7 @@ namespace Disp_WinForm
                         macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo3_vo_form + "','3','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
 
                         string json2 = macros.wialon_request_new("&svc=item/update_custom_field&params={" +
-                                                             "\"itemId\":\"" + vars_form.id_object_for_activation + "\"," +
+                                                             "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
                                                              "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                              "\"callMode\":\"update\"," +
                                                              "\"n\":\"" + keyvalue.Value.n + "\"," +

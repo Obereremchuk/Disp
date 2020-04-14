@@ -27,7 +27,7 @@ namespace Disp_WinForm
             Xpcom.Initialize(t);
             Gecko.CertOverrideService.GetService().ValidityOverride += geckoWebBrowser1_ValidityOverride;
             wialon_login_form();
-            vars_form.version = "0.797";
+            vars_form.version = "0.798";
             label_Version.Text= "v." + vars_form.version;
         }
 
@@ -107,6 +107,9 @@ namespace Disp_WinForm
                     }
 
                     macros.get_eid_from_token();
+
+                    macros.sql_command("update btk.Users set user_id_wl='" + vars_form.wl_user_id +
+                                            "' where username='" + username + "';");
 
 
 

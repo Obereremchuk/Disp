@@ -173,7 +173,7 @@ namespace Disp_WinForm
             MyWebRequest myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?" + "&svc=token/login&params={\"token\":\"" + vars_form.user_token + "\"}");
             
             //loginAs
-            //MyWebRequest myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?" + "&svc=token/login&params={\"token\":\"" + vars_form.user_token + "\",\"operateAs\":\"support\"}");
+            //MyWebRequest myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?" + "&svc=token/login&params={\"token\":\"" + vars_form.user_token + "\",\"operateAs\":\"service\"}");
             string json = myRequest.GetResponse();
             var m = JsonConvert.DeserializeObject<RootObject>(json);
             if (m.error == 1)
