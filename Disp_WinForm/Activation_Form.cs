@@ -22,6 +22,7 @@ namespace Disp_WinForm
         {
             //TopMost = true;
             InitializeComponent();
+            Read_data();
             load_form();
             build_list_account();
             button_add_2_account.Enabled = false;
@@ -41,8 +42,15 @@ namespace Disp_WinForm
             return res.ToString();
         }
 
+        private void Read_data()
+        {
+            if (vars_form.if_open_created_testing == 1)
+            {
+            }
+        }
 
-        //init command on load form
+
+                //init command on load form
         private void load_form()
         {
             string json = macros.wialon_request_new("&svc=core/search_items&params={" +
@@ -1813,7 +1821,15 @@ namespace Disp_WinForm
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo1_vo_form + "';");
                 if (VO_phone2 == "   -   -")
                 { VO_phone2 = ""; }
-                textBox_vo1.Text = VO_falilia.ToUpper() + " " + VO_imya_phone + ", " + VO_phone2;
+                if (VO_falilia == "")
+                {
+                    textBox_vo1.Text = "";
+                }
+                else
+                {
+                    textBox_vo1.Text = VO_falilia.ToUpper() + " " + VO_imya_phone + ", " + VO_phone2;
+                }
+                
             }
             if (vars_form.num_vo == 2)
             {
@@ -1821,7 +1837,14 @@ namespace Disp_WinForm
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo2_vo_form + "';");
                 if (VO_phone2 == "   -   -")
                 { VO_phone2 = ""; }
-                textBox_vo2.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                if (VO_familia_imya_phone == "")
+                {
+                    textBox_vo2.Text = "";
+                }
+                else 
+                {textBox_vo2.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                }
+                
             }
             if (vars_form.num_vo == 3)
             {
@@ -1829,7 +1852,15 @@ namespace Disp_WinForm
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo3_vo_form + "';");
                 if (VO_phone2 == "   -   -")
                 { VO_phone2 = ""; }
-                textBox_vo3.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                if (VO_familia_imya_phone == "")
+                {
+                    textBox_vo3.Text = "";
+                }
+                else
+                {
+                    textBox_vo3.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                }
+                
             }
             if (vars_form.num_vo == 4)
             {
@@ -2002,6 +2033,10 @@ namespace Disp_WinForm
                 {
                     if (keyvalue.Value.v != textBox_vo1.Text)
                     {
+                        if (textBox_vo1.Text == "")
+                        {
+                            vars_form.transfer_vo1_vo_form = "1";
+                        }
                         //Chenge feild ВО1
                         macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo1_vo_form + "','1','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
                         
@@ -2018,6 +2053,10 @@ namespace Disp_WinForm
                 {
                     if (keyvalue.Value.v != textBox_vo2.Text)
                     {
+                        if (textBox_vo2.Text == "")
+                        {
+                            vars_form.transfer_vo2_vo_form = "1";
+                        }
                         //Chenge feild ВО2
                         macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo2_vo_form + "','2','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
 
@@ -2034,6 +2073,10 @@ namespace Disp_WinForm
                 {
                     if (keyvalue.Value.v != textBox_vo3.Text)
                     {
+                        if (textBox_vo3.Text == "")
+                        {
+                            vars_form.transfer_vo3_vo_form = "1";
+                        }
                         //Chenge feild ВО3
                         macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo3_vo_form + "','3','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
 
@@ -2050,10 +2093,32 @@ namespace Disp_WinForm
 
 
 
-            // insert activation
+            // insert/update activation
 
-            
-            macros.sql_command("insert into btk.Activation_object (" +
+            if (vars_form.if_open_created_activation == 1)
+            {
+
+                macros.sql_command("update btk.Activation_object " +
+                    "set " +
+                    "Activation_date = '" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                    "Users_idUsers = '" + vars_form.user_login_id + "'," +
+                    "Object_idObject = '" + vars_form.id_db_object_for_activation + "'," +
+                    "Activation_objectcol_result = '" + comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) + "'," +
+                    "new_name_obj = '" + name_obj_new_textBox.Text + "'," +
+                    "new_pole_uvaga = '" + uvaga_textBox.Text + "'," +
+                    "vo1 = '" + vars_form.transfer_vo1_vo_form + "'," +
+                    "vo2 = '" + vars_form.transfer_vo2_vo_form + "'," +
+                    "vo3 = '" + vars_form.transfer_vo3_vo_form + "'," +
+                    "vo4 = '" + vars_form.transfer_vo4_vo_form + "'," +
+                    "vo5 = '" + vars_form.transfer_vo5_vo_form + "'," +
+                    "kodove_slovo = '" + kodove_slovo_textBox.Text + "'," +
+                    "alarm_button = '" + status_tk_textBox.Text + "'," +
+                    "comment = '" + textBox_comments.Text + "'" +
+                    "where " +
+                    "idActivation_object = '"+ vars_form.id_db_activation_for_activation + "'" +
+                    ";");
+
+               macros.sql_command("insert into btk.Activation_object (" +
                                                                     "Activation_date, " +
                                                                     "Users_idUsers, " +
                                                                     "Object_idObject," +
@@ -2070,25 +2135,63 @@ namespace Disp_WinForm
                                                                     "comment" +
                                                                     ") " +
                                                                     "values (" +
-                                                                    "'"+ Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
-                                                                    "'"+vars_form.user_login_id+"'," +
-                                                                    "'"+vars_form.id_db_object_for_activation+"'," +
-                                                                    "'"+ comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem)+ "'," +
+                                                                    "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                                                    "'" + vars_form.user_login_id + "'," +
+                                                                    "'" + vars_form.id_db_object_for_activation + "'," +
+                                                                    "'" + comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) + "'," +
                                                                     "'" + name_obj_new_textBox.Text + "'," +
-                                                                    "'" + uvaga_textBox.Text +"'," +
-                                                                    "'" + vars_form.transfer_vo1_vo_form +"'," +
+                                                                    "'" + uvaga_textBox.Text + "'," +
+                                                                    "'" + vars_form.transfer_vo1_vo_form + "'," +
                                                                     "'" + vars_form.transfer_vo2_vo_form + "'," +
                                                                     "'" + vars_form.transfer_vo3_vo_form + "'," +
                                                                     "'" + vars_form.transfer_vo4_vo_form + "'," +
                                                                     "'" + vars_form.transfer_vo5_vo_form + "'," +
-                                                                    "'" + kodove_slovo_textBox.Text +"'," +
+                                                                    "'" + kodove_slovo_textBox.Text + "'," +
                                                                     "'" + status_tk_textBox.Text + "'," +
                                                                     "'" + textBox_comments.Text + "'" +
                                                                     ");");
 
-            string get_id_activacii = macros.sql_command("SELECT MAX(idActivation_object) FROM btk.Activation_object;");
-            macros.sql_command("update btk.Zayavki set Activation_object_idActivation_object = '"+ get_id_activacii + "' where idZayavki = '"+ vars_form.id_db_zayavki_for_activation + "';");
+                string get_id_activacii = macros.sql_command("SELECT MAX(idActivation_object) FROM btk.Activation_object;");
+                macros.sql_command("update btk.Zayavki set Activation_object_idActivation_object = '" + get_id_activacii + "' where idZayavki = '" + vars_form.id_db_zayavki_for_activation + "';");
+            }
+            else if (vars_form.if_open_created_activation == 0)
+            {
+                macros.sql_command("insert into btk.Activation_object (" +
+                                                                    "Activation_date, " +
+                                                                    "Users_idUsers, " +
+                                                                    "Object_idObject," +
+                                                                    "Activation_objectcol_result," +
+                                                                    "new_name_obj," +
+                                                                    "new_pole_uvaga," +
+                                                                    "vo1," +
+                                                                    "vo2," +
+                                                                    "vo3," +
+                                                                    "vo4," +
+                                                                    "vo5, " +
+                                                                    "kodove_slovo," +
+                                                                    "alarm_button," +
+                                                                    "comment" +
+                                                                    ") " +
+                                                                    "values (" +
+                                                                    "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                                                    "'" + vars_form.user_login_id + "'," +
+                                                                    "'" + vars_form.id_db_object_for_activation + "'," +
+                                                                    "'" + comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) + "'," +
+                                                                    "'" + name_obj_new_textBox.Text + "'," +
+                                                                    "'" + uvaga_textBox.Text + "'," +
+                                                                    "'" + vars_form.transfer_vo1_vo_form + "'," +
+                                                                    "'" + vars_form.transfer_vo2_vo_form + "'," +
+                                                                    "'" + vars_form.transfer_vo3_vo_form + "'," +
+                                                                    "'" + vars_form.transfer_vo4_vo_form + "'," +
+                                                                    "'" + vars_form.transfer_vo5_vo_form + "'," +
+                                                                    "'" + kodove_slovo_textBox.Text + "'," +
+                                                                    "'" + status_tk_textBox.Text + "'," +
+                                                                    "'" + textBox_comments.Text + "'" +
+                                                                    ");");
 
+                string get_id_activacii = macros.sql_command("SELECT MAX(idActivation_object) FROM btk.Activation_object;");
+                macros.sql_command("update btk.Zayavki set Activation_object_idActivation_object = '" + get_id_activacii + "' where idZayavki = '" + vars_form.id_db_zayavki_for_activation + "';");
+            }
             this.Close();
         }
 

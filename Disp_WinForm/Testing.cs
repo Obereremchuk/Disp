@@ -894,11 +894,11 @@ namespace Disp_WinForm
 
         private void commands_add_testing()
         {
-            if (vars_form.if_open_created_testing == 1)//
+            if (vars_form.if_open_created_testing == 1)// выполняем если открываем незаконченное тестирование 
             {
                 if (checkBox_test_tk.Checked is false || checkBox_test_zablocovano.Checked is false ||
                     checkBox_test_du.Checked is false || checkBox__test_vzlom.Checked is false ||
-                    checkBox_test_koordinati.Checked is false)
+                    checkBox_test_koordinati.Checked is false)// выполняем если завершается тестирование неуспехом
                 {
                     if (textBox_commets.Text == "")
                     {
@@ -960,7 +960,7 @@ namespace Disp_WinForm
                     macros.sql_command("update btk.Object set Objectcol_testing_ok = 0 where idObject = '" +
                                        vars_form.id_db_object_for_test + "';");
                 }
-                else
+                else // // выполняем если завершается тестирование успехом
                 {
                     if (wl_group_activ_checkBox.Checked is true)
                     {
@@ -983,19 +983,210 @@ namespace Disp_WinForm
                         //                                       + "\"from\":\"0\"," 
                         //                                       + "\"to\":\"0\"}");//получаем текущее местоположение объекта
 
+                        //Запрашиваем айди продукта тестируемого обїекта
+                        string get_produt_testing_device = macros.sql_command("select " +
+                                                                               "products_has_Tarif.products_idproducts " +
+                                                                               "from " +
+                                                                               "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
+                                                                               "where " +
+                                                                               "Object.Object_id_wl = " + vars_form.id_wl_object_for_test + " and " +
+                                                                               "Object.idObject=Object_idObject and " +
+                                                                               "Subscription_idSubscr=idSubscr and " +
+                                                                               "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
 
-                        string get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
-                                                                                                              + "\"id\":\"1759\","
-                                                                                                              + "\"flags\":\"1\"}");//получаем все объекты группы
+                        //Установка Групп в зависимсти от продукта
+                        if (get_produt_testing_device == "11" || get_produt_testing_device == "3")//Добавляем в группы для CNTP_910, CNTP_730
+                        {
 
-                        var list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+                            // ADD to groupe: ^ CONNECT - KEYLESS - PLUS - КОНДОР+: активные
+                            string get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"1759\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
 
-                        list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
-                        string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+                            var list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
 
-                        string gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
-                                                                                                         + "\"itemId\":\"1759\","
-                                                                                                         + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый  
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            string gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"1759\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+
+
+                            // ADD to groupe: ^ Активні (all)
+                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"46\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"46\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+
+                            // ADD to groupe: ^ Активні (all)
+                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"6409\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"6409\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+
+                            // ADD to groupe: srv_CNTP
+                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"7669\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"7669\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+                        }
+                        else if (get_produt_testing_device == "10" || get_produt_testing_device == "2")//Добавляем в группы для CNTK_910, CNTK_710
+                        {
+
+                            // ADD to groupe: ^ CONNECT - KEYLESS - PLUS - КОНДОР+: активные
+                            string get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"1759\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            var list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            string gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"1759\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+
+
+                            // ADD to groupe: ^ Активні (all)
+                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"46\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"46\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+
+                            // ADD to groupe: ^ Активні (all)
+                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"6409\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"6409\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+
+                            // ADD to groupe: srv_CNTP
+                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"7668\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"7668\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+                        }
+                        else if (get_produt_testing_device == "4" || get_produt_testing_device == "13" || get_produt_testing_device == "14")//Добавляем в группы для CNTP_910_SE_N, CNTP_910_SE_P, CNTP_SE
+                        {
+
+                            // ADD to groupe: ^ CONNECT - KEYLESS - PLUS - КОНДОР+: активные
+                            string get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"1759\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            var list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            string gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"1759\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+
+
+                            // ADD to groupe: ^ Активні (all)
+                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"46\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"46\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+
+                            // ADD to groupe: ^ Активні (all)
+                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"6409\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"6409\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+
+                            // ADD to groupe: srv_CNTP
+                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                                                                                                                                + "\"id\":\"7668\","
+                                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+                            list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                            units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                                                                                                             + "\"itemId\":\"7668\","
+                                                                                                             + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+                        }
                     }
 
                     macros.sql_command("update btk.testing_object set " +
@@ -1015,6 +1206,9 @@ namespace Disp_WinForm
                         "where " +
                         "idtesting_object = '" + vars_form.id_db_openning_testing + "' " +
                         ";");
+
+                    
+
 
                     //macros.sql_command("insert into btk.testing_object (" +
                     //                       "Object_idObject, " +

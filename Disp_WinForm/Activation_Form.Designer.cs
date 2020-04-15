@@ -144,9 +144,9 @@
             // 
             this.comboBox_activation_result.FormattingEnabled = true;
             this.comboBox_activation_result.Items.AddRange(new object[] {
-            "Успінно",
+            "Успішно",
             "Незавершено",
-            "Неуспішно"});
+            "Інше"});
             this.comboBox_activation_result.Location = new System.Drawing.Point(6, 304);
             this.comboBox_activation_result.Name = "comboBox_activation_result";
             this.comboBox_activation_result.Size = new System.Drawing.Size(370, 21);

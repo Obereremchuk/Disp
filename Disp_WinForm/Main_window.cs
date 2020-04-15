@@ -161,7 +161,6 @@ namespace Disp_WinForm
         private void OnTimedEvent_activation(object sender, EventArgs e)
         {
             update_actication_dgv();
-            update_activation_start_dgv();
         }
         private void OnTimedEvent_zayavki_na_aktivation(object sender, EventArgs e)
         {
@@ -272,14 +271,10 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.Enabled = false;
-                
-
-
             }
             else if (tabControl_testing.SelectedTab.Name == "tabPage_activation")
             {
                 update_actication_dgv();
-                update_activation_start_dgv();
                 aTimer.Interval = 2000;
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_808);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_909);
@@ -318,7 +313,7 @@ namespace Disp_WinForm
             
             DataTable table = new DataTable();
 
-            if (comboBox_activovani_select.SelectedIndex == 0 & comboBox_prikripleno_select.SelectedIndex == 0)
+            if (comboBox_activovani_select.SelectedIndex == 0 & comboBox_prikripleno_select.SelectedIndex == 0)// Отбор в заявках всі/всі
             {
                 table = macros.GetData("SELECT " +
                                             "Zayavkicol_name as 'Назва'," +
@@ -338,7 +333,7 @@ namespace Disp_WinForm
                                             "AND Zayavki.Users_idUsers=Users.idUsers " +
                                             "AND (Zayavkicol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_for_zayavki_na_activation_W2.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "');");
             }
-            else if (comboBox_activovani_select.SelectedIndex == 1 & comboBox_prikripleno_select.SelectedIndex == 1)
+            else if (comboBox_activovani_select.SelectedIndex == 1 & comboBox_prikripleno_select.SelectedIndex == 1)//Отбор активованы /Прикриплени
             {
                 table = macros.GetData("SELECT " +
                                             "Zayavkicol_name as 'Назва', " +
@@ -356,11 +351,11 @@ namespace Disp_WinForm
                                             "AND testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
                                             "AND Zayavki.Kontragenti_idKontragenti_sto=Kontragenti.idKontragenti " +
                                             "AND Zayavki.Users_idUsers=Users.idUsers " +
-                                            "AND Activation_object.idActivation_object != '1' " +
+                                            "AND Activation_object.Activation_objectcol_result = 'Успінно' " +
                                             "AND (Zayavkicol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_for_zayavki_na_activation_W2.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "') " +
                                             "and testing_object_idtesting_object != 1;");
             }
-            else if (comboBox_activovani_select.SelectedIndex == 2 & comboBox_prikripleno_select.SelectedIndex == 2)
+            else if (comboBox_activovani_select.SelectedIndex == 2 & comboBox_prikripleno_select.SelectedIndex == 2)//не активованы/не прикриплени
             {
                 table = macros.GetData("SELECT " +
                                             "Zayavkicol_name as 'Назва', " +
@@ -378,11 +373,11 @@ namespace Disp_WinForm
                                             "AND testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
                                             "AND Zayavki.Kontragenti_idKontragenti_sto=Kontragenti.idKontragenti " +
                                             "AND Zayavki.Users_idUsers=Users.idUsers " +
-                                            "AND Activation_object.idActivation_object = '1' " +
+                                            "AND Activation_object.Activation_objectcol_result != 'Успінно' " +
                                             "AND (Zayavkicol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_for_zayavki_na_activation_W2.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "') " +
                                             "and testing_object_idtesting_object = 1;");
             }
-            else if (comboBox_activovani_select.SelectedIndex == 1 & comboBox_prikripleno_select.SelectedIndex == 2)
+            else if (comboBox_activovani_select.SelectedIndex == 1 & comboBox_prikripleno_select.SelectedIndex == 2) //активовані /непрікріплені
             {
                 table = macros.GetData("SELECT " +
                                             "Zayavkicol_name as 'Назва', " +
@@ -400,12 +395,12 @@ namespace Disp_WinForm
                                             "AND testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
                                             "AND Zayavki.Kontragenti_idKontragenti_sto=Kontragenti.idKontragenti " +
                                             "AND Zayavki.Users_idUsers=Users.idUsers " +
-                                            "AND Activation_object.idActivation_object != '1' " +
+                                            "AND Activation_object.Object_idObject != '10' " +
                                             "AND (Zayavkicol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_for_zayavki_na_activation_W2.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "') " +
                                             "and testing_object_idtesting_object = 1;");
 
             }
-            else if (comboBox_activovani_select.SelectedIndex == 2 & comboBox_prikripleno_select.SelectedIndex == 1)
+            else if (comboBox_activovani_select.SelectedIndex == 2 & comboBox_prikripleno_select.SelectedIndex == 1)//неактивовані/прікріплені
             {
                 table = macros.GetData("SELECT " +
                                             "Zayavkicol_name as 'Назва', " +
@@ -423,11 +418,11 @@ namespace Disp_WinForm
                                             "AND testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
                                             "AND Zayavki.Kontragenti_idKontragenti_sto=Kontragenti.idKontragenti " +
                                             "AND Zayavki.Users_idUsers=Users.idUsers " +
-                                            "AND Activation_object.idActivation_object = '1' " +
+                                            "AND Activation_object.Activation_objectcol_result != 'Успінно' " +
                                             "AND (Zayavkicol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_for_zayavki_na_activation_W2.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "') " +
                                             "and testing_object_idtesting_object != 1;");
             }
-            else if (comboBox_activovani_select.SelectedIndex == 0 & comboBox_prikripleno_select.SelectedIndex == 1)
+            else if (comboBox_activovani_select.SelectedIndex == 0 & comboBox_prikripleno_select.SelectedIndex == 1) //всі/прікріплені
             {
                 table = macros.GetData("SELECT " +
                                             "Zayavkicol_name as 'Назва', " +
@@ -448,7 +443,7 @@ namespace Disp_WinForm
                                             "AND (Zayavkicol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_for_zayavki_na_activation_W2.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "') " +
                                             "and testing_object_idtesting_object != 1;");
             }
-            else if (comboBox_activovani_select.SelectedIndex == 1 & comboBox_prikripleno_select.SelectedIndex == 0)
+            else if (comboBox_activovani_select.SelectedIndex == 1 & comboBox_prikripleno_select.SelectedIndex == 0)//активовані/всі
             {
                 table = macros.GetData("SELECT " +
                                             "Zayavkicol_name as 'Назва', " +
@@ -466,10 +461,10 @@ namespace Disp_WinForm
                                             "AND testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
                                             "AND Zayavki.Kontragenti_idKontragenti_sto=Kontragenti.idKontragenti " +
                                             "AND Zayavki.Users_idUsers=Users.idUsers " +
-                                            "AND Activation_object.idActivation_object != '1' " +
+                                            "AND Activation_object.Activation_objectcol_result = 'Успінно' " +
                                             "AND (Zayavkicol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_for_zayavki_na_activation_W2.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "');");
             }
-            else if (comboBox_activovani_select.SelectedIndex == 0 & comboBox_prikripleno_select.SelectedIndex == 2)
+            else if (comboBox_activovani_select.SelectedIndex == 0 & comboBox_prikripleno_select.SelectedIndex == 2)//всі/непрікріплено
             {
                 table = macros.GetData("SELECT " +
                                             "Zayavkicol_name as 'Назва', " +
@@ -490,7 +485,7 @@ namespace Disp_WinForm
                                             "AND (Zayavkicol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_for_zayavki_na_activation_W2.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "') " +
                                             "and testing_object_idtesting_object = 1;");
             }
-            else if (comboBox_activovani_select.SelectedIndex == 2 & comboBox_prikripleno_select.SelectedIndex == 0)
+            else if (comboBox_activovani_select.SelectedIndex == 2 & comboBox_prikripleno_select.SelectedIndex == 0)//Неактивовано /всі
             {
                 table = macros.GetData("SELECT " +
                                             "Zayavkicol_name as 'Назва', " +
@@ -508,7 +503,7 @@ namespace Disp_WinForm
                                             "AND testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
                                             "AND Zayavki.Kontragenti_idKontragenti_sto=Kontragenti.idKontragenti " +
                                             "AND Zayavki.Users_idUsers=Users.idUsers " +
-                                            "AND Activation_object.idActivation_object = '1' " +
+                                            "AND Activation_object.Activation_objectcol_result != 'Успінно' " +
                                             "AND (Zayavkicol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_for_zayavki_na_activation_W2.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "') ;");
             }
 
@@ -538,27 +533,29 @@ namespace Disp_WinForm
             DataTable table = new DataTable();
             table = macros.GetData(
                 "SELECT " +
-                "testing_object.Object_idObject as 'object_id_db', " +
-                "idZayavki , " +
-                "Zayavkicol_name as 'Назва заявки', " +
-                "product_name as 'Продукт', " +
-                "TS_brand.TS_brandcol_brand as 'Бренд', " +
-                "TS_model.TS_modelcol_name as 'Модель', " +
-                "Zayavkicol_VIN as 'VIN', " +
-                "Zayavkicol_reason as 'Причина' " +
+                "Zayavki.idZayavki as 'Заявка №', " +
+                "Activation_object.idActivation_object, " +
+                "Zayavki.Zayavkicol_name as 'Назва заявки', " +
+                "products.product_name as 'Продукт', " +
+                "TS_brand.TS_brandcol_brand as 'Бренд'," +
+                "TS_model.TS_modelcol_name as 'Модель'," +
+                "Zayavki.Zayavkicol_VIN as 'VIN'," +
+                "Activation_object.Activation_objectcol_result as 'Результат', " +
+                "Activation_object.new_name_obj as 'Назва обєкту', " +
+                "Activation_object.comment as 'Коментар' " +
                 "FROM " +
-                "btk.Zayavki, " +
-                "btk.TS_brand, " +
-                "btk.TS_model, " +
-                "btk.products, " +
-                "btk.testing_object " +
+                "btk.products," +
+                "btk.Activation_object," +
+                "btk.Zayavki," +
+                "btk.TS_brand," +
+                "btk.TS_model " +
                 "where " +
-                "Activation_object_idActivation_object = '1' " +
-                "and testing_object_idtesting_object != '1' " +
+                "Activation_objectcol_result != 'Успішно' " +
                 "and TS_brand.idTS_brand = Zayavki.TS_brand_idTS_brand " +
                 "and TS_model.idTS_model = Zayavki.TS_model_idTS_model " +
                 "and products.idproducts = Zayavki.products_idproducts " +
-                "and testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
+                "and Zayavki.Activation_object_idActivation_object = Activation_object.idActivation_object " +
+                "order by idZayavki desc" +
                 "; ");
 
 
@@ -573,8 +570,18 @@ namespace Disp_WinForm
         {
             int scrollPosition = dataGridView_for_activation.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
             dataGridView_for_activation.DataSource = table;
-            dataGridView_for_activation.Columns["object_id_db"].Visible = false;
-            dataGridView_for_activation.Columns["idZayavki"].Visible = false;
+            dataGridView_for_activation.Columns["idActivation_object"].Visible = false;
+            dataGridView_for_activation.Columns["Коментар"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridView_for_activation.Columns["Заявка №"].AutoSizeMode  = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_for_activation.Columns["Назва заявки"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_for_activation.Columns["Продукт"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_for_activation.Columns["Бренд"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_for_activation.Columns["Модель"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_for_activation.Columns["VIN"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_for_activation.Columns["Результат"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_for_activation.Columns["Назва обєкту"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_for_activation.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
             if (dataGridView_for_activation.Rows.Count >= 1)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
             {
                 if (scrollPosition == -1)
@@ -595,8 +602,18 @@ namespace Disp_WinForm
             {
                 int scrollPosition = dataGridView_for_activation.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
                 dataGridView_for_activation.DataSource = table;
-                dataGridView_for_activation.Columns["object_id_db"].Visible = false;
-                dataGridView_for_activation.Columns["idZayavki"].Visible = false;
+                dataGridView_for_activation.Columns["idActivation_object"].Visible = false;
+                dataGridView_for_activation.Columns["Коментар"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                dataGridView_for_activation.Columns["Заявка №"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView_for_activation.Columns["Назва заявки"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView_for_activation.Columns["Продукт"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView_for_activation.Columns["Бренд"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView_for_activation.Columns["Модель"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView_for_activation.Columns["VIN"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView_for_activation.Columns["Результат"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView_for_activation.Columns["Назва обєкту"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataGridView_for_activation.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
                 if (dataGridView_for_activation.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
                 {
                     if (scrollPosition == -1)
@@ -607,79 +624,6 @@ namespace Disp_WinForm
                 }
             }
         }
-
-
-        /// Обновляем вкладку For Activation  
-        /// 
-        private void update_activation_start_dgv()
-        {
-            //ПОлучим последний созданный айди тестирование, и возмем из него дату для верного отображения которую покладем в даттаймпикер
-            DataTable table = new DataTable();
-            table = macros.GetData(
-                "SELECT " +
-                "idActivation_object, " +
-                "Object_idObject, " +
-                "new_name_obj as 'Назва обєкту', " +
-                "Activation_objectcol_result as 'Результат', " +
-                "Users.username as 'Активував', " +
-                "comment as 'Коментар' " +
-                "FROM " +
-                "btk.Activation_object, " +
-                "btk.Users " +
-                "where " +
-                "Users.idUsers = Activation_object.Users_idUsers " +
-                "and idActivation_object != '1' " +
-                "and Activation_objectcol_result != 'Успінно' " +
-                "and idActivation_object " +
-                "; ");
-
-
-            UpdateGridHandler ug = UpdateGrid_activation_start;
-            ug.BeginInvoke(table, cb_activation_start, null);
-        }
-        private void cb_activation_start(IAsyncResult res)
-        {
-
-        }
-        private void UpdateGrid1_activation_start(DataTable table)
-        {
-            int scrollPosition = dataGridView_activation_start.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-            dataGridView_activation_start.DataSource = table;
-            dataGridView_activation_start.Columns["idActivation_object"].Visible = false;
-            dataGridView_activation_start.Columns["Object_idObject"].Visible = false;
-            if (dataGridView_activation_start.Rows.Count >= 1)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
-            {
-                if (scrollPosition == -1)
-                {
-                    scrollPosition = 0;
-                }
-                dataGridView_activation_start.FirstDisplayedScrollingRowIndex = scrollPosition;
-            }
-        }
-        private void UpdateGrid_activation_start(DataTable table)
-        {
-            if (dataGridView_activation_start.InvokeRequired)
-            {
-                UpdateGridThreadHandler handler = UpdateGrid1_activation_start;
-                dataGridView_activation_start.BeginInvoke(handler, table);
-            }
-            else
-            {
-                int scrollPosition = dataGridView_activation_start.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                dataGridView_activation_start.DataSource = table;
-                dataGridView_activation_start.Columns["idActivation_object"].Visible = false;
-                dataGridView_activation_start.Columns["Object_idObject"].Visible = false;
-                if (dataGridView_activation_start.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
-                {
-                    if (scrollPosition == -1)
-                    {
-                        scrollPosition = 0;
-                    }
-                    dataGridView_activation_start.FirstDisplayedScrollingRowIndex = scrollPosition;
-                }
-            }
-        }
-
 
         /// Обновляем вкладку Testing 
         /// 
@@ -2063,6 +2007,7 @@ namespace Disp_WinForm
         private void activation_form_deactivated(object sender, FormClosedEventArgs e)
         {
             //this.Visible = true;// разблокируем окно  кактолько закрыто окно добавления 
+            vars_form.if_open_created_activation = 0;
         }
 
 
@@ -2235,26 +2180,10 @@ namespace Disp_WinForm
             activation_form.Show();
         }
 
-        private void dataGridView_activation_start_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView_for_activation_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex <= -1 || e.ColumnIndex <= -1)
-            {
-                return;
-            }
 
-            vars_form.id_db_object_for_activation = dataGridView_activation_start.Rows[e.RowIndex].Cells[0].Value.ToString();
-            vars_form.id_db_zayavki_for_activation = dataGridView_activation_start.Rows[e.RowIndex].Cells[1].Value.ToString();
-            vars_form.id_wl_object_for_activation = macros.sql_command("SELECT Object_id_wl FROM btk.Object where idObject = '" + vars_form.id_db_object_for_activation + "';");
-
-            Activation_Form activation_form = new Activation_Form();
-            activation_form.Activated += new EventHandler(activation_form_activated);
-            activation_form.FormClosed += new FormClosedEventHandler(activation_form_deactivated);
-            activation_form.Show();
         }
-
-        
-
-        
     }
 
     internal class List_add_alarm
@@ -2299,6 +2228,7 @@ namespace Disp_WinForm
         public static string id_wl_object_for_activation { get; set; }
         public static string id_db_object_for_activation { get; set; }
         public static string id_db_zayavki_for_activation { get; set; }
+        public static string id_db_activation_for_activation { get; set; }
         public static string eid { get; set; }//Храним eid ссесии для Wialon
         public static string wl_user_nm { get; set; }//Храним имя пользователя в Wialon который прошел авторизацию по токену
         public static int wl_user_id { get; set; }//Храним id пользователя в Wialon который прошел авторизацию по токену

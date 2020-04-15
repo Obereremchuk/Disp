@@ -179,7 +179,7 @@ namespace Disp_WinForm
                                             "Kontragenti.idKontragenti=TS_info.Kontragenti_idKontragenti and " +
                                             "Object.TS_info_idTS_info=TS_info.idTS_info and " +
                                             "Object.idObject = testing_object.Object_idObject and " +
-                                            "(testing_objectcol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_filter_tested_zayavki.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "');");
+                                            "(testing_objectcol_edit_timestamp between '" + Convert.ToDateTime(DateTime.Now.AddDays(-1)).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(dateTimePicker_filter_tested_zayavki.Value).ToString("yyyy-MM-dd HH:mm:ss") + "');");
                 
             }
             else if (checkBox_createt_zayavka.Checked == true)
@@ -200,10 +200,10 @@ namespace Disp_WinForm
                                             "Kontragenti.idKontragenti=TS_info.Kontragenti_idKontragenti and " +
                                             "Object.TS_info_idTS_info=TS_info.idTS_info and " +
                                             "Object.idObject = testing_object.Object_idObject and " +
-                                            "(testing_objectcol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_filter_tested_zayavki.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "');");
-                
+                                            "(testing_objectcol_edit_timestamp between '" + Convert.ToDateTime(DateTime.Now.AddDays(-1)).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(dateTimePicker_filter_tested_zayavki.Value).ToString("yyyy-MM-dd HH:mm:ss") + "');");
 
-                
+
+
             }
             dataGridView_tested_objects_zayavki.DataSource = table;
             this.dataGridView_tested_objects_zayavki.Columns["Id"].Visible = false;
@@ -350,6 +350,10 @@ namespace Disp_WinForm
                                                         "Users_idUsers = '" + vars_form.user_login_id + "'" +
                                                         "WHERE idZayavki = '"+ idZayavki + "'");
 
+                string id_object_from_testing = macros.sql_command("select Object_idObject from btk.testing_object where idtesting_object = '"+ idtesting_object + "';");
+                macros.sql_command("update btk.Activation_object set Object_idObject = " + id_object_from_testing + " where idActivation_object = '" + idZayavki + "';");
+
+
             }
             else
             {   // insert activation
@@ -358,6 +362,41 @@ namespace Disp_WinForm
                 {
                     idtesting_object = "1";
                 }
+                macros.sql_command("insert into btk.Activation_object (" +
+                                                                    "Activation_date, " +
+                                                                    "Users_idUsers, " +
+                                                                    "Object_idObject," +
+                                                                    "Activation_objectcol_result," +
+                                                                    "new_name_obj," +
+                                                                    "new_pole_uvaga," +
+                                                                    "vo1," +
+                                                                    "vo2," +
+                                                                    "vo3," +
+                                                                    "vo4," +
+                                                                    "vo5, " +
+                                                                    "kodove_slovo," +
+                                                                    "alarm_button," +
+                                                                    "comment" +
+                                                                    ") " +
+                                                                    "values (" +
+                                                                    "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                                                    "'" + vars_form.user_login_id + "'," +
+                                                                    "'10'," +
+                                                                    "'Не проводилось'," +
+                                                                    "''," +
+                                                                    "''," +
+                                                                    "'1'," +
+                                                                    "'1'," +
+                                                                    "'1'," +
+                                                                    "'1'," +
+                                                                    "'1'," +
+                                                                    "''," +
+                                                                    "''," +
+                                                                    "''" +
+                                                                    ");");//Добавляем активацию для объекта и прикрепляем ее к заявке
+
+                string id_created_activation = macros.sql_command("SELECT max(idActivation_object) FROM btk.Activation_object;");
+
                 macros.sql_command("insert into btk.Zayavki (" +
                                                                         "Zayavkicol_name, " +
                                                                         "Zayavkicol_plan_date, " +
@@ -402,10 +441,12 @@ namespace Disp_WinForm
                                                                         "'" + textBox_kont_osoba2.Text + "'," +
                                                                         "'" + textBox_tel2.Text + "'," +
                                                                         "'" + vars_form.user_login_id + "'," +
-                                                                        "'1'" +
+                                                                        "'"+ id_created_activation + "'" +
                                                                         ");");
-                this.Close();
+
+                
             }
+            this.Close();
         }
 
         private void dataGridView_tested_objects_zayavki_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
