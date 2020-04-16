@@ -640,7 +640,7 @@
             this.comboBox_result.FormattingEnabled = true;
             this.comboBox_result.Items.AddRange(new object[] {
             "Успішно",
-            "Неуспішно"});
+            "Не завершено"});
             this.comboBox_result.Location = new System.Drawing.Point(263, 358);
             this.comboBox_result.Name = "comboBox_result";
             this.comboBox_result.Size = new System.Drawing.Size(200, 21);

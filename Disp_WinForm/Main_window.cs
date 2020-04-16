@@ -25,6 +25,12 @@ namespace Disp_WinForm
 
             InitializeComponent();
             this.Text = "Disp v." + vars_form.version;
+            comboBox_activovani_select.SelectedIndex = 0;
+            comboBox_prikripleno_select.SelectedIndex = 0;
+            comboBox_activation_filter.SelectedIndex = 0;
+            comboBox_testing_filter.SelectedIndex = 0;
+
+
 
             aTimer = new System.Timers.Timer();
 
@@ -37,8 +43,10 @@ namespace Disp_WinForm
 
             TimeSpan ts2 = new TimeSpan(23, 59, 59);
 
-            comboBox_activovani_select.SelectedIndex = 0;
-            comboBox_prikripleno_select.SelectedIndex = 0;
+            
+            dataGridView_for_activation.DefaultCellStyle.SelectionBackColor = Color.White;
+            dataGridView_for_activation.DefaultCellStyle.SelectionForeColor = Color.Black;
+
 
         }
 
@@ -246,17 +254,18 @@ namespace Disp_WinForm
             }
             else if (tabControl_testing.SelectedTab.Name == "tabPage_testing")
             {
-                update_testing_dgv();
+                
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_808);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_909);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_open);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_sale);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_dilery);
-                aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent_testing);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_testing);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
-                aTimer.Enabled = true;
-                
+                aTimer.Enabled = false;
+                update_testing_dgv();
+
 
             }
             else if (tabControl_testing.SelectedTab.Name == "tabPage2")
@@ -274,19 +283,21 @@ namespace Disp_WinForm
             }
             else if (tabControl_testing.SelectedTab.Name == "tabPage_activation")
             {
-                update_actication_dgv();
-                aTimer.Interval = 2000;
+                
+                //aTimer.Interval = 2000;
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_808);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_909);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_open);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_sale);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_dilery);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_testing);
-                aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent_activation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
-                aTimer.AutoReset = true;
-                aTimer.Enabled = true;
                 
+                //aTimer.AutoReset = true;
+                aTimer.Enabled = false;
+                update_actication_dgv();
+
             }
             else if (tabControl_testing.SelectedTab.Name == "tabPage_zayavki_activation")
             {
@@ -526,53 +537,111 @@ namespace Disp_WinForm
 
 
         /// Обновляем вкладку For Activation  
-        /// 
         private void update_actication_dgv()
         {
             //ПОлучим последний созданный айди тестирование, и возмем из него дату для верного отображения которую покладем в даттаймпикер
             DataTable table = new DataTable();
-            table = macros.GetData(
-                "SELECT " +
-                "Zayavki.idZayavki as 'Заявка №', " +
-                "Activation_object.idActivation_object, " +
-                "Zayavki.Zayavkicol_name as 'Назва заявки', " +
-                "products.product_name as 'Продукт', " +
-                "TS_brand.TS_brandcol_brand as 'Бренд'," +
-                "TS_model.TS_modelcol_name as 'Модель'," +
-                "Zayavki.Zayavkicol_VIN as 'VIN'," +
-                "Activation_object.Activation_objectcol_result as 'Результат', " +
-                "Activation_object.new_name_obj as 'Назва обєкту', " +
-                "Activation_object.comment as 'Коментар' " +
-                "FROM " +
-                "btk.products," +
-                "btk.Activation_object," +
-                "btk.Zayavki," +
-                "btk.TS_brand," +
-                "btk.TS_model " +
-                "where " +
-                "Activation_objectcol_result != 'Успішно' " +
-                "and TS_brand.idTS_brand = Zayavki.TS_brand_idTS_brand " +
-                "and TS_model.idTS_model = Zayavki.TS_model_idTS_model " +
-                "and products.idproducts = Zayavki.products_idproducts " +
-                "and Zayavki.Activation_object_idActivation_object = Activation_object.idActivation_object " +
-                "order by idZayavki desc" +
-                "; ");
+            if (comboBox_activation_filter.SelectedIndex == 0)
+            {
+                table = macros.GetData(
+                    "SELECT " +
+                    "Zayavki.idZayavki as 'Заявка №', " +
+                    "Activation_object.Object_idObject, " +
+                    "Activation_object.idActivation_object, " +
+                    "Zayavki.Zayavkicol_name as 'Назва заявки', " +
+                    "products.product_name as 'Продукт', " +
+                    "TS_brand.TS_brandcol_brand as 'Бренд'," +
+                    "TS_model.TS_modelcol_name as 'Модель'," +
+                    "Zayavki.Zayavkicol_VIN as 'VIN'," +
+                    "Activation_object.Activation_objectcol_result as 'Результат', " +
+                    "Activation_object.new_name_obj as 'Назва обєкту', " +
+                    "Activation_object.comment as 'Коментар' " +
+                    "FROM " +
+                    "btk.products," +
+                    "btk.Activation_object," +
+                    "btk.Zayavki," +
+                    "btk.TS_brand," +
+                    "btk.TS_model " +
+                    "where " +
+                    "Activation_object.Activation_objectcol_result != 'Успішно' " +
+                    "and Activation_object.Object_idObject != '10' " +
+                    "and TS_brand.idTS_brand = Zayavki.TS_brand_idTS_brand " +
+                    "and TS_model.idTS_model = Zayavki.TS_model_idTS_model " +
+                    "and products.idproducts = Zayavki.products_idproducts " +
+                    "and Zayavki.Activation_object_idActivation_object = Activation_object.idActivation_object " +
+                    "order by idZayavki desc" +
+                    "; ");
+            }
+            else if (comboBox_activation_filter.SelectedIndex == 1)
+            {
+                table = macros.GetData(
+                    "SELECT " +
+                    "Zayavki.idZayavki as 'Заявка №', " +
+                    "Activation_object.Object_idObject, " +
+                    "Activation_object.idActivation_object, " +
+                    "Zayavki.Zayavkicol_name as 'Назва заявки', " +
+                    "products.product_name as 'Продукт', " +
+                    "TS_brand.TS_brandcol_brand as 'Бренд'," +
+                    "TS_model.TS_modelcol_name as 'Модель'," +
+                    "Zayavki.Zayavkicol_VIN as 'VIN'," +
+                    "Activation_object.Activation_objectcol_result as 'Результат', " +
+                    "Activation_object.new_name_obj as 'Назва обєкту', " +
+                    "Activation_object.comment as 'Коментар' " +
+                    "FROM " +
+                    "btk.products," +
+                    "btk.Activation_object," +
+                    "btk.Zayavki," +
+                    "btk.TS_brand," +
+                    "btk.TS_model " +
+                    "where " +
+                    "Activation_object.Activation_objectcol_result = 'Успішно' " +
+                    "and Activation_object.Object_idObject != '10' " +
+                    "and TS_brand.idTS_brand = Zayavki.TS_brand_idTS_brand " +
+                    "and TS_model.idTS_model = Zayavki.TS_model_idTS_model " +
+                    "and products.idproducts = Zayavki.products_idproducts " +
+                    "and Zayavki.Activation_object_idActivation_object = Activation_object.idActivation_object " +
+                    "order by idZayavki desc" +
+                    "; ");
+            }
+            else if (comboBox_activation_filter.SelectedIndex == 2)
+            {
+                table = macros.GetData(
+                    "SELECT " +
+                    "Zayavki.idZayavki as 'Заявка №', " +
+                    "Activation_object.Object_idObject, " +
+                    "Activation_object.idActivation_object, " +
+                    "Zayavki.Zayavkicol_name as 'Назва заявки', " +
+                    "products.product_name as 'Продукт', " +
+                    "TS_brand.TS_brandcol_brand as 'Бренд'," +
+                    "TS_model.TS_modelcol_name as 'Модель'," +
+                    "Zayavki.Zayavkicol_VIN as 'VIN'," +
+                    "Activation_object.Activation_objectcol_result as 'Результат', " +
+                    "Activation_object.new_name_obj as 'Назва обєкту', " +
+                    "Activation_object.comment as 'Коментар' " +
+                    "FROM " +
+                    "btk.products," +
+                    "btk.Activation_object," +
+                    "btk.Zayavki," +
+                    "btk.TS_brand," +
+                    "btk.TS_model " +
+                    "where " +
+                    "Activation_object.Object_idObject != '10' " +
+                    "and TS_brand.idTS_brand = Zayavki.TS_brand_idTS_brand " +
+                    "and TS_model.idTS_model = Zayavki.TS_model_idTS_model " +
+                    "and products.idproducts = Zayavki.products_idproducts " +
+                    "and Zayavki.Activation_object_idActivation_object = Activation_object.idActivation_object " +
+                    "order by idZayavki desc" +
+                    "; ");
 
+            }
 
-            UpdateGridHandler ug = UpdateGrid_activation;
-            ug.BeginInvoke(table, cb_activation, null);
-        }
-        private void cb_activation(IAsyncResult res)
-        {
-
-        }
-        private void UpdateGrid1_activation(DataTable table)
-        {
             int scrollPosition = dataGridView_for_activation.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
             dataGridView_for_activation.DataSource = table;
+
+            dataGridView_for_activation.Columns["Object_idObject"].Visible = false;
             dataGridView_for_activation.Columns["idActivation_object"].Visible = false;
             dataGridView_for_activation.Columns["Коментар"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            dataGridView_for_activation.Columns["Заявка №"].AutoSizeMode  = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_for_activation.Columns["Заявка №"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView_for_activation.Columns["Назва заявки"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView_for_activation.Columns["Продукт"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView_for_activation.Columns["Бренд"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -591,53 +660,57 @@ namespace Disp_WinForm
                 dataGridView_for_activation.FirstDisplayedScrollingRowIndex = scrollPosition;
             }
         }
-        private void UpdateGrid_activation(DataTable table)
-        {
-            if (dataGridView_for_activation.InvokeRequired)
-            {
-                UpdateGridThreadHandler handler = UpdateGrid1_activation;
-                dataGridView_for_activation.BeginInvoke(handler, table);
-            }
-            else
-            {
-                int scrollPosition = dataGridView_for_activation.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                dataGridView_for_activation.DataSource = table;
-                dataGridView_for_activation.Columns["idActivation_object"].Visible = false;
-                dataGridView_for_activation.Columns["Коментар"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-                dataGridView_for_activation.Columns["Заявка №"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                dataGridView_for_activation.Columns["Назва заявки"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                dataGridView_for_activation.Columns["Продукт"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                dataGridView_for_activation.Columns["Бренд"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                dataGridView_for_activation.Columns["Модель"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                dataGridView_for_activation.Columns["VIN"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                dataGridView_for_activation.Columns["Результат"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                dataGridView_for_activation.Columns["Назва обєкту"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                dataGridView_for_activation.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-
-                if (dataGridView_for_activation.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
-                {
-                    if (scrollPosition == -1)
-                    {
-                        scrollPosition = 0;
-                    }
-                    dataGridView_for_activation.FirstDisplayedScrollingRowIndex = scrollPosition;
-                }
-            }
-        }
 
         /// Обновляем вкладку Testing 
-        /// 
         private void update_testing_dgv()
         {
-            //ПОлучим последний созданный айди тестирование, и возмем из него дату для верного отображения которую покладем в даттаймпикер
-            //string maxID = macros.sql_command2("SELECT MAX(idtesting_object) FROM btk.testing_object;");
-            //string t = macros.sql_command2("SELECT Object.Object_name, Users.username, testing_object.testing_objectcol_result, testing_object.testing_objectcol_edit_timestamp FROM btk.testing_object, btk.Object, btk.Users where testing_object.Object_idObject=Object.idObject and testing_object.Users_idUsers=Users.idUsers;");
-
-
-
-
             DataTable table = new DataTable();
-            table = macros.GetData("SELECT " +
+
+            if (comboBox_testing_filter.SelectedIndex == 1)
+            {
+                table = macros.GetData("SELECT " +
+                                   "testing_object.idtesting_object as '№ тестування', " +
+                                   "Object.Object_name as 'Назва обекту', " +
+                                   "Object.Object_imei as 'IMEI', " +
+                                   "Users.username as 'Змінив', " +
+                                   "testing_object.testing_objectcol_result as 'Результат', " +
+                                   "testing_object.testing_objectcol_edit_timestamp as 'Змінено', " +
+                                   "testing_object.testing_objectcol_comments as 'Коментар' " +
+                                   "FROM " +
+                                   "btk.testing_object, " +
+                                   "btk.Object, " +
+                                   "btk.Users " +
+                                   "where " +
+                                   "testing_object.testing_objectcol_result='Успішно' and " +
+                                   "testing_object.Object_idObject=Object.idObject and " +
+                                   "testing_object.Users_idUsers=Users.idUsers and " +
+                                   "(testing_object.testing_objectcol_edit_timestamp  between '" + Convert.ToDateTime(dateTimePicker_testing_date.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "') and " +
+                                   "Object.Object_imei like '%" + textBox_search_testing.Text + "%' ;");
+            }
+            else if (comboBox_testing_filter.SelectedIndex == 0)
+            {
+                table = macros.GetData("SELECT " +
+                                   "testing_object.idtesting_object as '№ тестування', " +
+                                   "Object.Object_name as 'Назва обекту', " +
+                                   "Object.Object_imei as 'IMEI', " +
+                                   "Users.username as 'Змінив', " +
+                                   "testing_object.testing_objectcol_result as 'Результат', " +
+                                   "testing_object.testing_objectcol_edit_timestamp as 'Змінено', " +
+                                   "testing_object.testing_objectcol_comments as 'Коментар' " +
+                                   "FROM " +
+                                   "btk.testing_object, " +
+                                   "btk.Object, " +
+                                   "btk.Users " +
+                                   "where " +
+                                   "testing_object.testing_objectcol_result ='Не завершено' and " +
+                                   "testing_object.Object_idObject=Object.idObject and " +
+                                   "testing_object.Users_idUsers=Users.idUsers and " +
+                                   "(testing_object.testing_objectcol_edit_timestamp  between '" + Convert.ToDateTime(dateTimePicker_testing_date.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "') and " +
+                                   "Object.Object_imei like '%" + textBox_search_testing.Text + "%' ;");
+            }
+            else if (comboBox_testing_filter.SelectedIndex == 2)
+            {
+                table = macros.GetData("SELECT " +
                                    "testing_object.idtesting_object as '№ тестування', " +
                                    "Object.Object_name as 'Назва обекту', " +
                                    "Object.Object_imei as 'IMEI', " +
@@ -654,19 +727,23 @@ namespace Disp_WinForm
                                    "testing_object.Users_idUsers=Users.idUsers and " +
                                    "(testing_object.testing_objectcol_edit_timestamp  between '" + Convert.ToDateTime(dateTimePicker_testing_date.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "') and " +
                                    "Object.Object_imei like '%" + textBox_search_testing.Text + "%' ;");
-            
+            }
 
-            UpdateGridHandler ug = UpdateGrid_testing;
-            ug.BeginInvoke(table, cb_testing, null);
-        }
-        private void cb_testing(IAsyncResult res)
-        {
-
-        }
-        private void UpdateGrid1_testing(DataTable table)
-        {
             int scrollPosition = dataGridView_testing.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
             dataGridView_testing.DataSource = table;
+
+
+            dataGridView_testing.Columns["№ тестування"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_testing.Columns["Назва обекту"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_testing.Columns["IMEI"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_testing.Columns["Змінив"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_testing.Columns["Результат"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_testing.Columns["Змінено"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_testing.Columns["Коментар"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+            dataGridView_testing.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+
             if (dataGridView_testing.Rows.Count >= 1)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
             {
                 if (scrollPosition == -1)
@@ -675,28 +752,9 @@ namespace Disp_WinForm
                 }
                 dataGridView_testing.FirstDisplayedScrollingRowIndex = scrollPosition;
             }
+
         }
-        private void UpdateGrid_testing(DataTable table)
-        {
-            if (dataGridView_testing.InvokeRequired)
-            {
-                UpdateGridThreadHandler handler = UpdateGrid1_testing;
-                dataGridView_testing.BeginInvoke(handler, table);
-            }
-            else
-            {
-                int scrollPosition = dataGridView_testing.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                dataGridView_testing.DataSource = table;
-                if (dataGridView_testing.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
-                {
-                    if (scrollPosition == -1)
-                    {
-                        scrollPosition = 0;
-                    }
-                    dataGridView_testing.FirstDisplayedScrollingRowIndex = scrollPosition;
-                }
-            }
-        }
+
         private void dataGridView_testing_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             dataGridView_testing.SuspendLayout();
@@ -2008,6 +2066,7 @@ namespace Disp_WinForm
         {
             //this.Visible = true;// разблокируем окно  кактолько закрыто окно добавления 
             vars_form.if_open_created_activation = 0;
+            update_actication_dgv();
         }
 
 
@@ -2147,20 +2206,6 @@ namespace Disp_WinForm
             form_Zayavki.Show();
         }
 
-        private void comboBox_activovani_select_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            update_zayavki_na_aktivation_2W();
-        }
-
-        private void comboBox_prikripleno_select_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            update_zayavki_na_aktivation_2W();
-        }
-
-        private void dateTimePicker_for_zayavki_na_activation_W2_ValueChanged(object sender, EventArgs e)
-        {
-            update_zayavki_na_aktivation_2W();
-        }
 
         private void dataGridView_for_activation_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -2169,8 +2214,8 @@ namespace Disp_WinForm
                 return;
             }
 
-            vars_form.id_db_object_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[0].Value.ToString();
-            vars_form.id_db_zayavki_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[1].Value.ToString();
+            vars_form.id_db_object_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[1].Value.ToString();
+            vars_form.id_db_activation_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[2].Value.ToString();
             vars_form.id_wl_object_for_activation = macros.sql_command("SELECT Object_id_wl FROM btk.Object where idObject = '" + vars_form.id_db_object_for_activation + "';");
             vars_form.if_open_created_activation = 1;
 
@@ -2180,9 +2225,34 @@ namespace Disp_WinForm
             activation_form.Show();
         }
 
-        private void dataGridView_for_activation_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void comboBox_activation_filter_DropDownClosed(object sender, EventArgs e)
         {
+            update_actication_dgv();
+        }
 
+        private void comboBox_testing_filter_DropDownClosed(object sender, EventArgs e)
+        {
+            update_testing_dgv();
+        }
+
+        private void dateTimePicker_testing_date_CloseUp(object sender, EventArgs e)
+        {
+            update_testing_dgv();
+        }
+
+        private void comboBox_activovani_select_DropDownClosed(object sender, EventArgs e)
+        {
+            update_zayavki_na_aktivation_2W();
+        }
+
+        private void dateTimePicker_for_zayavki_na_activation_W2_CloseUp(object sender, EventArgs e)
+        {
+            update_zayavki_na_aktivation_2W();
+        }
+
+        private void comboBox_prikripleno_select_DropDownClosed(object sender, EventArgs e)
+        {
+            update_zayavki_na_aktivation_2W();
         }
     }
 

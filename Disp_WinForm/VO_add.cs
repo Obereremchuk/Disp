@@ -138,23 +138,38 @@ namespace Disp_WinForm
         {
             if (vars_form.num_vo == 1)
             {
-                vars_form.transfer_vo1_vo_form = listBox_kontakts_list.SelectedValue.ToString();
+                if (listBox_kontakts_list.SelectedValue.ToString() == "")
+                { vars_form.transfer_vo1_vo_form = "1"; }
+                else 
+                { vars_form.transfer_vo1_vo_form = listBox_kontakts_list.SelectedValue.ToString(); }
             }
             else if (vars_form.num_vo == 2)
             {
-                vars_form.transfer_vo2_vo_form = listBox_kontakts_list.SelectedValue.ToString();
+                if (listBox_kontakts_list.SelectedValue.ToString() == "")
+                { vars_form.transfer_vo2_vo_form = "1"; }
+                else
+                { vars_form.transfer_vo2_vo_form = listBox_kontakts_list.SelectedValue.ToString(); }
             }
             else if (vars_form.num_vo == 3)
             {
-                vars_form.transfer_vo3_vo_form = listBox_kontakts_list.SelectedValue.ToString();
+                if (listBox_kontakts_list.SelectedValue.ToString() == "")
+                { vars_form.transfer_vo3_vo_form = "1"; }
+                else
+                { vars_form.transfer_vo3_vo_form = listBox_kontakts_list.SelectedValue.ToString(); }
             }
             else if (vars_form.num_vo == 4)
             {
-                vars_form.transfer_vo4_vo_form = listBox_kontakts_list.SelectedValue.ToString();
+                if (listBox_kontakts_list.SelectedValue.ToString() == "")
+                { vars_form.transfer_vo4_vo_form = "1"; }
+                else
+                { vars_form.transfer_vo4_vo_form = listBox_kontakts_list.SelectedValue.ToString(); }
             }
             else if (vars_form.num_vo == 5)
             {
-                vars_form.transfer_vo5_vo_form = listBox_kontakts_list.SelectedValue.ToString();
+                if (listBox_kontakts_list.SelectedValue.ToString() == "")
+                { vars_form.transfer_vo5_vo_form = "1"; }
+                else
+                { vars_form.transfer_vo5_vo_form = listBox_kontakts_list.SelectedValue.ToString(); }
             }
             this.Close();
         }

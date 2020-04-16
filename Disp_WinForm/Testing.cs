@@ -919,7 +919,7 @@ namespace Disp_WinForm
                         "testing_objectcol_autostart = '" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
                         "testing_objectcol_comments = '" + textBox_commets.Text.ToString() + "', " +
                         "Users_idUsers = '" + vars_form.user_login_id + "', " +
-                        "testing_objectcol_result = '" + comboBox_result.GetItemText(comboBox_result.SelectedItem).ToString() + "' " +
+                        "testing_objectcol_result = 'Не завершено' " +
                         "where " +
                         "idtesting_object = '" + vars_form.id_db_openning_testing + "' " +
                         ";");
@@ -1202,7 +1202,7 @@ namespace Disp_WinForm
                         "testing_objectcol_autostart = '" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
                         "testing_objectcol_comments = '" + textBox_commets.Text.ToString() + "', " +
                         "Users_idUsers = '" + vars_form.user_login_id + "', " +
-                        "testing_objectcol_result = '" + comboBox_result.GetItemText(comboBox_result.SelectedItem).ToString() + "' " +
+                        "testing_objectcol_result = 'Успішно' " +
                         "where " +
                         "idtesting_object = '" + vars_form.id_db_openning_testing + "' " +
                         ";");
@@ -1242,7 +1242,7 @@ namespace Disp_WinForm
                     //                       "'" + comboBox_result.GetItemText(comboBox_result.SelectedItem).ToString() + "'" +
                     //                       ");");
 
-                    macros.sql_command("update btk.Object set Objectcol_testing_ok = '" + comboBox_result.GetItemText(comboBox_result.SelectedItem).ToString() + "' where idObject = '" + vars_form.id_db_object_for_test + "';");
+                    macros.sql_command("update btk.Object set Objectcol_testing_ok = 'Не завершено' where idObject = '" + vars_form.id_db_object_for_test + "';");
 
                     string Subject = "505 Протестовано успішно! VIN: " + textBox_vin.Text + ", Обєкт: " + name_obj_textBox.Text;
                     string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua><e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>";
@@ -1290,7 +1290,7 @@ namespace Disp_WinForm
             }
             else
             {
-                int result;
+                
                 if (checkBox_test_tk.Checked is false || checkBox_test_zablocovano.Checked is false ||
                     checkBox_test_du.Checked is false || checkBox__test_vzlom.Checked is false ||
                     checkBox_test_koordinati.Checked is false)
@@ -1301,7 +1301,7 @@ namespace Disp_WinForm
                         return;
                     }
 
-                    result = 0;
+                    
 
                     macros.sql_command("insert into btk.testing_object (" +
                                            "Object_idObject, " +
@@ -1332,14 +1332,14 @@ namespace Disp_WinForm
                                            "'" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
                                            "'" + textBox_commets.Text.ToString() + "', " +
                                            "'" + vars_form.user_login_id + "', " +
-                                           "'" + result + "'" +
+                                           "'Не завершено'" +
                                            ");");
                     macros.sql_command("update btk.Object set Objectcol_testing_ok = 0 where idObject = '" +
                                        vars_form.id_db_object_for_test + "';");
                 }
                 else
                 {
-                    result = 1;
+                    
 
                     if (wl_group_activ_checkBox.Checked is true)
                     {
@@ -1605,9 +1605,9 @@ namespace Disp_WinForm
                                            "'" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
                                            "'" + textBox_commets.Text.ToString() + "', " +
                                            "'" + vars_form.user_login_id + "', " +
-                                           "'" + comboBox_result.GetItemText(comboBox_result.SelectedItem).ToString() + "'" +
+                                           "'Успішно'" +
                                            ");");
-                    macros.sql_command("update btk.Object set Objectcol_testing_ok = '" + comboBox_result.GetItemText(comboBox_result.SelectedItem).ToString() + "' where idObject = '" + vars_form.id_db_object_for_test + "';");
+                    macros.sql_command("update btk.Object set Objectcol_testing_ok = 'Успішно' where idObject = '" + vars_form.id_db_object_for_test + "';");
 
                     string Subject = "505 Протестовано успішно! VIN: " + textBox_vin.Text + ", Обєкт: " + name_obj_textBox.Text;
                     string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua><e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>";

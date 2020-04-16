@@ -376,7 +376,7 @@ namespace Disp_WinForm
             }
             if (comboBox_status_trevogi.SelectedItem.ToString() == "Продажи" & (_id_status == "Обробляется" || _id_status == "Відкрито" || _id_status == "808" || _id_status == "Дилеры"))//если изменяем статус с Обробляется на 808  - отправляем меил со всейхронологией обработки тревоги
             {
-                string recipient = "<" + vars_form.user_login_email + ">," + "<a.lozinskiy@venbest.com.ua>";
+                string recipient = "<" + vars_form.user_login_email + ">," + "<a.lozinskiy@venbest.com.ua>, <y.kravchenko@venbest.com.ua>";
                 send_email(recipient);
             }
             if (comboBox_status_trevogi.SelectedItem.ToString() == "Дилеры" & (_id_status == "Обробляется" || _id_status == "Відкрито" || _id_status == "808" || _id_status == "Продажи"))//если изменяем статус с Обробляется на 808  - отправляем меил со всейхронологией обработки тревоги
