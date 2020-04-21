@@ -152,7 +152,14 @@ namespace Disp_WinForm
                         string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + row[0].ToString() + "';");
                         if (VO_phone2 == "   -   -")
                         { VO_phone2 = ""; }
-                        textBox_vo4.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                        if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
+                        {
+                            textBox_vo4.Text = "";
+                        }
+                        else
+                        {
+                            textBox_vo4.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                        }
                     }
                     if (row[1].ToString() == "5")
                     {
@@ -160,7 +167,14 @@ namespace Disp_WinForm
                         string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + row[0].ToString() + "';");
                         if (VO_phone2 == "   -   -")
                         { VO_phone2 = ""; }
-                        textBox_vo5.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                        if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
+                        {
+                            textBox_vo5.Text = "";
+                        }
+                        else
+                        {
+                            textBox_vo5.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                        }
                     }
 
                 }
@@ -187,6 +201,67 @@ namespace Disp_WinForm
 
 
             }
+
+            //Load data from opened activation
+            string tk_tested = macros.sql_command("SELECT alarm_button FROM btk.Activation_object where idActivation_object = '"+vars_form.id_db_activation_for_activation+"'");
+            if (tk_tested == "1")
+            { checkBox_tk_tested.Checked = true; }
+            else if (tk_tested == "0" || tk_tested == "")
+            { checkBox_tk_tested.Checked = false; }
+
+            string pin_chenged = macros.sql_command("SELECT pin_chenged FROM btk.Activation_object where idActivation_object = '" + vars_form.id_db_activation_for_activation + "'");
+            if (pin_chenged == "1")
+            { checkBox_pin_chenged.Checked = true; }
+            else if(pin_chenged == "0" || pin_chenged == "") 
+            { checkBox_pin_chenged.Checked = false; }
+
+            //load data from zayavki
+            DataTable table2 = new DataTable();
+            table2 = macros.GetData("SELECT " +
+                "Sobstvennik_avto_neme ," +
+                "Kontakt_name_avto_1 ," +
+                "Kontakt_phone_avto_1 ," +
+                "Kontakt_name_avto_2 ," +
+                "Kontakt_phone_avto_2 ," +
+                "email ," +
+                "products.product_name ," +
+                "Kontragenti.Kontragenti_short_name " +
+                "from " +
+                "btk.Zayavki, btk.products, btk.Kontragenti " +
+                "where " +
+                "Zayavki.products_idproducts = products.idproducts " +
+                "and Kontragenti.idKontragenti = Zayavki.Kontragenti_idKontragenti_zakazchik " +
+                "and Zayavki.idZayavki = '" +vars_form.id_db_zayavki_for_activation +"'" +
+                ";");
+
+            textBox_vlasnik.Text = table2.Rows[0][0].ToString();
+            textBox_kont1.Text = table2.Rows[0][1].ToString();
+            maskedTextBox_kont_phone1.Text = table2.Rows[0][2].ToString();
+            textBox_kont2.Text = table2.Rows[0][3].ToString();
+            maskedTextBox_cont_phone2.Text = table2.Rows[0][4].ToString();
+            textBox_email.Text = table2.Rows[0][5].ToString();
+            textBox_product.Text = table2.Rows[0][6].ToString();
+            textBox_zamovnik.Text = table2.Rows[0][7].ToString();
+            //load coments for activation
+            DataTable table = new DataTable();
+
+            
+                table = macros.GetData("SELECT " +
+                    "coments as 'Коментарій'," +
+                    "date_insert as 'Дата'," +
+                    "Users.username as 'Користувач' " +
+                    "FROM btk.activation_comments, btk.Users " +
+                    "where " +
+                    "Users.idUsers = activation_comments.Users_idUsers " +
+                    "and Activation_object_idActivation_object = '" +vars_form.id_db_activation_for_activation+"'; ");
+
+            dataGridView_activation_coments.DataSource = table;
+
+            dataGridView_activation_coments.Columns["Коментарій"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridView_activation_coments.Columns["Дата"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_activation_coments.Columns["Користувач"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_activation_coments.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            
         }
 
         private void cancel_button_Click(object sender, EventArgs e)
@@ -2035,6 +2110,21 @@ namespace Disp_WinForm
                 return;
             }
 
+            if ((comboBox_activation_result.SelectedIndex == 1 | comboBox_activation_result.SelectedIndex == 2) | textBox_comments.Text != "")
+            {
+                macros.sql_command("insert into btk.activation_comments (" +
+                    "coments," +
+                    "date_insert," +
+                    "Activation_object_idActivation_object," +
+                    "Users_idUsers" +
+                    ") values (" +
+                    "'"+textBox_comments.Text+"', " +
+                    "'"+ Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                    "'"+vars_form.id_db_activation_for_activation+"'," +
+                    "'"+vars_form.user_login_id+"'" +
+                    "); ");
+            }
+
             //Загружаем произвольные поля объекта
             string json = macros.wialon_request_new("&svc=core/search_items&params={" +
                                                      "\"spec\":{" +
@@ -2170,47 +2260,14 @@ namespace Disp_WinForm
                     "vo4 = '" + vars_form.transfer_vo4_vo_form + "'," +
                     "vo5 = '" + vars_form.transfer_vo5_vo_form + "'," +
                     "kodove_slovo = '" + kodove_slovo_textBox.Text + "'," +
-                    "alarm_button = '" + status_tk_textBox.Text + "'," +
-                    "comment = '" + textBox_comments.Text + "'" +
+                    "alarm_button = '" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
+                    "pin_chenged = '" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'" +
                     "where " +
                     "idActivation_object = '"+ vars_form.id_db_activation_for_activation + "'" +
                     ";");
 
-               //macros.sql_command("insert into btk.Activation_object (" +
-               //                                                     "Activation_date, " +
-               //                                                     "Users_idUsers, " +
-               //                                                     "Object_idObject," +
-               //                                                     "Activation_objectcol_result," +
-               //                                                     "new_name_obj," +
-               //                                                     "new_pole_uvaga," +
-               //                                                     "vo1," +
-               //                                                     "vo2," +
-               //                                                     "vo3," +
-               //                                                     "vo4," +
-               //                                                     "vo5, " +
-               //                                                     "kodove_slovo," +
-               //                                                     "alarm_button," +
-               //                                                     "comment" +
-               //                                                     ") " +
-               //                                                     "values (" +
-               //                                                     "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
-               //                                                     "'" + vars_form.user_login_id + "'," +
-               //                                                     "'" + vars_form.id_db_object_for_activation + "'," +
-               //                                                     "'" + comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) + "'," +
-               //                                                     "'" + name_obj_new_textBox.Text + "'," +
-               //                                                     "'" + uvaga_textBox.Text + "'," +
-               //                                                     "'" + vars_form.transfer_vo1_vo_form + "'," +
-               //                                                     "'" + vars_form.transfer_vo2_vo_form + "'," +
-               //                                                     "'" + vars_form.transfer_vo3_vo_form + "'," +
-               //                                                     "'" + vars_form.transfer_vo4_vo_form + "'," +
-               //                                                     "'" + vars_form.transfer_vo5_vo_form + "'," +
-               //                                                     "'" + kodove_slovo_textBox.Text + "'," +
-               //                                                     "'" + status_tk_textBox.Text + "'," +
-               //                                                     "'" + textBox_comments.Text + "'" +
-               //                                                     ");");
+                
 
-               // string get_id_activacii = macros.sql_command("SELECT MAX(idActivation_object) FROM btk.Activation_object;");
-               // macros.sql_command("update btk.Zayavki set Activation_object_idActivation_object = '" + get_id_activacii + "' where idZayavki = '" + vars_form.id_db_zayavki_for_activation + "';");
             }
             else if (vars_form.if_open_created_activation == 0)
             {
@@ -2228,7 +2285,7 @@ namespace Disp_WinForm
                                                                     "vo5, " +
                                                                     "kodove_slovo," +
                                                                     "alarm_button," +
-                                                                    "comment" +
+                                                                    "pin_chenged" +
                                                                     ") " +
                                                                     "values (" +
                                                                     "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
@@ -2243,8 +2300,8 @@ namespace Disp_WinForm
                                                                     "'" + vars_form.transfer_vo4_vo_form + "'," +
                                                                     "'" + vars_form.transfer_vo5_vo_form + "'," +
                                                                     "'" + kodove_slovo_textBox.Text + "'," +
-                                                                    "'" + status_tk_textBox.Text + "'," +
-                                                                    "'" + textBox_comments.Text + "'" +
+                                                                    "'" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
+                                                                    "'" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'" +
                                                                     ");");
 
                 string get_id_activacii = macros.sql_command("SELECT MAX(idActivation_object) FROM btk.Activation_object;");
@@ -2304,6 +2361,36 @@ namespace Disp_WinForm
             {
                 textBox_account_pss.ReadOnly = true;
             }
+        }
+
+        private void button_call_kont1_Click(object sender, EventArgs e)
+        {
+            string path = macros.GetProcessPath("microsip");
+            if (path=="")
+            { MessageBox.Show("Для виклику необхідно запустити Microsip!"); return; }
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            startInfo.Arguments = "/C " + path + " " + maskedTextBox_kont_phone1.Text;
+            process.StartInfo = startInfo;
+            process.Start();
+
+
+        }
+
+        private void button_call_cont2_Click(object sender, EventArgs e)
+        {
+            string path = macros.GetProcessPath("microsip");
+            if (path == "")
+            { MessageBox.Show("Для виклику необхідно запустити Microsip!"); return; }
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            startInfo.Arguments = "/C " + path + " " + maskedTextBox_cont_phone2.Text;
+            process.StartInfo = startInfo;
+            process.Start();
         }
     }
 }

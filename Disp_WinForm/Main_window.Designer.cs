@@ -705,6 +705,9 @@
             // 
             this.dataGridView_dilery.AllowUserToAddRows = false;
             this.dataGridView_dilery.AllowUserToDeleteRows = false;
+            this.dataGridView_dilery.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -754,6 +757,9 @@
             // 
             this.dataGridView_sales.AllowUserToAddRows = false;
             this.dataGridView_sales.AllowUserToDeleteRows = false;
+            this.dataGridView_sales.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -807,6 +813,9 @@
             this.dataGridView_zayavki_na_activation.AllowUserToOrderColumns = true;
             this.dataGridView_zayavki_na_activation.AllowUserToResizeColumns = false;
             this.dataGridView_zayavki_na_activation.AllowUserToResizeRows = false;
+            this.dataGridView_zayavki_na_activation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView_zayavki_na_activation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_zayavki_na_activation.Location = new System.Drawing.Point(6, 99);
             this.dataGridView_zayavki_na_activation.Name = "dataGridView_zayavki_na_activation";
@@ -825,21 +834,22 @@
             this.groupBox10.Controls.Add(this.dateTimePicker_for_zayavki_na_activation_W2);
             this.groupBox10.Location = new System.Drawing.Point(3, 3);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(1401, 90);
+            this.groupBox10.Size = new System.Drawing.Size(406, 90);
             this.groupBox10.TabIndex = 0;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Керування заявками на активацію";
             // 
             // comboBox_prikripleno_select
             // 
-            this.comboBox_prikripleno_select.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_prikripleno_select.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBox_prikripleno_select.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_prikripleno_select.FormattingEnabled = true;
             this.comboBox_prikripleno_select.Items.AddRange(new object[] {
             "Всі",
             "Прикріплені",
             "Не прикріплені"});
-            this.comboBox_prikripleno_select.Location = new System.Drawing.Point(137, 61);
+            this.comboBox_prikripleno_select.Location = new System.Drawing.Point(133, 61);
             this.comboBox_prikripleno_select.Name = "comboBox_prikripleno_select";
             this.comboBox_prikripleno_select.Size = new System.Drawing.Size(121, 21);
             this.comboBox_prikripleno_select.TabIndex = 8;
@@ -847,14 +857,15 @@
             // 
             // comboBox_activovani_select
             // 
-            this.comboBox_activovani_select.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_activovani_select.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBox_activovani_select.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_activovani_select.FormattingEnabled = true;
             this.comboBox_activovani_select.Items.AddRange(new object[] {
             "Всі",
             "Активовані",
             "Неактивовані"});
-            this.comboBox_activovani_select.Location = new System.Drawing.Point(10, 61);
+            this.comboBox_activovani_select.Location = new System.Drawing.Point(6, 61);
             this.comboBox_activovani_select.Name = "comboBox_activovani_select";
             this.comboBox_activovani_select.Size = new System.Drawing.Size(121, 21);
             this.comboBox_activovani_select.TabIndex = 7;
@@ -862,8 +873,9 @@
             // 
             // button_create_zayavka
             // 
-            this.button_create_zayavka.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_create_zayavka.Location = new System.Drawing.Point(10, 19);
+            this.button_create_zayavka.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.button_create_zayavka.Location = new System.Drawing.Point(6, 19);
             this.button_create_zayavka.Name = "button_create_zayavka";
             this.button_create_zayavka.Size = new System.Drawing.Size(392, 36);
             this.button_create_zayavka.TabIndex = 6;
@@ -873,8 +885,9 @@
             // 
             // dateTimePicker_for_zayavki_na_activation_W2
             // 
-            this.dateTimePicker_for_zayavki_na_activation_W2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateTimePicker_for_zayavki_na_activation_W2.Location = new System.Drawing.Point(264, 62);
+            this.dateTimePicker_for_zayavki_na_activation_W2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dateTimePicker_for_zayavki_na_activation_W2.Location = new System.Drawing.Point(260, 62);
             this.dateTimePicker_for_zayavki_na_activation_W2.Name = "dateTimePicker_for_zayavki_na_activation_W2";
             this.dateTimePicker_for_zayavki_na_activation_W2.Size = new System.Drawing.Size(138, 20);
             this.dateTimePicker_for_zayavki_na_activation_W2.TabIndex = 4;
@@ -1023,7 +1036,7 @@
             this.dataGridView_for_activation.ReadOnly = true;
             this.dataGridView_for_activation.RowHeadersVisible = false;
             this.dataGridView_for_activation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_for_activation.Size = new System.Drawing.Size(1347, 482);
+            this.dataGridView_for_activation.Size = new System.Drawing.Size(1356, 510);
             this.dataGridView_for_activation.TabIndex = 0;
             this.dataGridView_for_activation.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_for_activation_CellDoubleClick);
             // 

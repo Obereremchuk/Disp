@@ -69,6 +69,8 @@
             this.label15 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBox_id_testing = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.textBox_email = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_tested_objects_zayavki)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,7 +86,7 @@
             // 
             // textBox_vin_zayavki
             // 
-            this.textBox_vin_zayavki.Location = new System.Drawing.Point(94, 188);
+            this.textBox_vin_zayavki.Location = new System.Drawing.Point(94, 212);
             this.textBox_vin_zayavki.Name = "textBox_vin_zayavki";
             this.textBox_vin_zayavki.Size = new System.Drawing.Size(291, 20);
             this.textBox_vin_zayavki.TabIndex = 1;
@@ -92,7 +94,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 191);
+            this.label1.Location = new System.Drawing.Point(14, 215);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(25, 13);
             this.label1.TabIndex = 5;
@@ -101,7 +103,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 269);
+            this.label2.Location = new System.Drawing.Point(14, 293);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 13);
             this.label2.TabIndex = 6;
@@ -110,7 +112,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 243);
+            this.label3.Location = new System.Drawing.Point(14, 267);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(46, 13);
             this.label3.TabIndex = 7;
@@ -119,7 +121,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(14, 217);
+            this.label5.Location = new System.Drawing.Point(14, 241);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 13);
             this.label5.TabIndex = 9;
@@ -148,7 +150,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 295);
+            this.label4.Location = new System.Drawing.Point(14, 319);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(69, 13);
             this.label4.TabIndex = 17;
@@ -157,7 +159,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(14, 321);
+            this.label6.Location = new System.Drawing.Point(14, 345);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(76, 13);
             this.label6.TabIndex = 16;
@@ -166,21 +168,21 @@
             // textBox_kontragent_sto_zayavki
             // 
             this.textBox_kontragent_sto_zayavki.Enabled = false;
-            this.textBox_kontragent_sto_zayavki.Location = new System.Drawing.Point(94, 292);
+            this.textBox_kontragent_sto_zayavki.Location = new System.Drawing.Point(94, 316);
             this.textBox_kontragent_sto_zayavki.Name = "textBox_kontragent_sto_zayavki";
             this.textBox_kontragent_sto_zayavki.Size = new System.Drawing.Size(239, 20);
             this.textBox_kontragent_sto_zayavki.TabIndex = 14;
             // 
             // textBox_license_plate_zayavki
             // 
-            this.textBox_license_plate_zayavki.Location = new System.Drawing.Point(94, 318);
+            this.textBox_license_plate_zayavki.Location = new System.Drawing.Point(94, 342);
             this.textBox_license_plate_zayavki.Name = "textBox_license_plate_zayavki";
             this.textBox_license_plate_zayavki.Size = new System.Drawing.Size(291, 20);
             this.textBox_license_plate_zayavki.TabIndex = 13;
             // 
             // button_select_kontragent_sto_zayavki
             // 
-            this.button_select_kontragent_sto_zayavki.Location = new System.Drawing.Point(339, 290);
+            this.button_select_kontragent_sto_zayavki.Location = new System.Drawing.Point(339, 314);
             this.button_select_kontragent_sto_zayavki.Name = "button_select_kontragent_sto_zayavki";
             this.button_select_kontragent_sto_zayavki.Size = new System.Drawing.Size(46, 23);
             this.button_select_kontragent_sto_zayavki.TabIndex = 142;
@@ -191,7 +193,7 @@
             // comboBox_product_zayavki
             // 
             this.comboBox_product_zayavki.FormattingEnabled = true;
-            this.comboBox_product_zayavki.Location = new System.Drawing.Point(94, 266);
+            this.comboBox_product_zayavki.Location = new System.Drawing.Point(94, 290);
             this.comboBox_product_zayavki.Name = "comboBox_product_zayavki";
             this.comboBox_product_zayavki.Size = new System.Drawing.Size(291, 21);
             this.comboBox_product_zayavki.TabIndex = 143;
@@ -199,7 +201,7 @@
             // comboBox_model_zayavki
             // 
             this.comboBox_model_zayavki.FormattingEnabled = true;
-            this.comboBox_model_zayavki.Location = new System.Drawing.Point(94, 241);
+            this.comboBox_model_zayavki.Location = new System.Drawing.Point(94, 265);
             this.comboBox_model_zayavki.Name = "comboBox_model_zayavki";
             this.comboBox_model_zayavki.Size = new System.Drawing.Size(291, 21);
             this.comboBox_model_zayavki.TabIndex = 144;
@@ -207,7 +209,7 @@
             // comboBox_brand_zayavki
             // 
             this.comboBox_brand_zayavki.FormattingEnabled = true;
-            this.comboBox_brand_zayavki.Location = new System.Drawing.Point(94, 214);
+            this.comboBox_brand_zayavki.Location = new System.Drawing.Point(94, 238);
             this.comboBox_brand_zayavki.Name = "comboBox_brand_zayavki";
             this.comboBox_brand_zayavki.Size = new System.Drawing.Size(291, 21);
             this.comboBox_brand_zayavki.TabIndex = 145;
@@ -216,7 +218,7 @@
             // 
             // button_select_kontraget_zakazchik_zayavki
             // 
-            this.button_select_kontraget_zakazchik_zayavki.Location = new System.Drawing.Point(339, 342);
+            this.button_select_kontraget_zakazchik_zayavki.Location = new System.Drawing.Point(339, 366);
             this.button_select_kontraget_zakazchik_zayavki.Name = "button_select_kontraget_zakazchik_zayavki";
             this.button_select_kontraget_zakazchik_zayavki.Size = new System.Drawing.Size(46, 23);
             this.button_select_kontraget_zakazchik_zayavki.TabIndex = 148;
@@ -227,7 +229,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(14, 347);
+            this.label8.Location = new System.Drawing.Point(14, 371);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(58, 13);
             this.label8.TabIndex = 147;
@@ -236,7 +238,7 @@
             // textBox_kontragent_zakazchik
             // 
             this.textBox_kontragent_zakazchik.Enabled = false;
-            this.textBox_kontragent_zakazchik.Location = new System.Drawing.Point(94, 344);
+            this.textBox_kontragent_zakazchik.Location = new System.Drawing.Point(94, 368);
             this.textBox_kontragent_zakazchik.Name = "textBox_kontragent_zakazchik";
             this.textBox_kontragent_zakazchik.Size = new System.Drawing.Size(239, 20);
             this.textBox_kontragent_zakazchik.TabIndex = 146;
@@ -244,7 +246,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(15, 376);
+            this.label9.Location = new System.Drawing.Point(15, 400);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(58, 13);
             this.label9.TabIndex = 150;
@@ -287,7 +289,7 @@
             // comboBox_date_vipuska_zayavki
             // 
             this.comboBox_date_vipuska_zayavki.FormattingEnabled = true;
-            this.comboBox_date_vipuska_zayavki.Location = new System.Drawing.Point(94, 373);
+            this.comboBox_date_vipuska_zayavki.Location = new System.Drawing.Point(94, 397);
             this.comboBox_date_vipuska_zayavki.Name = "comboBox_date_vipuska_zayavki";
             this.comboBox_date_vipuska_zayavki.Size = new System.Drawing.Size(291, 21);
             this.comboBox_date_vipuska_zayavki.TabIndex = 155;
@@ -341,7 +343,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(14, 403);
+            this.label7.Location = new System.Drawing.Point(14, 158);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(76, 13);
             this.label7.TabIndex = 162;
@@ -349,7 +351,7 @@
             // 
             // textBox_sobstvennik_avto
             // 
-            this.textBox_sobstvennik_avto.Location = new System.Drawing.Point(94, 400);
+            this.textBox_sobstvennik_avto.Location = new System.Drawing.Point(94, 155);
             this.textBox_sobstvennik_avto.Name = "textBox_sobstvennik_avto";
             this.textBox_sobstvennik_avto.Size = new System.Drawing.Size(291, 20);
             this.textBox_sobstvennik_avto.TabIndex = 161;
@@ -433,11 +435,29 @@
             this.textBox_id_testing.Size = new System.Drawing.Size(38, 20);
             this.textBox_id_testing.TabIndex = 173;
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(14, 184);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(34, 13);
+            this.label18.TabIndex = 177;
+            this.label18.Text = "e-mail";
+            // 
+            // textBox_email
+            // 
+            this.textBox_email.Location = new System.Drawing.Point(94, 181);
+            this.textBox_email.Name = "textBox_email";
+            this.textBox_email.Size = new System.Drawing.Size(291, 20);
+            this.textBox_email.TabIndex = 176;
+            // 
             // Zayavki
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(792, 643);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.textBox_email);
             this.Controls.Add(this.textBox_id_testing);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label15);
@@ -531,5 +551,7 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.TextBox textBox_id_testing;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox textBox_email;
     }
 }

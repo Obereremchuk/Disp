@@ -2213,7 +2213,7 @@ namespace Disp_WinForm
             {
                 return;
             }
-
+            vars_form.id_db_zayavki_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[0].Value.ToString();
             vars_form.id_db_object_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[1].Value.ToString();
             vars_form.id_db_activation_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[2].Value.ToString();
             vars_form.id_wl_object_for_activation = macros.sql_command("SELECT Object_id_wl FROM btk.Object where idObject = '" + vars_form.id_db_object_for_activation + "';");

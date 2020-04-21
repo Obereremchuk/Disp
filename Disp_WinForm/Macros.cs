@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -430,6 +431,20 @@ namespace Disp_WinForm
                 return table;
             }
 
+        }
+
+        public string GetProcessPath(string name)
+        {
+            Process[] processes = Process.GetProcessesByName(name);
+
+            if (processes.Length > 0)
+            {
+                return processes[0].MainModule.FileName;
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
 
         //other

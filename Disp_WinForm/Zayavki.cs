@@ -347,8 +347,10 @@ namespace Disp_WinForm
                                                         "Kontakt_phone_avto_1 = '" + textBox_tel1.Text + "'," +
                                                         "Kontakt_name_avto_2 = '" + textBox_kont_osoba2.Text + "'," +
                                                         "Kontakt_phone_avto_2 = '" + textBox_tel2.Text + "'," +
-                                                        "Users_idUsers = '" + vars_form.user_login_id + "'" +
-                                                        "WHERE idZayavki = '"+ idZayavki + "'");
+                                                        "Users_idUsers = '" + vars_form.user_login_id + "'," +
+                                                        "email = '" + textBox_email.Text + "'" +
+                                                        "WHERE idZayavki = '" + idZayavki + "'");
+                
 
                 string id_object_from_testing = macros.sql_command("select Object_idObject from btk.testing_object where idtesting_object = '"+ idtesting_object + "';");
                 macros.sql_command("update btk.Activation_object set Object_idObject = " + id_object_from_testing + " where idActivation_object = '" + idZayavki + "';");
@@ -418,6 +420,7 @@ namespace Disp_WinForm
                                                                         "Kontakt_name_avto_2," +
                                                                         "Kontakt_phone_avto_2," +
                                                                         "Users_idUsers," +
+                                                                        "email," +
                                                                         "Activation_object_idActivation_object" +
                                                                         ") " +
                                                                         "values (" +
@@ -441,7 +444,8 @@ namespace Disp_WinForm
                                                                         "'" + textBox_kont_osoba2.Text + "'," +
                                                                         "'" + textBox_tel2.Text + "'," +
                                                                         "'" + vars_form.user_login_id + "'," +
-                                                                        "'"+ id_created_activation + "'" +
+                                                                        "'" + textBox_email.Text + "'," +
+                                                                        "'" + id_created_activation + "'" +
                                                                         ");");
 
                 
