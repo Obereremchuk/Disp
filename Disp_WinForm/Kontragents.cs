@@ -50,8 +50,22 @@ namespace Disp_WinForm
 
         private void Get_kontragents()
         {
+            string sql = "";
             MySqlConnection myConnection = new MySqlConnection("server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True;  charset=utf8");
-            string sql = string.Format("SELECT * FROM btk.Kontragenti where Kontragenti_full_name like '%"+textBox_search_kontragents.Text+ "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_kategory like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%';");
+            
+            if (vars_form.select_sto_or_zakazchik_for_zayavki == 0)
+            {
+                sql = string.Format("SELECT * FROM btk.Kontragenti where (Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%') and Kontragenticol_kategory like 'СК' ;");
+            }
+            else if (vars_form.select_sto_or_zakazchik_for_zayavki == 1)
+            {
+                sql = string.Format("SELECT * FROM btk.Kontragenti where (Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%') and Kontragenticol_kategory like 'Диллер/СТО' ;");
+            }
+            else if (vars_form.select_sto_or_zakazchik_for_zayavki == 2)
+            {
+                sql = string.Format("SELECT * FROM btk.Kontragenti where Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_kategory like 'Замовник' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%';");
+            }
+
             MySqlCommand myDataAdapter = new MySqlCommand(sql, myConnection);
             myConnection.Open();
             MySqlDataReader reader = myDataAdapter.ExecuteReader();

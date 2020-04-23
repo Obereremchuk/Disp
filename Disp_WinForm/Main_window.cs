@@ -40,18 +40,25 @@ namespace Disp_WinForm
 
             dateTimePicker_testing_date.Value = DateTime.Now.Date + ts1;
             dateTimePicker_for_zayavki_na_activation_W2.Value = DateTime.Now.Date + ts1;
+            dateTimePicker_activation_filter_start.Value = DateTime.Now.Date;
+            dateTimePicker_activation_filter_end.Value = DateTime.Now.Date;
 
             TimeSpan ts2 = new TimeSpan(23, 59, 59);
 
             
-            dataGridView_for_activation.DefaultCellStyle.SelectionBackColor = Color.White;
-            dataGridView_for_activation.DefaultCellStyle.SelectionForeColor = Color.Black;
+            //dataGridView_for_activation.DefaultCellStyle.SelectionBackColor = Color.White;
+            //dataGridView_for_activation.DefaultCellStyle.SelectionForeColor = Color.Black;
 
 
         }
 
         private void init()
         {
+            //// Set the DataGridView control's border.
+            //dataGridView_for_activation.BorderStyle = BorderStyle.Fixed3D;
+            //// Put the cells in edit mode when user enters them.
+            //dataGridView_for_activation.EditMode = DataGridViewEditMode.EditOnEnter;
+
             dataGridView_808_n.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
             dataGridView_808_n.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             // Set the DataGridView control's border.
@@ -107,8 +114,6 @@ namespace Disp_WinForm
 
         private void accsses()
         {
-
-
             if (vars_form.user_login_id == "5" || vars_form.user_login_id == "9" || vars_form.user_login_id == "34")//разрешаем Ленику, Пустовит доступ к вкладке Звит
             {
 
@@ -117,6 +122,7 @@ namespace Disp_WinForm
             {
                 tabControl_testing.TabPages.Remove(tabPage3);
                 tabControl_testing.TabPages.Remove(tabPage_zvit);
+                textBox_activation_search.Enabled = false;
             }
 
             if (vars_form.user_login_id == "6" || vars_form.user_login_id == "2")//разрешаем Лозинскоу доступ к вкладке зупинки обслуговування
@@ -127,6 +133,7 @@ namespace Disp_WinForm
             {
                 tabControl_testing.TabPages.Remove(tabPage3);
             }
+
 
 
 
@@ -555,7 +562,9 @@ namespace Disp_WinForm
                     "Zayavki.Zayavkicol_VIN as 'VIN'," +
                     "Activation_object.Activation_objectcol_result as 'Результат', " +
                     "Activation_object.new_name_obj as 'Назва обєкту', " +
-                    "Activation_object.comment as 'Коментар' " +
+                    "Activation_object.comment as 'Коментар', " +
+                    "remaynder_activate as 'Нагадати', " +
+                    "remayder_date as 'Дата нагадування' " +
                     "FROM " +
                     "btk.products," +
                     "btk.Activation_object," +
@@ -564,6 +573,7 @@ namespace Disp_WinForm
                     "btk.TS_model " +
                     "where " +
                     "Activation_object.Activation_objectcol_result != 'Успішно' " +
+                    "and Activation_object.new_name_obj like '%" + textBox_search_object_name_activation.Text + "%' " +
                     "and Activation_object.Object_idObject != '10' " +
                     "and TS_brand.idTS_brand = Zayavki.TS_brand_idTS_brand " +
                     "and TS_model.idTS_model = Zayavki.TS_model_idTS_model " +
@@ -586,7 +596,9 @@ namespace Disp_WinForm
                     "Zayavki.Zayavkicol_VIN as 'VIN'," +
                     "Activation_object.Activation_objectcol_result as 'Результат', " +
                     "Activation_object.new_name_obj as 'Назва обєкту', " +
-                    "Activation_object.comment as 'Коментар' " +
+                    "Activation_object.comment as 'Коментар', " +
+                    "remaynder_activate as 'Нагадати', " +
+                    "remayder_date as 'Дата нагадування' " +
                     "FROM " +
                     "btk.products," +
                     "btk.Activation_object," +
@@ -595,6 +607,8 @@ namespace Disp_WinForm
                     "btk.TS_model " +
                     "where " +
                     "Activation_object.Activation_objectcol_result = 'Успішно' " +
+                    "and Activation_object.Activation_date between '" + Convert.ToDateTime(dateTimePicker_activation_filter_start.Value).Date.ToString("yyyy-MM-dd") + "' and '" + Convert.ToDateTime(dateTimePicker_activation_filter_end.Value).Date.ToString("yyyy-MM-dd") + "' " +
+                    "and Activation_object.new_name_obj like '%" + textBox_search_object_name_activation.Text + "%' " +
                     "and Activation_object.Object_idObject != '10' " +
                     "and TS_brand.idTS_brand = Zayavki.TS_brand_idTS_brand " +
                     "and TS_model.idTS_model = Zayavki.TS_model_idTS_model " +
@@ -617,7 +631,9 @@ namespace Disp_WinForm
                     "Zayavki.Zayavkicol_VIN as 'VIN'," +
                     "Activation_object.Activation_objectcol_result as 'Результат', " +
                     "Activation_object.new_name_obj as 'Назва обєкту', " +
-                    "Activation_object.comment as 'Коментар' " +
+                    "Activation_object.comment as 'Коментар', " +
+                    "remaynder_activate as 'Нагадати', " +
+                    "remayder_date as 'Дата нагадування' " +
                     "FROM " +
                     "btk.products," +
                     "btk.Activation_object," +
@@ -626,6 +642,8 @@ namespace Disp_WinForm
                     "btk.TS_model " +
                     "where " +
                     "Activation_object.Object_idObject != '10' " +
+                    "and Activation_object.Activation_date between '" + Convert.ToDateTime(dateTimePicker_activation_filter_start.Value).Date.ToString("yyyy-MM-dd") + "' and '" + Convert.ToDateTime(dateTimePicker_activation_filter_end.Value).Date.ToString("yyyy-MM-dd") + "' " +
+                    "and Activation_object.new_name_obj like '%"+ textBox_search_object_name_activation.Text + "%' " +
                     "and TS_brand.idTS_brand = Zayavki.TS_brand_idTS_brand " +
                     "and TS_model.idTS_model = Zayavki.TS_model_idTS_model " +
                     "and products.idproducts = Zayavki.products_idproducts " +
@@ -641,6 +659,8 @@ namespace Disp_WinForm
             dataGridView_for_activation.Columns["Object_idObject"].Visible = false;
             dataGridView_for_activation.Columns["idActivation_object"].Visible = false;
             dataGridView_for_activation.Columns["Коментар"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridView_for_activation.Columns["Нагадати"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_for_activation.Columns["Дата нагадування"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView_for_activation.Columns["Заявка №"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView_for_activation.Columns["Назва заявки"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView_for_activation.Columns["Продукт"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -1007,7 +1027,8 @@ namespace Disp_WinForm
                                    "Users.username as 'Створив'," +
                                    "speed, " +
                                    "remaynder_activate as 'Нагадати', " +
-                                   "remayder_date as 'Дата нагадування'  FROM btk.notification, btk.Users WHERE Users.idUsers=notification.Users_idUsers and Status = 'Продажи' " + vars_form.hide_group_alarm + "  ;");//order by btk.notification." + vars_form.sort.ToString() + " " + vars_form.order_sort + "
+                                   "remayder_date as 'Дата нагадування' " +
+                                   "FROM btk.notification, btk.Users WHERE Users.idUsers=notification.Users_idUsers and Status = 'Продажи' " + vars_form.hide_group_alarm + "  ;");//order by btk.notification." + vars_form.sort.ToString() + " " + vars_form.order_sort + "
             //table = vars_form.table_sales;
             UpdateGridHandler ug = UpdateGrid_sale;
             ug.BeginInvoke(table, cb_sale, null);
@@ -1025,16 +1046,7 @@ namespace Disp_WinForm
             DataTable sortedDT = dv.ToTable();
 
             dataGridView_sales.DataSource = table;
-            ////------------------------------------------
-            //if (dataGridView_sales.DataSource == null)
-            //{
-            //    dataGridView_sales.DataSource = table;
-            //}
-            //else
-            //{
-            //    dataGridView_sales.Refresh();
-            //}
-            ////----------------------------------------------------------------------
+
 
             if (dataGridView_sales.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
             {
@@ -1061,16 +1073,7 @@ namespace Disp_WinForm
                 DataTable sortedDT = dv.ToTable();
 
                 dataGridView_sales.DataSource = table;
-                ////------------------------------------------
-                //if (dataGridView_sales.DataSource == null)
-                //{
-                //    dataGridView_sales.DataSource = table;
-                //}
-                //else
-                //{
-                //    dataGridView_sales.Refresh();
-                //}
-                ////----------------------------------------------------------------------
+
                 if (dataGridView_sales.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
                 {
                     if (scrollPosition == -1)
@@ -2050,7 +2053,7 @@ namespace Disp_WinForm
             vars_form.id_db_object_for_activation = macros.sql_command("SELECT idObject FROM btk.Object where Object_id_wl=" + vars_form.id_wl_object_for_activation + ";");
 
 
-
+            vars_form.if_open_created_activation = 0;
             Activation_Form activation_form = new Activation_Form();
             activation_form.Activated += new EventHandler(activation_form_activated);
             activation_form.FormClosed += new FormClosedEventHandler(activation_form_deactivated);
@@ -2154,6 +2157,7 @@ namespace Disp_WinForm
             vars_form.id_wl_object_for_activation = listBox_activation_result_search.SelectedValue.ToString();
             vars_form.id_db_object_for_activation = macros.sql_command("SELECT idObject FROM btk.Object where Object_id_wl=" + vars_form.id_wl_object_for_activation + ";");
 
+            vars_form.if_open_created_activation = 0;
 
             Activation_Form activation_form = new Activation_Form();
             activation_form.Activated += new EventHandler(activation_form_activated);
@@ -2227,6 +2231,16 @@ namespace Disp_WinForm
 
         private void comboBox_activation_filter_DropDownClosed(object sender, EventArgs e)
         {
+            if (comboBox_activation_filter.SelectedIndex == 0)
+            {
+                dateTimePicker_activation_filter_end.Enabled = false;
+                dateTimePicker_activation_filter_start.Enabled = false;
+            }
+            else
+            {
+                dateTimePicker_activation_filter_end.Enabled = true;
+                dateTimePicker_activation_filter_start.Enabled = true;
+            }
             update_actication_dgv();
         }
 
@@ -2253,6 +2267,47 @@ namespace Disp_WinForm
         private void comboBox_prikripleno_select_DropDownClosed(object sender, EventArgs e)
         {
             update_zayavki_na_aktivation_2W();
+        }
+
+        private void dataGridView_for_activation_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            DataGridViewRow row = dataGridView_for_activation.Rows[e.RowIndex];
+
+            if (dataGridView_for_activation.Rows[e.RowIndex].Cells[11].Value is true)
+            {
+                if (Convert.ToDateTime(dataGridView_for_activation.Rows[e.RowIndex].Cells[12].Value) == DateTime.Now.Date)
+                {
+                    row.DefaultCellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#bcccf2");
+                }
+                else if (Convert.ToDateTime(dataGridView_for_activation.Rows[e.RowIndex].Cells[12].Value) <= DateTime.Now.Date)
+                {
+                    row.DefaultCellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#F9A780");
+                }
+                else if (Convert.ToDateTime(dataGridView_for_activation.Rows[e.RowIndex].Cells[12].Value) >= DateTime.Now.Date)
+                {
+                    row.DefaultCellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#C8FAB7");
+                }
+            }
+            else
+            {
+
+                row.DefaultCellStyle.BackColor = Color.White;
+            }
+        }
+
+        private void dateTimePicker_activation_filter_start_CloseUp(object sender, EventArgs e)
+        {
+            update_actication_dgv();
+        }
+
+        private void dateTimePicker_activation_filter_end_CloseUp(object sender, EventArgs e)
+        {
+            update_actication_dgv();
+        }
+
+        private void textBox_search_object_name_activation_TextChanged(object sender, EventArgs e)
+        {
+            update_actication_dgv();
         }
     }
 

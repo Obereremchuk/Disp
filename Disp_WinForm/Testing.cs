@@ -2084,7 +2084,15 @@ namespace Disp_WinForm
 
         private void button_cancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult dialogResult = MessageBox.Show("Закрити без збереження?", "Закрити?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                this.Close();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
         }
 
         private void checkBox_test_zablocovano_CheckedChanged(object sender, EventArgs e)
@@ -2221,8 +2229,6 @@ namespace Disp_WinForm
         {
             aTimer3.Enabled = false;
         }
-
-        
     }
 }
     

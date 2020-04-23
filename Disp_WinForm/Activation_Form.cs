@@ -23,10 +23,26 @@ namespace Disp_WinForm
             //TopMost = true;
             InitializeComponent();
             Read_data();
-            load_form();
+            //load_form();
             build_list_account();
             button_add_2_account.Enabled = false;
 
+        }
+
+        
+
+        private void get_remaynder()
+        {
+            string sql2 = string.Format("select remaynder_activate from btk.Activation_object where idActivation_object=" + vars_form.id_db_activation_for_activation + ";");
+            string remaynder_activate = macros.sql_command(sql2);
+            if (remaynder_activate == "True")
+            {
+                remaynder_checkBox.Checked = true;
+                string sql = string.Format("select remayder_date from btk.Activation_object where idActivation_object=" + vars_form.id_db_activation_for_activation + ";");
+                string remayder_date = macros.sql_command(sql);
+                DateTime rem = Convert.ToDateTime(remayder_date);
+                remaynder_dateTimePicker.Value = rem;
+            }
         }
 
         //Function fo generete password
@@ -43,15 +59,179 @@ namespace Disp_WinForm
         }
 
         private void Read_data()
-        {
-            if (vars_form.if_open_created_testing == 1)
+         {
+            if (vars_form.if_open_created_activation == 1)
             {
+                load_form_for_zayavka();
+            }
+            else if (vars_form.if_open_created_activation == 0)
+            {
+                load_form_for_sengl_activation();
             }
         }
 
+        private void load_form_for_sengl_activation()
+        {
+            string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+                                                    "\"spec\":{" +
+                                                    "\"itemsType\":\"avl_unit\"," +
+                                                    "\"propName\":\"sys_id\"," +
+                                                    "\"propValueMask\":\"" + vars_form.id_wl_object_for_activation + "\", " +
+                                                    "\"sortType\":\"sys_name\"," +
+                                                    "\"or_logic\":\"1\"}," +
+                                                    "\"force\":\"1\"," +
+                                                    "\"flags\":\"4611686018427387903\"," +
+                                                    "\"from\":\"0\"," +
+                                                    "\"to\":\"1\"}");
+            var m = JsonConvert.DeserializeObject<RootObject>(json);
 
-                //init command on load form
-        private void load_form()
+            name_object_current_textBox.Text = m.items[0].nm;
+            imei_object_textBox.Text = m.items[0].uid;
+            name_obj_new_textBox.Text = m.items[0].nm;
+
+            foreach (var keyvalue in m.items[0].flds)
+            {
+
+                if (keyvalue.Value.n.Contains("УВАГА"))
+                {
+                    //Chenge feild Uvaga
+                    uvaga_textBox.Text = keyvalue.Value.v;
+                }
+                if (keyvalue.Value.n.Contains("Кодове "))
+                {
+                    //Chenge feild Кодове слово
+                    kodove_slovo_textBox.Text = keyvalue.Value.v;
+                }
+
+            }
+            //load VO
+            DataTable VO = macros.GetData("select Kontakti_idKontakti, VOcol_num_vo from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "';");
+            if (VO.Rows.Count >= 1)
+            {
+                foreach (DataRow row in VO.Rows)
+                {
+                    if (row[1].ToString() == "1")
+                    {
+
+                        string VO_falilia = macros.sql_command("SELECT Kontakti_familia FROM btk.Kontakti where idKontakti = '" + row[0].ToString() + "';");
+                        string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + row[0].ToString() + "';");
+                        string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + row[0].ToString() + "';");
+                        if (VO_phone2 == "   -   -")
+                        { VO_phone2 = ""; }
+                        if (VO_falilia == "")
+                        {
+                            textBox_vo1.Text = "";
+                        }
+                        else
+                        {
+                            textBox_vo1.Text = VO_falilia.ToUpper() + " " + VO_imya_phone + ", " + VO_phone2;
+                        }
+                    }
+                    if (row[1].ToString() == "2")
+                    {
+                        string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + row[0].ToString() + "';");
+                        string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + row[0].ToString() + "';");
+                        if (VO_phone2 == "   -   -")
+                        { VO_phone2 = ""; }
+                        if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
+                        {
+                            textBox_vo2.Text = "";
+                        }
+                        else
+                        {
+                            textBox_vo2.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                        }
+                    }
+                    if (row[1].ToString() == "3")
+                    {
+                        string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + row[0].ToString() + "';");
+                        string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + row[0].ToString() + "';");
+                        if (VO_phone2 == "   -   -")
+                        { VO_phone2 = ""; }
+                        if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
+                        {
+                            textBox_vo3.Text = "";
+                        }
+                        else
+                        {
+                            textBox_vo3.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                        }
+                    }
+                    if (row[1].ToString() == "4")
+                    {
+                        string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + row[0].ToString() + "';");
+                        string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + row[0].ToString() + "';");
+                        if (VO_phone2 == "   -   -")
+                        { VO_phone2 = ""; }
+                        if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
+                        {
+                            textBox_vo4.Text = "";
+                        }
+                        else
+                        {
+                            textBox_vo4.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                        }
+                    }
+                    if (row[1].ToString() == "5")
+                    {
+                        string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + row[0].ToString() + "';");
+                        string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + row[0].ToString() + "';");
+                        if (VO_phone2 == "   -   -")
+                        { VO_phone2 = ""; }
+                        if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
+                        {
+                            textBox_vo5.Text = "";
+                        }
+                        else
+                        {
+                            textBox_vo5.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                        }
+                    }
+
+                }
+                if (textBox_vo1.Text == "")
+                {
+                    vars_form.transfer_vo1_vo_form = "1";
+                }
+                if (textBox_vo2.Text == "")
+                {
+                    vars_form.transfer_vo2_vo_form = "1";
+                }
+                if (textBox_vo3.Text == "")
+                {
+                    vars_form.transfer_vo3_vo_form = "1";
+                }
+                if (textBox_vo4.Text == "")
+                {
+                    vars_form.transfer_vo4_vo_form = "1";
+                }
+                if (textBox_vo5.Text == "")
+                {
+                    vars_form.transfer_vo5_vo_form = "1";
+                }
+            }
+
+            //load coments for activation
+            DataTable table = new DataTable();
+            table = macros.GetData("SELECT " +
+                "coments as 'Коментарій'," +
+                "date_insert as 'Дата'," +
+                "Users.username as 'Користувач' " +
+                "FROM btk.activation_comments, btk.Users " +
+                "where " +
+                "Users.idUsers = activation_comments.Users_idUsers " +
+                "and Activation_object_idActivation_object = '" + vars_form.id_db_activation_for_activation + "'; ");
+
+            dataGridView_activation_coments.DataSource = table;
+
+            dataGridView_activation_coments.Columns["Коментарій"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridView_activation_coments.Columns["Дата"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_activation_coments.Columns["Користувач"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_activation_coments.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+        }
+
+        //init command on load form
+        private void load_form_for_zayavka()
         {
             string json = macros.wialon_request_new("&svc=core/search_items&params={" +
                                                     "\"spec\":{" +
@@ -198,8 +378,6 @@ namespace Disp_WinForm
                 {
                     vars_form.transfer_vo5_vo_form = "1";
                 }
-
-
             }
 
             //Load data from opened activation
@@ -225,13 +403,17 @@ namespace Disp_WinForm
                 "Kontakt_phone_avto_2 ," +
                 "email ," +
                 "products.product_name ," +
-                "Kontragenti.Kontragenti_short_name " +
+                "Kontragenti.Kontragenti_short_name, " +
+                "TS_info.TS_infocol_licence_plate " +
                 "from " +
-                "btk.Zayavki, btk.products, btk.Kontragenti " +
+                "btk.Zayavki, btk.products, btk.Kontragenti, btk.TS_info, btk.testing_object, btk.Object " +
                 "where " +
                 "Zayavki.products_idproducts = products.idproducts " +
                 "and Kontragenti.idKontragenti = Zayavki.Kontragenti_idKontragenti_zakazchik " +
-                "and Zayavki.idZayavki = '" +vars_form.id_db_zayavki_for_activation +"'" +
+                "and Zayavki.idZayavki = '" +vars_form.id_db_zayavki_for_activation +"' " +
+                "and Zayavki.testing_object_idtesting_object = testing_object.idtesting_object " +
+                "and testing_object.Object_idObject = Object.idObject " +
+                "and Object.TS_info_idTS_info = TS_info.idTS_info " +
                 ";");
 
             textBox_vlasnik.Text = table2.Rows[0][0].ToString();
@@ -242,18 +424,19 @@ namespace Disp_WinForm
             textBox_email.Text = table2.Rows[0][5].ToString();
             textBox_product.Text = table2.Rows[0][6].ToString();
             textBox_zamovnik.Text = table2.Rows[0][7].ToString();
+            textBox_licence_plate.Text = table2.Rows[0][8].ToString();
             //load coments for activation
             DataTable table = new DataTable();
 
             
-                table = macros.GetData("SELECT " +
-                    "coments as 'Коментарій'," +
-                    "date_insert as 'Дата'," +
-                    "Users.username as 'Користувач' " +
-                    "FROM btk.activation_comments, btk.Users " +
-                    "where " +
-                    "Users.idUsers = activation_comments.Users_idUsers " +
-                    "and Activation_object_idActivation_object = '" +vars_form.id_db_activation_for_activation+"'; ");
+            table = macros.GetData("SELECT " +
+                "coments as 'Коментарій'," +
+                "date_insert as 'Дата'," +
+                "Users.username as 'Користувач' " +
+                "FROM btk.activation_comments, btk.Users " +
+                "where " +
+                "Users.idUsers = activation_comments.Users_idUsers " +
+                "and Activation_object_idActivation_object = '" +vars_form.id_db_activation_for_activation+"'; ");
 
             dataGridView_activation_coments.DataSource = table;
 
@@ -266,23 +449,14 @@ namespace Disp_WinForm
 
         private void cancel_button_Click(object sender, EventArgs e)
         {
-            if (name_obj_new_textBox.Text == name_object_current_textBox.Text)
+            DialogResult dialogResult = MessageBox.Show("Закрити без збереження?", "Закрити?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
                 this.Close();
             }
-            else
+            else if (dialogResult == DialogResult.No)
             {
-                DialogResult dialogResult = MessageBox.Show("Назва обєкту змінена", "Зберегти?", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    //button_chenge_uvaga.PerformClick();
-                    this.Close();
-
-                }
-                else if (dialogResult == DialogResult.No)
-                {
-                    this.Close();
-                }
+                return;
             }
         }
 
@@ -1917,7 +2091,7 @@ namespace Disp_WinForm
                                "idObject = '" + vars_form.id_db_object_for_activation + "';");
                 if (st == "")
                 {
-                    load_form();
+                    Read_data();
 
                     //log user action
                     macros.LogUserAction(vars_form.user_login_id, "Зміна поля Увага", name_object_current_textBox.Text, vars_form.id_db_object_for_activation , Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
@@ -2099,6 +2273,12 @@ namespace Disp_WinForm
 
         private void save_button_Click(object sender, EventArgs e)
         {
+            if (name_obj_new_textBox.Text.Length>=51)
+            {
+                MessageBox.Show("Відкорегуй нову назву обекта");
+                return;
+            }
+
             if (comboBox_activation_result.SelectedIndex == -1)
             {
                 MessageBox.Show("Оберіть результат тестування");
@@ -2150,6 +2330,8 @@ namespace Disp_WinForm
                 string name_answer = macros.wialon_request_lite("&svc=item/update_name&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
                                                                 + "\"name\":\"" + name_obj_new_textBox.Text + "\"}");
+
+                macros.sql_command("update btk.Object set Object_name = '" + name_obj_new_textBox.Text + "'");
             }
             
             foreach (var keyvalue in object_data.items[0].flds)
@@ -2238,14 +2420,10 @@ namespace Disp_WinForm
                 }
             }
 
-
-
-
             // insert/update activation
 
             if (vars_form.if_open_created_activation == 1)
             {
-                string t = comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem);
                 macros.sql_command("update btk.Activation_object " +
                     "set " +
                     "Activation_date = '" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "', " +
@@ -2266,7 +2444,17 @@ namespace Disp_WinForm
                     "idActivation_object = '"+ vars_form.id_db_activation_for_activation + "'" +
                     ";");
 
-                
+                //update lic plate in db
+                string id_ts_info_fo_object_activation = macros.sql_command("select TS_info_idTS_info from btk.Object where idObject = '" + vars_form.id_db_object_for_activation + "'");
+                macros.sql_command("update btk.TS_info set TS_infocol_licence_plate = '" + textBox_licence_plate.Text + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
+
+                //update lic plate in WL
+                //Характеристики licence plate
+                string pp25_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                               + "\"n\":\"registration_plate\","
+                                                               + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+
 
             }
             else if (vars_form.if_open_created_activation == 0)
@@ -2288,7 +2476,7 @@ namespace Disp_WinForm
                                                                     "pin_chenged" +
                                                                     ") " +
                                                                     "values (" +
-                                                                    "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                                                    "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "'," +
                                                                     "'" + vars_form.user_login_id + "'," +
                                                                     "'" + vars_form.id_db_object_for_activation + "'," +
                                                                     "'" + comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) + "'," +
@@ -2303,10 +2491,29 @@ namespace Disp_WinForm
                                                                     "'" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
                                                                     "'" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'" +
                                                                     ");");
+                //update lic plate in db
+                string id_ts_info_fo_object_activation = macros.sql_command("select TS_info_idTS_info from btk.Object where idObject = '" + vars_form.id_db_object_for_activation + "'");
+                macros.sql_command("update btk.TS_info set TS_infocol_licence_plate = '" + textBox_licence_plate.Text + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
 
-                string get_id_activacii = macros.sql_command("SELECT MAX(idActivation_object) FROM btk.Activation_object;");
-                macros.sql_command("update btk.Zayavki set Activation_object_idActivation_object = '" + get_id_activacii + "' where idZayavki = '" + vars_form.id_db_zayavki_for_activation + "';");
+                //update lic plate in WL
+                //Характеристики licence plate
+                string pp25_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                               + "\"n\":\"registration_plate\","
+                                                               + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
             }
+
+            if (remaynder_checkBox.Checked == true)
+            {
+                string sql = string.Format("UPDATE btk.Activation_object SET remayder_date ='" + Convert.ToDateTime(remaynder_dateTimePicker.Value).ToString("yyyy-MM-dd") + "', remaynder_activate= 1 where idActivation_object=" + vars_form.id_db_activation_for_activation + ";");
+                macros.sql_command(sql);
+            }
+            if (remaynder_checkBox.Checked == false)
+            {
+                string sql = string.Format("UPDATE btk.Activation_object SET remayder_date = null, remaynder_activate= 0 where idActivation_object=" + vars_form.id_db_activation_for_activation + ";");
+                macros.sql_command(sql);
+            }
+
             this.Close();
         }
 
@@ -2391,6 +2598,58 @@ namespace Disp_WinForm
             startInfo.Arguments = "/C " + path + " " + maskedTextBox_cont_phone2.Text;
             process.StartInfo = startInfo;
             process.Start();
+        }
+
+        private void button_name_obj_generate_Click(object sender, EventArgs e)
+        {
+            string id_db_object = macros.sql_command("select Object_idObject from btk.Activation_object where idActivation_object = '" + vars_form.id_db_activation_for_activation+"'");
+
+            DataTable name = macros.GetData("select " +
+                "TS_model.TS_modelcol_name_short," +
+                "TS_brand.TS_brandcol_brand_short," +
+                "TS_info.TS_infocol_licence_plate," +
+                "Zayavki.Sobstvennik_avto_neme," +
+                "products.product_name," +
+                "Kontragenti.Kontragenti_short_name " +
+                "from " +
+                "btk.TS_model," +
+                "btk.TS_brand," +
+                "btk.TS_info," +
+                "btk.Object," +
+                "btk.products," +
+                "btk.Zayavki," +
+                "btk.Activation_object," +
+                "btk.Kontragenti " +
+                "where " +
+                "Object.idObject = '" + id_db_object + "' " +
+                "and Object.TS_info_idTS_info = TS_info.idTS_info " +
+                "and TS_model.idTS_model = TS_info.TS_model_idTS_model " +
+                "and TS_brand.idTS_brand = TS_info.TS_brand_idTS_brand " +
+                "and Object.products_idproducts = products.idproducts " +
+                "and Zayavki.Activation_object_idActivation_object = Activation_object.idActivation_object " +
+                "and Activation_object.Object_idObject = Object.idObject " +
+                "and Zayavki.Kontragenti_idKontragenti_zakazchik = Kontragenti.idKontragenti" +
+                ";");
+            string model = name.Rows[0][0].ToString();
+            string brand = name.Rows[0][1].ToString();
+            //string lic_pl = name.Rows[0][2].ToString();
+            string sobstv = name.Rows[0][3].ToString();
+            string product = name.Rows[0][4].ToString();
+            string zakazchik = name.Rows[0][5].ToString();
+            name_obj_new_textBox.Text = brand + " " + model + " " + textBox_licence_plate.Text + " (" + sobstv + ") (" + product + ") (" + zakazchik + ")";
+        }
+
+        private void name_obj_new_textBox_TextChanged(object sender, EventArgs e)
+        {
+            textBox_lenth_name.Text = (50 - name_obj_new_textBox.Text.Length).ToString();
+            if (name_obj_new_textBox.Text.Length >= 51)
+            {
+                name_obj_new_textBox.BackColor = Color.Red;
+            }
+            else
+            {
+                name_obj_new_textBox.BackColor = Color.White;
+            }
         }
     }
 }

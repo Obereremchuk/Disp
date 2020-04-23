@@ -394,16 +394,10 @@ namespace Disp_WinForm
             _id_status = comboBox_status_trevogi.Text;
             checkBox_send_email.Checked = false;
 
-             
-
-            if (comboBox_status_trevogi.SelectedItem.ToString() == "Закрито")
-            {
-                this.Close();
-            }
 
             if (remaynder_checkBox.Checked == true)
             {
-                string sql = string.Format("UPDATE btk.notification SET remayder_date ='"+ Convert.ToDateTime(remaynder_dateTimePicker.Value).ToString("yyyy-MM-dd") + "', remaynder_activate= 1 where idnotification="+_id_notif+";");
+                string sql = string.Format("UPDATE btk.notification SET remayder_date ='" + Convert.ToDateTime(remaynder_dateTimePicker.Value).ToString("yyyy-MM-dd") + "', remaynder_activate= 1 where idnotification=" + _id_notif + ";");
                 macros.sql_command(sql);
             }
             if (remaynder_checkBox.Checked == false)
@@ -411,6 +405,13 @@ namespace Disp_WinForm
                 string sql = string.Format("UPDATE btk.notification SET remayder_date = null, remaynder_activate= 0 where idnotification=" + _id_notif + ";");
                 macros.sql_command(sql);
             }
+
+            if (comboBox_status_trevogi.SelectedItem.ToString() == "Закрито")
+            {
+                this.Close();
+            }
+
+            
         }
 
         private void button_group_alarm_Click(object sender, EventArgs e)
