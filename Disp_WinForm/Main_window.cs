@@ -1976,14 +1976,14 @@ namespace Disp_WinForm
 
         private void form_Testing_activated(object sender, EventArgs e)
         {
-            //this.Visible = false;// блокируем окно контрагентов пока открыто окно добавления контрагента
+            this.Visible = false;// блокируем окно контрагентов пока открыто окно добавления контрагента
         }
 
         private void form_Testing_deactivated(object sender, FormClosedEventArgs e)
         {
-            vars_form.if_open_created_zayavka = 0;
+            vars_form.if_open_created_testing = 0;
             update_testing_dgv();
-            //this.Visible = true;// разблокируем окно контрагентов кактолько закрыто окно добавления контрагента
+            this.Visible = true;// разблокируем окно контрагентов кактолько закрыто окно добавления контрагента
         }
 
         private void label_status_ohoroni_Paint(object sender, PaintEventArgs e)

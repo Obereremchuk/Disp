@@ -12,7 +12,6 @@ using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using Gecko;
 using System.Net;
-//using System.Threading;
 
 namespace Disp_WinForm
 {
@@ -27,7 +26,7 @@ namespace Disp_WinForm
             Xpcom.Initialize(t);
             Gecko.CertOverrideService.GetService().ValidityOverride += geckoWebBrowser1_ValidityOverride;
             wialon_login_form();
-            vars_form.version = "0.799";
+            vars_form.version = "0.811";
             label_Version.Text= "v." + vars_form.version;
         }
 

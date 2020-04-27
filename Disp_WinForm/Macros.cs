@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Forms;
 using DocumentFormat.OpenXml.Packaging;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
-using FontStyle = System.Drawing.FontStyle;
-using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Disp_WinForm
 {
@@ -646,67 +642,429 @@ namespace Disp_WinForm
 
 
     }
+
+
     public class PlaceHolderTextBox : TextBox
     {
+        #region Properties
 
-        bool isPlaceHolder = true;
-        string _placeHolderText;
+        string _PlaceHolderText = DEFAULT_PlaceHolder;
+        bool _isPlaceHolderActive = true;
+
+
+        /// <summary>
+        /// Gets a value indicating whether the PlaceHolder is active.
+        /// </summary>
+        [Browsable(false)]
+        public bool IsPlaceHolderActive
+        {
+            get { return _isPlaceHolderActive; }
+            private set
+            {
+                if (_isPlaceHolderActive == value) return;
+
+                // Disable operating system handling for mouse events
+                // This prevents the user to select the PlaceHolder with mouse or double clicking
+                SetStyle(ControlStyles.UserMouse, value);
+
+                // If text equals the PlaceHolder and Reset is called, the actual text doesn't change but the IsPlaceHolderActive does.
+                // Thus the style (Text or PlaceHolder) is not updated.
+                // Invalidate forces that
+                Invalidate();
+
+                _isPlaceHolderActive = value;
+                OnPlaceHolderActiveChanged(value);
+            }
+        }
+
+
+        /// <summary>
+        /// Gets or sets the PlaceHolder in the PlaceHolderTextBox.
+        /// </summary>
+        [Description("The PlaceHolder associated with the control."), Category("PlaceHolder"), DefaultValue(DEFAULT_PlaceHolder)]
         public string PlaceHolderText
         {
-            get { return _placeHolderText; }
+            get { return _PlaceHolderText; }
             set
             {
-                _placeHolderText = value;
-                setPlaceholder();
+                _PlaceHolderText = value;
+
+                // Only use the new value if the PlaceHolder is active.
+                if (IsPlaceHolderActive)
+                    Text = value;
             }
         }
 
-        public new string Text
-        {
-            get => isPlaceHolder ? string.Empty : base.Text;
-            set => base.Text = value;
-        }
 
-        //when the control loses focus, the placeholder is shown
-        private void setPlaceholder()
+        /// <summary>
+        /// Gets or sets the current text in the TextBox.
+        /// </summary>
+        [Browsable(false)]
+        public override string Text
         {
-            if (string.IsNullOrEmpty(base.Text))
+            get
             {
-                base.Text = PlaceHolderText;
-                this.ForeColor = Color.Gray;
-                this.Font = new Font(this.Font, FontStyle.Italic);
-                isPlaceHolder = true;
+                // Check 'base.Text == PlaceHolder' because in some cases IsPlaceHolderActive changes too late although it isn't the PlaceHolder anymore.
+                if (IsPlaceHolderActive && base.Text == PlaceHolderText)
+                    return "";
+
+                return base.Text;
             }
+            set { base.Text = value; }
         }
 
-        //when the control is focused, the placeholder is removed
-        private void removePlaceHolder()
+
+
+        Color _PlaceHolderTextColor;
+        /// <summary>
+        /// Gets or sets the foreground color of the control.
+        /// </summary>
+        [Description("The foreground color of this component, which is used to display the PlaceHolder."), Category("Appearance"), DefaultValue(typeof(Color), "InactiveCaption")]
+        public Color PlaceHolderTextColor
         {
-
-            if (isPlaceHolder)
+            get { return _PlaceHolderTextColor; }
+            set
             {
-                base.Text = "";
-                this.ForeColor = System.Drawing.SystemColors.WindowText;
-                this.Font = new Font(this.Font, FontStyle.Regular);
-                isPlaceHolder = false;
+                if (_PlaceHolderTextColor == value) return;
+                _PlaceHolderTextColor = value;
+
+                // Force redraw to show new color in designer instantly
+                if (DesignMode)
+                    Invalidate();
             }
         }
+
+        /// <summary>
+        /// Gets or sets the foreground color of the control.
+        /// </summary>
+        [Description("The foreground color of this component, which is used to display text."), Category("Appearance"), DefaultValue(typeof(Color), "WindowText")]
+        public Color TextColor { get; set; }
+
+        /// <summary>
+        /// Do not access directly. Use TextColor.
+        /// </summary>
+        [Browsable(false)]
+        public override Color ForeColor
+        {
+            get
+            {
+                if (IsPlaceHolderActive)
+                    return PlaceHolderTextColor;
+
+                return TextColor;
+            }
+            set { TextColor = value; }
+        }
+
+        /// <summary>
+        /// Gets the length of text in the control.
+        /// </summary>
+        public override int TextLength => IsPlaceHolderActive ? 0 : base.TextLength;
+
+        /// <summary>
+        /// Occurs when the value of the IsPlaceHolderActive property has changed.
+        /// </summary>
+        [Description("Occurs when the value of the IsPlaceHolderInside property has changed.")]
+        public event EventHandler<PlaceHolderActiveChangedEventArgs> PlaceHolderActiveChanged;
+
+        #endregion
+
+
+        #region Global Variables
+
+        /// <summary>
+        /// Specifies the default PlaceHolder text.
+        /// </summary>
+        const string DEFAULT_PlaceHolder = "<Input>";
+
+        // Doc: https://msdn.microsoft.com/en-us/library/windows/desktop/bb761661(v=vs.85).aspx
+        const int EM_SETSEL = 0x00B1;
+
+        /// <summary>
+        /// Flag to avoid the TextChanged Event. Don't access directly, use Method 'ActionWithoutTextChanged(Action act)' instead.
+        /// </summary>
+        bool avoidTextChanged;
+
+        #endregion
+
+
+        #region Constructor
+
+        /// <summary>
+        /// Initializes a new instance of the PlaceHolderTextBox class.
+        /// </summary>
         public PlaceHolderTextBox()
         {
-            GotFocus += removePlaceHolder;
-            LostFocus += setPlaceholder;
+            // Through this line the default PlaceHolder gets displayed in designer
+            base.Text = PlaceHolderText;
+            TextColor = SystemColors.WindowText;
+            PlaceHolderTextColor = SystemColors.InactiveCaption;
+
+            SetStyle(ControlStyles.UserMouse, true);
         }
 
-        private void setPlaceholder(object sender, EventArgs e)
+        #endregion
+
+
+        #region Functions
+
+        /// <summary>
+        /// Inserts PlaceHolder, assigns PlaceHolder style and sets cursor to first position.
+        /// </summary>
+        public void Reset()
         {
-            setPlaceholder();
+            if (IsPlaceHolderActive) return;
+
+            IsPlaceHolderActive = true;
+
+            Text = PlaceHolderText;
+            Select(0, 0);
         }
 
-        private void removePlaceHolder(object sender, EventArgs e)
+        /// <summary>
+        /// Run an action with avoiding the TextChanged event.
+        /// </summary>
+        /// <param name="act">Specifies the action to run.</param>
+        private void ActionWithoutTextChanged(Action act)
         {
-            removePlaceHolder();
+            avoidTextChanged = true;
+
+            act.Invoke();
+
+            avoidTextChanged = false;
         }
+
+        private void UpdateText()
+        {
+            // Run code with avoiding recursive call
+            ActionWithoutTextChanged(delegate
+            {
+                // If the Text is empty, insert PlaceHolder and set cursor to the first position
+                if (!IsPlaceHolderActive && String.IsNullOrEmpty(Text))
+                {
+                    // Allow default length for the PlaceHolder
+                    // If we wouldn't do this, the PlaceHolder will never disappear if
+                    // PlaceHolderText.Length > MaxLength because the user cannot type anything
+                    MaxLength = 32767;
+                    Reset();
+                }
+                // If the PlaceHolder has been active but now the text changed,
+                // set the textbox to its usual state
+                else if (IsPlaceHolderActive && Text.Length > 0)
+                {
+                    MaxLength = customMaxLength;
+
+                    IsPlaceHolderActive = false;
+
+                    // If you set Text programmatically it won't contain the PlaceHolderText.
+                    // Thus we do not have to remove it
+                    // An issue is you cannot set a Text programmatically which has the structure [prefix][PlaceHolder]
+                    // Note the missing suffix because we use "EndsWith"
+                    // Well, you can but the PlaceHolder becomes removed, the prefix will be in the textbox
+                    // The reason is we cannot distinguish if a user typed something or the Text has been set programmatically
+                    if (Text.EndsWith(PlaceHolderText))
+                    {
+                        Text = Text.Substring(0, TextLength - PlaceHolderText.Length);
+                    }
+
+                    // If we copied something, trim it to the MaxLength
+                    if (Text.Length > MaxLength)
+                        Text = Text.Substring(0, MaxLength);
+
+                    // Set selection to last position
+                    Select(TextLength, 0);
+                }
+            });
+        }
+
+        #endregion
+
+
+        #region Events
+
+        int customMaxLength;
+        protected override void OnCreateControl()
+        {
+            base.OnCreateControl();
+            // Save the user specified MaxLength
+            customMaxLength = MaxLength;
+            // Set to default for the PlaceHolder
+            MaxLength = 32767;
+        }
+
+        protected override void OnTextChanged(EventArgs e)
+        {
+            // Check flag
+            if (avoidTextChanged) return;
+
+            UpdateText();
+
+            base.OnTextChanged(e);
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            // Prevent selection through Windows default controls. ("Select all" in context menu)
+            if (IsPlaceHolderActive && m.Msg == EM_SETSEL) return;
+            base.WndProc(ref m);
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (IsPlaceHolderActive)
+            {
+                // Prevents navigating through the PlaceHolder with navigation keys and PlaceHolder is not deletable with delete key
+                if (e.KeyCode == Keys.Left ||
+                    e.KeyCode == Keys.Right ||
+                    e.KeyCode == Keys.Up ||
+                    e.KeyCode == Keys.Down ||
+                    e.KeyCode == Keys.Delete ||
+                    e.KeyCode == Keys.Home ||
+                    e.KeyCode == Keys.End ||
+                    e.KeyCode == Keys.Back)
+                {
+                    e.SuppressKeyPress = true;
+                }
+
+                // Prevent selecting the PlaceHolder text
+                if (e.KeyCode == Keys.A && e.Modifiers.HasFlag(Keys.Control))
+                {
+                    e.SuppressKeyPress = true;
+                }
+            }
+
+            base.OnKeyDown(e);
+        }
+
+        protected virtual void OnPlaceHolderActiveChanged(bool newValue)
+        {
+            PlaceHolderActiveChanged?.Invoke(this, new PlaceHolderActiveChangedEventArgs(newValue));
+        }
+
+        #endregion
+
+
+        #region Avoid full text selection after first display with TabIndex = 0
+
+        // Base class has a selectionSet property, but it is private.
+        // We need to shadow with our own variable. If true, this means
+        // "don't mess with the selection, the user did it."
+        bool selectionSet;
+
+        protected override void OnGotFocus(EventArgs e)
+        {
+            bool needToDeselect = false;
+
+            // We don't want to avoid calling the base implementation
+            // completely. We mirror the logic that we are trying to avoid;
+            // if the base implementation will select all of the text, we
+            // set a boolean.
+            if (!selectionSet)
+            {
+                selectionSet = true;
+
+                if (SelectionLength == 0 && MouseButtons == MouseButtons.None)
+                {
+                    needToDeselect = true;
+                }
+            }
+
+            // Call the base implementation
+            base.OnGotFocus(e);
+
+            // Did we notice that the text was selected automatically? Let's
+            // de-select it and put the caret at the end.
+            if (!needToDeselect) return;
+
+            SelectionStart = 0;
+            DeselectAll();
+        }
+
+        #endregion
     }
+
+    /// <summary>
+    /// Provides data for the PlaceHolderActiveChanged event.
+    /// </summary>
+    public class PlaceHolderActiveChangedEventArgs : EventArgs
+    {
+        /// <summary>
+        /// Initializes a new instance of the PlaceHolderActiveChangedEventArgs class.
+        /// </summary>
+        /// <param name="isActive">Specifies whether the PlaceHolder is currently active.</param>
+        public PlaceHolderActiveChangedEventArgs(bool isActive)
+        {
+            IsActive = isActive;
+        }
+
+        /// <summary>
+        /// Gets the new value of the IsPlaceHolderActive property.
+        /// </summary>
+        public bool IsActive { get; private set; }
+    }
+
+
+    //public class PlaceHolderTextBox : TextBox
+    //{
+
+    //    bool isPlaceHolder = true;
+    //    string _PlaceHolderText;
+    //    public string PlaceHolderText
+    //    {
+    //        get { return _PlaceHolderText; }
+    //        set
+    //        {
+    //            _PlaceHolderText = value;
+    //            setPlaceHolder();
+    //        }
+    //    }
+
+    //    public new string Text
+    //    {
+    //        get => isPlaceHolder ? string.Empty : base.Text;
+    //        set => base.Text = value;
+    //    }
+
+    //    //when the control loses focus, the PlaceHolder is shown
+    //    private void setPlaceHolder()
+    //    {
+    //        if (string.IsNullOrEmpty(base.Text))
+    //        {
+    //            base.Text = PlaceHolderText;
+    //            this.ForeColor = Color.Gray;
+    //            this.Font = new Font(this.Font, FontStyle.Italic);
+    //            isPlaceHolder = true;
+    //        }
+    //    }
+
+    //    //when the control is focused, the PlaceHolder is removed
+    //    private void removePlaceHolder()
+    //    {
+
+    //        if (isPlaceHolder)
+    //        {
+    //            base.Text = "";
+    //            this.ForeColor = System.Drawing.SystemColors.WindowText;
+    //            this.Font = new Font(this.Font, FontStyle.Regular);
+    //            isPlaceHolder = false;
+    //        }
+    //    }
+    //    public PlaceHolderTextBox()
+    //    {
+    //        GotFocus += removePlaceHolder;
+    //        LostFocus += setPlaceHolder;
+    //    }
+
+    //    private void setPlaceHolder(object sender, EventArgs e)
+    //    {
+    //        setPlaceHolder();
+    //    }
+
+    //    private void removePlaceHolder(object sender, EventArgs e)
+    //    {
+    //        removePlaceHolder();
+    //    }
+    //}
 
 }
 

@@ -102,15 +102,15 @@ namespace Disp_WinForm
 
             if (get_produt_testing_device == "10" || get_produt_testing_device == "11")
             {
-                textBox_device1.Enabled = false;
                 checkBox_test_relay_plus.Enabled = false;
-                label3.Enabled = false;
             }
             else if (get_produt_testing_device == "2" || get_produt_testing_device == "3")
             {
+                checkBox_block_prizrak_can.Enabled = false;
+                textBox_CAN_relay_place.Enabled = false;
+                textBox_CAN_relay_lancug.Enabled = false;
                 checkBox_test_autostart.Enabled = false;
                 button_autostart.Enabled = false;
-                label27.Enabled = false;
                 label26.Enabled = false;
                 label29.Enabled = false;
                 label30.Enabled = false;
@@ -301,20 +301,50 @@ namespace Disp_WinForm
             DataTable db_TS_info = macros.GetData("SELECT * FROM btk.TS_info where idTS_info = "+ id_db_TS_info +"; ");
 
 
-            textBox_device1.Text = db_TS_info.Rows[0]["TS_infocol_place_treker"].ToString();
+            //textBox_device1.Text = db_TS_info.Rows[0]["TS_infocol_place_treker"].ToString();
             TextBox_device2.Text = db_TS_info.Rows[0]["TS_infocol_place_alarm"].ToString();
-            textBox_place_relay.Text = db_TS_info.Rows[0]["TS_infocol_place_relay"].ToString();
-            textBox_wire_cut.Text = db_TS_info.Rows[0]["TS_infocol_wire_cut"].ToString();
+
+            textBox_zvich_relay_place.Text = db_TS_info.Rows[0]["TS_infocol_place_relay"].ToString();
+            //ActiveControl = textBox_zvich_relay_lancug;
+            textBox_zvich_relay_lancug.Text = db_TS_info.Rows[0]["TS_infocol_wire_cut"].ToString();
+            textBox_CAN_relay_place.Text= db_TS_info.Rows[0]["TS_infocol_can_place_relay"].ToString();
+            textBox_CAN_relay_lancug.Text = db_TS_info.Rows[0]["TS_infocol_can_wire_cut"].ToString();
+
+            if (db_TS_info.Rows[0]["TS_infocol_block_prizrak_can"].ToString() == "1")
+            { checkBox_block_prizrak_can.Checked = true; }
+            else
+            { checkBox_block_prizrak_can.Checked = false; }
+
             textBox_service_button.Text = db_TS_info.Rows[0]["TS_infocol_place_service_button"].ToString();
             textBox_buttons_for_pin.Text = db_TS_info.Rows[0]["TS_infocol_button_for_pin"].ToString();
             textBox_other_alarm.Text = db_TS_info.Rows[0]["TS_infocol_other_alarm"].ToString();
             textBox_licence_plate.Text = db_TS_info.Rows[0]["TS_infocol_licence_plate"].ToString();
             textBox_vin.Text = db_TS_info.Rows[0]["TS_infocol_vin"].ToString();
-            textBox_arm_bagagnik.Text = db_TS_info.Rows[0]["TS_infocol_arm_bagagnik"].ToString();
-            textBox_instaled_sensor.Text = db_TS_info.Rows[0]["TS_infocol_other_sensor"].ToString();
+            if (db_TS_info.Rows[0]["TS_infocol_arm_bagagnik"].ToString() == "" | db_TS_info.Rows[0]["TS_infocol_arm_bagagnik"].ToString() == "Ні")
+            { checkBox_arm_from_bagagnik.Checked = false; }
+            else { checkBox_arm_from_bagagnik.Checked = true; }
+
+            string other_sensor = db_TS_info.Rows[0]["TS_infocol_other_sensor"].ToString();
+            
+            if (other_sensor.Contains("Глушіння") )
+            { checkBox_sensor_glushenia.Checked = true; }
+            if (other_sensor.Contains("Обєму"))
+            { checkBox_sensor_objema.Checked = true; }
+            if (other_sensor.Contains("GPS"))
+            { checkBox_sensor_gps.Checked = true; }
+            if (other_sensor.Contains("Замок"))
+            { checkBox_lock_hood.Checked = true; }
+            if (other_sensor.Contains("Автозапуск"))
+            { 
+                checkBox_sensor_autostart.Checked = true; 
+                checkBox_test_autostart.Enabled = true; 
+                button_autostart.Enabled = true; 
+            }
+            
+            
+
             textBox_uvaga.Text = db_TS_info.Rows[0]["TS_infocol_uvaga"].ToString();
-            comboBox__tk_wirreless_or_wire.Text = db_TS_info.Rows[0]["TS_infocol_wireless_tk"].ToString();
-            textBox_pin_button_external.Text = db_TS_info.Rows[0]["TS_infocol_pin_button_external"].ToString();
+            textBox_wireless_tk.Text = db_TS_info.Rows[0]["TS_infocol_wireless_tk"].ToString();
 
             int m = Convert.ToInt16(db_TS_info.Rows[0]["TS_model_idTS_model"]);
             comboBox_test_model.SelectedValue = m;
@@ -362,9 +392,8 @@ namespace Disp_WinForm
             
 
             //textBox_commets.Text =
-            textBox_place_tk.Text = db_TS_info.Rows[0]["TS_infocol_place_tk"].ToString();
+            textBox_wire_tk.Text = db_TS_info.Rows[0]["TS_infocol_place_tk"].ToString();
             textBox_current_pin.Text = db_TS_info.Rows[0]["TS_infocol_new_pin"].ToString();
-            textBox_komfort.Text = db_TS_info.Rows[0]["TS_infocol_comfort_accsess"].ToString();
             int c = Convert.ToInt16(db_TS_info.Rows[0]["Color_idColor"]);
             comboBox_color.SelectedIndex = c - 1;
 
@@ -414,21 +443,40 @@ namespace Disp_WinForm
             ///
 
             
+            string wire_tk = "";
+            if (textBox_wire_tk.Text == "")
+            { wire_tk = "Не встановлено"; }
+            else
+            { wire_tk = textBox_wire_tk.Text; }
+
+            string wireless_tk = "";
+            if (textBox_wireless_tk.Text == "")
+            { wireless_tk = "Не встановлено"; }
+            else
+            { wireless_tk = textBox_wireless_tk.Text; }
+
+            string other_sensor = (checkBox_sensor_gps.Checked ? "GPS, " : "") 
+                + (checkBox_sensor_glushenia.Checked ? "Глушіння, " : "")
+                + (checkBox_sensor_autostart.Checked ? "Автозапуск, " : "")
+                + (checkBox_sensor_objema.Checked ? "Обєму, " : "")
+                + (checkBox_lock_hood.Checked ? "Замок капоту, " : "");
 
             macros.sql_command("update btk.TS_info set " +
-                               "TS_infocol_place_treker='" + textBox_device1.Text + "', " +
+                               //"TS_infocol_place_treker='" + textBox_device1.Text + "', " +
                                "TS_infocol_place_alarm='" + TextBox_device2.Text + "', " +
-                               "TS_infocol_place_relay='" + textBox_place_relay.Text + "', " +
-                               "TS_infocol_wire_cut='" + textBox_wire_cut.Text + "', " +
-                               "TS_infocol_place_tk='" + textBox_place_tk.Text + "', " +
-                               "TS_infocol_wireless_tk='" + comboBox__tk_wirreless_or_wire.GetItemText(comboBox__tk_wirreless_or_wire.SelectedItem).ToString() + "', " +
+                               "TS_infocol_place_relay='" + textBox_zvich_relay_place.Text + "', " +
+                               "TS_infocol_wire_cut='" + textBox_zvich_relay_lancug.Text + "', " +
+                               "TS_infocol_can_place_relay='" + textBox_CAN_relay_place.Text + "', " +
+                               "TS_infocol_can_wire_cut='" + textBox_CAN_relay_lancug.Text + "', " +
+                               "TS_infocol_block_prizrak_can='" + (checkBox_block_prizrak_can.Checked ? "Так" : "Ні") + "', " +
+                               "TS_infocol_place_tk='" + wire_tk + "', " +
+                               "TS_infocol_wireless_tk='" + wireless_tk + "', " +
                                "TS_infocol_place_service_button='" + textBox_service_button.Text + "', " +
                                "TS_infocol_button_for_pin='" + textBox_buttons_for_pin.Text + "', " +
                                "TS_infocol_set_pin='" + textBox_current_pin.Text + "', " +
-                               "TS_infocol_pin_button_external='" + textBox_pin_button_external.Text + "', " +
                                "TS_infocol_other_alarm='" + textBox_other_alarm.Text + "', " +
-                               "TS_infocol_other_sensor='" + textBox_instaled_sensor.Text + "', " +
-                               "TS_infocol_arm_bagagnik='" + textBox_arm_bagagnik.Text + "', " +
+                               "TS_infocol_other_sensor='" + other_sensor + "', " +
+                               "TS_infocol_arm_bagagnik='" + (checkBox_arm_from_bagagnik.Checked ? "1" : "0") + "', " +
                                "TS_infocol_uvaga='" + textBox_uvaga.Text + "', " +
                                "Kuzov_type_idKuzov_type='" + comboBox_kuzov_type.SelectedValue.ToString() + "', " +
                                "Color_idColor='" + comboBox_color.SelectedValue.ToString() + "', " +
@@ -440,7 +488,6 @@ namespace Disp_WinForm
                                "Kontakti_idKontakti='" + comboBox_ustanoshik_poisk.SelectedValue.ToString() + "', " +
                                "Kontragenti_idKontragenti='" + comboBox_test_sto.SelectedValue.ToString() + "', " +
                                "TS_infocol_relay_on_plus='" + (checkBox_test_relay_plus.Checked ? "1" : "0") + "', " +
-                               "TS_infocol_comfort_accsess='" + textBox_komfort.Text.ToString() + "', " +
                                "TS_infocol_new_pin='" + textBox_current_pin.Text.ToString() + "' " +
                                "where idTS_info=" + id_db_TS_info + ";");
 
@@ -505,7 +552,7 @@ namespace Disp_WinForm
                                                                + "\"id\":\"8\","
                                                                + "\"callMode\":\"update\","
                                                                + "\"n\":\"3.12 Постановка авто под охрану через багажник?\","
-                                                               + "\"v\":\"" + textBox_arm_bagagnik.Text.Replace("\"", "%5C%22") + "\"}");
+                                                               + "\"v\":\"" + (checkBox_arm_from_bagagnik.Checked ? "Так" : "Ні") + "\"}");
 
                 //Произвольное поле  в охрану с багажника
                 string pp9_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
@@ -513,7 +560,7 @@ namespace Disp_WinForm
                                                                 + "\"id\":\"9\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.15 Додатково встановлені датчики\","
-                                                                + "\"v\":\"" + textBox_instaled_sensor.Text.Replace("\"", "%5C%22") + "\"}");
+                                                                + "\"v\":\"" + other_sensor.Replace("\"", "%5C%22") + "\"}");
 
 
                 //Произвольное поле Установщик
@@ -553,15 +600,15 @@ namespace Disp_WinForm
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"14\","
                                                               + "\"callMode\":\"update\","
-                                                              + "\"n\":\"3.6.1  Реле блокування: місце встановлення\","
-                                                              + "\"v\":\"" + textBox_place_relay.Text.Replace("\"", "%5C%22") + "\"}");
+                                                              + "\"n\":\"3.6.1 CAN-реле\","
+                                                              + "\"v\":\"" + ("Місце: " + textBox_CAN_relay_place.Text + ". Ланцюг: " + textBox_CAN_relay_lancug.Text).Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле wire cut
                 string pp15_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"15\","
                                                               + "\"callMode\":\"update\","
-                                                              + "\"n\":\"3.6.2 Реле блокування: елемент блокування\","
-                                                              + "\"v\":\"" + textBox_wire_cut.Text.Replace("\"", "%5C%22") + "\"}");
+                                                              + "\"n\":\"3.6.2 Звичайне реле\","
+                                                              + "\"v\":\"" + ("Місце: " + textBox_zvich_relay_place.Text + ". Ланцюг: " + textBox_zvich_relay_lancug.Text).Replace("\"", "%5C%22") + "\"}");
 
                 //Произвольное поле service button
                 string pp16_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
@@ -576,15 +623,15 @@ namespace Disp_WinForm
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"id\":\"17\","
                                                                + "\"callMode\":\"update\","
-                                                               + "\"n\":\"3.8.1 Тривожна кнопка: провідна, безпровідна\","
-                                                               + "\"v\":\"\"}");
+                                                               + "\"n\":\"3.8.1 Дротова тривожна кнопка\","
+                                                               + "\"v\":\"" + wireless_tk.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле place tk
                 string pp18_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"18\","
                                                               + "\"callMode\":\"update\","
-                                                              + "\"n\":\"3.8.2 Місце установки тривожної кнопки\","
-                                                              + "\"v\":\"" + textBox_place_tk.Text.Replace("\"", "%5C%22") + "\"}");
+                                                              + "\"n\":\"3.8.2 Бездротова тривожна кнопка\","
+                                                              + "\"v\":\"" + wire_tk.Replace("\"", "%5C%22") + "\"}");
                 
                 
                 //Произвольное поле  button fo pin
@@ -647,21 +694,13 @@ namespace Disp_WinForm
                                                                + "\"n\":\"vin\","
                                                                + "\"v\":\"" + textBox_vin.Text.Replace("\"", "%5C%22") + "\"}");
 
-                //3.8.1 Тривожна кнопка: провідна, безпровідна
-                string pp224_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"17\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"3.8.1 Тривожна кнопка: провідна, безпровідна\","
-                                                                + "\"v\":\"" + comboBox__tk_wirreless_or_wire.GetItemText(comboBox__tk_wirreless_or_wire.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
-
                 //3.9.1 Кнопки введення PIN коду: штатні, додатково встановленні
                 string pp234_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"19\","
                                                                 + "\"callMode\":\"update\","
-                                                                + "\"n\":\"3.9.1 Кнопки введення PIN коду: штатні, додатково встановленні\","
-                                                                + "\"v\":\"" + textBox_pin_button_external.Text.Replace("\"", "%5C%22") + "\"}");
+                                                                + "\"n\":\"3.6.3 Блокує Prizrak по CAN\","
+                                                                + "\"v\":\"" + (checkBox_block_prizrak_can.Checked ? "Так" : "Ні") + "\"}");
 
 
 
@@ -697,13 +736,13 @@ namespace Disp_WinForm
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"0 УВАГА\","
                                                                 + "\"v\":\"" + textBox_uvaga.Text.Replace("\"", "%5C%22") + "\"}");
-                //Произвольное поле device1
-                string pp100_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"14\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"3.4 Місце установки пристрою ВЕНБЕСТ\","
-                                                                + "\"v\":\"" + textBox_device1.Text.Replace("\"", "%5C%22") + "\"}");
+                ////Произвольное поле device1
+                //string pp100_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                //                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                //                                                + "\"id\":\"14\","
+                //                                                + "\"callMode\":\"update\","
+                //                                                + "\"n\":\"3.4 Місце установки пристрою ВЕНБЕСТ\","
+                //                                                + "\"v\":\"" + textBox_device1.Text.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле device2
                 string pp2_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -717,14 +756,14 @@ namespace Disp_WinForm
                                                               + "\"id\":\"16\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.6.1  Реле блокування: місце встановлення\","
-                                                              + "\"v\":\"" + textBox_place_relay.Text.Replace("\"", "%5C%22") + "\"}");
+                                                              + "\"v\":\"" + textBox_zvich_relay_place.Text.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле wire cut
                 string pp4_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"17\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.6.2 Реле блокування: елемент блокування\","
-                                                              + "\"v\":\"" + textBox_wire_cut.Text.Replace("\"", "%5C%22") + "\"}");
+                                                              + "\"v\":\"" + textBox_zvich_relay_lancug.Text.Replace("\"", "%5C%22") + "\"}");
 
                 
                 //Произвольное поле place tk
@@ -732,15 +771,15 @@ namespace Disp_WinForm
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"20\","
                                                               + "\"callMode\":\"update\","
-                                                              + "\"n\":\"3.8.2 Місце установки тривожної кнопки\","
-                                                              + "\"v\":\"" + textBox_place_tk.Text.Replace("\"", "%5C%22") + "\"}");
+                                                              + "\"n\":\"3.8.2 Бездротова тривожна кнопка\","
+                                                              + "\"v\":\"" + wireless_tk.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле place wireles tk
                 string pp60_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"19\","
                                                               + "\"callMode\":\"update\","
-                                                              + "\"n\":\"3.8.1 Тривожна кнопка: провідна, безпровідна\","
-                                                              + "\"v\":\"\"}");
+                                                              + "\"n\":\"3.8.1 Дротова тривожна кнопка\","
+                                                              + "\"v\":\"" + wire_tk.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле service button
                 string pp7_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -770,7 +809,7 @@ namespace Disp_WinForm
                                                               + "\"id\":\"10\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.15 Додатково встановлені датчики\","
-                                                              + "\"v\":\"" + textBox_instaled_sensor.Text.Replace("\"", "%5C%22") + "\"}");
+                                                              + "\"v\":\"" + other_sensor.Replace("\"", "%5C%22") + "\"}");
 
                 //Постановка авто под охрану через багажник?
                 string pp90_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
@@ -778,7 +817,7 @@ namespace Disp_WinForm
                                                               + "\"id\":\"9\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.12 Постановка авто под охрану через багажник?\","
-                                                              + "\"v\":\"" + textBox_arm_bagagnik.Text.Replace("\"", "%5C%22") + "\"}");
+                                                              + "\"v\":\"" + (checkBox_arm_from_bagagnik.Checked ? "Так" : "Ні") + "\"}");
 
                 //Характеристики kuzov type
                 string pp10_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
@@ -861,21 +900,13 @@ namespace Disp_WinForm
                                                                 + "\"n\":\"4.3 PIN-код встановлено особою(клієнт/установлник)\","
                                                                 + "\"v\":\"" + textBox_current_pin.Text.Replace("\"", "%5C%22") + "\"}");
 
-                //3.8.1 Тривожна кнопка: провідна, безпровідна
-                string pp22_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"19\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"3.8.1 Тривожна кнопка: провідна, безпровідна\","
-                                                                + "\"v\":\"" + comboBox__tk_wirreless_or_wire.GetItemText(comboBox__tk_wirreless_or_wire.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
-
-                //3.9.1 Кнопки введення PIN коду: штатні, додатково встановленні
-                string pp23_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"21\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"3.9.1 Кнопки введення PIN коду: штатні, додатково встановленні\","
-                                                                + "\"v\":\"" + textBox_pin_button_external.Text.Replace("\"", "%5C%22") + "\"}");
+                ////3.9.1 Кнопки введення PIN коду: штатні, додатково встановленні
+                //string pp23_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                //                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                //                                                + "\"id\":\"21\","
+                //                                                + "\"callMode\":\"update\","
+                //                                                + "\"n\":\"3.9.1 Кнопки введення PIN коду: штатні, додатково встановленні\","
+                //                                                + "\"v\":\"" + textBox_pin_button_external.Text.Replace("\"", "%5C%22") + "\"}");
 
                 //Произвольное поле Гарантія до
                 string pp211_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
@@ -1207,7 +1238,7 @@ namespace Disp_WinForm
                         "idtesting_object = '" + vars_form.id_db_openning_testing + "' " +
                         ";");
 
-                    
+
 
 
                     //macros.sql_command("insert into btk.testing_object (" +
@@ -1242,6 +1273,12 @@ namespace Disp_WinForm
                     //                       "'" + comboBox_result.GetItemText(comboBox_result.SelectedItem).ToString() + "'" +
                     //                       ");");
 
+                    string other_sensor = (checkBox_sensor_gps.Checked ? "GPS, " : "")
+                + (checkBox_sensor_glushenia.Checked ? "Глушіння, " : "")
+                + (checkBox_sensor_autostart.Checked ? "Автозапуск, " : "")
+                + (checkBox_sensor_objema.Checked ? "Обєму, " : "")
+                + (checkBox_lock_hood.Checked ? "GPS, " : "");
+
                     macros.sql_command("update btk.Object set Objectcol_testing_ok = 'Не завершено' where idObject = '" + vars_form.id_db_object_for_test + "';");
 
                     string Subject = "505 Протестовано успішно! VIN: " + textBox_vin.Text + ", Обєкт: " + name_obj_textBox.Text;
@@ -1263,7 +1300,7 @@ namespace Disp_WinForm
                     }
                     if (checkBox_dop_1.Checked is true)
                     {
-                        object[] row12 = { "Додатковий датчик 1", textBox_instaled_sensor.Text };
+                        object[] row12 = { "Додатковий датчик 1", other_sensor };
                         dt.Rows.Add(row12);
                     }
                     object[] row4 = { "Марка", comboBox_test_brand.GetItemText(this.comboBox_test_brand.SelectedItem) };
@@ -1607,6 +1644,13 @@ namespace Disp_WinForm
                                            "'" + vars_form.user_login_id + "', " +
                                            "'Успішно'" +
                                            ");");
+
+                    string other_sensor = (checkBox_sensor_gps.Checked ? "GPS, " : "")
+                        + (checkBox_sensor_glushenia.Checked ? "Глушіння, " : "")
+                        + (checkBox_sensor_autostart.Checked ? "Автозапуск, " : "")
+                        + (checkBox_sensor_objema.Checked ? "Обєму, " : "")
+                        + (checkBox_lock_hood.Checked ? "GPS, " : "");
+
                     macros.sql_command("update btk.Object set Objectcol_testing_ok = 'Успішно' where idObject = '" + vars_form.id_db_object_for_test + "';");
 
                     string Subject = "505 Протестовано успішно! VIN: " + textBox_vin.Text + ", Обєкт: " + name_obj_textBox.Text;
@@ -1628,7 +1672,7 @@ namespace Disp_WinForm
                     }
                     if (checkBox_dop_1.Checked is true)
                     {
-                        object[] row12 = { "Додатковий датчик 1", textBox_instaled_sensor.Text };
+                        object[] row12 = { "Додатковий датчик 1", other_sensor };
                         dt.Rows.Add(row12);
                     }
                     object[] row4 = { "Марка", comboBox_test_brand.GetItemText(this.comboBox_test_brand.SelectedItem) };
@@ -1807,7 +1851,7 @@ namespace Disp_WinForm
                 //}
 
             }
-            else if (get_produt_testing_device == "10" || get_produt_testing_device == "11")
+            else if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")
             {
                 string json2 = macros.wialon_request_lite("&svc=core/search_items&params={" +
                                                           "\"spec\":{"
@@ -2021,66 +2065,6 @@ namespace Disp_WinForm
             }
         }
 
-        private void checkBox_block_engine_CheckedChanged(object sender, EventArgs e)
-        {
-            //get product of testing device
-            string get_produt_testing_device = macros.sql_command("select " +
-                                                                   "products_has_Tarif.products_idproducts " +
-                                                                   "from " +
-                                                                   "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
-                                                                   "where " +
-                                                                   "Object.Object_id_wl = " + vars_form.id_wl_object_for_test + " and " +
-                                                                   "Object.idObject=Object_idObject and " +
-                                                                   "Subscription_idSubscr=idSubscr and " +
-                                                                   "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
-
-            if (get_produt_testing_device == "10" || get_produt_testing_device == "11")
-            {
-                if (checkBox_block_engine.Checked == true)
-                {
-                    string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
-                                                            "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
-                                                            "\"commandName\":\"3 - СТОП двигатель\"," +
-                                                            "\"linkType\":\"tcp\"," +
-                                                            "\"param\":\"\"," +
-                                                            "\"timeout\":\"0\"," +
-                                                            "\"flags\":\"0\"}");
-                }
-                else
-                {
-                    string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
-                                                            "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
-                                                            "\"commandName\":\"3 - СТАРТ двигатель\"," +
-                                                            "\"linkType\":\"tcp\"," +
-                                                            "\"param\":\"\"," +
-                                                            "\"timeout\":\"0\"," +
-                                                            "\"flags\":\"0\"}");
-                }
-            }
-            else if (get_produt_testing_device == "2" || get_produt_testing_device == "3")
-            {
-                if (checkBox_block_engine.Checked == true)
-                {
-                    string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
-                                                            "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
-                                                            "\"commandName\":\"2. СТОП Двигатель\"," +
-                                                            "\"linkType\":\"tcp\"," +
-                                                            "\"param\":\"\"," +
-                                                            "\"timeout\":\"0\"," +
-                                                            "\"flags\":\"0\"}");
-                }
-                else
-                {
-                    string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
-                                                            "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
-                                                            "\"commandName\":\"1. СТАРТ Двигатель\"," +
-                                                            "\"linkType\":\"tcp\"," +
-                                                            "\"param\":\"\"," +
-                                                            "\"timeout\":\"0\"," +
-                                                            "\"flags\":\"0\"}");
-                }
-            }
-        }
 
         private void button_cancel_Click(object sender, EventArgs e)
         {
@@ -2228,6 +2212,81 @@ namespace Disp_WinForm
         private void Testing_FormClosing(object sender, FormClosingEventArgs e)
         {
             aTimer3.Enabled = false;
+        }
+
+        private void button_block_engine_Click(object sender, EventArgs e)
+        {
+            //get product of testing device
+            string get_produt_testing_device = macros.sql_command("select " +
+                                                                   "products_has_Tarif.products_idproducts " +
+                                                                   "from " +
+                                                                   "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
+                                                                   "where " +
+                                                                   "Object.Object_id_wl = " + vars_form.id_wl_object_for_test + " and " +
+                                                                   "Object.idObject=Object_idObject and " +
+                                                                   "Subscription_idSubscr=idSubscr and " +
+                                                                   "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
+
+            if (get_produt_testing_device == "10" || get_produt_testing_device == "11")
+            {
+                string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
+                                                            "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
+                                                            "\"commandName\":\"3 - СТОП двигатель\"," +
+                                                            "\"linkType\":\"tcp\"," +
+                                                            "\"param\":\"\"," +
+                                                            "\"timeout\":\"0\"," +
+                                                            "\"flags\":\"0\"}");
+            }
+            else if (get_produt_testing_device == "2" || get_produt_testing_device == "3")
+            {
+                string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
+                                                            "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
+                                                            "\"commandName\":\"2. СТОП Двигатель\"," +
+                                                            "\"linkType\":\"tcp\"," +
+                                                            "\"param\":\"\"," +
+                                                            "\"timeout\":\"0\"," +
+                                                            "\"flags\":\"0\"}");
+            }
+        }
+
+        private void button_unblock_engine_Click(object sender, EventArgs e)
+        {
+            //get product of testing device
+            string get_produt_testing_device = macros.sql_command("select " +
+                                                                   "products_has_Tarif.products_idproducts " +
+                                                                   "from " +
+                                                                   "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
+                                                                   "where " +
+                                                                   "Object.Object_id_wl = " + vars_form.id_wl_object_for_test + " and " +
+                                                                   "Object.idObject=Object_idObject and " +
+                                                                   "Subscription_idSubscr=idSubscr and " +
+                                                                   "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
+
+            if (get_produt_testing_device == "10" || get_produt_testing_device == "11")
+            {
+                string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
+                                                            "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
+                                                            "\"commandName\":\"3 - СТАРТ двигатель\"," +
+                                                            "\"linkType\":\"tcp\"," +
+                                                            "\"param\":\"\"," +
+                                                            "\"timeout\":\"0\"," +
+                                                            "\"flags\":\"0\"}");
+            }
+            else if (get_produt_testing_device == "2" || get_produt_testing_device == "3")
+            {
+                string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
+                                                            "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
+                                                            "\"commandName\":\"1. СТАРТ Двигатель\"," +
+                                                            "\"linkType\":\"tcp\"," +
+                                                            "\"param\":\"\"," +
+                                                            "\"timeout\":\"0\"," +
+                                                            "\"flags\":\"0\"}");
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            name_obj_textBox.Text = comboBox_test_brand.GetItemText(comboBox_test_brand.SelectedItem) + " " + comboBox_test_model.GetItemText(comboBox_test_model.SelectedItem) + " " + textBox_vin.Text;
         }
     }
 }
