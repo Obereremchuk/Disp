@@ -15,7 +15,7 @@ namespace Disp_WinForm
             InitializeComponent();
             comboBox_filter.SelectedIndex = 0;
             // Строим список Продуктов
-            TimeSpan ts2 = new TimeSpan(23, 59, 59);
+            TimeSpan ts2 = new TimeSpan(00, 00, 00);
             dateTimePicker_filter_tested_zayavki.Value = DateTime.Now.Date + ts2;
             
 
@@ -325,6 +325,33 @@ namespace Disp_WinForm
                 if (textBox_selected_object.Text == "")
                 {
                     idtesting_object = "1";
+                }
+
+                if (vars_form.id_kontragent_sto_for_zayavki == "")
+                {
+                    DialogResult dialogResult = MessageBox.Show("Не вибрано встановника", "Зберегти з пустим полем?", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        vars_form.id_kontragent_sto_for_zayavki = "1";
+
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
+                if (vars_form.id_kontragent_zakazchik_for_zayavki == "")
+                {
+                    DialogResult dialogResult = MessageBox.Show("Не вибрано замовника", "Зберегти з пустим полем?", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        vars_form.id_kontragent_zakazchik_for_zayavki = "1";
+
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        return;
+                    }
                 }
 
                 macros.sql_command("UPDATE btk.Zayavki set " +

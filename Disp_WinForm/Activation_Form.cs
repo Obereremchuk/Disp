@@ -404,7 +404,8 @@ namespace Disp_WinForm
                 "email ," +
                 "products.product_name ," +
                 "Kontragenti.Kontragenti_short_name, " +
-                "TS_info.TS_infocol_licence_plate " +
+                "TS_info.TS_infocol_licence_plate, " +
+                "Zayavki.Zayavkicol_VIN " +
                 "from " +
                 "btk.Zayavki, btk.products, btk.Kontragenti, btk.TS_info, btk.testing_object, btk.Object " +
                 "where " +
@@ -425,6 +426,7 @@ namespace Disp_WinForm
             textBox_product.Text = table2.Rows[0][6].ToString();
             textBox_zamovnik.Text = table2.Rows[0][7].ToString();
             textBox_licence_plate.Text = table2.Rows[0][8].ToString();
+            textBox_vin_zayavka.Text= table2.Rows[0][9].ToString();
             //load coments for activation
             DataTable table = new DataTable();
 
@@ -578,6 +580,8 @@ namespace Disp_WinForm
                 }
                 treeView_user_accounts.EndUpdate();
                 treeView_user_accounts.ExpandAll();
+
+                
             }
             catch (Exception e)
             {
@@ -2113,10 +2117,10 @@ namespace Disp_WinForm
         private void button_add_vo1_Click(object sender, EventArgs e)
         {
             vars_form.num_vo = 1;
-            VO_add vo_add_form = new VO_add();
-            vo_add_form.Activated += new EventHandler(form_vo_add_activated);
-            vo_add_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
-            vo_add_form.Show();
+            Kontacts Kontacts_form = new Kontacts();
+            Kontacts_form.Activated += new EventHandler(form_vo_add_activated);
+            Kontacts_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
+            Kontacts_form.Show();
         }
 
         private void form_vo_add_activated(object sender, EventArgs e)
@@ -2191,41 +2195,42 @@ namespace Disp_WinForm
                 textBox_vo5.Text = VO_familia_imya_phone + ", " + VO_phone2;
             }
             this.Visible = true;// разблокируем окно контрагентов кактолько закрыто окно добавления контрагента
+            vars_form.num_vo = 0;
         }
 
         private void button_add_vo2_Click(object sender, EventArgs e)
         {
             vars_form.num_vo = 2;
-            VO_add vo_add_form = new VO_add();
-            vo_add_form.Activated += new EventHandler(form_vo_add_activated);
-            vo_add_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
-            vo_add_form.Show();
+            Kontacts Kontacts_form = new Kontacts();
+            Kontacts_form.Activated += new EventHandler(form_vo_add_activated);
+            Kontacts_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
+            Kontacts_form.Show();
         }
 
         private void button_add_vo3_Click(object sender, EventArgs e)
         {
             vars_form.num_vo = 3;
-            VO_add vo_add_form = new VO_add();
-            vo_add_form.Activated += new EventHandler(form_vo_add_activated);
-            vo_add_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
-            vo_add_form.Show();
+            Kontacts Kontacts_form = new Kontacts();
+            Kontacts_form.Activated += new EventHandler(form_vo_add_activated);
+            Kontacts_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
+            Kontacts_form.Show();
         }
 
         private void button_add_vo4_Click(object sender, EventArgs e)
         {
             vars_form.num_vo = 4;
-            VO_add vo_add_form = new VO_add();
-            vo_add_form.Activated += new EventHandler(form_vo_add_activated);
-            vo_add_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
-            vo_add_form.Show();
+            Kontacts Kontacts_form = new Kontacts();
+            Kontacts_form.Activated += new EventHandler(form_vo_add_activated);
+            Kontacts_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
+            Kontacts_form.Show();
         }
         private void button_add_vo5_Click(object sender, EventArgs e)
         {
             vars_form.num_vo = 5;
-            VO_add vo_add_form = new VO_add();
-            vo_add_form.Activated += new EventHandler(form_vo_add_activated);
-            vo_add_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
-            vo_add_form.Show();
+            Kontacts Kontacts_form = new Kontacts();
+            Kontacts_form.Activated += new EventHandler(form_vo_add_activated);
+            Kontacts_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
+            Kontacts_form.Show();
         }
 
         private void button_user_account_on_off_Click(object sender, EventArgs e)
@@ -2331,7 +2336,11 @@ namespace Disp_WinForm
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
                                                                 + "\"name\":\"" + name_obj_new_textBox.Text + "\"}");
 
-                macros.sql_command("update btk.Object set Object_name = '" + name_obj_new_textBox.Text + "'");
+                macros.sql_command("UPDATE btk.Object " +
+                               "SET " +
+                               "Object_name = '" + name_obj_new_textBox.Text + "' " +
+                               "WHERE " +
+                               "idObject = '" + vars_form.id_db_object_for_activation + "';");
             }
             
             foreach (var keyvalue in object_data.items[0].flds)
@@ -2449,11 +2458,50 @@ namespace Disp_WinForm
                 macros.sql_command("update btk.TS_info set TS_infocol_licence_plate = '" + textBox_licence_plate.Text + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
 
                 //update lic plate in WL
-                //Характеристики licence plate
                 string pp25_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
                                                                + "\"n\":\"registration_plate\","
                                                                + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+
+                //update VIN plate in db
+                macros.sql_command("update btk.TS_info set TS_infocol_vin = '" + textBox_vin_zayavka.Text + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
+
+                //update VIN plate in WL
+                string pp28_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                               + "\"n\":\"vin\","
+                                                               + "\"v\":\"" + textBox_vin_zayavka.Text.Replace("\"", "%5C%22") + "\"}");
+
+                //update хто тестував in WL
+                string pp6_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"id\":\"22\","
+                                                                + "\"callMode\":\"update\","
+                                                                + "\"n\":\"4.1.1 Оператор, що активував\","
+                                                                + "\"v\":\"" + vars_form.user_login_name + "\"}");
+
+                //update коли тестував in WL
+                string pp7_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"id\":\"21\","
+                                                                + "\"callMode\":\"update\","
+                                                                + "\"n\":\"4.1 Дата активації\","
+                                                                + "\"v\":\"" + DateTime.Now.Date + "\"}");
+
+                //через запятую перебираем все аккауты из тривив и добавляем в accounts для записи в виалон
+                string accounts = "";
+                for (int index1 = 0; index1 < treeView_user_accounts.Nodes[0].Nodes.Count; index1++)
+                {
+                    accounts = accounts + treeView_user_accounts.Nodes[0].Nodes[index1].Text + ", ";
+                }
+
+                //update коли тестував in WL
+                string pp8_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"id\":\"21\","
+                                                                + "\"callMode\":\"update\","
+                                                                + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
 
 
             }
@@ -2501,6 +2549,46 @@ namespace Disp_WinForm
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
                                                                + "\"n\":\"registration_plate\","
                                                                + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+
+                //update VIN in db
+                macros.sql_command("update btk.TS_info set TS_infocol_vin = '" + textBox_vin_zayavka.Text + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
+
+                //update VIN in WL
+                string pp28_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                               + "\"n\":\"vin\","
+                                                               + "\"v\":\"" + textBox_vin_zayavka.Text.Replace("\"", "%5C%22") + "\"}");
+
+                //update хто тестував in WL
+                string pp6_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"id\":\"22\","
+                                                                + "\"callMode\":\"update\","
+                                                                + "\"n\":\"4.1.1 Оператор, що активував\","
+                                                                + "\"v\":\"" + vars_form.user_login_name + "\"}");
+
+                //update коли тестував in WL
+                string pp7_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"id\":\"21\","
+                                                                + "\"callMode\":\"update\","
+                                                                + "\"n\":\"4.1 Дата активації\","
+                                                                + "\"v\":\"" + DateTime.Now.Date + "\"}");
+
+                //через запятую перебираем все аккауты из тривив и добавляем в accounts для записи в виалон
+                string accounts = "";
+                for (int index1 = 0; index1 < treeView_user_accounts.Nodes[0].Nodes.Count; index1++)
+                {
+                    accounts = accounts + treeView_user_accounts.Nodes[0].Nodes[index1].Text + ", ";
+                }
+
+                //update коли тестував in WL
+                string pp8_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"id\":\"21\","
+                                                                + "\"callMode\":\"update\","
+                                                                + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
             }
 
             if (remaynder_checkBox.Checked == true)

@@ -39,6 +39,8 @@
             this.label14 = new System.Windows.Forms.Label();
             this.button_add_kontragent = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox_otchestvo = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox_coment = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -116,7 +118,7 @@
             // 
             // button_create
             // 
-            this.button_create.Location = new System.Drawing.Point(583, 248);
+            this.button_create.Location = new System.Drawing.Point(583, 277);
             this.button_create.Name = "button_create";
             this.button_create.Size = new System.Drawing.Size(75, 23);
             this.button_create.TabIndex = 24;
@@ -145,21 +147,39 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBox_otchestvo);
+            this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.textBox_familia);
             this.groupBox1.Controls.Add(this.textBox_name);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(424, 73);
+            this.groupBox1.Size = new System.Drawing.Size(424, 102);
             this.groupBox1.TabIndex = 32;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "ПІБ";
             // 
+            // textBox_otchestvo
+            // 
+            this.textBox_otchestvo.Location = new System.Drawing.Point(77, 69);
+            this.textBox_otchestvo.Name = "textBox_otchestvo";
+            this.textBox_otchestvo.Size = new System.Drawing.Size(341, 20);
+            this.textBox_otchestvo.TabIndex = 5;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 72);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(64, 13);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Побатькові";
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.textBox_coment);
-            this.groupBox2.Location = new System.Drawing.Point(12, 151);
+            this.groupBox2.Location = new System.Drawing.Point(11, 180);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(728, 91);
             this.groupBox2.TabIndex = 33;
@@ -186,7 +206,7 @@
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Location = new System.Drawing.Point(442, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(297, 133);
+            this.groupBox3.Size = new System.Drawing.Size(297, 162);
             this.groupBox3.TabIndex = 34;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Контактна інформація";
@@ -235,7 +255,7 @@
             // 
             this.groupBox4.Controls.Add(this.button_add_kontragent);
             this.groupBox4.Controls.Add(this.comboBox_work_in);
-            this.groupBox4.Location = new System.Drawing.Point(12, 91);
+            this.groupBox4.Location = new System.Drawing.Point(12, 120);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(424, 54);
             this.groupBox4.TabIndex = 36;
@@ -244,7 +264,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(664, 248);
+            this.button2.Location = new System.Drawing.Point(664, 277);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 37;
@@ -256,7 +276,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(752, 281);
+            this.ClientSize = new System.Drawing.Size(752, 312);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -299,5 +319,7 @@
         private System.Windows.Forms.MaskedTextBox maskedTextBox_mail;
         private System.Windows.Forms.MaskedTextBox maskedTextBox_tel2;
         private System.Windows.Forms.MaskedTextBox maskedTextBox_tel1;
+        private System.Windows.Forms.TextBox textBox_otchestvo;
+        private System.Windows.Forms.Label label6;
     }
 }

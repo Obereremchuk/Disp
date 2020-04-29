@@ -44,12 +44,12 @@
             this.checkBox_sensor_autostart = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.textBox_other_alarm = new System.Windows.Forms.TextBox();
             this.checkBox_lock_hood = new System.Windows.Forms.CheckBox();
             this.checkBox_sensor_objema = new System.Windows.Forms.CheckBox();
             this.checkBox_sensor_gps = new System.Windows.Forms.CheckBox();
             this.checkBox_sensor_glushenia = new System.Windows.Forms.CheckBox();
             this.label22 = new System.Windows.Forms.Label();
-            this.textBox_other_alarm = new System.Windows.Forms.TextBox();
             this.textBox_uvaga = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.name_obj_textBox = new System.Windows.Forms.TextBox();
@@ -62,7 +62,6 @@
             this.textBox_licence_plate = new System.Windows.Forms.TextBox();
             this.textBox_vin = new System.Windows.Forms.TextBox();
             this.comboBox_kuzov_type = new System.Windows.Forms.ComboBox();
-            this.checkBox_arm_from_bagagnik = new System.Windows.Forms.CheckBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.label17 = new System.Windows.Forms.Label();
             this.comboBox_pin_or_tag = new System.Windows.Forms.ComboBox();
@@ -161,7 +160,7 @@
             // 
             this.comboBox_test_production_date.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_test_production_date.FormattingEnabled = true;
-            this.comboBox_test_production_date.Location = new System.Drawing.Point(279, 57);
+            this.comboBox_test_production_date.Location = new System.Drawing.Point(278, 79);
             this.comboBox_test_production_date.Name = "comboBox_test_production_date";
             this.comboBox_test_production_date.Size = new System.Drawing.Size(74, 21);
             this.comboBox_test_production_date.TabIndex = 26;
@@ -170,7 +169,7 @@
             // 
             this.comboBox_test_brand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_test_brand.FormattingEnabled = true;
-            this.comboBox_test_brand.Location = new System.Drawing.Point(195, 23);
+            this.comboBox_test_brand.Location = new System.Drawing.Point(194, 45);
             this.comboBox_test_brand.Name = "comboBox_test_brand";
             this.comboBox_test_brand.Size = new System.Drawing.Size(116, 21);
             this.comboBox_test_brand.TabIndex = 22;
@@ -191,7 +190,7 @@
             // 
             this.comboBox_color.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_color.FormattingEnabled = true;
-            this.comboBox_color.Location = new System.Drawing.Point(9, 57);
+            this.comboBox_color.Location = new System.Drawing.Point(8, 79);
             this.comboBox_color.Name = "comboBox_color";
             this.comboBox_color.Size = new System.Drawing.Size(264, 21);
             this.comboBox_color.TabIndex = 25;
@@ -200,7 +199,7 @@
             // 
             this.comboBox_test_model.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_test_model.FormattingEnabled = true;
-            this.comboBox_test_model.Location = new System.Drawing.Point(317, 23);
+            this.comboBox_test_model.Location = new System.Drawing.Point(316, 45);
             this.comboBox_test_model.Name = "comboBox_test_model";
             this.comboBox_test_model.Size = new System.Drawing.Size(154, 21);
             this.comboBox_test_model.TabIndex = 23;
@@ -253,11 +252,10 @@
             this.groupBox1.Controls.Add(this.groupBox4);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.checkBox_arm_from_bagagnik);
             this.groupBox1.Controls.Add(this.groupBox7);
             this.groupBox1.Controls.Add(this.groupBox6);
             this.groupBox1.Controls.Add(this.groupBox3);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(482, 734);
             this.groupBox1.TabIndex = 66;
@@ -335,6 +333,13 @@
             this.label4.TabIndex = 84;
             this.label4.Text = "Місце установки";
             // 
+            // textBox_other_alarm
+            // 
+            this.textBox_other_alarm.Location = new System.Drawing.Point(105, 116);
+            this.textBox_other_alarm.Name = "textBox_other_alarm";
+            this.textBox_other_alarm.Size = new System.Drawing.Size(366, 20);
+            this.textBox_other_alarm.TabIndex = 16;
+            // 
             // checkBox_lock_hood
             // 
             this.checkBox_lock_hood.AutoSize = true;
@@ -383,13 +388,6 @@
             this.label22.Size = new System.Drawing.Size(42, 13);
             this.label22.TabIndex = 84;
             this.label22.Text = "УВАГА";
-            // 
-            // textBox_other_alarm
-            // 
-            this.textBox_other_alarm.Location = new System.Drawing.Point(105, 116);
-            this.textBox_other_alarm.Name = "textBox_other_alarm";
-            this.textBox_other_alarm.Size = new System.Drawing.Size(366, 20);
-            this.textBox_other_alarm.TabIndex = 16;
             // 
             // textBox_uvaga
             // 
@@ -454,7 +452,7 @@
             this.groupBox4.Controls.Add(this.comboBox_color);
             this.groupBox4.Location = new System.Drawing.Point(0, 621);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(482, 87);
+            this.groupBox4.Size = new System.Drawing.Size(482, 113);
             this.groupBox4.TabIndex = 97;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Інформація про автомобіль";
@@ -462,7 +460,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(102, 41);
+            this.label7.Location = new System.Drawing.Point(128, 29);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(25, 13);
             this.label7.TabIndex = 120;
@@ -471,7 +469,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 41);
+            this.label5.Location = new System.Drawing.Point(20, 29);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 13);
             this.label5.TabIndex = 119;
@@ -479,14 +477,14 @@
             // 
             // textBox_licence_plate
             // 
-            this.textBox_licence_plate.Location = new System.Drawing.Point(10, 23);
+            this.textBox_licence_plate.Location = new System.Drawing.Point(9, 45);
             this.textBox_licence_plate.Name = "textBox_licence_plate";
             this.textBox_licence_plate.Size = new System.Drawing.Size(84, 20);
             this.textBox_licence_plate.TabIndex = 72;
             // 
             // textBox_vin
             // 
-            this.textBox_vin.Location = new System.Drawing.Point(100, 23);
+            this.textBox_vin.Location = new System.Drawing.Point(99, 45);
             this.textBox_vin.Name = "textBox_vin";
             this.textBox_vin.Size = new System.Drawing.Size(89, 20);
             this.textBox_vin.TabIndex = 71;
@@ -495,20 +493,10 @@
             // 
             this.comboBox_kuzov_type.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_kuzov_type.FormattingEnabled = true;
-            this.comboBox_kuzov_type.Location = new System.Drawing.Point(359, 57);
+            this.comboBox_kuzov_type.Location = new System.Drawing.Point(358, 79);
             this.comboBox_kuzov_type.Name = "comboBox_kuzov_type";
             this.comboBox_kuzov_type.Size = new System.Drawing.Size(112, 21);
             this.comboBox_kuzov_type.TabIndex = 24;
-            // 
-            // checkBox_arm_from_bagagnik
-            // 
-            this.checkBox_arm_from_bagagnik.AutoSize = true;
-            this.checkBox_arm_from_bagagnik.Location = new System.Drawing.Point(9, 714);
-            this.checkBox_arm_from_bagagnik.Name = "checkBox_arm_from_bagagnik";
-            this.checkBox_arm_from_bagagnik.Size = new System.Drawing.Size(157, 17);
-            this.checkBox_arm_from_bagagnik.TabIndex = 91;
-            this.checkBox_arm_from_bagagnik.Text = "В охороні через багажник";
-            this.checkBox_arm_from_bagagnik.UseVisualStyleBackColor = true;
             // 
             // groupBox7
             // 
@@ -732,9 +720,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.groupBox9);
             this.groupBox2.Controls.Add(this.tableLayoutPanel1);
-            this.groupBox2.Location = new System.Drawing.Point(500, 15);
+            this.groupBox2.Location = new System.Drawing.Point(500, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(473, 408);
+            this.groupBox2.Size = new System.Drawing.Size(472, 408);
             this.groupBox2.TabIndex = 67;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Тестування";
@@ -848,7 +836,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(461, 319);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(460, 319);
             this.tableLayoutPanel1.TabIndex = 66;
             // 
             // checkBox_test_conn
@@ -866,7 +854,7 @@
             this.label__test_vzlom.AutoSize = true;
             this.label__test_vzlom.Location = new System.Drawing.Point(218, 59);
             this.label__test_vzlom.Name = "label__test_vzlom";
-            this.label__test_vzlom.Size = new System.Drawing.Size(239, 13);
+            this.label__test_vzlom.Size = new System.Drawing.Size(238, 13);
             this.label__test_vzlom.TabIndex = 91;
             this.label__test_vzlom.Text = "#";
             this.label__test_vzlom.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -939,7 +927,7 @@
             this.label_test_zablocovano.AutoSize = true;
             this.label_test_zablocovano.Location = new System.Drawing.Point(218, 32);
             this.label_test_zablocovano.Name = "label_test_zablocovano";
-            this.label_test_zablocovano.Size = new System.Drawing.Size(239, 13);
+            this.label_test_zablocovano.Size = new System.Drawing.Size(238, 13);
             this.label_test_zablocovano.TabIndex = 7;
             this.label_test_zablocovano.Text = "#";
             this.label_test_zablocovano.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -961,7 +949,7 @@
             this.label_netconn.AutoSize = true;
             this.label_netconn.Location = new System.Drawing.Point(218, 4);
             this.label_netconn.Name = "label_netconn";
-            this.label_netconn.Size = new System.Drawing.Size(239, 13);
+            this.label_netconn.Size = new System.Drawing.Size(238, 13);
             this.label_netconn.TabIndex = 73;
             this.label_netconn.Text = "#";
             this.label_netconn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1004,7 +992,7 @@
             this.label_test_du.AutoSize = true;
             this.label_test_du.Location = new System.Drawing.Point(218, 80);
             this.label_test_du.Name = "label_test_du";
-            this.label_test_du.Size = new System.Drawing.Size(239, 13);
+            this.label_test_du.Size = new System.Drawing.Size(238, 13);
             this.label_test_du.TabIndex = 6;
             this.label_test_du.Text = "#";
             this.label_test_du.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1015,7 +1003,7 @@
             this.label_test_tk.AutoSize = true;
             this.label_test_tk.Location = new System.Drawing.Point(218, 101);
             this.label_test_tk.Name = "label_test_tk";
-            this.label_test_tk.Size = new System.Drawing.Size(239, 13);
+            this.label_test_tk.Size = new System.Drawing.Size(238, 13);
             this.label_test_tk.TabIndex = 9;
             this.label_test_tk.Text = "#";
             this.label_test_tk.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1068,7 +1056,7 @@
             this.label_auth.AutoSize = true;
             this.label_auth.Location = new System.Drawing.Point(218, 206);
             this.label_auth.Name = "label_auth";
-            this.label_auth.Size = new System.Drawing.Size(239, 13);
+            this.label_auth.Size = new System.Drawing.Size(238, 13);
             this.label_auth.TabIndex = 90;
             this.label_auth.Text = "#";
             this.label_auth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1079,7 +1067,7 @@
             this.label_all_door.AutoSize = true;
             this.label_all_door.Location = new System.Drawing.Point(218, 185);
             this.label_all_door.Name = "label_all_door";
-            this.label_all_door.Size = new System.Drawing.Size(239, 13);
+            this.label_all_door.Size = new System.Drawing.Size(238, 13);
             this.label_all_door.TabIndex = 90;
             this.label_all_door.Text = "#";
             this.label_all_door.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1090,7 +1078,7 @@
             this.label_arm.AutoSize = true;
             this.label_arm.Location = new System.Drawing.Point(218, 164);
             this.label_arm.Name = "label_arm";
-            this.label_arm.Size = new System.Drawing.Size(239, 13);
+            this.label_arm.Size = new System.Drawing.Size(238, 13);
             this.label_arm.TabIndex = 90;
             this.label_arm.Text = "#";
             this.label_arm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1101,7 +1089,7 @@
             this.label_test_address.AutoSize = true;
             this.label_test_address.Location = new System.Drawing.Point(218, 122);
             this.label_test_address.Name = "label_test_address";
-            this.label_test_address.Size = new System.Drawing.Size(239, 13);
+            this.label_test_address.Size = new System.Drawing.Size(238, 13);
             this.label_test_address.TabIndex = 26;
             this.label_test_address.Text = "#";
             this.label_test_address.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1112,7 +1100,7 @@
             this.label_test_hood_arm.AutoSize = true;
             this.label_test_hood_arm.Location = new System.Drawing.Point(218, 143);
             this.label_test_hood_arm.Name = "label_test_hood_arm";
-            this.label_test_hood_arm.Size = new System.Drawing.Size(239, 13);
+            this.label_test_hood_arm.Size = new System.Drawing.Size(238, 13);
             this.label_test_hood_arm.TabIndex = 90;
             this.label_test_hood_arm.Text = "#";
             this.label_test_hood_arm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1134,7 +1122,7 @@
             this.label_autstart.AutoSize = true;
             this.label_autstart.Location = new System.Drawing.Point(218, 296);
             this.label_autstart.Name = "label_autstart";
-            this.label_autstart.Size = new System.Drawing.Size(239, 13);
+            this.label_autstart.Size = new System.Drawing.Size(238, 13);
             this.label_autstart.TabIndex = 9;
             this.label_autstart.Text = "#";
             this.label_autstart.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1165,7 +1153,7 @@
             this.label_test_dop_2.AutoSize = true;
             this.label_test_dop_2.Location = new System.Drawing.Point(218, 269);
             this.label_test_dop_2.Name = "label_test_dop_2";
-            this.label_test_dop_2.Size = new System.Drawing.Size(239, 13);
+            this.label_test_dop_2.Size = new System.Drawing.Size(238, 13);
             this.label_test_dop_2.TabIndex = 67;
             this.label_test_dop_2.Text = "#";
             this.label_test_dop_2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1196,7 +1184,7 @@
             this.label_test_dop_1.AutoSize = true;
             this.label_test_dop_1.Location = new System.Drawing.Point(218, 248);
             this.label_test_dop_1.Name = "label_test_dop_1";
-            this.label_test_dop_1.Size = new System.Drawing.Size(239, 13);
+            this.label_test_dop_1.Size = new System.Drawing.Size(238, 13);
             this.label_test_dop_1.TabIndex = 90;
             this.label_test_dop_1.Text = "#";
             this.label_test_dop_1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1229,7 +1217,7 @@
             this.label_ign.AutoSize = true;
             this.label_ign.Location = new System.Drawing.Point(218, 227);
             this.label_ign.Name = "label_ign";
-            this.label_ign.Size = new System.Drawing.Size(239, 13);
+            this.label_ign.Size = new System.Drawing.Size(238, 13);
             this.label_ign.TabIndex = 90;
             this.label_ign.Text = "#";
             this.label_ign.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1376,17 +1364,17 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(985, 749);
+            this.ClientSize = new System.Drawing.Size(984, 749);
             this.Controls.Add(this.groupBox8);
             this.Controls.Add(this.button_write);
             this.Controls.Add(this.button_cancel);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.MaximumSize = new System.Drawing.Size(1300, 1000);
             this.Name = "Testing";
             this.Text = "Testing";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Testing_FormClosing);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -1498,7 +1486,6 @@
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.CheckBox checkBox_sensor_glushenia;
-        private System.Windows.Forms.CheckBox checkBox_arm_from_bagagnik;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.CheckBox checkBox_lock_hood;

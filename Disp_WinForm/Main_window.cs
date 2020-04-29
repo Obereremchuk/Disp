@@ -66,6 +66,13 @@ namespace Disp_WinForm
             // Put the cells in edit mode when user enters them.
             dataGridView_808_n.EditMode = DataGridViewEditMode.EditOnEnter;
 
+            dataGridView_lost.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
+            dataGridView_lost.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            // Set the DataGridView control's border.
+            dataGridView_lost.BorderStyle = BorderStyle.Fixed3D;
+            // Put the cells in edit mode when user enters them.
+            dataGridView_lost.EditMode = DataGridViewEditMode.EditOnEnter;
+
             dataGridView_909_n.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
             dataGridView_909_n.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             // Set the DataGridView control's border.
@@ -153,6 +160,10 @@ namespace Disp_WinForm
         {
             update_808_dgv();
         }
+        private void OnTimedEvent_lost(object sender, EventArgs e)
+        {
+            update_lost_dgv();
+        }
         private void OnTimedEvent_909(object sender, EventArgs e)
         {
             update_909_dgv();
@@ -195,6 +206,23 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_dilery);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_testing);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
+                aTimer.AutoReset = true;
+                aTimer.Enabled = true;
+            }
+            else if (tabControl_testing.SelectedTab.Name == "tabPage_lost")
+            {
+                update_lost_dgv();
+                aTimer.Interval = 2000;
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_808);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_909);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_open);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_sale);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_dilery);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_testing);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
+                aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.AutoReset = true;
                 aTimer.Enabled = true;
@@ -210,6 +238,7 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_dilery);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_testing);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.AutoReset = true;
                 aTimer.Enabled = true;
@@ -225,6 +254,7 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_dilery);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_testing);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.AutoReset = true;
                 aTimer.Enabled = true;
@@ -240,6 +270,7 @@ namespace Disp_WinForm
                 aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent_dilery);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_testing);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.AutoReset = true;
                 aTimer.Enabled = true;
@@ -255,6 +286,7 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_dilery);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_testing);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.AutoReset = true;
                 aTimer.Enabled = true;
@@ -269,6 +301,7 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_dilery);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_testing);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.Enabled = false;
                 update_testing_dgv();
@@ -285,6 +318,7 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_dilery);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_testing);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.Enabled = false;
             }
@@ -299,6 +333,7 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_dilery);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_testing);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 
                 //aTimer.AutoReset = true;
@@ -316,6 +351,7 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_dilery);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_testing);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.Enabled = false;
             }
@@ -1354,6 +1390,165 @@ namespace Disp_WinForm
         }
 
 
+        /// Обновляем вкладку lost
+        /// 
+        private void update_lost_dgv()
+        {
+            DataTable table = new DataTable();
+            table = macros.GetData("SELECT idnotification as 'ID тривоги'," +
+                                   "product as 'Продукт'," +
+                                   "unit_name as 'Назва об’єкту'," +
+                                   "type_alarm as 'Тип тривоги'," +
+                                   "unit_id as 'ID'," +
+                                   "Status as 'Статус'," +
+                                   "alarm_locked_user as 'Обробляє'," +
+                                   "notification.time_stamp as 'Дата зміни'," +
+                                   "group_alarm as 'Згруповано до', " +
+                                   "Users.username as 'Створив'," +
+                                   "speed, " +
+                                   "remaynder_activate as 'Нагадати', " +
+                                   "remayder_date as 'Дата нагадування'  FROM btk.notification, btk.Users WHERE Users.idUsers=notification.Users_idUsers and Status = '808' " + vars_form.hide_group_alarm + "  ;");//order by btk.notification." + vars_form.sort.ToString() + " " + vars_form.order_sort + "
+            UpdateGridHandler ug = UpdateGrid_lost;
+            ug.BeginInvoke(table, cb_lost, null);
+        }
+        private void cb_lost(IAsyncResult res)
+        {
+
+        }
+        private void UpdateGrid1_lost(DataTable table)
+        {
+            int scrollPosition = this.dataGridView_lost.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+
+            DataView dv = table.DefaultView;
+            dv.Sort = "Дата зміни desc";
+            DataTable sortedDT = dv.ToTable();
+
+            dataGridView_lost.DataSource = table;
+
+            if (dataGridView_lost.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
+            {
+                if (scrollPosition == -1)
+                {
+                    scrollPosition = 0;
+                }
+                dataGridView_lost.FirstDisplayedScrollingRowIndex = scrollPosition;
+            }
+        }
+        private void UpdateGrid_lost(DataTable table)
+        {
+            if (dataGridView_lost.InvokeRequired)
+            {
+                UpdateGridThreadHandler handler = UpdateGrid1_lost;
+                dataGridView_lost.BeginInvoke(handler, table);
+            }
+            else
+            {
+                int scrollPosition = this.dataGridView_lost.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+
+                DataView dv = table.DefaultView;
+                dv.Sort = "Дата зміни desc";
+                DataTable sortedDT = dv.ToTable();
+
+                dataGridView_lost.DataSource = table;
+
+                if (dataGridView_lost.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
+                {
+                    if (scrollPosition == -1)
+                    {
+                        scrollPosition = 0;
+                    }
+                    dataGridView_lost.FirstDisplayedScrollingRowIndex = scrollPosition;
+                }
+            }
+        }
+
+        private void dataGridView_lost_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            //return;
+            dataGridView_lost.SuspendLayout();
+
+            if (dataGridView_lost.Rows[e.RowIndex].Cells[11].Value is true)
+            {
+                if (Convert.ToDateTime(dataGridView_lost.Rows[e.RowIndex].Cells[12].Value) == DateTime.Now.Date)
+                {
+                    e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#bcccf2");
+                }
+                else if (Convert.ToDateTime(dataGridView_lost.Rows[e.RowIndex].Cells[12].Value) <= DateTime.Now.Date)
+                {
+                    e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#F9A780");
+                }
+                else if (Convert.ToDateTime(dataGridView_lost.Rows[e.RowIndex].Cells[12].Value) >= DateTime.Now.Date)
+                {
+                    e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#C8FAB7");
+                }
+            }
+            else
+            {
+                e.CellStyle.BackColor = Color.White;
+            }
+
+            dataGridView_lost.Columns[10].Visible = false;
+            dataGridView_lost.Columns[8].Visible = false;
+            dataGridView_lost.Columns[4].Visible = false;
+            dataGridView_lost.ResumeLayout();
+        }
+        private void dataGridView_lost_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex <= -1 || e.ColumnIndex <= -1)
+            {
+                return;
+            }
+
+            if (dataGridView_lost.Rows[e.RowIndex].Cells[9].Value.ToString() == "")//Згруповано до ID тривоги(9)
+            {
+                vars_form.search_id = dataGridView_lost.Rows[e.RowIndex].Cells[4].Value.ToString(); //ID об"єкту(8)
+                vars_form.id_notif = dataGridView_lost.Rows[e.RowIndex].Cells[0].Value.ToString();//ID Тривоги (0)
+                vars_form.id_status = dataGridView_lost.Rows[e.RowIndex].Cells[5].Value.ToString();//Статус(7)
+                vars_form.unit_name = dataGridView_lost.Rows[e.RowIndex].Cells[2].Value.ToString();//Назва об"єкту(2)
+                vars_form.alarm_name = dataGridView_lost.Rows[e.RowIndex].Cells[3].Value.ToString();//Тип тривоги(3)
+                vars_form.restrict_un_group = false;
+                vars_form.zvernenya = dataGridView_lost.Rows[e.RowIndex].Cells[11].Value.ToString();//Звернення(4)
+            }
+            else
+            {
+
+                vars_form.search_id = dataGridView_lost.Rows[e.RowIndex].Cells[4].Value.ToString(); //ID об"єкту(8)
+                vars_form.id_notif = dataGridView_lost.Rows[e.RowIndex].Cells[0].Value.ToString();//Згруповано до ID тривоги(9)
+                vars_form.id_status = dataGridView_lost.Rows[e.RowIndex].Cells[5].Value.ToString();//Статус(7)
+                vars_form.unit_name = dataGridView_lost.Rows[e.RowIndex].Cells[2].Value.ToString();//Назва об"єкту(2)
+                vars_form.alarm_name = dataGridView_lost.Rows[e.RowIndex].Cells[3].Value.ToString();//Тип тривоги(3)
+                vars_form.restrict_un_group = false;
+                vars_form.zvernenya = dataGridView_lost.Rows[e.RowIndex].Cells[10].Value.ToString();//Звернення(4)
+            }
+
+            // Блокируем обработку тревоги однвременно двумя операторами, и вносим информацию кто открыл тревогу
+            DataTable results1 = macros.GetData("SELECT " +
+                                                "alarm_locked, " +
+                                                "alarm_locked_user " +
+                                                "FROM btk.notification " +
+                                                "WHERE " +
+                                                "idnotification = '" + vars_form.id_notif + "';");
+
+            if (vars_form.user_login_name != "admin" & vars_form.user_login_name != results1.Rows[0][1].ToString())
+            {
+                if (results1.Rows[0][0].ToString() == "1")
+                {
+                    MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
+                    return;
+                }
+            }
+
+            macros.GetData("UPDATE btk.notification " +
+                           "SET " +
+                           "alarm_locked = '1', " +
+                           "alarm_locked_user = '" + vars_form.user_login_name + "' " +
+                           "WHERE " +
+                           "idnotification = '" + vars_form.id_notif + "';");
+
+            detail subwindow = new detail();
+            subwindow.Show();
+        }
+
 
         /// Обновляем вкладку 909
         /// 
@@ -2093,7 +2288,6 @@ namespace Disp_WinForm
 
             comboBox_sort_column.SelectedIndexChanged += checkBox_sort_order_CheckedChanged;
 
-            //update_808_dgv();
         }
 
         private void button_lenik_get_rep_vidpra_Click(object sender, EventArgs e)
@@ -2309,6 +2503,7 @@ namespace Disp_WinForm
         {
             update_actication_dgv();
         }
+
     }
 
     internal class List_add_alarm
@@ -2361,6 +2556,7 @@ namespace Disp_WinForm
         public static object rootobject { get; set; }//
         public static string error { get; set; }//Храним token авторизации для Wialon из БД
         public static DataTable table_808 { get; set; }//data from mysql for 808
+        public static DataTable table_lost { get; set; }//data from mysql for 808
         public static DataTable table_909 { get; set; }//data from mysql for 909
         public static DataTable table_open { get; set; }//data from mysql for open
         public static DataTable table_dilery { get; set; }//data from mysql for dilery

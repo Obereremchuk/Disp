@@ -17,14 +17,24 @@ namespace Disp_WinForm
         {
             InitializeComponent();
 
+            //если форма открівается для добавления контакта как ВО то віключаем параметр работает где
+            if (vars_form.num_vo != 0)
+            { 
+                comboBox_work_in.Enabled = false;
+                button_add_kontragent.Enabled = false;
+            }
+
         }
 
         private void button_create_Click(object sender, EventArgs e)
         {
-            if (comboBox_work_in.SelectedIndex == -1)
+            if (vars_form.num_vo == 0)
             {
-                comboBox_work_in.BackColor = Color.Red;
-                return;
+                if (comboBox_work_in.SelectedIndex == -1)
+                {
+                    comboBox_work_in.BackColor = Color.Red;
+                    return;
+                }
             }
 
             if (textBox_name.Text == "")
@@ -70,8 +80,14 @@ namespace Disp_WinForm
             else
             { phone2ID = "1"; }
 
-
-            macros.sql_command("insert into btk.Kontakti (Emails_idEmails1,Phonebook_idPhonebook1,Kontakti_user_creator,Kontakti_user_edit, Kontakti_imya, Kontakti_familia,Emails_idEmails,Phonebook_idPhonebook, Kontact_type_idKontact_type) values('" + email2ID + "','" + phone2ID + "','" + vars_form.user_login_id + "','" + vars_form.user_login_id+"','" + textBox_name.Text.ToString() + "','" + textBox_familia.Text.ToString() + "','" + emailID + "','" + phoneID + "', '2');");
+            if (vars_form.num_vo >= 1)
+            {
+                macros.sql_command("insert into btk.Kontakti (Emails_idEmails1,Phonebook_idPhonebook1,Kontakti_user_creator,Kontakti_user_edit, Kontakti_imya, Kontakti_familia,Emails_idEmails,Phonebook_idPhonebook, Kontact_type_idKontact_type, Kontakti_otchestvo) values('" + email2ID + "','" + phone2ID + "','" + vars_form.user_login_id + "','" + vars_form.user_login_id + "','" + textBox_name.Text.ToString() + "','" + textBox_familia.Text.ToString() + "','" + emailID + "','" + phoneID + "', '1', '" + textBox_otchestvo.Text + "');");
+            }
+            else
+            {
+                macros.sql_command("insert into btk.Kontakti (Emails_idEmails1,Phonebook_idPhonebook1,Kontakti_user_creator,Kontakti_user_edit, Kontakti_imya, Kontakti_familia,Emails_idEmails,Phonebook_idPhonebook, Kontact_type_idKontact_type, Kontakti_otchestvo) values('" + email2ID + "','" + phone2ID + "','" + vars_form.user_login_id + "','" + vars_form.user_login_id + "','" + textBox_name.Text.ToString() + "','" + textBox_familia.Text.ToString() + "','" + emailID + "','" + phoneID + "', '2', '" + textBox_otchestvo.Text + "');");
+            }
 
             string contactID = macros.sql_command("SELECT MAX(idKontakti) FROM btk.Kontakti;");
 

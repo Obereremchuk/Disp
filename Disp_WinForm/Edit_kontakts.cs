@@ -21,6 +21,12 @@ namespace Disp_WinForm
         public Edit_kontakts()
         {
             InitializeComponent();
+            //если форма открівается для добавления контакта как ВО то віключаем параметр работает где
+            if (vars_form.num_vo != 0)
+            {
+                comboBox_work_in.Enabled = false;
+                button_add_kontragent.Enabled = false;
+            }
             Get_kontackt();
         }
 
@@ -38,6 +44,7 @@ namespace Disp_WinForm
 
                 textBox_name.Text = reader["Kontakti_imya"].ToString();
                 textBox_familia.Text = reader["Kontakti_familia"].ToString();
+                textBox_otchestvo.Text= reader["Kontakti_otchestvo"].ToString();
                 id_phon1 = reader["Phonebook_idPhonebook"].ToString();
                 id_phon2 = reader["Phonebook_idPhonebook1"].ToString();
                 id_mail1 = reader["Emails_idEmails"].ToString();
@@ -87,10 +94,13 @@ namespace Disp_WinForm
 
         private void button_create_Click(object sender, EventArgs e)
         {
-            if (comboBox_work_in.SelectedIndex == -1)
+            if (vars_form.num_vo == 0)
             {
-                comboBox_work_in.BackColor = Color.Red;
-                return;
+                if (comboBox_work_in.SelectedIndex == -1)
+                {
+                    comboBox_work_in.BackColor = Color.Red;
+                    return;
+                }
             }
 
             if (textBox_name.Text == "")
@@ -201,19 +211,39 @@ namespace Disp_WinForm
                 }
             }
 
-            macros.sql_command("update btk.Kontakti set "
+            if (vars_form.num_vo >= 1)
+            {
+                macros.sql_command("update btk.Kontakti set "
                 + "Kontakti_imya='" + textBox_name.Text + "',"
                 + "Kontakti_familia='" + textBox_familia.Text + "',"
+                + "Kontakti_otchestvo = '"+textBox_otchestvo.Text+"',"
                 + "Kontakti_comment='" + textBox_coment.Text + "',"
                 + "Kontakti_user_creator='" + vars_form.user_login_id + "',"
                 + "Kontakti_edit_datetime='" + Convert.ToDateTime(DateTime.Now).ToString("yyyy -MM-dd HH:mm:ss") + "',"
                 + "Emails_idEmails='" + id_mail1 + "',"
                 + "Phonebook_idPhonebook='" + id_phon1 + "',"
                 + "Emails_idEmails1='" + id_mail2 + "',"
+                + "Kontact_type_idKontact_type = '1',"
                 + "Phonebook_idPhonebook1='" + id_phon2 + "' where idKontakti=" + vars_form.btk_idkontragents + ";");
-            macros.sql_command("update btk.Kontakti_has_Kontragenti set "
-                               + "Kontragenti_idKontragenti='" +comboBox_work_in.SelectedValue+ "' where Kontakti_idKontakti='"+vars_form.btk_idkontragents+"';");
+            }
+            else
+            {
 
+                macros.sql_command("update btk.Kontakti set "
+                + "Kontakti_imya='" + textBox_name.Text + "',"
+                + "Kontakti_familia='" + textBox_familia.Text + "',"
+                + "Kontakti_otchestvo = '" + textBox_otchestvo.Text + "',"
+                + "Kontakti_comment='" + textBox_coment.Text + "',"
+                + "Kontakti_user_creator='" + vars_form.user_login_id + "',"
+                + "Kontakti_edit_datetime='" + Convert.ToDateTime(DateTime.Now).ToString("yyyy -MM-dd HH:mm:ss") + "',"
+                + "Emails_idEmails='" + id_mail1 + "',"
+                + "Phonebook_idPhonebook='" + id_phon1 + "',"
+                + "Emails_idEmails1='" + id_mail2 + "',"
+                + "Kontact_type_idKontact_type = '2',"
+                + "Phonebook_idPhonebook1='" + id_phon2 + "' where idKontakti=" + vars_form.btk_idkontragents + ";");
+                macros.sql_command("update btk.Kontakti_has_Kontragenti set "
+                                   + "Kontragenti_idKontragenti='" + comboBox_work_in.SelectedValue + "' where Kontakti_idKontakti='" + vars_form.btk_idkontragents + "';");
+            }
             this.Close();
         }
 

@@ -45,6 +45,7 @@ namespace Disp_WinForm
             listView_kontackts.Columns.Add("idKontakti", 1, HorizontalAlignment.Left);
             listView_kontackts.Columns.Add("Ім’я", -2, HorizontalAlignment.Left);
             listView_kontackts.Columns.Add("Призвище", -2, HorizontalAlignment.Left);
+            listView_kontackts.Columns.Add("Побатькові", -2, HorizontalAlignment.Left);
             listView_kontackts.Columns.Add("Телефон основний", -2, HorizontalAlignment.Left);
             listView_kontackts.Columns.Add("Телефон Додатковий", -2, HorizontalAlignment.Left);
             listView_kontackts.Columns.Add("Працює в", -2, HorizontalAlignment.Left);
@@ -52,37 +53,75 @@ namespace Disp_WinForm
 
         private void Get_kontackts()
         {
-            MySqlConnection myConnection = new MySqlConnection("server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True; charset=utf8");
-            string sql = string.Format("SELECT * FROM btk.Kontakti where Kontakti_imya like '%" + textBox_search_kontackts.Text + "%' or Kontakti_familia like '%" + textBox_search_kontackts.Text + "%' or Phonebook_idPhonebook like '%" + textBox_search_kontackts.Text + "%' or Phonebook_idPhonebook1 like '%" + textBox_search_kontackts.Text + "%';");
-            MySqlCommand myDataAdapter = new MySqlCommand(sql, myConnection);
-            myConnection.Open();
-            MySqlDataReader reader = myDataAdapter.ExecuteReader();
-            List<string> results = new List<string>();
-
-            listView_kontackts.Items.Clear();
-            listView_kontackts.View = View.List;
-
-
-            while (reader.Read())
+            if (vars_form.num_vo >= 1)
             {
-                var item = new ListViewItem();
-                item.Text = reader["idKontakti"].ToString();
-                item.SubItems.Add(reader["Kontakti_imya"].ToString());
-                item.SubItems.Add(reader["Kontakti_familia"].ToString());
-                //item.SubItems.Add(reader["Phonebook_idPhonebook"].ToString());
-                item.SubItems.Add(macros.sql_command("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook=" + reader["Phonebook_idPhonebook"].ToString() + ";"));
-                //item.SubItems.Add(reader["Phonebook_idPhonebook1"].ToString());
-                item.SubItems.Add(macros.sql_command("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook=" + reader["Phonebook_idPhonebook1"].ToString() + ";"));
-                string t = macros.sql_command("SELECT Kontragenti_idKontragenti FROM btk.Kontakti_has_Kontragenti where Kontakti_idKontakti='" + reader["idKontakti"].ToString() + "';");
-                item.SubItems.Add(macros.sql_command("select  concat(Kontragenti.Kontragenti_short_name, '(',Kontragenti.Kontragenti_full_name, ')') AS full_short  FROM btk.Kontragenti where idKontragenti='"+t+"'"));
-                listView_kontackts.Items.Add(item);
-            }
-            reader.Close();
-            myDataAdapter.Dispose();
-            myConnection.Close();
+                MySqlConnection myConnection = new MySqlConnection("server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True; charset=utf8");
+                string sql = string.Format("SELECT * FROM btk.Kontakti where (Kontakti_imya like '%" + textBox_search_kontackts.Text + "%' or Kontakti_familia like '%" + textBox_search_kontackts.Text + "%' or Phonebook_idPhonebook like '%" + textBox_search_kontackts.Text + "%' or Phonebook_idPhonebook1 like '%" + textBox_search_kontackts.Text + "%') and Kontact_type_idKontact_type = '1';");
+                MySqlCommand myDataAdapter = new MySqlCommand(sql, myConnection);
+                myConnection.Open();
+                MySqlDataReader reader = myDataAdapter.ExecuteReader();
+                List<string> results = new List<string>();
 
-            listView_kontackts.Visible = true;
-            listView_kontackts.View = View.Details;
+                listView_kontackts.Items.Clear();
+                listView_kontackts.View = View.List;
+
+
+                while (reader.Read())
+                {
+                    var item = new ListViewItem();
+                    item.Text = reader["idKontakti"].ToString();
+                    item.SubItems.Add(reader["Kontakti_imya"].ToString());
+                    item.SubItems.Add(reader["Kontakti_familia"].ToString());
+                    item.SubItems.Add(reader["Kontakti_otchestvo"].ToString());
+                    //item.SubItems.Add(reader["Phonebook_idPhonebook"].ToString());
+                    item.SubItems.Add(macros.sql_command("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook=" + reader["Phonebook_idPhonebook"].ToString() + ";"));
+                    //item.SubItems.Add(reader["Phonebook_idPhonebook1"].ToString());
+                    item.SubItems.Add(macros.sql_command("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook=" + reader["Phonebook_idPhonebook1"].ToString() + ";"));
+                    string t = macros.sql_command("SELECT Kontragenti_idKontragenti FROM btk.Kontakti_has_Kontragenti where Kontakti_idKontakti='" + reader["idKontakti"].ToString() + "';");
+                    item.SubItems.Add(macros.sql_command("select  concat(Kontragenti.Kontragenti_short_name, '(',Kontragenti.Kontragenti_full_name, ')') AS full_short  FROM btk.Kontragenti where idKontragenti='" + t + "'"));
+                    listView_kontackts.Items.Add(item);
+                }
+                reader.Close();
+                myDataAdapter.Dispose();
+                myConnection.Close();
+
+                listView_kontackts.Visible = true;
+                listView_kontackts.View = View.Details;
+            }
+            else
+            {
+                MySqlConnection myConnection = new MySqlConnection("server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True; charset=utf8");
+                string sql = string.Format("SELECT * FROM btk.Kontakti where Kontakti_imya like '%" + textBox_search_kontackts.Text + "%' or Kontakti_familia like '%" + textBox_search_kontackts.Text + "%' or Phonebook_idPhonebook like '%" + textBox_search_kontackts.Text + "%' or Phonebook_idPhonebook1 like '%" + textBox_search_kontackts.Text + "%';");
+                MySqlCommand myDataAdapter = new MySqlCommand(sql, myConnection);
+                myConnection.Open();
+                MySqlDataReader reader = myDataAdapter.ExecuteReader();
+                List<string> results = new List<string>();
+
+                listView_kontackts.Items.Clear();
+                listView_kontackts.View = View.List;
+
+
+                while (reader.Read())
+                {
+                    var item = new ListViewItem();
+                    item.Text = reader["idKontakti"].ToString();
+                    item.SubItems.Add(reader["Kontakti_imya"].ToString());
+                    item.SubItems.Add(reader["Kontakti_familia"].ToString());
+                    //item.SubItems.Add(reader["Phonebook_idPhonebook"].ToString());
+                    item.SubItems.Add(macros.sql_command("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook=" + reader["Phonebook_idPhonebook"].ToString() + ";"));
+                    //item.SubItems.Add(reader["Phonebook_idPhonebook1"].ToString());
+                    item.SubItems.Add(macros.sql_command("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook=" + reader["Phonebook_idPhonebook1"].ToString() + ";"));
+                    string t = macros.sql_command("SELECT Kontragenti_idKontragenti FROM btk.Kontakti_has_Kontragenti where Kontakti_idKontakti='" + reader["idKontakti"].ToString() + "';");
+                    item.SubItems.Add(macros.sql_command("select  concat(Kontragenti.Kontragenti_short_name, '(',Kontragenti.Kontragenti_full_name, ')') AS full_short  FROM btk.Kontragenti where idKontragenti='" + t + "'"));
+                    listView_kontackts.Items.Add(item);
+                }
+                reader.Close();
+                myDataAdapter.Dispose();
+                myConnection.Close();
+
+                listView_kontackts.Visible = true;
+                listView_kontackts.View = View.Details;
+            }
         }
 
         private void button_add_kontackts_Click(object sender, EventArgs e)
@@ -149,6 +188,40 @@ namespace Disp_WinForm
         private void textBox_search_kontackts_TextChanged(object sender, EventArgs e)
         {
             Get_kontackts();
+        }
+
+        private void listView_kontackts_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (vars_form.num_vo >= 1)
+            {
+                ListViewHitTestInfo info = listView_kontackts.HitTest(e.X, e.Y);
+                ListViewItem item = info.Item;
+
+                if (item != null)
+                {
+                    if (vars_form.num_vo == 1)
+                    {
+                        vars_form.transfer_vo1_vo_form = item.Text;
+                    }
+                    if (vars_form.num_vo == 2)
+                    {
+                        vars_form.transfer_vo2_vo_form = item.Text;
+                    }
+                    if (vars_form.num_vo == 3)
+                    {
+                        vars_form.transfer_vo3_vo_form = item.Text;
+                    }
+                    if (vars_form.num_vo == 4)
+                    {
+                        vars_form.transfer_vo4_vo_form = item.Text;
+                    }
+                    if (vars_form.num_vo == 5)
+                    {
+                        vars_form.transfer_vo5_vo_form = item.Text;
+                    }
+                }
+            }
+            this.Close();
         }
     }
 }

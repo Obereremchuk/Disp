@@ -84,6 +84,7 @@
             this.listView_kontackts.Size = new System.Drawing.Size(775, 397);
             this.listView_kontackts.TabIndex = 5;
             this.listView_kontackts.UseCompatibleStateImageBehavior = false;
+            this.listView_kontackts.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_kontackts_MouseDoubleClick);
             // 
             // Kontacts
             // 

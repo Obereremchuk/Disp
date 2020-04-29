@@ -89,6 +89,8 @@
             this.label31 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.textBox_vin_zayavka = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.button_call_cont2 = new System.Windows.Forms.Button();
             this.button_call_kont1 = new System.Windows.Forms.Button();
             this.textBox_product = new System.Windows.Forms.TextBox();
@@ -158,6 +160,7 @@
             // 
             this.textBox_lenth_name.Location = new System.Drawing.Point(338, 71);
             this.textBox_lenth_name.Name = "textBox_lenth_name";
+            this.textBox_lenth_name.ReadOnly = true;
             this.textBox_lenth_name.Size = new System.Drawing.Size(24, 20);
             this.textBox_lenth_name.TabIndex = 190;
             // 
@@ -166,7 +169,7 @@
             this.button_name_obj_generate.Location = new System.Drawing.Point(365, 71);
             this.button_name_obj_generate.Name = "button_name_obj_generate";
             this.button_name_obj_generate.Size = new System.Drawing.Size(66, 20);
-            this.button_name_obj_generate.TabIndex = 189;
+            this.button_name_obj_generate.TabIndex = 5;
             this.button_name_obj_generate.Text = "Створити";
             this.button_name_obj_generate.UseVisualStyleBackColor = true;
             this.button_name_obj_generate.Click += new System.EventHandler(this.button_name_obj_generate_Click);
@@ -177,7 +180,7 @@
             this.checkBox_pin_chenged.Location = new System.Drawing.Point(327, 278);
             this.checkBox_pin_chenged.Name = "checkBox_pin_chenged";
             this.checkBox_pin_chenged.Size = new System.Drawing.Size(87, 17);
-            this.checkBox_pin_chenged.TabIndex = 188;
+            this.checkBox_pin_chenged.TabIndex = 14;
             this.checkBox_pin_chenged.Text = "PIN змінено";
             this.checkBox_pin_chenged.UseVisualStyleBackColor = true;
             // 
@@ -187,7 +190,7 @@
             this.checkBox_tk_tested.Location = new System.Drawing.Point(420, 278);
             this.checkBox_tk_tested.Name = "checkBox_tk_tested";
             this.checkBox_tk_tested.Size = new System.Drawing.Size(94, 17);
-            this.checkBox_tk_tested.TabIndex = 187;
+            this.checkBox_tk_tested.TabIndex = 15;
             this.checkBox_tk_tested.Text = "ТК натиснуто";
             this.checkBox_tk_tested.UseVisualStyleBackColor = true;
             // 
@@ -197,7 +200,7 @@
             this.button_add_vo5.Location = new System.Drawing.Point(385, 226);
             this.button_add_vo5.Name = "button_add_vo5";
             this.button_add_vo5.Size = new System.Drawing.Size(46, 20);
-            this.button_add_vo5.TabIndex = 148;
+            this.button_add_vo5.TabIndex = 12;
             this.button_add_vo5.Text = "+";
             this.button_add_vo5.UseVisualStyleBackColor = true;
             this.button_add_vo5.Click += new System.EventHandler(this.button_add_vo5_Click);
@@ -207,7 +210,7 @@
             this.button_add_vo2.Location = new System.Drawing.Point(385, 148);
             this.button_add_vo2.Name = "button_add_vo2";
             this.button_add_vo2.Size = new System.Drawing.Size(46, 20);
-            this.button_add_vo2.TabIndex = 145;
+            this.button_add_vo2.TabIndex = 9;
             this.button_add_vo2.Text = "+";
             this.button_add_vo2.UseVisualStyleBackColor = true;
             this.button_add_vo2.Click += new System.EventHandler(this.button_add_vo2_Click);
@@ -217,7 +220,7 @@
             this.button_add_vo3.Location = new System.Drawing.Point(385, 174);
             this.button_add_vo3.Name = "button_add_vo3";
             this.button_add_vo3.Size = new System.Drawing.Size(46, 20);
-            this.button_add_vo3.TabIndex = 144;
+            this.button_add_vo3.TabIndex = 10;
             this.button_add_vo3.Text = "+";
             this.button_add_vo3.UseVisualStyleBackColor = true;
             this.button_add_vo3.Click += new System.EventHandler(this.button_add_vo3_Click);
@@ -228,7 +231,7 @@
             this.button_add_vo4.Location = new System.Drawing.Point(385, 200);
             this.button_add_vo4.Name = "button_add_vo4";
             this.button_add_vo4.Size = new System.Drawing.Size(46, 20);
-            this.button_add_vo4.TabIndex = 143;
+            this.button_add_vo4.TabIndex = 11;
             this.button_add_vo4.Text = "+";
             this.button_add_vo4.UseVisualStyleBackColor = true;
             this.button_add_vo4.Click += new System.EventHandler(this.button_add_vo4_Click);
@@ -238,7 +241,7 @@
             this.button_add_vo1.Location = new System.Drawing.Point(385, 124);
             this.button_add_vo1.Name = "button_add_vo1";
             this.button_add_vo1.Size = new System.Drawing.Size(46, 20);
-            this.button_add_vo1.TabIndex = 141;
+            this.button_add_vo1.TabIndex = 8;
             this.button_add_vo1.Text = "+";
             this.button_add_vo1.UseVisualStyleBackColor = true;
             this.button_add_vo1.Click += new System.EventHandler(this.button_add_vo1_Click);
@@ -368,7 +371,7 @@
             this.name_obj_new_textBox.MaxLength = 100;
             this.name_obj_new_textBox.Name = "name_obj_new_textBox";
             this.name_obj_new_textBox.Size = new System.Drawing.Size(333, 20);
-            this.name_obj_new_textBox.TabIndex = 92;
+            this.name_obj_new_textBox.TabIndex = 6;
             this.name_obj_new_textBox.TextChanged += new System.EventHandler(this.name_obj_new_textBox_TextChanged);
             // 
             // label24
@@ -385,14 +388,14 @@
             this.uvaga_textBox.Location = new System.Drawing.Point(6, 96);
             this.uvaga_textBox.Name = "uvaga_textBox";
             this.uvaga_textBox.Size = new System.Drawing.Size(424, 20);
-            this.uvaga_textBox.TabIndex = 93;
+            this.uvaga_textBox.TabIndex = 7;
             // 
             // kodove_slovo_textBox
             // 
             this.kodove_slovo_textBox.Location = new System.Drawing.Point(6, 252);
             this.kodove_slovo_textBox.Name = "kodove_slovo_textBox";
             this.kodove_slovo_textBox.Size = new System.Drawing.Size(424, 20);
-            this.kodove_slovo_textBox.TabIndex = 98;
+            this.kodove_slovo_textBox.TabIndex = 13;
             // 
             // label22
             // 
@@ -422,7 +425,7 @@
             this.comboBox_activation_result.Location = new System.Drawing.Point(1060, 446);
             this.comboBox_activation_result.Name = "comboBox_activation_result";
             this.comboBox_activation_result.Size = new System.Drawing.Size(197, 21);
-            this.comboBox_activation_result.TabIndex = 147;
+            this.comboBox_activation_result.TabIndex = 19;
             // 
             // textBox_comments
             // 
@@ -430,7 +433,7 @@
             this.textBox_comments.Multiline = true;
             this.textBox_comments.Name = "textBox_comments";
             this.textBox_comments.Size = new System.Drawing.Size(527, 62);
-            this.textBox_comments.TabIndex = 146;
+            this.textBox_comments.TabIndex = 20;
             // 
             // label13
             // 
@@ -446,7 +449,7 @@
             this.account_create_button.Location = new System.Drawing.Point(9, 191);
             this.account_create_button.Name = "account_create_button";
             this.account_create_button.Size = new System.Drawing.Size(275, 37);
-            this.account_create_button.TabIndex = 119;
+            this.account_create_button.TabIndex = 17;
             this.account_create_button.Text = "Сворити користувача та дозолити перегляд авто ";
             this.account_create_button.UseVisualStyleBackColor = true;
             this.account_create_button.Click += new System.EventHandler(this.account_create_button_Click);
@@ -466,7 +469,7 @@
             this.email_textBox.Location = new System.Drawing.Point(9, 32);
             this.email_textBox.Name = "email_textBox";
             this.email_textBox.Size = new System.Drawing.Size(275, 20);
-            this.email_textBox.TabIndex = 101;
+            this.email_textBox.TabIndex = 16;
             this.email_textBox.TextChanged += new System.EventHandler(this.email_textBox_TextChanged);
             // 
             // label14
@@ -482,7 +485,7 @@
             this.pass_reset_button.Location = new System.Drawing.Point(9, 190);
             this.pass_reset_button.Name = "pass_reset_button";
             this.pass_reset_button.Size = new System.Drawing.Size(373, 37);
-            this.pass_reset_button.TabIndex = 123;
+            this.pass_reset_button.TabIndex = 25;
             this.pass_reset_button.Text = "Встановити новий пароль та надіслати вибранному користувачу";
             this.pass_reset_button.UseVisualStyleBackColor = true;
             this.pass_reset_button.Click += new System.EventHandler(this.pass_reset_button_Click);
@@ -528,7 +531,7 @@
             this.button_add_2_account.Location = new System.Drawing.Point(9, 234);
             this.button_add_2_account.Name = "button_add_2_account";
             this.button_add_2_account.Size = new System.Drawing.Size(276, 37);
-            this.button_add_2_account.TabIndex = 126;
+            this.button_add_2_account.TabIndex = 18;
             this.button_add_2_account.Text = "Дозволити користувачу перегляд авто";
             this.button_add_2_account.UseVisualStyleBackColor = true;
             this.button_add_2_account.Click += new System.EventHandler(this.button_add_2_account_Click);
@@ -591,7 +594,7 @@
             this.button_user_on.Location = new System.Drawing.Point(205, 232);
             this.button_user_on.Name = "button_user_on";
             this.button_user_on.Size = new System.Drawing.Size(177, 37);
-            this.button_user_on.TabIndex = 131;
+            this.button_user_on.TabIndex = 27;
             this.button_user_on.Text = "Включити користувача";
             this.button_user_on.UseVisualStyleBackColor = true;
             this.button_user_on.Click += new System.EventHandler(this.button_user_on_Click);
@@ -601,7 +604,7 @@
             this.treeView_user_accounts.Location = new System.Drawing.Point(9, 32);
             this.treeView_user_accounts.Name = "treeView_user_accounts";
             this.treeView_user_accounts.Size = new System.Drawing.Size(373, 153);
-            this.treeView_user_accounts.TabIndex = 128;
+            this.treeView_user_accounts.TabIndex = 30;
             this.treeView_user_accounts.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeView_user_accounts_BeforeSelect);
             // 
             // label15
@@ -617,7 +620,7 @@
             this.button_user_account_on_off.Location = new System.Drawing.Point(9, 232);
             this.button_user_account_on_off.Name = "button_user_account_on_off";
             this.button_user_account_on_off.Size = new System.Drawing.Size(190, 37);
-            this.button_user_account_on_off.TabIndex = 130;
+            this.button_user_account_on_off.TabIndex = 26;
             this.button_user_account_on_off.Text = "Відключити користувача";
             this.button_user_account_on_off.UseVisualStyleBackColor = true;
             this.button_user_account_on_off.Click += new System.EventHandler(this.button_user_account_on_off_Click);
@@ -627,7 +630,7 @@
             this.account_delete_button.Location = new System.Drawing.Point(9, 319);
             this.account_delete_button.Name = "account_delete_button";
             this.account_delete_button.Size = new System.Drawing.Size(373, 37);
-            this.account_delete_button.TabIndex = 124;
+            this.account_delete_button.TabIndex = 29;
             this.account_delete_button.Text = "Видалити вибранного користувача";
             this.account_delete_button.UseVisualStyleBackColor = true;
             this.account_delete_button.Click += new System.EventHandler(this.account_delete_button_Click);
@@ -637,7 +640,7 @@
             this.button_remove_2_account.Location = new System.Drawing.Point(9, 276);
             this.button_remove_2_account.Name = "button_remove_2_account";
             this.button_remove_2_account.Size = new System.Drawing.Size(373, 37);
-            this.button_remove_2_account.TabIndex = 129;
+            this.button_remove_2_account.TabIndex = 28;
             this.button_remove_2_account.Text = "Заборонити вибранному користувачу перегляд авто";
             this.button_remove_2_account.UseVisualStyleBackColor = true;
             this.button_remove_2_account.Click += new System.EventHandler(this.button_remove_2_account_Click);
@@ -647,7 +650,7 @@
             this.cancel_button.Location = new System.Drawing.Point(1182, 543);
             this.cancel_button.Name = "cancel_button";
             this.cancel_button.Size = new System.Drawing.Size(75, 23);
-            this.cancel_button.TabIndex = 126;
+            this.cancel_button.TabIndex = 22;
             this.cancel_button.Text = "Відмінити";
             this.cancel_button.UseVisualStyleBackColor = true;
             this.cancel_button.Click += new System.EventHandler(this.cancel_button_Click);
@@ -682,7 +685,7 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(273, 101);
+            this.label29.Location = new System.Drawing.Point(324, 100);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(49, 13);
             this.label29.TabIndex = 173;
@@ -691,7 +694,7 @@
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(273, 75);
+            this.label31.Location = new System.Drawing.Point(324, 74);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(44, 13);
             this.label31.TabIndex = 185;
@@ -708,6 +711,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.textBox_vin_zayavka);
+            this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.button_call_cont2);
             this.groupBox3.Controls.Add(this.button_call_kont1);
             this.groupBox3.Controls.Add(this.textBox_product);
@@ -733,12 +738,28 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Данні з заявки";
             // 
+            // textBox_vin_zayavka
+            // 
+            this.textBox_vin_zayavka.Location = new System.Drawing.Point(377, 122);
+            this.textBox_vin_zayavka.Name = "textBox_vin_zayavka";
+            this.textBox_vin_zayavka.Size = new System.Drawing.Size(169, 20);
+            this.textBox_vin_zayavka.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(324, 124);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(25, 13);
+            this.label1.TabIndex = 197;
+            this.label1.Text = "VIN";
+            // 
             // button_call_cont2
             // 
             this.button_call_cont2.Location = new System.Drawing.Point(501, 45);
             this.button_call_cont2.Name = "button_call_cont2";
             this.button_call_cont2.Size = new System.Drawing.Size(45, 20);
-            this.button_call_cont2.TabIndex = 196;
+            this.button_call_cont2.TabIndex = 2;
             this.button_call_cont2.Text = "Call";
             this.button_call_cont2.UseVisualStyleBackColor = true;
             this.button_call_cont2.Click += new System.EventHandler(this.button_call_cont2_Click);
@@ -748,25 +769,25 @@
             this.button_call_kont1.Location = new System.Drawing.Point(501, 19);
             this.button_call_kont1.Name = "button_call_kont1";
             this.button_call_kont1.Size = new System.Drawing.Size(45, 20);
-            this.button_call_kont1.TabIndex = 195;
+            this.button_call_kont1.TabIndex = 1;
             this.button_call_kont1.Text = "Call";
             this.button_call_kont1.UseVisualStyleBackColor = true;
             this.button_call_kont1.Click += new System.EventHandler(this.button_call_kont1_Click);
             // 
             // textBox_product
             // 
-            this.textBox_product.Location = new System.Drawing.Point(325, 97);
+            this.textBox_product.Location = new System.Drawing.Point(377, 97);
             this.textBox_product.Name = "textBox_product";
             this.textBox_product.ReadOnly = true;
-            this.textBox_product.Size = new System.Drawing.Size(170, 20);
+            this.textBox_product.Size = new System.Drawing.Size(169, 20);
             this.textBox_product.TabIndex = 194;
             // 
             // textBox_zamovnik
             // 
-            this.textBox_zamovnik.Location = new System.Drawing.Point(325, 71);
+            this.textBox_zamovnik.Location = new System.Drawing.Point(377, 71);
             this.textBox_zamovnik.Name = "textBox_zamovnik";
             this.textBox_zamovnik.ReadOnly = true;
-            this.textBox_zamovnik.Size = new System.Drawing.Size(170, 20);
+            this.textBox_zamovnik.Size = new System.Drawing.Size(169, 20);
             this.textBox_zamovnik.TabIndex = 193;
             // 
             // maskedTextBox_cont_phone2
@@ -789,15 +810,15 @@
             // 
             this.textBox_licence_plate.Location = new System.Drawing.Point(92, 122);
             this.textBox_licence_plate.Name = "textBox_licence_plate";
-            this.textBox_licence_plate.Size = new System.Drawing.Size(170, 20);
-            this.textBox_licence_plate.TabIndex = 187;
+            this.textBox_licence_plate.Size = new System.Drawing.Size(219, 20);
+            this.textBox_licence_plate.TabIndex = 3;
             // 
             // textBox_email
             // 
             this.textBox_email.Location = new System.Drawing.Point(92, 96);
             this.textBox_email.Name = "textBox_email";
             this.textBox_email.ReadOnly = true;
-            this.textBox_email.Size = new System.Drawing.Size(170, 20);
+            this.textBox_email.Size = new System.Drawing.Size(219, 20);
             this.textBox_email.TabIndex = 186;
             // 
             // textBox_vlasnik
@@ -805,7 +826,7 @@
             this.textBox_vlasnik.Location = new System.Drawing.Point(92, 71);
             this.textBox_vlasnik.Name = "textBox_vlasnik";
             this.textBox_vlasnik.ReadOnly = true;
-            this.textBox_vlasnik.Size = new System.Drawing.Size(170, 20);
+            this.textBox_vlasnik.Size = new System.Drawing.Size(219, 20);
             this.textBox_vlasnik.TabIndex = 185;
             // 
             // label17
@@ -873,7 +894,7 @@
             this.remaynder_checkBox.Location = new System.Drawing.Point(1060, 507);
             this.remaynder_checkBox.Name = "remaynder_checkBox";
             this.remaynder_checkBox.Size = new System.Drawing.Size(74, 17);
-            this.remaynder_checkBox.TabIndex = 191;
+            this.remaynder_checkBox.TabIndex = 23;
             this.remaynder_checkBox.Text = "Нагадати";
             this.remaynder_checkBox.UseVisualStyleBackColor = true;
             // 
@@ -883,7 +904,7 @@
             this.remaynder_dateTimePicker.Location = new System.Drawing.Point(1140, 504);
             this.remaynder_dateTimePicker.Name = "remaynder_dateTimePicker";
             this.remaynder_dateTimePicker.Size = new System.Drawing.Size(117, 20);
-            this.remaynder_dateTimePicker.TabIndex = 190;
+            this.remaynder_dateTimePicker.TabIndex = 24;
             // 
             // Activation_Form
             // 
@@ -1001,5 +1022,7 @@
         private System.Windows.Forms.DateTimePicker remaynder_dateTimePicker;
         private System.Windows.Forms.Button button_name_obj_generate;
         private System.Windows.Forms.TextBox textBox_lenth_name;
+        private System.Windows.Forms.TextBox textBox_vin_zayavka;
+        private System.Windows.Forms.Label label1;
     }
 }

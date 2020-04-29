@@ -174,12 +174,6 @@
     <Compile Include="Testing.Designer.cs">
       <DependentUpon>Testing.cs</DependentUpon>
     </Compile>
-    <Compile Include="VO_add.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="VO_add.Designer.cs">
-      <DependentUpon>VO_add.cs</DependentUpon>
-    </Compile>
     <Compile Include="Zayavki.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -236,9 +230,6 @@
     </Compile>
     <EmbeddedResource Include="Testing.resx">
       <DependentUpon>Testing.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="VO_add.resx">
-      <DependentUpon>VO_add.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Zayavki.resx">
       <DependentUpon>Zayavki.cs</DependentUpon>

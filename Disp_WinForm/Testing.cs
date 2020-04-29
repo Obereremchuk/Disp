@@ -320,9 +320,6 @@ namespace Disp_WinForm
             textBox_other_alarm.Text = db_TS_info.Rows[0]["TS_infocol_other_alarm"].ToString();
             textBox_licence_plate.Text = db_TS_info.Rows[0]["TS_infocol_licence_plate"].ToString();
             textBox_vin.Text = db_TS_info.Rows[0]["TS_infocol_vin"].ToString();
-            if (db_TS_info.Rows[0]["TS_infocol_arm_bagagnik"].ToString() == "" | db_TS_info.Rows[0]["TS_infocol_arm_bagagnik"].ToString() == "Ні")
-            { checkBox_arm_from_bagagnik.Checked = false; }
-            else { checkBox_arm_from_bagagnik.Checked = true; }
 
             string other_sensor = db_TS_info.Rows[0]["TS_infocol_other_sensor"].ToString();
             
@@ -476,7 +473,6 @@ namespace Disp_WinForm
                                "TS_infocol_set_pin='" + textBox_current_pin.Text + "', " +
                                "TS_infocol_other_alarm='" + textBox_other_alarm.Text + "', " +
                                "TS_infocol_other_sensor='" + other_sensor + "', " +
-                               "TS_infocol_arm_bagagnik='" + (checkBox_arm_from_bagagnik.Checked ? "1" : "0") + "', " +
                                "TS_infocol_uvaga='" + textBox_uvaga.Text + "', " +
                                "Kuzov_type_idKuzov_type='" + comboBox_kuzov_type.SelectedValue.ToString() + "', " +
                                "Color_idColor='" + comboBox_color.SelectedValue.ToString() + "', " +
@@ -546,13 +542,13 @@ namespace Disp_WinForm
                                                                + "\"n\":\"3.11 Додатково встановлені сигналізації\","
                                                                + "\"v\":\"" + textBox_other_alarm.Text.Replace("\"", "%5C%22") + "\"}");
 
-                //Произвольное поле  в охрану с багажника
-                string pp8_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                               + "\"id\":\"8\","
-                                                               + "\"callMode\":\"update\","
-                                                               + "\"n\":\"3.12 Постановка авто под охрану через багажник?\","
-                                                               + "\"v\":\"" + (checkBox_arm_from_bagagnik.Checked ? "Так" : "Ні") + "\"}");
+                ////Произвольное поле  в охрану с багажника
+                //string pp8_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                //                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                //                                               + "\"id\":\"8\","
+                //                                               + "\"callMode\":\"update\","
+                //                                               + "\"n\":\"3.12 Постановка авто под охрану через багажник?\","
+                //                                               + "\"v\":\"" + (checkBox_arm_from_bagagnik.Checked ? "Так" : "Ні") + "\"}");
 
                 //Произвольное поле  в охрану с багажника
                 string pp9_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
@@ -811,13 +807,13 @@ namespace Disp_WinForm
                                                               + "\"n\":\"3.15 Додатково встановлені датчики\","
                                                               + "\"v\":\"" + other_sensor.Replace("\"", "%5C%22") + "\"}");
 
-                //Постановка авто под охрану через багажник?
-                string pp90_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"9\","
-                                                              + "\"callMode\":\"update\","
-                                                              + "\"n\":\"3.12 Постановка авто под охрану через багажник?\","
-                                                              + "\"v\":\"" + (checkBox_arm_from_bagagnik.Checked ? "Так" : "Ні") + "\"}");
+                ////Постановка авто под охрану через багажник?
+                //string pp90_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                //                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                //                                              + "\"id\":\"9\","
+                //                                              + "\"callMode\":\"update\","
+                //                                              + "\"n\":\"3.12 Постановка авто под охрану через багажник?\","
+                //                                              + "\"v\":\"" + (checkBox_arm_from_bagagnik.Checked ? "Так" : "Ні") + "\"}");
 
                 //Характеристики kuzov type
                 string pp10_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
@@ -2286,7 +2282,22 @@ namespace Disp_WinForm
 
         private void button3_Click(object sender, EventArgs e)
         {
-            name_obj_textBox.Text = comboBox_test_brand.GetItemText(comboBox_test_brand.SelectedItem) + " " + comboBox_test_model.GetItemText(comboBox_test_model.SelectedItem) + " " + textBox_vin.Text;
+            DataTable name = macros.GetData("select " +
+                "TS_model.TS_modelcol_name_short," +
+                "TS_brand.TS_brandcol_brand_short," +
+                "products.product_name " +
+                "from btk.TS_model, btk.TS_brand, btk.TS_info, btk.Object, btk.products " +
+                "where " +
+                "Object.Object_id_wl = '" + vars_form.id_wl_object_for_test +"' " +
+                "and Object.TS_info_idTS_info = TS_info.idTS_info " +
+                "and TS_model.idTS_model = TS_info.TS_model_idTS_model " +
+                "and TS_brand.idTS_brand = TS_info.TS_brand_idTS_brand " +
+                "and Object.products_idproducts = products.idproducts " +
+                ";");
+            string model = name.Rows[0][0].ToString();
+            string brand = name.Rows[0][1].ToString();
+            string product = name.Rows[0][2].ToString();
+            name_obj_textBox.Text = brand + " " + model + " " + textBox_vin.Text + " (" + product + ")";
         }
     }
 }
