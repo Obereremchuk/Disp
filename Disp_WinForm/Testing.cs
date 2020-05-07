@@ -18,6 +18,7 @@ namespace Disp_WinForm
     {
         private static System.Timers.Timer aTimer3;
         Macros macros = new Macros();
+        private int opened;
 
         public Testing()
         {
@@ -253,17 +254,18 @@ namespace Disp_WinForm
         private void build_list_color()
         {
             // Строим список цветов авто - Имя=цвет, Значение=айди цвета
-            this.comboBox_color.DataSource = macros.GetData("SELECT idColor, Colorcol_name FROM btk.Color;");
+            this.comboBox_color.DataSource = macros.GetData("SELECT idColor, Colorcol_name FROM btk.Color order by Colorcol_name;");
+            //this.comboBox_color.DataSource = macros.GetData("SELECT idColor, Colorcol_name FROM btk.Color;");
             this.comboBox_color.DisplayMember = "Colorcol_name";
             this.comboBox_color.ValueMember = "idColor";
 
             // Строим список брен авто - Имя=бренд, Значение=айди
-            this.comboBox_test_brand.DataSource = macros.GetData("SELECT idTS_brand, TS_brandcol_brand FROM btk.TS_brand;");
+            this.comboBox_test_brand.DataSource = macros.GetData("SELECT idTS_brand, TS_brandcol_brand FROM btk.TS_brand order by TS_brandcol_brand;");
             this.comboBox_test_brand.DisplayMember = "TS_brandcol_brand";
             this.comboBox_test_brand.ValueMember = "idTS_brand";
 
             // Строим список модель авто - Имя=модель, Значение=айди
-            this.comboBox_test_model.DataSource = macros.GetData("SELECT idTS_model, TS_modelcol_name FROM btk.TS_model;");
+            this.comboBox_test_model.DataSource = macros.GetData("SELECT idTS_model, TS_modelcol_name FROM btk.TS_model order by TS_modelcol_name;");
             this.comboBox_test_model.DisplayMember = "TS_modelcol_name";
             this.comboBox_test_model.ValueMember = "idTS_model";
 
@@ -316,9 +318,12 @@ namespace Disp_WinForm
             { checkBox_block_prizrak_can.Checked = false; }
 
             textBox_service_button.Text = db_TS_info.Rows[0]["TS_infocol_place_service_button"].ToString();
-            textBox_buttons_for_pin.Text = db_TS_info.Rows[0]["TS_infocol_button_for_pin"].ToString();
+            comboBox_buttons_for_pin.Text = db_TS_info.Rows[0]["TS_infocol_button_for_pin"].ToString();
             textBox_other_alarm.Text = db_TS_info.Rows[0]["TS_infocol_other_alarm"].ToString();
-            textBox_licence_plate.Text = db_TS_info.Rows[0]["TS_infocol_licence_plate"].ToString();
+            if (db_TS_info.Rows[0]["TS_infocol_licence_plate"].ToString() == "ПУСТО")
+            { textBox_licence_plate.Text = ""; }
+            else
+            { textBox_licence_plate.Text = db_TS_info.Rows[0]["TS_infocol_licence_plate"].ToString(); }
             textBox_vin.Text = db_TS_info.Rows[0]["TS_infocol_vin"].ToString();
 
             string other_sensor = db_TS_info.Rows[0]["TS_infocol_other_sensor"].ToString();
@@ -392,7 +397,8 @@ namespace Disp_WinForm
             textBox_wire_tk.Text = db_TS_info.Rows[0]["TS_infocol_place_tk"].ToString();
             textBox_current_pin.Text = db_TS_info.Rows[0]["TS_infocol_new_pin"].ToString();
             int c = Convert.ToInt16(db_TS_info.Rows[0]["Color_idColor"]);
-            comboBox_color.SelectedIndex = c - 1;
+            //comboBox_color.SelectedIndex = c - 1;
+            comboBox_color.SelectedValue = c;
 
             if (db_TS_info.Rows[0]["TS_infocol_relay_on_plus"].ToString() == "1")
             {
@@ -469,7 +475,7 @@ namespace Disp_WinForm
                                "TS_infocol_place_tk='" + wire_tk + "', " +
                                "TS_infocol_wireless_tk='" + wireless_tk + "', " +
                                "TS_infocol_place_service_button='" + textBox_service_button.Text + "', " +
-                               "TS_infocol_button_for_pin='" + textBox_buttons_for_pin.Text + "', " +
+                               "TS_infocol_button_for_pin='" + comboBox_buttons_for_pin.Text + "', " +
                                "TS_infocol_set_pin='" + textBox_current_pin.Text + "', " +
                                "TS_infocol_other_alarm='" + textBox_other_alarm.Text + "', " +
                                "TS_infocol_other_sensor='" + other_sensor + "', " +
@@ -636,7 +642,7 @@ namespace Disp_WinForm
                                                               + "\"id\":\"20\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.9.2 Штатні кнопки введення PIN-коду\","
-                                                              + "\"v\":\"" + textBox_buttons_for_pin.Text.Replace("\"", "%5C%22") + "\"}");
+                                                              + "\"v\":\"" + comboBox_buttons_for_pin.Text.Replace("\"", "%5C%22") + "\"}");
 
                 //Произвольное поле новій ПИН
                 string pp21_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
@@ -789,7 +795,7 @@ namespace Disp_WinForm
                                                               + "\"id\":\"22\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.9.2 Штатні кнопки введення PIN-коду\","
-                                                              + "\"v\":\"" + textBox_buttons_for_pin.Text.Replace("\"", "%5C%22") + "\"}");
+                                                              + "\"v\":\"" + comboBox_buttons_for_pin.Text.Replace("\"", "%5C%22") + "\"}");
                 
                 //Додатково встановлені сигналізації\
                 string pp9_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
@@ -856,8 +862,8 @@ namespace Disp_WinForm
                 //                                              + "\"id\":\"22\","
                 //                                              + "\"callMode\":\"update\","
                 //                                              + "\"n\":\"3.9.2 Штатні кнопки введення PIN-коду\","
-                //                                              + "\"v\":\"" + textBox_buttons_for_pin.Text + "\"}");
-                
+                //                                              + "\"v\":\"" + comboBox_buttons_for_pin.Text + "\"}");
+
                 //Произвольное поле  relay plus?
                 string pp17_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -940,7 +946,6 @@ namespace Disp_WinForm
                         "testing_objectcol_udar = '" + (checkBox_test_du.Checked ? "1" : "0") + "', " +
                         "testing_objectcol_tk = '" + (checkBox_test_tk.Checked ? "1" : "0") + "', " +
                         "testing_objectcol_adress = '" + (checkBox_test_koordinati.Checked ? "1" : "0") + "', " +
-                        "testing_objectcol_arm_hood = '" + (checkBox_test_hood_in_arm.Checked ? "1" : "0") + "', " +
                         "testing_objectcol_dop1 = '" + (checkBox_dop_1.Checked ? "1" : "0") + "', " +
                         "testing_objectcol_dop2 = '" + (checkBox_test_dop_2.Checked ? "1" : "0") + "', " +
                         "testing_objectcol_autostart = '" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
@@ -951,38 +956,6 @@ namespace Disp_WinForm
                         "idtesting_object = '" + vars_form.id_db_openning_testing + "' " +
                         ";");
 
-
-                    //macros.sql_command("insert into btk.testing_object (" +
-                    //                       "Object_idObject, " +
-                    //                       "testing_objectcol_edit_timestamp, " +
-                    //                       "testing_objectcol_block, " +
-                    //                       "testing_objectcol_alarm_door, " +
-                    //                       "testing_objectcol_udar, " +
-                    //                       "testing_objectcol_tk, " +
-                    //                       "testing_objectcol_adress, " +
-                    //                       "testing_objectcol_arm_hood, " +
-                    //                       "testing_objectcol_dop1, " +
-                    //                       "testing_objectcol_dop2, " +
-                    //                       "testing_objectcol_autostart, " +
-                    //                       "testing_objectcol_comments, " +
-                    //                       "Users_idUsers, " +
-                    //                       "testing_objectcol_result) " +
-                    //                       "values(" +
-                    //                       "'" + vars_form.id_db_object_for_test + "', " +
-                    //                       "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
-                    //                       "'" + (checkBox_test_zablocovano.Checked ? "1" : "0") + "', " +
-                    //                       "'" + (checkBox__test_vzlom.Checked ? "1" : "0") + "', " +
-                    //                       "'" + (checkBox_test_du.Checked ? "1" : "0") + "', " +
-                    //                       "'" + (checkBox_test_tk.Checked ? "1" : "0") + "', " +
-                    //                       "'" + (checkBox_test_koordinati.Checked ? "1" : "0") + "', " +
-                    //                       "'" + (checkBox_test_hood_in_arm.Checked ? "1" : "0") + "', " +
-                    //                       "'" + (checkBox_dop_1.Checked ? "1" : "0") + "', " +
-                    //                       "'" + (checkBox_test_dop_2.Checked ? "1" : "0") + "', " +
-                    //                       "'" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
-                    //                       "'" + textBox_commets.Text.ToString() + "', " +
-                    //                       "'" + vars_form.user_login_id + "', " +
-                    //                       "'" + result + "'" +
-                    //                       ");");
 
                     macros.sql_command("update btk.Object set Objectcol_testing_ok = 0 where idObject = '" +
                                        vars_form.id_db_object_for_test + "';");
@@ -1223,7 +1196,6 @@ namespace Disp_WinForm
                         "testing_objectcol_udar = '" + (checkBox_test_du.Checked ? "1" : "0") + "', " +
                         "testing_objectcol_tk = '" + (checkBox_test_tk.Checked ? "1" : "0") + "', " +
                         "testing_objectcol_adress = '" + (checkBox_test_koordinati.Checked ? "1" : "0") + "', " +
-                        "testing_objectcol_arm_hood = '" + (checkBox_test_hood_in_arm.Checked ? "1" : "0") + "', " +
                         "testing_objectcol_dop1 = '" + (checkBox_dop_1.Checked ? "1" : "0") + "', " +
                         "testing_objectcol_dop2 = '" + (checkBox_test_dop_2.Checked ? "1" : "0") + "', " +
                         "testing_objectcol_autostart = '" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
@@ -1234,40 +1206,6 @@ namespace Disp_WinForm
                         "idtesting_object = '" + vars_form.id_db_openning_testing + "' " +
                         ";");
 
-
-
-
-                    //macros.sql_command("insert into btk.testing_object (" +
-                    //                       "Object_idObject, " +
-                    //                       "testing_objectcol_edit_timestamp, " +
-                    //                       "testing_objectcol_block, " +
-                    //                       "testing_objectcol_alarm_door, " +
-                    //                       "testing_objectcol_udar, " +
-                    //                       "testing_objectcol_tk, " +
-                    //                       "testing_objectcol_adress, " +
-                    //                       "testing_objectcol_arm_hood, " +
-                    //                       "testing_objectcol_dop1, " +
-                    //                       "testing_objectcol_dop2, " +
-                    //                       "testing_objectcol_autostart, " +
-                    //                       "testing_objectcol_comments, " +
-                    //                       "Users_idUsers, " +
-                    //                       "testing_objectcol_result) " +
-                    //                       "values(" +
-                    //                       "'" + vars_form.id_db_object_for_test + "', " +
-                    //                       "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
-                    //                       "'" + (checkBox_test_zablocovano.Checked ? "1" : "0") + "', " +
-                    //                       "'" + (checkBox__test_vzlom.Checked ? "1" : "0") + "', " +
-                    //                       "'" + (checkBox_test_du.Checked ? "1" : "0") + "', " +
-                    //                       "'" + (checkBox_test_tk.Checked ? "1" : "0") + "', " +
-                    //                       "'" + (checkBox_test_koordinati.Checked ? "1" : "0") + "', " +
-                    //                       "'" + (checkBox_test_hood_in_arm.Checked ? "1" : "0") + "', " +
-                    //                       "'" + (checkBox_dop_1.Checked ? "1" : "0") + "', " +
-                    //                       "'" + (checkBox_test_dop_2.Checked ? "1" : "0") + "', " +
-                    //                       "'" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
-                    //                       "'" + textBox_commets.Text.ToString() + "', " +
-                    //                       "'" + vars_form.user_login_id + "', " +
-                    //                       "'" + comboBox_result.GetItemText(comboBox_result.SelectedItem).ToString() + "'" +
-                    //                       ");");
 
                     string other_sensor = (checkBox_sensor_gps.Checked ? "GPS, " : "")
                 + (checkBox_sensor_glushenia.Checked ? "Глушіння, " : "")
@@ -1344,7 +1282,6 @@ namespace Disp_WinForm
                                            "testing_objectcol_udar, " +
                                            "testing_objectcol_tk, " +
                                            "testing_objectcol_adress, " +
-                                           "testing_objectcol_arm_hood, " +
                                            "testing_objectcol_dop1, " +
                                            "testing_objectcol_dop2, " +
                                            "testing_objectcol_autostart, " +
@@ -1359,7 +1296,6 @@ namespace Disp_WinForm
                                            "'" + (checkBox_test_du.Checked ? "1" : "0") + "', " +
                                            "'" + (checkBox_test_tk.Checked ? "1" : "0") + "', " +
                                            "'" + (checkBox_test_koordinati.Checked ? "1" : "0") + "', " +
-                                           "'" + (checkBox_test_hood_in_arm.Checked ? "1" : "0") + "', " +
                                            "'" + (checkBox_dop_1.Checked ? "1" : "0") + "', " +
                                            "'" + (checkBox_test_dop_2.Checked ? "1" : "0") + "', " +
                                            "'" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
@@ -1617,7 +1553,6 @@ namespace Disp_WinForm
                                            "testing_objectcol_udar, " +
                                            "testing_objectcol_tk, " +
                                            "testing_objectcol_adress, " +
-                                           "testing_objectcol_arm_hood, " +
                                            "testing_objectcol_dop1, " +
                                            "testing_objectcol_dop2, " +
                                            "testing_objectcol_autostart, " +
@@ -1632,7 +1567,6 @@ namespace Disp_WinForm
                                            "'" + (checkBox_test_du.Checked ? "1" : "0") + "', " +
                                            "'" + (checkBox_test_tk.Checked ? "1" : "0") + "', " +
                                            "'" + (checkBox_test_koordinati.Checked ? "1" : "0") + "', " +
-                                           "'" + (checkBox_test_hood_in_arm.Checked ? "1" : "0") + "', " +
                                            "'" + (checkBox_dop_1.Checked ? "1" : "0") + "', " +
                                            "'" + (checkBox_test_dop_2.Checked ? "1" : "0") + "', " +
                                            "'" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
@@ -2282,22 +2216,35 @@ namespace Disp_WinForm
 
         private void button3_Click(object sender, EventArgs e)
         {
-            DataTable name = macros.GetData("select " +
-                "TS_model.TS_modelcol_name_short," +
-                "TS_brand.TS_brandcol_brand_short," +
+            string product = macros.sql_command("select " +
                 "products.product_name " +
-                "from btk.TS_model, btk.TS_brand, btk.TS_info, btk.Object, btk.products " +
+                "from btk.TS_info, btk.Object, btk.products " +
                 "where " +
-                "Object.Object_id_wl = '" + vars_form.id_wl_object_for_test +"' " +
+                "Object.Object_id_wl = '" + vars_form.id_wl_object_for_test + "' " +
                 "and Object.TS_info_idTS_info = TS_info.idTS_info " +
-                "and TS_model.idTS_model = TS_info.TS_model_idTS_model " +
-                "and TS_brand.idTS_brand = TS_info.TS_brand_idTS_brand " +
                 "and Object.products_idproducts = products.idproducts " +
                 ";");
-            string model = name.Rows[0][0].ToString();
-            string brand = name.Rows[0][1].ToString();
-            string product = name.Rows[0][2].ToString();
-            name_obj_textBox.Text = brand + " " + model + " " + textBox_vin.Text + " (" + product + ")";
+            string model = macros.sql_command("SELECT TS_modelcol_name_short FROM btk.TS_model where idTS_model = '"+ comboBox_test_model.SelectedValue +"';");
+
+            string brand = macros.sql_command("SELECT TS_brandcol_brand_short FROM btk.TS_brand where idTS_brand = '" + comboBox_test_brand.SelectedValue + "';");
+            if (textBox_licence_plate.Text != "")
+            {
+                name_obj_textBox.Text = brand + " " + model + " " + textBox_licence_plate.Text + " (" + product + ")";
+            }
+            else
+            {
+                name_obj_textBox.Text = brand + " " + model + "..." + textBox_vin.Text + " (" + product + ")";
+            }
+            
+        }
+
+        private void comboBox_buttons_for_pin_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox_buttons_for_pin.SelectedIndex > -1)
+            {
+                string t = comboBox_buttons_for_pin.Text;
+                this.BeginInvoke((MethodInvoker)delegate { comboBox_buttons_for_pin.Text = t.Remove(0, 7); });
+            }
         }
     }
 }

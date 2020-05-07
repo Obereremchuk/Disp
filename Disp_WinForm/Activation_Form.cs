@@ -2739,5 +2739,23 @@ namespace Disp_WinForm
                 name_obj_new_textBox.BackColor = Color.White;
             }
         }
+
+        private void textBox_vo1_DoubleClick(object sender, EventArgs e)
+        {
+            textBox_vo1.Text = "";
+            vars_form.transfer_vo1_vo_form = "";
+        }
+
+        private void textBox_vo2_DoubleClick(object sender, EventArgs e)
+        {
+            textBox_vo2.Text = "";
+            vars_form.transfer_vo2_vo_form = "";
+        }
+
+        private void textBox_vo3_DoubleClick(object sender, EventArgs e)
+        {
+            textBox_vo3.Text = "";
+            vars_form.transfer_vo3_vo_form = "";
+        }
     }
 }

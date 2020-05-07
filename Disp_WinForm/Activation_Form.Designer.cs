@@ -253,6 +253,7 @@
             this.textBox_vo1.ReadOnly = true;
             this.textBox_vo1.Size = new System.Drawing.Size(373, 20);
             this.textBox_vo1.TabIndex = 135;
+            this.textBox_vo1.DoubleClick += new System.EventHandler(this.textBox_vo1_DoubleClick);
             // 
             // textBox_vo5
             // 
@@ -277,6 +278,7 @@
             this.textBox_vo2.ReadOnly = true;
             this.textBox_vo2.Size = new System.Drawing.Size(373, 20);
             this.textBox_vo2.TabIndex = 132;
+            this.textBox_vo2.DoubleClick += new System.EventHandler(this.textBox_vo2_DoubleClick);
             // 
             // textBox_vo3
             // 
@@ -285,6 +287,7 @@
             this.textBox_vo3.ReadOnly = true;
             this.textBox_vo3.Size = new System.Drawing.Size(373, 20);
             this.textBox_vo3.TabIndex = 131;
+            this.textBox_vo3.DoubleClick += new System.EventHandler(this.textBox_vo3_DoubleClick);
             // 
             // label10
             // 
@@ -889,7 +892,6 @@
             // 
             // remaynder_checkBox
             // 
-            this.remaynder_checkBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.remaynder_checkBox.AutoSize = true;
             this.remaynder_checkBox.Location = new System.Drawing.Point(1060, 507);
             this.remaynder_checkBox.Name = "remaynder_checkBox";
@@ -900,7 +902,6 @@
             // 
             // remaynder_dateTimePicker
             // 
-            this.remaynder_dateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.remaynder_dateTimePicker.Location = new System.Drawing.Point(1140, 504);
             this.remaynder_dateTimePicker.Name = "remaynder_dateTimePicker";
             this.remaynder_dateTimePicker.Size = new System.Drawing.Size(117, 20);

@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Timers;
@@ -45,7 +46,10 @@ namespace Disp_WinForm
 
             TimeSpan ts2 = new TimeSpan(23, 59, 59);
 
-            
+            dateTime_rep_from.Value = DateTime.Now.Date + ts1;
+            dateTime_rep_to.Value = DateTime.Now.Date + ts2;
+
+
             //dataGridView_for_activation.DefaultCellStyle.SelectionBackColor = Color.White;
             //dataGridView_for_activation.DefaultCellStyle.SelectionForeColor = Color.Black;
 
@@ -121,25 +125,47 @@ namespace Disp_WinForm
 
         private void accsses()
         {
-            if (vars_form.user_login_id == "5" || vars_form.user_login_id == "9" || vars_form.user_login_id == "34")//разрешаем Ленику, Пустовит доступ к вкладке Звит
+            DataTable users_accses = macros.GetData("SELECT idUsers, username, accsess_lvl FROM btk.Users;");
+            foreach (DataRow user in users_accses.Rows)
             {
+                if (user["idUsers"].ToString() == vars_form.user_login_id)
+                {
+                    if (Convert.ToInt32(user["accsess_lvl"]) <= 5)
+                    {
+                    }
+                    else if (Convert.ToInt32(user["accsess_lvl"]) == 8)
+                    {
+                        tabControl_testing.TabPages.Remove(tabPage3);
+                        textBox_activation_search.Enabled = false;
+                    }
+                    else 
+                    {
+                        tabControl_testing.TabPages.Remove(tabPage3);
+                        tabControl_testing.TabPages.Remove(tabPage_zvit);
+                        textBox_activation_search.Enabled = false;
+                    }
+                }
+            }
 
-            }
-            else
-            {
-                tabControl_testing.TabPages.Remove(tabPage3);
-                tabControl_testing.TabPages.Remove(tabPage_zvit);
-                textBox_activation_search.Enabled = false;
-            }
+            //if (vars_form.user_login_id == "5" || vars_form.user_login_id == "9" || vars_form.user_login_id == "34")//разрешаем Ленику, Пустовит доступ к вкладке Звит
+            //{
 
-            if (vars_form.user_login_id == "6" || vars_form.user_login_id == "2")//разрешаем Лозинскоу доступ к вкладке зупинки обслуговування
-            {
+            //}
+            //else
+            //{
+            //    tabControl_testing.TabPages.Remove(tabPage3);
+            //    tabControl_testing.TabPages.Remove(tabPage_zvit);
+            //    textBox_activation_search.Enabled = false;
+            //}
 
-            }
-            else
-            {
-                tabControl_testing.TabPages.Remove(tabPage3);
-            }
+            //if (vars_form.user_login_id == "6" || vars_form.user_login_id == "2")//разрешаем Лозинскоу доступ к вкладке зупинки обслуговування
+            //{
+
+            //}
+            //else
+            //{
+            //    tabControl_testing.TabPages.Remove(tabPage3);
+            //}
 
 
 
@@ -324,7 +350,7 @@ namespace Disp_WinForm
             }
             else if (tabControl_testing.SelectedTab.Name == "tabPage_activation")
             {
-                
+                update_actication_dgv();
                 //aTimer.Interval = 2000;
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_808);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_909);
@@ -338,7 +364,7 @@ namespace Disp_WinForm
                 
                 //aTimer.AutoReset = true;
                 aTimer.Enabled = false;
-                update_actication_dgv();
+                
 
             }
             else if (tabControl_testing.SelectedTab.Name == "tabPage_zayavki_activation")
@@ -374,8 +400,8 @@ namespace Disp_WinForm
                                             "Zayavkicol_plan_date as 'План дата'," +
                                             "Zayavkicol_reason as 'Причина'," +
                                             "Zayavkicol_VIN as'VIN'," +
-                                            "Kontragenti.Kontragenti_full_name as 'Встановник'," +
-                                            "Kontragenti.Kontragenti_full_name as 'Замовник'," +
+                                            "(select Kontragenti_full_name from btk.Kontragenti where Zayavki.Kontragenti_idKontragenti_sto=Kontragenti.idKontragenti) as 'Встановник'," +
+                                            "(select Kontragenti_full_name from btk.Kontragenti where Zayavki.Kontragenti_idKontragenti_zakazchik=Kontragenti.idKontragenti) as 'Замовник'," +
                                             "Users.username as 'Створив'," +
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
@@ -394,8 +420,8 @@ namespace Disp_WinForm
                                             "Zayavkicol_plan_date as 'План дата'," +
                                             "Zayavkicol_reason as 'Причина'," +
                                             "Zayavkicol_VIN as'VIN'," +
-                                            "Kontragenti.Kontragenti_full_name as 'Встановник'," +
-                                            "Kontragenti.Kontragenti_full_name as 'Замовник'," +
+                                            "(select Kontragenti_full_name from btk.Kontragenti where Zayavki.Kontragenti_idKontragenti_sto=Kontragenti.idKontragenti) as 'Встановник'," +
+                                            "(select Kontragenti_full_name from btk.Kontragenti where Zayavki.Kontragenti_idKontragenti_zakazchik=Kontragenti.idKontragenti) as 'Замовник'," +
                                             "Users.username as 'Створив'," +
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
@@ -416,8 +442,8 @@ namespace Disp_WinForm
                                             "Zayavkicol_plan_date as 'План дата'," +
                                             "Zayavkicol_reason as 'Причина'," +
                                             "Zayavkicol_VIN as'VIN'," +
-                                            "Kontragenti.Kontragenti_full_name as 'Встановник'," +
-                                            "Kontragenti.Kontragenti_full_name as 'Замовник'," +
+                                            "(select Kontragenti_full_name from btk.Kontragenti where Zayavki.Kontragenti_idKontragenti_sto=Kontragenti.idKontragenti) as 'Встановник'," +
+                                            "(select Kontragenti_full_name from btk.Kontragenti where Zayavki.Kontragenti_idKontragenti_zakazchik=Kontragenti.idKontragenti) as 'Замовник'," +
                                             "Users.username as 'Створив'," +
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
@@ -438,8 +464,8 @@ namespace Disp_WinForm
                                             "Zayavkicol_plan_date as 'План дата'," +
                                             "Zayavkicol_reason as 'Причина'," +
                                             "Zayavkicol_VIN as'VIN'," +
-                                            "Kontragenti.Kontragenti_full_name as 'Встановник'," +
-                                            "Kontragenti.Kontragenti_full_name as 'Замовник'," +
+                                            "(select Kontragenti_full_name from btk.Kontragenti where Zayavki.Kontragenti_idKontragenti_sto=Kontragenti.idKontragenti) as 'Встановник'," +
+                                            "(select Kontragenti_full_name from btk.Kontragenti where Zayavki.Kontragenti_idKontragenti_zakazchik=Kontragenti.idKontragenti) as 'Замовник'," +
                                             "Users.username as 'Створив'," +
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
@@ -461,8 +487,8 @@ namespace Disp_WinForm
                                             "Zayavkicol_plan_date as 'План дата'," +
                                             "Zayavkicol_reason as 'Причина'," +
                                             "Zayavkicol_VIN as'VIN'," +
-                                            "Kontragenti.Kontragenti_full_name as 'Встановник'," +
-                                            "Kontragenti.Kontragenti_full_name as 'Замовник'," +
+                                            "(select Kontragenti_full_name from btk.Kontragenti where Zayavki.Kontragenti_idKontragenti_sto=Kontragenti.idKontragenti) as 'Встановник'," +
+                                            "(select Kontragenti_full_name from btk.Kontragenti where Zayavki.Kontragenti_idKontragenti_zakazchik=Kontragenti.idKontragenti) as 'Замовник'," +
                                             "Users.username as 'Створив'," +
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
@@ -483,8 +509,8 @@ namespace Disp_WinForm
                                             "Zayavkicol_plan_date as 'План дата'," +
                                             "Zayavkicol_reason as 'Причина'," +
                                             "Zayavkicol_VIN as'VIN'," +
-                                            "Kontragenti.Kontragenti_full_name as 'Встановник'," +
-                                            "Kontragenti.Kontragenti_full_name as 'Замовник'," +
+                                            "(select Kontragenti_full_name from btk.Kontragenti where Zayavki.Kontragenti_idKontragenti_sto=Kontragenti.idKontragenti) as 'Встановник'," +
+                                            "(select Kontragenti_full_name from btk.Kontragenti where Zayavki.Kontragenti_idKontragenti_zakazchik=Kontragenti.idKontragenti) as 'Замовник'," +
                                             "Users.username as 'Створив'," +
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
@@ -504,8 +530,8 @@ namespace Disp_WinForm
                                             "Zayavkicol_plan_date as 'План дата'," +
                                             "Zayavkicol_reason as 'Причина'," +
                                             "Zayavkicol_VIN as'VIN'," +
-                                            "Kontragenti.Kontragenti_full_name as 'Встановник'," +
-                                            "Kontragenti.Kontragenti_full_name as 'Замовник'," +
+                                            "(select Kontragenti_full_name from btk.Kontragenti where Zayavki.Kontragenti_idKontragenti_sto=Kontragenti.idKontragenti) as 'Встановник'," +
+                                            "(select Kontragenti_full_name from btk.Kontragenti where Zayavki.Kontragenti_idKontragenti_zakazchik=Kontragenti.idKontragenti) as 'Замовник'," +
                                             "Users.username as 'Створив'," +
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
@@ -525,8 +551,8 @@ namespace Disp_WinForm
                                             "Zayavkicol_plan_date as 'План дата'," +
                                             "Zayavkicol_reason as 'Причина'," +
                                             "Zayavkicol_VIN as'VIN'," +
-                                            "Kontragenti.Kontragenti_full_name as 'Встановник'," +
-                                            "Kontragenti.Kontragenti_full_name as 'Замовник'," +
+                                            "(select Kontragenti_full_name from btk.Kontragenti where Zayavki.Kontragenti_idKontragenti_sto=Kontragenti.idKontragenti) as 'Встановник'," +
+                                            "(select Kontragenti_full_name from btk.Kontragenti where Zayavki.Kontragenti_idKontragenti_zakazchik=Kontragenti.idKontragenti) as 'Замовник'," +
                                             "Users.username as 'Створив'," +
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
@@ -546,8 +572,8 @@ namespace Disp_WinForm
                                             "Zayavkicol_plan_date as 'План дата'," +
                                             "Zayavkicol_reason as 'Причина'," +
                                             "Zayavkicol_VIN as'VIN'," +
-                                            "Kontragenti.Kontragenti_full_name as 'Встановник'," +
-                                            "Kontragenti.Kontragenti_full_name as 'Замовник'," +
+                                            "(select Kontragenti_full_name from btk.Kontragenti where Zayavki.Kontragenti_idKontragenti_sto=Kontragenti.idKontragenti) as 'Встановник'," +
+                                            "(select Kontragenti_full_name from btk.Kontragenti where Zayavki.Kontragenti_idKontragenti_zakazchik=Kontragenti.idKontragenti) as 'Замовник'," +
                                             "Users.username as 'Створив'," +
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
@@ -866,7 +892,20 @@ namespace Disp_WinForm
         }
         private void UpdateGrid1_dilery(DataTable table)
         {
-            int scrollPosition = dataGridView_dilery.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+            //save sort
+            DataGridViewColumn oldColumn = dataGridView_dilery.SortedColumn;
+            ListSortDirection direction;
+            if (dataGridView_dilery.SortOrder == SortOrder.Ascending) direction = ListSortDirection.Ascending;
+            else direction = ListSortDirection.Descending;
+
+            //save scrol and selected row
+            int scrollPosition = 0;
+            int selectpozition = 0;
+            if (dataGridView_dilery.DataSource != null)
+            {
+                scrollPosition = dataGridView_dilery.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+                selectpozition = dataGridView_dilery.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+            }
 
             DataView dv = table.DefaultView;
             dv.Sort = "Дата зміни desc";
@@ -874,29 +913,15 @@ namespace Disp_WinForm
 
             dataGridView_dilery.DataSource = table;
 
-            //------------------------------------------
-            //if (dataGridView_dilery.DataSource== null)
-            //{
-            //    dataGridView_dilery.DataSource = table;
-            //}
-            //else
-            //{
-
-
-
-            //    DataGridViewColumn oldColumn = dataGridView_dilery.SortedColumn;
-            //    ListSortDirection direction = ListSortDirection.Ascending;
-            //    dataGridView_dilery.DataSource = table;
-            //    if (oldColumn != null)
-            //    {
-            //        dataGridView_dilery.Sort(oldColumn, direction); //give column in place of newColumn for sorting
-            //        oldColumn.HeaderCell.SortGlyphDirection = direction == ListSortDirection.Ascending ? SortOrder.Ascending : SortOrder.Descending;
-            //    }
-
-
-
-            //}
-            ////----------------------------------------------------------------------
+            //restote sort
+            if (oldColumn != null)
+            {
+                DataGridViewColumn newColumn = dataGridView_dilery.Columns[oldColumn.Name.ToString()];
+                dataGridView_dilery.Sort(newColumn, direction);
+                newColumn.HeaderCell.SortGlyphDirection =
+                                 direction == ListSortDirection.Ascending ?
+                                 SortOrder.Ascending : SortOrder.Descending;
+            }
 
             if (dataGridView_dilery.Rows.Count >= 1)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
             {
@@ -905,6 +930,10 @@ namespace Disp_WinForm
                     scrollPosition = 0;
                 }
                 dataGridView_dilery.FirstDisplayedScrollingRowIndex = scrollPosition;
+                dataGridView_dilery.ClearSelection();
+                dataGridView_dilery.Rows[selectpozition].Selected = true;
+
+                
             }
         }
         private void UpdateGrid_dilery(DataTable table)
@@ -916,34 +945,37 @@ namespace Disp_WinForm
             }
             else
             {
-                int scrollPosition = dataGridView_dilery.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+                //save sort
+                DataGridViewColumn oldColumn = dataGridView_dilery.SortedColumn;
+                ListSortDirection direction;
+                if (dataGridView_dilery.SortOrder == SortOrder.Ascending) direction = ListSortDirection.Ascending;
+                else direction = ListSortDirection.Descending;
+
+                //save scrol and selected row
+                int scrollPosition = 0;
+                int selectpozition = 0;
+                if (dataGridView_dilery.DataSource != null)
+                {
+                    scrollPosition = dataGridView_dilery.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+                    selectpozition = dataGridView_dilery.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                }
 
                 DataView dv = table.DefaultView;
                 dv.Sort = "Дата зміни desc";
                 DataTable sortedDT = dv.ToTable();
 
                 dataGridView_dilery.DataSource = table;
-                ////------------------------------------------
-                ////DataView dv;
-                ////dv = new DataView(table, "Продукт = 'CNTK' ", "Продукт Desc", DataViewRowState.CurrentRows);
 
-                //if (dataGridView_dilery.DataSource == null)
-                //{
-                //    dataGridView_dilery.DataSource = table;
-                //}
-                //else
-                //{
-                //    DataGridViewColumn oldColumn = dataGridView_dilery.SortedColumn;
-                //    ListSortDirection direction = ListSortDirection.Ascending;
-                //    dataGridView_dilery.DataSource = table;
-                //    if (oldColumn != null)
-                //    {
-                //        dataGridView_dilery.Sort(oldColumn, direction); //give column in place of newColumn for sorting
-                //        oldColumn.HeaderCell.SortGlyphDirection = direction == ListSortDirection.Ascending ? SortOrder.Ascending : SortOrder.Descending;
-                //    }
-                //}
-                ////----------------------------------------------------------------------
-                ////dataGridView_dilery.DataSource = table;
+                //restote sort
+                if (oldColumn != null)
+                {
+                    DataGridViewColumn newColumn = dataGridView_dilery.Columns[oldColumn.Name.ToString()];
+                    dataGridView_dilery.Sort(newColumn, direction);
+                    newColumn.HeaderCell.SortGlyphDirection =
+                                     direction == ListSortDirection.Ascending ?
+                                     SortOrder.Ascending : SortOrder.Descending;
+                }
+
                 if (dataGridView_dilery.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
                 {
                     if (scrollPosition == -1)
@@ -951,6 +983,10 @@ namespace Disp_WinForm
                         scrollPosition = 0;
                     }
                     dataGridView_dilery.FirstDisplayedScrollingRowIndex = scrollPosition;
+                    dataGridView_dilery.ClearSelection();
+                    dataGridView_dilery.Rows[selectpozition].Selected = true;
+
+                    
                 }
             }
         }
@@ -1075,7 +1111,20 @@ namespace Disp_WinForm
         }
         private void UpdateGrid1_sale(DataTable table)
         {
-            int scrollPosition = dataGridView_sales.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+            //save sort
+            DataGridViewColumn oldColumn = dataGridView_sales.SortedColumn;
+            ListSortDirection direction;
+            if (dataGridView_sales.SortOrder == SortOrder.Ascending) direction = ListSortDirection.Ascending;
+            else direction = ListSortDirection.Descending;
+
+            //save scrol and selected row
+            int scrollPosition = 0;
+            int selectpozition = 0;
+            if (dataGridView_sales.DataSource != null)
+            {
+                scrollPosition = dataGridView_sales.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+                selectpozition = dataGridView_sales.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+            }
 
             DataView dv = table.DefaultView;
             dv.Sort = "Дата зміни desc";
@@ -1083,6 +1132,15 @@ namespace Disp_WinForm
 
             dataGridView_sales.DataSource = table;
 
+            //restote sort
+            if (oldColumn != null)
+            {
+                DataGridViewColumn newColumn = dataGridView_sales.Columns[oldColumn.Name.ToString()];
+                dataGridView_sales.Sort(newColumn, direction);
+                newColumn.HeaderCell.SortGlyphDirection =
+                                 direction == ListSortDirection.Ascending ?
+                                 SortOrder.Ascending : SortOrder.Descending;
+            }
 
             if (dataGridView_sales.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
             {
@@ -1091,6 +1149,10 @@ namespace Disp_WinForm
                     scrollPosition = 0;
                 }
                 dataGridView_sales.FirstDisplayedScrollingRowIndex = scrollPosition;
+                dataGridView_sales.ClearSelection();
+                dataGridView_sales.Rows[selectpozition].Selected = true;
+
+                
             }
         }
         private void UpdateGrid_sale(DataTable table)
@@ -1102,13 +1164,36 @@ namespace Disp_WinForm
             }
             else
             {
-                int scrollPosition = dataGridView_sales.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+                //save sort
+                DataGridViewColumn oldColumn = dataGridView_sales.SortedColumn;
+                ListSortDirection direction;
+                if (dataGridView_sales.SortOrder == SortOrder.Ascending) direction = ListSortDirection.Ascending;
+                else direction = ListSortDirection.Descending;
+
+                //save scrol and selected row
+                int scrollPosition = 0;
+                int selectpozition = 0;
+                if (dataGridView_sales.DataSource != null)
+                {
+                    scrollPosition = dataGridView_sales.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+                    selectpozition = dataGridView_sales.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                }
 
                 DataView dv = table.DefaultView;
                 dv.Sort = "Дата зміни desc";
                 DataTable sortedDT = dv.ToTable();
 
                 dataGridView_sales.DataSource = table;
+                
+                //restote sort
+                if (oldColumn != null)
+                {
+                    DataGridViewColumn newColumn = dataGridView_sales.Columns[oldColumn.Name.ToString()];
+                    dataGridView_sales.Sort(newColumn, direction);
+                    newColumn.HeaderCell.SortGlyphDirection =
+                                     direction == ListSortDirection.Ascending ?
+                                     SortOrder.Ascending : SortOrder.Descending;
+                }
 
                 if (dataGridView_sales.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
                 {
@@ -1117,6 +1202,10 @@ namespace Disp_WinForm
                         scrollPosition = 0;
                     }
                     dataGridView_sales.FirstDisplayedScrollingRowIndex = scrollPosition;
+                    dataGridView_sales.ClearSelection();
+                    dataGridView_sales.Rows[selectpozition].Selected = true;
+
+                    
                 }
             }
         }
@@ -1241,7 +1330,20 @@ namespace Disp_WinForm
         }
         private void UpdateGrid1_808(DataTable table)
         {
-            int scrollPosition = this.dataGridView_808_n.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+            //save sort
+            DataGridViewColumn oldColumn = dataGridView_808_n.SortedColumn;
+            ListSortDirection direction;
+            if (dataGridView_808_n.SortOrder == SortOrder.Ascending) direction = ListSortDirection.Ascending;
+            else direction = ListSortDirection.Descending;
+
+            //save scrol and selected row
+            int scrollPosition = 0;
+            int selectpozition = 0;
+            if (dataGridView_808_n.DataSource != null)
+            {
+                scrollPosition = dataGridView_808_n.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+                selectpozition = dataGridView_808_n.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+            }
 
             DataView dv = table.DefaultView;
             dv.Sort = "Дата зміни desc";
@@ -1258,6 +1360,17 @@ namespace Disp_WinForm
             //    dataGridView_808_n.Refresh();
             //}
             ////----------------------------------------------------------------------
+
+            //restote sort
+            if (oldColumn != null)
+            {
+                DataGridViewColumn newColumn = dataGridView_808_n.Columns[oldColumn.Name.ToString()];
+                dataGridView_808_n.Sort(newColumn, direction);
+                newColumn.HeaderCell.SortGlyphDirection =
+                                 direction == ListSortDirection.Ascending ?
+                                 SortOrder.Ascending : SortOrder.Descending;
+            }
+
             if (dataGridView_808_n.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
             {
                 if (scrollPosition == -1)
@@ -1265,6 +1378,10 @@ namespace Disp_WinForm
                     scrollPosition = 0;
                 }
                 dataGridView_808_n.FirstDisplayedScrollingRowIndex = scrollPosition;
+                dataGridView_808_n.ClearSelection();
+                dataGridView_808_n.Rows[selectpozition].Selected = true;
+
+                
             }
         }
         private void UpdateGrid_808(DataTable table)
@@ -1276,13 +1393,36 @@ namespace Disp_WinForm
             }
             else
             {
-                int scrollPosition = this.dataGridView_808_n.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+                //save sort
+                DataGridViewColumn oldColumn = dataGridView_808_n.SortedColumn;
+                ListSortDirection direction;
+                if (dataGridView_808_n.SortOrder == SortOrder.Ascending) direction = ListSortDirection.Ascending;
+                else direction = ListSortDirection.Descending;
+
+                //save scrol and selected row
+                int scrollPosition = 0;
+                int selectpozition = 0;
+                if (dataGridView_808_n.DataSource != null)
+                {
+                    scrollPosition = dataGridView_808_n.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+                    selectpozition = dataGridView_808_n.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                }
 
                 DataView dv = table.DefaultView;
                 dv.Sort = "Дата зміни desc";
                 DataTable sortedDT = dv.ToTable();
 
                 dataGridView_808_n.DataSource = table;
+
+                //restote sort
+                if (oldColumn != null)
+                {
+                    DataGridViewColumn newColumn = dataGridView_808_n.Columns[oldColumn.Name.ToString()];
+                    dataGridView_808_n.Sort(newColumn, direction);
+                    newColumn.HeaderCell.SortGlyphDirection =
+                                     direction == ListSortDirection.Ascending ?
+                                     SortOrder.Ascending : SortOrder.Descending;
+                }
                 ////------------------------------------------
                 //if (dataGridView_808_n.DataSource == null)
                 //{
@@ -1300,6 +1440,10 @@ namespace Disp_WinForm
                         scrollPosition = 0;
                     }
                     dataGridView_808_n.FirstDisplayedScrollingRowIndex = scrollPosition;
+                    dataGridView_808_n.ClearSelection();
+                    dataGridView_808_n.Rows[selectpozition].Selected = true;
+
+                    
                 }
             }
         }
@@ -1407,7 +1551,7 @@ namespace Disp_WinForm
                                    "Users.username as 'Створив'," +
                                    "speed, " +
                                    "remaynder_activate as 'Нагадати', " +
-                                   "remayder_date as 'Дата нагадування'  FROM btk.notification, btk.Users WHERE Users.idUsers=notification.Users_idUsers and Status = '808' " + vars_form.hide_group_alarm + "  ;");//order by btk.notification." + vars_form.sort.ToString() + " " + vars_form.order_sort + "
+                                   "remayder_date as 'Дата нагадування'  FROM btk.notification, btk.Users WHERE Users.idUsers=notification.Users_idUsers and Status = '808_звязок' " + vars_form.hide_group_alarm + "  ;");//order by btk.notification." + vars_form.sort.ToString() + " " + vars_form.order_sort + "
             UpdateGridHandler ug = UpdateGrid_lost;
             ug.BeginInvoke(table, cb_lost, null);
         }
@@ -1417,7 +1561,21 @@ namespace Disp_WinForm
         }
         private void UpdateGrid1_lost(DataTable table)
         {
-            int scrollPosition = this.dataGridView_lost.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+            //save sort
+            DataGridViewColumn oldColumn = dataGridView_lost.SortedColumn;
+            ListSortDirection direction;
+            if (dataGridView_lost.SortOrder == SortOrder.Ascending) direction = ListSortDirection.Ascending;
+            else direction = ListSortDirection.Descending;
+
+            //save scrol and selected row
+            int scrollPosition = 0;
+            int selectpozition = 0;
+            if (dataGridView_lost.DataSource != null)
+            {
+                scrollPosition = dataGridView_lost.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+                selectpozition = dataGridView_lost.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+            }
+
 
             DataView dv = table.DefaultView;
             dv.Sort = "Дата зміни desc";
@@ -1425,13 +1583,27 @@ namespace Disp_WinForm
 
             dataGridView_lost.DataSource = table;
 
-            if (dataGridView_lost.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
+            //restote sort
+            if (oldColumn != null)
+            {
+                DataGridViewColumn newColumn = dataGridView_lost.Columns[oldColumn.Name.ToString()];
+                dataGridView_lost.Sort(newColumn, direction);
+                newColumn.HeaderCell.SortGlyphDirection =
+                                 direction == ListSortDirection.Ascending ?
+                                 SortOrder.Ascending : SortOrder.Descending;
+            }
+
+            if (dataGridView_lost.Rows.Count >= 1)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
             {
                 if (scrollPosition == -1)
                 {
                     scrollPosition = 0;
                 }
                 dataGridView_lost.FirstDisplayedScrollingRowIndex = scrollPosition;
+                dataGridView_lost.ClearSelection();
+                dataGridView_lost.Rows[selectpozition].Selected = true;
+
+                
             }
         }
         private void UpdateGrid_lost(DataTable table)
@@ -1443,13 +1615,36 @@ namespace Disp_WinForm
             }
             else
             {
-                int scrollPosition = this.dataGridView_lost.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+                //save sort
+                DataGridViewColumn oldColumn = dataGridView_lost.SortedColumn;
+                ListSortDirection direction;
+                if (dataGridView_lost.SortOrder == SortOrder.Ascending) direction = ListSortDirection.Ascending;
+                else direction = ListSortDirection.Descending;
+
+                //save scrol and selected row
+                int scrollPosition = 0;
+                int selectpozition = 0;
+                if (dataGridView_lost.DataSource != null)
+                {
+                    scrollPosition = dataGridView_lost.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+                    selectpozition = dataGridView_lost.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                }
 
                 DataView dv = table.DefaultView;
                 dv.Sort = "Дата зміни desc";
                 DataTable sortedDT = dv.ToTable();
 
                 dataGridView_lost.DataSource = table;
+
+                //restote sort
+                if (oldColumn != null)
+                {
+                    DataGridViewColumn newColumn = dataGridView_lost.Columns[oldColumn.Name.ToString()];
+                    dataGridView_lost.Sort(newColumn, direction);
+                    newColumn.HeaderCell.SortGlyphDirection =
+                                     direction == ListSortDirection.Ascending ?
+                                     SortOrder.Ascending : SortOrder.Descending;
+                }
 
                 if (dataGridView_lost.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
                 {
@@ -1458,10 +1653,13 @@ namespace Disp_WinForm
                         scrollPosition = 0;
                     }
                     dataGridView_lost.FirstDisplayedScrollingRowIndex = scrollPosition;
+                    dataGridView_lost.ClearSelection();
+                    dataGridView_lost.Rows[selectpozition].Selected = true;
+
+                    
                 }
             }
         }
-
         private void dataGridView_lost_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             //return;
@@ -1581,8 +1779,21 @@ namespace Disp_WinForm
         }
         private void UpdateGrid1_909(DataTable table)
         {
-            int scrollPosition = dataGridView_909_n.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-
+            //save sort
+            DataGridViewColumn oldColumn = dataGridView_909_n.SortedColumn;
+            ListSortDirection direction;
+            if (dataGridView_909_n.SortOrder == SortOrder.Ascending) direction = ListSortDirection.Ascending;
+            else direction = ListSortDirection.Descending;
+            
+            //save scrol and selected row
+            int scrollPosition=0;
+            int selectpozition=0;
+            if (dataGridView_909_n.DataSource != null)
+            {
+                scrollPosition = dataGridView_909_n.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+                selectpozition = dataGridView_909_n.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+            }
+            
             DataView dv = table.DefaultView;
             dv.Sort = "Дата зміни desc";
             DataTable sortedDT = dv.ToTable();
@@ -1598,6 +1809,17 @@ namespace Disp_WinForm
             //    dataGridView_909_n.Refresh();
             //}
             ////----------------------------------------------------------------------
+
+            //restote sort
+            if (oldColumn != null)
+            {
+                DataGridViewColumn newColumn = dataGridView_909_n.Columns[oldColumn.Name.ToString()];
+                dataGridView_909_n.Sort(newColumn, direction);
+                newColumn.HeaderCell.SortGlyphDirection =
+                                 direction == ListSortDirection.Ascending ?
+                                 SortOrder.Ascending : SortOrder.Descending;
+            }
+
             if (dataGridView_909_n.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
             {
                 if (scrollPosition == -1)
@@ -1605,6 +1827,10 @@ namespace Disp_WinForm
                     scrollPosition = 0;
                 }
                 dataGridView_909_n.FirstDisplayedScrollingRowIndex = scrollPosition;
+                dataGridView_909_n.ClearSelection();
+                dataGridView_909_n.Rows[selectpozition].Selected = true;
+
+                
             }
 
         }
@@ -1617,7 +1843,20 @@ namespace Disp_WinForm
             }
             else
             {
-                int scrollPosition = dataGridView_909_n.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+                //save sort
+                DataGridViewColumn oldColumn = dataGridView_909_n.SortedColumn;
+                ListSortDirection direction;
+                if (dataGridView_909_n.SortOrder == SortOrder.Ascending) direction = ListSortDirection.Ascending;
+                else direction = ListSortDirection.Descending;
+
+                //save scrol and selected row
+                int scrollPosition =0;
+                int selectpozition=0;
+                if (dataGridView_909_n.DataSource != null)
+                {
+                    scrollPosition = dataGridView_909_n.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+                    selectpozition = dataGridView_909_n.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                }
 
                 DataView dv = table.DefaultView;
                 dv.Sort = "Дата зміни desc";
@@ -1634,6 +1873,17 @@ namespace Disp_WinForm
                 //    dataGridView_909_n.Refresh();
                 //}
                 ////----------------------------------------------------------------------
+                
+                //restote sort
+                if (oldColumn != null)
+                {
+                    DataGridViewColumn newColumn = dataGridView_909_n.Columns[oldColumn.Name.ToString()];
+                    dataGridView_909_n.Sort(newColumn, direction);
+                    newColumn.HeaderCell.SortGlyphDirection =
+                                     direction == ListSortDirection.Ascending ?
+                                     SortOrder.Ascending : SortOrder.Descending;
+                }
+
                 if (dataGridView_909_n.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
                 {
                     if (scrollPosition == -1)
@@ -1642,7 +1892,10 @@ namespace Disp_WinForm
                     }
                     dataGridView_909_n.FirstDisplayedScrollingRowIndex = scrollPosition;
                 }
+                dataGridView_909_n.ClearSelection();
+                dataGridView_909_n.Rows[selectpozition].Selected = true;
 
+                
             }
         }
         private void dataGridView_909_n_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -1758,7 +2011,20 @@ namespace Disp_WinForm
         }
         private void UpdateGrid1_open(DataTable table)
         {
-            int scrollPosition = dataGridView_open_alarm.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+            //save sort
+            DataGridViewColumn oldColumn = dataGridView_open_alarm.SortedColumn;
+            ListSortDirection direction;
+            if (dataGridView_open_alarm.SortOrder == SortOrder.Ascending) direction = ListSortDirection.Ascending;
+            else direction = ListSortDirection.Descending;
+
+            //save scrol and selected row
+            int scrollPosition = 0;
+            int selectpozition = 0;
+            if (dataGridView_open_alarm.DataSource != null)
+            {
+                scrollPosition = dataGridView_open_alarm.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+                selectpozition = dataGridView_open_alarm.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+            }
 
 
             dataGridView_open_alarm.DataSource = table;
@@ -1772,6 +2038,17 @@ namespace Disp_WinForm
             //    dataGridView_open_alarm.Refresh();
             //}
             ////----------------------------------------------------------------------
+
+            //restote sort
+            if (oldColumn != null)
+            {
+                DataGridViewColumn newColumn = dataGridView_open_alarm.Columns[oldColumn.Name.ToString()];
+                dataGridView_open_alarm.Sort(newColumn, direction);
+                newColumn.HeaderCell.SortGlyphDirection =
+                                 direction == ListSortDirection.Ascending ?
+                                 SortOrder.Ascending : SortOrder.Descending;
+            }
+
             if (dataGridView_open_alarm.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
             {
                 if (scrollPosition == -1)
@@ -1779,6 +2056,10 @@ namespace Disp_WinForm
                     scrollPosition = 0;
                 }
                 dataGridView_open_alarm.FirstDisplayedScrollingRowIndex = scrollPosition;
+                dataGridView_open_alarm.ClearSelection();
+                dataGridView_open_alarm.Rows[selectpozition].Selected = true;
+
+                
             }
         }
         private void UpdateGrid_open(DataTable table)
@@ -1790,7 +2071,20 @@ namespace Disp_WinForm
             }
             else
             {
-                int scrollPosition = dataGridView_open_alarm.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+                //save sort
+                DataGridViewColumn oldColumn = dataGridView_open_alarm.SortedColumn;
+                ListSortDirection direction;
+                if (dataGridView_open_alarm.SortOrder == SortOrder.Ascending) direction = ListSortDirection.Ascending;
+                else direction = ListSortDirection.Descending;
+
+                //save scrol and selected row
+                int scrollPosition = 0;
+                int selectpozition = 0;
+                if (dataGridView_open_alarm.DataSource != null)
+                {
+                    scrollPosition = dataGridView_open_alarm.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+                    selectpozition = dataGridView_open_alarm.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                }
 
 
                 dataGridView_open_alarm.DataSource = table;
@@ -1804,6 +2098,18 @@ namespace Disp_WinForm
                 //    dataGridView_open_alarm.Refresh();
                 //}
                 ////----------------------------------------------------------------------
+                ///
+
+                //restote sort
+                if (oldColumn != null)
+                {
+                    DataGridViewColumn newColumn = dataGridView_open_alarm.Columns[oldColumn.Name.ToString()];
+                    dataGridView_open_alarm.Sort(newColumn, direction);
+                    newColumn.HeaderCell.SortGlyphDirection =
+                                     direction == ListSortDirection.Ascending ?
+                                     SortOrder.Ascending : SortOrder.Descending;
+                }
+
                 if (dataGridView_open_alarm.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
                 {
                     if (scrollPosition == -1)
@@ -1811,6 +2117,10 @@ namespace Disp_WinForm
                         scrollPosition = 0;
                     }
                     dataGridView_open_alarm.FirstDisplayedScrollingRowIndex = scrollPosition;
+                    dataGridView_open_alarm.ClearSelection();
+                    dataGridView_open_alarm.Rows[selectpozition].Selected = true;
+
+                    
                 }
             }
         }
@@ -2166,7 +2476,9 @@ namespace Disp_WinForm
             Testing form_Testing = new Testing();
             form_Testing.Activated += new EventHandler(form_Testing_activated);
             form_Testing.FormClosed += new FormClosedEventHandler(form_Testing_deactivated);
+            textBox_test_search.Text = "";
             form_Testing.Show();
+
         }
 
         private void form_Testing_activated(object sender, EventArgs e)
@@ -2257,12 +2569,12 @@ namespace Disp_WinForm
 
         private void activation_form_activated(object sender, EventArgs e)
         {
-            //this.Visible = false;// блокируем окно  пока открыто окно добавления 
+            this.Visible = false;// блокируем окно  пока открыто окно добавления 
         }
 
         private void activation_form_deactivated(object sender, FormClosedEventArgs e)
         {
-            //this.Visible = true;// разблокируем окно  кактолько закрыто окно добавления 
+            this.Visible = true;// разблокируем окно  кактолько закрыто окно добавления 
             vars_form.if_open_created_activation = 0;
             update_actication_dgv();
         }
@@ -2302,7 +2614,12 @@ namespace Disp_WinForm
                 gmr_police = 0;
             }
 
+
+
+
             DataSet data = new DataSet();
+
+            
             data = macros.GetData_dataset("SELECT " +
                                   "notification.idnotification, " +
                                   "notification.unit_name, " +

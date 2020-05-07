@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Testing));
             this.comboBox_test_production_date = new System.Windows.Forms.ComboBox();
             this.comboBox_test_brand = new System.Windows.Forms.ComboBox();
             this.checkBox_test_relay_plus = new System.Windows.Forms.CheckBox();
@@ -63,10 +64,10 @@
             this.textBox_vin = new System.Windows.Forms.TextBox();
             this.comboBox_kuzov_type = new System.Windows.Forms.ComboBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.comboBox_buttons_for_pin = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
             this.comboBox_pin_or_tag = new System.Windows.Forms.ComboBox();
             this.textBox_service_button = new System.Windows.Forms.TextBox();
-            this.textBox_buttons_for_pin = new System.Windows.Forms.TextBox();
             this.textBox_current_pin = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -500,10 +501,10 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.comboBox_buttons_for_pin);
             this.groupBox7.Controls.Add(this.label17);
             this.groupBox7.Controls.Add(this.comboBox_pin_or_tag);
             this.groupBox7.Controls.Add(this.textBox_service_button);
-            this.groupBox7.Controls.Add(this.textBox_buttons_for_pin);
             this.groupBox7.Controls.Add(this.textBox_current_pin);
             this.groupBox7.Controls.Add(this.label16);
             this.groupBox7.Controls.Add(this.label15);
@@ -513,6 +514,27 @@
             this.groupBox7.TabIndex = 120;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Кнопки керування сигналізацією";
+            // 
+            // comboBox_buttons_for_pin
+            // 
+            this.comboBox_buttons_for_pin.FormattingEnabled = true;
+            this.comboBox_buttons_for_pin.Items.AddRange(new object[] {
+            "AUDI:  Кнопки стеклоподъемников на двери водителя два передних на поднятие стекол" +
+                ".",
+            "BMW:   На левой части руля: \"Круиз\",\"+\", \"-\".  На правой части руля: \"+\", \"-\", \"Т" +
+                "елефон\", \"Голосовое управление\", \"Меню\", \"Влево\", \"Вправо\"",
+            "LR:    Кнопки круиз-контроля на руле: \"Cancel\", \"Set\", \"Reset\", \"-\"",
+            "LR:    Кнопка управления передним правым стеклоподъемником (на поднятие стекла), " +
+                "расположенная на обшивке двери водителя",
+            resources.GetString("comboBox_buttons_for_pin.Items"),
+            resources.GetString("comboBox_buttons_for_pin.Items1"),
+            "TY\\LX: На руле справа кнопки: \"Вниз\", \"Вверх\", \"Вправо, \"Влево\"",
+            "TY\\LX: На руле слева кнопки: \"-\", \"+\", джойстик \"вверх\", \"вниз\""});
+            this.comboBox_buttons_for_pin.Location = new System.Drawing.Point(105, 68);
+            this.comboBox_buttons_for_pin.Name = "comboBox_buttons_for_pin";
+            this.comboBox_buttons_for_pin.Size = new System.Drawing.Size(366, 21);
+            this.comboBox_buttons_for_pin.TabIndex = 119;
+            this.comboBox_buttons_for_pin.SelectedIndexChanged += new System.EventHandler(this.comboBox_buttons_for_pin_SelectedIndexChanged);
             // 
             // label17
             // 
@@ -543,13 +565,6 @@
             this.textBox_service_button.Name = "textBox_service_button";
             this.textBox_service_button.Size = new System.Drawing.Size(366, 20);
             this.textBox_service_button.TabIndex = 13;
-            // 
-            // textBox_buttons_for_pin
-            // 
-            this.textBox_buttons_for_pin.Location = new System.Drawing.Point(105, 69);
-            this.textBox_buttons_for_pin.Name = "textBox_buttons_for_pin";
-            this.textBox_buttons_for_pin.Size = new System.Drawing.Size(366, 20);
-            this.textBox_buttons_for_pin.TabIndex = 14;
             // 
             // textBox_current_pin
             // 
@@ -1434,7 +1449,6 @@
         private System.Windows.Forms.ComboBox comboBox_pin_or_tag;
         private System.Windows.Forms.Label label_test_dop_2;
         private System.Windows.Forms.CheckBox checkBox_dop_1;
-        private System.Windows.Forms.TextBox textBox_buttons_for_pin;
         private System.Windows.Forms.TextBox textBox_service_button;
         private System.Windows.Forms.TextBox TextBox_device2;
         private System.Windows.Forms.Label label6;
@@ -1514,5 +1528,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ComboBox comboBox_buttons_for_pin;
     }
 }

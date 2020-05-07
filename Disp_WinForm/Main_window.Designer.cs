@@ -177,6 +177,7 @@
             this.tabControl_testing.Controls.Add(this.tabPage2);
             this.tabControl_testing.Controls.Add(this.tabPage_909_n);
             this.tabControl_testing.Controls.Add(this.tabPage_808);
+            this.tabControl_testing.Controls.Add(this.tabPage_lost);
             this.tabControl_testing.Controls.Add(this.tabPage_p);
             this.tabControl_testing.Controls.Add(this.tabPage_sales);
             this.tabControl_testing.Controls.Add(this.tabPage_zayavki_activation);
@@ -184,7 +185,6 @@
             this.tabControl_testing.Controls.Add(this.tabPage_activation);
             this.tabControl_testing.Controls.Add(this.tabPage3);
             this.tabControl_testing.Controls.Add(this.tabPage_zvit);
-            this.tabControl_testing.Controls.Add(this.tabPage_lost);
             this.tabControl_testing.Location = new System.Drawing.Point(0, 0);
             this.tabControl_testing.Name = "tabControl_testing";
             this.tabControl_testing.SelectedIndex = 0;
@@ -691,6 +691,7 @@
             this.dataGridView_808_n.Name = "dataGridView_808_n";
             this.dataGridView_808_n.ReadOnly = true;
             this.dataGridView_808_n.RowHeadersVisible = false;
+            this.dataGridView_808_n.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_808_n.Size = new System.Drawing.Size(1356, 621);
             this.dataGridView_808_n.TabIndex = 1;
             this.dataGridView_808_n.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_808_n_CellDoubleClick);
@@ -743,6 +744,7 @@
             dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView_dilery.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridView_dilery.RowHeadersVisible = false;
+            this.dataGridView_dilery.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_dilery.Size = new System.Drawing.Size(1356, 621);
             this.dataGridView_dilery.TabIndex = 0;
             this.dataGridView_dilery.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_dilery_CellDoubleClick);
@@ -795,6 +797,7 @@
             dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView_sales.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.dataGridView_sales.RowHeadersVisible = false;
+            this.dataGridView_sales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_sales.Size = new System.Drawing.Size(1356, 617);
             this.dataGridView_sales.TabIndex = 0;
             this.dataGridView_sales.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_sales_CellDoubleClick);
@@ -1166,6 +1169,7 @@
             this.dataGridView_close_object.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_close_object.Location = new System.Drawing.Point(0, 19);
             this.dataGridView_close_object.Name = "dataGridView_close_object";
+            this.dataGridView_close_object.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_close_object.Size = new System.Drawing.Size(1356, 524);
             this.dataGridView_close_object.TabIndex = 3;
             // 
@@ -1286,7 +1290,7 @@
             this.tabPage_lost.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage_lost.Size = new System.Drawing.Size(1362, 627);
             this.tabPage_lost.TabIndex = 12;
-            this.tabPage_lost.Text = "Losts";
+            this.tabPage_lost.Text = "808_звязок";
             this.tabPage_lost.UseVisualStyleBackColor = true;
             // 
             // dataGridView_lost
@@ -1301,6 +1305,7 @@
             this.dataGridView_lost.Name = "dataGridView_lost";
             this.dataGridView_lost.ReadOnly = true;
             this.dataGridView_lost.RowHeadersVisible = false;
+            this.dataGridView_lost.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_lost.Size = new System.Drawing.Size(1356, 621);
             this.dataGridView_lost.TabIndex = 2;
             this.dataGridView_lost.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_lost_CellDoubleClick);

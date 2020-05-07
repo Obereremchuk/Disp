@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Disp_WinForm
@@ -154,6 +155,15 @@ namespace Disp_WinForm
 
         private void buid_datagreed_tested_object()
         {
+            string searchbydate = "";
+            if (checkBox_for_all_time.Checked == true)
+            {
+                searchbydate = ";";
+            }
+            else
+            {
+                searchbydate = "and(testing_objectcol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_filter_tested_zayavki.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "');";
+            }
             //ПОлучим последний созданный айди тестирование, и возмем из него дату для верного отображения которую покладем в даттаймпикер
             DataTable table = new DataTable();
             if (comboBox_filter.SelectedIndex==0)
@@ -171,11 +181,11 @@ namespace Disp_WinForm
                                             "FROM btk.testing_object, btk.Object, btk.TS_info, btk.Kontragenti, btk.Users " +
                                             "WHERE " +
                                             "testing_object.Users_idUsers=Users.idUsers and " +
+                                            "TS_info.TS_infocol_vin LIKE  '%" + textBox_search_by_vin_testing.Text + "%' and " +
                                             "testing_object.idtesting_object NOT IN (select testing_object_idtesting_object from btk.Zayavki) and " +
                                             "Kontragenti.idKontragenti=TS_info.Kontragenti_idKontragenti and " +
                                             "Object.TS_info_idTS_info=TS_info.idTS_info and " +
-                                            "Object.idObject = testing_object.Object_idObject and " +
-                                            "(testing_objectcol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_filter_tested_zayavki.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "');");
+                                            "Object.idObject = testing_object.Object_idObject " + searchbydate);
 
             }
             else if (comboBox_filter.SelectedIndex == 2)
@@ -193,10 +203,11 @@ namespace Disp_WinForm
                                             "FROM btk.testing_object, btk.Object, btk.TS_info, btk.Kontragenti, btk.Users " +
                                             "where " +
                                             "testing_object.Users_idUsers=Users.idUsers and " +
+                                            "TS_info.TS_infocol_vin LIKE  '%" + textBox_search_by_vin_testing.Text + "%' and " +
                                             "Kontragenti.idKontragenti=TS_info.Kontragenti_idKontragenti and " +
                                             "Object.TS_info_idTS_info=TS_info.idTS_info and " +
-                                            "Object.idObject = testing_object.Object_idObject and " +
-                                            "(testing_objectcol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_filter_tested_zayavki.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "');");
+                                            "Object.idObject = testing_object.Object_idObject " + searchbydate);
+                                            
             }
             else if (comboBox_filter.SelectedIndex == 1)
             {
@@ -213,11 +224,11 @@ namespace Disp_WinForm
                                             "FROM btk.testing_object, btk.Object, btk.TS_info, btk.Kontragenti, btk.Users " +
                                             "where " +
                                             "testing_object.Users_idUsers=Users.idUsers and " +
+                                            "TS_info.TS_infocol_vin LIKE  '%" + textBox_search_by_vin_testing.Text + "%' and " +
                                             "testing_object.idtesting_object IN (select testing_object_idtesting_object from btk.Zayavki) and " +
                                             "Kontragenti.idKontragenti=TS_info.Kontragenti_idKontragenti and " +
                                             "Object.TS_info_idTS_info=TS_info.idTS_info and " +
-                                            "Object.idObject = testing_object.Object_idObject and " +
-                                            "(testing_objectcol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_filter_tested_zayavki.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "');");
+                                            "Object.idObject = testing_object.Object_idObject " + searchbydate);
             }
             dataGridView_tested_objects_zayavki.DataSource = table;
             this.dataGridView_tested_objects_zayavki.Columns["Id"].Visible = false;
@@ -251,7 +262,7 @@ namespace Disp_WinForm
 
         private void comboBox_brand_zayavki_DropDown(object sender, EventArgs e)
         {
-            string sql = string.Format("SELECT TS_brandcol_brand, idTS_brand FROM btk.TS_brand;");
+            string sql = string.Format("SELECT TS_brandcol_brand, idTS_brand FROM btk.TS_brand ;");
             var temp = macros.GetData(sql);
             comboBox_brand_zayavki.DataSource = null;
             comboBox_brand_zayavki.DisplayMember = "TS_brandcol_brand";
@@ -391,6 +402,10 @@ namespace Disp_WinForm
                 {
                     idtesting_object = "1";
                 }
+
+                if (textBox_id_testing.Text == "") 
+                { textBox_id_testing.Text = "10"; }
+
                 macros.sql_command("insert into btk.Activation_object (" +
                                                                     "Activation_date, " +
                                                                     "Users_idUsers, " +
@@ -410,7 +425,7 @@ namespace Disp_WinForm
                                                                     "values (" +
                                                                     "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                                                     "'" + vars_form.user_login_id + "'," +
-                                                                    "'10'," +
+                                                                    "'"+ textBox_id_testing.Text + "'," +
                                                                     "'Не проводилось'," +
                                                                     "''," +
                                                                     "''," +
@@ -521,6 +536,30 @@ namespace Disp_WinForm
             {
                 return;
             }
+        }
+
+        private void textBox_search_by_vin_testing_TextChanged(object sender, EventArgs e)
+        {
+            buid_datagreed_tested_object();
+        }
+
+        private void textBox_id_testing_TextChanged(object sender, EventArgs e)
+        {
+            if (textBox_id_testing.Text == "" || textBox_id_testing.Text == "10")
+            {
+                textBox_id_testing.ResetBackColor();
+                textBox_selected_object.ResetBackColor();
+            }
+            else
+            {
+                textBox_id_testing.BackColor = Color.LightGreen;
+                textBox_selected_object.BackColor = Color.LightGreen;
+            }
+        }
+
+        private void checkBox_for_all_time_CheckedChanged(object sender, EventArgs e)
+        {
+            buid_datagreed_tested_object();
         }
     }
 }
