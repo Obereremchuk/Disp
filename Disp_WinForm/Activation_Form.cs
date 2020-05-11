@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -479,25 +480,7 @@ namespace Disp_WinForm
                 var item = wl_accounts.ElementAt(0);
                 int key_index = item.Value.ElementAt(index).Key;
                 get = get+ "," + key_index.ToString();
-                //string json3 = macros.wialon_request_new("&svc=core/search_items&params={" +
-                //                                         "\"spec\":{" +
-                //                                         "\"itemsType\":\"\"," +
-                //                                         "\"propName\":\"sys_id\"," +
-                //                                         "\"propValueMask\":\"" + key_index + "\", " +
-                //                                         "\"sortType\":\"sys_name\"," +
-                //                                         "\"or_logic\":\"1\"}," +
-                //                                         "\"force\":\"1\"," +
-                //                                         "\"flags\":\"1\"," +
-                //                                         "\"from\":\"0\"," +
-                //                                         "\"to\":\"0\"}");
-                //var m2 = JsonConvert.DeserializeObject<RootObject>(json3);
-                //string nm = m2.items[0].nm;
-                //string acl = item.Value[key_index]["acl"].ToString();
-                //string dacl = item.Value[key_index]["dacl"].ToString();
-                //openWith1.Clear();
-                //openWith1.Add("acl",acl);
-                //openWith1.Add("dacl", dacl);
-                //openWith.Add(nm, openWith1);
+
             }// стрим список айди в один запрос 
             string json2 = macros.wialon_request_new("&svc=core/search_items&params={" +
                                                      "\"spec\":{" +
@@ -2303,7 +2286,7 @@ namespace Disp_WinForm
                     "Activation_object_idActivation_object," +
                     "Users_idUsers" +
                     ") values (" +
-                    "'"+textBox_comments.Text+"', " +
+                    "'"+ MySqlHelper.EscapeString(textBox_comments.Text)+"', " +
                     "'"+ Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                     "'"+vars_form.id_db_activation_for_activation+"'," +
                     "'"+vars_form.user_login_id+"'" +
@@ -2439,14 +2422,14 @@ namespace Disp_WinForm
                     "Users_idUsers = '" + vars_form.user_login_id + "'," +
                     "Object_idObject = '" + vars_form.id_db_object_for_activation + "'," +
                     "Activation_objectcol_result = '" + comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) + "'," +
-                    "new_name_obj = '" + name_obj_new_textBox.Text + "'," +
-                    "new_pole_uvaga = '" + uvaga_textBox.Text + "'," +
+                    "new_name_obj = '" + MySqlHelper.EscapeString(name_obj_new_textBox.Text) + "'," +
+                    "new_pole_uvaga = '" + MySqlHelper.EscapeString(uvaga_textBox.Text) + "'," +
                     "vo1 = '" + vars_form.transfer_vo1_vo_form + "'," +
                     "vo2 = '" + vars_form.transfer_vo2_vo_form + "'," +
                     "vo3 = '" + vars_form.transfer_vo3_vo_form + "'," +
                     "vo4 = '" + vars_form.transfer_vo4_vo_form + "'," +
                     "vo5 = '" + vars_form.transfer_vo5_vo_form + "'," +
-                    "kodove_slovo = '" + kodove_slovo_textBox.Text + "'," +
+                    "kodove_slovo = '" + MySqlHelper.EscapeString(kodove_slovo_textBox.Text) + "'," +
                     "alarm_button = '" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
                     "pin_chenged = '" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'" +
                     "where " +
@@ -2528,14 +2511,14 @@ namespace Disp_WinForm
                                                                     "'" + vars_form.user_login_id + "'," +
                                                                     "'" + vars_form.id_db_object_for_activation + "'," +
                                                                     "'" + comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) + "'," +
-                                                                    "'" + name_obj_new_textBox.Text + "'," +
-                                                                    "'" + uvaga_textBox.Text + "'," +
+                                                                    "'" + MySqlHelper.EscapeString(name_obj_new_textBox.Text) + "'," +
+                                                                    "'" + MySqlHelper.EscapeString(uvaga_textBox.Text) + "'," +
                                                                     "'" + vars_form.transfer_vo1_vo_form + "'," +
                                                                     "'" + vars_form.transfer_vo2_vo_form + "'," +
                                                                     "'" + vars_form.transfer_vo3_vo_form + "'," +
                                                                     "'" + vars_form.transfer_vo4_vo_form + "'," +
                                                                     "'" + vars_form.transfer_vo5_vo_form + "'," +
-                                                                    "'" + kodove_slovo_textBox.Text + "'," +
+                                                                    "'" + MySqlHelper.EscapeString(kodove_slovo_textBox.Text) + "'," +
                                                                     "'" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
                                                                     "'" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'" +
                                                                     ");");

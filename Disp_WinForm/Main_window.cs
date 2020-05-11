@@ -136,7 +136,6 @@ namespace Disp_WinForm
                     else if (Convert.ToInt32(user["accsess_lvl"]) == 8)
                     {
                         tabControl_testing.TabPages.Remove(tabPage3);
-                        textBox_activation_search.Enabled = false;
                     }
                     else 
                     {

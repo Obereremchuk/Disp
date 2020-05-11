@@ -25,12 +25,12 @@ namespace Disp_WinForm
 
         private void Right_set()
         {
-            if (vars_form.user_accsess_lvl >= 9)
-            {
-                button_add_kontackts.Enabled = false;
-                button_edit_kontackts.Enabled = false;
-                button_delete_kontackts.Enabled = false;
-            }
+            //if (vars_form.user_accsess_lvl >= 9)
+            //{
+            //    button_add_kontackts.Enabled = false;
+            //    button_edit_kontackts.Enabled = false;
+            //    button_delete_kontackts.Enabled = false;
+            //}
         }
 
         private void Bild_listview_kontackts()

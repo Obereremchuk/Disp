@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -466,20 +467,20 @@ namespace Disp_WinForm
 
             macros.sql_command("update btk.TS_info set " +
                                //"TS_infocol_place_treker='" + textBox_device1.Text + "', " +
-                               "TS_infocol_place_alarm='" + TextBox_device2.Text + "', " +
-                               "TS_infocol_place_relay='" + textBox_zvich_relay_place.Text + "', " +
-                               "TS_infocol_wire_cut='" + textBox_zvich_relay_lancug.Text + "', " +
-                               "TS_infocol_can_place_relay='" + textBox_CAN_relay_place.Text + "', " +
-                               "TS_infocol_can_wire_cut='" + textBox_CAN_relay_lancug.Text + "', " +
+                               "TS_infocol_place_alarm='" + MySqlHelper.EscapeString(TextBox_device2.Text) + "', " +
+                               "TS_infocol_place_relay='" + MySqlHelper.EscapeString(textBox_zvich_relay_place.Text) + "', " +
+                               "TS_infocol_wire_cut='" + MySqlHelper.EscapeString(textBox_zvich_relay_lancug.Text) + "', " +
+                               "TS_infocol_can_place_relay='" + MySqlHelper.EscapeString(textBox_CAN_relay_place.Text) + "', " +
+                               "TS_infocol_can_wire_cut='" + MySqlHelper.EscapeString(textBox_CAN_relay_lancug.Text) + "', " +
                                "TS_infocol_block_prizrak_can='" + (checkBox_block_prizrak_can.Checked ? "Так" : "Ні") + "', " +
-                               "TS_infocol_place_tk='" + wire_tk + "', " +
-                               "TS_infocol_wireless_tk='" + wireless_tk + "', " +
-                               "TS_infocol_place_service_button='" + textBox_service_button.Text + "', " +
+                               "TS_infocol_place_tk='" + MySqlHelper.EscapeString(wire_tk) + "', " +
+                               "TS_infocol_wireless_tk='" + MySqlHelper.EscapeString(wireless_tk) + "', " +
+                               "TS_infocol_place_service_button='" + MySqlHelper.EscapeString(textBox_service_button.Text) + "', " +
                                "TS_infocol_button_for_pin='" + comboBox_buttons_for_pin.Text + "', " +
-                               "TS_infocol_set_pin='" + textBox_current_pin.Text + "', " +
-                               "TS_infocol_other_alarm='" + textBox_other_alarm.Text + "', " +
-                               "TS_infocol_other_sensor='" + other_sensor + "', " +
-                               "TS_infocol_uvaga='" + textBox_uvaga.Text + "', " +
+                               "TS_infocol_set_pin='" + MySqlHelper.EscapeString(textBox_current_pin.Text) + "', " +
+                               "TS_infocol_other_alarm='" + MySqlHelper.EscapeString(textBox_other_alarm.Text) + "', " +
+                               "TS_infocol_other_sensor='" + MySqlHelper.EscapeString(other_sensor) + "', " +
+                               "TS_infocol_uvaga='" + MySqlHelper.EscapeString(textBox_uvaga.Text) + "', " +
                                "Kuzov_type_idKuzov_type='" + comboBox_kuzov_type.SelectedValue.ToString() + "', " +
                                "Color_idColor='" + comboBox_color.SelectedValue.ToString() + "', " +
                                "Production_date_idProduction_date='" + comboBox_test_production_date.SelectedValue.ToString() + "', " +
@@ -490,7 +491,7 @@ namespace Disp_WinForm
                                "Kontakti_idKontakti='" + comboBox_ustanoshik_poisk.SelectedValue.ToString() + "', " +
                                "Kontragenti_idKontragenti='" + comboBox_test_sto.SelectedValue.ToString() + "', " +
                                "TS_infocol_relay_on_plus='" + (checkBox_test_relay_plus.Checked ? "1" : "0") + "', " +
-                               "TS_infocol_new_pin='" + textBox_current_pin.Text.ToString() + "' " +
+                               "TS_infocol_new_pin='" + MySqlHelper.EscapeString(textBox_current_pin.Text) + "' " +
                                "where idTS_info=" + id_db_TS_info + ";");
 
             macros.sql_command("update btk.Object set " +
@@ -949,7 +950,7 @@ namespace Disp_WinForm
                         "testing_objectcol_dop1 = '" + (checkBox_dop_1.Checked ? "1" : "0") + "', " +
                         "testing_objectcol_dop2 = '" + (checkBox_test_dop_2.Checked ? "1" : "0") + "', " +
                         "testing_objectcol_autostart = '" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
-                        "testing_objectcol_comments = '" + textBox_commets.Text.ToString() + "', " +
+                        "testing_objectcol_comments = '" + MySqlHelper.EscapeString(textBox_commets.Text) + "', " +
                         "Users_idUsers = '" + vars_form.user_login_id + "', " +
                         "testing_objectcol_result = 'Не завершено' " +
                         "where " +
@@ -1199,7 +1200,7 @@ namespace Disp_WinForm
                         "testing_objectcol_dop1 = '" + (checkBox_dop_1.Checked ? "1" : "0") + "', " +
                         "testing_objectcol_dop2 = '" + (checkBox_test_dop_2.Checked ? "1" : "0") + "', " +
                         "testing_objectcol_autostart = '" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
-                        "testing_objectcol_comments = '" + textBox_commets.Text.ToString() + "', " +
+                        "testing_objectcol_comments = '" + MySqlHelper.EscapeString(textBox_commets.Text) + "', " +
                         "Users_idUsers = '" + vars_form.user_login_id + "', " +
                         "testing_objectcol_result = 'Успішно' " +
                         "where " +
@@ -1299,7 +1300,7 @@ namespace Disp_WinForm
                                            "'" + (checkBox_dop_1.Checked ? "1" : "0") + "', " +
                                            "'" + (checkBox_test_dop_2.Checked ? "1" : "0") + "', " +
                                            "'" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
-                                           "'" + textBox_commets.Text.ToString() + "', " +
+                                           "'" + MySqlHelper.EscapeString(textBox_commets.Text) + "', " +
                                            "'" + vars_form.user_login_id + "', " +
                                            "'Не завершено'" +
                                            ");");
@@ -1570,7 +1571,7 @@ namespace Disp_WinForm
                                            "'" + (checkBox_dop_1.Checked ? "1" : "0") + "', " +
                                            "'" + (checkBox_test_dop_2.Checked ? "1" : "0") + "', " +
                                            "'" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
-                                           "'" + textBox_commets.Text.ToString() + "', " +
+                                           "'" + MySqlHelper.EscapeString(textBox_commets.Text) + "', " +
                                            "'" + vars_form.user_login_id + "', " +
                                            "'Успішно'" +
                                            ");");

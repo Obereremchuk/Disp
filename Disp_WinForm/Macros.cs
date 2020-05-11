@@ -185,24 +185,24 @@ namespace Disp_WinForm
                     Get_wl_text_error(m.error); //Показіваем диалог бокс с ошибкой, преріваем создание
                 System.Windows.Forms.MessageBox.Show("Wialon Error: " + text);
             }
-            
-            //if (m.error == 8)
-            //{
-            //    List<Form> openForms = new List<Form>();
-            //    foreach (Form f in System.Windows.Forms.Application.OpenForms)
-            //        openForms.Add(f);
-            //    foreach (Form f in openForms)
-            //    {
-            //        if (f.Name != "Login_Form")
-            //            f.Close();
-                    
-            //    }
 
-            //    //если токен истек то необходимо візвать форму повторной авторизации
-            //    //Main_window form = new Main_window();
-            //    //form.Show();
-            //    //this.Hide();
-            //}
+            if (m.error == 8)
+            {
+                //List<Form> openForms = new List<Form>();
+                //foreach (Form f in System.Windows.Forms.Application.OpenForms)
+                //    openForms.Add(f);
+                //foreach (Form f in openForms)
+                //{
+                //    if (f.Name != "Login_Form")
+                //    {
+                //        f.Dispose();
+                //        Login_Form login_Form = new Login_Form();
+                //        login_Form.Show();
+                //    }
+
+                //}
+                return;
+            }
             vars_form.eid = m.eid;
             vars_form.wl_user_id = m.user.id;
             vars_form.wl_user_nm = m.user.nm;

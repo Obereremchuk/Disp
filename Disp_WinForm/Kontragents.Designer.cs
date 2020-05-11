@@ -28,25 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listView_kontragents = new System.Windows.Forms.ListView();
             this.button_add_kontragents = new System.Windows.Forms.Button();
             this.button_delete_kontragents = new System.Windows.Forms.Button();
             this.textBox_search_kontragents = new System.Windows.Forms.TextBox();
             this.button_edit_kontragents = new System.Windows.Forms.Button();
+            this.dataListView_kontragents = new BrightIdeasSoftware.DataListView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataListView_kontragents)).BeginInit();
             this.SuspendLayout();
-            // 
-            // listView_kontragents
-            // 
-            this.listView_kontragents.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView_kontragents.HideSelection = false;
-            this.listView_kontragents.Location = new System.Drawing.Point(12, 41);
-            this.listView_kontragents.Name = "listView_kontragents";
-            this.listView_kontragents.Size = new System.Drawing.Size(775, 397);
-            this.listView_kontragents.TabIndex = 0;
-            this.listView_kontragents.UseCompatibleStateImageBehavior = false;
-            this.listView_kontragents.DoubleClick += new System.EventHandler(this.listView_kontragents_DoubleClick);
             // 
             // button_add_kontragents
             // 
@@ -86,29 +74,46 @@
             this.button_edit_kontragents.UseVisualStyleBackColor = true;
             this.button_edit_kontragents.Click += new System.EventHandler(this.button_edit_kontragents_Click);
             // 
+            // dataListView_kontragents
+            // 
+            this.dataListView_kontragents.CellEditUseWholeCell = false;
+            this.dataListView_kontragents.DataSource = null;
+            this.dataListView_kontragents.FullRowSelect = true;
+            this.dataListView_kontragents.GridLines = true;
+            this.dataListView_kontragents.HideSelection = false;
+            this.dataListView_kontragents.Location = new System.Drawing.Point(12, 41);
+            this.dataListView_kontragents.MultiSelect = false;
+            this.dataListView_kontragents.Name = "dataListView_kontragents";
+            this.dataListView_kontragents.ShowGroups = false;
+            this.dataListView_kontragents.Size = new System.Drawing.Size(775, 397);
+            this.dataListView_kontragents.TabIndex = 6;
+            this.dataListView_kontragents.UseCompatibleStateImageBehavior = false;
+            this.dataListView_kontragents.View = System.Windows.Forms.View.Details;
+            this.dataListView_kontragents.DoubleClick += new System.EventHandler(this.dataListView_kontragents_DoubleClick);
+            // 
             // Kontragents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dataListView_kontragents);
             this.Controls.Add(this.button_edit_kontragents);
             this.Controls.Add(this.textBox_search_kontragents);
             this.Controls.Add(this.button_delete_kontragents);
             this.Controls.Add(this.button_add_kontragents);
-            this.Controls.Add(this.listView_kontragents);
             this.Name = "Kontragents";
             this.Text = "Kontragents";
+            ((System.ComponentModel.ISupportInitialize)(this.dataListView_kontragents)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ListView listView_kontragents;
         private System.Windows.Forms.Button button_add_kontragents;
         private System.Windows.Forms.Button button_delete_kontragents;
         private System.Windows.Forms.TextBox textBox_search_kontragents;
         private System.Windows.Forms.Button button_edit_kontragents;
+        private BrightIdeasSoftware.DataListView dataListView_kontragents;
     }
 }

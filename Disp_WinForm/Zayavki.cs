@@ -148,8 +148,16 @@ namespace Disp_WinForm
 
                 string name_testing_added = macros.sql_command("SELECT Object_idObject from btk.testing_object where idtesting_object = '" + table.Rows[0][23].ToString() + "'");
                 textBox_selected_object.Text = macros.sql_command("SELECT Object_name FROM btk.Object where idObject = '" + name_testing_added + "'");
-                textBox_id_testing.Text = macros.sql_command("SELECT idtesting_object from btk.testing_object where idtesting_object = '" + table.Rows[0][23].ToString() + "'");
-                idtesting_object = textBox_id_testing.Text;
+                idtesting_object = macros.sql_command("SELECT idtesting_object from btk.testing_object where idtesting_object = '" + table.Rows[0][23].ToString() + "'");
+                if (idtesting_object == "1")
+                {
+                    textBox_id_testing.Text = "";
+                }
+                else
+                {
+                    textBox_id_testing.Text = idtesting_object;
+                }
+
             }
         }
 

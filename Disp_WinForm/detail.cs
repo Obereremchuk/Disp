@@ -40,8 +40,8 @@ namespace Disp_WinForm
             this.Font = new System.Drawing.Font("Arial", vars_form.setting_font_size);
 
             InitializeComponent();
-            string t = System.IO.Path.GetDirectoryName(Application.ExecutablePath) +  "\\Firefox"; 
-
+            string t = System.IO.Path.GetDirectoryName(Application.ExecutablePath) +  "\\Firefox";
+            groupBox16.BringToFront();
             Xpcom.Initialize(t);
             
             // Looad varible data
@@ -1204,6 +1204,21 @@ namespace Disp_WinForm
             try
             {
                 geckoWebBrowser1.Navigate("http://10.44.30.32/disp_app/HTMLPage_map.html?foo=" + _search_id);
+
+                string json = macros.wialon_request_new("&svc=token/update&params={" +
+                                                    "\"callMode\":\"create\"," +
+                                                    "\"app\":\"locator\"," +
+                                                    "\"at\":\"0\"," +
+                                                    "\"dur\":\"1800\"," +
+                                                    "\"fl\":\"516\"," +
+                                                    "\"p\":\"{" + "\\" + "\"sensorMasks" + "\\" + "\"" + ":[" + "\\" + "\"*" + "\\" + "\"]," + "\\" + "\"note" + "\\" + "\"" + ":" + "\\" + "\"test" + "\\" + "\"," + "\\" + "\"zones" + "\\" + "\"" + ":" + "\\" + "\"0" + "\\" + "\"," + "\\" + "\"tracks" + "\\" + "\"" + ":" + "\\" + "\"1" + "\\" + "\"" + "}\"," +
+                                                    "\"items\":["+ _search_id +"]" +
+                                                    "}");
+                var m = JsonConvert.DeserializeObject<locator>(json);
+
+                string locator_url = "https://navi.venbest.com.ua/locator/index.html?t=" + m.h;
+                geckoWebBrowser2.Navigate(locator_url);
+
             }
             catch
             {
@@ -3120,6 +3135,17 @@ namespace Disp_WinForm
             {
                 load_vo();
                 build_list_account();
+            }
+
+            if (tabControl2.SelectedTab.Name == "tabPage_locator")
+            {
+                groupBox16.Visible=true;
+                groupBox16.BringToFront();
+            }
+            else 
+            {
+                groupBox16.Visible = false;
+                groupBox16.SendToBack();
             }
         }
     }

@@ -9,8 +9,18 @@ using Newtonsoft.Json;
 
 namespace Disp_WinForm
 {
-    
-    
+
+    public class locator
+    {
+        public string h { get; set; }
+        public string app { get; set; }
+        public int at { get; set; }
+        public int ct { get; set; }
+        public int dur { get; set; }
+        public int fl { get; set; }
+        public IList<object> items { get; set; }
+        public string p { get; set; }
+    }
     public class Flds
     {
         public int id { get; set; }
@@ -162,6 +172,8 @@ namespace Disp_WinForm
         public string eid { get; set; }
         public User user { get; set; }
         public deserialize_Item item { get; set; }
+        public string h { get; set; }
+
 
 
     }

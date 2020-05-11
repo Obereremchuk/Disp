@@ -26,7 +26,7 @@ namespace Disp_WinForm
             Xpcom.Initialize(t);
             Gecko.CertOverrideService.GetService().ValidityOverride += geckoWebBrowser1_ValidityOverride;
             wialon_login_form();
-            vars_form.version = "0.818";
+            vars_form.version = "0.819";
             label_Version.Text= "v." + vars_form.version;
         }
 
@@ -61,7 +61,7 @@ namespace Disp_WinForm
                     username = buf_data[5].ToString();
                     vars_form.user_token = token;
 
-                    
+
 
                     DataTable data = new DataTable();
                     data = macros.GetData("Select " +
@@ -116,6 +116,27 @@ namespace Disp_WinForm
                     form.Show();
                     this.Hide();
                 }
+                //else if (buf_data[15] == "8")
+                //{
+                //    MessageBox.Show("Не вірній пароль! Шкребемо затилок, та тиснемо Ок.");
+                //    Login_Form login_Form = new Login_Form();
+                //    this.Dispose();
+                //    login_Form.Show();
+
+                //    //List<Form> openForms = new List<Form>();
+                //    //foreach (Form f in System.Windows.Forms.Application.OpenForms)
+                //    //    openForms.Add(f);
+                //    //foreach (Form f in openForms)
+                //    //{
+                //    //    if (f.Name != "Login_Form")
+                //    //    {
+                //    //        f.Dispose();
+                //    //        Login_Form login_Form = new Login_Form();
+                //    //        login_Form.Show();
+                //    //    }
+
+                //    //}
+                //}
             }
         }
     }

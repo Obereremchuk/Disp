@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle170 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle172 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle173 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle171 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle174 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle175 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle176 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle177 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle178 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle179 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle180 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle181 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle182 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle144 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle146 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle147 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle145 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle148 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle149 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle150 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle151 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle152 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle153 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle154 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle155 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle156 = new System.Windows.Forms.DataGridViewCellStyle();
             this.comboBox_status_trevogi = new System.Windows.Forms.ComboBox();
             this.textBox_otrabotka_trevogi = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -124,13 +124,20 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dateTimePicker_close_plan_date = new System.Windows.Forms.DateTimePicker();
             this.button_close_start = new System.Windows.Forms.Button();
-            this.checkBox_vizov_gmr = new System.Windows.Forms.CheckBox();
-            this.checkBox_vizov_police = new System.Windows.Forms.CheckBox();
-            this.button_sinhronize_time = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.remaynder_checkBox = new System.Windows.Forms.CheckBox();
-            this.remaynder_dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.tabPage_edit_client = new System.Windows.Forms.TabPage();
+            this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.kodove_slovo_textBox = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.button_vo_save = new System.Windows.Forms.Button();
+            this.button_add_vo2 = new System.Windows.Forms.Button();
+            this.button_add_vo3 = new System.Windows.Forms.Button();
+            this.button_add_vo1 = new System.Windows.Forms.Button();
+            this.textBox_vo1 = new System.Windows.Forms.TextBox();
+            this.textBox_vo2 = new System.Windows.Forms.TextBox();
+            this.textBox_vo3 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.email_textBox = new System.Windows.Forms.TextBox();
@@ -150,19 +157,15 @@
             this.pass_reset_button = new System.Windows.Forms.Button();
             this.account_delete_button = new System.Windows.Forms.Button();
             this.button_remove_2_account = new System.Windows.Forms.Button();
-            this.groupBox15 = new System.Windows.Forms.GroupBox();
-            this.button_add_vo2 = new System.Windows.Forms.Button();
-            this.button_add_vo3 = new System.Windows.Forms.Button();
-            this.button_add_vo1 = new System.Windows.Forms.Button();
-            this.textBox_vo1 = new System.Windows.Forms.TextBox();
-            this.textBox_vo2 = new System.Windows.Forms.TextBox();
-            this.textBox_vo3 = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.button_vo_save = new System.Windows.Forms.Button();
-            this.kodove_slovo_textBox = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
+            this.tabPage_locator = new System.Windows.Forms.TabPage();
+            this.checkBox_vizov_gmr = new System.Windows.Forms.CheckBox();
+            this.checkBox_vizov_police = new System.Windows.Forms.CheckBox();
+            this.button_sinhronize_time = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.remaynder_checkBox = new System.Windows.Forms.CheckBox();
+            this.remaynder_dateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.geckoWebBrowser2 = new Gecko.GeckoWebBrowser();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_hronologija_trivog)).BeginInit();
@@ -183,12 +186,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_trivogi_objecta)).BeginInit();
             this.tabPage_dii_z_obectom.SuspendLayout();
             this.groupBox11.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.tabPage_edit_client.SuspendLayout();
+            this.groupBox15.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.groupBox14.SuspendLayout();
-            this.groupBox15.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox16.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBox_status_trevogi
@@ -251,7 +255,7 @@
             this.groupBox1.Controls.Add(this.treeView_client_info);
             this.groupBox1.Location = new System.Drawing.Point(3, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(750, 517);
+            this.groupBox1.Size = new System.Drawing.Size(270, 517);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Информація про кліента";
@@ -261,7 +265,7 @@
             this.treeView_client_info.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView_client_info.Location = new System.Drawing.Point(3, 16);
             this.treeView_client_info.Name = "treeView_client_info";
-            this.treeView_client_info.Size = new System.Drawing.Size(744, 498);
+            this.treeView_client_info.Size = new System.Drawing.Size(264, 498);
             this.treeView_client_info.TabIndex = 21;
             this.treeView_client_info.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.treeView_client_info_MouseDoubleClick);
             // 
@@ -329,14 +333,14 @@
             this.dataGridView_hronologija_trivog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridView_hronologija_trivog.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            dataGridViewCellStyle170.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle170.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle170.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle170.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle170.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle170.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle170.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_hronologija_trivog.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle170;
+            dataGridViewCellStyle144.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle144.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle144.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle144.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle144.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle144.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle144.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_hronologija_trivog.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle144;
             this.dataGridView_hronologija_trivog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_hronologija_trivog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column_alarm_text,
@@ -346,26 +350,26 @@
             this.Column_vizov_police,
             this.Column_time_stamp,
             this.Column_Users_chenge});
-            dataGridViewCellStyle172.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle172.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle172.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle172.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle172.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle172.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle172.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_hronologija_trivog.DefaultCellStyle = dataGridViewCellStyle172;
+            dataGridViewCellStyle146.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle146.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle146.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle146.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle146.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle146.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle146.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_hronologija_trivog.DefaultCellStyle = dataGridViewCellStyle146;
             this.dataGridView_hronologija_trivog.Location = new System.Drawing.Point(3, 10);
             this.dataGridView_hronologija_trivog.MultiSelect = false;
             this.dataGridView_hronologija_trivog.Name = "dataGridView_hronologija_trivog";
             this.dataGridView_hronologija_trivog.ReadOnly = true;
-            dataGridViewCellStyle173.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle173.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle173.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle173.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle173.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle173.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle173.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_hronologija_trivog.RowHeadersDefaultCellStyle = dataGridViewCellStyle173;
+            dataGridViewCellStyle147.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle147.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle147.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle147.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle147.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle147.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle147.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_hronologija_trivog.RowHeadersDefaultCellStyle = dataGridViewCellStyle147;
             this.dataGridView_hronologija_trivog.RowHeadersVisible = false;
             this.dataGridView_hronologija_trivog.RowHeadersWidth = 50;
             this.dataGridView_hronologija_trivog.Size = new System.Drawing.Size(746, 248);
@@ -374,8 +378,8 @@
             // Column_alarm_text
             // 
             this.Column_alarm_text.DataPropertyName = "alarm_text";
-            dataGridViewCellStyle171.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column_alarm_text.DefaultCellStyle = dataGridViewCellStyle171;
+            dataGridViewCellStyle145.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column_alarm_text.DefaultCellStyle = dataGridViewCellStyle145;
             this.Column_alarm_text.HeaderText = "Виконана дія";
             this.Column_alarm_text.Name = "Column_alarm_text";
             this.Column_alarm_text.ReadOnly = true;
@@ -471,14 +475,14 @@
             this.dataGridView_group_alarm.AllowUserToDeleteRows = false;
             this.dataGridView_group_alarm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridView_group_alarm.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridViewCellStyle174.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle174.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle174.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle174.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle174.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle174.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle174.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_group_alarm.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle174;
+            dataGridViewCellStyle148.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle148.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle148.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle148.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle148.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle148.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle148.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_group_alarm.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle148;
             this.dataGridView_group_alarm.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_group_alarm.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column_id_alarm_group_alarm,
@@ -488,25 +492,25 @@
             this.Column_msg_time_group_alarm,
             this.Column_group_alarm_group_alarm,
             this.Column_unit_id_group_alarm});
-            dataGridViewCellStyle175.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle175.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle175.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle175.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle175.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle175.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle175.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_group_alarm.DefaultCellStyle = dataGridViewCellStyle175;
+            dataGridViewCellStyle149.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle149.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle149.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle149.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle149.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle149.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle149.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_group_alarm.DefaultCellStyle = dataGridViewCellStyle149;
             this.dataGridView_group_alarm.Location = new System.Drawing.Point(3, 16);
             this.dataGridView_group_alarm.Name = "dataGridView_group_alarm";
             this.dataGridView_group_alarm.ReadOnly = true;
-            dataGridViewCellStyle176.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle176.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle176.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle176.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle176.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle176.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle176.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_group_alarm.RowHeadersDefaultCellStyle = dataGridViewCellStyle176;
+            dataGridViewCellStyle150.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle150.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle150.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle150.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle150.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle150.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle150.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_group_alarm.RowHeadersDefaultCellStyle = dataGridViewCellStyle150;
             this.dataGridView_group_alarm.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_group_alarm.Size = new System.Drawing.Size(747, 274);
             this.dataGridView_group_alarm.TabIndex = 11;
@@ -582,7 +586,7 @@
             // button_ungroup_alarm
             // 
             this.button_ungroup_alarm.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button_ungroup_alarm.Location = new System.Drawing.Point(564, 624);
+            this.button_ungroup_alarm.Location = new System.Drawing.Point(324, 624);
             this.button_ungroup_alarm.Name = "button_ungroup_alarm";
             this.button_ungroup_alarm.Size = new System.Drawing.Size(189, 40);
             this.button_ungroup_alarm.TabIndex = 13;
@@ -767,6 +771,7 @@
             // 
             this.tabControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.tabControl2.Controls.Add(this.tabPage_locator);
             this.tabControl2.Controls.Add(this.tabPage3);
             this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Controls.Add(this.tabPage5);
@@ -908,14 +913,14 @@
             this.dataGridView_rezultat_trevog.AllowUserToAddRows = false;
             this.dataGridView_rezultat_trevog.AllowUserToDeleteRows = false;
             this.dataGridView_rezultat_trevog.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCellStyle177.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle177.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle177.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle177.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle177.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle177.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle177.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_rezultat_trevog.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle177;
+            dataGridViewCellStyle151.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle151.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle151.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle151.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle151.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle151.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle151.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_rezultat_trevog.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle151;
             this.dataGridView_rezultat_trevog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_rezultat_trevog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.alarm_text,
@@ -923,25 +928,25 @@
             this.vizov_police,
             this.time_stamp,
             this.username});
-            dataGridViewCellStyle178.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle178.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle178.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle178.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle178.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle178.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle178.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_rezultat_trevog.DefaultCellStyle = dataGridViewCellStyle178;
+            dataGridViewCellStyle152.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle152.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle152.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle152.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle152.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle152.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle152.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_rezultat_trevog.DefaultCellStyle = dataGridViewCellStyle152;
             this.dataGridView_rezultat_trevog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_rezultat_trevog.Location = new System.Drawing.Point(3, 16);
             this.dataGridView_rezultat_trevog.Name = "dataGridView_rezultat_trevog";
-            dataGridViewCellStyle179.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle179.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle179.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle179.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle179.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle179.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle179.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_rezultat_trevog.RowHeadersDefaultCellStyle = dataGridViewCellStyle179;
+            dataGridViewCellStyle153.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle153.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle153.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle153.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle153.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle153.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle153.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_rezultat_trevog.RowHeadersDefaultCellStyle = dataGridViewCellStyle153;
             this.dataGridView_rezultat_trevog.RowHeadersVisible = false;
             this.dataGridView_rezultat_trevog.Size = new System.Drawing.Size(741, 227);
             this.dataGridView_rezultat_trevog.TabIndex = 0;
@@ -1002,14 +1007,14 @@
             this.dataGridView_trivogi_objecta.AllowUserToAddRows = false;
             this.dataGridView_trivogi_objecta.AllowUserToDeleteRows = false;
             this.dataGridView_trivogi_objecta.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridViewCellStyle180.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle180.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle180.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle180.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle180.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle180.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle180.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_trivogi_objecta.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle180;
+            dataGridViewCellStyle154.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle154.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle154.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle154.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle154.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle154.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle154.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_trivogi_objecta.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle154;
             this.dataGridView_trivogi_objecta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_trivogi_objecta.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id_notif,
@@ -1017,26 +1022,26 @@
             this.msg_time,
             this.last_location,
             this.Status});
-            dataGridViewCellStyle181.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle181.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle181.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle181.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle181.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle181.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle181.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_trivogi_objecta.DefaultCellStyle = dataGridViewCellStyle181;
+            dataGridViewCellStyle155.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle155.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle155.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle155.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle155.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle155.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle155.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_trivogi_objecta.DefaultCellStyle = dataGridViewCellStyle155;
             this.dataGridView_trivogi_objecta.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_trivogi_objecta.Location = new System.Drawing.Point(3, 16);
             this.dataGridView_trivogi_objecta.MultiSelect = false;
             this.dataGridView_trivogi_objecta.Name = "dataGridView_trivogi_objecta";
-            dataGridViewCellStyle182.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle182.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle182.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle182.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle182.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle182.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle182.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_trivogi_objecta.RowHeadersDefaultCellStyle = dataGridViewCellStyle182;
+            dataGridViewCellStyle156.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle156.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle156.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle156.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle156.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle156.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle156.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_trivogi_objecta.RowHeadersDefaultCellStyle = dataGridViewCellStyle156;
             this.dataGridView_trivogi_objecta.RowHeadersVisible = false;
             this.dataGridView_trivogi_objecta.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_trivogi_objecta.Size = new System.Drawing.Size(741, 390);
@@ -1176,81 +1181,6 @@
             this.button_close_start.UseVisualStyleBackColor = true;
             this.button_close_start.Click += new System.EventHandler(this.button_close_start_Click);
             // 
-            // checkBox_vizov_gmr
-            // 
-            this.checkBox_vizov_gmr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox_vizov_gmr.AutoSize = true;
-            this.checkBox_vizov_gmr.Location = new System.Drawing.Point(337, 55);
-            this.checkBox_vizov_gmr.Name = "checkBox_vizov_gmr";
-            this.checkBox_vizov_gmr.Size = new System.Drawing.Size(106, 17);
-            this.checkBox_vizov_gmr.TabIndex = 4;
-            this.checkBox_vizov_gmr.Text = "Викликано ГМР";
-            this.checkBox_vizov_gmr.UseVisualStyleBackColor = true;
-            // 
-            // checkBox_vizov_police
-            // 
-            this.checkBox_vizov_police.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox_vizov_police.AutoSize = true;
-            this.checkBox_vizov_police.Location = new System.Drawing.Point(337, 75);
-            this.checkBox_vizov_police.Name = "checkBox_vizov_police";
-            this.checkBox_vizov_police.Size = new System.Drawing.Size(122, 17);
-            this.checkBox_vizov_police.TabIndex = 5;
-            this.checkBox_vizov_police.Text = "Викликано Поліцію";
-            this.checkBox_vizov_police.UseVisualStyleBackColor = true;
-            // 
-            // button_sinhronize_time
-            // 
-            this.button_sinhronize_time.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_sinhronize_time.Location = new System.Drawing.Point(238, 55);
-            this.button_sinhronize_time.Name = "button_sinhronize_time";
-            this.button_sinhronize_time.Size = new System.Drawing.Size(93, 37);
-            this.button_sinhronize_time.TabIndex = 8;
-            this.button_sinhronize_time.Text = "Сихронізувати час";
-            this.button_sinhronize_time.UseVisualStyleBackColor = true;
-            this.button_sinhronize_time.Click += new System.EventHandler(this.button_sinhronize_time_Click);
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.remaynder_checkBox);
-            this.groupBox3.Controls.Add(this.remaynder_dateTimePicker);
-            this.groupBox3.Controls.Add(this.button_sinhronize_time);
-            this.groupBox3.Controls.Add(this.textBox_otrabotka_trevogi);
-            this.groupBox3.Controls.Add(this.checkBox_send_email);
-            this.groupBox3.Controls.Add(this.comboBox_status_trevogi);
-            this.groupBox3.Controls.Add(this.button_cancel_edit);
-            this.groupBox3.Controls.Add(this.checkBox_vizov_gmr);
-            this.groupBox3.Controls.Add(this.dateTimePicker_nachalo_dejstvia_data);
-            this.groupBox3.Controls.Add(this.checkBox_vizov_police);
-            this.groupBox3.Controls.Add(this.button_vnesti_zapis);
-            this.groupBox3.Controls.Add(this.dateTimePicker_nachalo_dejstvia);
-            this.groupBox3.Location = new System.Drawing.Point(775, 27);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(477, 166);
-            this.groupBox3.TabIndex = 23;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Дії по обробці";
-            // 
-            // remaynder_checkBox
-            // 
-            this.remaynder_checkBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.remaynder_checkBox.AutoSize = true;
-            this.remaynder_checkBox.Location = new System.Drawing.Point(264, 143);
-            this.remaynder_checkBox.Name = "remaynder_checkBox";
-            this.remaynder_checkBox.Size = new System.Drawing.Size(74, 17);
-            this.remaynder_checkBox.TabIndex = 10;
-            this.remaynder_checkBox.Text = "Нагадати";
-            this.remaynder_checkBox.UseVisualStyleBackColor = true;
-            // 
-            // remaynder_dateTimePicker
-            // 
-            this.remaynder_dateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.remaynder_dateTimePicker.Location = new System.Drawing.Point(350, 140);
-            this.remaynder_dateTimePicker.Name = "remaynder_dateTimePicker";
-            this.remaynder_dateTimePicker.Size = new System.Drawing.Size(117, 20);
-            this.remaynder_dateTimePicker.TabIndex = 9;
-            // 
             // tabPage_edit_client
             // 
             this.tabPage_edit_client.Controls.Add(this.groupBox15);
@@ -1262,6 +1192,137 @@
             this.tabPage_edit_client.TabIndex = 5;
             this.tabPage_edit_client.Text = "Редагування картки кліета";
             this.tabPage_edit_client.UseVisualStyleBackColor = true;
+            // 
+            // groupBox15
+            // 
+            this.groupBox15.Controls.Add(this.kodove_slovo_textBox);
+            this.groupBox15.Controls.Add(this.label9);
+            this.groupBox15.Controls.Add(this.button_vo_save);
+            this.groupBox15.Controls.Add(this.button_add_vo2);
+            this.groupBox15.Controls.Add(this.button_add_vo3);
+            this.groupBox15.Controls.Add(this.button_add_vo1);
+            this.groupBox15.Controls.Add(this.textBox_vo1);
+            this.groupBox15.Controls.Add(this.textBox_vo2);
+            this.groupBox15.Controls.Add(this.textBox_vo3);
+            this.groupBox15.Controls.Add(this.label8);
+            this.groupBox15.Controls.Add(this.label7);
+            this.groupBox15.Controls.Add(this.label6);
+            this.groupBox15.Location = new System.Drawing.Point(6, 6);
+            this.groupBox15.Name = "groupBox15";
+            this.groupBox15.Size = new System.Drawing.Size(747, 126);
+            this.groupBox15.TabIndex = 143;
+            this.groupBox15.TabStop = false;
+            this.groupBox15.Text = "Зміна ВО";
+            // 
+            // kodove_slovo_textBox
+            // 
+            this.kodove_slovo_textBox.Location = new System.Drawing.Point(9, 95);
+            this.kodove_slovo_textBox.Name = "kodove_slovo_textBox";
+            this.kodove_slovo_textBox.Size = new System.Drawing.Size(425, 20);
+            this.kodove_slovo_textBox.TabIndex = 148;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(440, 99);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(77, 13);
+            this.label9.TabIndex = 149;
+            this.label9.Text = "Кодове слово";
+            // 
+            // button_vo_save
+            // 
+            this.button_vo_save.Location = new System.Drawing.Point(639, 19);
+            this.button_vo_save.Name = "button_vo_save";
+            this.button_vo_save.Size = new System.Drawing.Size(99, 93);
+            this.button_vo_save.TabIndex = 147;
+            this.button_vo_save.Text = "Зберегти ВО";
+            this.button_vo_save.UseVisualStyleBackColor = true;
+            this.button_vo_save.Click += new System.EventHandler(this.button_vo_save_Click);
+            // 
+            // button_add_vo2
+            // 
+            this.button_add_vo2.Location = new System.Drawing.Point(388, 43);
+            this.button_add_vo2.Name = "button_add_vo2";
+            this.button_add_vo2.Size = new System.Drawing.Size(46, 20);
+            this.button_add_vo2.TabIndex = 138;
+            this.button_add_vo2.Text = "+";
+            this.button_add_vo2.UseVisualStyleBackColor = true;
+            this.button_add_vo2.Click += new System.EventHandler(this.button_add_vo2_Click);
+            // 
+            // button_add_vo3
+            // 
+            this.button_add_vo3.Location = new System.Drawing.Point(388, 69);
+            this.button_add_vo3.Name = "button_add_vo3";
+            this.button_add_vo3.Size = new System.Drawing.Size(46, 20);
+            this.button_add_vo3.TabIndex = 139;
+            this.button_add_vo3.Text = "+";
+            this.button_add_vo3.UseVisualStyleBackColor = true;
+            this.button_add_vo3.Click += new System.EventHandler(this.button_add_vo3_Click);
+            // 
+            // button_add_vo1
+            // 
+            this.button_add_vo1.Location = new System.Drawing.Point(388, 19);
+            this.button_add_vo1.Name = "button_add_vo1";
+            this.button_add_vo1.Size = new System.Drawing.Size(46, 20);
+            this.button_add_vo1.TabIndex = 137;
+            this.button_add_vo1.Text = "+";
+            this.button_add_vo1.UseVisualStyleBackColor = true;
+            this.button_add_vo1.Click += new System.EventHandler(this.button_add_vo1_Click);
+            // 
+            // textBox_vo1
+            // 
+            this.textBox_vo1.Location = new System.Drawing.Point(9, 19);
+            this.textBox_vo1.Name = "textBox_vo1";
+            this.textBox_vo1.ReadOnly = true;
+            this.textBox_vo1.Size = new System.Drawing.Size(373, 20);
+            this.textBox_vo1.TabIndex = 146;
+            this.textBox_vo1.DoubleClick += new System.EventHandler(this.textBox_vo1_DoubleClick);
+            // 
+            // textBox_vo2
+            // 
+            this.textBox_vo2.Location = new System.Drawing.Point(9, 43);
+            this.textBox_vo2.Name = "textBox_vo2";
+            this.textBox_vo2.ReadOnly = true;
+            this.textBox_vo2.Size = new System.Drawing.Size(373, 20);
+            this.textBox_vo2.TabIndex = 145;
+            this.textBox_vo2.DoubleClick += new System.EventHandler(this.textBox_vo2_DoubleClick);
+            // 
+            // textBox_vo3
+            // 
+            this.textBox_vo3.Location = new System.Drawing.Point(9, 69);
+            this.textBox_vo3.Name = "textBox_vo3";
+            this.textBox_vo3.ReadOnly = true;
+            this.textBox_vo3.Size = new System.Drawing.Size(373, 20);
+            this.textBox_vo3.TabIndex = 144;
+            this.textBox_vo3.DoubleClick += new System.EventHandler(this.textBox_vo3_DoubleClick);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(440, 73);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(28, 13);
+            this.label8.TabIndex = 143;
+            this.label8.Text = "ВО3";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(440, 47);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(28, 13);
+            this.label7.TabIndex = 142;
+            this.label7.Text = "ВО2";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(440, 23);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(28, 13);
+            this.label6.TabIndex = 141;
+            this.label6.Text = "ВО1";
             // 
             // groupBox12
             // 
@@ -1452,145 +1513,124 @@
             this.button_remove_2_account.UseVisualStyleBackColor = true;
             this.button_remove_2_account.Click += new System.EventHandler(this.button_remove_2_account_Click);
             // 
-            // groupBox15
+            // tabPage_locator
             // 
-            this.groupBox15.Controls.Add(this.kodove_slovo_textBox);
-            this.groupBox15.Controls.Add(this.label9);
-            this.groupBox15.Controls.Add(this.button_vo_save);
-            this.groupBox15.Controls.Add(this.button_add_vo2);
-            this.groupBox15.Controls.Add(this.button_add_vo3);
-            this.groupBox15.Controls.Add(this.button_add_vo1);
-            this.groupBox15.Controls.Add(this.textBox_vo1);
-            this.groupBox15.Controls.Add(this.textBox_vo2);
-            this.groupBox15.Controls.Add(this.textBox_vo3);
-            this.groupBox15.Controls.Add(this.label8);
-            this.groupBox15.Controls.Add(this.label7);
-            this.groupBox15.Controls.Add(this.label6);
-            this.groupBox15.Location = new System.Drawing.Point(6, 6);
-            this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(747, 126);
-            this.groupBox15.TabIndex = 143;
-            this.groupBox15.TabStop = false;
-            this.groupBox15.Text = "Зміна ВО";
+            this.tabPage_locator.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_locator.Name = "tabPage_locator";
+            this.tabPage_locator.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_locator.Size = new System.Drawing.Size(759, 670);
+            this.tabPage_locator.TabIndex = 6;
+            this.tabPage_locator.Text = "Локатор";
+            this.tabPage_locator.UseVisualStyleBackColor = true;
             // 
-            // button_add_vo2
+            // checkBox_vizov_gmr
             // 
-            this.button_add_vo2.Location = new System.Drawing.Point(388, 43);
-            this.button_add_vo2.Name = "button_add_vo2";
-            this.button_add_vo2.Size = new System.Drawing.Size(46, 20);
-            this.button_add_vo2.TabIndex = 138;
-            this.button_add_vo2.Text = "+";
-            this.button_add_vo2.UseVisualStyleBackColor = true;
-            this.button_add_vo2.Click += new System.EventHandler(this.button_add_vo2_Click);
+            this.checkBox_vizov_gmr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox_vizov_gmr.AutoSize = true;
+            this.checkBox_vizov_gmr.Location = new System.Drawing.Point(337, 55);
+            this.checkBox_vizov_gmr.Name = "checkBox_vizov_gmr";
+            this.checkBox_vizov_gmr.Size = new System.Drawing.Size(106, 17);
+            this.checkBox_vizov_gmr.TabIndex = 4;
+            this.checkBox_vizov_gmr.Text = "Викликано ГМР";
+            this.checkBox_vizov_gmr.UseVisualStyleBackColor = true;
             // 
-            // button_add_vo3
+            // checkBox_vizov_police
             // 
-            this.button_add_vo3.Location = new System.Drawing.Point(388, 69);
-            this.button_add_vo3.Name = "button_add_vo3";
-            this.button_add_vo3.Size = new System.Drawing.Size(46, 20);
-            this.button_add_vo3.TabIndex = 139;
-            this.button_add_vo3.Text = "+";
-            this.button_add_vo3.UseVisualStyleBackColor = true;
-            this.button_add_vo3.Click += new System.EventHandler(this.button_add_vo3_Click);
+            this.checkBox_vizov_police.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox_vizov_police.AutoSize = true;
+            this.checkBox_vizov_police.Location = new System.Drawing.Point(337, 75);
+            this.checkBox_vizov_police.Name = "checkBox_vizov_police";
+            this.checkBox_vizov_police.Size = new System.Drawing.Size(122, 17);
+            this.checkBox_vizov_police.TabIndex = 5;
+            this.checkBox_vizov_police.Text = "Викликано Поліцію";
+            this.checkBox_vizov_police.UseVisualStyleBackColor = true;
             // 
-            // button_add_vo1
+            // button_sinhronize_time
             // 
-            this.button_add_vo1.Location = new System.Drawing.Point(388, 19);
-            this.button_add_vo1.Name = "button_add_vo1";
-            this.button_add_vo1.Size = new System.Drawing.Size(46, 20);
-            this.button_add_vo1.TabIndex = 137;
-            this.button_add_vo1.Text = "+";
-            this.button_add_vo1.UseVisualStyleBackColor = true;
-            this.button_add_vo1.Click += new System.EventHandler(this.button_add_vo1_Click);
+            this.button_sinhronize_time.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_sinhronize_time.Location = new System.Drawing.Point(238, 55);
+            this.button_sinhronize_time.Name = "button_sinhronize_time";
+            this.button_sinhronize_time.Size = new System.Drawing.Size(93, 37);
+            this.button_sinhronize_time.TabIndex = 8;
+            this.button_sinhronize_time.Text = "Сихронізувати час";
+            this.button_sinhronize_time.UseVisualStyleBackColor = true;
+            this.button_sinhronize_time.Click += new System.EventHandler(this.button_sinhronize_time_Click);
             // 
-            // textBox_vo1
+            // groupBox3
             // 
-            this.textBox_vo1.Location = new System.Drawing.Point(9, 19);
-            this.textBox_vo1.Name = "textBox_vo1";
-            this.textBox_vo1.ReadOnly = true;
-            this.textBox_vo1.Size = new System.Drawing.Size(373, 20);
-            this.textBox_vo1.TabIndex = 146;
-            this.textBox_vo1.DoubleClick += new System.EventHandler(this.textBox_vo1_DoubleClick);
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.remaynder_checkBox);
+            this.groupBox3.Controls.Add(this.remaynder_dateTimePicker);
+            this.groupBox3.Controls.Add(this.button_sinhronize_time);
+            this.groupBox3.Controls.Add(this.textBox_otrabotka_trevogi);
+            this.groupBox3.Controls.Add(this.checkBox_send_email);
+            this.groupBox3.Controls.Add(this.comboBox_status_trevogi);
+            this.groupBox3.Controls.Add(this.button_cancel_edit);
+            this.groupBox3.Controls.Add(this.checkBox_vizov_gmr);
+            this.groupBox3.Controls.Add(this.dateTimePicker_nachalo_dejstvia_data);
+            this.groupBox3.Controls.Add(this.checkBox_vizov_police);
+            this.groupBox3.Controls.Add(this.button_vnesti_zapis);
+            this.groupBox3.Controls.Add(this.dateTimePicker_nachalo_dejstvia);
+            this.groupBox3.Location = new System.Drawing.Point(775, 27);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(477, 166);
+            this.groupBox3.TabIndex = 23;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Дії по обробці";
             // 
-            // textBox_vo2
+            // remaynder_checkBox
             // 
-            this.textBox_vo2.Location = new System.Drawing.Point(9, 43);
-            this.textBox_vo2.Name = "textBox_vo2";
-            this.textBox_vo2.ReadOnly = true;
-            this.textBox_vo2.Size = new System.Drawing.Size(373, 20);
-            this.textBox_vo2.TabIndex = 145;
-            this.textBox_vo2.DoubleClick += new System.EventHandler(this.textBox_vo2_DoubleClick);
+            this.remaynder_checkBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.remaynder_checkBox.AutoSize = true;
+            this.remaynder_checkBox.Location = new System.Drawing.Point(264, 143);
+            this.remaynder_checkBox.Name = "remaynder_checkBox";
+            this.remaynder_checkBox.Size = new System.Drawing.Size(74, 17);
+            this.remaynder_checkBox.TabIndex = 10;
+            this.remaynder_checkBox.Text = "Нагадати";
+            this.remaynder_checkBox.UseVisualStyleBackColor = true;
             // 
-            // textBox_vo3
+            // remaynder_dateTimePicker
             // 
-            this.textBox_vo3.Location = new System.Drawing.Point(9, 69);
-            this.textBox_vo3.Name = "textBox_vo3";
-            this.textBox_vo3.ReadOnly = true;
-            this.textBox_vo3.Size = new System.Drawing.Size(373, 20);
-            this.textBox_vo3.TabIndex = 144;
-            this.textBox_vo3.DoubleClick += new System.EventHandler(this.textBox_vo3_DoubleClick);
+            this.remaynder_dateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.remaynder_dateTimePicker.Location = new System.Drawing.Point(350, 140);
+            this.remaynder_dateTimePicker.Name = "remaynder_dateTimePicker";
+            this.remaynder_dateTimePicker.Size = new System.Drawing.Size(117, 20);
+            this.remaynder_dateTimePicker.TabIndex = 9;
             // 
-            // label8
+            // groupBox16
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(440, 73);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(28, 13);
-            this.label8.TabIndex = 143;
-            this.label8.Text = "ВО3";
+            this.groupBox16.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox16.Controls.Add(this.geckoWebBrowser2);
+            this.groupBox16.Location = new System.Drawing.Point(7, 25);
+            this.groupBox16.Name = "groupBox16";
+            this.groupBox16.Size = new System.Drawing.Size(1245, 744);
+            this.groupBox16.TabIndex = 24;
+            this.groupBox16.TabStop = false;
             // 
-            // label7
+            // geckoWebBrowser2
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(440, 47);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(28, 13);
-            this.label7.TabIndex = 142;
-            this.label7.Text = "ВО2";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(440, 23);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(28, 13);
-            this.label6.TabIndex = 141;
-            this.label6.Text = "ВО1";
-            // 
-            // button_vo_save
-            // 
-            this.button_vo_save.Location = new System.Drawing.Point(639, 19);
-            this.button_vo_save.Name = "button_vo_save";
-            this.button_vo_save.Size = new System.Drawing.Size(99, 93);
-            this.button_vo_save.TabIndex = 147;
-            this.button_vo_save.Text = "Зберегти ВО";
-            this.button_vo_save.UseVisualStyleBackColor = true;
-            this.button_vo_save.Click += new System.EventHandler(this.button_vo_save_Click);
-            // 
-            // kodove_slovo_textBox
-            // 
-            this.kodove_slovo_textBox.Location = new System.Drawing.Point(9, 95);
-            this.kodove_slovo_textBox.Name = "kodove_slovo_textBox";
-            this.kodove_slovo_textBox.Size = new System.Drawing.Size(425, 20);
-            this.kodove_slovo_textBox.TabIndex = 148;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(440, 99);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(77, 13);
-            this.label9.TabIndex = 149;
-            this.label9.Text = "Кодове слово";
+            this.geckoWebBrowser2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.geckoWebBrowser2.FrameEventsPropagateToMainWindow = false;
+            this.geckoWebBrowser2.Location = new System.Drawing.Point(4, 13);
+            this.geckoWebBrowser2.Name = "geckoWebBrowser2";
+            this.geckoWebBrowser2.Size = new System.Drawing.Size(1234, 663);
+            this.geckoWebBrowser2.TabIndex = 1;
+            this.geckoWebBrowser2.UseHttpActivityObserver = false;
             // 
             // detail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 705);
-            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.tabControl2);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox7);
+            this.Controls.Add(this.groupBox16);
             this.DoubleBuffered = true;
             this.Name = "detail";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -1621,16 +1661,17 @@
             this.tabPage_dii_z_obectom.ResumeLayout(false);
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.tabPage_edit_client.ResumeLayout(false);
+            this.groupBox15.ResumeLayout(false);
+            this.groupBox15.PerformLayout();
             this.groupBox12.ResumeLayout(false);
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
             this.groupBox14.ResumeLayout(false);
             this.groupBox14.PerformLayout();
-            this.groupBox15.ResumeLayout(false);
-            this.groupBox15.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox16.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1758,5 +1799,8 @@
         private System.Windows.Forms.Button button_vo_save;
         private System.Windows.Forms.TextBox kodove_slovo_textBox;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TabPage tabPage_locator;
+        private System.Windows.Forms.GroupBox groupBox16;
+        private Gecko.GeckoWebBrowser geckoWebBrowser2;
     }
 }

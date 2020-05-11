@@ -18,9 +18,11 @@ namespace Disp_WinForm
         {
             InitializeComponent();
             Right_set();
-            Bild_listview_kontragets();
             Get_kontragents();
+            
         }
+
+        
 
         private void Right_set()
         {
@@ -32,61 +34,42 @@ namespace Disp_WinForm
             }
         }
 
-        private void Bild_listview_kontragets()
-        {
-            listView_kontragents.View = View.Tile;
-            listView_kontragents.FullRowSelect = true;
-            listView_kontragents.GridLines = true;
-            listView_kontragents.View = View.Details;
-            listView_kontragents.ShowItemToolTips = true;
-
-            // Attach Subitems to the ListView
-            listView_kontragents.Columns.Add("idKontragenti", 1, HorizontalAlignment.Left);
-            listView_kontragents.Columns.Add("Повна назва", -2, HorizontalAlignment.Left);
-            listView_kontragents.Columns.Add("Скорочена назва", -2, HorizontalAlignment.Left);
-            listView_kontragents.Columns.Add("Місто", -2, HorizontalAlignment.Left);
-            listView_kontragents.Columns.Add("Категорія", -2, HorizontalAlignment.Left);
-        }
-
         private void Get_kontragents()
         {
             string sql = "";
-            MySqlConnection myConnection = new MySqlConnection("server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True;  charset=utf8");
             
             if (vars_form.select_sto_or_zakazchik_for_zayavki == 0)
             {
-                sql = string.Format("SELECT * FROM btk.Kontragenti where (Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%') and Kontragenticol_kategory like 'СК' ;");
+                sql = string.Format("SELECT idKontragenti,  " +
+                    "Kontragenti_short_name as 'Скорочена назва', " +
+                    "Kontragenti_full_name as 'Повна назва', " +
+                    "Kontragenticol_misto as 'Місто', " +
+                    "Kontragenticol_kategory as 'Категорія' " +
+                    "FROM btk.Kontragenti where (Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%') and Kontragenticol_kategory like 'СК' ;");
             }
             else if (vars_form.select_sto_or_zakazchik_for_zayavki == 1)
             {
-                sql = string.Format("SELECT * FROM btk.Kontragenti where (Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%') and Kontragenticol_kategory like 'Диллер/СТО' ;");
+                sql = string.Format("SELECT idKontragenti,  " +
+                    "Kontragenti_short_name as 'Скорочена назва', " +
+                    "Kontragenti_full_name as 'Повна назва', " +
+                    "Kontragenticol_misto as 'Місто', " +
+                    "Kontragenticol_kategory as 'Категорія' " +
+                    "FROM btk.Kontragenti where (Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%') and Kontragenticol_kategory like 'Диллер/СТО' ;");
             }
             else if (vars_form.select_sto_or_zakazchik_for_zayavki == 2)
             {
-                sql = string.Format("SELECT * FROM btk.Kontragenti where Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_kategory like 'Замовник' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%';");
+                sql = string.Format("SELECT idKontragenti,  " +
+                    "Kontragenti_short_name as 'Скорочена назва', " +
+                    "Kontragenti_full_name as 'Повна назва', " +
+                    "Kontragenticol_misto as 'Місто', " +
+                    "Kontragenticol_kategory as 'Категорія' " +
+                    "FROM btk.Kontragenti where Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_kategory like 'Замовник' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%';");
             }
 
-            MySqlCommand myDataAdapter = new MySqlCommand(sql, myConnection);
-            myConnection.Open();
-            MySqlDataReader reader = myDataAdapter.ExecuteReader();
-
-            listView_kontragents.Items.Clear();
-
-            while (reader.Read())
-            {
-                var item = new ListViewItem();
-                item.Text = reader["idKontragenti"].ToString();
-                item.SubItems.Add(reader["Kontragenti_full_name"].ToString());
-                item.SubItems.Add(reader["Kontragenti_short_name"].ToString());
-                item.SubItems.Add(reader["Kontragenticol_misto"].ToString());
-                item.SubItems.Add(reader["Kontragenticol_kategory"].ToString());
-                listView_kontragents.Items.Add(item);
-            }
-            reader.Close();
-            myDataAdapter.Dispose();
-            myConnection.Close();
-
-            listView_kontragents.View = View.Details;
+            this.dataListView_kontragents.DataSource = macros.GetData(sql);
+            dataListView_kontragents.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            dataListView_kontragents.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            dataListView_kontragents.Columns[0].Width = 0;
         }
 
         private void button_add_kontragents_Click(object sender, EventArgs e)
@@ -114,13 +97,13 @@ namespace Disp_WinForm
 
         private void button_delete_kontragents_Click(object sender, EventArgs e)
         {
-            if (listView_kontragents.SelectedItems.Count<=0)
+            if (dataListView_kontragents.SelectedItems.Count<=0)
             {
                 MessageBox.Show("Необхідно вибрати контрагента");
                 return;
             }
-            string id_selectetd_kontragent = listView_kontragents.SelectedItems[0].SubItems[0].Text;
-            string name_selectetd_kontragent = listView_kontragents.SelectedItems[0].SubItems[1].Text;
+            string id_selectetd_kontragent = dataListView_kontragents.SelectedItems[0].SubItems[0].Text;
+            string name_selectetd_kontragent = dataListView_kontragents.SelectedItems[0].SubItems[1].Text;
 
             DialogResult dialogResult = MessageBox.Show("Видалити " + name_selectetd_kontragent + " ?", "Видалення контрагенту", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
@@ -132,13 +115,13 @@ namespace Disp_WinForm
 
         private void button_edit_kontragents_Click(object sender, EventArgs e)
         {
-            if (listView_kontragents.SelectedItems.Count <= 0)
+            if (dataListView_kontragents.SelectedItems.Count <= 0)
             {
                 MessageBox.Show("Необхідно вибрати контрагента");
                 return;
             }
 
-            vars_form.btk_idkontragents = listView_kontragents.SelectedItems[0].SubItems[0].Text;
+            vars_form.btk_idkontragents = dataListView_kontragents.SelectedItems[0].SubItems[0].Text;
 
             Edit_kontragents form_edit_kontragents = new Edit_kontragents();
             form_edit_kontragents.Activated += new EventHandler(form_edit_kontragents_activated);
@@ -155,22 +138,20 @@ namespace Disp_WinForm
             Get_kontragents();
         }
 
-        private void listView_kontragents_DoubleClick(object sender, EventArgs e)
+        private void dataListView_kontragents_DoubleClick(object sender, EventArgs e)
         {
-            for (int i = 0; i < listView_kontragents.Items.Count; i++)
-                // is i the index of the row I selected?
-                if (listView_kontragents.Items[i].Selected == true)
+            if (dataListView_kontragents.SelectedItem != null)
+            {
+                if (vars_form.select_sto_or_zakazchik_for_zayavki == 1)
                 {
-                    if (vars_form.select_sto_or_zakazchik_for_zayavki == 1)
-                    {
-                        vars_form.id_kontragent_sto_for_zayavki = listView_kontragents.Items[i].SubItems[0].Text;
-                    }
-                    else if (vars_form.select_sto_or_zakazchik_for_zayavki == 0)
-                    {
-                        vars_form.id_kontragent_zakazchik_for_zayavki = listView_kontragents.Items[i].SubItems[0].Text;
-                    }
-                    break;
+                    vars_form.id_kontragent_sto_for_zayavki = dataListView_kontragents.SelectedItem.Text;
                 }
+                else if (vars_form.select_sto_or_zakazchik_for_zayavki == 0)
+                {
+                    vars_form.id_kontragent_zakazchik_for_zayavki = dataListView_kontragents.SelectedItem.Text;
+                }
+                
+            }
             this.Close();
         }
     }
