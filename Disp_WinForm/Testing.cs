@@ -19,7 +19,6 @@ namespace Disp_WinForm
     {
         private static System.Timers.Timer aTimer3;
         Macros macros = new Macros();
-        private int opened;
 
         public Testing()
         {
@@ -67,9 +66,6 @@ namespace Disp_WinForm
                 if (table.Rows[0]["testing_objectcol_adress"].ToString() == "1")
                 { checkBox_test_koordinati.Checked = true; }
 
-                if (table.Rows[0]["testing_objectcol_arm_hood"].ToString() == "1")
-                { checkBox_test_hood_in_arm.Checked = true; }
-
                 if (table.Rows[0]["testing_objectcol_dop1"].ToString() == "1")
                 { checkBox_dop_1.Checked = true; }
 
@@ -113,10 +109,8 @@ namespace Disp_WinForm
                 textBox_CAN_relay_lancug.Enabled = false;
                 checkBox_test_autostart.Enabled = false;
                 button_autostart.Enabled = false;
-                label26.Enabled = false;
                 label29.Enabled = false;
                 label30.Enabled = false;
-                label_test_hood_arm.Enabled = false;
                 label_auth.Enabled = false;
                 label_ign.Enabled = false;
                 label9.Enabled = false;
@@ -1254,6 +1248,8 @@ namespace Disp_WinForm
                     dt.Rows.Add(row10);
                     object[] row11 = { "Дата тестування", DateTime.Now.ToString() };
                     dt.Rows.Add(row11);
+                    object[] row13 = { "Оператор що тестував", vars_form.user_login_name };
+                    dt.Rows.Add(row13);
 
                     string Body = macros.ConvertDataTableToHTML(dt);
 
@@ -1622,6 +1618,8 @@ namespace Disp_WinForm
                     dt.Rows.Add(row10);
                     object[] row11 = { "Дата тестування", DateTime.Now.ToString() };
                     dt.Rows.Add(row11);
+                    object[] row13 = { "Оператор що тестував", vars_form.user_login_name };
+                    dt.Rows.Add(row13);
 
                     string Body = macros.ConvertDataTableToHTML(dt);
 
@@ -1980,18 +1978,6 @@ namespace Disp_WinForm
                 {
                     label_autstart.Text = "Вимкненний";
                     label_autstart.BackColor = Color.Empty;
-                }
-
-                //Статус hood in arm
-                if (sens_910["27"] == "1" & sens_910["27"] == "2")
-                {
-                    label_test_hood_arm.Text = "Відкрито";
-                    label_test_hood_arm.BackColor = Color.YellowGreen;
-                }
-                else
-                {
-                    label_test_hood_arm.Text = "Закрито";
-                    label_test_hood_arm.BackColor = Color.Empty;
                 }
             }
         }

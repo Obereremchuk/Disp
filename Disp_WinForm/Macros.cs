@@ -45,7 +45,7 @@ namespace Disp_WinForm
                 conn.Open();
                 isConn = true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 isConn = false;
 

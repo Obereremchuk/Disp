@@ -903,7 +903,15 @@ namespace Disp_WinForm
             if (dataGridView_dilery.DataSource != null)
             {
                 scrollPosition = dataGridView_dilery.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                selectpozition = dataGridView_dilery.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                
+                try
+                {
+                    selectpozition = dataGridView_dilery.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                }
+                catch (Exception)
+                {
+                    selectpozition = 0;
+                }
             }
 
             DataView dv = table.DefaultView;
@@ -956,7 +964,15 @@ namespace Disp_WinForm
                 if (dataGridView_dilery.DataSource != null)
                 {
                     scrollPosition = dataGridView_dilery.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                    selectpozition = dataGridView_dilery.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                   
+                    try
+                    {
+                        selectpozition = dataGridView_dilery.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                    }
+                    catch (Exception)
+                    {
+                        selectpozition = 0;
+                    }
                 }
 
                 DataView dv = table.DefaultView;
@@ -1122,7 +1138,15 @@ namespace Disp_WinForm
             if (dataGridView_sales.DataSource != null)
             {
                 scrollPosition = dataGridView_sales.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                selectpozition = dataGridView_sales.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                
+                try
+                {
+                    selectpozition = dataGridView_sales.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                }
+                catch (Exception)
+                {
+                    selectpozition = 0;
+                }
             }
 
             DataView dv = table.DefaultView;
@@ -1175,7 +1199,15 @@ namespace Disp_WinForm
                 if (dataGridView_sales.DataSource != null)
                 {
                     scrollPosition = dataGridView_sales.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                    selectpozition = dataGridView_sales.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                    
+                    try
+                    {
+                        selectpozition = dataGridView_sales.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                    }
+                    catch (Exception)
+                    {
+                        selectpozition = 0;
+                    }
                 }
 
                 DataView dv = table.DefaultView;
@@ -1341,7 +1373,15 @@ namespace Disp_WinForm
             if (dataGridView_808_n.DataSource != null)
             {
                 scrollPosition = dataGridView_808_n.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                selectpozition = dataGridView_808_n.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                
+                try
+                {
+                    selectpozition = dataGridView_808_n.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                }
+                catch (Exception)
+                {
+                    selectpozition = 0;
+                }
             }
 
             DataView dv = table.DefaultView;
@@ -1404,7 +1444,15 @@ namespace Disp_WinForm
                 if (dataGridView_808_n.DataSource != null)
                 {
                     scrollPosition = dataGridView_808_n.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                    selectpozition = dataGridView_808_n.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                    
+                    try
+                    {
+                        selectpozition = dataGridView_808_n.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                    }
+                    catch (Exception)
+                    {
+                        selectpozition = 0;
+                    }
                 }
 
                 DataView dv = table.DefaultView;
@@ -1572,7 +1620,15 @@ namespace Disp_WinForm
             if (dataGridView_lost.DataSource != null)
             {
                 scrollPosition = dataGridView_lost.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                selectpozition = dataGridView_lost.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                
+                try
+                {
+                    selectpozition = dataGridView_lost.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                }
+                catch (Exception)
+                {
+                    selectpozition = 0;
+                }
             }
 
 
@@ -1626,7 +1682,15 @@ namespace Disp_WinForm
                 if (dataGridView_lost.DataSource != null)
                 {
                     scrollPosition = dataGridView_lost.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                    selectpozition = dataGridView_lost.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                    
+                    try
+                    {
+                        selectpozition = dataGridView_lost.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                    }
+                    catch (Exception)
+                    {
+                        selectpozition = 0;
+                    }
                 }
 
                 DataView dv = table.DefaultView;
@@ -1790,7 +1854,15 @@ namespace Disp_WinForm
             if (dataGridView_909_n.DataSource != null)
             {
                 scrollPosition = dataGridView_909_n.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                selectpozition = dataGridView_909_n.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                
+                try
+                {
+                    selectpozition = dataGridView_909_n.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                }
+                catch (Exception)
+                {
+                    selectpozition = 0;
+                }
             }
             
             DataView dv = table.DefaultView;
@@ -1854,7 +1926,14 @@ namespace Disp_WinForm
                 if (dataGridView_909_n.DataSource != null)
                 {
                     scrollPosition = dataGridView_909_n.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                    selectpozition = dataGridView_909_n.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                    try
+                    {
+                        selectpozition = dataGridView_909_n.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                    }
+                    catch (Exception)
+                    {
+                        selectpozition = 0;
+                    }
                 }
 
                 DataView dv = table.DefaultView;
@@ -2022,7 +2101,15 @@ namespace Disp_WinForm
             if (dataGridView_open_alarm.DataSource != null)
             {
                 scrollPosition = dataGridView_open_alarm.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                selectpozition = dataGridView_open_alarm.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                
+                try
+                {
+                    selectpozition = dataGridView_open_alarm.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                }
+                catch (Exception)
+                {
+                    selectpozition = 0;
+                }
             }
 
 
@@ -2082,7 +2169,15 @@ namespace Disp_WinForm
                 if (dataGridView_open_alarm.DataSource != null)
                 {
                     scrollPosition = dataGridView_open_alarm.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                    selectpozition = dataGridView_open_alarm.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                    
+                    try
+                    {
+                        selectpozition = dataGridView_open_alarm.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                    }
+                    catch (Exception)
+                    {
+                        selectpozition = 0;
+                    }
                 }
 
 

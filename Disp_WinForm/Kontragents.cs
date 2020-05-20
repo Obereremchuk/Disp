@@ -45,7 +45,7 @@ namespace Disp_WinForm
                     "Kontragenti_full_name as 'Повна назва', " +
                     "Kontragenticol_misto as 'Місто', " +
                     "Kontragenticol_kategory as 'Категорія' " +
-                    "FROM btk.Kontragenti where (Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%') and Kontragenticol_kategory like 'СК' ;");
+                    "FROM btk.Kontragenti where (Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%') and (Kontragenticol_kategory like 'СК' or Kontragenticol_kategory like 'Клієнт' ) ;");
             }
             else if (vars_form.select_sto_or_zakazchik_for_zayavki == 1)
             {
@@ -54,7 +54,7 @@ namespace Disp_WinForm
                     "Kontragenti_full_name as 'Повна назва', " +
                     "Kontragenticol_misto as 'Місто', " +
                     "Kontragenticol_kategory as 'Категорія' " +
-                    "FROM btk.Kontragenti where (Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%') and Kontragenticol_kategory like 'Диллер/СТО' ;");
+                    "FROM btk.Kontragenti where (Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%') and Kontragenticol_kategory like 'Диллер/СТО';");
             }
             else if (vars_form.select_sto_or_zakazchik_for_zayavki == 2)
             {
