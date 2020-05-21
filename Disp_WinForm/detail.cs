@@ -74,31 +74,60 @@ namespace Disp_WinForm
 
         }
 
-        
-
         private void accsses()
         {
-            tabControl2.TabPages.Remove(tabPage4);
-
-            if (vars_form.user_login_id == "6" || vars_form.user_login_id == "2")
+            DataTable users_accses = macros.GetData("SELECT idUsers, username, accsess_lvl FROM btk.Users;");
+            foreach (DataRow user in users_accses.Rows)
             {
-                
+                if (user["idUsers"].ToString() == vars_form.user_login_id)
+                {
+                    if (Convert.ToInt32(user["accsess_lvl"]) <= 4)// wialon
+                    {
+                    }
+                    else if (Convert.ToInt32(user["accsess_lvl"]) == 5)//service
+                    {
+                        if (Convert.ToInt32(user["idUsers"]) != 5)// if not service
+                        {
+                            tabControl2.TabPages.Remove(tabPage_dii_z_obectom);
+                            tabControl2.TabPages.Remove(tabPage4);
+                        }
+                        tabControl2.TabPages.Remove(tabPage4);
+                    }
+                    else if (Convert.ToInt32(user["accsess_lvl"]) == 6)//Lozinskiy
+                    {
+                        tabControl2.TabPages.Remove(tabPage_dii_z_obectom);
+                        tabControl2.TabPages.Remove(tabPage4);
+                    }
+                    else if (Convert.ToInt32(user["accsess_lvl"]) <= 7)//danilchenko
+                    {
+                        tabControl2.TabPages.Remove(tabPage_dii_z_obectom);
+                        tabControl2.TabPages.Remove(tabPage4);
+                    }
+                    else if (Convert.ToInt32(user["accsess_lvl"]) == 8)//Pustovit
+                    {
+                        tabControl2.TabPages.Remove(tabPage_dii_z_obectom);
+                        tabControl2.TabPages.Remove(tabPage4);
+                    }
+                    else if (Convert.ToInt32(user["accsess_lvl"]) == 9)//operators
+                    {
+                        if (Convert.ToInt32(user["idUsers"]) != 35 || Convert.ToInt32(user["idUsers"]) != 36 || Convert.ToInt32(user["idUsers"]) != 37 || Convert.ToInt32(user["idUsers"]) != 16)//elit
+                        {
+                            tabControl2.TabPages.Remove(tabPage_dii_z_obectom);
+                            tabControl2.TabPages.Remove(tabPage4);
+                        }
+                        tabControl2.TabPages.Remove(tabPage_dii_z_obectom);
+                        tabControl2.TabPages.Remove(tabPage_edit_client);
+                        tabControl2.TabPages.Remove(tabPage4);
+                    }
+                    else
+                    {
+                        tabControl2.TabPages.Remove(tabPage_edit_client);
+                        tabControl2.TabPages.Remove(tabPage_dii_z_obectom);
+                        tabControl2.TabPages.Remove(tabPage4); 
+                    }
+                }
             }
-            else
-            {
-                tabControl2.TabPages.Remove(tabPage_dii_z_obectom);
-            }
-
-            if (vars_form.user_login_id == "9" || vars_form.user_login_id == "34")
-            {
-
-            }
-            else
-            {
-                tabControl2.TabPages.Remove(tabPage_edit_client);
-            }
-
-        }// Прячм вкладки если ты не из касты
+        }
 
         private void close_start_object()
         {
@@ -298,53 +327,60 @@ namespace Disp_WinForm
                     foreach (var keyvalue in m.items[0].flds)
                     {
 
-                        if (keyvalue.Value.n.Contains("УВАГА") & !keyvalue.Value.n.Contains("алгоритм"))
+                        if (keyvalue.Value.n.Contains("0 УВАГА") & !keyvalue.Value.n.Contains("алгоритм"))
                         {
-                            treeView_client_info.Nodes[0].Nodes
-                                .Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
+                            //treeView_client_info.Nodes[0].Nodes.Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
                             textBox_Uvaga.Text = keyvalue.Value.v.ToString();
-                            treeView_client_info.Nodes[0].Nodes
-                                .Add(new TreeNode("Назва об'єкту: " + m.items[0].nm.ToString()));
-                            treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("IMEI: " + m.items[0].uid.ToString()));
-                            treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("SIM: " + m.items[0].ph.ToString()));
                         }
 
+                        if (keyvalue.Value.n.Contains("Кодов"))
+                        {
+                            treeView_client_info.Nodes[0].Nodes.Insert(0, (new TreeNode("Кодове слово" + ": " + keyvalue.Value.v.ToString())));
+                        }
 
-                        treeView_client_info.Nodes[1].Nodes
-                            .Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
                         if (keyvalue.Value.n.Contains(" І Відп"))
                         {
                             treeView_client_info.Nodes[0].Nodes
-                                .Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
+                                .Add(new TreeNode("ВО1" + ": " + keyvalue.Value.v.ToString()));
                         }
                         if (keyvalue.Value.n.Contains(" ІІ Відп"))
                         {
                             treeView_client_info.Nodes[0].Nodes
-                                .Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
+                                .Add(new TreeNode("ВО2" + ": " + keyvalue.Value.v.ToString()));
                         }
                         if (keyvalue.Value.n.Contains(" ІІІ Відп"))
                         {
                             treeView_client_info.Nodes[0].Nodes
-                                .Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
+                                .Add(new TreeNode("ВО3" + ": " + keyvalue.Value.v.ToString()));
+                        }
+                        if (keyvalue.Value.n.Contains(" ІV Відп"))
+                        {
+                            treeView_client_info.Nodes[0].Nodes
+                                .Add(new TreeNode("ВО4" + ": " + keyvalue.Value.v.ToString()));
                         }
                         if (keyvalue.Value.n.Contains("ня сервісної"))
                         {
                             treeView_client_info.Nodes[0].Nodes
-                                .Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
+                                .Add(new TreeNode( "Сервісна кнопка" + ": " + keyvalue.Value.v.ToString()));
                         }
-                        //if (keyvalue.Value.n.Contains("ння PIN"))
-                        //{
-                        //    treeView_client_info.Nodes[0].Nodes
-                        //        .Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
-                        //}
-                        if (keyvalue.Value.n.Contains("Кодов"))
+                        if (keyvalue.Value.n.Contains("Штатні кн"))
                         {
                             treeView_client_info.Nodes[0].Nodes
-                                .Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
+                                .Add(new TreeNode("Кнопки PIN" + ": " + keyvalue.Value.v.ToString()));
                         }
-                        //treeView_client_info.Nodes[0].Expand();
-
+                        if (keyvalue.Value.n.Contains("овки тривожної"))
+                        {
+                            treeView_client_info.Nodes[0].Nodes
+                                .Add(new TreeNode("Тривожна кнопка" + ": " + keyvalue.Value.v.ToString()));
+                        }
+                        
+                        treeView_client_info.Nodes[1].Nodes
+                                .Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
                     }
+                    treeView_client_info.Nodes[0].Nodes.Insert(0, (new TreeNode("Назва об'єкту: " + m.items[0].nm.ToString())));
+                    
+                    treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("IMEI: " + m.items[0].uid.ToString()));
+                    treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("SIM: " + m.items[0].ph.ToString()));
 
 
                     foreach (var keyvalue in m.items[0].aflds)
@@ -354,7 +390,7 @@ namespace Disp_WinForm
                         if (keyvalue.Value.n.Contains("PUK"))
                         {
                             treeView_client_info.Nodes[0].Nodes
-                                .Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
+                                .Add(new TreeNode("PUK код" + ": " + keyvalue.Value.v.ToString()));
                         }
                     }
 
@@ -1344,7 +1380,9 @@ namespace Disp_WinForm
             }
         }
 
-        private void email_textBox_TextChanged(object sender, EventArgs e)
+
+
+        private void email_textBoxTextChanged(object sender, EventArgs e)
         {
             if (email_textBox.Text != "")
             {
@@ -1686,7 +1724,7 @@ namespace Disp_WinForm
 
                     //update treeView_user_accounts after making chenge
                     build_list_account();
-                    email_textBox_TextChanged(email_textBox, EventArgs.Empty);
+                    email_textBoxTextChanged(email_textBox, EventArgs.Empty);
 
                 }
                 else if (dialogResult == DialogResult.No)
@@ -3071,6 +3109,11 @@ namespace Disp_WinForm
                 groupBox3.Visible = false;
                 groupBox3.SendToBack();
             }
+        }
+
+        private void treeView_client_info_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+
         }
     }
 }
