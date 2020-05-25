@@ -124,7 +124,7 @@
             this.label_test_dop_2 = new System.Windows.Forms.Label();
             this.label_autstart = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button5 = new System.Windows.Forms.Button();
+            this.button_autostart_stop = new System.Windows.Forms.Button();
             this.button_autostart = new System.Windows.Forms.Button();
             this.checkBox_test_koordinati = new System.Windows.Forms.CheckBox();
             this.label_test_address = new System.Windows.Forms.Label();
@@ -284,7 +284,7 @@
             this.groupBox5.Controls.Add(this.imei_obj_textBox);
             this.groupBox5.Controls.Add(this.label18);
             this.groupBox5.Controls.Add(this.label25);
-            this.groupBox5.Location = new System.Drawing.Point(0, 73);
+            this.groupBox5.Location = new System.Drawing.Point(0, 192);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(482, 149);
             this.groupBox5.TabIndex = 121;
@@ -317,6 +317,7 @@
             this.checkBox_sensor_autostart.TabIndex = 120;
             this.checkBox_sensor_autostart.Text = "Автозапуск";
             this.checkBox_sensor_autostart.UseVisualStyleBackColor = true;
+            this.checkBox_sensor_autostart.CheckedChanged += new System.EventHandler(this.checkBox_sensor_autostart_CheckedChanged);
             // 
             // label3
             // 
@@ -435,7 +436,6 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Enabled = false;
             this.label25.Location = new System.Drawing.Point(7, 19);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(81, 13);
@@ -458,7 +458,7 @@
             this.groupBox4.Controls.Add(this.comboBox_test_model);
             this.groupBox4.Controls.Add(this.comboBox_kuzov_type);
             this.groupBox4.Controls.Add(this.comboBox_color);
-            this.groupBox4.Location = new System.Drawing.Point(0, 621);
+            this.groupBox4.Location = new System.Drawing.Point(0, 74);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(482, 113);
             this.groupBox4.TabIndex = 97;
@@ -468,7 +468,7 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(356, 63);
+            this.label26.Location = new System.Drawing.Point(358, 63);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(64, 13);
             this.label26.TabIndex = 125;
@@ -477,7 +477,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(275, 63);
+            this.label23.Location = new System.Drawing.Point(278, 63);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(65, 13);
             this.label23.TabIndex = 124;
@@ -486,7 +486,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(20, 61);
+            this.label21.Location = new System.Drawing.Point(8, 61);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(34, 13);
             this.label21.TabIndex = 123;
@@ -504,7 +504,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(200, 22);
+            this.label19.Location = new System.Drawing.Point(194, 22);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(40, 13);
             this.label19.TabIndex = 121;
@@ -513,7 +513,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(128, 22);
+            this.label7.Location = new System.Drawing.Point(99, 22);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(25, 13);
             this.label7.TabIndex = 120;
@@ -522,7 +522,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(20, 22);
+            this.label5.Location = new System.Drawing.Point(9, 22);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 13);
             this.label5.TabIndex = 119;
@@ -560,7 +560,7 @@
             this.groupBox7.Controls.Add(this.textBox_current_pin);
             this.groupBox7.Controls.Add(this.label16);
             this.groupBox7.Controls.Add(this.label15);
-            this.groupBox7.Location = new System.Drawing.Point(0, 484);
+            this.groupBox7.Location = new System.Drawing.Point(0, 603);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(482, 131);
             this.groupBox7.TabIndex = 120;
@@ -649,7 +649,7 @@
             this.groupBox6.Controls.Add(this.textBox_wire_tk);
             this.groupBox6.Controls.Add(this.textBox_wireless_tk);
             this.groupBox6.Controls.Add(this.label35);
-            this.groupBox6.Location = new System.Drawing.Point(0, 404);
+            this.groupBox6.Location = new System.Drawing.Point(0, 523);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(482, 74);
             this.groupBox6.TabIndex = 119;
@@ -700,7 +700,7 @@
             this.groupBox3.Controls.Add(this.label38);
             this.groupBox3.Controls.Add(this.checkBox_test_relay_plus);
             this.groupBox3.Controls.Add(this.label14);
-            this.groupBox3.Location = new System.Drawing.Point(0, 228);
+            this.groupBox3.Location = new System.Drawing.Point(0, 347);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(482, 170);
             this.groupBox3.TabIndex = 112;
@@ -1180,21 +1180,23 @@
             // panel1
             // 
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.panel1.Controls.Add(this.button5);
+            this.panel1.Controls.Add(this.button_autostart_stop);
             this.panel1.Controls.Add(this.button_autostart);
             this.panel1.Location = new System.Drawing.Point(26, 269);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(185, 25);
             this.panel1.TabIndex = 28;
             // 
-            // button5
+            // button_autostart_stop
             // 
-            this.button5.Location = new System.Drawing.Point(98, 1);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 92;
-            this.button5.Text = "АЗ Стоп";
-            this.button5.UseVisualStyleBackColor = true;
+            this.button_autostart_stop.Enabled = false;
+            this.button_autostart_stop.Location = new System.Drawing.Point(98, 1);
+            this.button_autostart_stop.Name = "button_autostart_stop";
+            this.button_autostart_stop.Size = new System.Drawing.Size(75, 23);
+            this.button_autostart_stop.TabIndex = 92;
+            this.button_autostart_stop.Text = "АЗ Стоп";
+            this.button_autostart_stop.UseVisualStyleBackColor = true;
+            this.button_autostart_stop.Click += new System.EventHandler(this.button_autostart_stop_Click);
             // 
             // button_autostart
             // 
@@ -1511,7 +1513,7 @@
         private System.Windows.Forms.Button button_unblock_engine;
         private System.Windows.Forms.Button button_block_engine;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button_autostart_stop;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.CheckBox checkBox1;

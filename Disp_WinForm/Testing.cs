@@ -109,6 +109,7 @@ namespace Disp_WinForm
                 textBox_CAN_relay_lancug.Enabled = false;
                 checkBox_test_autostart.Enabled = false;
                 button_autostart.Enabled = false;
+                button_autostart_stop.Enabled = false;
                 label29.Enabled = false;
                 label30.Enabled = false;
                 label_auth.Enabled = false;
@@ -154,7 +155,7 @@ namespace Disp_WinForm
 
         private void comboBox_test_brand_DropDown(object sender, EventArgs e)
         {
-            string sql = string.Format("SELECT TS_brandcol_brand, idTS_brand FROM btk.TS_brand;");
+            string sql = string.Format("SELECT TS_brandcol_brand, idTS_brand FROM btk.TS_brand  order by TS_brandcol_brand;");
             var temp = macros.GetData(sql);
             comboBox_test_brand.DataSource = null;
             comboBox_test_brand.DisplayMember = "TS_brandcol_brand";
@@ -331,12 +332,7 @@ namespace Disp_WinForm
             { checkBox_sensor_gps.Checked = true; }
             if (other_sensor.Contains("Замок"))
             { checkBox_lock_hood.Checked = true; }
-            if (other_sensor.Contains("Автозапуск"))
-            { 
-                checkBox_sensor_autostart.Checked = true; 
-                checkBox_test_autostart.Enabled = true; 
-                button_autostart.Enabled = true; 
-            }
+
             
             
 
@@ -2220,7 +2216,7 @@ namespace Disp_WinForm
             }
             else
             {
-                name_obj_textBox.Text = brand + " " + model + "..." + textBox_vin.Text + " (" + product + ")";
+                name_obj_textBox.Text = brand + " " + model + " ..." + textBox_vin.Text + " (" + product + ")";
             }
             
         }
@@ -2231,6 +2227,47 @@ namespace Disp_WinForm
             {
                 string t = comboBox_buttons_for_pin.Text;
                 this.BeginInvoke((MethodInvoker)delegate { comboBox_buttons_for_pin.Text = t.Remove(0, 7); });
+            }
+        }
+
+        private void button_autostart_stop_Click(object sender, EventArgs e)
+        {
+            //get product of testing device
+            string get_produt_testing_device = macros.sql_command("select " +
+                                                                   "products_has_Tarif.products_idproducts " +
+                                                                   "from " +
+                                                                   "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
+                                                                   "where " +
+                                                                   "Object.Object_id_wl = " + vars_form.id_wl_object_for_test + " and " +
+                                                                   "Object.idObject=Object_idObject and " +
+                                                                   "Subscription_idSubscr=idSubscr and " +
+                                                                   "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
+
+            if (get_produt_testing_device == "10" || get_produt_testing_device == "11")
+            {
+                string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
+                                                        "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
+                                                        "\"commandName\":\"2 - Автозапуск стоп\"," +
+                                                        "\"linkType\":\"tcp\"," +
+                                                        "\"param\":\"\"," +
+                                                        "\"timeout\":\"0\"," +
+                                                        "\"flags\":\"0\"}");
+            }
+        }
+
+        private void checkBox_sensor_autostart_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_sensor_autostart.Checked == true)
+            {
+                checkBox_test_autostart.Enabled = true;
+                button_autostart.Enabled = true;
+                button_autostart_stop.Enabled = true;
+            }
+            else
+            {
+                checkBox_test_autostart.Enabled = false;
+                button_autostart.Enabled = false;
+                button_autostart_stop.Enabled = false;
             }
         }
     }

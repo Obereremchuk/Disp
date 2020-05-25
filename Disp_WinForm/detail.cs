@@ -758,6 +758,19 @@ namespace Disp_WinForm
                                                      "\"from\":\"0\"," + 
                                                      "\"to\":\"5\"}");//получаем текущее местоположение объекта
 
+            string json9 = macros.wialon_request_new("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_resource\"," +
+                                                     "\"propName\":\"sys_id\"," +
+                                                     "\"propValueMask\":\"4296\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"or_logic\":\"1\"," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"-1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"500\"}");//получаем resource
+
 
             var m = JsonConvert.DeserializeObject<RootObject>(json2);
 
@@ -792,55 +805,35 @@ namespace Disp_WinForm
                 if (m.items[0].pos != null)
                 {
                     string json3 = macros.wialon_request_new("&svc=resource/get_zones_by_point&params={" +
-                                                         "\"spec\":{" +
-                                                         "\"zoneId\":{" +
-                                                         "\"28\":[],\"" +
-                                                         "241\":[] }" + "," +
-                                                         "\"lat\":" + lat + "," +
-                                                         "\"lon\":" + lon + "}}");//получаем id геозон в которых находится объект, ресурс res_service id=28
+                                     "\"spec\":{" +
+                                     "\"zoneId\":{" +
+                                     "\"28\":[],\"" +
+                                     "4296\":[],\"" +
+                                     "241\":[] }" + "," +
+                                     "\"lat\":" + lat + "," +
+                                     "\"lon\":" + lon + "}}");//получаем id геозон в которых находится объект, ресурс res_service id=28, 241=operator_messages, 4296=Operator_user
 
-                    var geozone = JsonConvert.DeserializeObject<Dictionary<int, List<dynamic>>>(json3);
-                    var array_geozone = geozone.Values.ToArray();//по другому не вышло, не могу достать из лист значения, перевем в аррай
-                    var array_geozone_keys = geozone.Keys.ToArray();
+                    if (!json3.Contains("error"))
+                    { 
+                        var geozone = JsonConvert.DeserializeObject<Dictionary<int, List<dynamic>>>(json3);
 
-
-                    if (array_geozone.Length > 0)
-                    {
-
-                        if (array_geozone[0].Count > 0)
+                        foreach (var key in geozone)
                         {
-                            foreach (var keyvalue_ in array_geozone[0])//для каждого айди геозон найдем имя и заполним лист формы геозон
+                            foreach (long value in key.Value)
                             {
-                                label_geozones.BackColor = System.Drawing.Color.Transparent;
-                                if (array_geozone_keys[0].ToString() == "28")
-                                {
-                                    string json4 = macros.wialon_request_new("&svc=resource/get_zone_data&params={" +
-                                                                             "\"itemId\":\"28\"," +
-                                                                             "\"col\":[" + keyvalue_ + "]," +
-                                                                             "\"flags\":\"16\"}");//
+                                string json4 = macros.wialon_request_new("&svc=resource/get_zone_data&params={" +
+                                                                            "\"itemId\":\""+ key.Key +"\"," +
+                                                                            "\"col\":[" + value + "]," +
+                                                                            "\"flags\":\"28\"}");//
 
-                                    var x = JsonConvert.DeserializeObject<List<Value_>>(json4);
-                                    if (label_geozones.Text == "Знаходиться в геозонах:")
-                                    { label_geozones.Text = "Знаходиться в геозонах:" + "\r\n" + x[0].n.ToString(); }
-                                    else
-                                    { label_geozones.Text += "\r\n" + x[0].n.ToString(); }
-                                }
-                                else if (array_geozone_keys[0].ToString() == "241")
-                                {
-                                    string json4 = macros.wialon_request_new("&svc=resource/get_zone_data&params={" +
-                                                                             "\"itemId\":\"241\"," +
-                                                                             "\"col\":[" + keyvalue_ + "]," +
-                                                                             "\"flags\":\"16\"}");//
+                                var x = JsonConvert.DeserializeObject<List<Value_>>(json4);
 
-                                    var x = JsonConvert.DeserializeObject<List<Value_>>(json4);
-                                    if (label_geozones.Text == "Знаходиться в геозонах:")
-                                    { label_geozones.Text = "Знаходиться в геозонах:" + "\r\n" + x[0].n.ToString(); }
-                                    else
-                                    { label_geozones.Text += "\r\n" + x[0].n.ToString(); }
-                                }
-
+                                if (label_geozones.Text == "Знаходиться в геозонах:")
+                                { label_geozones.Text = "Знаходиться в геозонах:" + "\r\n" + x[0].n.ToString(); }
+                                else
+                                { label_geozones.Text += "\r\n" + x[0].n.ToString(); }
                             }
-                        }                                   
+                        }
                     }
                 }//получаем текущие значения датчиков, нахождение в ГЕО-зонах объекта
             }
