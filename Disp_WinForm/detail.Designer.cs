@@ -119,7 +119,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
-            this.email_textBox = new Disp_WinForm.PlaceHolderTextBox();
             this.listBox_activation_list_search = new System.Windows.Forms.ListBox();
             this.account_create_button = new System.Windows.Forms.Button();
             this.button_add_2_account = new System.Windows.Forms.Button();
@@ -147,6 +146,8 @@
             this.dateTimePicker_nachalo_dejstvia = new System.Windows.Forms.DateTimePicker();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox_otrabotka_trevogi = new System.Windows.Forms.TextBox();
+            this.checkBox_geozone_all = new System.Windows.Forms.CheckBox();
+            this.email_textBox = new Disp_WinForm.PlaceHolderTextBox();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_hronologija_trivog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_group_alarm)).BeginInit();
@@ -594,6 +595,7 @@
             // 
             // tabPage_locator
             // 
+            this.tabPage_locator.Controls.Add(this.checkBox_geozone_all);
             this.tabPage_locator.Controls.Add(this.label_geozones);
             this.tabPage_locator.Controls.Add(this.geckoWebBrowser2);
             this.tabPage_locator.Location = new System.Drawing.Point(4, 22);
@@ -609,9 +611,9 @@
             this.label_geozones.AutoSize = true;
             this.label_geozones.Location = new System.Drawing.Point(1133, 163);
             this.label_geozones.Name = "label_geozones";
-            this.label_geozones.Size = new System.Drawing.Size(133, 13);
+            this.label_geozones.Size = new System.Drawing.Size(91, 13);
             this.label_geozones.TabIndex = 23;
-            this.label_geozones.Text = "Знаходиться в геозонах:";
+            this.label_geozones.Text = "В межах геозон:";
             // 
             // geckoWebBrowser2
             // 
@@ -1100,15 +1102,6 @@
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "Створення, привязка до авто";
             // 
-            // email_textBox
-            // 
-            this.email_textBox.Location = new System.Drawing.Point(6, 19);
-            this.email_textBox.Name = "email_textBox";
-            this.email_textBox.PlaceHolderText = "Новий користувач (електронна скринька)";
-            this.email_textBox.Size = new System.Drawing.Size(336, 20);
-            this.email_textBox.TabIndex = 128;
-            this.email_textBox.TextChanged += new System.EventHandler(this.email_textBoxTextChanged);
-            // 
             // listBox_activation_list_search
             // 
             this.listBox_activation_list_search.FormattingEnabled = true;
@@ -1406,6 +1399,26 @@
             this.textBox_otrabotka_trevogi.TabIndex = 0;
             this.textBox_otrabotka_trevogi.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBox_otrabotka_trevogi_MouseDown);
             // 
+            // checkBox_geozone_all
+            // 
+            this.checkBox_geozone_all.AutoSize = true;
+            this.checkBox_geozone_all.Location = new System.Drawing.Point(1304, 163);
+            this.checkBox_geozone_all.Name = "checkBox_geozone_all";
+            this.checkBox_geozone_all.Size = new System.Drawing.Size(41, 17);
+            this.checkBox_geozone_all.TabIndex = 24;
+            this.checkBox_geozone_all.Text = "Всі";
+            this.checkBox_geozone_all.UseVisualStyleBackColor = true;
+            this.checkBox_geozone_all.CheckedChanged += new System.EventHandler(this.checkBox_geozone_all_CheckedChanged);
+            // 
+            // email_textBox
+            // 
+            this.email_textBox.Location = new System.Drawing.Point(6, 19);
+            this.email_textBox.Name = "email_textBox";
+            this.email_textBox.PlaceHolderText = "Новий користувач (електронна скринька)";
+            this.email_textBox.Size = new System.Drawing.Size(336, 20);
+            this.email_textBox.TabIndex = 128;
+            this.email_textBox.TextChanged += new System.EventHandler(this.email_textBoxTextChanged);
+            // 
             // detail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1563,5 +1576,6 @@
         private System.Windows.Forms.Label label_geozones;
         private System.Windows.Forms.TreeView treeView_client_info;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox checkBox_geozone_all;
     }
 }

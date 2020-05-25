@@ -34,6 +34,8 @@ namespace Disp_WinForm
         private string id_db_obj;
         private List<TreeNode> _unselectableNodes = new List<TreeNode>();
         private string id_new_user;
+       
+
         public detail()
         {
 
@@ -316,15 +318,18 @@ namespace Disp_WinForm
                 TreeNode node2 = new TreeNode("Підземні паркінги:");
                 treeView_client_info.Nodes.Add(node2);
                 treeView_client_info.Nodes[1].Expand();
-                TreeNode node3 = new TreeNode("Загальна інформація:");
+                TreeNode node3 = new TreeNode("Знаходження в геозонах:");
                 treeView_client_info.Nodes.Add(node3);
                 treeView_client_info.Nodes[2].Expand();
-                TreeNode node4 = new TreeNode("Адміністративні поля:");
+                TreeNode node4 = new TreeNode("Загальна інформація:");
                 treeView_client_info.Nodes.Add(node4);
                 treeView_client_info.Nodes[3].Expand();
-                TreeNode node5 = new TreeNode("Про автомобіль:");
+                TreeNode node5 = new TreeNode("Адміністративні поля:");
                 treeView_client_info.Nodes.Add(node5);
                 treeView_client_info.Nodes[4].Expand();
+                TreeNode node6 = new TreeNode("Про автомобіль:");
+                treeView_client_info.Nodes.Add(node6);
+                treeView_client_info.Nodes[5].Expand();
 
                 if (m.items.Count != 0)
                 {
@@ -390,7 +395,7 @@ namespace Disp_WinForm
                                 .Add(new TreeNode("Тривожна кнопка" + ": " + keyvalue.Value.v.ToString()));
                         }
 
-                        treeView_client_info.Nodes[2].Nodes
+                        treeView_client_info.Nodes[3].Nodes
                                 .Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
 
                         if (keyvalue.Value.n.Contains("Паркінг"))
@@ -412,7 +417,7 @@ namespace Disp_WinForm
 
                     foreach (var keyvalue in m.items[0].aflds)
                     {
-                        treeView_client_info.Nodes[3].Nodes
+                        treeView_client_info.Nodes[4].Nodes
                             .Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
                         if (keyvalue.Value.n.Contains("PUK"))
                         {
@@ -425,31 +430,31 @@ namespace Disp_WinForm
                     {
                         if (keyvalue.Value.n.Contains("vehicle_type"))
                         {
-                            treeView_client_info.Nodes[4].Nodes.Add(new TreeNode("Тип Т/З: " + keyvalue.Value.v.ToString()));
+                            treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Тип Т/З: " + keyvalue.Value.v.ToString()));
                         }
                         else if (keyvalue.Value.n.Contains("vin"))
                         {
-                            treeView_client_info.Nodes[4].Nodes.Add(new TreeNode("VIN: " + keyvalue.Value.v.ToString()));
+                            treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("VIN: " + keyvalue.Value.v.ToString()));
                         }
                         else if (keyvalue.Value.n.Contains("registration_plate"))
                         {
-                            treeView_client_info.Nodes[4].Nodes.Add(new TreeNode("Державний номер: " + keyvalue.Value.v.ToString()));
+                            treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Державний номер: " + keyvalue.Value.v.ToString()));
                         }
                         else if (keyvalue.Value.n.Contains("brand"))
                         {
-                            treeView_client_info.Nodes[4].Nodes.Add(new TreeNode("Марка: " + keyvalue.Value.v.ToString()));
+                            treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Марка: " + keyvalue.Value.v.ToString()));
                         }
                         else if (keyvalue.Value.n.Contains("model"))
                         {
-                            treeView_client_info.Nodes[4].Nodes.Add(new TreeNode("Модель: " + keyvalue.Value.v.ToString()));
+                            treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Модель: " + keyvalue.Value.v.ToString()));
                         }
                         else if (keyvalue.Value.n.Contains("year"))
                         {
-                            treeView_client_info.Nodes[4].Nodes.Add(new TreeNode("Рік випуску: " + keyvalue.Value.v.ToString()));
+                            treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Рік випуску: " + keyvalue.Value.v.ToString()));
                         }
                         else if (keyvalue.Value.n.Contains("color"))
                         {
-                            treeView_client_info.Nodes[4].Nodes.Add(new TreeNode("Колір: " + keyvalue.Value.v.ToString()));
+                            treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Колір: " + keyvalue.Value.v.ToString()));
                         }
                         //else if (keyvalue.Value.n.Contains("cargo_type"))
                         //{
@@ -758,18 +763,18 @@ namespace Disp_WinForm
                                                      "\"from\":\"0\"," + 
                                                      "\"to\":\"5\"}");//получаем текущее местоположение объекта
 
-            string json9 = macros.wialon_request_new("&svc=core/search_items&params={" +
-                                                     "\"spec\":{" +
-                                                     "\"itemsType\":\"avl_resource\"," +
-                                                     "\"propName\":\"sys_id\"," +
-                                                     "\"propValueMask\":\"4296\", " +
-                                                     "\"sortType\":\"sys_name\"," +
-                                                     "\"or_logic\":\"1\"}," +
-                                                     "\"or_logic\":\"1\"," +
-                                                     "\"force\":\"1\"," +
-                                                     "\"flags\":\"-1\"," +
-                                                     "\"from\":\"0\"," +
-                                                     "\"to\":\"500\"}");//получаем resource
+            //string json9 = macros.wialon_request_new("&svc=core/search_items&params={" +
+            //                                         "\"spec\":{" +
+            //                                         "\"itemsType\":\"avl_resource\"," +
+            //                                         "\"propName\":\"sys_id\"," +
+            //                                         "\"propValueMask\":\"4296\", " +
+            //                                         "\"sortType\":\"sys_name\"," +
+            //                                         "\"or_logic\":\"1\"}," +
+            //                                         "\"or_logic\":\"1\"," +
+            //                                         "\"force\":\"1\"," +
+            //                                         "\"flags\":\"-1\"," +
+            //                                         "\"from\":\"0\"," +
+            //                                         "\"to\":\"500\"}");//получаем resource
 
 
             var m = JsonConvert.DeserializeObject<RootObject>(json2);
@@ -804,7 +809,10 @@ namespace Disp_WinForm
 
                 if (m.items[0].pos != null)
                 {
-                    string json3 = macros.wialon_request_new("&svc=resource/get_zones_by_point&params={" +
+                    string json3;
+                    if (checkBox_geozone_all.Checked is true)
+                    {
+                        json3 = macros.wialon_request_new("&svc=resource/get_zones_by_point&params={" +
                                      "\"spec\":{" +
                                      "\"zoneId\":{" +
                                      "\"28\":[],\"" +
@@ -812,11 +820,22 @@ namespace Disp_WinForm
                                      "241\":[] }" + "," +
                                      "\"lat\":" + lat + "," +
                                      "\"lon\":" + lon + "}}");//получаем id геозон в которых находится объект, ресурс res_service id=28, 241=operator_messages, 4296=Operator_user
+                    }
+                    else
+                    {
+                        json3 = macros.wialon_request_new("&svc=resource/get_zones_by_point&params={" +
+                                     "\"spec\":{" +
+                                     "\"zoneId\":{" +
+                                     "\"4296\":[] }" + "," +
+                                     "\"lat\":" + lat + "," +
+                                     "\"lon\":" + lon + "}}");//получаем id геозон в которых находится объект, ресурс res_service id=28, 241=operator_messages, 4296=Operator_user
+                    }
+                    
 
                     if (!json3.Contains("error"))
                     { 
                         var geozone = JsonConvert.DeserializeObject<Dictionary<int, List<dynamic>>>(json3);
-
+                        label_geozones.Text = "Знаходиться в геозонах:";
                         foreach (var key in geozone)
                         {
                             foreach (long value in key.Value)
@@ -832,8 +851,13 @@ namespace Disp_WinForm
                                 { label_geozones.Text = "Знаходиться в геозонах:" + "\r\n" + x[0].n.ToString(); }
                                 else
                                 { label_geozones.Text += "\r\n" + x[0].n.ToString(); }
+                                if (key.Key== 4296)
+                                { 
+                                    treeView_client_info.Nodes[2].Nodes.Add(new TreeNode(x[0].n.ToString())); 
+                                }
                             }
                         }
+                        treeView_client_info.Nodes[2].Expand();
                     }
                 }//получаем текущие значения датчиков, нахождение в ГЕО-зонах объекта
             }
@@ -3106,6 +3130,11 @@ namespace Disp_WinForm
         private void treeView_client_info_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
 
+        }
+
+        private void checkBox_geozone_all_CheckedChanged(object sender, EventArgs e)
+        {
+            get_sensor_value();
         }
     }
 }
