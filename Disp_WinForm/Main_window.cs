@@ -2772,7 +2772,7 @@ namespace Disp_WinForm
             vars_form.id_db_zayavki_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[0].Value.ToString();
             vars_form.id_db_object_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[1].Value.ToString();
             vars_form.id_db_activation_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[2].Value.ToString();
-            vars_form.id_wl_object_for_activation = macros.sql_command("select t1.Object_id_wl from btk.Object as t1 inner join btk.testing_object as t2 where t2.idtesting_object = '" + vars_form.id_db_object_for_activation + "' and t1.idObject = t2.Object_idObject;");
+            vars_form.id_wl_object_for_activation = macros.sql_command("select t1.Object_id_wl from btk.Object as t1 inner join btk.testing_object as t2 where t2.Object_idObject = '" + vars_form.id_db_object_for_activation + "' and t1.idObject = t2.Object_idObject;");
             vars_form.if_open_created_activation = 1;
 
             Activation_Form activation_form = new Activation_Form();

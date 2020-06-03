@@ -381,6 +381,15 @@ namespace Disp_WinForm
                         return;
                     }
                 }
+                string phone1 = maskedTextBox_tel1.Text.Replace(" ", string.Empty);
+                phone1 = phone1.Replace("-", string.Empty);
+                phone1 = phone1.Replace("(", string.Empty);
+                phone1 = phone1.Replace(")", string.Empty);
+
+                string phone2 = maskedTextBox_tel2.Text.Replace(" ", string.Empty);
+                phone2 = phone2.Replace("-", string.Empty);
+                phone2 = phone2.Replace("(", string.Empty);
+                phone2 = phone2.Replace(")", string.Empty);
 
                 macros.sql_command("UPDATE btk.Zayavki set " +
                                                         "Zayavkicol_name = '" + textBox_name_zayavka.Text + "'," +
@@ -399,9 +408,9 @@ namespace Disp_WinForm
                                                         "testing_object_idtesting_object = '" + idtesting_object + "'," +
                                                         "Sobstvennik_avto_neme = '" + textBox_sobstvennik_avto.Text + "'," +
                                                         "Kontakt_name_avto_1 = '" + textBox_kont_osoba1.Text + "'," +
-                                                        "Kontakt_phone_avto_1 = '" + maskedTextBox_tel1.Text + "'," +
+                                                        "Kontakt_phone_avto_1 = '" + phone1 + "'," +
                                                         "Kontakt_name_avto_2 = '" + textBox_kont_osoba2.Text + "'," +
-                                                        "Kontakt_phone_avto_2 = '" + maskedTextBox_tel2.Text + "'," +
+                                                        "Kontakt_phone_avto_2 = '" + phone2 + "'," +
                                                         "Users_idUsers = '" + vars_form.user_login_id + "'," +
                                                         "email = '" + textBox_email.Text + "'" +
                                                         "WHERE idZayavki = '" + idZayavki + "'");

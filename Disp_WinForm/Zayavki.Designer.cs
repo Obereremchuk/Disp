@@ -68,6 +68,7 @@
             this.maskedTextBox_tel2 = new System.Windows.Forms.MaskedTextBox();
             this.maskedTextBox_tel1 = new System.Windows.Forms.MaskedTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBox_sobstvennik_avto = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -76,7 +77,6 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.button_vidkripyty = new System.Windows.Forms.Button();
             this.button_cancel = new System.Windows.Forms.Button();
-            this.textBox_sobstvennik_avto = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_tested_objects_zayavki)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -484,6 +484,13 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Інформація про обєкт";
             // 
+            // textBox_sobstvennik_avto
+            // 
+            this.textBox_sobstvennik_avto.Location = new System.Drawing.Point(94, 152);
+            this.textBox_sobstvennik_avto.Name = "textBox_sobstvennik_avto";
+            this.textBox_sobstvennik_avto.Size = new System.Drawing.Size(411, 20);
+            this.textBox_sobstvennik_avto.TabIndex = 178;
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.textBox_Coments);
@@ -569,13 +576,6 @@
             this.button_cancel.Text = "Відмінити";
             this.button_cancel.UseVisualStyleBackColor = true;
             this.button_cancel.Click += new System.EventHandler(this.button_cancel_Click);
-            // 
-            // textBox_sobstvennik_avto
-            // 
-            this.textBox_sobstvennik_avto.Location = new System.Drawing.Point(94, 152);
-            this.textBox_sobstvennik_avto.Name = "textBox_sobstvennik_avto";
-            this.textBox_sobstvennik_avto.Size = new System.Drawing.Size(411, 20);
-            this.textBox_sobstvennik_avto.TabIndex = 178;
             // 
             // Zayavki
             // 
