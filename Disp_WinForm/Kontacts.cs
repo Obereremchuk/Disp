@@ -53,7 +53,7 @@ namespace Disp_WinForm
 
         private void Get_kontackts()
         {
-            if (vars_form.num_vo >= 1)
+            if (vars_form.num_vo >= 1)// vars_form.num_vo = 0 >> run for electrik (testuvannya) (idKontact_type=2(Електрик)), vars_form.num_vo = 1 >> run from VO (idKontact_type=1(Кліент))
             {
                 MySqlConnection myConnection = new MySqlConnection("server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True; charset=utf8");
                 string sql = string.Format("SELECT * FROM btk.Kontakti where (Kontakti_imya like '%" + textBox_search_kontackts.Text + "%' or Kontakti_familia like '%" + textBox_search_kontackts.Text + "%' or Phonebook_idPhonebook like '%" + textBox_search_kontackts.Text + "%' or Phonebook_idPhonebook1 like '%" + textBox_search_kontackts.Text + "%') and Kontact_type_idKontact_type = '1';");
@@ -91,7 +91,8 @@ namespace Disp_WinForm
             else
             {
                 MySqlConnection myConnection = new MySqlConnection("server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True; charset=utf8");
-                string sql = string.Format("SELECT * FROM btk.Kontakti where Kontakti_imya like '%" + textBox_search_kontackts.Text + "%' or Kontakti_familia like '%" + textBox_search_kontackts.Text + "%' or Phonebook_idPhonebook like '%" + textBox_search_kontackts.Text + "%' or Phonebook_idPhonebook1 like '%" + textBox_search_kontackts.Text + "%';");
+                //string sql = string.Format("SELECT * FROM btk.Kontakti where Kontakti_imya like '%" + textBox_search_kontackts.Text + "%' or Kontakti_familia like '%" + textBox_search_kontackts.Text + "%' or Phonebook_idPhonebook like '%" + textBox_search_kontackts.Text + "%' or Phonebook_idPhonebook1 like '%" + textBox_search_kontackts.Text + "%';");
+                string sql = string.Format("SELECT * FROM btk.Kontakti where (Kontakti_imya like '%" + textBox_search_kontackts.Text + "%' or Kontakti_familia like '%" + textBox_search_kontackts.Text + "%' or Phonebook_idPhonebook like '%" + textBox_search_kontackts.Text + "%' or Phonebook_idPhonebook1 like '%" + textBox_search_kontackts.Text + "%') and Kontact_type_idKontact_type = '2';");
                 MySqlCommand myDataAdapter = new MySqlCommand(sql, myConnection);
                 myConnection.Open();
                 MySqlDataReader reader = myDataAdapter.ExecuteReader();
@@ -107,6 +108,7 @@ namespace Disp_WinForm
                     item.Text = reader["idKontakti"].ToString();
                     item.SubItems.Add(reader["Kontakti_imya"].ToString());
                     item.SubItems.Add(reader["Kontakti_familia"].ToString());
+                    item.SubItems.Add(reader["Kontakti_otchestvo"].ToString());
                     //item.SubItems.Add(reader["Phonebook_idPhonebook"].ToString());
                     item.SubItems.Add(macros.sql_command("SELECT Phonebookcol_phone FROM btk.Phonebook where idPhonebook=" + reader["Phonebook_idPhonebook"].ToString() + ";"));
                     //item.SubItems.Add(reader["Phonebook_idPhonebook1"].ToString());

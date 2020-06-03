@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+using Gecko;
 
 
 
@@ -23,6 +24,8 @@ namespace Disp_WinForm
         public Testing()
         {
             InitializeComponent();
+            string t = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Firefox";
+            Xpcom.Initialize(t);
             Read_data();
             aTimer3 = new System.Timers.Timer();
             comboBox_ustanoshik_poisk_DropDown();
@@ -33,7 +36,19 @@ namespace Disp_WinForm
             adaptation_UI_for_product();
 
             group_debug();
-            
+            string json = macros.wialon_request_new("&svc=token/update&params={" +
+                                                    "\"callMode\":\"create\"," +
+                                                    "\"app\":\"locator\"," +
+                                                    "\"at\":\"0\"," +
+                                                    "\"dur\":\"1800\"," +
+                                                    "\"fl\":\"-1\"," +
+                                                    "\"p\":\"{" + "\\" + "\"sensorMasks" + "\\" + "\"" + ":[" + "\\" + "\"*" + "\\" + "\"]," + "\\" + "\"note" + "\\" + "\"" + ":" + "\\" + "\"" + vars_form.unit_name + "" + "\\" + "\"," + "\\" + "\"zones" + "\\" + "\"" + ":" + "\\" + "\"1" + "\\" + "\"," + "\\" + "\"tracks" + "\\" + "\"" + ":" + "\\" + "\"1" + "\\" + "\"" + "}\"," +
+                                                    "\"items\":[" + vars_form.id_wl_object_for_test + "]" +
+                                                    "}");
+            var m = JsonConvert.DeserializeObject<locator>(json);
+
+            string locator_url = "https://navi.venbest.com.ua/locator/index.html?t=" + m.h;
+            geckoWebBrowser_testing.Navigate(locator_url);
         }
 
         private void group_debug()
@@ -173,7 +188,12 @@ namespace Disp_WinForm
         {
             string from_textbox = comboBox_ustanoshik_poisk.Text.ToString();
             //string sql = string.Format("SELECT concat(btk.Kontakti.Kontakti_imya, ' ' ,btk.Kontakti.Kontakti_familia) AS familia_imya, Phonebook_idPhonebook, Phonebook_idPhonebook1, Kontakti.idKontakti FROM btk.Kontakti where Kontakti.Kontakti_familia like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or Kontakti.Kontakti_imya like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%';");
-            string sql = string.Format("SELECT concat(btk.Kontakti.Kontakti_imya, ' ' ,btk.Kontakti.Kontakti_familia, '  ', Phonebook.Phonebookcol_phone ) AS familia_imya, Kontakti.idKontakti FROM btk.Kontakti, btk.Phonebook where Kontakti.Phonebook_idPhonebook=Phonebook.idPhonebook and (Kontakti.Kontakti_familia like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or Kontakti.Kontakti_imya like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or Phonebook.Phonebookcol_phone like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%');");
+            //string sql = string.Format("SELECT concat(btk.Kontakti.Kontakti_imya, ' ' ,btk.Kontakti.Kontakti_familia, '  ', Phonebook.Phonebookcol_phone ) AS familia_imya, Kontakti.idKontakti FROM btk.Kontakti, btk.Phonebook where Kontakti.Phonebook_idPhonebook=Phonebook.idPhonebook and (Kontakti.Kontakti_familia like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or Kontakti.Kontakti_imya like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or Phonebook.Phonebookcol_phone like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%');");
+            string sql = string.Format("SELECT concat(t1.Kontakti_imya, ' ' ,t1.Kontakti_familia, '  ', t2.Phonebookcol_phone, '  ', t3.Phonebookcol_phone) AS familia_imya, t1.idKontakti " +
+                "FROM btk.Kontakti as t1 " +
+                "inner join btk.Phonebook as t2 on t1.Phonebook_idPhonebook = t2.idPhonebook " +
+                "inner join btk.Phonebook as t3 on t1.Phonebook_idPhonebook1 = t3.idPhonebook " +
+                "where t1.Kontakti_familia like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or t1.Kontakti_imya like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or t2.Phonebookcol_phone like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or t3.Phonebookcol_phone like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%'; ");
 
             comboBox_ustanoshik_poisk.DataSource = macros.GetData(sql);
             comboBox_ustanoshik_poisk.DisplayMember = "familia_imya";
@@ -188,7 +208,12 @@ namespace Disp_WinForm
         {
             comboBox_ustanoshik_poisk.Text = "";
             //string sql = string.Format("SELECT concat(btk.Kontakti.Kontakti_imya, ' ' ,btk.Kontakti.Kontakti_familia) AS familia_imya, Phonebook_idPhonebook, Phonebook_idPhonebook1, Kontakti.idKontakti FROM btk.Kontakti where Kontakti.Kontakti_familia like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or Kontakti.Kontakti_imya like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%';");
-            string sql = string.Format("SELECT concat(btk.Kontakti.Kontakti_imya, ' ' ,btk.Kontakti.Kontakti_familia, '  ', Phonebook.Phonebookcol_phone ) AS familia_imya, Kontakti.idKontakti FROM btk.Kontakti, btk.Phonebook where Kontakti.Phonebook_idPhonebook=Phonebook.idPhonebook and (Kontakti.Kontakti_familia like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or Kontakti.Kontakti_imya like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or Phonebook.Phonebookcol_phone like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%');");
+            //string sql = string.Format("SELECT concat(btk.Kontakti.Kontakti_imya, ' ' ,btk.Kontakti.Kontakti_familia, '  ', Phonebook.Phonebookcol_phone ) AS familia_imya, Kontakti.idKontakti FROM btk.Kontakti, btk.Phonebook where Kontakti.Phonebook_idPhonebook=Phonebook.idPhonebook and (Kontakti.Kontakti_familia like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or Kontakti.Kontakti_imya like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or Phonebook.Phonebookcol_phone like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%');");
+            string sql = string.Format("SELECT concat(t1.Kontakti_imya, ' ' ,t1.Kontakti_familia, '  ', t2.Phonebookcol_phone, '  ', t3.Phonebookcol_phone) AS familia_imya, t1.idKontakti " +
+                "FROM btk.Kontakti as t1 " +
+                "inner join btk.Phonebook as t2 on t1.Phonebook_idPhonebook = t2.idPhonebook " +
+                "inner join btk.Phonebook as t3 on t1.Phonebook_idPhonebook1 = t3.idPhonebook " +
+                "where t1.Kontakti_familia like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or t1.Kontakti_imya like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or t2.Phonebookcol_phone like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or t3.Phonebookcol_phone like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%'; ");
             comboBox_ustanoshik_poisk.DisplayMember = "familia_imya";
             comboBox_ustanoshik_poisk.ValueMember = "idKontakti";
             comboBox_ustanoshik_poisk.DataSource = macros.GetData(sql);
@@ -313,7 +338,7 @@ namespace Disp_WinForm
             else
             { checkBox_block_prizrak_can.Checked = false; }
 
-            textBox_service_button.Text = db_TS_info.Rows[0]["TS_infocol_place_service_button"].ToString();
+            comboBox_service_button.Text = db_TS_info.Rows[0]["TS_infocol_place_service_button"].ToString();
             comboBox_buttons_for_pin.Text = db_TS_info.Rows[0]["TS_infocol_button_for_pin"].ToString();
             textBox_other_alarm.Text = db_TS_info.Rows[0]["TS_infocol_other_alarm"].ToString();
             if (db_TS_info.Rows[0]["TS_infocol_licence_plate"].ToString() == "ПУСТО")
@@ -385,7 +410,7 @@ namespace Disp_WinForm
             
 
             //textBox_commets.Text =
-            textBox_wire_tk.Text = db_TS_info.Rows[0]["TS_infocol_place_tk"].ToString();
+            comboBox_wire_tk.Text = db_TS_info.Rows[0]["TS_infocol_place_tk"].ToString();
             textBox_current_pin.Text = db_TS_info.Rows[0]["TS_infocol_new_pin"].ToString();
             int c = Convert.ToInt16(db_TS_info.Rows[0]["Color_idColor"]);
             //comboBox_color.SelectedIndex = c - 1;
@@ -438,10 +463,10 @@ namespace Disp_WinForm
 
             
             string wire_tk = "";
-            if (textBox_wire_tk.Text == "")
+            if (comboBox_wire_tk.Text == "")
             { wire_tk = "Не встановлено"; }
             else
-            { wire_tk = textBox_wire_tk.Text; }
+            { wire_tk = comboBox_wire_tk.Text; }
 
             string wireless_tk = "";
             if (textBox_wireless_tk.Text == "")
@@ -465,7 +490,7 @@ namespace Disp_WinForm
                                "TS_infocol_block_prizrak_can='" + (checkBox_block_prizrak_can.Checked ? "Так" : "Ні") + "', " +
                                "TS_infocol_place_tk='" + MySqlHelper.EscapeString(wire_tk) + "', " +
                                "TS_infocol_wireless_tk='" + MySqlHelper.EscapeString(wireless_tk) + "', " +
-                               "TS_infocol_place_service_button='" + MySqlHelper.EscapeString(textBox_service_button.Text) + "', " +
+                               "TS_infocol_place_service_button='" + MySqlHelper.EscapeString(comboBox_service_button.Text) + "', " +
                                "TS_infocol_button_for_pin='" + comboBox_buttons_for_pin.Text + "', " +
                                "TS_infocol_set_pin='" + MySqlHelper.EscapeString(textBox_current_pin.Text) + "', " +
                                "TS_infocol_other_alarm='" + MySqlHelper.EscapeString(textBox_other_alarm.Text) + "', " +
@@ -609,7 +634,7 @@ namespace Disp_WinForm
                                                                + "\"id\":\"16\","
                                                                + "\"callMode\":\"update\","
                                                                + "\"n\":\"3.7 Місце встановлення сервісної кнопки\","
-                                                               + "\"v\":\"" + textBox_service_button.Text.Replace("\"", "%5C%22") + "\"}");
+                                                               + "\"v\":\"" + comboBox_service_button.Text.Replace("\"", "%5C%22") + "\"}");
 
                     // Произвольное поле place wireles tk
                 string pp17_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
@@ -779,7 +804,7 @@ namespace Disp_WinForm
                                                               + "\"id\":\"18\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.7 Місце встановлення сервісної кнопки\","
-                                                              + "\"v\":\"" + textBox_service_button.Text.Replace("\"", "%5C%22") + "\"}");
+                                                              + "\"v\":\"" + comboBox_service_button.Text.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле  button fo pin
                 string pp8_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -1814,7 +1839,7 @@ namespace Disp_WinForm
                     //Запрашиваем по координатам фактический адрес
                     string get_adress = "http://navi.venbest.com.ua/gis_geocode?coords="
                                         + "[{\"lon\":\"" + test_out.item.pos["x"] + "\""
-                                        + ",\"lat\":\"" + test_out.item.pos["y"] + "\"}]&flags=‭1254096896‬&uid=" +
+                                        + ",\"lat\":\"" + test_out.item.pos["y"] + "\"}]&flags=	‭‭‭‭1254096896‬‬‬‬&uid=" +
                                         vars_form.wl_user_id + "";
                     MyWebRequest myRequest = new MyWebRequest(get_adress);
                     string json3 = myRequest.GetResponse();
@@ -1964,10 +1989,22 @@ namespace Disp_WinForm
                     label_ign.BackColor = Color.Empty;
                 }
 
+                //Статус engin run
+                if (sens_910["21"] == "1")
+                {
+                    label_eng_run.Text = "Двигун працює";
+                    label_eng_run.BackColor = Color.YellowGreen;
+                }
+                else
+                {
+                    label_eng_run.Text = "Вимкнено";
+                    label_eng_run.BackColor = Color.Empty;
+                }
+
                 //Статус AutoStart
                 if (sens_910["21"] == "1")
                 {
-                    label_autstart.Text = "Працює";
+                    label_autstart.Text = "Двигун працює";
                     label_autstart.BackColor = Color.YellowGreen;
                 }
                 else
@@ -2110,7 +2147,7 @@ namespace Disp_WinForm
                                                                    "Subscription_idSubscr=idSubscr and " +
                                                                    "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
 
-            if (get_produt_testing_device == "10" || get_produt_testing_device == "11")
+            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")
             {
                 string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
                                                         "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
@@ -2140,7 +2177,7 @@ namespace Disp_WinForm
                                                                    "Subscription_idSubscr=idSubscr and " +
                                                                    "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
 
-            if (get_produt_testing_device == "10" || get_produt_testing_device == "11")
+            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")
             {
                 string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
                                                             "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
@@ -2175,7 +2212,7 @@ namespace Disp_WinForm
                                                                    "Subscription_idSubscr=idSubscr and " +
                                                                    "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
 
-            if (get_produt_testing_device == "10" || get_produt_testing_device == "11")
+            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")
             {
                 string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
                                                             "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
@@ -2269,6 +2306,13 @@ namespace Disp_WinForm
                 button_autostart.Enabled = false;
                 button_autostart_stop.Enabled = false;
             }
+        }
+
+        private void comboBox_ustanoshik_poisk_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (comboBox_ustanoshik_poisk.DroppedDown == false)
+            { comboBox_ustanoshik_poisk.DroppedDown = true; }
+            
         }
     }
 }

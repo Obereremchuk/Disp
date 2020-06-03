@@ -70,13 +70,13 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.checkBox_for_all_time = new System.Windows.Forms.CheckBox();
+            this.textBox_search_by_vin_testing = new System.Windows.Forms.TextBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.button_vidkripyty = new System.Windows.Forms.Button();
             this.button_cancel = new System.Windows.Forms.Button();
-            this.textBox_search_by_vin_testing = new System.Windows.Forms.TextBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.checkBox_for_all_time = new System.Windows.Forms.CheckBox();
-            this.placeHolderTextBox_sobstvennik_avto = new Disp_WinForm.PlaceHolderTextBox();
+            this.textBox_sobstvennik_avto = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_tested_objects_zayavki)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -457,7 +457,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.placeHolderTextBox_sobstvennik_avto);
+            this.groupBox2.Controls.Add(this.textBox_sobstvennik_avto);
             this.groupBox2.Controls.Add(this.label18);
             this.groupBox2.Controls.Add(this.textBox_vin_zayavki);
             this.groupBox2.Controls.Add(this.label1);
@@ -506,6 +506,50 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Прикріплення тестування";
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.checkBox_for_all_time);
+            this.groupBox5.Controls.Add(this.comboBox_filter);
+            this.groupBox5.Controls.Add(this.textBox_search_by_vin_testing);
+            this.groupBox5.Controls.Add(this.dateTimePicker_filter_tested_zayavki);
+            this.groupBox5.Location = new System.Drawing.Point(615, 23);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(343, 67);
+            this.groupBox5.TabIndex = 175;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Пошук";
+            // 
+            // checkBox_for_all_time
+            // 
+            this.checkBox_for_all_time.AutoSize = true;
+            this.checkBox_for_all_time.Location = new System.Drawing.Point(240, 45);
+            this.checkBox_for_all_time.Name = "checkBox_for_all_time";
+            this.checkBox_for_all_time.Size = new System.Drawing.Size(91, 17);
+            this.checkBox_for_all_time.TabIndex = 175;
+            this.checkBox_for_all_time.Text = "За увесь час";
+            this.checkBox_for_all_time.UseVisualStyleBackColor = true;
+            this.checkBox_for_all_time.CheckedChanged += new System.EventHandler(this.checkBox_for_all_time_CheckedChanged);
+            // 
+            // textBox_search_by_vin_testing
+            // 
+            this.textBox_search_by_vin_testing.Location = new System.Drawing.Point(6, 19);
+            this.textBox_search_by_vin_testing.Name = "textBox_search_by_vin_testing";
+            this.textBox_search_by_vin_testing.Size = new System.Drawing.Size(101, 20);
+            this.textBox_search_by_vin_testing.TabIndex = 174;
+            this.textBox_search_by_vin_testing.TextChanged += new System.EventHandler(this.textBox_search_by_vin_testing_TextChanged);
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.textBox_selected_object);
+            this.groupBox6.Controls.Add(this.button_vidkripyty);
+            this.groupBox6.Controls.Add(this.textBox_id_testing);
+            this.groupBox6.Location = new System.Drawing.Point(6, 23);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(394, 67);
+            this.groupBox6.TabIndex = 174;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Вибране тестування";
+            // 
             // button_vidkripyty
             // 
             this.button_vidkripyty.Location = new System.Drawing.Point(309, 21);
@@ -526,59 +570,12 @@
             this.button_cancel.UseVisualStyleBackColor = true;
             this.button_cancel.Click += new System.EventHandler(this.button_cancel_Click);
             // 
-            // textBox_search_by_vin_testing
+            // textBox_sobstvennik_avto
             // 
-            this.textBox_search_by_vin_testing.Location = new System.Drawing.Point(6, 19);
-            this.textBox_search_by_vin_testing.Name = "textBox_search_by_vin_testing";
-            this.textBox_search_by_vin_testing.Size = new System.Drawing.Size(101, 20);
-            this.textBox_search_by_vin_testing.TabIndex = 174;
-            this.textBox_search_by_vin_testing.TextChanged += new System.EventHandler(this.textBox_search_by_vin_testing_TextChanged);
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.checkBox_for_all_time);
-            this.groupBox5.Controls.Add(this.comboBox_filter);
-            this.groupBox5.Controls.Add(this.textBox_search_by_vin_testing);
-            this.groupBox5.Controls.Add(this.dateTimePicker_filter_tested_zayavki);
-            this.groupBox5.Location = new System.Drawing.Point(615, 23);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(343, 67);
-            this.groupBox5.TabIndex = 175;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Пошук";
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.textBox_selected_object);
-            this.groupBox6.Controls.Add(this.button_vidkripyty);
-            this.groupBox6.Controls.Add(this.textBox_id_testing);
-            this.groupBox6.Location = new System.Drawing.Point(6, 23);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(394, 67);
-            this.groupBox6.TabIndex = 174;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Вибране тестування";
-            // 
-            // checkBox_for_all_time
-            // 
-            this.checkBox_for_all_time.AutoSize = true;
-            this.checkBox_for_all_time.Location = new System.Drawing.Point(240, 45);
-            this.checkBox_for_all_time.Name = "checkBox_for_all_time";
-            this.checkBox_for_all_time.Size = new System.Drawing.Size(91, 17);
-            this.checkBox_for_all_time.TabIndex = 175;
-            this.checkBox_for_all_time.Text = "За увесь час";
-            this.checkBox_for_all_time.UseVisualStyleBackColor = true;
-            this.checkBox_for_all_time.CheckedChanged += new System.EventHandler(this.checkBox_for_all_time_CheckedChanged);
-            // 
-            // placeHolderTextBox_sobstvennik_avto
-            // 
-            this.placeHolderTextBox_sobstvennik_avto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic);
-            this.placeHolderTextBox_sobstvennik_avto.Location = new System.Drawing.Point(94, 152);
-            this.placeHolderTextBox_sobstvennik_avto.Name = "placeHolderTextBox_sobstvennik_avto";
-            this.placeHolderTextBox_sobstvennik_avto.PlaceHolderText = "Фамілія або назва підприємства";
-            this.placeHolderTextBox_sobstvennik_avto.Size = new System.Drawing.Size(411, 20);
-            this.placeHolderTextBox_sobstvennik_avto.TabIndex = 15;
-            this.placeHolderTextBox_sobstvennik_avto.TextColor = System.Drawing.Color.Gray;
+            this.textBox_sobstvennik_avto.Location = new System.Drawing.Point(94, 152);
+            this.textBox_sobstvennik_avto.Name = "textBox_sobstvennik_avto";
+            this.textBox_sobstvennik_avto.Size = new System.Drawing.Size(411, 20);
+            this.textBox_sobstvennik_avto.TabIndex = 178;
             // 
             // Zayavki
             // 
@@ -656,10 +653,10 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button button_vidkripyty;
         private System.Windows.Forms.Button button_cancel;
-        private PlaceHolderTextBox placeHolderTextBox_sobstvennik_avto;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.TextBox textBox_search_by_vin_testing;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.CheckBox checkBox_for_all_time;
+        private System.Windows.Forms.TextBox textBox_sobstvennik_avto;
     }
 }

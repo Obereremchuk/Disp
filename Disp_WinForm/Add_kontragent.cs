@@ -16,6 +16,16 @@ namespace Disp_WinForm
         public Add_kontragent()
         {
             InitializeComponent();
+            init();
+        }
+
+        private void init()
+        {
+            // Строим 
+            this.comboBox_kategory.DataSource = macros.GetData("SELECT * FROM btk.kontragent_type;");
+            this.comboBox_kategory.DisplayMember = "type";
+            this.comboBox_kategory.ValueMember = "idkontragent_type";
+
         }
 
         private void button_add_kontragets_Click(object sender, EventArgs e)
@@ -74,8 +84,8 @@ namespace Disp_WinForm
             else
             { phoneID2 = "1"; }
 
-            macros.sql_command("insert into btk.Kontragenti (Kontragenti_full_name, Kontragenti_short_name, Kontragenti_type_vlastnosti, Kontragenti_rekvezity, Kontragenti_user_creator, Kontragenti_create_datetime, Kontragenti_edit_datetime, Kontragenti_comment, Kontragenticol_kategory, Emails_idEmails, Phonebook_idPhonebook, Users_idUsers_manager, Emails_idEmails1, Phonebook_idPhonebook1, Kontragenticol_misto, Kontragenticol_vulitsa) values('"
-                +textBox_full_name.Text+"','"
+            macros.sql_command("insert into btk.Kontragenti (Kontragenti_full_name, Kontragenti_short_name, Kontragenti_type_vlastnosti, Kontragenti_rekvezity, Kontragenti_user_creator, Kontragenti_create_datetime, Kontragenti_edit_datetime, Kontragenti_comment, Kontragenticol_kategory, Emails_idEmails, Phonebook_idPhonebook, Users_idUsers_manager, Emails_idEmails1, Phonebook_idPhonebook1, Kontragenticol_misto, Kontragenticol_vulitsa, kontragent_type_idkontragent_type ) values('"
+                + textBox_full_name.Text+"','"
                 +textBox_short_name.Text+"','"
                 +comboBox_type_vlastnosti.SelectedItem + "','"
                 +textBox_rekvizity.Text+"','"
@@ -83,14 +93,15 @@ namespace Disp_WinForm
                 +Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss")+"','"
                 +Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss")+"','"
                 +textBox_comment.Text+"','"
-                +comboBox_kategory.SelectedItem+"','"
+                +comboBox_kategory.GetItemText(comboBox_kategory.SelectedItem)+"','"
                 +emailID1+"','"
                 +phoneID1+"','"
                 +"1"+"','"
                 +emailID2+"','"
                 +phoneID2+"','"
                 +comboBox_misto.SelectedItem+"','"
-                +textBox_vulitsa.Text+"');");
+                + comboBox_kategory.SelectedValue + "','"
+                + textBox_vulitsa.Text+"');");
 
             this.Close();
         }

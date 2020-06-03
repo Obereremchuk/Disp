@@ -937,11 +937,13 @@ namespace Disp_WinForm
                     scrollPosition = 0;
                 }
                 dataGridView_dilery.FirstDisplayedScrollingRowIndex = scrollPosition;
+            }
+            if (dataGridView_dilery.Rows.Count >= selectpozition)
+            {
                 dataGridView_dilery.ClearSelection();
                 dataGridView_dilery.Rows[selectpozition].Selected = true;
-
-                
             }
+
         }
         private void UpdateGrid_dilery(DataTable table)
         {
@@ -998,10 +1000,11 @@ namespace Disp_WinForm
                         scrollPosition = 0;
                     }
                     dataGridView_dilery.FirstDisplayedScrollingRowIndex = scrollPosition;
+                }
+                if (dataGridView_dilery.Rows.Count >= selectpozition)
+                {
                     dataGridView_dilery.ClearSelection();
                     dataGridView_dilery.Rows[selectpozition].Selected = true;
-
-                    
                 }
             }
         }
@@ -1172,10 +1175,11 @@ namespace Disp_WinForm
                     scrollPosition = 0;
                 }
                 dataGridView_sales.FirstDisplayedScrollingRowIndex = scrollPosition;
+            }
+            if (dataGridView_sales.Rows.Count >= selectpozition)
+            {
                 dataGridView_sales.ClearSelection();
                 dataGridView_sales.Rows[selectpozition].Selected = true;
-
-                
             }
         }
         private void UpdateGrid_sale(DataTable table)
@@ -1233,10 +1237,11 @@ namespace Disp_WinForm
                         scrollPosition = 0;
                     }
                     dataGridView_sales.FirstDisplayedScrollingRowIndex = scrollPosition;
+                }
+                if (dataGridView_sales.Rows.Count >= selectpozition)
+                {
                     dataGridView_sales.ClearSelection();
                     dataGridView_sales.Rows[selectpozition].Selected = true;
-
-                    
                 }
             }
         }
@@ -1389,18 +1394,7 @@ namespace Disp_WinForm
             DataTable sortedDT = dv.ToTable();
 
             dataGridView_808_n.DataSource = table;
-            ////------------------------------------------
-            //if (dataGridView_808_n.DataSource == null)
-            //{
-            //    dataGridView_808_n.DataSource = table;
-            //}
-            //else
-            //{
-            //    dataGridView_808_n.Refresh();
-            //}
-            ////----------------------------------------------------------------------
 
-            //restote sort
             if (oldColumn != null)
             {
                 DataGridViewColumn newColumn = dataGridView_808_n.Columns[oldColumn.Name.ToString()];
@@ -1417,11 +1411,13 @@ namespace Disp_WinForm
                     scrollPosition = 0;
                 }
                 dataGridView_808_n.FirstDisplayedScrollingRowIndex = scrollPosition;
+            }
+            if (dataGridView_808_n.Rows.Count >= selectpozition)
+            {
                 dataGridView_808_n.ClearSelection();
                 dataGridView_808_n.Rows[selectpozition].Selected = true;
-
-                
             }
+            
         }
         private void UpdateGrid_808(DataTable table)
         {
@@ -1470,16 +1466,7 @@ namespace Disp_WinForm
                                      direction == ListSortDirection.Ascending ?
                                      SortOrder.Ascending : SortOrder.Descending;
                 }
-                ////------------------------------------------
-                //if (dataGridView_808_n.DataSource == null)
-                //{
-                //    dataGridView_808_n.DataSource = table;
-                //}
-                //else
-                //{
-                //    dataGridView_808_n.Refresh();
-                //}
-                ////----------------------------------------------------------------------
+
                 if (dataGridView_808_n.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
                 {
                     if (scrollPosition == -1)
@@ -1487,11 +1474,13 @@ namespace Disp_WinForm
                         scrollPosition = 0;
                     }
                     dataGridView_808_n.FirstDisplayedScrollingRowIndex = scrollPosition;
+                }
+                if (dataGridView_808_n.Rows.Count >= selectpozition)
+                {
                     dataGridView_808_n.ClearSelection();
                     dataGridView_808_n.Rows[selectpozition].Selected = true;
-
-                    
                 }
+                
             }
         }
         private void dataGridView_808_n_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -1655,11 +1644,14 @@ namespace Disp_WinForm
                     scrollPosition = 0;
                 }
                 dataGridView_lost.FirstDisplayedScrollingRowIndex = scrollPosition;
+            }
+            if (dataGridView_lost.Rows.Count >= selectpozition)
+            {
                 dataGridView_lost.ClearSelection();
                 dataGridView_lost.Rows[selectpozition].Selected = true;
-
-                
             }
+            
+
         }
         private void UpdateGrid_lost(DataTable table)
         {
@@ -1716,11 +1708,13 @@ namespace Disp_WinForm
                         scrollPosition = 0;
                     }
                     dataGridView_lost.FirstDisplayedScrollingRowIndex = scrollPosition;
+                }
+                if (dataGridView_lost.Rows.Count >= selectpozition)
+                {
                     dataGridView_lost.ClearSelection();
                     dataGridView_lost.Rows[selectpozition].Selected = true;
-
-                    
                 }
+                
             }
         }
         private void dataGridView_lost_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -1898,12 +1892,12 @@ namespace Disp_WinForm
                     scrollPosition = 0;
                 }
                 dataGridView_909_n.FirstDisplayedScrollingRowIndex = scrollPosition;
+            }
+            if (dataGridView_909_n.Rows.Count >= selectpozition)
+            {
                 dataGridView_909_n.ClearSelection();
                 dataGridView_909_n.Rows[selectpozition].Selected = true;
-
-                
             }
-
         }
         private void UpdateGrid_909(DataTable table)
         {
@@ -1970,8 +1964,12 @@ namespace Disp_WinForm
                     }
                     dataGridView_909_n.FirstDisplayedScrollingRowIndex = scrollPosition;
                 }
-                dataGridView_909_n.ClearSelection();
-                dataGridView_909_n.Rows[selectpozition].Selected = true;
+                if (dataGridView_909_n.Rows.Count >= selectpozition)
+                {
+                    dataGridView_909_n.ClearSelection();
+                    dataGridView_909_n.Rows[selectpozition].Selected = true;
+                }
+                
 
                 
             }
@@ -2114,18 +2112,7 @@ namespace Disp_WinForm
 
 
             dataGridView_open_alarm.DataSource = table;
-            ////------------------------------------------
-            //if (dataGridView_open_alarm.DataSource == null)
-            //{
-            //    dataGridView_open_alarm.DataSource = table;
-            //}
-            //else
-            //{
-            //    dataGridView_open_alarm.Refresh();
-            //}
-            ////----------------------------------------------------------------------
 
-            //restote sort
             if (oldColumn != null)
             {
                 DataGridViewColumn newColumn = dataGridView_open_alarm.Columns[oldColumn.Name.ToString()];
@@ -2142,11 +2129,13 @@ namespace Disp_WinForm
                     scrollPosition = 0;
                 }
                 dataGridView_open_alarm.FirstDisplayedScrollingRowIndex = scrollPosition;
+            }
+            if (dataGridView_open_alarm.Rows.Count >= selectpozition)
+            {
                 dataGridView_open_alarm.ClearSelection();
                 dataGridView_open_alarm.Rows[selectpozition].Selected = true;
-
-                
             }
+            
         }
         private void UpdateGrid_open(DataTable table)
         {
@@ -2182,19 +2171,7 @@ namespace Disp_WinForm
 
 
                 dataGridView_open_alarm.DataSource = table;
-                ////------------------------------------------
-                //if (dataGridView_open_alarm.DataSource == null)
-                //{
-                //    dataGridView_open_alarm.DataSource = table;
-                //}
-                //else
-                //{
-                //    dataGridView_open_alarm.Refresh();
-                //}
-                ////----------------------------------------------------------------------
-                ///
 
-                //restote sort
                 if (oldColumn != null)
                 {
                     DataGridViewColumn newColumn = dataGridView_open_alarm.Columns[oldColumn.Name.ToString()];
@@ -2211,10 +2188,11 @@ namespace Disp_WinForm
                         scrollPosition = 0;
                     }
                     dataGridView_open_alarm.FirstDisplayedScrollingRowIndex = scrollPosition;
+                }
+                if (dataGridView_open_alarm.Rows.Count >= selectpozition)
+                {
                     dataGridView_open_alarm.ClearSelection();
                     dataGridView_open_alarm.Rows[selectpozition].Selected = true;
-
-                    
                 }
             }
         }
@@ -2309,37 +2287,6 @@ namespace Disp_WinForm
         {
 
             DataTable ds_close_alarm = new DataTable();
-            //ds_close_alarm = macros.GetData("SELECT " +
-            //                                        "idnotification, " +
-            //                                        "unit_id, " +
-            //                                        "unit_name, " +
-            //                                        "type_alarm, " +
-            //                                        "product, " +
-            //                                        "speed, " +
-            //                                        "curr_time, " +
-            //                                        "msg_time, " +
-            //                                        "location, " +
-            //                                        "last_location, " +
-            //                                        "btk.notification.time_stamp, " +
-            //                                        "group_alarm, Status, " +
-            //                                        "Users_idUsers, " +
-            //                                        "alarm_locked_user, (" +
-            //                                        "SELECT " +
-            //                                        "username " +
-            //                                        "FROM btk.Users " +
-            //                                        "WHERE " +
-            //                                        "idUsers = btk.notification.Users_idUsers) " +
-            //                                        "FROM btk.notification " +
-            //                                        "WHERE Status = 'Закрито' " +
-            //                                vars_form.hide_group_alarm + "  and btk.notification.unit_name LIKE '%" +
-            //                                search_close_alarm.Text.ToString() + "%' and btk.notification.type_alarm like '%" +
-            //                                comboBox_close_alarm_type.Text.ToString() +
-            //                                "%' and (SELECT username FROM btk.Users WHERE idUsers = btk.notification.Users_idUsers) like '%" +
-            //                                textBox_close_user_chenge.Text.ToString() + "%' AND (btk.notification.time_stamp BETWEEN '" +
-            //                                Convert.ToDateTime(dateTimePicker1.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' AND '" +
-            //                                Convert.ToDateTime(dateTimePicker2.Value).ToString("yyyy-MM-dd HH:mm:ss") +
-            //                                "') order by btk.notification." + vars_form.sort_close + " " + " " +
-            //                                vars_form.order_close_sort + " limit " + textBox_limit_close.Text.ToString() + " ");
 
             ds_close_alarm = macros.GetData("SELECT " +
                                                     "idnotification, " +
@@ -2825,7 +2772,7 @@ namespace Disp_WinForm
             vars_form.id_db_zayavki_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[0].Value.ToString();
             vars_form.id_db_object_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[1].Value.ToString();
             vars_form.id_db_activation_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[2].Value.ToString();
-            vars_form.id_wl_object_for_activation = macros.sql_command("SELECT Object_id_wl FROM btk.Object where idObject = '" + vars_form.id_db_object_for_activation + "';");
+            vars_form.id_wl_object_for_activation = macros.sql_command("select t1.Object_id_wl from btk.Object as t1 inner join btk.testing_object as t2 where t2.idtesting_object = '" + vars_form.id_db_object_for_activation + "' and t1.idObject = t2.Object_idObject;");
             vars_form.if_open_created_activation = 1;
 
             Activation_Form activation_form = new Activation_Form();

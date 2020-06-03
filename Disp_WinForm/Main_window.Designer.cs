@@ -80,6 +80,8 @@
             this.dataGridView_909_n = new System.Windows.Forms.DataGridView();
             this.tabPage_808 = new System.Windows.Forms.TabPage();
             this.dataGridView_808_n = new System.Windows.Forms.DataGridView();
+            this.tabPage_lost = new System.Windows.Forms.TabPage();
+            this.dataGridView_lost = new System.Windows.Forms.DataGridView();
             this.tabPage_p = new System.Windows.Forms.TabPage();
             this.dataGridView_dilery = new System.Windows.Forms.DataGridView();
             this.tabPage_sales = new System.Windows.Forms.TabPage();
@@ -126,8 +128,6 @@
             this.checkBox_vidpra_gmr_police = new System.Windows.Forms.CheckBox();
             this.dateTime_rep_from = new System.Windows.Forms.DateTimePicker();
             this.dateTime_rep_to = new System.Windows.Forms.DateTimePicker();
-            this.tabPage_lost = new System.Windows.Forms.TabPage();
-            this.dataGridView_lost = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.tabControl_testing.SuspendLayout();
@@ -142,6 +142,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_909_n)).BeginInit();
             this.tabPage_808.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_808_n)).BeginInit();
+            this.tabPage_lost.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_lost)).BeginInit();
             this.tabPage_p.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_dilery)).BeginInit();
             this.tabPage_sales.SuspendLayout();
@@ -163,8 +165,6 @@
             this.groupBox8.SuspendLayout();
             this.tabPage_zvit.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.tabPage_lost.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_lost)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -217,6 +217,7 @@
             this.checkBox_hide_groupe_alarm.TabIndex = 4;
             this.checkBox_hide_groupe_alarm.Text = "Сховати";
             this.checkBox_hide_groupe_alarm.UseVisualStyleBackColor = true;
+            this.checkBox_hide_groupe_alarm.Visible = false;
             this.checkBox_hide_groupe_alarm.CheckedChanged += new System.EventHandler(this.checkBox_hide_groupe_alarm_CheckedChanged);
             // 
             // checkBox_sort_order
@@ -229,6 +230,7 @@
             this.checkBox_sort_order.TabIndex = 3;
             this.checkBox_sort_order.Text = "Порядок";
             this.checkBox_sort_order.UseVisualStyleBackColor = true;
+            this.checkBox_sort_order.Visible = false;
             this.checkBox_sort_order.CheckedChanged += new System.EventHandler(this.checkBox_sort_order_CheckedChanged);
             // 
             // comboBox_sort_column
@@ -252,6 +254,7 @@
             this.comboBox_sort_column.Name = "comboBox_sort_column";
             this.comboBox_sort_column.Size = new System.Drawing.Size(121, 21);
             this.comboBox_sort_column.TabIndex = 2;
+            this.comboBox_sort_column.Visible = false;
             this.comboBox_sort_column.SelectedIndexChanged += new System.EventHandler(this.comboBox_sort_column_SelectedIndexChanged);
             // 
             // button_add_alarm
@@ -696,6 +699,35 @@
             this.dataGridView_808_n.TabIndex = 1;
             this.dataGridView_808_n.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_808_n_CellDoubleClick);
             this.dataGridView_808_n.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_808_n_CellFormatting);
+            // 
+            // tabPage_lost
+            // 
+            this.tabPage_lost.Controls.Add(this.dataGridView_lost);
+            this.tabPage_lost.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_lost.Name = "tabPage_lost";
+            this.tabPage_lost.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_lost.Size = new System.Drawing.Size(1362, 627);
+            this.tabPage_lost.TabIndex = 12;
+            this.tabPage_lost.Text = "808_звязок";
+            this.tabPage_lost.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView_lost
+            // 
+            this.dataGridView_lost.AllowUserToAddRows = false;
+            this.dataGridView_lost.AllowUserToDeleteRows = false;
+            this.dataGridView_lost.AllowUserToResizeRows = false;
+            this.dataGridView_lost.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_lost.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView_lost.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView_lost.MultiSelect = false;
+            this.dataGridView_lost.Name = "dataGridView_lost";
+            this.dataGridView_lost.ReadOnly = true;
+            this.dataGridView_lost.RowHeadersVisible = false;
+            this.dataGridView_lost.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView_lost.Size = new System.Drawing.Size(1356, 621);
+            this.dataGridView_lost.TabIndex = 2;
+            this.dataGridView_lost.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_lost_CellDoubleClick);
+            this.dataGridView_lost.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_lost_CellFormatting);
             // 
             // tabPage_p
             // 
@@ -1282,35 +1314,6 @@
             this.dateTime_rep_to.Size = new System.Drawing.Size(192, 20);
             this.dateTime_rep_to.TabIndex = 1;
             // 
-            // tabPage_lost
-            // 
-            this.tabPage_lost.Controls.Add(this.dataGridView_lost);
-            this.tabPage_lost.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_lost.Name = "tabPage_lost";
-            this.tabPage_lost.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_lost.Size = new System.Drawing.Size(1362, 627);
-            this.tabPage_lost.TabIndex = 12;
-            this.tabPage_lost.Text = "808_звязок";
-            this.tabPage_lost.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView_lost
-            // 
-            this.dataGridView_lost.AllowUserToAddRows = false;
-            this.dataGridView_lost.AllowUserToDeleteRows = false;
-            this.dataGridView_lost.AllowUserToResizeRows = false;
-            this.dataGridView_lost.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_lost.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView_lost.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView_lost.MultiSelect = false;
-            this.dataGridView_lost.Name = "dataGridView_lost";
-            this.dataGridView_lost.ReadOnly = true;
-            this.dataGridView_lost.RowHeadersVisible = false;
-            this.dataGridView_lost.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_lost.Size = new System.Drawing.Size(1356, 621);
-            this.dataGridView_lost.TabIndex = 2;
-            this.dataGridView_lost.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_lost_CellDoubleClick);
-            this.dataGridView_lost.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_lost_CellFormatting);
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.tabControl_testing);
@@ -1347,6 +1350,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_909_n)).EndInit();
             this.tabPage_808.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_808_n)).EndInit();
+            this.tabPage_lost.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_lost)).EndInit();
             this.tabPage_p.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_dilery)).EndInit();
             this.tabPage_sales.ResumeLayout(false);
@@ -1374,8 +1379,6 @@
             this.tabPage_zvit.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.tabPage_lost.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_lost)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

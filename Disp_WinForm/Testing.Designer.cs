@@ -69,16 +69,17 @@
             this.textBox_vin = new System.Windows.Forms.TextBox();
             this.comboBox_kuzov_type = new System.Windows.Forms.ComboBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.comboBox_service_button = new System.Windows.Forms.ComboBox();
             this.comboBox_buttons_for_pin = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
             this.comboBox_pin_or_tag = new System.Windows.Forms.ComboBox();
-            this.textBox_service_button = new System.Windows.Forms.TextBox();
             this.textBox_current_pin = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.comboBox_wire_tk = new System.Windows.Forms.ComboBox();
             this.label33 = new System.Windows.Forms.Label();
-            this.textBox_wire_tk = new System.Windows.Forms.TextBox();
             this.textBox_wireless_tk = new System.Windows.Forms.TextBox();
             this.label35 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -107,25 +108,14 @@
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox_dop_1 = new System.Windows.Forms.CheckBox();
-            this.checkBox_test_dop_2 = new System.Windows.Forms.CheckBox();
-            this.checkBox_test_autostart = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.label_arm = new System.Windows.Forms.Label();
             this.label_all_door = new System.Windows.Forms.Label();
             this.label_auth = new System.Windows.Forms.Label();
             this.label_ign = new System.Windows.Forms.Label();
-            this.label_test_dop_1 = new System.Windows.Forms.Label();
-            this.label_test_dop_2 = new System.Windows.Forms.Label();
-            this.label_autstart = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button_autostart_stop = new System.Windows.Forms.Button();
-            this.button_autostart = new System.Windows.Forms.Button();
             this.checkBox_test_koordinati = new System.Windows.Forms.CheckBox();
             this.label_test_address = new System.Windows.Forms.Label();
             this.checkBox_test_du = new System.Windows.Forms.CheckBox();
@@ -140,10 +130,28 @@
             this.button_unblock_engine = new System.Windows.Forms.Button();
             this.button_block_engine = new System.Windows.Forms.Button();
             this.label_test_zablocovano = new System.Windows.Forms.Label();
+            this.checkBox_test_autostart = new System.Windows.Forms.CheckBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button_autostart_stop = new System.Windows.Forms.Button();
+            this.button_autostart = new System.Windows.Forms.Button();
+            this.checkBox_test_dop_2 = new System.Windows.Forms.CheckBox();
+            this.checkBox_dop_1 = new System.Windows.Forms.CheckBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label_autstart = new System.Windows.Forms.Label();
+            this.label_test_dop_2 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.label_test_dop_1 = new System.Windows.Forms.Label();
+            this.label_eng_run = new System.Windows.Forms.Label();
             this.textBox_commets = new System.Windows.Forms.TextBox();
             this.button_cancel = new System.Windows.Forms.Button();
             this.button_write = new System.Windows.Forms.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.tabControl_testing = new System.Windows.Forms.TabControl();
+            this.tabPage_anketa = new System.Windows.Forms.TabPage();
+            this.tabPage_map = new System.Windows.Forms.TabPage();
+            this.geckoWebBrowser_testing = new Gecko.GeckoWebBrowser();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -154,9 +162,12 @@
             this.groupBox9.SuspendLayout();
             this.panel_move_active.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.groupBox8.SuspendLayout();
+            this.tabControl_testing.SuspendLayout();
+            this.tabPage_anketa.SuspendLayout();
+            this.tabPage_map.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBox_test_production_date
@@ -246,6 +257,7 @@
             this.comboBox_ustanoshik_poisk.Text = "Установник-монтажник (ПІБ, телефон)";
             this.comboBox_ustanoshik_poisk.SelectionChangeCommitted += new System.EventHandler(this.comboBox_ustanoshik_poisk_SelectionChangeCommitted);
             this.comboBox_ustanoshik_poisk.TextUpdate += new System.EventHandler(this.comboBox_ustanovshik_poisk_TextUpdate);
+            this.comboBox_ustanoshik_poisk.MouseClick += new System.Windows.Forms.MouseEventHandler(this.comboBox_ustanoshik_poisk_MouseClick);
             // 
             // groupBox1
             // 
@@ -258,7 +270,7 @@
             this.groupBox1.Controls.Add(this.groupBox7);
             this.groupBox1.Controls.Add(this.groupBox6);
             this.groupBox1.Controls.Add(this.groupBox3);
-            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(482, 734);
             this.groupBox1.TabIndex = 66;
@@ -553,10 +565,11 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.label27);
+            this.groupBox7.Controls.Add(this.comboBox_service_button);
             this.groupBox7.Controls.Add(this.comboBox_buttons_for_pin);
             this.groupBox7.Controls.Add(this.label17);
             this.groupBox7.Controls.Add(this.comboBox_pin_or_tag);
-            this.groupBox7.Controls.Add(this.textBox_service_button);
             this.groupBox7.Controls.Add(this.textBox_current_pin);
             this.groupBox7.Controls.Add(this.label16);
             this.groupBox7.Controls.Add(this.label15);
@@ -566,6 +579,29 @@
             this.groupBox7.TabIndex = 120;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Кнопки керування сигналізацією";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(7, 20);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(87, 13);
+            this.label27.TabIndex = 122;
+            this.label27.Text = "Тип авторизації";
+            // 
+            // comboBox_service_button
+            // 
+            this.comboBox_service_button.FormattingEnabled = true;
+            this.comboBox_service_button.Items.AddRange(new object[] {
+            "Кнопка управления передним правым стеклоподъемником (на поднятие стекла), располо" +
+                "женная на обшивке двери водителя",
+            "На руле справа, кнопка : \"ГРОМКОСТЬ -\"",
+            "На руле слева, кнопка : \"ГРОМКОСТЬ -\"",
+            "На руле справа, кнопка : \"CANCEL\""});
+            this.comboBox_service_button.Location = new System.Drawing.Point(105, 43);
+            this.comboBox_service_button.Name = "comboBox_service_button";
+            this.comboBox_service_button.Size = new System.Drawing.Size(366, 21);
+            this.comboBox_service_button.TabIndex = 121;
             // 
             // comboBox_buttons_for_pin
             // 
@@ -609,14 +645,7 @@
             this.comboBox_pin_or_tag.Name = "comboBox_pin_or_tag";
             this.comboBox_pin_or_tag.Size = new System.Drawing.Size(366, 21);
             this.comboBox_pin_or_tag.TabIndex = 12;
-            this.comboBox_pin_or_tag.Text = "Як запрограмована ідентифікація водія. Правильно мітка або PIN";
-            // 
-            // textBox_service_button
-            // 
-            this.textBox_service_button.Location = new System.Drawing.Point(105, 43);
-            this.textBox_service_button.Name = "textBox_service_button";
-            this.textBox_service_button.Size = new System.Drawing.Size(366, 20);
-            this.textBox_service_button.TabIndex = 13;
+            this.comboBox_pin_or_tag.Text = "Мітка або PIN";
             // 
             // textBox_current_pin
             // 
@@ -645,8 +674,8 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.comboBox_wire_tk);
             this.groupBox6.Controls.Add(this.label33);
-            this.groupBox6.Controls.Add(this.textBox_wire_tk);
             this.groupBox6.Controls.Add(this.textBox_wireless_tk);
             this.groupBox6.Controls.Add(this.label35);
             this.groupBox6.Location = new System.Drawing.Point(0, 523);
@@ -655,6 +684,25 @@
             this.groupBox6.TabIndex = 119;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Тривожні кнопки";
+            // 
+            // comboBox_wire_tk
+            // 
+            this.comboBox_wire_tk.FormattingEnabled = true;
+            this.comboBox_wire_tk.Items.AddRange(new object[] {
+            "1. По правую руку водителя над педалью газа",
+            "2. По правую руку водителя, на стыке центральной консоли и панели приборов в углу" +
+                "",
+            "3. По левую руку водителя возле рычага открытия капота",
+            "4. По левую руку водителя возле рычага открытия бензобака",
+            "5. Справа от руля под кнопкой СТАРТ/СТОП",
+            "6. По правую руку водителя, на центральной консоли, под климат контролем в нише с" +
+                "лева",
+            "7. По левую руку водителя возле кнопки регулировки света",
+            "8. На кожухе рулевого колеса, по центру снизу"});
+            this.comboBox_wire_tk.Location = new System.Drawing.Point(105, 18);
+            this.comboBox_wire_tk.Name = "comboBox_wire_tk";
+            this.comboBox_wire_tk.Size = new System.Drawing.Size(366, 21);
+            this.comboBox_wire_tk.TabIndex = 120;
             // 
             // label33
             // 
@@ -665,16 +713,9 @@
             this.label33.TabIndex = 93;
             this.label33.Text = "Дротова";
             // 
-            // textBox_wire_tk
-            // 
-            this.textBox_wire_tk.Location = new System.Drawing.Point(105, 46);
-            this.textBox_wire_tk.Name = "textBox_wire_tk";
-            this.textBox_wire_tk.Size = new System.Drawing.Size(366, 20);
-            this.textBox_wire_tk.TabIndex = 70;
-            // 
             // textBox_wireless_tk
             // 
-            this.textBox_wireless_tk.Location = new System.Drawing.Point(105, 20);
+            this.textBox_wireless_tk.Location = new System.Drawing.Point(105, 45);
             this.textBox_wireless_tk.Name = "textBox_wireless_tk";
             this.textBox_wireless_tk.Size = new System.Drawing.Size(366, 20);
             this.textBox_wireless_tk.TabIndex = 69;
@@ -785,11 +826,12 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.groupBox9);
             this.groupBox2.Controls.Add(this.tableLayoutPanel1);
-            this.groupBox2.Location = new System.Drawing.Point(500, 3);
+            this.groupBox2.Controls.Add(this.groupBox8);
+            this.groupBox2.Controls.Add(this.groupBox9);
+            this.groupBox2.Location = new System.Drawing.Point(504, 9);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(472, 408);
+            this.groupBox2.Size = new System.Drawing.Size(501, 535);
             this.groupBox2.TabIndex = 67;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Тестування";
@@ -800,7 +842,7 @@
             this.groupBox9.Controls.Add(this.comboBox_result);
             this.groupBox9.Location = new System.Drawing.Point(0, 344);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(473, 64);
+            this.groupBox9.Size = new System.Drawing.Size(501, 185);
             this.groupBox9.TabIndex = 91;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Результат тестування";
@@ -854,23 +896,14 @@
             this.tableLayoutPanel1.Controls.Add(this.checkBox2, 0, 7);
             this.tableLayoutPanel1.Controls.Add(this.checkBox3, 0, 8);
             this.tableLayoutPanel1.Controls.Add(this.checkBox4, 0, 9);
-            this.tableLayoutPanel1.Controls.Add(this.checkBox_dop_1, 0, 10);
-            this.tableLayoutPanel1.Controls.Add(this.checkBox_test_dop_2, 0, 11);
-            this.tableLayoutPanel1.Controls.Add(this.checkBox_test_autostart, 0, 12);
             this.tableLayoutPanel1.Controls.Add(this.label8, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.label28, 1, 7);
             this.tableLayoutPanel1.Controls.Add(this.label29, 1, 8);
             this.tableLayoutPanel1.Controls.Add(this.label30, 1, 9);
-            this.tableLayoutPanel1.Controls.Add(this.label9, 1, 10);
-            this.tableLayoutPanel1.Controls.Add(this.label11, 1, 11);
             this.tableLayoutPanel1.Controls.Add(this.label_arm, 2, 6);
             this.tableLayoutPanel1.Controls.Add(this.label_all_door, 2, 7);
             this.tableLayoutPanel1.Controls.Add(this.label_auth, 2, 8);
             this.tableLayoutPanel1.Controls.Add(this.label_ign, 2, 9);
-            this.tableLayoutPanel1.Controls.Add(this.label_test_dop_1, 2, 10);
-            this.tableLayoutPanel1.Controls.Add(this.label_test_dop_2, 2, 11);
-            this.tableLayoutPanel1.Controls.Add(this.label_autstart, 2, 12);
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 12);
             this.tableLayoutPanel1.Controls.Add(this.checkBox_test_koordinati, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label_test_address, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.checkBox_test_du, 0, 5);
@@ -883,9 +916,21 @@
             this.tableLayoutPanel1.Controls.Add(this.label__test_vzlom, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.panel3, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label_test_zablocovano, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.checkBox_test_autostart, 0, 13);
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 13);
+            this.tableLayoutPanel1.Controls.Add(this.checkBox_test_dop_2, 0, 12);
+            this.tableLayoutPanel1.Controls.Add(this.checkBox_dop_1, 0, 11);
+            this.tableLayoutPanel1.Controls.Add(this.label11, 1, 12);
+            this.tableLayoutPanel1.Controls.Add(this.label9, 1, 11);
+            this.tableLayoutPanel1.Controls.Add(this.label_autstart, 2, 13);
+            this.tableLayoutPanel1.Controls.Add(this.label_test_dop_2, 2, 12);
+            this.tableLayoutPanel1.Controls.Add(this.label31, 1, 10);
+            this.tableLayoutPanel1.Controls.Add(this.checkBox5, 0, 10);
+            this.tableLayoutPanel1.Controls.Add(this.label_test_dop_1, 2, 11);
+            this.tableLayoutPanel1.Controls.Add(this.label_eng_run, 2, 10);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 19);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 13;
+            this.tableLayoutPanel1.RowCount = 14;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -899,7 +944,8 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(460, 299);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(489, 322);
             this.tableLayoutPanel1.TabIndex = 66;
             // 
             // checkBox_test_conn
@@ -928,7 +974,7 @@
             this.label_netconn.AutoSize = true;
             this.label_netconn.Location = new System.Drawing.Point(218, 4);
             this.label_netconn.Name = "label_netconn";
-            this.label_netconn.Size = new System.Drawing.Size(238, 13);
+            this.label_netconn.Size = new System.Drawing.Size(267, 13);
             this.label_netconn.TabIndex = 73;
             this.label_netconn.Text = "#";
             this.label_netconn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -950,7 +996,7 @@
             this.label_test_tk.AutoSize = true;
             this.label_test_tk.Location = new System.Drawing.Point(218, 101);
             this.label_test_tk.Name = "label_test_tk";
-            this.label_test_tk.Size = new System.Drawing.Size(238, 13);
+            this.label_test_tk.Size = new System.Drawing.Size(267, 13);
             this.label_test_tk.TabIndex = 9;
             this.label_test_tk.Text = "#";
             this.label_test_tk.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1005,35 +1051,6 @@
             this.checkBox4.TabIndex = 33;
             this.checkBox4.UseVisualStyleBackColor = true;
             // 
-            // checkBox_dop_1
-            // 
-            this.checkBox_dop_1.AutoSize = true;
-            this.checkBox_dop_1.Location = new System.Drawing.Point(4, 227);
-            this.checkBox_dop_1.Name = "checkBox_dop_1";
-            this.checkBox_dop_1.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_dop_1.TabIndex = 34;
-            this.checkBox_dop_1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox_test_dop_2
-            // 
-            this.checkBox_test_dop_2.AutoSize = true;
-            this.checkBox_test_dop_2.Location = new System.Drawing.Point(4, 248);
-            this.checkBox_test_dop_2.Name = "checkBox_test_dop_2";
-            this.checkBox_test_dop_2.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_test_dop_2.TabIndex = 35;
-            this.checkBox_test_dop_2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox_test_autostart
-            // 
-            this.checkBox_test_autostart.AutoSize = true;
-            this.checkBox_test_autostart.Enabled = false;
-            this.checkBox_test_autostart.Location = new System.Drawing.Point(4, 269);
-            this.checkBox_test_autostart.Name = "checkBox_test_autostart";
-            this.checkBox_test_autostart.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_test_autostart.TabIndex = 36;
-            this.checkBox_test_autostart.UseVisualStyleBackColor = true;
-            this.checkBox_test_autostart.CheckedChanged += new System.EventHandler(this.checkBox_test_koordinati_CheckedChanged);
-            // 
             // label8
             // 
             this.label8.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -1078,35 +1095,13 @@
             this.label30.Text = "10. Запалення";
             this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label9
-            // 
-            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(26, 227);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(98, 13);
-            this.label9.TabIndex = 89;
-            this.label9.Text = "11. Доп. Датчик 1";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label11
-            // 
-            this.label11.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(26, 248);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(98, 13);
-            this.label11.TabIndex = 20;
-            this.label11.Text = "12. Доп. Датчик 2";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // label_arm
             // 
             this.label_arm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label_arm.AutoSize = true;
             this.label_arm.Location = new System.Drawing.Point(218, 143);
             this.label_arm.Name = "label_arm";
-            this.label_arm.Size = new System.Drawing.Size(238, 13);
+            this.label_arm.Size = new System.Drawing.Size(267, 13);
             this.label_arm.TabIndex = 90;
             this.label_arm.Text = "#";
             this.label_arm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1117,7 +1112,7 @@
             this.label_all_door.AutoSize = true;
             this.label_all_door.Location = new System.Drawing.Point(218, 164);
             this.label_all_door.Name = "label_all_door";
-            this.label_all_door.Size = new System.Drawing.Size(238, 13);
+            this.label_all_door.Size = new System.Drawing.Size(267, 13);
             this.label_all_door.TabIndex = 90;
             this.label_all_door.Text = "#";
             this.label_all_door.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1128,7 +1123,7 @@
             this.label_auth.AutoSize = true;
             this.label_auth.Location = new System.Drawing.Point(218, 185);
             this.label_auth.Name = "label_auth";
-            this.label_auth.Size = new System.Drawing.Size(238, 13);
+            this.label_auth.Size = new System.Drawing.Size(267, 13);
             this.label_auth.TabIndex = 90;
             this.label_auth.Text = "#";
             this.label_auth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1139,75 +1134,10 @@
             this.label_ign.AutoSize = true;
             this.label_ign.Location = new System.Drawing.Point(218, 206);
             this.label_ign.Name = "label_ign";
-            this.label_ign.Size = new System.Drawing.Size(238, 13);
+            this.label_ign.Size = new System.Drawing.Size(267, 13);
             this.label_ign.TabIndex = 90;
             this.label_ign.Text = "#";
             this.label_ign.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label_test_dop_1
-            // 
-            this.label_test_dop_1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label_test_dop_1.AutoSize = true;
-            this.label_test_dop_1.Location = new System.Drawing.Point(218, 227);
-            this.label_test_dop_1.Name = "label_test_dop_1";
-            this.label_test_dop_1.Size = new System.Drawing.Size(238, 13);
-            this.label_test_dop_1.TabIndex = 90;
-            this.label_test_dop_1.Text = "#";
-            this.label_test_dop_1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label_test_dop_2
-            // 
-            this.label_test_dop_2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label_test_dop_2.AutoSize = true;
-            this.label_test_dop_2.Location = new System.Drawing.Point(218, 248);
-            this.label_test_dop_2.Name = "label_test_dop_2";
-            this.label_test_dop_2.Size = new System.Drawing.Size(238, 13);
-            this.label_test_dop_2.TabIndex = 67;
-            this.label_test_dop_2.Text = "#";
-            this.label_test_dop_2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label_autstart
-            // 
-            this.label_autstart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label_autstart.AutoSize = true;
-            this.label_autstart.Location = new System.Drawing.Point(218, 275);
-            this.label_autstart.Name = "label_autstart";
-            this.label_autstart.Size = new System.Drawing.Size(238, 13);
-            this.label_autstart.TabIndex = 9;
-            this.label_autstart.Text = "#";
-            this.label_autstart.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.panel1.Controls.Add(this.button_autostart_stop);
-            this.panel1.Controls.Add(this.button_autostart);
-            this.panel1.Location = new System.Drawing.Point(26, 269);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(185, 25);
-            this.panel1.TabIndex = 28;
-            // 
-            // button_autostart_stop
-            // 
-            this.button_autostart_stop.Enabled = false;
-            this.button_autostart_stop.Location = new System.Drawing.Point(98, 1);
-            this.button_autostart_stop.Name = "button_autostart_stop";
-            this.button_autostart_stop.Size = new System.Drawing.Size(75, 23);
-            this.button_autostart_stop.TabIndex = 92;
-            this.button_autostart_stop.Text = "АЗ Стоп";
-            this.button_autostart_stop.UseVisualStyleBackColor = true;
-            this.button_autostart_stop.Click += new System.EventHandler(this.button_autostart_stop_Click);
-            // 
-            // button_autostart
-            // 
-            this.button_autostart.Enabled = false;
-            this.button_autostart.Location = new System.Drawing.Point(5, 1);
-            this.button_autostart.Name = "button_autostart";
-            this.button_autostart.Size = new System.Drawing.Size(75, 23);
-            this.button_autostart.TabIndex = 91;
-            this.button_autostart.Text = "АЗ Старт";
-            this.button_autostart.UseVisualStyleBackColor = true;
-            this.button_autostart.Click += new System.EventHandler(this.button_autostart_Click);
             // 
             // checkBox_test_koordinati
             // 
@@ -1225,7 +1155,7 @@
             this.label_test_address.AutoSize = true;
             this.label_test_address.Location = new System.Drawing.Point(218, 25);
             this.label_test_address.Name = "label_test_address";
-            this.label_test_address.Size = new System.Drawing.Size(238, 13);
+            this.label_test_address.Size = new System.Drawing.Size(267, 13);
             this.label_test_address.TabIndex = 26;
             this.label_test_address.Text = "#";
             this.label_test_address.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1278,7 +1208,7 @@
             this.label_test_du.AutoSize = true;
             this.label_test_du.Location = new System.Drawing.Point(218, 122);
             this.label_test_du.Name = "label_test_du";
-            this.label_test_du.Size = new System.Drawing.Size(238, 13);
+            this.label_test_du.Size = new System.Drawing.Size(267, 13);
             this.label_test_du.TabIndex = 6;
             this.label_test_du.Text = "#";
             this.label_test_du.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1310,7 +1240,7 @@
             this.label__test_vzlom.AutoSize = true;
             this.label__test_vzlom.Location = new System.Drawing.Point(218, 80);
             this.label__test_vzlom.Name = "label__test_vzlom";
-            this.label__test_vzlom.Size = new System.Drawing.Size(238, 13);
+            this.label__test_vzlom.Size = new System.Drawing.Size(267, 13);
             this.label__test_vzlom.TabIndex = 91;
             this.label__test_vzlom.Text = "#";
             this.label__test_vzlom.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1351,22 +1281,170 @@
             this.label_test_zablocovano.AutoSize = true;
             this.label_test_zablocovano.Location = new System.Drawing.Point(218, 53);
             this.label_test_zablocovano.Name = "label_test_zablocovano";
-            this.label_test_zablocovano.Size = new System.Drawing.Size(238, 13);
+            this.label_test_zablocovano.Size = new System.Drawing.Size(267, 13);
             this.label_test_zablocovano.TabIndex = 7;
             this.label_test_zablocovano.Text = "#";
             this.label_test_zablocovano.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // checkBox_test_autostart
+            // 
+            this.checkBox_test_autostart.AutoSize = true;
+            this.checkBox_test_autostart.Enabled = false;
+            this.checkBox_test_autostart.Location = new System.Drawing.Point(4, 290);
+            this.checkBox_test_autostart.Name = "checkBox_test_autostart";
+            this.checkBox_test_autostart.Size = new System.Drawing.Size(15, 14);
+            this.checkBox_test_autostart.TabIndex = 36;
+            this.checkBox_test_autostart.UseVisualStyleBackColor = true;
+            this.checkBox_test_autostart.CheckedChanged += new System.EventHandler(this.checkBox_test_koordinati_CheckedChanged);
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.panel1.Controls.Add(this.button_autostart_stop);
+            this.panel1.Controls.Add(this.button_autostart);
+            this.panel1.Location = new System.Drawing.Point(26, 291);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(185, 25);
+            this.panel1.TabIndex = 28;
+            // 
+            // button_autostart_stop
+            // 
+            this.button_autostart_stop.Enabled = false;
+            this.button_autostart_stop.Location = new System.Drawing.Point(98, 1);
+            this.button_autostart_stop.Name = "button_autostart_stop";
+            this.button_autostart_stop.Size = new System.Drawing.Size(75, 23);
+            this.button_autostart_stop.TabIndex = 92;
+            this.button_autostart_stop.Text = "АЗ Стоп";
+            this.button_autostart_stop.UseVisualStyleBackColor = true;
+            this.button_autostart_stop.Click += new System.EventHandler(this.button_autostart_stop_Click);
+            // 
+            // button_autostart
+            // 
+            this.button_autostart.Enabled = false;
+            this.button_autostart.Location = new System.Drawing.Point(5, 1);
+            this.button_autostart.Name = "button_autostart";
+            this.button_autostart.Size = new System.Drawing.Size(75, 23);
+            this.button_autostart.TabIndex = 91;
+            this.button_autostart.Text = "АЗ Старт";
+            this.button_autostart.UseVisualStyleBackColor = true;
+            this.button_autostart.Click += new System.EventHandler(this.button_autostart_Click);
+            // 
+            // checkBox_test_dop_2
+            // 
+            this.checkBox_test_dop_2.AutoSize = true;
+            this.checkBox_test_dop_2.Location = new System.Drawing.Point(4, 269);
+            this.checkBox_test_dop_2.Name = "checkBox_test_dop_2";
+            this.checkBox_test_dop_2.Size = new System.Drawing.Size(15, 14);
+            this.checkBox_test_dop_2.TabIndex = 35;
+            this.checkBox_test_dop_2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_dop_1
+            // 
+            this.checkBox_dop_1.AutoSize = true;
+            this.checkBox_dop_1.Location = new System.Drawing.Point(4, 248);
+            this.checkBox_dop_1.Name = "checkBox_dop_1";
+            this.checkBox_dop_1.Size = new System.Drawing.Size(15, 14);
+            this.checkBox_dop_1.TabIndex = 34;
+            this.checkBox_dop_1.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(26, 269);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(98, 13);
+            this.label11.TabIndex = 20;
+            this.label11.Text = "13. Доп. Датчик 2";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label9
+            // 
+            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(26, 248);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(98, 13);
+            this.label9.TabIndex = 89;
+            this.label9.Text = "12. Доп. Датчик 1";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_autstart
+            // 
+            this.label_autstart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_autstart.AutoSize = true;
+            this.label_autstart.Location = new System.Drawing.Point(218, 297);
+            this.label_autstart.Name = "label_autstart";
+            this.label_autstart.Size = new System.Drawing.Size(267, 13);
+            this.label_autstart.TabIndex = 9;
+            this.label_autstart.Text = "#";
+            this.label_autstart.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_test_dop_2
+            // 
+            this.label_test_dop_2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_test_dop_2.AutoSize = true;
+            this.label_test_dop_2.Location = new System.Drawing.Point(218, 269);
+            this.label_test_dop_2.Name = "label_test_dop_2";
+            this.label_test_dop_2.Size = new System.Drawing.Size(267, 13);
+            this.label_test_dop_2.TabIndex = 67;
+            this.label_test_dop_2.Text = "#";
+            this.label_test_dop_2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label31
+            // 
+            this.label31.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(26, 227);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(107, 13);
+            this.label31.TabIndex = 89;
+            this.label31.Text = "11. Дигун заведено";
+            this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Enabled = false;
+            this.checkBox5.Location = new System.Drawing.Point(4, 227);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(15, 14);
+            this.checkBox5.TabIndex = 33;
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // label_test_dop_1
+            // 
+            this.label_test_dop_1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_test_dop_1.AutoSize = true;
+            this.label_test_dop_1.Location = new System.Drawing.Point(218, 248);
+            this.label_test_dop_1.Name = "label_test_dop_1";
+            this.label_test_dop_1.Size = new System.Drawing.Size(267, 13);
+            this.label_test_dop_1.TabIndex = 90;
+            this.label_test_dop_1.Text = "#";
+            this.label_test_dop_1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_eng_run
+            // 
+            this.label_eng_run.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_eng_run.AutoSize = true;
+            this.label_eng_run.Location = new System.Drawing.Point(218, 227);
+            this.label_eng_run.Name = "label_eng_run";
+            this.label_eng_run.Size = new System.Drawing.Size(267, 13);
+            this.label_eng_run.TabIndex = 90;
+            this.label_eng_run.Text = "#";
+            this.label_eng_run.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // textBox_commets
             // 
             this.textBox_commets.Location = new System.Drawing.Point(10, 19);
             this.textBox_commets.Multiline = true;
             this.textBox_commets.Name = "textBox_commets";
-            this.textBox_commets.Size = new System.Drawing.Size(453, 82);
+            this.textBox_commets.Size = new System.Drawing.Size(485, 82);
             this.textBox_commets.TabIndex = 37;
             // 
             // button_cancel
             // 
-            this.button_cancel.Location = new System.Drawing.Point(898, 720);
+            this.button_cancel.Location = new System.Drawing.Point(930, 717);
             this.button_cancel.Name = "button_cancel";
             this.button_cancel.Size = new System.Drawing.Size(75, 23);
             this.button_cancel.TabIndex = 39;
@@ -1376,7 +1454,7 @@
             // 
             // button_write
             // 
-            this.button_write.Location = new System.Drawing.Point(817, 720);
+            this.button_write.Location = new System.Drawing.Point(849, 717);
             this.button_write.Name = "button_write";
             this.button_write.Size = new System.Drawing.Size(75, 23);
             this.button_write.TabIndex = 38;
@@ -1387,23 +1465,66 @@
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.textBox_commets);
-            this.groupBox8.Location = new System.Drawing.Point(500, 581);
+            this.groupBox8.Location = new System.Drawing.Point(0, 418);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(473, 117);
+            this.groupBox8.Size = new System.Drawing.Size(501, 117);
             this.groupBox8.TabIndex = 68;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Коментар";
+            // 
+            // tabControl_testing
+            // 
+            this.tabControl_testing.Controls.Add(this.tabPage_anketa);
+            this.tabControl_testing.Controls.Add(this.tabPage_map);
+            this.tabControl_testing.Location = new System.Drawing.Point(3, 3);
+            this.tabControl_testing.Name = "tabControl_testing";
+            this.tabControl_testing.SelectedIndex = 0;
+            this.tabControl_testing.Size = new System.Drawing.Size(1023, 779);
+            this.tabControl_testing.TabIndex = 122;
+            // 
+            // tabPage_anketa
+            // 
+            this.tabPage_anketa.Controls.Add(this.groupBox1);
+            this.tabPage_anketa.Controls.Add(this.button_write);
+            this.tabPage_anketa.Controls.Add(this.button_cancel);
+            this.tabPage_anketa.Controls.Add(this.groupBox2);
+            this.tabPage_anketa.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_anketa.Name = "tabPage_anketa";
+            this.tabPage_anketa.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_anketa.Size = new System.Drawing.Size(1015, 753);
+            this.tabPage_anketa.TabIndex = 0;
+            this.tabPage_anketa.Text = "Тестування";
+            this.tabPage_anketa.UseVisualStyleBackColor = true;
+            // 
+            // tabPage_map
+            // 
+            this.tabPage_map.Controls.Add(this.geckoWebBrowser_testing);
+            this.tabPage_map.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_map.Name = "tabPage_map";
+            this.tabPage_map.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_map.Size = new System.Drawing.Size(1015, 753);
+            this.tabPage_map.TabIndex = 1;
+            this.tabPage_map.Text = "Карта";
+            this.tabPage_map.UseVisualStyleBackColor = true;
+            // 
+            // geckoWebBrowser_testing
+            // 
+            this.geckoWebBrowser_testing.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.geckoWebBrowser_testing.FrameEventsPropagateToMainWindow = false;
+            this.geckoWebBrowser_testing.Location = new System.Drawing.Point(0, 0);
+            this.geckoWebBrowser_testing.Name = "geckoWebBrowser_testing";
+            this.geckoWebBrowser_testing.Size = new System.Drawing.Size(1015, 753);
+            this.geckoWebBrowser_testing.TabIndex = 0;
+            this.geckoWebBrowser_testing.UseHttpActivityObserver = false;
             // 
             // Testing
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 749);
-            this.Controls.Add(this.groupBox8);
-            this.Controls.Add(this.button_write);
-            this.Controls.Add(this.button_cancel);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(1024, 785);
+            this.Controls.Add(this.tabControl_testing);
             this.MaximumSize = new System.Drawing.Size(1300, 1000);
             this.Name = "Testing";
             this.Text = "Testing";
@@ -1425,10 +1546,13 @@
             this.panel_move_active.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
+            this.tabControl_testing.ResumeLayout(false);
+            this.tabPage_anketa.ResumeLayout(false);
+            this.tabPage_map.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1462,7 +1586,6 @@
         private System.Windows.Forms.Button button_write;
         private System.Windows.Forms.ComboBox comboBox_pin_or_tag;
         private System.Windows.Forms.CheckBox checkBox_dop_1;
-        private System.Windows.Forms.TextBox textBox_service_button;
         private System.Windows.Forms.TextBox TextBox_device2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label4;
@@ -1523,7 +1646,6 @@
         private System.Windows.Forms.TextBox textBox_CAN_relay_lancug;
         private System.Windows.Forms.TextBox textBox_zvich_relay_place;
         private System.Windows.Forms.TextBox textBox_zvich_relay_lancug;
-        private System.Windows.Forms.TextBox textBox_wire_tk;
         private System.Windows.Forms.TextBox textBox_wireless_tk;
         private System.Windows.Forms.TextBox textBox_vin;
         private System.Windows.Forms.TextBox textBox_licence_plate;
@@ -1550,5 +1672,15 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ComboBox comboBox_wire_tk;
+        private System.Windows.Forms.ComboBox comboBox_service_button;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.Label label_eng_run;
+        private System.Windows.Forms.TabControl tabControl_testing;
+        private System.Windows.Forms.TabPage tabPage_anketa;
+        private System.Windows.Forms.TabPage tabPage_map;
+        private Gecko.GeckoWebBrowser geckoWebBrowser_testing;
     }
 }

@@ -135,7 +135,7 @@ namespace Disp_WinForm
 
 
                 comboBox_date_vipuska_zayavki.SelectedIndex = comboBox_date_vipuska_zayavki.FindStringExact(table.Rows[0][13].ToString());
-                placeHolderTextBox_sobstvennik_avto.Text = table.Rows[0][16].ToString();
+                textBox_sobstvennik_avto.Text = table.Rows[0][16].ToString();
                 textBox_Coments.Text = table.Rows[0][14].ToString();
 
 
@@ -247,17 +247,17 @@ namespace Disp_WinForm
         private void build_list_color()
         {
             // Строим список Продуктов
-            this.comboBox_product_zayavki.DataSource = macros.GetData("SELECT idproducts, full_name FROM btk.products;");
+            this.comboBox_product_zayavki.DataSource = macros.GetData("SELECT idproducts, full_name FROM btk.products order by full_name;");
             this.comboBox_product_zayavki.DisplayMember = "full_name";
             this.comboBox_product_zayavki.ValueMember = "idproducts";
 
             // Строим список брен авто - Имя=бренд, Значение=айди
-            this.comboBox_brand_zayavki.DataSource = macros.GetData("SELECT idTS_brand, TS_brandcol_brand FROM btk.TS_brand;");
+            this.comboBox_brand_zayavki.DataSource = macros.GetData("SELECT idTS_brand, TS_brandcol_brand FROM btk.TS_brand order by TS_brandcol_brand;");
             this.comboBox_brand_zayavki.DisplayMember = "TS_brandcol_brand";
             this.comboBox_brand_zayavki.ValueMember = "idTS_brand";
 
             // Строим список модель авто - Имя=модель, Значение=айди
-            this.comboBox_model_zayavki.DataSource = macros.GetData("SELECT idTS_model, TS_modelcol_name FROM btk.TS_model;");
+            this.comboBox_model_zayavki.DataSource = macros.GetData("SELECT idTS_model, TS_modelcol_name FROM btk.TS_model order by TS_modelcol_name;");
             this.comboBox_model_zayavki.DisplayMember = "TS_modelcol_name";
             this.comboBox_model_zayavki.ValueMember = "idTS_model";
 
@@ -270,7 +270,7 @@ namespace Disp_WinForm
 
         private void comboBox_brand_zayavki_DropDown(object sender, EventArgs e)
         {
-            string sql = string.Format("SELECT TS_brandcol_brand, idTS_brand FROM btk.TS_brand ;");
+            string sql = string.Format("SELECT TS_brandcol_brand, idTS_brand FROM btk.TS_brand order by TS_brandcol_brand;");
             var temp = macros.GetData(sql);
             comboBox_brand_zayavki.DataSource = null;
             comboBox_brand_zayavki.DisplayMember = "TS_brandcol_brand";
@@ -329,6 +329,7 @@ namespace Disp_WinForm
         private void form_Kontragents_zakazchik_deactivated(object sender, FormClosedEventArgs e)
         {
             this.Visible = true;// разблокируем окно контрагентов кактолько закрыто окно добавления контрагента
+            //если окно было вызвано из заполнения поля заказчик то получаем выбранного контрагента
             if (vars_form.select_sto_or_zakazchik_for_zayavki == 0)
             {
                 textBox_kontragent_zakazchik.Text = macros.sql_command("SELECT Kontragenti_full_name FROM btk.Kontragenti where idKontragenti ='" + vars_form.id_kontragent_zakazchik_for_zayavki + "';");
@@ -337,6 +338,14 @@ namespace Disp_WinForm
 
         private void button_create_Click(object sender, EventArgs e)
         {
+            if (textBox_kontragent_zakazchik.Text == "" 
+                || textBox_kontragent_sto_zayavki.Text == "" 
+                || comboBox_product_zayavki.Text == ""
+                || textBox_kontragent_sto_zayavki.Text == "" )
+            {
+                MessageBox.Show("Не заповнені обовязкові поля");
+                return;
+            }
             if (vars_form.if_open_created_zayavka == 1)
             {
                 // insert activation
@@ -388,7 +397,7 @@ namespace Disp_WinForm
                                                         "Zayavkicol_comment = '" + textBox_Coments.Text + "'," +
                                                         "Zayavkicol_edit_timestamp = '" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                                         "testing_object_idtesting_object = '" + idtesting_object + "'," +
-                                                        "Sobstvennik_avto_neme = '" + placeHolderTextBox_sobstvennik_avto.Text + "'," +
+                                                        "Sobstvennik_avto_neme = '" + textBox_sobstvennik_avto.Text + "'," +
                                                         "Kontakt_name_avto_1 = '" + textBox_kont_osoba1.Text + "'," +
                                                         "Kontakt_phone_avto_1 = '" + maskedTextBox_tel1.Text + "'," +
                                                         "Kontakt_name_avto_2 = '" + textBox_kont_osoba2.Text + "'," +
@@ -488,7 +497,7 @@ namespace Disp_WinForm
                                                                         "'" + textBox_Coments.Text + "'," +
                                                                         "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                                                         "'" + idtesting_object + "'," +
-                                                                        "'" + placeHolderTextBox_sobstvennik_avto.Text + "'," +
+                                                                        "'" + textBox_sobstvennik_avto.Text + "'," +
                                                                         "'" + textBox_kont_osoba1.Text + "'," +
                                                                         "'" + maskedTextBox_tel1.Text + "'," +
                                                                         "'" + textBox_kont_osoba2.Text + "'," +

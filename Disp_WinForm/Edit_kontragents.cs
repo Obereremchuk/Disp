@@ -22,7 +22,17 @@ namespace Disp_WinForm
         public Edit_kontragents()
         {
             InitializeComponent();
+            init();
             get_kontragents();
+
+        }
+
+        private void init()
+        {
+            // Строим 
+            this.comboBox_kategory.DataSource = macros.GetData("SELECT * FROM btk.kontragent_type;");
+            this.comboBox_kategory.DisplayMember = "type";
+            this.comboBox_kategory.ValueMember = "idkontragent_type";
 
         }
 
@@ -186,13 +196,14 @@ namespace Disp_WinForm
                 + "Kontragenti_user_creator='"+ vars_form.user_login_id + "',"
                 + "Kontragenti_edit_datetime='"+ Convert.ToDateTime(DateTime.Now).ToString("yyyy -MM-dd HH:mm:ss") + "',"
                 + "Kontragenti_comment='"+ textBox_comment.Text + "',"
-                + "Kontragenticol_kategory='"+ comboBox_kategory.SelectedItem + "',"
+                + "Kontragenticol_kategory='"+ comboBox_kategory.GetItemText(comboBox_kategory.SelectedItem) + "',"
                 + "Emails_idEmails='"+ id_mail1 + "',"
                 + "Phonebook_idPhonebook='"+ id_phon1 + "',"
                 + "Users_idUsers_manager='"+ "1" + "',"
                 + "Emails_idEmails1='"+ id_mail2 + "',"
                 + "Phonebook_idPhonebook1='"+ id_phon2 + "',"
                 + "Kontragenticol_misto='"+ comboBox_misto.SelectedItem + "',"
+                + "kontragent_type_idkontragent_type='" + comboBox_kategory.SelectedValue + "',"
                 + "Kontragenticol_vulitsa='"+ textBox_vulitsa.Text + "' where idKontragenti="+vars_form.btk_idkontragents+";");
 
             this.Close();

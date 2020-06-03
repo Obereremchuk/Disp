@@ -33,12 +33,13 @@
             this.textBox_search_kontragents = new System.Windows.Forms.TextBox();
             this.button_edit_kontragents = new System.Windows.Forms.Button();
             this.dataListView_kontragents = new BrightIdeasSoftware.DataListView();
+            this.comboBox_type_kontragent_filter = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataListView_kontragents)).BeginInit();
             this.SuspendLayout();
             // 
             // button_add_kontragents
             // 
-            this.button_add_kontragents.Location = new System.Drawing.Point(153, 9);
+            this.button_add_kontragents.Location = new System.Drawing.Point(301, 11);
             this.button_add_kontragents.Name = "button_add_kontragents";
             this.button_add_kontragents.Size = new System.Drawing.Size(75, 23);
             this.button_add_kontragents.TabIndex = 1;
@@ -66,7 +67,7 @@
             // 
             // button_edit_kontragents
             // 
-            this.button_edit_kontragents.Location = new System.Drawing.Point(234, 9);
+            this.button_edit_kontragents.Location = new System.Drawing.Point(382, 11);
             this.button_edit_kontragents.Name = "button_edit_kontragents";
             this.button_edit_kontragents.Size = new System.Drawing.Size(75, 23);
             this.button_edit_kontragents.TabIndex = 4;
@@ -91,11 +92,22 @@
             this.dataListView_kontragents.View = System.Windows.Forms.View.Details;
             this.dataListView_kontragents.DoubleClick += new System.EventHandler(this.dataListView_kontragents_DoubleClick);
             // 
+            // comboBox_type_kontragent_filter
+            // 
+            this.comboBox_type_kontragent_filter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_type_kontragent_filter.FormattingEnabled = true;
+            this.comboBox_type_kontragent_filter.Location = new System.Drawing.Point(162, 12);
+            this.comboBox_type_kontragent_filter.Name = "comboBox_type_kontragent_filter";
+            this.comboBox_type_kontragent_filter.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_type_kontragent_filter.TabIndex = 7;
+            this.comboBox_type_kontragent_filter.SelectedIndexChanged += new System.EventHandler(this.comboBox_type_kontragent_filter_SelectedIndexChanged);
+            // 
             // Kontragents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.comboBox_type_kontragent_filter);
             this.Controls.Add(this.dataListView_kontragents);
             this.Controls.Add(this.button_edit_kontragents);
             this.Controls.Add(this.textBox_search_kontragents);
@@ -115,5 +127,6 @@
         private System.Windows.Forms.TextBox textBox_search_kontragents;
         private System.Windows.Forms.Button button_edit_kontragents;
         private BrightIdeasSoftware.DataListView dataListView_kontragents;
+        private System.Windows.Forms.ComboBox comboBox_type_kontragent_filter;
     }
 }

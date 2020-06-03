@@ -215,11 +215,6 @@
             // 
             this.comboBox_kategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_kategory.FormattingEnabled = true;
-            this.comboBox_kategory.Items.AddRange(new object[] {
-            "Диллер/СТО",
-            "СК",
-            "Клієнт",
-            "Постачальник"});
             this.comboBox_kategory.Location = new System.Drawing.Point(123, 191);
             this.comboBox_kategory.Name = "comboBox_kategory";
             this.comboBox_kategory.Size = new System.Drawing.Size(186, 21);

@@ -76,60 +76,61 @@ namespace Disp_WinForm
                 MyWebRequest myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + request);
                 json = myRequest.GetResponse();
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
-                if (test_out.error == 1)
-                {
-                    get_eid_from_token();
-                    myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + request);
-                    json = myRequest.GetResponse();
-                    test_out = JsonConvert.DeserializeObject<RootObject>(json);
-                }
-                //if (test_out.error == 8)
-                //{
-                //    List<Form> openForms = new List<Form>();
-                //    foreach (Form f in System.Windows.Forms.Application.OpenForms)
-                //        openForms.Add(f);
-                //    foreach (Form f in openForms)
-                //    {
-                //        if (f.Name != "Login_Form")
-                //        {
-                //            f.Dispose();
-                //        }
-                //        else
-                //        {
-                //            f.Show();
-                //        }
-                //    }
-
-                //    //если токен истек то необходимо візвать форму повторной авторизации
-                //    //Main_window form = new Main_window();
-                //    //form.Show();
-                //    //this.Hide();
-                //}
-                else if (test_out.error > 1)
-                {
-
-                    vars_form.error = Get_wl_text_error(test_out.error); //Показіваем диалог бокс с ошибкой, преріваем создание
-                    if (!System.Windows.Forms.Application.OpenForms.OfType<Conn_error>().Any())
+                    if (test_out.error == 1)
                     {
-                        Conn_error error_box = new Conn_error();
-                        error_box.Show();
+                        get_eid_from_token();
+                        myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + request);
+                        json = myRequest.GetResponse();
+                        test_out = JsonConvert.DeserializeObject<RootObject>(json);
                     }
-                    return json;
-                }
-                if (test_out.error == 0)
-                {
-                    if (System.Windows.Forms.Application.OpenForms.OfType<Conn_error>().Any())
+                    //if (test_out.error == 8)
+                    //{
+                    //    List<Form> openForms = new List<Form>();
+                    //    foreach (Form f in System.Windows.Forms.Application.OpenForms)
+                    //        openForms.Add(f);
+                    //    foreach (Form f in openForms)
+                    //    {
+                    //        if (f.Name != "Login_Form")
+                    //        {
+                    //            f.Dispose();
+                    //        }
+                    //        else
+                    //        {
+                    //            f.Show();
+                    //        }
+                    //    }
+
+                    //    //если токен истек то необходимо візвать форму повторной авторизации
+                    //    //Main_window form = new Main_window();
+                    //    //form.Show();
+                    //    //this.Hide();
+                    //}
+                    else if (test_out.error > 1)
                     {
-                        Conn_error obj = (Conn_error)System.Windows.Forms.Application.OpenForms["Conn_error"];
-                        obj.Close();
-                        vars_form.error = "";
+
+                        vars_form.error = Get_wl_text_error(test_out.error); //Показіваем диалог бокс с ошибкой, преріваем создание
+                        if (!System.Windows.Forms.Application.OpenForms.OfType<Conn_error>().Any())
+                        {
+                            Conn_error error_box = new Conn_error();
+                            error_box.Show();
+                        }
                         return json;
                     }
-                }
+                    if (test_out.error == 0)
+                    {
+                        if (System.Windows.Forms.Application.OpenForms.OfType<Conn_error>().Any())
+                        {
+                            Conn_error obj = (Conn_error)System.Windows.Forms.Application.OpenForms["Conn_error"];
+                            obj.Close();
+                            vars_form.error = "";
+                            return json;
+                        }
+                    }
                 return json;
             }
             catch(Exception)
             {
+                get_eid_from_token();
                 return json;
             }
         }

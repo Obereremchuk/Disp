@@ -18,11 +18,18 @@ namespace Disp_WinForm
         {
             InitializeComponent();
             Right_set();
+            init();
             Get_kontragents();
-            
         }
 
-        
+        private void init ()
+        {
+            // Строим 
+            this.comboBox_type_kontragent_filter.DataSource = macros.GetData("SELECT * FROM btk.kontragent_type;");
+            this.comboBox_type_kontragent_filter.DisplayMember = "type";
+            this.comboBox_type_kontragent_filter.ValueMember = "idkontragent_type";
+
+        }
 
         private void Right_set()
         {
@@ -36,40 +43,47 @@ namespace Disp_WinForm
 
         private void Get_kontragents()
         {
-            string sql = "";
-            
-            if (vars_form.select_sto_or_zakazchik_for_zayavki == 0)
-            {
-                sql = string.Format("SELECT idKontragenti,  " +
+            string sql = string.Format("SELECT idKontragenti,  " +
                     "Kontragenti_short_name as 'Скорочена назва', " +
                     "Kontragenti_full_name as 'Повна назва', " +
                     "Kontragenticol_misto as 'Місто', " +
                     "Kontragenticol_kategory as 'Категорія' " +
-                    "FROM btk.Kontragenti where (Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%') and (Kontragenticol_kategory like 'СК' or Kontragenticol_kategory like 'Клієнт' ) ;");
-            }
-            else if (vars_form.select_sto_or_zakazchik_for_zayavki == 1)
-            {
-                sql = string.Format("SELECT idKontragenti,  " +
-                    "Kontragenti_short_name as 'Скорочена назва', " +
-                    "Kontragenti_full_name as 'Повна назва', " +
-                    "Kontragenticol_misto as 'Місто', " +
-                    "Kontragenticol_kategory as 'Категорія' " +
-                    "FROM btk.Kontragenti where (Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%') and Kontragenticol_kategory like 'Диллер/СТО';");
-            }
-            else if (vars_form.select_sto_or_zakazchik_for_zayavki == 2)
-            {
-                sql = string.Format("SELECT idKontragenti,  " +
-                    "Kontragenti_short_name as 'Скорочена назва', " +
-                    "Kontragenti_full_name as 'Повна назва', " +
-                    "Kontragenticol_misto as 'Місто', " +
-                    "Kontragenticol_kategory as 'Категорія' " +
-                    "FROM btk.Kontragenti where Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_kategory like 'Замовник' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%';");
-            }
+                    "FROM btk.Kontragenti where (Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%') and (kontragent_type_idkontragent_type = '" + comboBox_type_kontragent_filter.SelectedValue.ToString() + "' ) ;");
 
+            //if (vars_form.select_sto_or_zakazchik_for_zayavki == 0)
+            //{
+
+            //    sql = string.Format("SELECT idKontragenti,  " +
+            //        "Kontragenti_short_name as 'Скорочена назва', " +
+            //        "Kontragenti_full_name as 'Повна назва', " +
+            //        "Kontragenticol_misto as 'Місто', " +
+            //        "Kontragenticol_kategory as 'Категорія' " +
+            //        "FROM btk.Kontragenti where (Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%') and (kontragent_type_idkontragent_type = '"+ comboBox_type_kontragent_filter.SelectedValue.ToString() + "' ) ;");
+            //}
+            //else if (vars_form.select_sto_or_zakazchik_for_zayavki == 1)
+            //{
+            //    sql = string.Format("SELECT idKontragenti,  " +
+            //        "Kontragenti_short_name as 'Скорочена назва', " +
+            //        "Kontragenti_full_name as 'Повна назва', " +
+            //        "Kontragenticol_misto as 'Місто', " +
+            //        "Kontragenticol_kategory as 'Категорія' " +
+            //        "FROM btk.Kontragenti where (Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%') and Kontragenticol_kategory like 'Диллер/СТО';");
+            //}
+            //else if (vars_form.select_sto_or_zakazchik_for_zayavki == 2)
+            //{
+            //    sql = string.Format("SELECT idKontragenti,  " +
+            //        "Kontragenti_short_name as 'Скорочена назва', " +
+            //        "Kontragenti_full_name as 'Повна назва', " +
+            //        "Kontragenticol_misto as 'Місто', " +
+            //        "Kontragenticol_kategory as 'Категорія' " +
+            //        "FROM btk.Kontragenti where Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_kategory like 'Замовник' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%';");
+            //}
+            dataListView_kontragents.BeginUpdate();
             this.dataListView_kontragents.DataSource = macros.GetData(sql);
             dataListView_kontragents.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             dataListView_kontragents.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             dataListView_kontragents.Columns[0].Width = 0;
+            dataListView_kontragents.EndUpdate();
         }
 
         private void button_add_kontragents_Click(object sender, EventArgs e)
@@ -153,6 +167,11 @@ namespace Disp_WinForm
                 
             }
             this.Close();
+        }
+
+        private void comboBox_type_kontragent_filter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Get_kontragents();
         }
     }
 }
