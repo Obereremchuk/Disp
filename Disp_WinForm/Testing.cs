@@ -90,9 +90,9 @@ namespace Disp_WinForm
                 if (table.Rows[0]["testing_objectcol_dop2"].ToString() == "1")
                 { checkBox_test_dop_2.Checked = true; }
 
+
                 if (table.Rows[0]["testing_objectcol_autostart"].ToString() == "1")
                 { checkBox_test_autostart.Checked = true; }
-
 
 
             }
@@ -636,20 +636,20 @@ namespace Disp_WinForm
                                                                + "\"n\":\"3.7 Місце встановлення сервісної кнопки\","
                                                                + "\"v\":\"" + comboBox_service_button.Text.Replace("\"", "%5C%22") + "\"}");
 
-                    // Произвольное поле place wireles tk
+                    // Произвольное поле place wire tk
                 string pp17_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"id\":\"17\","
                                                                + "\"callMode\":\"update\","
                                                                + "\"n\":\"3.8.1 Дротова тривожна кнопка\","
-                                                               + "\"v\":\"" + wireless_tk.Replace("\"", "%5C%22") + "\"}");
-                //Произвольное поле place tk
+                                                               + "\"v\":\"" + wire_tk.Replace("\"", "%5C%22") + "\"}");
+                //Произвольное поле wireless_tk
                 string pp18_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"18\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.8.2 Бездротова тривожна кнопка\","
-                                                              + "\"v\":\"" + wire_tk.Replace("\"", "%5C%22") + "\"}");
+                                                              + "\"v\":\"" + wireless_tk.Replace("\"", "%5C%22") + "\"}");
                 
                 
                 //Произвольное поле  button fo pin
