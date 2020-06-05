@@ -26,7 +26,7 @@ namespace Disp_WinForm
             Xpcom.Initialize(t);
             Gecko.CertOverrideService.GetService().ValidityOverride += geckoWebBrowser1_ValidityOverride;
             wialon_login_form();
-            vars_form.version = "0.828";
+            vars_form.version = "0.830";
             label_Version.Text= "v." + vars_form.version;
         }
 

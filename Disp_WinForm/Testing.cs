@@ -333,7 +333,7 @@ namespace Disp_WinForm
             textBox_CAN_relay_place.Text= db_TS_info.Rows[0]["TS_infocol_can_place_relay"].ToString();
             textBox_CAN_relay_lancug.Text = db_TS_info.Rows[0]["TS_infocol_can_wire_cut"].ToString();
 
-            if (db_TS_info.Rows[0]["TS_infocol_block_prizrak_can"].ToString() == "1")
+            if (db_TS_info.Rows[0]["TS_infocol_block_prizrak_can"] is true)
             { checkBox_block_prizrak_can.Checked = true; }
             else
             { checkBox_block_prizrak_can.Checked = false; }
@@ -487,7 +487,7 @@ namespace Disp_WinForm
                                "TS_infocol_wire_cut='" + MySqlHelper.EscapeString(textBox_zvich_relay_lancug.Text) + "', " +
                                "TS_infocol_can_place_relay='" + MySqlHelper.EscapeString(textBox_CAN_relay_place.Text) + "', " +
                                "TS_infocol_can_wire_cut='" + MySqlHelper.EscapeString(textBox_CAN_relay_lancug.Text) + "', " +
-                               "TS_infocol_block_prizrak_can='" + (checkBox_block_prizrak_can.Checked ? "Так" : "Ні") + "', " +
+                               "TS_infocol_block_prizrak_can='" + (checkBox_block_prizrak_can.Checked ? "1" : "0") + "', " +
                                "TS_infocol_place_tk='" + MySqlHelper.EscapeString(wire_tk) + "', " +
                                "TS_infocol_wireless_tk='" + MySqlHelper.EscapeString(wireless_tk) + "', " +
                                "TS_infocol_place_service_button='" + MySqlHelper.EscapeString(comboBox_service_button.Text) + "', " +

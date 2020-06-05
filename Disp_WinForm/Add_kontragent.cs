@@ -84,7 +84,7 @@ namespace Disp_WinForm
             else
             { phoneID2 = "1"; }
 
-            macros.sql_command("insert into btk.Kontragenti (Kontragenti_full_name, Kontragenti_short_name, Kontragenti_type_vlastnosti, Kontragenti_rekvezity, Kontragenti_user_creator, Kontragenti_create_datetime, Kontragenti_edit_datetime, Kontragenti_comment, Kontragenticol_kategory, Emails_idEmails, Phonebook_idPhonebook, Users_idUsers_manager, Emails_idEmails1, Phonebook_idPhonebook1, Kontragenticol_misto, Kontragenticol_vulitsa, kontragent_type_idkontragent_type ) values('"
+            macros.sql_command("insert into btk.Kontragenti (Kontragenti_full_name, Kontragenti_short_name, Kontragenti_type_vlastnosti, Kontragenti_rekvezity, Kontragenti_user_creator, Kontragenti_create_datetime, Kontragenti_edit_datetime, Kontragenti_comment, Kontragenticol_kategory, Emails_idEmails, Phonebook_idPhonebook, Users_idUsers_manager, Emails_idEmails1, Phonebook_idPhonebook1, Kontragenticol_misto, kontragent_type_idkontragent_type, Kontragenticol_vulitsa ) values('"
                 + textBox_full_name.Text+"','"
                 +textBox_short_name.Text+"','"
                 +comboBox_type_vlastnosti.SelectedItem + "','"

@@ -453,7 +453,7 @@
             this.account_create_button.Name = "account_create_button";
             this.account_create_button.Size = new System.Drawing.Size(275, 37);
             this.account_create_button.TabIndex = 17;
-            this.account_create_button.Text = "Сворити користувача та дозолити перегляд авто ";
+            this.account_create_button.Text = "Створити користувача та дозолити перегляд авто ";
             this.account_create_button.UseVisualStyleBackColor = true;
             this.account_create_button.Click += new System.EventHandler(this.account_create_button_Click);
             // 
