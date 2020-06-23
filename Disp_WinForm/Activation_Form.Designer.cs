@@ -423,6 +423,7 @@
             this.comboBox_activation_result.FormattingEnabled = true;
             this.comboBox_activation_result.Items.AddRange(new object[] {
             "Успішно",
+            "Успішно (PIN)",
             "Незавершено",
             "Інше"});
             this.comboBox_activation_result.Location = new System.Drawing.Point(1060, 446);

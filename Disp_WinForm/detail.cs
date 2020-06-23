@@ -101,11 +101,13 @@ namespace Disp_WinForm
                     {
                         tabControl2.TabPages.Remove(tabPage_dii_z_obectom);
                         tabControl2.TabPages.Remove(tabPage4);
+                        comboBox_otvetstvenniy.Enabled = false;
                     }
                     else if (Convert.ToInt32(user["accsess_lvl"]) <= 7)//danilchenko
                     {
                         tabControl2.TabPages.Remove(tabPage_dii_z_obectom);
                         tabControl2.TabPages.Remove(tabPage4);
+                        comboBox_otvetstvenniy.Enabled = false;
                     }
                     else if (Convert.ToInt32(user["accsess_lvl"]) == 8)//Pustovit
                     {
@@ -122,6 +124,7 @@ namespace Disp_WinForm
                         tabControl2.TabPages.Remove(tabPage_dii_z_obectom);
                         tabControl2.TabPages.Remove(tabPage_edit_client);
                         tabControl2.TabPages.Remove(tabPage4);
+                        comboBox_otvetstvenniy.Enabled = false;
                     }
                     else
                     {
@@ -140,7 +143,7 @@ namespace Disp_WinForm
 
         private void load_vo()
         {
-            string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+            string json = macros.WialonRequest("&svc=core/search_items&params={" +
                                                     "\"spec\":{" +
                                                     "\"itemsType\":\"avl_unit\"," +
                                                     "\"propName\":\"sys_id\"," +
@@ -263,7 +266,28 @@ namespace Disp_WinForm
 
         private void TreeView_zapolnyaem()//Получаем произвольные поля из Виалона и заполняем дерево
         {
-            string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+            TreeNode node1 = new TreeNode("Об'єкт охорони:");
+            treeView_client_info.Nodes.Add(node1);
+            treeView_client_info.Nodes[0].Expand();
+            TreeNode node2 = new TreeNode("Підземні паркінги:");
+            treeView_client_info.Nodes.Add(node2);
+            treeView_client_info.Nodes[1].Expand();
+            TreeNode node3 = new TreeNode("Знаходження в геозонах:");
+            treeView_client_info.Nodes.Add(node3);
+            treeView_client_info.Nodes[2].Expand();
+            TreeNode node4 = new TreeNode("Загальна інформація:");
+            treeView_client_info.Nodes.Add(node4);
+            treeView_client_info.Nodes[3].Expand();
+            TreeNode node5 = new TreeNode("Адміністративні поля:");
+            treeView_client_info.Nodes.Add(node5);
+            treeView_client_info.Nodes[4].Expand();
+            TreeNode node6 = new TreeNode("Про автомобіль:");
+            treeView_client_info.Nodes.Add(node6);
+            treeView_client_info.Nodes[5].Expand();
+            TreeNode node7 = new TreeNode("Знаходится в групах:");
+            treeView_client_info.Nodes.Add(node7);
+
+            string json = macros.WialonRequest ("&svc=core/search_items&params={" +
                                                     "\"spec\":{" +
                                                     "\"itemsType\":\"avl_unit\"," +
                                                     "\"propName\":\"sys_id\"," +
@@ -276,196 +300,216 @@ namespace Disp_WinForm
                                                     "\"from\":\"0\"," +
                                                     "\"to\":\"5\"}");
 
-            var m = JsonConvert.DeserializeObject<RootObject>(json);
-
-            if (m.error != 1)
+            string json5 = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                    "\"spec\":{" +
+                                                    "\"itemsType\":\"avl_unit_group\"," +
+                                                    "\"propName\":\"sys_id\"," +
+                                                    "\"propValueMask\":\"6409,1759,46,7669,7669,1759,7668\", " +
+                                                    "\"sortType\":\"sys_name\"," +
+                                                    "\"or_logic\":\"1\"}," +
+                                                    "\"or_logic\":\"1\"," +
+                                                    "\"force\":\"1\"," +
+                                                    "\"flags\":\"1\"," +
+                                                    "\"from\":\"0\"," +
+                                                    "\"to\":\"0\"}");
+            var m1 = JsonConvert.DeserializeObject<RootObject>(json5);
+            foreach (var items in m1.items)
             {
-                if (m.items.Count == 0)
+                foreach (int units in items.u)
                 {
-
-                }
-                else
-                {
-                    if (m.items[0].flds.Count == 0
-                    ) //Если поля Увага не существует блокируем кнопку изменения этого поля
+                    if (units.ToString() == _search_id)
                     {
-                        button_izmenit_uvaga.Enabled = false;
-                        textBox_Uvaga.Text = "Поля увага не існує!";
-                    }
-
-                    if (m.items[0].flds.Count != 0
-                    ) //Если первое поле не содержит Увага блокируем кнопку изменения этого поля
-                    {
-                        try
-                        {
-                            if (!m.items[0].flds[1].n.Contains("УВАГА"))
-                            {
-                                button_izmenit_uvaga.Enabled = false;
-                                textBox_Uvaga.Text = "Поля увага не існує!";
-                            }
-                        }
-                        catch
-                        {
-                            textBox_Uvaga.Text = "Неможливо відобразити поле Увага";
-                            button_izmenit_uvaga.Enabled = false;
-                        }
-                    }
-                }
-
-                TreeNode node1 = new TreeNode("Об'єкт охорони:");
-                treeView_client_info.Nodes.Add(node1);
-                treeView_client_info.Nodes[0].Expand();
-                TreeNode node2 = new TreeNode("Підземні паркінги:");
-                treeView_client_info.Nodes.Add(node2);
-                treeView_client_info.Nodes[1].Expand();
-                TreeNode node3 = new TreeNode("Знаходження в геозонах:");
-                treeView_client_info.Nodes.Add(node3);
-                treeView_client_info.Nodes[2].Expand();
-                TreeNode node4 = new TreeNode("Загальна інформація:");
-                treeView_client_info.Nodes.Add(node4);
-                treeView_client_info.Nodes[3].Expand();
-                TreeNode node5 = new TreeNode("Адміністративні поля:");
-                treeView_client_info.Nodes.Add(node5);
-                treeView_client_info.Nodes[4].Expand();
-                TreeNode node6 = new TreeNode("Про автомобіль:");
-                treeView_client_info.Nodes.Add(node6);
-                treeView_client_info.Nodes[5].Expand();
-
-                if (m.items.Count != 0)
-                {
-                    foreach (var keyvalue in m.items[0].flds)
-                    {
-
-                        if (keyvalue.Value.n.Contains("0 УВАГА") & !keyvalue.Value.n.Contains("алгоритм"))
-                        {
-                            //treeView_client_info.Nodes[0].Nodes.Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
-                            textBox_Uvaga.Text = keyvalue.Value.v.ToString();
-                        }
-
-                        if (keyvalue.Value.n.Contains("Кодов"))
-                        {
-                            treeView_client_info.Nodes[0].Nodes.Insert(0, (new TreeNode("Кодове слово" + ": " + keyvalue.Value.v.ToString())));
-                        }
-
-                        if (keyvalue.Value.n.Contains(" І Відп"))
-                        {
-                            if (keyvalue.Value.v != "")
-                            {
-                                treeView_client_info.Nodes[0].Nodes
-                                .Add(new TreeNode("ВО1" + ": " + keyvalue.Value.v.ToString()));
-                            }
-                        }
-                        if (keyvalue.Value.n.Contains(" ІІ Відп"))
-                        {
-                            if (keyvalue.Value.v != "")
-                            {
-                                treeView_client_info.Nodes[0].Nodes
-                                .Add(new TreeNode("ВО2" + ": " + keyvalue.Value.v.ToString()));
-                            }
-                        }
-                        if (keyvalue.Value.n.Contains(" ІІІ Відп"))
-                        {
-                            if (keyvalue.Value.v != "")
-                            {
-                                treeView_client_info.Nodes[0].Nodes
-                                .Add(new TreeNode("ВО3" + ": " + keyvalue.Value.v.ToString()));
-                            }
-                        }
-                        if (keyvalue.Value.n.Contains(" ІV Відп"))
-                        {
-                            if (keyvalue.Value.v != "")
-                            {
-                                treeView_client_info.Nodes[0].Nodes
-                                .Add(new TreeNode("ВО4" + ": " + keyvalue.Value.v.ToString()));
-                            }
-                        }
-                        if (keyvalue.Value.n.Contains("ня сервісної"))
-                        {
-                            treeView_client_info.Nodes[0].Nodes
-                                .Add(new TreeNode("Сервісна кнопка" + ": " + keyvalue.Value.v.ToString()));
-                        }
-                        if (keyvalue.Value.n.Contains("Штатні кн"))
-                        {
-                            treeView_client_info.Nodes[0].Nodes
-                                .Add(new TreeNode("Кнопки PIN" + ": " + keyvalue.Value.v.ToString()));
-                        }
-                        if (keyvalue.Value.n.Contains("активації"))
-                        {
-                            treeView_client_info.Nodes[0].Nodes
-                                .Add(new TreeNode("Дата активації" + ": " + keyvalue.Value.v.ToString()));
-                        }
-                        if (keyvalue.Value.n.Contains("овки тривожної"))
-                        {
-                            treeView_client_info.Nodes[0].Nodes
-                                .Add(new TreeNode("Тривожна кнопка" + ": " + keyvalue.Value.v.ToString()));
-                        }
-
-                        treeView_client_info.Nodes[3].Nodes
-                                .Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
-
-                        if (keyvalue.Value.n.Contains("Парк"))
-                        {
-                            if (keyvalue.Value.v != "")
-                            {
-                                treeView_client_info.Nodes[1].Nodes
-                                    .Add(new TreeNode("Паркінг" + ": " + keyvalue.Value.v.ToString()));
-                            }
-                        }
-                    }
-                    treeView_client_info.Nodes[0].Nodes.Insert(0, (new TreeNode("Назва об'єкту: " + m.items[0].nm.ToString())));
-
-                    treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("IMEI: " + m.items[0].uid.ToString()));
-                    treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("SIM: " + m.items[0].ph.ToString()));
-
-
-
-
-                    foreach (var keyvalue in m.items[0].aflds)
-                    {
-                        treeView_client_info.Nodes[4].Nodes
-                            .Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
-                        if (keyvalue.Value.n.Contains("PUK"))
-                        {
-                            treeView_client_info.Nodes[0].Nodes
-                                .Add(new TreeNode("PUK код" + ": " + keyvalue.Value.v.ToString()));
-                        }
-                    }
-
-                    foreach (var keyvalue in m.items[0].pflds)
-                    {
-                        if (keyvalue.Value.n.Contains("vehicle_type"))
-                        {
-                            treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Тип Т/З: " + keyvalue.Value.v.ToString()));
-                        }
-                        else if (keyvalue.Value.n.Contains("vin"))
-                        {
-                            treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("VIN: " + keyvalue.Value.v.ToString()));
-                        }
-                        else if (keyvalue.Value.n.Contains("registration_plate"))
-                        {
-                            treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Державний номер: " + keyvalue.Value.v.ToString()));
-                        }
-                        else if (keyvalue.Value.n.Contains("brand"))
-                        {
-                            treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Марка: " + keyvalue.Value.v.ToString()));
-                        }
-                        else if (keyvalue.Value.n.Contains("model"))
-                        {
-                            treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Модель: " + keyvalue.Value.v.ToString()));
-                        }
-                        else if (keyvalue.Value.n.Contains("year"))
-                        {
-                            treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Рік випуску: " + keyvalue.Value.v.ToString()));
-                        }
-                        else if (keyvalue.Value.n.Contains("color"))
-                        {
-                            treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Колір: " + keyvalue.Value.v.ToString()));
-                        }
+                        treeView_client_info.Nodes[6].Nodes
+                                       .Add(new TreeNode(items.nm));
                     }
                 }
             }
-            treeView_client_info.Nodes[0].Expand();
-            treeView_client_info.Nodes[1].Expand();
+
+
+
+
+            if (json == "")
+            {
+                this.BackColor = Color.Red;
+                return;
+            }
+            else
+            {
+                this.BackColor = Color.Empty;
+                var m = JsonConvert.DeserializeObject<RootObject>(json);
+
+                if (m.error != 1)
+                {
+                    if (m.items.Count == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        if (m.items[0].flds.Count == 0
+                        ) //Если поля Увага не существует блокируем кнопку изменения этого поля
+                        {
+                            button_izmenit_uvaga.Enabled = false;
+                            textBox_Uvaga.Text = "Поля увага не існує!";
+                        }
+
+                        if (m.items[0].flds.Count != 0
+                        ) //Если первое поле не содержит Увага блокируем кнопку изменения этого поля
+                        {
+                            try
+                            {
+                                if (!m.items[0].flds[1].n.Contains("УВАГА"))
+                                {
+                                    button_izmenit_uvaga.Enabled = false;
+                                    textBox_Uvaga.Text = "Поля увага не існує!";
+                                }
+                            }
+                            catch
+                            {
+                                textBox_Uvaga.Text = "Неможливо відобразити поле Увага";
+                                button_izmenit_uvaga.Enabled = false;
+                            }
+                        }
+                    }
+
+                    
+
+                    if (m.items.Count != 0)
+                    {
+                        foreach (var keyvalue in m.items[0].flds)
+                        {
+
+                            if (keyvalue.Value.n.Contains("0 УВАГА") & !keyvalue.Value.n.Contains("алгоритм"))
+                            {
+                                //treeView_client_info.Nodes[0].Nodes.Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
+                                textBox_Uvaga.Text = keyvalue.Value.v.ToString();
+                            }
+
+                            if (keyvalue.Value.n.Contains("Кодов"))
+                            {
+                                treeView_client_info.Nodes[0].Nodes.Insert(0, (new TreeNode("Кодове слово" + ": " + keyvalue.Value.v.ToString())));
+                            }
+
+                            if (keyvalue.Value.n.Contains(" І Відп"))
+                            {
+                                if (keyvalue.Value.v != "")
+                                {
+                                    treeView_client_info.Nodes[0].Nodes
+                                    .Add(new TreeNode("ВО1" + ": " + keyvalue.Value.v.ToString()));
+                                }
+                            }
+                            if (keyvalue.Value.n.Contains(" ІІ Відп"))
+                            {
+                                if (keyvalue.Value.v != "")
+                                {
+                                    treeView_client_info.Nodes[0].Nodes
+                                    .Add(new TreeNode("ВО2" + ": " + keyvalue.Value.v.ToString()));
+                                }
+                            }
+                            if (keyvalue.Value.n.Contains(" ІІІ Відп"))
+                            {
+                                if (keyvalue.Value.v != "")
+                                {
+                                    treeView_client_info.Nodes[0].Nodes
+                                    .Add(new TreeNode("ВО3" + ": " + keyvalue.Value.v.ToString()));
+                                }
+                            }
+                            if (keyvalue.Value.n.Contains(" ІV Відп"))
+                            {
+                                if (keyvalue.Value.v != "")
+                                {
+                                    treeView_client_info.Nodes[0].Nodes
+                                    .Add(new TreeNode("ВО4" + ": " + keyvalue.Value.v.ToString()));
+                                }
+                            }
+                            if (keyvalue.Value.n.Contains("ня сервісної"))
+                            {
+                                treeView_client_info.Nodes[0].Nodes
+                                    .Add(new TreeNode("Сервісна кнопка" + ": " + keyvalue.Value.v.ToString()));
+                            }
+                            if (keyvalue.Value.n.Contains("Штатні кн"))
+                            {
+                                treeView_client_info.Nodes[0].Nodes
+                                    .Add(new TreeNode("Кнопки PIN" + ": " + keyvalue.Value.v.ToString()));
+                            }
+                            if (keyvalue.Value.n.Contains("активації"))
+                            {
+                                treeView_client_info.Nodes[0].Nodes
+                                    .Add(new TreeNode("Дата активації" + ": " + keyvalue.Value.v.ToString()));
+                            }
+                            if (keyvalue.Value.n.Contains("овки тривожної"))
+                            {
+                                treeView_client_info.Nodes[0].Nodes
+                                    .Add(new TreeNode("Тривожна кнопка" + ": " + keyvalue.Value.v.ToString()));
+                            }
+
+                            treeView_client_info.Nodes[3].Nodes
+                                    .Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
+
+                            if (keyvalue.Value.n.Contains("Парк"))
+                            {
+                                if (keyvalue.Value.v != "")
+                                {
+                                    treeView_client_info.Nodes[1].Nodes
+                                        .Add(new TreeNode("Паркінг" + ": " + keyvalue.Value.v.ToString()));
+                                }
+                            }
+                        }
+                        treeView_client_info.Nodes[0].Nodes.Insert(0, (new TreeNode("Назва об'єкту: " + m.items[0].nm.ToString())));
+
+                        treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("IMEI: " + m.items[0].uid.ToString()));
+                        treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("SIM: " + m.items[0].ph.ToString()));
+
+
+
+
+                        foreach (var keyvalue in m.items[0].aflds)
+                        {
+                            treeView_client_info.Nodes[4].Nodes
+                                .Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
+                            if (keyvalue.Value.n.Contains("PUK"))
+                            {
+                                treeView_client_info.Nodes[0].Nodes
+                                    .Add(new TreeNode("PUK код" + ": " + keyvalue.Value.v.ToString()));
+                            }
+                        }
+
+                        foreach (var keyvalue in m.items[0].pflds)
+                        {
+                            if (keyvalue.Value.n.Contains("vehicle_type"))
+                            {
+                                treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Тип Т/З: " + keyvalue.Value.v.ToString()));
+                            }
+                            else if (keyvalue.Value.n.Contains("vin"))
+                            {
+                                treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("VIN: " + keyvalue.Value.v.ToString()));
+                            }
+                            else if (keyvalue.Value.n.Contains("registration_plate"))
+                            {
+                                treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Державний номер: " + keyvalue.Value.v.ToString()));
+                            }
+                            else if (keyvalue.Value.n.Contains("brand"))
+                            {
+                                treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Марка: " + keyvalue.Value.v.ToString()));
+                            }
+                            else if (keyvalue.Value.n.Contains("model"))
+                            {
+                                treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Модель: " + keyvalue.Value.v.ToString()));
+                            }
+                            else if (keyvalue.Value.n.Contains("year"))
+                            {
+                                treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Рік випуску: " + keyvalue.Value.v.ToString()));
+                            }
+                            else if (keyvalue.Value.n.Contains("color"))
+                            {
+                                treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Колір: " + keyvalue.Value.v.ToString()));
+                            }
+                        }
+                    }
+                }
+                treeView_client_info.Nodes[0].Expand();
+                treeView_client_info.Nodes[1].Expand();
+            }
         }
 
         private void mysql_get_group_alarm()//Получаем групированые тривоги для заполнения таблицы
@@ -549,7 +593,7 @@ namespace Disp_WinForm
                                 "" + police + "', " +
                                 "'" + gmr + "'); UPDATE btk.notification SET Status = '" + comboBox_status_trevogi.Text + "', time_stamp = now(), Users_idUsers='" + _user_login_id + "' WHERE idnotification = '" + _id_notif + "'OR group_alarm = '" + _id_notif + "'; ");
 
-            macros.sql_command("update btk.notification set time_stamp='" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "' where idnotification = '" + _id_notif + "';");
+            macros.sql_command("update btk.notification set time_stamp='" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "', otvetstvenniy = '"+comboBox_otvetstvenniy.GetItemText(comboBox_otvetstvenniy.SelectedItem)+"' where idnotification = '" + _id_notif + "';");
 
             mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
 
@@ -751,7 +795,7 @@ namespace Disp_WinForm
         
         private void get_sensor_value()
         {
-            string json2 = macros.wialon_request_new("&svc=core/search_items&params={" +
+            string json2 = macros.WialonRequest("&svc=core/search_items&params={" +
                                                      "\"spec\":{" + 
                                                      "\"itemsType\":\"avl_unit\"," + 
                                                      "\"propName\":\"sys_id\"," + 
@@ -813,7 +857,7 @@ namespace Disp_WinForm
                     string json3;
                     if (checkBox_geozone_all.Checked is true)
                     {
-                        json3 = macros.wialon_request_new("&svc=resource/get_zones_by_point&params={" +
+                        json3 = macros.WialonRequest("&svc=resource/get_zones_by_point&params={" +
                                      "\"spec\":{" +
                                      "\"zoneId\":{" +
                                      "\"28\":[],\"" +
@@ -824,7 +868,7 @@ namespace Disp_WinForm
                     }
                     else
                     {
-                        json3 = macros.wialon_request_new("&svc=resource/get_zones_by_point&params={" +
+                        json3 = macros.WialonRequest("&svc=resource/get_zones_by_point&params={" +
                                      "\"spec\":{" +
                                      "\"zoneId\":{" +
                                      "\"4296\":[] }" + "," +
@@ -834,7 +878,7 @@ namespace Disp_WinForm
                     
 
                     if (!json3.Contains("error"))
-                    { 
+                    {
                         var geozone = JsonConvert.DeserializeObject<Dictionary<int, List<dynamic>>>(json3);
                         label_geozones.Text = "Знаходиться в геозонах:";
                         treeView_client_info.Nodes[2].Nodes.Clear();
@@ -842,7 +886,7 @@ namespace Disp_WinForm
                         {
                             foreach (long value in key.Value)
                             {
-                                string json4 = macros.wialon_request_new("&svc=resource/get_zone_data&params={" +
+                                string json4 = macros.WialonRequest("&svc=resource/get_zone_data&params={" +
                                                                             "\"itemId\":\""+ key.Key +"\"," +
                                                                             "\"col\":[" + value + "]," +
                                                                             "\"flags\":\"28\"}");//
@@ -876,7 +920,7 @@ namespace Disp_WinForm
             if (result == DialogResult.Yes)
             {
 
-                string json2 = macros.wialon_request_new("&svc=unit/exec_cmd&params={" +
+                string json2 = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
                                           "\"itemId\":\"" + _search_id + "\"," + 
                                           "\"commandName\":\"" + listBox_commads_wl.SelectedItem.ToString() + "\"," + 
                                           "\"linkType\":\"tcp\"," + 
@@ -971,7 +1015,7 @@ namespace Disp_WinForm
 
         private void button_izmenit_uvaga_Click(object sender, EventArgs e)
         {
-            string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+            string json = macros.WialonRequest("&svc=core/search_items&params={" +
                                                      "\"spec\":{" + 
                                                      "\"itemsType\":\"avl_unit\"," + 
                                                      "\"propName\":\"sys_id\"," + 
@@ -987,7 +1031,7 @@ namespace Disp_WinForm
             var m = JsonConvert.DeserializeObject<RootObject>(json);
 
 
-            string json2 = macros.wialon_request_new("&svc=item/update_custom_field&params={" +
+            string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
                                                      "\"itemId\":\"" + _search_id + "\"," + 
                                                      "\"id\":\"1\"," + 
                                                      "\"callMode\":\"update\"," +
@@ -1155,6 +1199,24 @@ namespace Disp_WinForm
             
         }
 
+        private void GetUserOtvetstvenyi()
+        {
+            // Строим список тип кузова авто - Имя=кузов, Значение=айди
+            DataTable dt = macros.GetData("SELECT user_id_wl, username FROM btk.Users where State = '1' and (accsess_lvl = '8' or accsess_lvl = '9') order by accsess_lvl;");
+            this.comboBox_otvetstvenniy.DataSource = dt;
+            this.comboBox_otvetstvenniy.DisplayMember = "username";
+            this.comboBox_otvetstvenniy.ValueMember = "user_id_wl";
+
+            DataRow row = dt.NewRow();
+            row[0] = 0;
+            row[1] = "";
+            dt.Rows.InsertAt(row, 0);
+
+
+            string t = macros.sql_command("SELECT otvetstvenniy FROM btk.notification where idnotification = '" + _id_notif + "';");
+            comboBox_otvetstvenniy.SelectedIndex = comboBox_otvetstvenniy.FindStringExact(t);
+        }
+
         private void detail_Load(object sender, EventArgs e)
         {
             get_remaynder();
@@ -1166,12 +1228,13 @@ namespace Disp_WinForm
             get_close_object_data();
             //task();
             get_sensor_value();
+            GetUserOtvetstvenyi();
             //start mini map
             try
             {
                 //geckoWebBrowser1.Navigate("http://10.44.30.32/disp_app/HTMLPage_map.html?foo=" + _search_id);
 
-                string json = macros.wialon_request_new("&svc=token/update&params={" +
+                string json = macros.WialonRequestSimple("&svc=token/update&params={" +
                                                     "\"callMode\":\"create\"," +
                                                     "\"app\":\"locator\"," +
                                                     "\"at\":\"0\"," +
@@ -1180,6 +1243,7 @@ namespace Disp_WinForm
                                                     "\"p\":\"{" + "\\" + "\"sensorMasks" + "\\" + "\"" + ":[" + "\\" + "\"*" + "\\" + "\"]," + "\\" + "\"note" + "\\" + "\"" + ":" + "\\" + "\""+ vars_form.unit_name + "" + "\\" + "\"," + "\\" + "\"zones" + "\\" + "\"" + ":" + "\\" + "\"1" + "\\" + "\"," + "\\" + "\"tracks" + "\\" + "\"" + ":" + "\\" + "\"1" + "\\" + "\"" + "}\"," +
                                                     "\"items\":["+ _search_id +"]" +
                                                     "}");
+
                 var m = JsonConvert.DeserializeObject<locator>(json);
 
                 string locator_url = "https://navi.venbest.com.ua/locator/index.html?t=" + m.h;
@@ -1308,7 +1372,7 @@ namespace Disp_WinForm
         private void button_vo_save_Click(object sender, EventArgs e)
         {
             //Загружаем произвольные поля объекта
-            string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+            string json = macros.WialonRequest("&svc=core/search_items&params={" +
                                                      "\"spec\":{" +
                                                      "\"itemsType\":\"avl_unit\"," +
                                                      "\"propName\":\"sys_id\"," +
@@ -1332,7 +1396,7 @@ namespace Disp_WinForm
                     if (keyvalue.Value.v != kodove_slovo_textBox.Text)
                     {
                         //Chenge feild Кодове слово
-                        string json2 = macros.wialon_request_new("&svc=item/update_custom_field&params={" +
+                        string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
                                                              "\"itemId\":\"" + wl_id + "\"," +
                                                              "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                              "\"callMode\":\"update\"," +
@@ -1350,7 +1414,7 @@ namespace Disp_WinForm
                             //Chenge feild ВО1
                             macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + id_db_obj + "','" + vars_form.transfer_vo1_vo_form + "','1','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
                         }
-                        string json2 = macros.wialon_request_new("&svc=item/update_custom_field&params={" +
+                        string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
                                                              "\"itemId\":\"" + wl_id + "\"," +
                                                              "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                              "\"callMode\":\"update\"," +
@@ -1369,7 +1433,7 @@ namespace Disp_WinForm
                             macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + id_db_obj + "','" + vars_form.transfer_vo2_vo_form + "','2','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
                         }
 
-                        string json2 = macros.wialon_request_new("&svc=item/update_custom_field&params={" +
+                        string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
                                                              "\"itemId\":\"" + wl_id + "\"," +
                                                              "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                              "\"callMode\":\"update\"," +
@@ -1387,7 +1451,7 @@ namespace Disp_WinForm
                             //Chenge feild ВО3
                             macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + id_db_obj + "','" + vars_form.transfer_vo3_vo_form + "','3','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
                         }
-                        string json2 = macros.wialon_request_new("&svc=item/update_custom_field&params={" +
+                        string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
                                                              "\"itemId\":\"" + wl_id + "\"," +
                                                              "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                              "\"callMode\":\"update\"," +
@@ -1404,7 +1468,7 @@ namespace Disp_WinForm
         {
             if (email_textBox.Text != "")
             {
-                string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+                string json = macros.WialonRequest("&svc=core/search_items&params={" +
                                                         "\"spec\":{" +
                                                         "\"itemsType\":\"user\"," +
                                                         "\"propName\":\"sys_name\"," +
@@ -1467,7 +1531,7 @@ namespace Disp_WinForm
             //vars_form.id_object_for_activation = "1098";
 
 
-            string json = macros.wialon_request_new("&svc=core/check_accessors&params={" +
+            string json = macros.WialonRequest("&svc=core/check_accessors&params={" +
                                                     "\"items\":[\"" + wl_id + "\"]," +
                                                     "\"flags\":\"1\"}");//Получаем айди всех елементов у которых есть доступ к данному объекту            
 
@@ -1498,7 +1562,7 @@ namespace Disp_WinForm
                 //openWith1.Add("dacl", dacl);
                 //openWith.Add(nm, openWith1);
             }// стрим список айди в один запрос 
-            string json2 = macros.wialon_request_new("&svc=core/search_items&params={" +
+            string json2 = macros.WialonRequest("&svc=core/search_items&params={" +
                                                      "\"spec\":{" +
                                                      "\"itemsType\":\"\"," +
                                                      "\"propName\":\"sys_id\"," +
@@ -1531,7 +1595,7 @@ namespace Disp_WinForm
                         treeView_user_accounts.Nodes[0].Nodes[tree_index].NodeFont = boldFont;
 
 
-                        string json1 = macros.wialon_request_new("&svc=core/search_items&params={" +
+                        string json1 = macros.WialonRequest("&svc=core/search_items&params={" +
                                                                  "\"spec\":{" +
                                                                  "\"itemsType\":\"user\"," +
                                                                  "\"propName\":\"sys_name\"," +
@@ -1543,7 +1607,7 @@ namespace Disp_WinForm
                                                                  "\"from\":\"0\"," +
                                                                  "\"to\":\"0\"}"); //запрашиваем все елементі с искомім имайлом
                         var m1 = JsonConvert.DeserializeObject<RootObject>(json1);
-                        string json3 = macros.wialon_request_new("&svc=user/get_items_access&params={" +
+                        string json3 = macros.WialonRequest("&svc=user/get_items_access&params={" +
                                                                  "\"userId\":\"" + m1.items[0].id + "\"," +
                                                                  "\"directAccess\":\"true\"," +
                                                                  "\"itemSuperclass\":\"avl_unit\"," +
@@ -1555,7 +1619,7 @@ namespace Disp_WinForm
                             d = d + "," + kvp.Key;
                         }
 
-                        string json4 = macros.wialon_request_new("&svc=core/search_items&params={" +
+                        string json4 = macros.WialonRequest("&svc=core/search_items&params={" +
                                                                  "\"spec\":{" +
                                                                  "\"itemsType\":\"avl_unit\"," +
                                                                  "\"propName\":\"sys_id\"," +
@@ -1634,7 +1698,7 @@ namespace Disp_WinForm
 
 
                     // cteate new user 
-                    string created_user_answer = macros.wialon_request_new("&svc=core/create_user&params={" +
+                    string created_user_answer = macros.WialonRequest("&svc=core/create_user&params={" +
                                                             "\"creatorId\":\"" + vars_form.wl_user_id + "\"," +
                                                             "\"name\":\"" + email_textBox.Text + "\"," +
                                                             "\"password\":\"" + pass + "\"," +
@@ -1642,7 +1706,7 @@ namespace Disp_WinForm
                     var created_user_data = JsonConvert.DeserializeObject<RootObject>(created_user_answer);
 
                     // create resours name: newuser
-                    string created_resource_answer = macros.wialon_request_new("&svc=core/create_resource&params={" +
+                    string created_resource_answer = macros.WialonRequest("&svc=core/create_resource&params={" +
                                                             "\"creatorId\":\"" + created_user_data.item.id + "\"," +
                                                             "\"name\":\"" + email_textBox.Text + "\"," +
                                                             "\"dataFlags\":\"1\"," +
@@ -1650,7 +1714,7 @@ namespace Disp_WinForm
                     var created_resource_data = JsonConvert.DeserializeObject<RootObject>(created_resource_answer);
 
                     // create resours name: newuser_user
-                    string created_resource_user_answer = macros.wialon_request_new("&svc=core/create_resource&params={" +
+                    string created_resource_user_answer = macros.WialonRequest("&svc=core/create_resource&params={" +
                                                              "\"creatorId\":\"" + created_user_data.item.id + "\"," +
                                                              "\"name\":\"" + email_textBox.Text + "_user" + "\"," +
                                                              "\"dataFlags\":\"1\"," +
@@ -1659,7 +1723,7 @@ namespace Disp_WinForm
 
 
                     //Доступ на объект for nwe user
-                    string set_right_object_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                    string set_right_object_answer = macros.WialonRequest("&svc=user/update_item_access&params={" +
                                                             "\"userId\":\"" + created_user_data.item.id + "\"," +
                                                             "\"itemId\":\"" + wl_id + "\"," +
                                                             "\"accessMask\":\"550611455877‬\"}");
@@ -1674,21 +1738,21 @@ namespace Disp_WinForm
                         {
 
                             //set full Accsess client account for workuser 
-                            string set_right_user_suport_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                            string set_right_user_suport_answer = macros.WialonRequest("&svc=user/update_item_access&params={" +
                                                                      "\"userId\":\"" + workuser[0].ToString() + "\"," +
                                                                      "\"itemId\":\"" + created_user_data.item.id + "\"," +
                                                                      "\"accessMask\":\"-1\"}");
                             var set_right_user_suport_ = JsonConvert.DeserializeObject<RootObject>(set_right_user_suport_answer);
 
                             //set full Accsess client resourse "username" for workuser 
-                            string set_right_resource_support_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                            string set_right_resource_support_answer = macros.WialonRequest("&svc=user/update_item_access&params={" +
                                                                      "\"userId\":\"" + workuser[0].ToString() + "\"," +
                                                                      "\"itemId\":\"" + created_resource_data.item.id + "\"," +
                                                                      "\"accessMask\":\"-1\"}");
                             var set_right_resourc_support = JsonConvert.DeserializeObject<RootObject>(set_right_resource_support_answer);
 
                             //set full Accsess client resourse "username.._user" for workuser 
-                            string set_right_resource_user_support_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                            string set_right_resource_user_support_answer = macros.WialonRequest("&svc=user/update_item_access&params={" +
                                                                      "\"userId\":\"" + workuser[0].ToString() + "\"," +
                                                                      "\"itemId\":\"" + created_resource_user_data.item.id + "\"," +
                                                                      "\"accessMask\":\"-1\"}");
@@ -1701,14 +1765,14 @@ namespace Disp_WinForm
                     }
 
                     //Доступ на ресурс: username
-                    string set_right_resource_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                    string set_right_resource_answer = macros.WialonRequest("&svc=user/update_item_access&params={" +
                                                              "\"userId\":\"" + created_user_data.item.id + "\"," +
                                                              "\"itemId\":\"" + created_resource_data.item.id + "\"," +
                                                              "\"accessMask\":\"4648339329\"}");
                     var set_right_resource = JsonConvert.DeserializeObject<RootObject>(set_right_resource_answer);
 
                     //Доступ на ресурс: username_user
-                    string set_right_resource_user_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                    string set_right_resource_user_answer = macros.WialonRequest("&svc=user/update_item_access&params={" +
                                                              "\"userId\":\"" + created_user_data.item.id + "\"," +
                                                              "\"itemId\":\"" + created_resource_user_data.item.id + "\"," +
                                                              "\"accessMask\":\"52785134440321\"}");
@@ -1762,7 +1826,7 @@ namespace Disp_WinForm
             DialogResult dialogResult = MessageBox.Show("Надати авто в доступ: " + email_textBox.Text + "?", "Дозволити?", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                string user_data_answer = macros.wialon_request_new("&svc=core/search_items&params={" +
+                string user_data_answer = macros.WialonRequest("&svc=core/search_items&params={" +
                                                          "\"spec\":{" +
                                                          "\"itemsType\":\"user\"," +
                                                          "\"propName\":\"sys_name\"," +
@@ -1777,7 +1841,7 @@ namespace Disp_WinForm
 
                 ///////////
                 //Доступ на объект
-                string set_object_accsess_answer = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                string set_object_accsess_answer = macros.WialonRequest("&svc=user/update_item_access&params={" +
                                                          "\"userId\":\"" + user_data.items[0].id + "\"," +
                                                          "\"itemId\":\"" + wl_id + "\"," +
                                                          "\"accessMask\":\"550611455877\"}");
@@ -1845,7 +1909,7 @@ namespace Disp_WinForm
         private void create_notif_910(string user_account_name, int user_account_id, string object_id, int resours_id, int resours_user_id)
         {
             //Cработка: Датчик удара/наклона/буксировки
-            string CreteNotifAnswer = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+            string CreteNotifAnswer = macros.WialonRequest("&svc=resource/update_notification&params={" +
                                                             "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
                                                             "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
@@ -1928,7 +1992,7 @@ namespace Disp_WinForm
                                                     );
 
             //Блокировка двигателя
-            string CreteNotifAnswer2 = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+            string CreteNotifAnswer2 = macros.WialonRequest("&svc=resource/update_notification&params={" +
                                                             "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
                                                             "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
@@ -2011,7 +2075,7 @@ namespace Disp_WinForm
                                                     );
 
             //Низкое напряжения АКБ
-            string CreteNotifAnswer3 = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+            string CreteNotifAnswer3 = macros.WialonRequest("&svc=resource/update_notification&params={" +
                                                             "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
                                                             "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
@@ -2094,7 +2158,7 @@ namespace Disp_WinForm
                                                     );
 
             //Сработка: Датчики взлома
-            string CreteNotifAnswer4 = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+            string CreteNotifAnswer4 = macros.WialonRequest("&svc=resource/update_notification&params={" +
                                                             "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
                                                             "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
@@ -2179,7 +2243,7 @@ namespace Disp_WinForm
 
 
             //Сработка: Датчики взлома
-            string CreteNotifAnswer5 = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+            string CreteNotifAnswer5 = macros.WialonRequest("&svc=resource/update_notification&params={" +
                                                             "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
                                                             "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
@@ -2262,7 +2326,7 @@ namespace Disp_WinForm
                                                     );
 
             //Сработка датчика глушения
-            string CreteNotifAnswer6 = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+            string CreteNotifAnswer6 = macros.WialonRequest("&svc=resource/update_notification&params={" +
                                                             "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
                                                             "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
@@ -2350,7 +2414,7 @@ namespace Disp_WinForm
         private void create_notif_730(string user_account_name, int user_account_id, string object_id, int resours_id, int resours_user_id)
         {
             //Cработка: Датчик удара/наклона/буксировки
-            string CreteNotifAnswer = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+            string CreteNotifAnswer = macros.WialonRequest("&svc=resource/update_notification&params={" +
                                                             "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
                                                             "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
@@ -2433,7 +2497,7 @@ namespace Disp_WinForm
                                                     );
 
             //Блокировка двигателя
-            string CreteNotifAnswer2 = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+            string CreteNotifAnswer2 = macros.WialonRequest("&svc=resource/update_notification&params={" +
                                                             "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
                                                             "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
@@ -2516,7 +2580,7 @@ namespace Disp_WinForm
                                                     );
 
             //Низкое напряжения АКБ
-            string CreteNotifAnswer3 = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+            string CreteNotifAnswer3 = macros.WialonRequest("&svc=resource/update_notification&params={" +
                                                             "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
                                                             "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
@@ -2599,7 +2663,7 @@ namespace Disp_WinForm
                                                     );
 
             //Сработка: Датчики взлома
-            string CreteNotifAnswer4 = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+            string CreteNotifAnswer4 = macros.WialonRequest("&svc=resource/update_notification&params={" +
                                                             "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
                                                             "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
@@ -2682,7 +2746,7 @@ namespace Disp_WinForm
                                                     );
 
             //Сработка: ТРЕВОЖНАЯ КНОПКА
-            string CreteNotifAnswer5 = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+            string CreteNotifAnswer5 = macros.WialonRequest("&svc=resource/update_notification&params={" +
                                                             "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
                                                             "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
@@ -2801,7 +2865,7 @@ namespace Disp_WinForm
                     }
                     //---------------------------------------------------------------
 
-                    string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+                    string json = macros.WialonRequest("&svc=core/search_items&params={" +
                                                             "\"spec\":{" +
                                                             "\"itemsType\":\"user\"," +
                                                             "\"propName\":\"sys_name\"," +
@@ -2814,7 +2878,7 @@ namespace Disp_WinForm
                                                             "\"to\":\"0\"}"); //запрашиваем все елементі с искомім имайлом
                     var m = JsonConvert.DeserializeObject<RootObject>(json);
 
-                    string json1 = macros.wialon_request_new("&svc=user/update_password&params={" +
+                    string json1 = macros.WialonRequest("&svc=user/update_password&params={" +
                                                              "\"userId\":\"" + m.items[0].id + "\"," +
                                                              "\"oldPassword\":\"\"," +
                                                              "\"newPassword\":\"" + pass + "\"}");
@@ -2846,7 +2910,7 @@ namespace Disp_WinForm
                 DialogResult dialogResult = MessageBox.Show("Відключити користувача", "Відключити?", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+                    string json = macros.WialonRequest("&svc=core/search_items&params={" +
                                                             "\"spec\":{" +
                                                             "\"itemsType\":\"user\"," +
                                                             "\"propName\":\"sys_name\"," +
@@ -2859,7 +2923,7 @@ namespace Disp_WinForm
                                                             "\"to\":\"0\"}"); //запрашиваем все елементі с искомім имайлом
                     var m = JsonConvert.DeserializeObject<RootObject>(json);
 
-                    string json2 = macros.wialon_request_new("&svc=user/update_user_flags&params={" +
+                    string json2 = macros.WialonRequest("&svc=user/update_user_flags&params={" +
                                                     "\"userId\":\"" + m.items[0].id + "\"," +
                                                     "\"flags\":\"1\"," +
                                                     "\"flagsMask\":\"1\"}");
@@ -2887,7 +2951,7 @@ namespace Disp_WinForm
                 DialogResult dialogResult = MessageBox.Show("Включити користувача", "Включити?", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+                    string json = macros.WialonRequest("&svc=core/search_items&params={" +
                                                             "\"spec\":{" +
                                                             "\"itemsType\":\"user\"," +
                                                             "\"propName\":\"sys_name\"," +
@@ -2900,7 +2964,7 @@ namespace Disp_WinForm
                                                             "\"to\":\"0\"}"); //запрашиваем все елементі с искомім имайлом
                     var m = JsonConvert.DeserializeObject<RootObject>(json);
 
-                    string json2 = macros.wialon_request_new("&svc=user/update_user_flags&params={" +
+                    string json2 = macros.WialonRequest("&svc=user/update_user_flags&params={" +
                                                     "\"userId\":\"" + m.items[0].id + "\"," +
                                                     "\"flags\":\"0\"," +
                                                     "\"flagsMask\":\"1\"}");
@@ -2938,7 +3002,7 @@ namespace Disp_WinForm
                     if (dialogResult == DialogResult.Yes)
                     {
                         //get user data
-                        string UserDataAnswer = macros.wialon_request_new("&svc=core/search_items&params={" +
+                        string UserDataAnswer = macros.WialonRequest("&svc=core/search_items&params={" +
                                                                 "\"spec\":{" +
                                                                 "\"itemsType\":\"user\"," +
                                                                 "\"propName\":\"sys_name\"," +
@@ -2952,7 +3016,7 @@ namespace Disp_WinForm
                         var UserData = JsonConvert.DeserializeObject<RootObject>(UserDataAnswer);
 
                         //get resource data
-                        string ResourceDataAnswer = macros.wialon_request_new("&svc=core/search_items&params={" +
+                        string ResourceDataAnswer = macros.WialonRequest("&svc=core/search_items&params={" +
                                                                 "\"spec\":{" +
                                                                 "\"itemsType\":\"avl_resource\"," +
                                                                 "\"propName\":\"sys_name\"," +
@@ -2983,7 +3047,7 @@ namespace Disp_WinForm
 
                         ///////////
                         //Доступ на объект
-                        string json4 = macros.wialon_request_new("&svc=user/update_item_access&params={" +
+                        string json4 = macros.WialonRequest("&svc=user/update_item_access&params={" +
                                                                  "\"userId\":\"" + UserData.items[0].id + "\"," +
                                                                  "\"itemId\":\"" + wl_id + "\"," +
                                                                  "\"accessMask\":\"0\"}");
@@ -3022,7 +3086,7 @@ namespace Disp_WinForm
                     DialogResult dialogResult = MessageBox.Show("Видалити кабінет: " + treeView_user_accounts.SelectedNode.Text + "", "Видалити?", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
-                        string json1 = macros.wialon_request_new("&svc=core/search_items&params={" +
+                        string json1 = macros.WialonRequest("&svc=core/search_items&params={" +
                                                              "\"spec\":{" +
                                                              "\"itemsType\":\"\"," +
                                                              "\"propName\":\"sys_name\"," +
@@ -3041,7 +3105,7 @@ namespace Disp_WinForm
                             {
                                 if (t.cls == 3)
                                 {
-                                    string json2 = macros.wialon_request_new("&svc=item/delete_item&params={" +
+                                    string json2 = macros.WialonRequest("&svc=item/delete_item&params={" +
                                                                              "\"itemId\":\"" + t.id + "\"}");
                                 }
                             }//удаляем сначала все ресурсы cls=3
@@ -3050,7 +3114,7 @@ namespace Disp_WinForm
                             {
                                 if (t.cls == 1)
                                 {
-                                    string json2 = macros.wialon_request_new("&svc=item/delete_item&params={" +
+                                    string json2 = macros.WialonRequest("&svc=item/delete_item&params={" +
                                                                              "\"itemId\":\"" + t.id + "\"}");
                                 }
                             }// После пользователя.cls=1
@@ -3092,7 +3156,7 @@ namespace Disp_WinForm
         // Delete notif for needed resource
         private string delete_notif(int resours_id, int notif_id)
         {
-            string CreteNotifAnswer = macros.wialon_request_new("&svc=resource/update_notification&params={" +
+            string CreteNotifAnswer = macros.WialonRequest("&svc=resource/update_notification&params={" +
                                                             "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
                                                             "\"id\":\"" + notif_id + "\"," +                                                   /* ID уведомления (0 для создания) */
                                                             "\"callMode\":\"delete\"" +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */

@@ -432,6 +432,8 @@ namespace Disp_WinForm
                 if (textBox_id_testing.Text == "") 
                 { textBox_id_testing.Text = "10"; }
 
+                string id_object_from_testing = macros.sql_command("select Object_idObject from btk.testing_object where idtesting_object = '" + idtesting_object + "';");
+
                 macros.sql_command("insert into btk.Activation_object (" +
                                                                     "Activation_date, " +
                                                                     "Users_idUsers, " +
@@ -451,7 +453,7 @@ namespace Disp_WinForm
                                                                     "values (" +
                                                                     "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                                                     "'" + vars_form.user_login_id + "'," +
-                                                                    "'"+ textBox_id_testing.Text + "'," +
+                                                                    "'"+ id_object_from_testing+ "'," +
                                                                     "'Не проводилось'," +
                                                                     "''," +
                                                                     "''," +

@@ -36,7 +36,7 @@ namespace Disp_WinForm
             adaptation_UI_for_product();
 
             group_debug();
-            string json = macros.wialon_request_new("&svc=token/update&params={" +
+            string json = macros.WialonRequestSimple("&svc=token/update&params={" +
                                                     "\"callMode\":\"create\"," +
                                                     "\"app\":\"locator\"," +
                                                     "\"at\":\"0\"," +
@@ -527,21 +527,21 @@ namespace Disp_WinForm
             if (get_produt_testing_device=="10" || get_produt_testing_device=="11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")
             {
 
-                string json = macros.wialon_request_lite("&svc=core/search_item&params={"
+                string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
                                                          + "\"flags\":\"‭‭‭‭5257‬‬‬‬\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
 
                 //Меняем имя об"екта
-                string name_answer = macros.wialon_request_lite("&svc=item/update_name&params={"
+                string name_answer = macros.WialonRequest("&svc=item/update_name&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"name\":\"" + name_obj_textBox.Text.Replace("\"", "%5C%22") + "\"}");
 
 
 
                 //Произвольное поле  name operator
-                string pp6_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"6\","
                                                                 + "\"callMode\":\"update\","
@@ -549,7 +549,7 @@ namespace Disp_WinForm
                                                                 + "\"v\":\"" + vars_form.user_login_name + "\"}");
 
                 //Произвольное поле 0 УВАГА
-                string pp1_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp1_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"1\","
                                                                 + "\"callMode\":\"update\","
@@ -557,7 +557,7 @@ namespace Disp_WinForm
                                                                 + "\"v\":\"" + textBox_uvaga.Text.Replace("\"", "%5C%22") + "\"}");
 
                 //Произвольное поле  other alarm
-                string pp7_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp7_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"id\":\"7\","
                                                                + "\"callMode\":\"update\","
@@ -573,7 +573,7 @@ namespace Disp_WinForm
                 //                                               + "\"v\":\"" + (checkBox_arm_from_bagagnik.Checked ? "Так" : "Ні") + "\"}");
 
                 //Произвольное поле  в охрану с багажника
-                string pp9_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp9_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"9\","
                                                                 + "\"callMode\":\"update\","
@@ -582,7 +582,7 @@ namespace Disp_WinForm
 
 
                 //Произвольное поле Установщик
-                string pp10_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp10_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"10\","
                                                                 + "\"callMode\":\"update\","
@@ -590,7 +590,7 @@ namespace Disp_WinForm
                                                                   + "\"v\":\"" + comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem).ToString() + "\"}");
 
                 //Произвольное поле СТО
-                string pp11_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp11_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"11\","
                                                                 + "\"callMode\":\"update\","
@@ -598,7 +598,7 @@ namespace Disp_WinForm
                                                                 + "\"v\":\"" + comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem).ToString() + "\"}");
 
                 //Произвольное поле дата установки = дата тестирования
-                string pp12_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp12_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"12\","
                                                                 + "\"callMode\":\"update\","
@@ -606,7 +606,7 @@ namespace Disp_WinForm
                                                                 + "\"v\":\"" + DateTime.Now.Date + "\"}");
 
                 //Произвольное поле место установки сигналызації
-                string pp13_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp13_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"13\","
                                                                 + "\"callMode\":\"update\","
@@ -614,14 +614,14 @@ namespace Disp_WinForm
                                                                 + "\"v\":\"" + TextBox_device2.Text.Replace("\"", "%5C%22") + "\"}");
                 
                 //Произвольное поле place relay
-                string pp14_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp14_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"14\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.6.1 CAN-реле\","
                                                               + "\"v\":\"" + ("Місце: " + textBox_CAN_relay_place.Text + ". Ланцюг: " + textBox_CAN_relay_lancug.Text).Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле wire cut
-                string pp15_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp15_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"15\","
                                                               + "\"callMode\":\"update\","
@@ -629,7 +629,7 @@ namespace Disp_WinForm
                                                               + "\"v\":\"" + ("Місце: " + textBox_zvich_relay_place.Text + ". Ланцюг: " + textBox_zvich_relay_lancug.Text).Replace("\"", "%5C%22") + "\"}");
 
                 //Произвольное поле service button
-                string pp16_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp16_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"id\":\"16\","
                                                                + "\"callMode\":\"update\","
@@ -637,14 +637,14 @@ namespace Disp_WinForm
                                                                + "\"v\":\"" + comboBox_service_button.Text.Replace("\"", "%5C%22") + "\"}");
 
                     // Произвольное поле place wire tk
-                string pp17_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp17_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"id\":\"17\","
                                                                + "\"callMode\":\"update\","
                                                                + "\"n\":\"3.8.1 Дротова тривожна кнопка\","
                                                                + "\"v\":\"" + wire_tk.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле wireless_tk
-                string pp18_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp18_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"18\","
                                                               + "\"callMode\":\"update\","
@@ -653,7 +653,7 @@ namespace Disp_WinForm
                 
                 
                 //Произвольное поле  button fo pin
-                string pp20_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp20_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"20\","
                                                               + "\"callMode\":\"update\","
@@ -661,7 +661,7 @@ namespace Disp_WinForm
                                                               + "\"v\":\"" + comboBox_buttons_for_pin.Text.Replace("\"", "%5C%22") + "\"}");
 
                 //Произвольное поле новій ПИН
-                string pp21_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp21_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"24\","
                                                                 + "\"callMode\":\"update\","
@@ -669,7 +669,7 @@ namespace Disp_WinForm
                                                                 + "\"v\":\"" + textBox_current_pin.Text.Replace("\"", "%5C%22") + "\"}");
 
                 //Произвольное поле Гарантія до
-                string pp211_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp211_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"28\","
                                                                 + "\"callMode\":\"update\","
@@ -677,43 +677,43 @@ namespace Disp_WinForm
                                                                 + "\"v\":\"" + (DateTime.Now.Date.AddYears(1)).AddDays(-1).ToString() + "\"}");
 
                 //Характеристики kuzov type
-                string pp22_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
+                string pp22_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"n\":\"vehicle_type\","
                                                               + "\"v\":\"" + comboBox_kuzov_type.GetItemText(this.comboBox_kuzov_type.SelectedItem).ToString() + "\"}");
                 //Характеристики color
-                string pp23_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
+                string pp23_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"n\":\"color\","
                                                               + "\"v\":\"" + comboBox_color.GetItemText(this.comboBox_color.SelectedItem).ToString() + "\"}");
                 //Характеристики prod date
-                string pp24_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
+                string pp24_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"year\","
                                                                + "\"v\":\"" + comboBox_test_production_date.GetItemText(this.comboBox_test_production_date.SelectedItem).ToString() + "\"}");
                 //Характеристики licence plate
-                string pp25_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
+                string pp25_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"registration_plate\","
                                                                + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
                 //Характеристики brend
-                string pp26_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
+                string pp26_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"brand\","
                                                                + "\"v\":\"" + comboBox_test_brand.GetItemText(this.comboBox_test_brand.SelectedItem).ToString() + "\"}");
                 //Характеристики model
-                string pp27_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
+                string pp27_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"model\","
                                                                + "\"v\":\"" + comboBox_test_model.GetItemText(this.comboBox_test_model.SelectedItem).ToString() + "\"}");
                 //Характеристики vin
-                string pp28_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
+                string pp28_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"vin\","
                                                                + "\"v\":\"" + textBox_vin.Text.Replace("\"", "%5C%22") + "\"}");
 
                 //3.9.1 Кнопки введення PIN коду: штатні, додатково встановленні
-                string pp234_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp234_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"19\","
                                                                 + "\"callMode\":\"update\","
@@ -727,18 +727,18 @@ namespace Disp_WinForm
 
             else if (get_produt_testing_device == "2" || get_produt_testing_device == "3" )
             {
-                string json = macros.wialon_request_lite("&svc=core/search_item&params={"
+                string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
                                                          + "\"flags\":\"‭‭‭‭5257‬‬‬‬\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
                 //Меняем имя об"екта
-                string name_answer = macros.wialon_request_lite("&svc=item/update_name&params={"
+                string name_answer = macros.WialonRequest("&svc=item/update_name&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"name\":\"" + name_obj_textBox.Text.Replace("\"", "%5C%22") + "\"}");
 
                 //Произвольное поле  name operator
-                string pp6_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"7\","
                                                                 + "\"callMode\":\"update\","
@@ -748,7 +748,7 @@ namespace Disp_WinForm
 
 
                 //Произвольное поле 0 УВАГА
-                string pp1_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp1_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"1\","
                                                                 + "\"callMode\":\"update\","
@@ -762,21 +762,21 @@ namespace Disp_WinForm
                 //                                                + "\"n\":\"3.4 Місце установки пристрою ВЕНБЕСТ\","
                 //                                                + "\"v\":\"" + textBox_device1.Text.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле device2
-                string pp2_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp2_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"15\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.5 Назва та місце установки сигналізації\","
                                                               + "\"v\":\"" + TextBox_device2.Text.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле place relay
-                string pp3_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp3_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"16\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.6.1  Реле блокування: місце встановлення\","
                                                               + "\"v\":\"" + textBox_zvich_relay_place.Text.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле wire cut
-                string pp4_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp4_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"17\","
                                                               + "\"callMode\":\"update\","
@@ -785,28 +785,28 @@ namespace Disp_WinForm
 
                 
                 //Произвольное поле place tk
-                string pp5_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp5_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"20\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.8.2 Бездротова тривожна кнопка\","
                                                               + "\"v\":\"" + wireless_tk.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле place wireles tk
-                string pp60_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp60_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"19\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.8.1 Дротова тривожна кнопка\","
                                                               + "\"v\":\"" + wire_tk.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле service button
-                string pp7_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp7_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"18\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.7 Місце встановлення сервісної кнопки\","
                                                               + "\"v\":\"" + comboBox_service_button.Text.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле  button fo pin
-                string pp8_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"22\","
                                                               + "\"callMode\":\"update\","
@@ -814,7 +814,7 @@ namespace Disp_WinForm
                                                               + "\"v\":\"" + comboBox_buttons_for_pin.Text.Replace("\"", "%5C%22") + "\"}");
                 
                 //Додатково встановлені сигналізації\
-                string pp9_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp9_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"8\","
                                                               + "\"callMode\":\"update\","
@@ -822,7 +822,7 @@ namespace Disp_WinForm
                                                               + "\"v\":\"" + textBox_other_alarm.Text.Replace("\"", "%5C%22") + "\"}");
 
                 //3.15 Додатково встановлені датчики
-                string pp99_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp99_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"10\","
                                                               + "\"callMode\":\"update\","
@@ -838,37 +838,37 @@ namespace Disp_WinForm
                 //                                              + "\"v\":\"" + (checkBox_arm_from_bagagnik.Checked ? "Так" : "Ні") + "\"}");
 
                 //Характеристики kuzov type
-                string pp10_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
+                string pp10_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"n\":\"vehicle_type\","
                                                               + "\"v\":\"" + comboBox_kuzov_type.GetItemText(this.comboBox_kuzov_type.SelectedItem).ToString() + "\"}");
                 //Характеристики color
-                string pp11_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
+                string pp11_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"n\":\"color\","
                                                               + "\"v\":\"" + comboBox_color.GetItemText(this.comboBox_color.SelectedItem).ToString() + "\"}");
                 //Характеристики prod date
-                string pp12_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
+                string pp12_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"year\","
                                                                + "\"v\":\"" + comboBox_test_production_date.GetItemText(this.comboBox_test_production_date.SelectedItem).ToString() + "\"}");
                 //Характеристики licence plate
-                string pp13_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
+                string pp13_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"registration_plate\","
                                                                + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
                 //Характеристики brend
-                string pp14_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
+                string pp14_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"brand\","
                                                                + "\"v\":\"" + comboBox_test_brand.GetItemText(this.comboBox_test_brand.SelectedItem).ToString() + "\"}");
                 //Характеристики model
-                string pp15_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
+                string pp15_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"model\","
                                                                + "\"v\":\"" + comboBox_test_model.GetItemText(this.comboBox_test_model.SelectedItem).ToString() + "\"}");
                 //Характеристики vin
-                string pp16_answer = macros.wialon_request_lite("&svc=item/update_profile_field&params={"
+                string pp16_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"vin\","
                                                                + "\"v\":\"" + textBox_vin.Text.Replace("\"", "%5C%22") + "\"}");
@@ -881,7 +881,7 @@ namespace Disp_WinForm
                 //                                              + "\"v\":\"" + comboBox_buttons_for_pin.Text + "\"}");
 
                 //Произвольное поле  relay plus?
-                string pp17_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp17_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"id\":\"7\","
                                                                + "\"callMode\":\"update\","
@@ -889,7 +889,7 @@ namespace Disp_WinForm
                                                                + "\"v\":\"" + vars_form.user_login_name + "\"}");
                 //Произвольное поле СТО
                 
-                string pp18_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp18_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"11\","
                                                                 + "\"callMode\":\"update\","
@@ -897,21 +897,21 @@ namespace Disp_WinForm
                                                                 + "\"v\":\"" + comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле Установщик
                 
-                    string pp19_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                    string pp19_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"12\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.2.2 Установник - монтажник: ПІБ, №тел.\","
                                                                   + "\"v\":\"" + comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле дата установки = дата тестирования
-                string pp20_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp20_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"13\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.3 Дата установки\","
                                                                 + "\"v\":\"" + DateTime.Now.Date + "\"}");
                 //Произвольное поле новій ПИН
-                string pp21_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp21_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"26\","
                                                                 + "\"callMode\":\"update\","
@@ -927,7 +927,7 @@ namespace Disp_WinForm
                 //                                                + "\"v\":\"" + textBox_pin_button_external.Text.Replace("\"", "%5C%22") + "\"}");
 
                 //Произвольное поле Гарантія до
-                string pp211_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
+                string pp211_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"30\","
                                                                 + "\"callMode\":\"update\","
@@ -1015,7 +1015,7 @@ namespace Disp_WinForm
                         {
 
                             // ADD to groupe: ^ CONNECT - KEYLESS - PLUS - КОНДОР+: активные
-                            string get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            string get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"1759\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1024,14 +1024,14 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            string gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            string gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"1759\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
 
 
                             // ADD to groupe: ^ Активні (all)
-                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"46\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1040,13 +1040,13 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"46\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
 
                             // ADD to groupe: ^ Активні (all)
-                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"6409\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1055,13 +1055,13 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"6409\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
 
                             // ADD to groupe: srv_CNTP
-                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"7669\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1070,7 +1070,7 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"7669\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
@@ -1079,7 +1079,7 @@ namespace Disp_WinForm
                         {
 
                             // ADD to groupe: ^ CONNECT - KEYLESS - PLUS - КОНДОР+: активные
-                            string get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            string get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"1759\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1088,14 +1088,14 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            string gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            string gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"1759\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
 
 
                             // ADD to groupe: ^ Активні (all)
-                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"46\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1104,13 +1104,13 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"46\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
 
                             // ADD to groupe: ^ Активні (all)
-                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"6409\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1119,13 +1119,13 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"6409\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
 
                             // ADD to groupe: srv_CNTP
-                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"7668\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1134,7 +1134,7 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"7668\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
@@ -1143,7 +1143,7 @@ namespace Disp_WinForm
                         {
 
                             // ADD to groupe: ^ CONNECT - KEYLESS - PLUS - КОНДОР+: активные
-                            string get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            string get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"1759\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1152,14 +1152,14 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            string gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            string gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"1759\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
 
 
                             // ADD to groupe: ^ Активні (all)
-                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"46\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1168,13 +1168,13 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"46\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
 
                             // ADD to groupe: ^ Активні (all)
-                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"6409\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1183,13 +1183,13 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"6409\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
 
                             // ADD to groupe: srv_CNTP
-                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"7668\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1198,7 +1198,7 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"7668\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
@@ -1374,7 +1374,7 @@ namespace Disp_WinForm
                         {
 
                             // ADD to groupe: ^ CONNECT - KEYLESS - PLUS - КОНДОР+: активные
-                            string get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            string get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"1759\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1383,14 +1383,14 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            string gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            string gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"1759\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
 
 
                             // ADD to groupe: ^ Активні (all)
-                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"46\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1399,13 +1399,13 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"46\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
 
                             // ADD to groupe: ^ Активні (all)
-                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"6409\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1414,13 +1414,13 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"6409\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
 
                             // ADD to groupe: srv_CNTP
-                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"7669\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1429,7 +1429,7 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"7669\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
@@ -1438,7 +1438,7 @@ namespace Disp_WinForm
                         {
 
                             // ADD to groupe: ^ CONNECT - KEYLESS - PLUS - КОНДОР+: активные
-                            string get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            string get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"1759\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1447,14 +1447,14 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            string gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            string gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"1759\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
 
 
                             // ADD to groupe: ^ Активні (all)
-                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"46\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1463,13 +1463,13 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"46\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
 
                             // ADD to groupe: ^ Активні (all)
-                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"6409\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1478,13 +1478,13 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"6409\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
 
                             // ADD to groupe: srv_CNTP
-                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"7668\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1493,7 +1493,7 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"7668\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
@@ -1502,7 +1502,7 @@ namespace Disp_WinForm
                         {
 
                             // ADD to groupe: ^ CONNECT - KEYLESS - PLUS - КОНДОР+: активные
-                            string get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            string get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"1759\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1511,14 +1511,14 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            string gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            string gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"1759\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
 
 
                             // ADD to groupe: ^ Активні (all)
-                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"46\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1527,13 +1527,13 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"46\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
 
                             // ADD to groupe: ^ Активні (all)
-                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"6409\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1542,13 +1542,13 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"6409\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
 
                             // ADD to groupe: srv_CNTP
-                            get_units_on_group = macros.wialon_request_lite("&svc=core/search_item&params={"
+                            get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                                                                                                                                 + "\"id\":\"7668\","
                                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -1557,7 +1557,7 @@ namespace Disp_WinForm
                             list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
                             units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-                            gr_answer = macros.wialon_request_new("&svc=unit_group/update_units&params={"
+                            gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                              + "\"itemId\":\"7668\","
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
@@ -1667,7 +1667,7 @@ namespace Disp_WinForm
 
             if (get_produt_testing_device == "2" || get_produt_testing_device == "3")
             {
-                string json = macros.wialon_request_lite("&svc=core/search_item&params={"
+                string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
                                                          + "\"flags\":\"‭‭‭‭2098177‬‬‬‬\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
@@ -1679,8 +1679,9 @@ namespace Disp_WinForm
                                         + "[{\"lon\":\"" + test_out.item.pos["x"] + "\""
                                         + ",\"lat\":\"" + test_out.item.pos["y"] + "\"}]&flags=1255211008&uid=" +
                                         vars_form.wl_user_id + "";
-                    MyWebRequest myRequest = new MyWebRequest(get_adress);
-                    string json3 = myRequest.GetResponse();
+                    string json3=macros.WialonRequestSimple(get_adress);
+                    //MyWebRequest myRequest = new MyWebRequest(get_adress);
+                    //string json3 = myRequest.GetResponse();
                     var get_adress_out = JsonConvert.DeserializeObject<string[]>(json3);
                     label_test_address.Text = get_adress_out[0].ToString();
                 }
@@ -1803,7 +1804,7 @@ namespace Disp_WinForm
             }
             else if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")
             {
-                string json2 = macros.wialon_request_lite("&svc=core/search_items&params={" +
+                string json2 = macros.WialonRequest("&svc=core/search_items&params={" +
                                                           "\"spec\":{"
                                                           + "\"itemsType\":\"avl_unit\","
                                                           + "\"propName\":\"sys_id\","
@@ -1819,14 +1820,14 @@ namespace Disp_WinForm
                 
 
 
-                string json = macros.wialon_request_lite("&svc=unit/calc_last_message&params={"
+                string json = macros.WialonRequest("&svc=unit/calc_last_message&params={"
                                                          + "\"unitId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                          + "\"sensors\":\"\","
                                                          + "\"flags\":\"1\"}"); //
 
-                string json1 = macros.wialon_request_lite("&svc=core/search_item&params={"
+                string json1 = macros.WialonRequest("&svc=core/search_item&params={"
                                                           + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                          + "\"flags\":\"‭‭‭‭2098177‬‬‬‬\"}"); //
+                                                          + "\"flags\":\"2098177\"}"); //
 
 
 
@@ -1841,6 +1842,8 @@ namespace Disp_WinForm
                                         + "[{\"lon\":\"" + test_out.item.pos["x"] + "\""
                                         + ",\"lat\":\"" + test_out.item.pos["y"] + "\"}]&flags=	‭‭‭‭1254096896‬‬‬‬&uid=" +
                                         vars_form.wl_user_id + "";
+
+                    //string json3 = macros.WialonRequestSimple(get_adress);
                     MyWebRequest myRequest = new MyWebRequest(get_adress);
                     string json3 = myRequest.GetResponse();
                     var get_adress_out = JsonConvert.DeserializeObject<string[]>(json3);
@@ -2149,7 +2152,7 @@ namespace Disp_WinForm
 
             if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")
             {
-                string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
+                string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
                                                         "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
                                                         "\"commandName\":\"2 - Автозапуск старт\"," +
                                                         "\"linkType\":\"tcp\"," +
@@ -2179,7 +2182,7 @@ namespace Disp_WinForm
 
             if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")
             {
-                string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
+                string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
                                                             "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
                                                             "\"commandName\":\"3 - СТОП двигатель\"," +
                                                             "\"linkType\":\"tcp\"," +
@@ -2189,7 +2192,7 @@ namespace Disp_WinForm
             }
             else if (get_produt_testing_device == "2" || get_produt_testing_device == "3")
             {
-                string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
+                string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
                                                             "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
                                                             "\"commandName\":\"2. СТОП Двигатель\"," +
                                                             "\"linkType\":\"tcp\"," +
@@ -2214,7 +2217,7 @@ namespace Disp_WinForm
 
             if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")
             {
-                string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
+                string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
                                                             "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
                                                             "\"commandName\":\"3 - СТАРТ двигатель\"," +
                                                             "\"linkType\":\"tcp\"," +
@@ -2224,7 +2227,7 @@ namespace Disp_WinForm
             }
             else if (get_produt_testing_device == "2" || get_produt_testing_device == "3")
             {
-                string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
+                string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
                                                             "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
                                                             "\"commandName\":\"1. СТАРТ Двигатель\"," +
                                                             "\"linkType\":\"tcp\"," +
@@ -2282,7 +2285,7 @@ namespace Disp_WinForm
 
             if (get_produt_testing_device == "10" || get_produt_testing_device == "11")
             {
-                string cmd = macros.wialon_request_lite("&svc=unit/exec_cmd&params={" +
+                string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
                                                         "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
                                                         "\"commandName\":\"2 - Автозапуск стоп\"," +
                                                         "\"linkType\":\"tcp\"," +

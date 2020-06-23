@@ -4,9 +4,12 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Net.Mail;
 using System.Text;
+using System.Web.Util;
 using System.Windows.Forms;
 using DocumentFormat.OpenXml.Packaging;
 using MySql.Data.MySqlClient;
@@ -16,95 +19,89 @@ namespace Disp_WinForm
 {
     public class Macros
     {
-        public static bool chk_conn()
+        public void log_write(string data)
         {
-            Conn_error subwindow = new Conn_error();
-            bool connDB = test_DB_Conn();
-            while (connDB == false)
+            string path = Directory.GetCurrentDirectory();
+            using (System.IO.StreamWriter file =
+            new System.IO.StreamWriter(path + "\\log.txt", true))
             {
-                if (IsFormOpen(typeof(Conn_error)))
-                {
-                    //Conn_error subwindow = new Conn_error();
-                    subwindow.Show();
-                }
-                System.Threading.Thread.Sleep(2000);
-                connDB = test_DB_Conn();
+                file.WriteLine("\r\n" + DateTime.Now.ToString() + " win_un: " + Environment.UserName + "\r\n" + data);
             }
-            subwindow.Dispose();            
+        }
+        //public static bool chk_conn()
+        //{
+        //    Conn_error subwindow = new Conn_error();
+        //    bool connDB = test_DB_Conn();
+        //    while (connDB == false)
+        //    {
+        //        if (IsFormOpen(typeof(Conn_error)))
+        //        {
+        //            //Conn_error subwindow = new Conn_error();
+        //            subwindow.Show();
+        //        }
+        //        System.Threading.Thread.Sleep(2000);
+        //        connDB = test_DB_Conn();
+        //    }
+        //    subwindow.Dispose();            
 
-            return connDB;
-        }// until connaction 2DB is faild show error dialog 
-        public static bool test_DB_Conn()
-        {
-            var conn_info = "server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True";
-            bool isConn = false;
-            MySqlConnection conn = null;
-            try
-            {
-                conn = new MySqlConnection(conn_info);
-                conn.Open();
-                isConn = true;
-            }
-            catch (Exception)
-            {
-                isConn = false;
+        //    return connDB;
+        //}// until connaction 2DB is faild show error dialog 
+        //public static bool test_DB_Conn()
+        //{
+        //    var conn_info = "server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True";
+        //    bool isConn = false;
+        //    MySqlConnection conn = null;
+        //    try
+        //    {
+        //        conn = new MySqlConnection(conn_info);
+        //        conn.Open();
+        //        isConn = true;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        isConn = false;
 
-            }
-            finally
-            {
-                if (conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
-            }
-            return isConn;
-        }// test 2DB connection
-        public static bool IsFormOpen(Type formType)
-        {
-            foreach (Form form in System.Windows.Forms.Application.OpenForms)
-                if (formType.Name == form.Name)
-                    return false;
-            return true;
-        }//check form (by name) is opened?
+        //    }
+        //    finally
+        //    {
+        //        if (conn.State == ConnectionState.Open)
+        //        {
+        //            conn.Close();
+        //        }
+        //    }
+        //    return isConn;
+        //}// test 2DB connection
+        //public static bool IsFormOpen(Type formType)
+        //{
+        //    foreach (Form form in System.Windows.Forms.Application.OpenForms)
+        //        if (formType.Name == form.Name)
+        //            return false;
+        //    return true;
+        //}//check form (by name) is opened?
 
-        public string wialon_request_new(string request)
+        public string WialonRequest(string request)
         {
             string json = "";
             try
             {
-
+                
                 MyWebRequest myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + request);
                 json = myRequest.GetResponse();
-                var test_out = JsonConvert.DeserializeObject<RootObject>(json);
+                if (json.Contains("error"))
+                {
+                    var test_out = JsonConvert.DeserializeObject<TestConnection>(json);
                     if (test_out.error == 1)
                     {
-                        get_eid_from_token();
+                        GetEidFromToken();
                         myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + request);
                         json = myRequest.GetResponse();
-                        test_out = JsonConvert.DeserializeObject<RootObject>(json);
+                        if (json.Contains("error"))
+                        {
+                            test_out = JsonConvert.DeserializeObject<TestConnection>(json);
+                        }
+                        else { test_out.error = 0; }
                     }
-                    //if (test_out.error == 8)
-                    //{
-                    //    List<Form> openForms = new List<Form>();
-                    //    foreach (Form f in System.Windows.Forms.Application.OpenForms)
-                    //        openForms.Add(f);
-                    //    foreach (Form f in openForms)
-                    //    {
-                    //        if (f.Name != "Login_Form")
-                    //        {
-                    //            f.Dispose();
-                    //        }
-                    //        else
-                    //        {
-                    //            f.Show();
-                    //        }
-                    //    }
 
-                    //    //если токен истек то необходимо візвать форму повторной авторизации
-                    //    //Main_window form = new Main_window();
-                    //    //form.Show();
-                    //    //this.Hide();
-                    //}
                     else if (test_out.error > 1)
                     {
 
@@ -126,124 +123,206 @@ namespace Disp_WinForm
                             return json;
                         }
                     }
+                }
                 return json;
             }
-            catch(Exception)
+            catch (Exception e)
             {
-                get_eid_from_token();
+                GetEidFromToken();
                 return json;
             }
         }
-        public string wialon_request_lite(string request)
-        {
-            
+        //public string WialonRequest22(string request)
+        //{
 
-            MyWebRequest myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + request);
-            string json = myRequest.GetResponse();
+
+        //    MyWebRequest myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + request);
+        //    string json = myRequest.GetResponse();
+        //    try
+        //    {
+        //        var test_out = JsonConvert.DeserializeObject<RootObject>(json);
+        //        if (test_out.error == 1)
+        //        {
+        //            get_eid_from_token();
+        //            myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid +
+        //                                         request);
+        //            json = myRequest.GetResponse();
+        //            return json;
+        //        }
+        //        else if (test_out.error >= 2 & test_out.error !=6) //Виалон ругается ошибкой 6 на изменение поля ВИН кузова в пусто, хотя все верно. исключаем єту ошибку
+        //        {
+        //            string text =
+        //                Get_wl_text_error(test_out.error); //Показіваем диалог бокс с ошибкой, преріваем создание
+        //            System.Windows.Forms.MessageBox.Show("Wialon Error: " + text);
+        //            return json;
+        //        }
+        //    }
+        //    catch
+        //    {
+        //    }
+
+
+        //    return json;
+        //}
+        public string WialonRequest_(string Request)
+        {
+            string contents="";
             try
             {
-                var test_out = JsonConvert.DeserializeObject<RootObject>(json);
-                if (test_out.error == 1)
+                var client = new HttpClient();
+                var content = new StringContent(Request, Encoding.UTF8, "application/x-www-form-urlencoded");
+                var address = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid;
+                var result = client.PostAsync(address, content).Result;
+                contents = result.Content.ReadAsStringAsync().Result;
+                var answer = JsonConvert.DeserializeObject<TestConnection>(contents);
+                if (answer.error != 0)
                 {
-                    get_eid_from_token();
-                    myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid +
-                                                 request);
-                    json = myRequest.GetResponse();
-                    return json;
-                }
-                else if (test_out.error >= 2 & test_out.error !=6) //Виалон ругается ошибкой 6 на изменение поля ВИН кузова в пусто, хотя все верно. исключаем єту ошибку
-                {
-                    string text =
-                        Get_wl_text_error(test_out.error); //Показіваем диалог бокс с ошибкой, преріваем создание
-                    System.Windows.Forms.MessageBox.Show("Wialon Error: " + text);
-                    return json;
-                }
-            }
-            catch
-            {
-            }
-           
+                    log_write("Error " + "WialonRequest(): " + answer.ToString());
+                    GetEidFromToken();
 
-            return json;
+                    client = new HttpClient();
+                    content = new StringContent(Request, Encoding.UTF8, "application/x-www-form-urlencoded");
+                    address = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid;
+                    result = client.PostAsync(address, content).Result;
+                    contents = result.Content.ReadAsStringAsync().Result;
+                    answer = JsonConvert.DeserializeObject<TestConnection>(contents);
+                    if (answer.error != 0)
+                    {
+                        return "";
+                    }
+                }
+                return contents;
+            }
+            catch (Exception e)
+            {
+                log_write(e.StackTrace.ToString());
+                return "";
+            }
         }
-        public void get_eid_from_token()
+        public string WialonRequestSimple(string Request)
         {
-            MyWebRequest myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?" + "&svc=token/login&params={\"token\":\"" + vars_form.user_token + "\"}");
+
+            var client = new HttpClient();
+            var content = new StringContent(Request, Encoding.UTF8, "application/x-www-form-urlencoded");
+            var address = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid;
+            var result = client.PostAsync(address, content).Result;
+            string contents = result.Content.ReadAsStringAsync().Result;
+            return contents;
+        }
+
+
+        public void GetEidFromToken()
+        {
+            try
+            {
+                var client = new HttpClient();
+                var text = "svc=token/login&params={\"token\":\"" + vars_form.user_token + "\"}";
+                var content = new StringContent(text, Encoding.UTF8, "application/x-www-form-urlencoded");
+                var address = "http://navi.venbest.com.ua/wialon/ajax.html";
+                var result = client.PostAsync(address, content).Result;
+                var contents = result.Content.ReadAsStringAsync().Result;
+                var answer = JsonConvert.DeserializeObject<RootObject>(contents);
+                if (answer.error >= 1)
+                {
+                    MessageBox.Show("Необхідна повторна авторизація (" + answer.reason + ")");
+                    log_write("Error " + "get_eid_from_token(): " + answer.ToString());
+                    Application.Restart();
+                    return;
+                }
+                else 
+                {
+                    vars_form.eid = answer.eid;
+                    vars_form.wl_user_id = answer.user.id;
+                    vars_form.wl_user_nm = answer.user.nm;
+                    //sql_command("update btk.Users set user_id_wl='" + vars_form.wl_user_id + "' where username='" + vars_form.wl_user_nm + "';");
+                }
+
+                log_write("Ok " + "get_eid_from_token(): " + "login as: " + answer.user.nm);
+            }
+            catch (Exception e)
+            {
+                log_write(e.Message);
+            }
+        }
+
+        //public void get_eid_from_token_()
+        //{
+        //    MyWebRequest myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?" + "&svc=token/login&params={\"token\":\"" + vars_form.user_token + "\"}");
             
-            //loginAs
-            //MyWebRequest myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?" + "&svc=token/login&params={\"token\":\"" + vars_form.user_token + "\",\"operateAs\":\"service\"}");
-            string json = myRequest.GetResponse();
-            var m = JsonConvert.DeserializeObject<RootObject>(json);
-            if (m.error == 1)
-            {
-                get_eid_from_token();
-                myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?", "POST", "&svc=token/login&params={\"token\":\"" + vars_form.user_token + "\"}");
-                json = myRequest.GetResponse();
-            }
-            else if (m.error >= 2)
-            {
-                string text =
-                    Get_wl_text_error(m.error); //Показіваем диалог бокс с ошибкой, преріваем создание
-                System.Windows.Forms.MessageBox.Show("Wialon Error: " + text);
-            }
+        //    //loginAs
+        //    //MyWebRequest myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?" + "&svc=token/login&params={\"token\":\"" + vars_form.user_token + "\",\"operateAs\":\"service\"}");
+        //    string json = myRequest.GetResponse();
+        //    var m = JsonConvert.DeserializeObject<RootObject>(json);
+        //    if (m.error == 1)
+        //    {
+        //        get_eid_from_token();
+        //        myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?", "POST", "&svc=token/login&params={\"token\":\"" + vars_form.user_token + "\"}");
+        //        json = myRequest.GetResponse();
+        //    }
+        //    else if (m.error >= 2)
+        //    {
+        //        string text =
+        //            Get_wl_text_error(m.error); //Показіваем диалог бокс с ошибкой, преріваем создание
+        //        System.Windows.Forms.MessageBox.Show("Wialon Error: " + text);
+        //    }
 
-            if (m.error == 8)
-            {
-                //List<Form> openForms = new List<Form>();
-                //foreach (Form f in System.Windows.Forms.Application.OpenForms)
-                //    openForms.Add(f);
-                //foreach (Form f in openForms)
-                //{
-                //    if (f.Name != "Login_Form")
-                //    {
-                //        f.Dispose();
-                //        Login_Form login_Form = new Login_Form();
-                //        login_Form.Show();
-                //    }
+        //    if (m.error == 8)
+        //    {
+        //        //List<Form> openForms = new List<Form>();
+        //        //foreach (Form f in System.Windows.Forms.Application.OpenForms)
+        //        //    openForms.Add(f);
+        //        //foreach (Form f in openForms)
+        //        //{
+        //        //    if (f.Name != "Login_Form")
+        //        //    {
+        //        //        f.Dispose();
+        //        //        Login_Form login_Form = new Login_Form();
+        //        //        login_Form.Show();
+        //        //    }
 
-                //}
-                return;
-            }
-            vars_form.eid = m.eid;
-            vars_form.wl_user_id = m.user.id;
-            vars_form.wl_user_nm = m.user.nm;
-        }//Получаем eid из Виалона по токену из БД присвоенному каждому юзеру
-        public bool Check_conn_wl()
-        {
-            //////////
-            //ПРоверяем жив ли Єсайди
-            /////////
-            string test_in = "&svc=core/search_items&params={\"spec\":{" 
-                             + "\"itemsType\":\"avl_unit\"," 
-                             + "\"propName\":\"sys_unique_id|sys_name|rel_customfield_value|rel_profilefield_value\"," 
-                             + "\"propValueMask\":\"" + "*" + "\", "
-                             + "\"sortType\":\"sys_name\"," 
-                             + "\"or_logic\":\"1\"}," 
-                             + "\"or_logic\":\"1\"," 
-                             + "\"force\":\"1\"," 
-                             + "\"flags\":\"16008907\"," 
-                             + "\"from\":\"0\"," 
-                             + "\"to\":\"5\"}";
-            string json = wialon_request_new(test_in);
-            var test_out = JsonConvert.DeserializeObject<RootObject>(json);
-            if (test_out.error == 0)
-            {
-                return true;
-            }
-            else if(test_out.error != 0)
-            {
-                get_eid_from_token();
-                json = wialon_request_new(test_in);
-                test_out = JsonConvert.DeserializeObject<RootObject>(json);
-                if (test_out.error != 0)
-                {
-                    string text = Get_wl_text_error(test_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
-                    System.Windows.Forms.MessageBox.Show("Wialon Error: " + text);
-                    return false;
-                }
-            }
-            return false;
-        }
+        //        //}
+        //        return;
+        //    }
+        //    vars_form.eid = m.eid;
+        //    vars_form.wl_user_id = m.user.id;
+        //    vars_form.wl_user_nm = m.user.nm;
+        //}//Получаем eid из Виалона по токену из БД присвоенному каждому юзеру
+        //public bool Check_conn_wl()
+        //{
+        //    //////////
+        //    //ПРоверяем жив ли Єсайди
+        //    /////////
+        //    string test_in = "&svc=core/search_items&params={\"spec\":{" 
+        //                     + "\"itemsType\":\"avl_unit\"," 
+        //                     + "\"propName\":\"sys_unique_id|sys_name|rel_customfield_value|rel_profilefield_value\"," 
+        //                     + "\"propValueMask\":\"" + "*" + "\", "
+        //                     + "\"sortType\":\"sys_name\"," 
+        //                     + "\"or_logic\":\"1\"}," 
+        //                     + "\"or_logic\":\"1\"," 
+        //                     + "\"force\":\"1\"," 
+        //                     + "\"flags\":\"16008907\"," 
+        //                     + "\"from\":\"0\"," 
+        //                     + "\"to\":\"5\"}";
+        //    string json = WialonRequest(test_in);
+        //    var test_out = JsonConvert.DeserializeObject<RootObject>(json);
+        //    if (test_out.error == 0)
+        //    {
+        //        return true;
+        //    }
+        //    else if(test_out.error != 0)
+        //    {
+        //        get_eid_from_token();
+        //        json = WialonRequest(test_in);
+        //        test_out = JsonConvert.DeserializeObject<RootObject>(json);
+        //        if (test_out.error != 0)
+        //        {
+        //            string text = Get_wl_text_error(test_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+        //            System.Windows.Forms.MessageBox.Show("Wialon Error: " + text);
+        //            return false;
+        //        }
+        //    }
+        //    return false;
+        //}
         public string Get_wl_text_error(int wl_code_error)
         {
             string Get_wl_text_error = "";
@@ -316,7 +395,7 @@ namespace Disp_WinForm
 
         public string wl_core_search_items(string itemsType, string propName, string propValueMask, string sortType, int flags, int from, int to)
         {
-            string answer = wialon_request_new("&svc=core/search_items&params={" +
+            string answer = WialonRequest("&svc=core/search_items&params={" +
                                                      "\"spec\":{" +                                         /* https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/core/search_items */
                                                      "\"itemsType\":\"" + itemsType + "\"," +                /* тип искомых элементов: avl_resource, avl_unit, avl_unit_group, user   */
                                                      "\"propName\":\"" + propName + "\"," +                 /* имя свойства: sys_name, sys_id, sys_unique_id, sys_phone_number, sys_user_creator */
@@ -327,6 +406,70 @@ namespace Disp_WinForm
                                                      "\"flags\":\"" + flags + "\"," +                       /* https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/format/format */
                                                      "\"from\":\"" + from + "\"," +                         /* индекс, начиная с которого возвращать элементы результирующего списка (для нового поиска используйте значение 0) */
                                                      "\"to\":\"" + to + "\"}");                             /* индекс последнего возвращаемого элемента (если 0, то вернет все элементы, начиная с указанного в параметре «from») */
+            return answer;
+        }
+
+        // Создание датчиков объекта, информация по по ссылке: http://sdk.wialon.com/wiki/ru/local/remoteapi1704/apiref/unit/update_sensor
+        public string create_sensor_wl(int id_object, string name_sensor, string type_sensor, string unit, string parametr, int position, string type_validation, int id_sensor_for_validation, string table_calculation)
+        {
+            string answer = WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
+                                                                                          + "&svc=unit/update_sensor&params={"
+                                                                                          + "\"itemId\":\"" + id_object + "\","
+                                                                                          + "\"id\":\"0\","
+                                                                                          + "\"callMode\":\"create\","
+                                                                                          + "\"unlink\":\"1\","
+                                                                                          + "\"n\":\"" + name_sensor + "\","
+                                                                                          + "\"t\":\"" + type_sensor + "\","
+                                                                                          + "\"d\":\"\","
+                                                                                          + "\"m\":\"" + unit + "\","
+                                                                                          + "\"p\":\"" + parametr + "\","
+                                                                                          + "\"f\":\"0\","
+                                                                                          + "\"c\":\"{%5c\"act%5c\":true,%5c\"appear_in_popup%5c\":true,%5c\"show_time%5c\":true,%5c\"pos%5c\":" + position + "}\","
+                                                                                          + "\"vt\":\"" + type_validation + "\","
+                                                                                          + "\"vs\":\"" + id_sensor_for_validation + "\","
+                                                                                          + "\"tbl\":[" + table_calculation + "]}");
+            return answer;
+        }
+
+        // Создание датчиков объекта, информация по по ссылке: http://sdk.wialon.com/wiki/ru/local/remoteapi1704/apiref/unit/update_sensor
+        public string create_custom_field_wl(int id_object, string name_field, string value)
+        {
+            string answer = WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
+                                                                                                              + "&svc=item/update_custom_field&params={"
+                                                                                                              + "\"itemId\":\"" + id_object + "\","
+                                                                                                              + "\"id\":\"0\","
+                                                                                                              + "\"callMode\":\"create\","
+                                                                                                              + "\"n\":\"" + name_field + "\","
+                                                                                                              + "\"v\":\"" + value + "\"}");
+            return answer;
+        }
+
+        // Создание админитсративных полей вдля объекта в Виалоне
+        public string create_admin_field_wl(int id_object, string name_field, string value)
+        {
+            string answer = WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
+                                                                                                      + "&svc=item/update_admin_field&params={"
+                                                                                                      + "\"id\":\"0\","
+                                                                                                      + "\"callMode\":\"create\","
+                                                                                                      + "\"itemId\":\"" + id_object + "\","
+                                                                                                      + "\"n\":\"" + name_field + "\","
+                                                                                                      + "\"v\":\"" + value + "\"}");
+            return answer;
+        }
+
+        // Создание команд для объекта в Виалоне
+        public string create_commads_wl(int id_object, string name_command, string command, int acl_flag)
+        {
+            string answer = WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
+                                                                                                    + "&svc=unit/update_command_definition&params={"
+                                                                                                    + "\"itemId\":\"" + id_object + "\","
+                                                                                                    + "\"id\":\"0\","
+                                                                                                    + "\"callMode\":\"create\","
+                                                                                                    + "\"n\":\"" + name_command + "\","
+                                                                                                    + "\"c\":\"custom_msg\","
+                                                                                                    + "\"l\":\"tcp\","
+                                                                                                    + "\"p\":\"" + command + "\","
+                                                                                                    + "\"a\":\"" + acl_flag + "\"}");
             return answer;
         }
 

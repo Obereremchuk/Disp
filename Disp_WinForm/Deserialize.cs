@@ -9,32 +9,6 @@ using Newtonsoft.Json;
 
 namespace Disp_WinForm
 {
-    public class LocatorAnswer
-    {
-        [JsonProperty("h")]
-        public string H { get; set; }
-
-        [JsonProperty("app")]
-        public string App { get; set; }
-
-        [JsonProperty("at")]
-        public long At { get; set; }
-
-        [JsonProperty("ct")]
-        public long Ct { get; set; }
-
-        [JsonProperty("dur")]
-        public long Dur { get; set; }
-
-        [JsonProperty("fl")]
-        public long Fl { get; set; }
-
-        [JsonProperty("items")]
-        public long[] Items { get; set; }
-
-        [JsonProperty("p")]
-        public string P { get; set; }
-    }
     public class locator
     {
         public string h { get; set; }
@@ -204,6 +178,9 @@ namespace Disp_WinForm
         public int dur { get; set; }
         public int fl { get; set; }
         public string p { get; set; }
+        public string au { get; set; }
+        public string reason { get; set; }
+        
     }
 
     public class accounts
@@ -229,6 +206,10 @@ namespace Disp_WinForm
     {
         public int id { get; set; }
         public string n { get; set; }
+    }
+    public class TestConnection
+    {
+        public int error { get; set; }
     }
 
 }

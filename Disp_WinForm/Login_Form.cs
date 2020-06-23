@@ -12,6 +12,8 @@ using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using Gecko;
 using System.Net;
+using System.Collections.Specialized;
+using System.Web;
 
 namespace Disp_WinForm
 {
@@ -26,7 +28,7 @@ namespace Disp_WinForm
             Xpcom.Initialize(t);
             Gecko.CertOverrideService.GetService().ValidityOverride += geckoWebBrowser1_ValidityOverride;
             wialon_login_form();
-            vars_form.version = "0.830";
+            vars_form.version = "0.834";
             label_Version.Text= "v." + vars_form.version;
         }
 
@@ -48,23 +50,14 @@ namespace Disp_WinForm
         private void geckoWebBrowser1_DocumentCompleted(object sender, Gecko.Events.GeckoDocumentCompletedEventArgs e)
         {
             string response = geckoWebBrowser1.Url.Query.ToString();
-            string username = "";
-            string token = "";
-            response = response.Replace('&', '=');
-            var buf_data = response.Split('=');
-
-            if (buf_data.Length >= 4)
+            if (response.Contains("svc_error"))
             {
-                if (buf_data[2] == "access_token")
+                NameValueCollection qscoll = HttpUtility.ParseQueryString(response);
+                if (qscoll["svc_error"] == "0")
                 {
-                    token = buf_data[3].ToString();
-                    username = buf_data[5].ToString();
-                    vars_form.user_token = token;
-
-
-
-                    DataTable data = new DataTable();
-                    data = macros.GetData("Select " +
+                    vars_form.user_token = qscoll["access_token"];
+                    macros.sql_command("update btk.Users set user_token='" + vars_form.user_token + "' where username='" + qscoll["user_name"] + "';");
+                    DataTable data = macros.GetData("Select " +
                                             "idUsers," +
                                             "username," +
                                             "user_mail," +
@@ -72,71 +65,40 @@ namespace Disp_WinForm
                                             "user_font," +
                                             "accsess_lvl " +
                                             "From btk.Users WHERE " +
-                                            "username='" + username + "' ;");
+                                            "username='" + qscoll["user_name"] + "' ;");
                     if (data.Rows.Count == 1)
                     {
                         vars_form.user_login_id = data.Rows[0][0].ToString();
                         vars_form.user_login_name = data.Rows[0][1].ToString();
                         vars_form.user_login_email = data.Rows[0][2].ToString();
-                        vars_form.user_token = data.Rows[0][3].ToString();
                         vars_form.setting_font_size = Convert.ToInt32(data.Rows[0][4]);
                         vars_form.user_accsess_lvl = Convert.ToInt32(data.Rows[0][5]);
+
+                        if (textBox_font.Text == "")
+                        {
+                            //Font = new Font("Microsoft Sans Serif", vars_form.setting_font_size);
+                        }
+                        else if (Int16.Parse(textBox_font.Text) >= 8 & Int16.Parse(textBox_font.Text) <= 18)
+                        {
+                            vars_form.setting_font_size = Int16.Parse(textBox_font.Text);
+                            //Font = new Font("Microsoft Sans Serif", vars_form.setting_font_size);
+
+                            macros.sql_command("update btk.Users set user_font='" + vars_form.setting_font_size +
+                                                "' where username='" + qscoll["user_name"] + "';");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Введіть коректний розмір шрифта");
+                            return;
+                        }
+
+                        //macros.GetEidFromToken();
+
+                        Main_window form = new Main_window();
+                        form.Show();
+                        this.Hide();
                     }
-
-
-
-                    macros.sql_command("update btk.Users set user_token='" + token + "' where idUsers=" + vars_form.user_login_id + ";");
-
-                    if (textBox_font.Text == "")
-                    {
-                        //Font = new Font("Microsoft Sans Serif", vars_form.setting_font_size);
-                    }
-                    else if (Int16.Parse(textBox_font.Text) >= 8 & Int16.Parse(textBox_font.Text) <= 18)
-                    {
-                        vars_form.setting_font_size = Int16.Parse(textBox_font.Text);
-                        //Font = new Font("Microsoft Sans Serif", vars_form.setting_font_size);
-
-                        macros.sql_command("update btk.Users set user_font='" + vars_form.setting_font_size +
-                                            "' where username='" + username + "';");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Введіть коректний розмір шрифта");
-                        return;
-                    }
-
-                    macros.get_eid_from_token();
-
-                    macros.sql_command("update btk.Users set user_id_wl='" + vars_form.wl_user_id +
-                                            "' where username='" + username + "';");
-
-
-
-                    Main_window form = new Main_window();
-                    form.Show();
-                    this.Hide();
                 }
-                //else if (buf_data[15] == "8")
-                //{
-                //    MessageBox.Show("Не вірній пароль! Шкребемо затилок, та тиснемо Ок.");
-                //    Login_Form login_Form = new Login_Form();
-                //    this.Dispose();
-                //    login_Form.Show();
-
-                //    //List<Form> openForms = new List<Form>();
-                //    //foreach (Form f in System.Windows.Forms.Application.OpenForms)
-                //    //    openForms.Add(f);
-                //    //foreach (Form f in openForms)
-                //    //{
-                //    //    if (f.Name != "Login_Form")
-                //    //    {
-                //    //        f.Dispose();
-                //    //        Login_Form login_Form = new Login_Form();
-                //    //        login_Form.Show();
-                //    //    }
-
-                //    //}
-                //}
             }
         }
     }

@@ -28,7 +28,7 @@ namespace Disp_WinForm
         {
             try
             {
-                string json = macros.wialon_request_new("&svc=core/search_items&params={" +
+                string json = macros.WialonRequest("&svc=core/search_items&params={" +
                                                         "\"spec\":{" +
                                                         "\"itemsType\":\"avl_unit\"," +
                                                         "\"propName\":\"sys_id\"," +
