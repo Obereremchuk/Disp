@@ -93,10 +93,6 @@
             this.label38 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.panel_move_active = new System.Windows.Forms.Panel();
-            this.wl_group_activ_checkBox = new System.Windows.Forms.CheckBox();
-            this.comboBox_result = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.checkBox_test_conn = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -144,10 +140,14 @@
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.label_test_dop_1 = new System.Windows.Forms.Label();
             this.label_eng_run = new System.Windows.Forms.Label();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.textBox_commets = new System.Windows.Forms.TextBox();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.panel_move_active = new System.Windows.Forms.Panel();
+            this.wl_group_activ_checkBox = new System.Windows.Forms.CheckBox();
+            this.comboBox_result = new System.Windows.Forms.ComboBox();
             this.button_cancel = new System.Windows.Forms.Button();
             this.button_write = new System.Windows.Forms.Button();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.tabControl_testing = new System.Windows.Forms.TabControl();
             this.tabPage_anketa = new System.Windows.Forms.TabPage();
             this.tabPage_map = new System.Windows.Forms.TabPage();
@@ -159,12 +159,12 @@
             this.groupBox6.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox9.SuspendLayout();
-            this.panel_move_active.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox8.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            this.panel_move_active.SuspendLayout();
             this.tabControl_testing.SuspendLayout();
             this.tabPage_anketa.SuspendLayout();
             this.tabPage_map.SuspendLayout();
@@ -177,7 +177,7 @@
             this.comboBox_test_production_date.Location = new System.Drawing.Point(278, 79);
             this.comboBox_test_production_date.Name = "comboBox_test_production_date";
             this.comboBox_test_production_date.Size = new System.Drawing.Size(74, 21);
-            this.comboBox_test_production_date.TabIndex = 26;
+            this.comboBox_test_production_date.TabIndex = 10;
             // 
             // comboBox_test_brand
             // 
@@ -186,7 +186,7 @@
             this.comboBox_test_brand.Location = new System.Drawing.Point(194, 38);
             this.comboBox_test_brand.Name = "comboBox_test_brand";
             this.comboBox_test_brand.Size = new System.Drawing.Size(116, 21);
-            this.comboBox_test_brand.TabIndex = 22;
+            this.comboBox_test_brand.TabIndex = 7;
             this.comboBox_test_brand.DropDown += new System.EventHandler(this.comboBox_test_brand_DropDown);
             this.comboBox_test_brand.DropDownClosed += new System.EventHandler(this.comboBox_test_brand_DropDownClosed);
             // 
@@ -196,7 +196,7 @@
             this.checkBox_test_relay_plus.Location = new System.Drawing.Point(105, 145);
             this.checkBox_test_relay_plus.Name = "checkBox_test_relay_plus";
             this.checkBox_test_relay_plus.Size = new System.Drawing.Size(291, 17);
-            this.checkBox_test_relay_plus.TabIndex = 10;
+            this.checkBox_test_relay_plus.TabIndex = 28;
             this.checkBox_test_relay_plus.Text = "Чи на постійний плюс підключене реле блокування?";
             this.checkBox_test_relay_plus.UseVisualStyleBackColor = true;
             // 
@@ -207,7 +207,7 @@
             this.comboBox_color.Location = new System.Drawing.Point(8, 79);
             this.comboBox_color.Name = "comboBox_color";
             this.comboBox_color.Size = new System.Drawing.Size(264, 21);
-            this.comboBox_color.TabIndex = 25;
+            this.comboBox_color.TabIndex = 9;
             // 
             // comboBox_test_model
             // 
@@ -216,14 +216,14 @@
             this.comboBox_test_model.Location = new System.Drawing.Point(316, 38);
             this.comboBox_test_model.Name = "comboBox_test_model";
             this.comboBox_test_model.Size = new System.Drawing.Size(154, 21);
-            this.comboBox_test_model.TabIndex = 23;
+            this.comboBox_test_model.TabIndex = 8;
             // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(387, 19);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(84, 21);
-            this.button2.TabIndex = 64;
+            this.button2.TabIndex = 2;
             this.button2.Text = "Встановник";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button_Kontakts_Click);
@@ -233,7 +233,7 @@
             this.button1.Location = new System.Drawing.Point(387, 47);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(84, 21);
-            this.button1.TabIndex = 61;
+            this.button1.TabIndex = 4;
             this.button1.Text = "СТО";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button_Kontagents_Click);
@@ -253,7 +253,7 @@
             this.comboBox_ustanoshik_poisk.Location = new System.Drawing.Point(6, 19);
             this.comboBox_ustanoshik_poisk.Name = "comboBox_ustanoshik_poisk";
             this.comboBox_ustanoshik_poisk.Size = new System.Drawing.Size(375, 21);
-            this.comboBox_ustanoshik_poisk.TabIndex = 2;
+            this.comboBox_ustanoshik_poisk.TabIndex = 1;
             this.comboBox_ustanoshik_poisk.Text = "Установник-монтажник (ПІБ, телефон)";
             this.comboBox_ustanoshik_poisk.SelectionChangeCommitted += new System.EventHandler(this.comboBox_ustanoshik_poisk_SelectionChangeCommitted);
             this.comboBox_ustanoshik_poisk.TextUpdate += new System.EventHandler(this.comboBox_ustanovshik_poisk_TextUpdate);
@@ -308,7 +308,7 @@
             this.button3.Location = new System.Drawing.Point(105, 16);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(21, 20);
-            this.button3.TabIndex = 121;
+            this.button3.TabIndex = 12;
             this.button3.Text = "+";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -318,7 +318,7 @@
             this.TextBox_device2.Location = new System.Drawing.Point(105, 68);
             this.TextBox_device2.Name = "TextBox_device2";
             this.TextBox_device2.Size = new System.Drawing.Size(366, 20);
-            this.TextBox_device2.TabIndex = 5;
+            this.TextBox_device2.TabIndex = 16;
             // 
             // checkBox_sensor_autostart
             // 
@@ -326,7 +326,7 @@
             this.checkBox_sensor_autostart.Location = new System.Drawing.Point(225, 94);
             this.checkBox_sensor_autostart.Name = "checkBox_sensor_autostart";
             this.checkBox_sensor_autostart.Size = new System.Drawing.Size(85, 17);
-            this.checkBox_sensor_autostart.TabIndex = 120;
+            this.checkBox_sensor_autostart.TabIndex = 19;
             this.checkBox_sensor_autostart.Text = "Автозапуск";
             this.checkBox_sensor_autostart.UseVisualStyleBackColor = true;
             this.checkBox_sensor_autostart.CheckedChanged += new System.EventHandler(this.checkBox_sensor_autostart_CheckedChanged);
@@ -354,7 +354,7 @@
             this.textBox_other_alarm.Location = new System.Drawing.Point(105, 116);
             this.textBox_other_alarm.Name = "textBox_other_alarm";
             this.textBox_other_alarm.Size = new System.Drawing.Size(366, 20);
-            this.textBox_other_alarm.TabIndex = 16;
+            this.textBox_other_alarm.TabIndex = 22;
             // 
             // checkBox_lock_hood
             // 
@@ -362,7 +362,7 @@
             this.checkBox_lock_hood.Location = new System.Drawing.Point(378, 93);
             this.checkBox_lock_hood.Name = "checkBox_lock_hood";
             this.checkBox_lock_hood.Size = new System.Drawing.Size(96, 17);
-            this.checkBox_lock_hood.TabIndex = 118;
+            this.checkBox_lock_hood.TabIndex = 21;
             this.checkBox_lock_hood.Text = "Замок капоту";
             this.checkBox_lock_hood.UseVisualStyleBackColor = true;
             // 
@@ -372,7 +372,7 @@
             this.checkBox_sensor_objema.Location = new System.Drawing.Point(313, 93);
             this.checkBox_sensor_objema.Name = "checkBox_sensor_objema";
             this.checkBox_sensor_objema.Size = new System.Drawing.Size(64, 17);
-            this.checkBox_sensor_objema.TabIndex = 117;
+            this.checkBox_sensor_objema.TabIndex = 20;
             this.checkBox_sensor_objema.Text = "Об\"ему";
             this.checkBox_sensor_objema.UseVisualStyleBackColor = true;
             // 
@@ -382,7 +382,7 @@
             this.checkBox_sensor_gps.Location = new System.Drawing.Point(105, 94);
             this.checkBox_sensor_gps.Name = "checkBox_sensor_gps";
             this.checkBox_sensor_gps.Size = new System.Drawing.Size(48, 17);
-            this.checkBox_sensor_gps.TabIndex = 116;
+            this.checkBox_sensor_gps.TabIndex = 17;
             this.checkBox_sensor_gps.Text = "GPS";
             this.checkBox_sensor_gps.UseVisualStyleBackColor = true;
             // 
@@ -392,7 +392,7 @@
             this.checkBox_sensor_glushenia.Location = new System.Drawing.Point(154, 94);
             this.checkBox_sensor_glushenia.Name = "checkBox_sensor_glushenia";
             this.checkBox_sensor_glushenia.Size = new System.Drawing.Size(71, 17);
-            this.checkBox_sensor_glushenia.TabIndex = 92;
+            this.checkBox_sensor_glushenia.TabIndex = 18;
             this.checkBox_sensor_glushenia.Text = "Глушіння";
             this.checkBox_sensor_glushenia.UseVisualStyleBackColor = true;
             // 
@@ -410,7 +410,7 @@
             this.textBox_uvaga.Location = new System.Drawing.Point(105, 43);
             this.textBox_uvaga.Name = "textBox_uvaga";
             this.textBox_uvaga.Size = new System.Drawing.Size(366, 20);
-            this.textBox_uvaga.TabIndex = 1;
+            this.textBox_uvaga.TabIndex = 15;
             // 
             // label24
             // 
@@ -426,7 +426,7 @@
             this.name_obj_textBox.Location = new System.Drawing.Point(132, 16);
             this.name_obj_textBox.Name = "name_obj_textBox";
             this.name_obj_textBox.Size = new System.Drawing.Size(195, 20);
-            this.name_obj_textBox.TabIndex = 1;
+            this.name_obj_textBox.TabIndex = 13;
             // 
             // imei_obj_textBox
             // 
@@ -434,7 +434,7 @@
             this.imei_obj_textBox.Name = "imei_obj_textBox";
             this.imei_obj_textBox.ReadOnly = true;
             this.imei_obj_textBox.Size = new System.Drawing.Size(103, 20);
-            this.imei_obj_textBox.TabIndex = 90;
+            this.imei_obj_textBox.TabIndex = 14;
             // 
             // label18
             // 
@@ -545,14 +545,14 @@
             this.textBox_licence_plate.Location = new System.Drawing.Point(9, 38);
             this.textBox_licence_plate.Name = "textBox_licence_plate";
             this.textBox_licence_plate.Size = new System.Drawing.Size(84, 20);
-            this.textBox_licence_plate.TabIndex = 72;
+            this.textBox_licence_plate.TabIndex = 5;
             // 
             // textBox_vin
             // 
             this.textBox_vin.Location = new System.Drawing.Point(99, 38);
             this.textBox_vin.Name = "textBox_vin";
             this.textBox_vin.Size = new System.Drawing.Size(89, 20);
-            this.textBox_vin.TabIndex = 71;
+            this.textBox_vin.TabIndex = 6;
             // 
             // comboBox_kuzov_type
             // 
@@ -561,7 +561,7 @@
             this.comboBox_kuzov_type.Location = new System.Drawing.Point(358, 79);
             this.comboBox_kuzov_type.Name = "comboBox_kuzov_type";
             this.comboBox_kuzov_type.Size = new System.Drawing.Size(112, 21);
-            this.comboBox_kuzov_type.TabIndex = 24;
+            this.comboBox_kuzov_type.TabIndex = 11;
             // 
             // groupBox7
             // 
@@ -601,7 +601,7 @@
             this.comboBox_service_button.Location = new System.Drawing.Point(105, 43);
             this.comboBox_service_button.Name = "comboBox_service_button";
             this.comboBox_service_button.Size = new System.Drawing.Size(366, 21);
-            this.comboBox_service_button.TabIndex = 121;
+            this.comboBox_service_button.TabIndex = 32;
             // 
             // comboBox_buttons_for_pin
             // 
@@ -621,7 +621,7 @@
             this.comboBox_buttons_for_pin.Location = new System.Drawing.Point(105, 68);
             this.comboBox_buttons_for_pin.Name = "comboBox_buttons_for_pin";
             this.comboBox_buttons_for_pin.Size = new System.Drawing.Size(366, 21);
-            this.comboBox_buttons_for_pin.TabIndex = 119;
+            this.comboBox_buttons_for_pin.TabIndex = 33;
             this.comboBox_buttons_for_pin.SelectedIndexChanged += new System.EventHandler(this.comboBox_buttons_for_pin_SelectedIndexChanged);
             // 
             // label17
@@ -644,7 +644,7 @@
             this.comboBox_pin_or_tag.Location = new System.Drawing.Point(105, 16);
             this.comboBox_pin_or_tag.Name = "comboBox_pin_or_tag";
             this.comboBox_pin_or_tag.Size = new System.Drawing.Size(366, 21);
-            this.comboBox_pin_or_tag.TabIndex = 12;
+            this.comboBox_pin_or_tag.TabIndex = 31;
             this.comboBox_pin_or_tag.Text = "Мітка або PIN";
             // 
             // textBox_current_pin
@@ -652,7 +652,7 @@
             this.textBox_current_pin.Location = new System.Drawing.Point(105, 95);
             this.textBox_current_pin.Name = "textBox_current_pin";
             this.textBox_current_pin.Size = new System.Drawing.Size(366, 20);
-            this.textBox_current_pin.TabIndex = 15;
+            this.textBox_current_pin.TabIndex = 34;
             // 
             // label16
             // 
@@ -702,7 +702,7 @@
             this.comboBox_wire_tk.Location = new System.Drawing.Point(105, 18);
             this.comboBox_wire_tk.Name = "comboBox_wire_tk";
             this.comboBox_wire_tk.Size = new System.Drawing.Size(366, 21);
-            this.comboBox_wire_tk.TabIndex = 120;
+            this.comboBox_wire_tk.TabIndex = 29;
             // 
             // label33
             // 
@@ -718,7 +718,7 @@
             this.textBox_wireless_tk.Location = new System.Drawing.Point(105, 45);
             this.textBox_wireless_tk.Name = "textBox_wireless_tk";
             this.textBox_wireless_tk.Size = new System.Drawing.Size(366, 20);
-            this.textBox_wireless_tk.TabIndex = 69;
+            this.textBox_wireless_tk.TabIndex = 30;
             // 
             // label35
             // 
@@ -753,7 +753,7 @@
             this.textBox_zvich_relay_lancug.Location = new System.Drawing.Point(105, 96);
             this.textBox_zvich_relay_lancug.Name = "textBox_zvich_relay_lancug";
             this.textBox_zvich_relay_lancug.Size = new System.Drawing.Size(366, 20);
-            this.textBox_zvich_relay_lancug.TabIndex = 72;
+            this.textBox_zvich_relay_lancug.TabIndex = 26;
             // 
             // checkBox_block_prizrak_can
             // 
@@ -761,7 +761,7 @@
             this.checkBox_block_prizrak_can.Location = new System.Drawing.Point(105, 122);
             this.checkBox_block_prizrak_can.Name = "checkBox_block_prizrak_can";
             this.checkBox_block_prizrak_can.Size = new System.Drawing.Size(145, 17);
-            this.checkBox_block_prizrak_can.TabIndex = 91;
+            this.checkBox_block_prizrak_can.TabIndex = 27;
             this.checkBox_block_prizrak_can.Text = "Блокує Прізрак по CAN";
             this.checkBox_block_prizrak_can.UseVisualStyleBackColor = true;
             // 
@@ -770,7 +770,7 @@
             this.textBox_zvich_relay_place.Location = new System.Drawing.Point(105, 70);
             this.textBox_zvich_relay_place.Name = "textBox_zvich_relay_place";
             this.textBox_zvich_relay_place.Size = new System.Drawing.Size(366, 20);
-            this.textBox_zvich_relay_place.TabIndex = 71;
+            this.textBox_zvich_relay_place.TabIndex = 25;
             // 
             // label37
             // 
@@ -786,14 +786,14 @@
             this.textBox_CAN_relay_lancug.Location = new System.Drawing.Point(105, 44);
             this.textBox_CAN_relay_lancug.Name = "textBox_CAN_relay_lancug";
             this.textBox_CAN_relay_lancug.Size = new System.Drawing.Size(366, 20);
-            this.textBox_CAN_relay_lancug.TabIndex = 70;
+            this.textBox_CAN_relay_lancug.TabIndex = 24;
             // 
             // textBox_CAN_relay_place
             // 
             this.textBox_CAN_relay_place.Location = new System.Drawing.Point(105, 18);
             this.textBox_CAN_relay_place.Name = "textBox_CAN_relay_place";
             this.textBox_CAN_relay_place.Size = new System.Drawing.Size(366, 20);
-            this.textBox_CAN_relay_place.TabIndex = 69;
+            this.textBox_CAN_relay_place.TabIndex = 23;
             // 
             // label6
             // 
@@ -835,47 +835,6 @@
             this.groupBox2.TabIndex = 67;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Тестування";
-            // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.panel_move_active);
-            this.groupBox9.Controls.Add(this.comboBox_result);
-            this.groupBox9.Location = new System.Drawing.Point(0, 344);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(501, 185);
-            this.groupBox9.TabIndex = 91;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Результат тестування";
-            // 
-            // panel_move_active
-            // 
-            this.panel_move_active.Controls.Add(this.wl_group_activ_checkBox);
-            this.panel_move_active.Location = new System.Drawing.Point(311, 18);
-            this.panel_move_active.Name = "panel_move_active";
-            this.panel_move_active.Size = new System.Drawing.Size(156, 33);
-            this.panel_move_active.TabIndex = 89;
-            // 
-            // wl_group_activ_checkBox
-            // 
-            this.wl_group_activ_checkBox.AutoSize = true;
-            this.wl_group_activ_checkBox.Location = new System.Drawing.Point(4, 8);
-            this.wl_group_activ_checkBox.Name = "wl_group_activ_checkBox";
-            this.wl_group_activ_checkBox.Size = new System.Drawing.Size(148, 17);
-            this.wl_group_activ_checkBox.TabIndex = 32;
-            this.wl_group_activ_checkBox.Text = "Внести в групу Активні?";
-            this.wl_group_activ_checkBox.UseVisualStyleBackColor = true;
-            this.wl_group_activ_checkBox.CheckedChanged += new System.EventHandler(this.wl_group_activ_checkBox_CheckedChanged);
-            // 
-            // comboBox_result
-            // 
-            this.comboBox_result.FormattingEnabled = true;
-            this.comboBox_result.Items.AddRange(new object[] {
-            "Успішно",
-            "Не завершено"});
-            this.comboBox_result.Location = new System.Drawing.Point(6, 22);
-            this.comboBox_result.Name = "comboBox_result";
-            this.comboBox_result.Size = new System.Drawing.Size(200, 21);
-            this.comboBox_result.TabIndex = 90;
             // 
             // tableLayoutPanel1
             // 
@@ -945,6 +904,34 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(489, 322);
             this.tableLayoutPanel1.TabIndex = 66;
             // 
@@ -954,7 +941,7 @@
             this.checkBox_test_conn.Location = new System.Drawing.Point(4, 4);
             this.checkBox_test_conn.Name = "checkBox_test_conn";
             this.checkBox_test_conn.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_test_conn.TabIndex = 27;
+            this.checkBox_test_conn.TabIndex = 35;
             this.checkBox_test_conn.UseVisualStyleBackColor = true;
             // 
             // label2
@@ -1007,7 +994,7 @@
             this.checkBox_test_tk.Location = new System.Drawing.Point(4, 101);
             this.checkBox_test_tk.Name = "checkBox_test_tk";
             this.checkBox_test_tk.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_test_tk.TabIndex = 31;
+            this.checkBox_test_tk.TabIndex = 41;
             this.checkBox_test_tk.UseVisualStyleBackColor = true;
             this.checkBox_test_tk.CheckedChanged += new System.EventHandler(this.checkBox_test_tk_CheckedChanged);
             // 
@@ -1017,7 +1004,7 @@
             this.checkBox1.Location = new System.Drawing.Point(4, 143);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(15, 14);
-            this.checkBox1.TabIndex = 33;
+            this.checkBox1.TabIndex = 43;
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.Visible = false;
             // 
@@ -1028,7 +1015,7 @@
             this.checkBox2.Location = new System.Drawing.Point(4, 164);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(15, 14);
-            this.checkBox2.TabIndex = 33;
+            this.checkBox2.TabIndex = 44;
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // checkBox3
@@ -1038,7 +1025,7 @@
             this.checkBox3.Location = new System.Drawing.Point(4, 185);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(15, 14);
-            this.checkBox3.TabIndex = 33;
+            this.checkBox3.TabIndex = 45;
             this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // checkBox4
@@ -1048,7 +1035,7 @@
             this.checkBox4.Location = new System.Drawing.Point(4, 206);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(15, 14);
-            this.checkBox4.TabIndex = 33;
+            this.checkBox4.TabIndex = 46;
             this.checkBox4.UseVisualStyleBackColor = true;
             // 
             // label8
@@ -1145,7 +1132,7 @@
             this.checkBox_test_koordinati.Location = new System.Drawing.Point(4, 25);
             this.checkBox_test_koordinati.Name = "checkBox_test_koordinati";
             this.checkBox_test_koordinati.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_test_koordinati.TabIndex = 32;
+            this.checkBox_test_koordinati.TabIndex = 36;
             this.checkBox_test_koordinati.UseVisualStyleBackColor = true;
             this.checkBox_test_koordinati.CheckedChanged += new System.EventHandler(this.checkBox_test_koordinati_CheckedChanged);
             // 
@@ -1166,7 +1153,7 @@
             this.checkBox_test_du.Location = new System.Drawing.Point(4, 122);
             this.checkBox_test_du.Name = "checkBox_test_du";
             this.checkBox_test_du.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_test_du.TabIndex = 30;
+            this.checkBox_test_du.TabIndex = 42;
             this.checkBox_test_du.UseVisualStyleBackColor = true;
             this.checkBox_test_du.CheckedChanged += new System.EventHandler(this.checkBox_test_sirene_CheckedChanged);
             // 
@@ -1198,7 +1185,7 @@
             this.checkBox__test_vzlom.Location = new System.Drawing.Point(4, 80);
             this.checkBox__test_vzlom.Name = "checkBox__test_vzlom";
             this.checkBox__test_vzlom.Size = new System.Drawing.Size(15, 14);
-            this.checkBox__test_vzlom.TabIndex = 29;
+            this.checkBox__test_vzlom.TabIndex = 40;
             this.checkBox__test_vzlom.UseVisualStyleBackColor = true;
             this.checkBox__test_vzlom.CheckedChanged += new System.EventHandler(this.checkBox__test_vzlom_CheckedChanged);
             // 
@@ -1230,7 +1217,7 @@
             this.checkBox_test_zablocovano.Location = new System.Drawing.Point(4, 46);
             this.checkBox_test_zablocovano.Name = "checkBox_test_zablocovano";
             this.checkBox_test_zablocovano.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_test_zablocovano.TabIndex = 28;
+            this.checkBox_test_zablocovano.TabIndex = 39;
             this.checkBox_test_zablocovano.UseVisualStyleBackColor = true;
             this.checkBox_test_zablocovano.CheckedChanged += new System.EventHandler(this.checkBox_test_zablocovano_CheckedChanged);
             // 
@@ -1260,7 +1247,7 @@
             this.button_unblock_engine.Location = new System.Drawing.Point(98, 2);
             this.button_unblock_engine.Name = "button_unblock_engine";
             this.button_unblock_engine.Size = new System.Drawing.Size(75, 23);
-            this.button_unblock_engine.TabIndex = 25;
+            this.button_unblock_engine.TabIndex = 38;
             this.button_unblock_engine.Text = "Розблок.";
             this.button_unblock_engine.UseVisualStyleBackColor = true;
             this.button_unblock_engine.Click += new System.EventHandler(this.button_unblock_engine_Click);
@@ -1270,7 +1257,7 @@
             this.button_block_engine.Location = new System.Drawing.Point(5, 2);
             this.button_block_engine.Name = "button_block_engine";
             this.button_block_engine.Size = new System.Drawing.Size(75, 23);
-            this.button_block_engine.TabIndex = 24;
+            this.button_block_engine.TabIndex = 37;
             this.button_block_engine.Text = "Заблок.";
             this.button_block_engine.UseVisualStyleBackColor = true;
             this.button_block_engine.Click += new System.EventHandler(this.button_block_engine_Click);
@@ -1293,7 +1280,7 @@
             this.checkBox_test_autostart.Location = new System.Drawing.Point(4, 290);
             this.checkBox_test_autostart.Name = "checkBox_test_autostart";
             this.checkBox_test_autostart.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_test_autostart.TabIndex = 36;
+            this.checkBox_test_autostart.TabIndex = 52;
             this.checkBox_test_autostart.UseVisualStyleBackColor = true;
             this.checkBox_test_autostart.CheckedChanged += new System.EventHandler(this.checkBox_test_koordinati_CheckedChanged);
             // 
@@ -1313,7 +1300,7 @@
             this.button_autostart_stop.Location = new System.Drawing.Point(98, 1);
             this.button_autostart_stop.Name = "button_autostart_stop";
             this.button_autostart_stop.Size = new System.Drawing.Size(75, 23);
-            this.button_autostart_stop.TabIndex = 92;
+            this.button_autostart_stop.TabIndex = 51;
             this.button_autostart_stop.Text = "АЗ Стоп";
             this.button_autostart_stop.UseVisualStyleBackColor = true;
             this.button_autostart_stop.Click += new System.EventHandler(this.button_autostart_stop_Click);
@@ -1324,7 +1311,7 @@
             this.button_autostart.Location = new System.Drawing.Point(5, 1);
             this.button_autostart.Name = "button_autostart";
             this.button_autostart.Size = new System.Drawing.Size(75, 23);
-            this.button_autostart.TabIndex = 91;
+            this.button_autostart.TabIndex = 50;
             this.button_autostart.Text = "АЗ Старт";
             this.button_autostart.UseVisualStyleBackColor = true;
             this.button_autostart.Click += new System.EventHandler(this.button_autostart_Click);
@@ -1335,7 +1322,7 @@
             this.checkBox_test_dop_2.Location = new System.Drawing.Point(4, 269);
             this.checkBox_test_dop_2.Name = "checkBox_test_dop_2";
             this.checkBox_test_dop_2.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_test_dop_2.TabIndex = 35;
+            this.checkBox_test_dop_2.TabIndex = 49;
             this.checkBox_test_dop_2.UseVisualStyleBackColor = true;
             // 
             // checkBox_dop_1
@@ -1344,7 +1331,7 @@
             this.checkBox_dop_1.Location = new System.Drawing.Point(4, 248);
             this.checkBox_dop_1.Name = "checkBox_dop_1";
             this.checkBox_dop_1.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_dop_1.TabIndex = 34;
+            this.checkBox_dop_1.TabIndex = 48;
             this.checkBox_dop_1.UseVisualStyleBackColor = true;
             // 
             // label11
@@ -1409,7 +1396,7 @@
             this.checkBox5.Location = new System.Drawing.Point(4, 227);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(15, 14);
-            this.checkBox5.TabIndex = 33;
+            this.checkBox5.TabIndex = 47;
             this.checkBox5.UseVisualStyleBackColor = true;
             // 
             // label_test_dop_1
@@ -1434,34 +1421,6 @@
             this.label_eng_run.Text = "#";
             this.label_eng_run.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // textBox_commets
-            // 
-            this.textBox_commets.Location = new System.Drawing.Point(10, 19);
-            this.textBox_commets.Multiline = true;
-            this.textBox_commets.Name = "textBox_commets";
-            this.textBox_commets.Size = new System.Drawing.Size(485, 82);
-            this.textBox_commets.TabIndex = 37;
-            // 
-            // button_cancel
-            // 
-            this.button_cancel.Location = new System.Drawing.Point(930, 717);
-            this.button_cancel.Name = "button_cancel";
-            this.button_cancel.Size = new System.Drawing.Size(75, 23);
-            this.button_cancel.TabIndex = 39;
-            this.button_cancel.Text = "Відмінити";
-            this.button_cancel.UseVisualStyleBackColor = true;
-            this.button_cancel.Click += new System.EventHandler(this.button_cancel_Click);
-            // 
-            // button_write
-            // 
-            this.button_write.Location = new System.Drawing.Point(849, 717);
-            this.button_write.Name = "button_write";
-            this.button_write.Size = new System.Drawing.Size(75, 23);
-            this.button_write.TabIndex = 38;
-            this.button_write.Text = "Зберегти";
-            this.button_write.UseVisualStyleBackColor = true;
-            this.button_write.Click += new System.EventHandler(this.button_write_Click);
-            // 
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.textBox_commets);
@@ -1471,6 +1430,75 @@
             this.groupBox8.TabIndex = 68;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Коментар";
+            // 
+            // textBox_commets
+            // 
+            this.textBox_commets.Location = new System.Drawing.Point(10, 19);
+            this.textBox_commets.Multiline = true;
+            this.textBox_commets.Name = "textBox_commets";
+            this.textBox_commets.Size = new System.Drawing.Size(485, 82);
+            this.textBox_commets.TabIndex = 55;
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.panel_move_active);
+            this.groupBox9.Controls.Add(this.comboBox_result);
+            this.groupBox9.Location = new System.Drawing.Point(0, 344);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(501, 185);
+            this.groupBox9.TabIndex = 91;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Результат тестування";
+            // 
+            // panel_move_active
+            // 
+            this.panel_move_active.Controls.Add(this.wl_group_activ_checkBox);
+            this.panel_move_active.Location = new System.Drawing.Point(311, 18);
+            this.panel_move_active.Name = "panel_move_active";
+            this.panel_move_active.Size = new System.Drawing.Size(156, 33);
+            this.panel_move_active.TabIndex = 89;
+            // 
+            // wl_group_activ_checkBox
+            // 
+            this.wl_group_activ_checkBox.AutoSize = true;
+            this.wl_group_activ_checkBox.Location = new System.Drawing.Point(4, 8);
+            this.wl_group_activ_checkBox.Name = "wl_group_activ_checkBox";
+            this.wl_group_activ_checkBox.Size = new System.Drawing.Size(148, 17);
+            this.wl_group_activ_checkBox.TabIndex = 54;
+            this.wl_group_activ_checkBox.Text = "Внести в групу Активні?";
+            this.wl_group_activ_checkBox.UseVisualStyleBackColor = true;
+            this.wl_group_activ_checkBox.CheckedChanged += new System.EventHandler(this.wl_group_activ_checkBox_CheckedChanged);
+            // 
+            // comboBox_result
+            // 
+            this.comboBox_result.FormattingEnabled = true;
+            this.comboBox_result.Items.AddRange(new object[] {
+            "Успішно",
+            "Не завершено"});
+            this.comboBox_result.Location = new System.Drawing.Point(6, 22);
+            this.comboBox_result.Name = "comboBox_result";
+            this.comboBox_result.Size = new System.Drawing.Size(200, 21);
+            this.comboBox_result.TabIndex = 53;
+            // 
+            // button_cancel
+            // 
+            this.button_cancel.Location = new System.Drawing.Point(930, 717);
+            this.button_cancel.Name = "button_cancel";
+            this.button_cancel.Size = new System.Drawing.Size(75, 23);
+            this.button_cancel.TabIndex = 57;
+            this.button_cancel.Text = "Відмінити";
+            this.button_cancel.UseVisualStyleBackColor = true;
+            this.button_cancel.Click += new System.EventHandler(this.button_cancel_Click);
+            // 
+            // button_write
+            // 
+            this.button_write.Location = new System.Drawing.Point(849, 717);
+            this.button_write.Name = "button_write";
+            this.button_write.Size = new System.Drawing.Size(75, 23);
+            this.button_write.TabIndex = 56;
+            this.button_write.Text = "Зберегти";
+            this.button_write.UseVisualStyleBackColor = true;
+            this.button_write.Click += new System.EventHandler(this.button_write_Click);
             // 
             // tabControl_testing
             // 
@@ -1541,15 +1569,15 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox9.ResumeLayout(false);
-            this.panel_move_active.ResumeLayout(false);
-            this.panel_move_active.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.panel_move_active.ResumeLayout(false);
+            this.panel_move_active.PerformLayout();
             this.tabControl_testing.ResumeLayout(false);
             this.tabPage_anketa.ResumeLayout(false);
             this.tabPage_map.ResumeLayout(false);

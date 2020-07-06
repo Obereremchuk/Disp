@@ -4,10 +4,12 @@ using System;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
+using System.IO;
 using System.Net;
 using System.Timers;
 using System.Windows.Forms;
-
+using ZXing;
 
 namespace Disp_WinForm
 {
@@ -16,9 +18,10 @@ namespace Disp_WinForm
     {
         Macros macros = new Macros();
         private static System.Timers.Timer aTimer;
-
+        
         delegate void UpdateGridHandler(DataTable table);
         delegate void UpdateGridThreadHandler(DataTable table);
+        private string streamToPrint = Directory.GetCurrentDirectory() + "\\barcode.png";
 
 
         public Main_window()
@@ -27,6 +30,7 @@ namespace Disp_WinForm
 
 
             InitializeComponent();
+            
             this.Text = "Disp v." + vars_form.version;
             comboBox_activovani_select.SelectedIndex = 0;
             comboBox_prikripleno_select.SelectedIndex = 0;
@@ -138,40 +142,17 @@ namespace Disp_WinForm
                     else if (Convert.ToInt32(user["accsess_lvl"]) == 8)
                     {
                         tabControl_testing.TabPages.Remove(tabPage3);
+                        tabControl_testing.TabPages.Remove(tab_create_object);
                     }
                     else 
                     {
                         tabControl_testing.TabPages.Remove(tabPage3);
                         tabControl_testing.TabPages.Remove(tabPage_zvit);
                         textBox_activation_search.Enabled = false;
+                        tabControl_testing.TabPages.Remove(tab_create_object);
                     }
                 }
             }
-
-            //if (vars_form.user_login_id == "5" || vars_form.user_login_id == "9" || vars_form.user_login_id == "34")//разрешаем Ленику, Пустовит доступ к вкладке Звит
-            //{
-
-            //}
-            //else
-            //{
-            //    tabControl_testing.TabPages.Remove(tabPage3);
-            //    tabControl_testing.TabPages.Remove(tabPage_zvit);
-            //    textBox_activation_search.Enabled = false;
-            //}
-
-            //if (vars_form.user_login_id == "6" || vars_form.user_login_id == "2")//разрешаем Лозинскоу доступ к вкладке зупинки обслуговування
-            //{
-
-            //}
-            //else
-            //{
-            //    tabControl_testing.TabPages.Remove(tabPage3);
-            //}
-
-
-
-
-
         }// Прячм вкладки если ты не из касты
 
         private void SetTimer()
@@ -382,8 +363,23 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.Enabled = false;
             }
-
-
+            else if (tabControl_testing.SelectedTab.Name == "tab_create_object")
+            {
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_808);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_909);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_open);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_sale);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_dilery);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_testing);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
+                aTimer.Enabled = false;
+                build_list_products();
+                Google_masseges();
+                GetPrinters();
+                search_tovar_comboBox.Enabled = false;
+            }
         }
 
         /// Обновляем вкладку zayavki Activation W2 
@@ -1899,7 +1895,13 @@ namespace Disp_WinForm
             if (dataGridView_909_n.Rows.Count >= selectpozition)
             {
                 dataGridView_909_n.ClearSelection();
-                dataGridView_909_n.Rows[selectpozition].Selected = true;
+                try 
+                {
+                    dataGridView_909_n.Rows[selectpozition].Selected = true; 
+                }
+                catch (Exception)
+                { }
+                
             }
         }
         private void UpdateGrid_909(DataTable table)
@@ -2195,6 +2197,7 @@ namespace Disp_WinForm
                 if (dataGridView_open_alarm.Rows.Count >= selectpozition)
                 {
                     dataGridView_open_alarm.ClearSelection();
+
                     dataGridView_open_alarm.Rows[selectpozition].Selected = true;
                 }
             }
@@ -2868,9 +2871,16 @@ namespace Disp_WinForm
         /// <Вкладка add_object>
         /// ////////
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+
         /// 
+
+        private void Google_masseges()
+        {
+            //GeckoPreferences.User["browser.xul.error_pages.enabled"] = true;
+
+            geckoWebBrowser_GoogleMaseges.Navigate("https://messages.google.com/web/authentication");
+
+        }
 
         private void build_list_products()
         {
@@ -2884,7 +2894,6 @@ namespace Disp_WinForm
             maskedTextBox_BLE_CODE.Enabled = false;
             textBox_id_to_create.Enabled = false;
             maskedTextBox_PUK.Enabled = false;
-            textBox_TEC_HW.Enabled = false;
             maskedTextBox_sim_no_to_create.Enabled = false;
         }// Строим список продуктов - Имя=Название продукта, Значение=краткое название
 
@@ -2893,12 +2902,11 @@ namespace Disp_WinForm
             switch (comboBox_list_poructs.SelectedValue.ToString())
             {
                 case "1"://None
-                    //selectet_product = "0";
+                    //HW_id = 0;
                     maskedTextBox_GSM_CODE.Enabled = false;
                     maskedTextBox_BLE_CODE.Enabled = false;
                     textBox_id_to_create.Enabled = false;
                     maskedTextBox_PUK.Enabled = false;
-                    textBox_TEC_HW.Enabled = false;
                     maskedTextBox_sim_no_to_create.Enabled = false;
                     search_tovar_comboBox.Enabled = false;
                     maskedTextBox_BLE_CODE.Text = "";
@@ -2909,14 +2917,12 @@ namespace Disp_WinForm
                     textBox_bt_enable.Text = "";
                     break;
                 case "2"://CNTK
-                    //selectet_product = "9";
+                    //HW_id = 9;
                     maskedTextBox_GSM_CODE.Enabled = false;
                     maskedTextBox_BLE_CODE.Enabled = false;
                     textBox_id_to_create.Enabled = true;
                     maskedTextBox_PUK.Enabled = true;
-                    textBox_TEC_HW.Enabled = true;
                     maskedTextBox_sim_no_to_create.Enabled = true;
-                    textBox_TEC_HW.Text = "";
                     search_tovar_comboBox.Enabled = false;
                     maskedTextBox_BLE_CODE.Text = "";
                     maskedTextBox_GSM_CODE.Text = "";
@@ -2926,14 +2932,12 @@ namespace Disp_WinForm
                     textBox_bt_enable.Text = "";
                     break;
                 case "3"://CNTP
-                    //selectet_product = "9";
+                    //int HW_id = "9";
                     maskedTextBox_GSM_CODE.Enabled = false;
                     maskedTextBox_BLE_CODE.Enabled = false;
                     textBox_id_to_create.Enabled = true;
                     maskedTextBox_PUK.Enabled = true;
-                    textBox_TEC_HW.Enabled = true;
                     maskedTextBox_sim_no_to_create.Enabled = true;
-                    textBox_TEC_HW.Text = "";
                     search_tovar_comboBox.Enabled = false;
                     maskedTextBox_BLE_CODE.Text = "";
                     maskedTextBox_GSM_CODE.Text = "";
@@ -2943,14 +2947,12 @@ namespace Disp_WinForm
                     textBox_bt_enable.Text = "";
                     break;
                 case "4"://CNTP-SE
-                    //selectet_product = "38";
+                    //int HW_id = "38";
                     maskedTextBox_GSM_CODE.Enabled = false;
                     maskedTextBox_BLE_CODE.Enabled = false;
                     textBox_id_to_create.Enabled = true;
                     maskedTextBox_PUK.Enabled = true;
-                    textBox_TEC_HW.Enabled = true;
                     maskedTextBox_sim_no_to_create.Enabled = true;
-                    textBox_TEC_HW.Text = "";
                     search_tovar_comboBox.Enabled = false;
                     maskedTextBox_BLE_CODE.Text = "";
                     maskedTextBox_GSM_CODE.Text = "";
@@ -2965,7 +2967,6 @@ namespace Disp_WinForm
                     maskedTextBox_BLE_CODE.Enabled = false;
                     textBox_id_to_create.Enabled = true;
                     maskedTextBox_PUK.Enabled = false;
-                    textBox_TEC_HW.Enabled = false;
                     maskedTextBox_sim_no_to_create.Enabled = true;
                     search_tovar_comboBox.Enabled = false;
                     maskedTextBox_BLE_CODE.Text = "";
@@ -2981,7 +2982,6 @@ namespace Disp_WinForm
                     maskedTextBox_BLE_CODE.Enabled = false;
                     textBox_id_to_create.Enabled = true;
                     maskedTextBox_PUK.Enabled = false;
-                    textBox_TEC_HW.Enabled = false;
                     maskedTextBox_sim_no_to_create.Enabled = true;
                     search_tovar_comboBox.Enabled = false;
                     maskedTextBox_BLE_CODE.Text = "";
@@ -2997,7 +2997,6 @@ namespace Disp_WinForm
                     maskedTextBox_BLE_CODE.Enabled = false;
                     textBox_id_to_create.Enabled = true;
                     maskedTextBox_PUK.Enabled = false;
-                    textBox_TEC_HW.Enabled = false;
                     maskedTextBox_sim_no_to_create.Enabled = true;
                     search_tovar_comboBox.Enabled = false;
                     maskedTextBox_BLE_CODE.Text = "";
@@ -3013,7 +3012,6 @@ namespace Disp_WinForm
                     maskedTextBox_BLE_CODE.Enabled = false;
                     textBox_id_to_create.Enabled = true;
                     maskedTextBox_PUK.Enabled = false;
-                    textBox_TEC_HW.Enabled = false;
                     maskedTextBox_sim_no_to_create.Enabled = true;
                     search_tovar_comboBox.Enabled = false;
                     maskedTextBox_BLE_CODE.Text = "";
@@ -3029,7 +3027,6 @@ namespace Disp_WinForm
                     maskedTextBox_BLE_CODE.Enabled = false;
                     textBox_id_to_create.Enabled = true;
                     maskedTextBox_PUK.Enabled = false;
-                    textBox_TEC_HW.Enabled = false;
                     maskedTextBox_sim_no_to_create.Enabled = false;
                     search_tovar_comboBox.Enabled = false;
                     maskedTextBox_BLE_CODE.Text = "";
@@ -3045,7 +3042,6 @@ namespace Disp_WinForm
                     maskedTextBox_BLE_CODE.Enabled = true;
                     textBox_id_to_create.Enabled = true;
                     maskedTextBox_PUK.Enabled = true;
-                    textBox_TEC_HW.Enabled = true;
                     maskedTextBox_sim_no_to_create.Enabled = true;
                     search_tovar_comboBox.Enabled = true;
                     maskedTextBox_BLE_CODE.Text = "";
@@ -3061,7 +3057,6 @@ namespace Disp_WinForm
                     maskedTextBox_BLE_CODE.Enabled = true;
                     textBox_id_to_create.Enabled = true;
                     maskedTextBox_PUK.Enabled = true;
-                    textBox_TEC_HW.Enabled = true;
                     maskedTextBox_sim_no_to_create.Enabled = true;
                     search_tovar_comboBox.Enabled = true;
                     maskedTextBox_BLE_CODE.Text = "";
@@ -3077,7 +3072,6 @@ namespace Disp_WinForm
                     maskedTextBox_BLE_CODE.Enabled = true;
                     textBox_id_to_create.Enabled = true;
                     maskedTextBox_PUK.Enabled = true;
-                    textBox_TEC_HW.Enabled = true;
                     maskedTextBox_sim_no_to_create.Enabled = true;
                     search_tovar_comboBox.Enabled = true;
                     maskedTextBox_BLE_CODE.Text = "";
@@ -3093,7 +3087,6 @@ namespace Disp_WinForm
                     maskedTextBox_BLE_CODE.Enabled = true;
                     textBox_id_to_create.Enabled = true;
                     maskedTextBox_PUK.Enabled = true;
-                    textBox_TEC_HW.Enabled = true;
                     maskedTextBox_sim_no_to_create.Enabled = true;
                     search_tovar_comboBox.Enabled = true;
                     maskedTextBox_BLE_CODE.Text = "";
@@ -3108,37 +3101,17 @@ namespace Disp_WinForm
 
         private void search_tovar_comboBox_DropDownClosed(object sender, EventArgs e)
         {
-            DataTable t = new DataTable();
-            t = macros.GetData("SELECT CN, IMEI, BtKey, Puk, gsm_code, tag_access_code, SN FROM btk.Invice_Tovar where SN='" + search_tovar_comboBox.GetItemText(this.search_tovar_comboBox.SelectedItem).ToString() + "';");
-            if (t != null & t.Rows.Count > 0)
-            {
-                textBox_id_to_create.Text = t.Rows[0][0].ToString();
-                textBox_id_to_create.Enabled = false;
-                maskedTextBox_GSM_CODE.Text = t.Rows[0][4].ToString();
-                maskedTextBox_GSM_CODE.Enabled = false;
-                maskedTextBox_PUK.Text = t.Rows[0][3].ToString();
-                maskedTextBox_PUK.Enabled = false;
-                maskedTextBox_BLE_CODE.Text = t.Rows[0][2].ToString();
-                maskedTextBox_BLE_CODE.Enabled = false;
-                textBox_bt_enable.Text = t.Rows[0][5].ToString();
-                textBox_bt_enable.Enabled = false;
-                Clipboard.SetText(textBox_id_to_create.Text);
-            }
-        }
-        private void search_tovar_comboBox_Enter(object sender, EventArgs e)
-        {
-            if (comboBox_list_poructs.SelectedValue.ToString() == "10" || comboBox_list_poructs.SelectedValue.ToString() == "11" || comboBox_list_poructs.SelectedValue.ToString() == "12" || comboBox_list_poructs.SelectedValue.ToString() == "13")
-            {
-
-                DataTable t = new DataTable();
-                t = macros.GetData("SELECT idTovar, SN FROM btk.Invice_Tovar where Tovar_idTovar=1;");
-                DataRow r = t.NewRow();
-                t.Rows.InsertAt(r, 0);
-                search_tovar_comboBox.DataSource = t;
-                search_tovar_comboBox.ValueMember = "idTovar";
-                search_tovar_comboBox.DisplayMember = "SN";
-                search_tovar_comboBox.DroppedDown = true;
-            }
+            //DataTable t = new DataTable();
+            //t = macros.GetData("SELECT CN, IMEI, BtKey, Puk, gsm_code, tag_access_code, SN FROM btk.Invice_Tovar where SN='" + search_tovar_comboBox.Text + "';");
+            //if (t != null & t.Rows.Count > 0)
+            //{
+            //    textBox_id_to_create.Text = t.Rows[0][0].ToString();
+            //    maskedTextBox_GSM_CODE.Text = t.Rows[0][4].ToString();
+            //    maskedTextBox_PUK.Text = t.Rows[0][3].ToString();
+            //    maskedTextBox_BLE_CODE.Text = t.Rows[0][2].ToString();
+            //    textBox_bt_enable.Text = t.Rows[0][5].ToString();
+            //    Clipboard.SetText(textBox_id_to_create.Text);
+            //}
         }
 
         private void button_copy_tel_Click(object sender, EventArgs e)
@@ -3230,11 +3203,48 @@ namespace Disp_WinForm
                     return;
                 maskedTextBox_PUK.BackColor = Color.White;
             }
+            // Проверям существует ли данный номер в системе
+            string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_phone_number|sys_phone_number2\"," +
+                                                     "\"propValueMask\":\""+ "*" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m = JsonConvert.DeserializeObject<RootObject>(unswer);
+            if (m.items.Count>0)
+            {
+                MessageBox.Show("Указанный телефон существует в WL");
+                return;
+            }
+
+            // Проверям существует ли указанный ИМЕЙ в системе
+            string unswer2 = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_unique_id\"," +
+                                                     "\"propValueMask\":\"" + textBox_id_to_create.Text + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m2 = JsonConvert.DeserializeObject<RootObject>(unswer2);
+            if (m2.items.Count > 0)
+            {
+                MessageBox.Show("Указанный IMEI существует в WL");
+                return;
+            }
 
             /////////////////
             ///Создаем объект
             /////////////////
-            string cr_obj_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
+            string cr_obj_in =  "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
             string json = macros.WialonRequest(cr_obj_in);
             var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
             if (cr_obj_out.error != 0)
@@ -3247,8 +3257,8 @@ namespace Disp_WinForm
             ///Создаем пароль доступа к объекту
             /////////////////
 
-            string accsess_pass_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_access_password&params={"
+            string accsess_pass_answer = macros.WialonRequest(
+                "&svc=unit/update_access_password&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"accessPassword\":\"" + maskedTextBox_GSM_CODE.Text.ToString() + "\"}");
             var accsess_pass_answer_out = JsonConvert.DeserializeObject<RootObject>(json);
@@ -3261,8 +3271,8 @@ namespace Disp_WinForm
             /////////////////
             ///Установливаем имя объекта и ID оборудования и 
             /////////////////
-            string item_id_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_device_type&params={"
+            string item_id_in = 
+                "&svc=unit/update_device_type&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id
                 + "\",\"deviceTypeId\":\"" + "9"
                 + "\",\"uniqueId\":\"" + textBox_id_to_create.Text.ToString() + "\"}";
@@ -3276,7 +3286,7 @@ namespace Disp_WinForm
             /////////////////
             ///Устанавливаем номер СИМ
             /////////////////
-            string item_phone_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string item_phone_in =  "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
             string json3 = macros.WialonRequest(item_phone_in);
             var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
             if (item_phone_out.error != 0)
@@ -3393,16 +3403,6 @@ namespace Disp_WinForm
             //35. Температура двигателя
             string eng_temp_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Температура двигателя", "temperature", "C", "eng_temp", 35, "1", 0, "");
 
-            //36. gmpo_ver
-            string gmpo_ver = macros.create_sensor_wl(cr_obj_out.item.id, "GMPO", "custom", "", "gmpo_ver", 36, "1", 0, "");
-
-            //37. gmpo_ver
-            string cd_ver = macros.create_sensor_wl(cr_obj_out.item.id, "CD_ver", "custom", "", "cd_ver", 37, "1", 0, "");
-
-            //38. bt_ver
-            string bt_ver = macros.create_sensor_wl(cr_obj_out.item.id, "BT_ver", "custom", "", "bt_ver", 38, "1", 0, "");
-
-
             /////////////////
             ///Создаем произвольные поля
             /////////////////
@@ -3525,15 +3525,15 @@ namespace Disp_WinForm
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "10 Кодове слово", "");
 
             //Админитстративное поле 40
-            answer = macros.create_admin_field_wl(cr_obj_out.item.id, "13 Prizrak 910 SN", search_tovar_comboBox.GetItemText(search_tovar_comboBox.SelectedItem));
+            answer = macros.create_admin_field_wl(cr_obj_out.item.id, "13 Prizrak 910 SN", search_tovar_comboBox.Text);
 
 
             /////////////////
             ///Добавляем в группу Объекты All
             /////////////////
 
-            string get_units_on_group = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=core/search_item&params={"
+            string get_units_on_group = macros.WialonRequest(
+                "&svc=core/search_item&params={"
                 + "\"id\":\"2612\","
                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -3542,8 +3542,8 @@ namespace Disp_WinForm
             list_get_units_on_group.item.u.Add(cr_obj_out.item.id);//Доповляем в список новый объект
             string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-            string gr_answer = macros.WialonRequest("https://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit_group/update_units&params={"
+            string gr_answer = macros.WialonRequest(
+                "&svc=unit_group/update_units&params={"
                 + "\"itemId\":\"2612\","
                 + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
@@ -3596,7 +3596,8 @@ namespace Disp_WinForm
             //6 - Выключить сервисный режиме
             string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режиме", "%23valet=0%23", 16777216);
 
-
+            //получаем айди SIM-card
+            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '"+ maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
 
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card, Objectcol_puk, Objectcol_gsm_code, Objectcol_ble_code, Objectcol_bt_enable, Objectcol_sn_prizrak) "
                 + "values('" + cr_obj_out.item.id
@@ -3604,7 +3605,9 @@ namespace Disp_WinForm
                 + "', '" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem)
                 + " " + textBox_id_to_create.Text.ToString() + "','"
                 + maskedTextBox_sim_no_to_create.Text.ToString()
-                + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', '1', '1', '1', '1','1', null, '" + vars_form.user_login_id + "', '"
+                + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "'," +
+                " '"+ id_sim + "'," +
+                " '1', '1', '1','1', null, '" + vars_form.user_login_id + "', '"
                 + textBox_id_to_create.Text.ToString() + "', '"
                 + maskedTextBox_PUK.Text.ToString() + "', '"
                 + maskedTextBox_GSM_CODE.Text.ToString() + "', '"
@@ -3639,6 +3642,8 @@ namespace Disp_WinForm
             maskedTextBox_sim_no_to_create.Text = "";
             textBox_bt_enable.Text = "";
             button_create_object.BackColor = Color.Green;
+            comboBox_tel_select.Text = "";
+            search_tovar_comboBox.Text = "";
         }
         private void CNTP_910()
         {
@@ -3671,10 +3676,48 @@ namespace Disp_WinForm
                 maskedTextBox_PUK.BackColor = Color.White;
             }
 
+            // Проверям существует ли данный номер в системе
+            string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_phone_number|sys_phone_number2\"," +
+                                                     "\"propValueMask\":\"" + "*" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m = JsonConvert.DeserializeObject<RootObject>(unswer);
+            if (m.items.Count > 0)
+            {
+                MessageBox.Show("Указанный телефон существует в WL");
+                return;
+            }
+
+            // Проверям существует ли указанный ИМЕЙ в системе
+            string unswer2 = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_unique_id\"," +
+                                                     "\"propValueMask\":\"" + textBox_id_to_create.Text + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m2 = JsonConvert.DeserializeObject<RootObject>(unswer2);
+            if (m2.items.Count > 0)
+            {
+                MessageBox.Show("Указанный IMEI существует в WL");
+                return;
+            }
+
             /////////////////
             ///Создаем объект
             /////////////////
-            string cr_obj_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
+            string cr_obj_in =  "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
             string json = macros.WialonRequest(cr_obj_in);
             var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
             if (cr_obj_out.error != 0)
@@ -3687,11 +3730,11 @@ namespace Disp_WinForm
             ///Создаем пароль доступа к объекту
             /////////////////
 
-            string accsess_pass_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_access_password&params={"
+            string accsess_pass_answer = macros.WialonRequest(
+                "&svc=unit/update_access_password&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"accessPassword\":\"" + maskedTextBox_GSM_CODE.Text.ToString() + "\"}");
-            var accsess_pass_answer_out = JsonConvert.DeserializeObject<RootObject>(json);
+            var accsess_pass_answer_out = JsonConvert.DeserializeObject<RootObject>(accsess_pass_answer);
             if (accsess_pass_answer_out.error != 0)
             {
                 string text = macros.Get_wl_text_error(accsess_pass_answer_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
@@ -3701,8 +3744,8 @@ namespace Disp_WinForm
             /////////////////
             ///Установливаем имя объекта и ID оборудования и 
             /////////////////
-            string item_id_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_device_type&params={"
+            string item_id_in = 
+                "&svc=unit/update_device_type&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id
                 + "\",\"deviceTypeId\":\"" + "9"
                 + "\",\"uniqueId\":\"" + textBox_id_to_create.Text.ToString() + "\"}";
@@ -3716,7 +3759,7 @@ namespace Disp_WinForm
             /////////////////
             ///Устанавливаем номер СИМ
             /////////////////
-            string item_phone_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string item_phone_in =  "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
             string json3 = macros.WialonRequest(item_phone_in);
             var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
             if (item_phone_out.error != 0)
@@ -3832,15 +3875,6 @@ namespace Disp_WinForm
 
             //35. Температура двигателя
             string eng_temp_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Температура двигателя", "temperature", "C", "eng_temp", 35, "1", 0, "");
-
-            //36. gmpo_ver
-            string gmpo_ver = macros.create_sensor_wl(cr_obj_out.item.id, "GMPO", "custom", "", "gmpo_ver", 36, "1", 0, "");
-
-            //37. gmpo_ver
-            string cd_ver = macros.create_sensor_wl(cr_obj_out.item.id, "CD_ver", "custom", "", "cd_ver", 37, "1", 0, "");
-
-            //38. bt_ver
-            string bt_ver = macros.create_sensor_wl(cr_obj_out.item.id, "BT_ver", "custom", "", "bt_ver", 38, "1", 0, "");
 
 
             /////////////////
@@ -3965,7 +3999,7 @@ namespace Disp_WinForm
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "10 Кодове слово", "");
 
             //Админитстративное поле 40
-            answer = macros.create_admin_field_wl(cr_obj_out.item.id, "13 Prizrak 910 SN", search_tovar_comboBox.GetItemText(search_tovar_comboBox.SelectedItem));
+            answer = macros.create_admin_field_wl(cr_obj_out.item.id, "13 Prizrak 910 SN", search_tovar_comboBox.Text);
 
 
 
@@ -3973,8 +4007,8 @@ namespace Disp_WinForm
             ///Добавляем в группу Объекты All
             /////////////////
 
-            string get_units_on_group = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=core/search_item&params={"
+            string get_units_on_group = macros.WialonRequest(
+                "&svc=core/search_item&params={"
                 + "\"id\":\"2612\","
                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -3983,8 +4017,8 @@ namespace Disp_WinForm
             list_get_units_on_group.item.u.Add(cr_obj_out.item.id);//Доповляем в список новый объект
             string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-            string gr_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit_group/update_units&params={"
+            string gr_answer = macros.WialonRequest(
+                "&svc=unit_group/update_units&params={"
                 + "\"itemId\":\"2612\","
                 + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
@@ -4037,7 +4071,8 @@ namespace Disp_WinForm
             //6 - Выключить сервисный режиме
             string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режиме", "%23valet=0%23", 16777216);
 
-
+            //получаем айди SIM-card
+            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
 
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card, Objectcol_puk, Objectcol_gsm_code, Objectcol_ble_code, Objectcol_bt_enable, Objectcol_sn_prizrak) "
                                         + "values('" + cr_obj_out.item.id
@@ -4045,7 +4080,9 @@ namespace Disp_WinForm
                                         + "', '" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem)
                                         + " " + textBox_id_to_create.Text.ToString() + "','"
                                         + maskedTextBox_sim_no_to_create.Text.ToString()
-                                        + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', '1', '1', '1', '1','1', null, '" + vars_form.user_login_id + "', '"
+                                        + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', " +
+                                        "'"+ id_sim + "'," +
+                                        " '1', '1', '1','1', null, '" + vars_form.user_login_id + "', '"
                                         +textBox_id_to_create.Text.ToString() + "', '"
                                         + maskedTextBox_PUK.Text.ToString() + "', '"
                                         + maskedTextBox_GSM_CODE.Text.ToString() + "', '"
@@ -4079,6 +4116,8 @@ namespace Disp_WinForm
             maskedTextBox_PUK.Text = "";
             maskedTextBox_sim_no_to_create.Text = "";
             textBox_bt_enable.Text = "";
+            comboBox_tel_select.Text = "";
+            search_tovar_comboBox.Text = "";
             button_create_object.BackColor = Color.Green;
         }
         private void CNTP_910_P()
@@ -4112,10 +4151,48 @@ namespace Disp_WinForm
                 maskedTextBox_PUK.BackColor = Color.White;
             }
 
+            // Проверям существует ли данный номер в системе
+            string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_phone_number|sys_phone_number2\"," +
+                                                     "\"propValueMask\":\"" + "*" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m = JsonConvert.DeserializeObject<RootObject>(unswer);
+            if (m.items.Count > 0)
+            {
+                MessageBox.Show("Указанный телефон существует в WL");
+                return;
+            }
+
+            // Проверям существует ли указанный ИМЕЙ в системе
+            string unswer2 = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_unique_id\"," +
+                                                     "\"propValueMask\":\"" + textBox_id_to_create.Text + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m2 = JsonConvert.DeserializeObject<RootObject>(unswer2);
+            if (m2.items.Count > 0)
+            {
+                MessageBox.Show("Указанный IMEI существует в WL");
+                return;
+            }
+
             /////////////////
             ///Создаем объект
             /////////////////
-            string cr_obj_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
+            string cr_obj_in =  "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
             string json = macros.WialonRequest(cr_obj_in);
             var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
             if (cr_obj_out.error != 0)
@@ -4128,8 +4205,8 @@ namespace Disp_WinForm
             ///Создаем пароль доступа к объекту
             /////////////////
 
-            string accsess_pass_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_access_password&params={"
+            string accsess_pass_answer = macros.WialonRequest(
+                "&svc=unit/update_access_password&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"accessPassword\":\"" + maskedTextBox_GSM_CODE.Text.ToString() + "\"}");
             var accsess_pass_answer_out = JsonConvert.DeserializeObject<RootObject>(json);
@@ -4142,8 +4219,8 @@ namespace Disp_WinForm
             /////////////////
             ///Установливаем имя объекта и ID оборудования и 
             /////////////////
-            string item_id_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_device_type&params={"
+            string item_id_in = 
+                "&svc=unit/update_device_type&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id
                 + "\",\"deviceTypeId\":\"" + "9"
                 + "\",\"uniqueId\":\"" + textBox_id_to_create.Text.ToString() + "\"}";
@@ -4157,7 +4234,7 @@ namespace Disp_WinForm
             /////////////////
             ///Устанавливаем номер СИМ
             /////////////////
-            string item_phone_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string item_phone_in =  "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
             string json3 = macros.WialonRequest(item_phone_in);
             var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
             if (item_phone_out.error != 0)
@@ -4273,15 +4350,6 @@ namespace Disp_WinForm
 
             //35. Температура двигателя
             string eng_temp_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Температура двигателя", "temperature", "C", "eng_temp", 35, "1", 0, "");
-
-            //36. gmpo_ver
-            string gmpo_ver = macros.create_sensor_wl(cr_obj_out.item.id, "GMPO", "custom", "", "gmpo_ver", 36, "1", 0, "");
-
-            //37. gmpo_ver
-            string cd_ver = macros.create_sensor_wl(cr_obj_out.item.id, "CD_ver", "custom", "", "cd_ver", 37, "1", 0, "");
-
-            //38. bt_ver
-            string bt_ver = macros.create_sensor_wl(cr_obj_out.item.id, "BT_ver", "custom", "", "bt_ver", 38, "1", 0, "");
 
 
             /////////////////
@@ -4406,7 +4474,7 @@ namespace Disp_WinForm
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "10 Кодове слово", "");
 
             //Админитстративное поле 40
-            answer = macros.create_admin_field_wl(cr_obj_out.item.id, "13 Prizrak 910 SN", search_tovar_comboBox.GetItemText(search_tovar_comboBox.SelectedItem));
+            answer = macros.create_admin_field_wl(cr_obj_out.item.id, "13 Prizrak 910 SN", search_tovar_comboBox.Text);
 
 
 
@@ -4414,8 +4482,8 @@ namespace Disp_WinForm
             ///Добавляем в группу Объекты All
             /////////////////
 
-            string get_units_on_group = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=core/search_item&params={"
+            string get_units_on_group = macros.WialonRequest(
+                "&svc=core/search_item&params={"
                 + "\"id\":\"2612\","
                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -4424,8 +4492,8 @@ namespace Disp_WinForm
             list_get_units_on_group.item.u.Add(cr_obj_out.item.id);//Доповляем в список новый объект
             string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-            string gr_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit_group/update_units&params={"
+            string gr_answer = macros.WialonRequest(
+                "&svc=unit_group/update_units&params={"
                 + "\"itemId\":\"2612\","
                 + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
@@ -4478,7 +4546,8 @@ namespace Disp_WinForm
             //6 - Выключить сервисный режиме
             string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режиме", "%23valet=0%23", 16777216);
 
-
+            //получаем айди SIM-card
+            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
 
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card, Objectcol_puk, Objectcol_gsm_code, Objectcol_ble_code, Objectcol_bt_enable, Objectcol_sn_prizrak) "
                                         + "values('" + cr_obj_out.item.id
@@ -4486,7 +4555,9 @@ namespace Disp_WinForm
                                         + "', '" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem)
                                         + " " + textBox_id_to_create.Text.ToString() + "','"
                                         + maskedTextBox_sim_no_to_create.Text.ToString()
-                                        + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', '1', '1', '1', '1','1', null, '" + vars_form.user_login_id + "', '"
+                                        + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', " +
+                                        "'" + id_sim + "'," +
+                                        "'1', '1', '1','1', null, '" + vars_form.user_login_id + "', '"
                                         + textBox_id_to_create.Text.ToString() + "', '"
                                         + maskedTextBox_PUK.Text.ToString() + "', '"
                                         + maskedTextBox_GSM_CODE.Text.ToString() + "', '"
@@ -4520,6 +4591,8 @@ namespace Disp_WinForm
             maskedTextBox_PUK.Text = "";
             maskedTextBox_sim_no_to_create.Text = "";
             textBox_bt_enable.Text = "";
+            comboBox_tel_select.Text = "";
+            search_tovar_comboBox.Text = "";
             button_create_object.BackColor = Color.Green;
         }
         private void CNTP_910_N()
@@ -4553,10 +4626,48 @@ namespace Disp_WinForm
                 maskedTextBox_PUK.BackColor = Color.White;
             }
 
+            // Проверям существует ли данный номер в системе
+            string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_phone_number|sys_phone_number2\"," +
+                                                     "\"propValueMask\":\"" + "*" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m = JsonConvert.DeserializeObject<RootObject>(unswer);
+            if (m.items.Count > 0)
+            {
+                MessageBox.Show("Указанный телефон существует в WL");
+                return;
+            }
+
+            // Проверям существует ли указанный ИМЕЙ в системе
+            string unswer2 = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_unique_id\"," +
+                                                     "\"propValueMask\":\"" + textBox_id_to_create.Text + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m2 = JsonConvert.DeserializeObject<RootObject>(unswer2);
+            if (m2.items.Count > 0)
+            {
+                MessageBox.Show("Указанный IMEI существует в WL");
+                return;
+            }
+
             /////////////////
             ///Создаем объект
             /////////////////
-            string cr_obj_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
+            string cr_obj_in =  "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
             string json = macros.WialonRequest(cr_obj_in);
             var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
             if (cr_obj_out.error != 0)
@@ -4569,8 +4680,8 @@ namespace Disp_WinForm
             ///Создаем пароль доступа к объекту
             /////////////////
 
-            string accsess_pass_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_access_password&params={"
+            string accsess_pass_answer = macros.WialonRequest(
+                "&svc=unit/update_access_password&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"accessPassword\":\"" + maskedTextBox_GSM_CODE.Text.ToString() + "\"}");
             var accsess_pass_answer_out = JsonConvert.DeserializeObject<RootObject>(json);
@@ -4583,8 +4694,8 @@ namespace Disp_WinForm
             /////////////////
             ///Установливаем имя объекта и ID оборудования и 
             /////////////////
-            string item_id_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_device_type&params={"
+            string item_id_in = 
+                "&svc=unit/update_device_type&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id
                 + "\",\"deviceTypeId\":\"" + "9"
                 + "\",\"uniqueId\":\"" + textBox_id_to_create.Text.ToString() + "\"}";
@@ -4598,7 +4709,7 @@ namespace Disp_WinForm
             /////////////////
             ///Устанавливаем номер СИМ
             /////////////////
-            string item_phone_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string item_phone_in =  "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
             string json3 = macros.WialonRequest(item_phone_in);
             var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
             if (item_phone_out.error != 0)
@@ -4718,15 +4829,6 @@ namespace Disp_WinForm
             //36. Сработка датчика глушения
             string aux_zone_1_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сработка датчика глушения", "digital", "Вкл/Выкл", "aux_zone_1", 36, "1", 0, "");
 
-            //36. gmpo_ver
-            string gmpo_ver = macros.create_sensor_wl(cr_obj_out.item.id, "GMPO", "custom", "", "gmpo_ver", 36, "1", 0, "");
-
-            //37. gmpo_ver
-            string cd_ver = macros.create_sensor_wl(cr_obj_out.item.id, "CD_ver", "custom", "", "cd_ver", 37, "1", 0, "");
-
-            //38. bt_ver
-            string bt_ver = macros.create_sensor_wl(cr_obj_out.item.id, "BT_ver", "custom", "", "bt_ver", 38, "1", 0, "");
-
 
             /////////////////
             ///Создаем произвольные поля
@@ -4850,7 +4952,7 @@ namespace Disp_WinForm
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "10 Кодове слово", "");
 
             //Админитстративное поле 40
-            answer = macros.create_admin_field_wl(cr_obj_out.item.id, "13 Prizrak 910 SN", search_tovar_comboBox.GetItemText(search_tovar_comboBox.SelectedItem));
+            answer = macros.create_admin_field_wl(cr_obj_out.item.id, "13 Prizrak 910 SN", search_tovar_comboBox.Text);
 
 
 
@@ -4858,8 +4960,8 @@ namespace Disp_WinForm
             ///Добавляем в группу Объекты All
             /////////////////
 
-            string get_units_on_group = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=core/search_item&params={"
+            string get_units_on_group = macros.WialonRequest(
+                "&svc=core/search_item&params={"
                 + "\"id\":\"2612\","
                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -4868,8 +4970,8 @@ namespace Disp_WinForm
             list_get_units_on_group.item.u.Add(cr_obj_out.item.id);//Доповляем в список новый объект
             string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-            string gr_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit_group/update_units&params={"
+            string gr_answer = macros.WialonRequest(
+                "&svc=unit_group/update_units&params={"
                 + "\"itemId\":\"2612\","
                 + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
@@ -4922,7 +5024,8 @@ namespace Disp_WinForm
             //6 - Выключить сервисный режиме
             string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режиме", "%23valet=0%23", 16777216);
 
-
+            //получаем айди SIM-card
+            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
 
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card, Objectcol_puk, Objectcol_gsm_code, Objectcol_ble_code, Objectcol_bt_enable, Objectcol_sn_prizrak) "
                                         + "values('" + cr_obj_out.item.id
@@ -4930,7 +5033,9 @@ namespace Disp_WinForm
                                         + "', '" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem)
                                         + " " + textBox_id_to_create.Text.ToString() + "','"
                                         + maskedTextBox_sim_no_to_create.Text.ToString()
-                                        + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', '1', '1', '1', '1','1', null, '" + vars_form.user_login_id + "', '"
+                                        + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', " +
+                                        "'" + id_sim + "'," +
+                                        "'1', '1', '1','1', null, '" + vars_form.user_login_id + "', '"
                                         + textBox_id_to_create.Text.ToString() + "', '"
                                         + maskedTextBox_PUK.Text.ToString() + "', '"
                                         + maskedTextBox_GSM_CODE.Text.ToString() + "', '"
@@ -4964,6 +5069,8 @@ namespace Disp_WinForm
             maskedTextBox_PUK.Text = "";
             maskedTextBox_sim_no_to_create.Text = "";
             textBox_bt_enable.Text = "";
+            comboBox_tel_select.Text = "";
+            search_tovar_comboBox.Text = "";
             button_create_object.BackColor = Color.Green;
         }
         private void CNTP()
@@ -4997,10 +5104,48 @@ namespace Disp_WinForm
                 maskedTextBox_PUK.BackColor = Color.White;
             }
 
+            // Проверям существует ли данный номер в системе
+            string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_phone_number|sys_phone_number2\"," +
+                                                     "\"propValueMask\":\"" + "*" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m = JsonConvert.DeserializeObject<RootObject>(unswer);
+            if (m.items.Count > 0)
+            {
+                MessageBox.Show("Указанный телефон существует в WL");
+                return;
+            }
+
+            // Проверям существует ли указанный ИМЕЙ в системе
+            string unswer2 = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_unique_id\"," +
+                                                     "\"propValueMask\":\"" + textBox_id_to_create.Text + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m2 = JsonConvert.DeserializeObject<RootObject>(unswer2);
+            if (m2.items.Count > 0)
+            {
+                MessageBox.Show("Указанный IMEI существует в WL");
+                return;
+            }
+
             /////////////////
             ///Создаем объект
             /////////////////
-            string cr_obj_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
+            string cr_obj_in =  "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
             string json = macros.WialonRequest(cr_obj_in);
             var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
             if (cr_obj_out.error != 0)
@@ -5013,8 +5158,8 @@ namespace Disp_WinForm
             ///Создаем пароль доступа к объекту
             /////////////////
 
-            string accsess_pass_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_access_password&params={"
+            string accsess_pass_answer = macros.WialonRequest(
+                "&svc=unit/update_access_password&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"accessPassword\":\"11111\"}");
             var accsess_pass_answer_out = JsonConvert.DeserializeObject<RootObject>(json);
@@ -5028,8 +5173,8 @@ namespace Disp_WinForm
             /////////////////
             ///Установливаем имя объекта и ID оборудования и 
             /////////////////
-            string item_id_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_device_type&params={"
+            string item_id_in = 
+                "&svc=unit/update_device_type&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id
                 + "\",\"deviceTypeId\":\"" + "9"
                 + "\",\"uniqueId\":\"" + textBox_id_to_create.Text.ToString() + "\"}";
@@ -5045,7 +5190,7 @@ namespace Disp_WinForm
             /////////////////
             ///Устанавливаем номер СИМ
             /////////////////
-            string item_phone_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string item_phone_in =  "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
             string json3 = macros.WialonRequest(item_phone_in);
             var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
             if (item_phone_out.error != 0)
@@ -5058,8 +5203,8 @@ namespace Disp_WinForm
             /////////////////
 
             //1. Статус храны
-            string arm_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string arm_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5082,8 +5227,8 @@ namespace Disp_WinForm
             //}
 
             //2. Статус двери
-            string door_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string door_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5100,8 +5245,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[]}");
 
             //3. Напряжение АКБ
-            string akb_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string akb_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5118,8 +5263,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[]}");
 
             //4. Сработка сигнализации
-            string siren_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string siren_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5136,8 +5281,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[]}");
 
             //5. Датчик удара
-            string d_udara_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string d_udara_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5154,8 +5299,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[{\"x\":0,\"a\":0,\"b\":0},{\"x\":1,\"a\":0,\"b\":1},{\"x\":2,\"a\":0,\"b\":0},{\"x\":3,\"a\":0,\"b\":0},{\"x\":4,\"a\":0,\"b\":0},{\"x\":5,\"a\":0,\"b\":0},{\"x\":6,\"a\":0,\"b\":0}]}");
 
             //6. Напряжение внутреннего АКБ
-            string v_akb__answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string v_akb__answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5172,8 +5317,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[]}");
 
             //7. Качество связи GSM
-            string GMS_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string GMS_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5190,8 +5335,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[{\"x\":0,\"a\":20,\"b\":0},{\"x\":1,\"a\":20,\"b\":0},{\"x\":2,\"a\":20,\"b\":0},{\"x\":3,\"a\":20,\"b\":0},{\"x\":4,\"a\":20,\"b\":0},{\"x\":5,\"a\":20,\"b\":0}]}");
 
             //8. Сработка сигнализации: двери
-            string siren_door_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string siren_door_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5208,8 +5353,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[]}");
 
             //9. Тревожная кнопка
-            string tk_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string tk_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5226,8 +5371,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[{\"x\":0,\"a\":0,\"b\":1},{\"x\":5.9,\"a\":0,\"b\":1},{\"x\":6,\"a\":0,\"b\":0},{\"x\":13,\"a\":0,\"b\":0}]}");
 
             //10. Блокировка иммобилайзера
-            string imob_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string imob_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5244,8 +5389,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[{\"x\":0,\"a\":0,\"b\":1},{\"x\":5.9,\"a\":0,\"b\":1},{\"x\":6,\"a\":0,\"b\":0},{\"x\":13,\"a\":0,\"b\":0}]}");
 
             //11. Зажигание
-            string ign_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string ign_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5262,8 +5407,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[{\"x\":0,\"a\":0,\"b\":0},{\"x\":12,\"a\":0,\"b\":0},{\"x\":12.9,\"a\":0,\"b\":0},{\"x\":13,\"a\":0,\"b\":1},{\"x\":14,\"a\":0,\"b\":1}]}");
 
             //12. Статус GPS
-            string gps_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string gps_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5284,8 +5429,8 @@ namespace Disp_WinForm
             /////////////////
 
             //Произвольное поле 1
-            string pp1_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp1_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5293,8 +5438,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 2
-            string pp2_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp2_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5302,8 +5447,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 3
-            string pp3_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp3_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5311,8 +5456,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 4
-            string pp4_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp4_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5320,8 +5465,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 5
-            string pp5_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp5_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5329,8 +5474,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 6
-            string pp6_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp6_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5338,8 +5483,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 7
-            string pp7_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp7_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5347,8 +5492,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 8
-            string pp8_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp8_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5356,8 +5501,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 9
-            string pp9_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp9_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5365,8 +5510,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 10
-            string pp10_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp10_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5374,8 +5519,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 11
-            string pp11_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp11_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5383,8 +5528,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 12
-            string pp12_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp12_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5392,8 +5537,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 13
-            string pp13_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp13_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5401,8 +5546,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 14
-            string pp14_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp14_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5410,8 +5555,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 15
-            string pp15_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp15_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5419,8 +5564,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 16
-            string pp16_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp16_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5428,8 +5573,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 17
-            string pp17_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp17_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5437,8 +5582,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 18
-            string pp18_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp18_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5446,8 +5591,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 19
-            string pp19_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp19_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5455,8 +5600,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 20
-            string pp20_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp20_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5464,8 +5609,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 21
-            string pp21_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp21_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5473,8 +5618,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 22
-            string pp22_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp22_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5482,8 +5627,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Административное поле 23
-            string pp23_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_admin_field&params={"
+            string pp23_answer = macros.WialonRequest(
+                "&svc=item/update_admin_field&params={"
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -5491,8 +5636,8 @@ namespace Disp_WinForm
                 + "\"v\":\"" + maskedTextBox_PUK.Text.ToString() + "\"}");
 
             //Произвольное поле 24
-            string pp24_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp24_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5500,8 +5645,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 25
-            string pp25_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp25_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5509,8 +5654,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 26
-            string pp26_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp26_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5518,8 +5663,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 27
-            string pp27_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp27_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5527,8 +5672,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 28
-            string pp28_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp28_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5536,8 +5681,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 29
-            string pp29_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp29_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5545,8 +5690,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 30
-            string pp30_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp30_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5554,8 +5699,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 31
-            string pp31_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp31_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5563,8 +5708,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 32
-            string pp32_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp32_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5572,8 +5717,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 33
-            string pp33_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp33_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5581,8 +5726,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 34
-            string pp34_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp34_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5590,8 +5735,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 35
-            string pp35_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp35_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5599,8 +5744,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 36
-            string pp36_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp36_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5608,8 +5753,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 37
-            string pp37_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp37_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5617,8 +5762,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 38
-            string pp38_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp38_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5626,8 +5771,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 39
-            string pp39_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_admin_field&params={"
+            string pp39_answer = macros.WialonRequest(
+                "&svc=item/update_admin_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5635,17 +5780,17 @@ namespace Disp_WinForm
                 + "\"v\":\"" + textBox_id_to_create.Text.ToString() + "\"}");
 
             //Произвольное поле 40
-            string pp40_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_admin_field&params={"
+            string pp40_answer = macros.WialonRequest(
+                "&svc=item/update_admin_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
                 + "\"n\":\"12 Версия ПО Prizrak\","
-                + "\"v\":\"" + textBox_TEC_HW.Text.ToString() + "\"}");
+                + "\"v\":\"\"}");
 
             //Произвольное поле 41
-            string pp41_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_admin_field&params={"
+            string pp41_answer = macros.WialonRequest(
+                "&svc=item/update_admin_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5656,8 +5801,8 @@ namespace Disp_WinForm
             ///Добавляем в группу Объекты All
             /////////////////
 
-            string get_units_on_group = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=core/search_item&params={"
+            string get_units_on_group = macros.WialonRequest(
+                "&svc=core/search_item&params={"
                 + "\"id\":\"2612\","
                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -5666,8 +5811,8 @@ namespace Disp_WinForm
             list_get_units_on_group.item.u.Add(cr_obj_out.item.id);//Доповляем в список новый объект
             string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-            string gr_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit_group/update_units&params={"
+            string gr_answer = macros.WialonRequest(
+                "&svc=unit_group/update_units&params={"
                 + "\"itemId\":\"2612\","
                 + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
@@ -5677,8 +5822,8 @@ namespace Disp_WinForm
             ///
 
             //Start engine
-            string cmd_start_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_command_definition&params={"
+            string cmd_start_answer = macros.WialonRequest(
+                "&svc=unit/update_command_definition&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5689,8 +5834,8 @@ namespace Disp_WinForm
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
             //Stop engine
-            string cmd_stop_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_command_definition&params={"
+            string cmd_stop_answer = macros.WialonRequest(
+                "&svc=unit/update_command_definition&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5701,8 +5846,8 @@ namespace Disp_WinForm
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
             //Service
-            string cmd_service_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_command_definition&params={"
+            string cmd_service_answer = macros.WialonRequest(
+                "&svc=unit/update_command_definition&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5712,12 +5857,17 @@ namespace Disp_WinForm
                 + "\"p\":\"TPASS: 081983;\","
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
+            //получаем айди SIM-card
+            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card, Objectcol_puk) "
                 + "values('" + cr_obj_out.item.id
                 + "', '" + textBox_id_to_create.Text.ToString()
                 + "', '" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "','"
                 + maskedTextBox_sim_no_to_create.Text.ToString()
-                + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', '1', '1', '1', '1','1', null, '" + vars_form.user_login_id + "', '" + textBox_id_to_create.Text.ToString() + "', '" + maskedTextBox_PUK.Text.ToString() + "');");
+                + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', " +
+                "'" + id_sim + "'," +
+                " '1', '1', '1','1', null, '" + vars_form.user_login_id + "', '" + textBox_id_to_create.Text.ToString() + "', '" + maskedTextBox_PUK.Text.ToString() + "');");
             macros.sql_command(sql2);
 
             //получаем айди созданного объекта
@@ -5744,7 +5894,8 @@ namespace Disp_WinForm
             textBox_id_to_create.Text = "";
             maskedTextBox_PUK.Text = "";
             maskedTextBox_sim_no_to_create.Text = "";
-
+            comboBox_tel_select.Text = "";
+            search_tovar_comboBox.Text = "";
             button_create_object.BackColor = Color.Green;
         }
         private void CNTK()
@@ -5778,10 +5929,48 @@ namespace Disp_WinForm
                 maskedTextBox_PUK.BackColor = Color.White;
             }
 
+            // Проверям существует ли данный номер в системе
+            string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_phone_number|sys_phone_number2\"," +
+                                                     "\"propValueMask\":\"" + "*" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m = JsonConvert.DeserializeObject<RootObject>(unswer);
+            if (m.items.Count > 0)
+            {
+                MessageBox.Show("Указанный телефон существует в WL");
+                return;
+            }
+
+            // Проверям существует ли указанный ИМЕЙ в системе
+            string unswer2 = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_unique_id\"," +
+                                                     "\"propValueMask\":\"" + textBox_id_to_create.Text + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m2 = JsonConvert.DeserializeObject<RootObject>(unswer2);
+            if (m2.items.Count > 0)
+            {
+                MessageBox.Show("Указанный IMEI существует в WL");
+                return;
+            }
+
             /////////////////
             ///Создаем объект
             /////////////////
-            string cr_obj_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
+            string cr_obj_in =  "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
             string json = macros.WialonRequest(cr_obj_in);
             var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
             if (cr_obj_out.error != 0)
@@ -5794,8 +5983,8 @@ namespace Disp_WinForm
             ///Создаем пароль доступа к объекту
             /////////////////
 
-            string accsess_pass_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_access_password&params={"
+            string accsess_pass_answer = macros.WialonRequest(
+                "&svc=unit/update_access_password&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"accessPassword\":\"11111\"}");
             var accsess_pass_answer_out = JsonConvert.DeserializeObject<RootObject>(json);
@@ -5808,8 +5997,8 @@ namespace Disp_WinForm
             /////////////////
             ///Установливаем имя объекта и ID оборудования и 
             /////////////////
-            string item_id_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_device_type&params={"
+            string item_id_in = 
+                "&svc=unit/update_device_type&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id
                 + "\",\"deviceTypeId\":\"" + "9"
                 + "\",\"uniqueId\":\"" + textBox_id_to_create.Text.ToString() + "\"}";
@@ -5823,7 +6012,7 @@ namespace Disp_WinForm
             /////////////////
             ///Устанавливаем номер СИМ
             /////////////////
-            string item_phone_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string item_phone_in =  "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
             string json3 = macros.WialonRequest(item_phone_in);
             var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
             if (item_phone_out.error != 0)
@@ -5836,8 +6025,8 @@ namespace Disp_WinForm
             /////////////////
 
             //1. Статус храны
-            string arm_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string arm_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5860,8 +6049,8 @@ namespace Disp_WinForm
             //}
 
             //2. Статус двери
-            string door_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string door_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5878,8 +6067,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[]}");
 
             //3. Напряжение АКБ
-            string akb_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string akb_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5896,8 +6085,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[]}");
 
             //4. Сработка сигнализации
-            string siren_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string siren_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5914,8 +6103,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[]}");
 
             //5. Датчик удара
-            string d_udara_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string d_udara_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5932,8 +6121,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[{\"x\":0,\"a\":0,\"b\":0},{\"x\":1,\"a\":0,\"b\":1},{\"x\":2,\"a\":0,\"b\":0},{\"x\":3,\"a\":0,\"b\":0},{\"x\":4,\"a\":0,\"b\":0},{\"x\":5,\"a\":0,\"b\":0},{\"x\":6,\"a\":0,\"b\":0}]}");
 
             //6. Напряжение внутреннего АКБ
-            string v_akb__answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string v_akb__answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5950,8 +6139,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[]}");
 
             //7. Качество связи GSM
-            string GMS_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string GMS_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5968,8 +6157,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[{\"x\":0,\"a\":20,\"b\":0},{\"x\":1,\"a\":20,\"b\":0},{\"x\":2,\"a\":20,\"b\":0},{\"x\":3,\"a\":20,\"b\":0},{\"x\":4,\"a\":20,\"b\":0},{\"x\":5,\"a\":20,\"b\":0}]}");
 
             //8. Сработка сигнализации: двери
-            string siren_door_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string siren_door_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -5986,8 +6175,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[]}");
 
             //9. Тревожная кнопка
-            string tk_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string tk_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6004,8 +6193,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[{\"x\":0,\"a\":0,\"b\":1},{\"x\":5.9,\"a\":0,\"b\":1},{\"x\":6,\"a\":0,\"b\":0},{\"x\":13,\"a\":0,\"b\":0}]}");
 
             //10. Блокировка иммобилайзера
-            string imob_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string imob_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6022,8 +6211,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[{\"x\":0,\"a\":0,\"b\":1},{\"x\":5.9,\"a\":0,\"b\":1},{\"x\":6,\"a\":0,\"b\":0},{\"x\":13,\"a\":0,\"b\":0}]}");
 
             //11. Зажигание
-            string ign_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string ign_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6039,8 +6228,8 @@ namespace Disp_WinForm
                 + "\"vs\":\"0\","
                 + "\"tbl\":[{\"x\":0,\"a\":0,\"b\":0},{\"x\":12,\"a\":0,\"b\":0},{\"x\":12.9,\"a\":0,\"b\":0},{\"x\":13,\"a\":0,\"b\":1},{\"x\":14,\"a\":0,\"b\":1}]}");
             //12. Статус GPS
-            string gps_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string gps_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6061,8 +6250,8 @@ namespace Disp_WinForm
             /////////////////
 
             //Произвольное поле 1
-            string pp1_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp1_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6070,8 +6259,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 2
-            string pp2_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp2_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6079,8 +6268,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 3
-            string pp3_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp3_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6088,8 +6277,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 4
-            string pp4_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp4_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6097,8 +6286,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 5
-            string pp5_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp5_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6106,8 +6295,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 6
-            string pp6_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp6_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6115,8 +6304,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 7
-            string pp7_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp7_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6124,8 +6313,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 8
-            string pp8_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp8_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6133,8 +6322,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 9
-            string pp9_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp9_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6142,8 +6331,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 10
-            string pp10_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp10_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6151,8 +6340,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 11
-            string pp11_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp11_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6160,8 +6349,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 12
-            string pp12_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp12_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6169,8 +6358,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 13
-            string pp13_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp13_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6178,8 +6367,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 14
-            string pp14_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp14_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6187,8 +6376,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 15
-            string pp15_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp15_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6196,8 +6385,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 16
-            string pp16_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp16_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6205,8 +6394,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 17
-            string pp17_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp17_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6214,8 +6403,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 18
-            string pp18_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp18_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6223,8 +6412,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 19
-            string pp19_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp19_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6232,8 +6421,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 20
-            string pp20_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp20_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6241,8 +6430,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 21
-            string pp21_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp21_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6250,8 +6439,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 22
-            string pp22_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp22_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6259,8 +6448,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Административное поле 23
-            string pp23_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_admin_field&params={"
+            string pp23_answer = macros.WialonRequest(
+                "&svc=item/update_admin_field&params={"
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -6268,8 +6457,8 @@ namespace Disp_WinForm
                 + "\"v\":\"" + maskedTextBox_PUK.Text.ToString() + "\"}");
 
             //Произвольное поле 24
-            string pp24_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp24_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6277,8 +6466,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 25
-            string pp25_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp25_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6286,8 +6475,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 26
-            string pp26_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp26_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6295,8 +6484,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 27
-            string pp27_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp27_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6304,8 +6493,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 28
-            string pp28_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp28_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6313,8 +6502,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 29
-            string pp29_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp29_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6322,8 +6511,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 30
-            string pp30_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp30_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6331,8 +6520,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 31
-            string pp31_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp31_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6340,8 +6529,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 32
-            string pp32_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp32_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6349,8 +6538,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 33
-            string pp33_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp33_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6358,8 +6547,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 34
-            string pp34_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp34_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6367,8 +6556,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 35
-            string pp35_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp35_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6376,8 +6565,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 36
-            string pp36_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp36_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6385,8 +6574,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 37
-            string pp37_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp37_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6394,8 +6583,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 38
-            string pp38_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp38_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6403,8 +6592,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 39
-            string pp39_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_admin_field&params={"
+            string pp39_answer = macros.WialonRequest(
+                "&svc=item/update_admin_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6412,17 +6601,17 @@ namespace Disp_WinForm
                 + "\"v\":\"" + textBox_id_to_create.Text.ToString() + "\"}");
 
             //Произвольное поле 40
-            string pp40_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_admin_field&params={"
+            string pp40_answer = macros.WialonRequest(
+                "&svc=item/update_admin_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
                 + "\"n\":\"12 Версия ПО Prizrak\","
-                + "\"v\":\"" + textBox_TEC_HW.Text.ToString() + "\"}");
+                + "\"v\":\"\"}");
 
             //Произвольное поле 41
-            string pp41_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_admin_field&params={"
+            string pp41_answer = macros.WialonRequest(
+                "&svc=item/update_admin_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6433,8 +6622,8 @@ namespace Disp_WinForm
             ///Добавляем в группу Объекты All
             /////////////////
 
-            string get_units_on_group = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=core/search_item&params={"
+            string get_units_on_group = macros.WialonRequest(
+                "&svc=core/search_item&params={"
                 + "\"id\":\"2612\","
                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -6443,8 +6632,8 @@ namespace Disp_WinForm
             list_get_units_on_group.item.u.Add(cr_obj_out.item.id);//Доповляем в список новый объект
             string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-            string gr_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit_group/update_units&params={"
+            string gr_answer = macros.WialonRequest(
+                "&svc=unit_group/update_units&params={"
                 + "\"itemId\":\"2612\","
                 + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
@@ -6454,8 +6643,8 @@ namespace Disp_WinForm
             ///
 
             //Start engine
-            string cmd_start_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_command_definition&params={"
+            string cmd_start_answer = macros.WialonRequest(
+                "&svc=unit/update_command_definition&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6466,8 +6655,8 @@ namespace Disp_WinForm
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
             //Stop engine
-            string cmd_stop_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_command_definition&params={"
+            string cmd_stop_answer = macros.WialonRequest(
+                "&svc=unit/update_command_definition&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6478,8 +6667,8 @@ namespace Disp_WinForm
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
             //Service
-            string cmd_service_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_command_definition&params={"
+            string cmd_service_answer = macros.WialonRequest(
+                "&svc=unit/update_command_definition&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6489,12 +6678,17 @@ namespace Disp_WinForm
                 + "\"p\":\"TPASS: 081983;\","
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
+            //получаем айди SIM-card
+            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card, Objectcol_puk) "
                 + "values('" + cr_obj_out.item.id
                 + "', '" + textBox_id_to_create.Text.ToString()
                 + "', '" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "','"
                 + maskedTextBox_sim_no_to_create.Text.ToString()
-                + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', '1', '1', '1', '1','1', null, '" + vars_form.user_login_id + "', '" + textBox_id_to_create.Text.ToString() + "', '" + maskedTextBox_PUK.Text.ToString() + "');");
+                + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', " +
+                "'" + id_sim + "'," +
+                " '1', '1', '1','1', null, '" + vars_form.user_login_id + "', '" + textBox_id_to_create.Text.ToString() + "', '" + maskedTextBox_PUK.Text.ToString() + "');");
             macros.sql_command(sql2);
 
             //получаем айди созданного объекта
@@ -6520,6 +6714,8 @@ namespace Disp_WinForm
             textBox_id_to_create.Text = "";
             maskedTextBox_PUK.Text = "";
             maskedTextBox_sim_no_to_create.Text = "";
+            comboBox_tel_select.Text = "";
+            search_tovar_comboBox.Text = "";
             button_create_object.BackColor = Color.Green;
         }
         private void C_N()
@@ -6539,11 +6735,49 @@ namespace Disp_WinForm
                 return;
             }
 
+            // Проверям существует ли данный номер в системе
+            string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_phone_number|sys_phone_number2\"," +
+                                                     "\"propValueMask\":\"" + "*" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m = JsonConvert.DeserializeObject<RootObject>(unswer);
+            if (m.items.Count > 0)
+            {
+                MessageBox.Show("Указанный телефон существует в WL");
+                return;
+            }
+
+            // Проверям существует ли указанный ИМЕЙ в системе
+            string unswer2 = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_unique_id\"," +
+                                                     "\"propValueMask\":\"" + textBox_id_to_create.Text + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m2 = JsonConvert.DeserializeObject<RootObject>(unswer2);
+            if (m2.items.Count > 0)
+            {
+                MessageBox.Show("Указанный IMEI существует в WL");
+                return;
+            }
+
 
             /////////////////
             ///Создаем объект
             /////////////////
-            string cr_obj_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
+            string cr_obj_in =  "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
             string json = macros.WialonRequest(cr_obj_in);
             var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
             if (cr_obj_out.error != 0)
@@ -6556,8 +6790,8 @@ namespace Disp_WinForm
             ///Создаем пароль доступа к объекту
             /////////////////
 
-            string accsess_pass_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_access_password&params={"
+            string accsess_pass_answer = macros.WialonRequest(
+                "&svc=unit/update_access_password&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"accessPassword\":\"11111\"}");
             var accsess_pass_answer_out = JsonConvert.DeserializeObject<RootObject>(json);
@@ -6570,8 +6804,8 @@ namespace Disp_WinForm
             /////////////////
             ///Установливаем имя объекта и ID оборудования и 
             /////////////////
-            string item_id_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_device_type&params={"
+            string item_id_in = 
+                "&svc=unit/update_device_type&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id
                 + "\",\"deviceTypeId\":\"" + "9"
                 + "\",\"uniqueId\":\"" + textBox_id_to_create.Text.ToString() + "\"}";
@@ -6585,7 +6819,7 @@ namespace Disp_WinForm
             /////////////////
             ///Устанавливаем номер СИМ
             /////////////////
-            string item_phone_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string item_phone_in =  "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
             string json3 = macros.WialonRequest(item_phone_in);
             var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
             if (item_phone_out.error != 0)
@@ -6598,8 +6832,8 @@ namespace Disp_WinForm
             /////////////////
 
             //1. Статус храны
-            string arm_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string arm_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6622,8 +6856,8 @@ namespace Disp_WinForm
             //}
 
             //2. Статус двери
-            string door_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string door_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6640,8 +6874,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[]}");
 
             //3. Напряжение АКБ
-            string akb_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string akb_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6658,8 +6892,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[]}");
 
             //4. Сработка сигнализации
-            string siren_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string siren_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6676,8 +6910,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[]}");
 
             //5. Датчик удара
-            string d_udara_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string d_udara_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6694,8 +6928,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[{\"x\":0,\"a\":0,\"b\":0},{\"x\":1,\"a\":0,\"b\":1},{\"x\":2,\"a\":0,\"b\":0},{\"x\":3,\"a\":0,\"b\":0},{\"x\":4,\"a\":0,\"b\":0},{\"x\":5,\"a\":0,\"b\":0},{\"x\":6,\"a\":0,\"b\":0}]}");
 
             //6. Напряжение внутреннего АКБ
-            string v_akb__answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string v_akb__answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6712,8 +6946,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[]}");
 
             //7. Качество связи GSM
-            string GMS_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string GMS_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6730,8 +6964,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[{\"x\":0,\"a\":20,\"b\":0},{\"x\":1,\"a\":20,\"b\":0},{\"x\":2,\"a\":20,\"b\":0},{\"x\":3,\"a\":20,\"b\":0},{\"x\":4,\"a\":20,\"b\":0},{\"x\":5,\"a\":20,\"b\":0}]}");
 
             //8. Сработка сигнализации: двери
-            string siren_door_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string siren_door_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6748,8 +6982,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[]}");
 
             //9. Тревожная кнопка
-            string tk_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string tk_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6766,8 +7000,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[{\"x\":0,\"a\":0,\"b\":1},{\"x\":5.9,\"a\":0,\"b\":1},{\"x\":6,\"a\":0,\"b\":0},{\"x\":13,\"a\":0,\"b\":0}]}");
 
             //10. Блокировка иммобилайзера
-            string imob_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string imob_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6784,8 +7018,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[{\"x\":0,\"a\":0,\"b\":1},{\"x\":5.9,\"a\":0,\"b\":1},{\"x\":6,\"a\":0,\"b\":0},{\"x\":13,\"a\":0,\"b\":0}]}");
 
             //11. Зажигание
-            string ign_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string ign_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6801,8 +7035,8 @@ namespace Disp_WinForm
                 + "\"vs\":\"0\","
                 + "\"tbl\":[{\"x\":0,\"a\":0,\"b\":0},{\"x\":12,\"a\":0,\"b\":0},{\"x\":12.9,\"a\":0,\"b\":0},{\"x\":13,\"a\":0,\"b\":1},{\"x\":14,\"a\":0,\"b\":1}]}");
             //12. Статус GPS
-            string gps_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string gps_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6823,8 +7057,8 @@ namespace Disp_WinForm
             /////////////////
 
             //Произвольное поле 1
-            string pp1_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp1_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6832,8 +7066,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 2
-            string pp2_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp2_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6841,8 +7075,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 3
-            string pp3_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp3_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6850,8 +7084,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 4
-            string pp4_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp4_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6859,8 +7093,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 5
-            string pp5_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp5_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6868,8 +7102,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 6
-            string pp6_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp6_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6877,8 +7111,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 7
-            string pp7_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp7_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6886,8 +7120,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 8
-            string pp8_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp8_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6895,8 +7129,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 9
-            string pp9_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp9_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6904,8 +7138,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 10
-            string pp10_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp10_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6913,8 +7147,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 11
-            string pp11_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp11_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6922,8 +7156,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 12
-            string pp12_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp12_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6931,8 +7165,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 13
-            string pp13_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp13_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6940,8 +7174,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 14
-            string pp14_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp14_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6949,8 +7183,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 15
-            string pp15_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp15_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6958,8 +7192,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 16
-            string pp16_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp16_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6967,8 +7201,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 17
-            string pp17_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp17_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6976,8 +7210,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 18
-            string pp18_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp18_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6985,8 +7219,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 19
-            string pp19_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp19_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -6994,8 +7228,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 20
-            string pp20_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp20_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7003,8 +7237,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 21
-            string pp21_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp21_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7012,8 +7246,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 22
-            string pp22_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp22_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7021,8 +7255,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Административное поле 23
-            string pp23_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_admin_field&params={"
+            string pp23_answer = macros.WialonRequest(
+                "&svc=item/update_admin_field&params={"
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -7030,8 +7264,8 @@ namespace Disp_WinForm
                 + "\"v\":\"" + maskedTextBox_PUK.Text.ToString() + "\"}");
 
             //Произвольное поле 24
-            string pp24_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp24_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7039,8 +7273,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 25
-            string pp25_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp25_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7048,8 +7282,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 26
-            string pp26_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp26_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7057,8 +7291,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 27
-            string pp27_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp27_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7066,8 +7300,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 28
-            string pp28_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp28_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7075,8 +7309,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 29
-            string pp29_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp29_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7084,8 +7318,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 30
-            string pp30_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp30_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7093,8 +7327,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 31
-            string pp31_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp31_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7102,8 +7336,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 32
-            string pp32_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp32_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7111,8 +7345,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 33
-            string pp33_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp33_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7120,8 +7354,7 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 34
-            string pp34_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp34_answer = macros.WialonRequest( "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7129,8 +7362,7 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 35
-            string pp35_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp35_answer = macros.WialonRequest( "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7138,8 +7370,7 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 36
-            string pp36_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp36_answer = macros.WialonRequest( "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7147,8 +7378,7 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 37
-            string pp37_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp37_answer = macros.WialonRequest( "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7156,8 +7386,7 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 38
-            string pp38_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp38_answer = macros.WialonRequest( "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7165,8 +7394,7 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 39
-            string pp39_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_admin_field&params={"
+            string pp39_answer = macros.WialonRequest( "&svc=item/update_admin_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7174,17 +7402,15 @@ namespace Disp_WinForm
                 + "\"v\":\"" + textBox_id_to_create.Text.ToString() + "\"}");
 
             //Произвольное поле 40
-            string pp40_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_admin_field&params={"
+            string pp40_answer = macros.WialonRequest( "&svc=item/update_admin_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
                 + "\"n\":\"12 Версия ПО Prizrak\","
-                + "\"v\":\"" + textBox_TEC_HW.Text.ToString() + "\"}");
+                + "\"v\":\"\"}");
 
             //Произвольное поле 41
-            string pp41_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_admin_field&params={"
+            string pp41_answer = macros.WialonRequest( "&svc=item/update_admin_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7195,8 +7421,7 @@ namespace Disp_WinForm
             ///Добавляем в группу Объекты All
             /////////////////
 
-            string get_units_on_group = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=core/search_item&params={"
+            string get_units_on_group = macros.WialonRequest( "&svc=core/search_item&params={"
                 + "\"id\":\"2612\","
                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -7205,8 +7430,7 @@ namespace Disp_WinForm
             list_get_units_on_group.item.u.Add(cr_obj_out.item.id);//Доповляем в список новый объект
             string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-            string gr_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit_group/update_units&params={"
+            string gr_answer = macros.WialonRequest( "&svc=unit_group/update_units&params={"
                 + "\"itemId\":\"2612\","
                 + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
@@ -7216,8 +7440,7 @@ namespace Disp_WinForm
             ///
 
             //Start engine
-            string cmd_start_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_command_definition&params={"
+            string cmd_start_answer = macros.WialonRequest( "&svc=unit/update_command_definition&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7228,8 +7451,7 @@ namespace Disp_WinForm
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
             //Stop engine
-            string cmd_stop_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_command_definition&params={"
+            string cmd_stop_answer = macros.WialonRequest("&svc=unit/update_command_definition&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7240,8 +7462,7 @@ namespace Disp_WinForm
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
             //Service
-            string cmd_service_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_command_definition&params={"
+            string cmd_service_answer = macros.WialonRequest( "&svc=unit/update_command_definition&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7251,12 +7472,17 @@ namespace Disp_WinForm
                 + "\"p\":\"TPASS: 081983;\","
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
+            //получаем айди SIM-card
+            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers) "
                 + "values('" + cr_obj_out.item.id
                 + "', '" + textBox_id_to_create.Text.ToString()
                 + "', '" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "','"
                 + maskedTextBox_sim_no_to_create.Text.ToString()
-                + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', '1', '1', '1', '1','1', null, '" + vars_form.user_login_id + "');");
+                + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', " +
+                "'" + id_sim + "'," +
+                "'1', '1', '1','1', null, '" + vars_form.user_login_id + "');");
             macros.sql_command(sql2);
 
             //получаем айди созданного объекта
@@ -7283,6 +7509,8 @@ namespace Disp_WinForm
             textBox_id_to_create.Text = "";
             maskedTextBox_PUK.Text = "";
             maskedTextBox_sim_no_to_create.Text = "";
+            comboBox_tel_select.Text = "";
+            search_tovar_comboBox.Text = "";
             button_create_object.BackColor = Color.Green;
         }
         private void K_n()
@@ -7303,10 +7531,49 @@ namespace Disp_WinForm
             }
 
 
+            // Проверям существует ли данный номер в системе
+            string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_phone_number|sys_phone_number2\"," +
+                                                     "\"propValueMask\":\"" + "*" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m = JsonConvert.DeserializeObject<RootObject>(unswer);
+            if (m.items.Count > 0)
+            {
+                MessageBox.Show("Указанный телефон существует в WL");
+                return;
+            }
+
+            // Проверям существует ли указанный ИМЕЙ в системе
+            string unswer2 = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_unique_id\"," +
+                                                     "\"propValueMask\":\"" + textBox_id_to_create.Text + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m2 = JsonConvert.DeserializeObject<RootObject>(unswer2);
+            if (m2.items.Count > 0)
+            {
+                MessageBox.Show("Указанный IMEI существует в WL");
+                return;
+            }
+
+
             /////////////////
             ///Создаем объект
             /////////////////
-            string cr_obj_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
+            string cr_obj_in =  "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
             string json = macros.WialonRequest(cr_obj_in);
             var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
             if (cr_obj_out.error != 0)
@@ -7319,8 +7586,7 @@ namespace Disp_WinForm
             ///Создаем пароль доступа к объекту
             /////////////////
 
-            string accsess_pass_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_access_password&params={"
+            string accsess_pass_answer = macros.WialonRequest( "&svc=unit/update_access_password&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"accessPassword\":\"11111\"}");
             var accsess_pass_answer_out = JsonConvert.DeserializeObject<RootObject>(json);
@@ -7333,8 +7599,7 @@ namespace Disp_WinForm
             /////////////////
             ///Установливаем имя объекта и ID оборудования и 
             /////////////////
-            string item_id_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_device_type&params={"
+            string item_id_in = "&svc=unit/update_device_type&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id
                 + "\",\"deviceTypeId\":\"" + "9"
                 + "\",\"uniqueId\":\"" + textBox_id_to_create.Text.ToString() + "\"}";
@@ -7348,7 +7613,7 @@ namespace Disp_WinForm
             /////////////////
             ///Устанавливаем номер СИМ
             /////////////////
-            string item_phone_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string item_phone_in =  "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
             string json3 = macros.WialonRequest(item_phone_in);
             var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
             if (item_phone_out.error != 0)
@@ -7362,8 +7627,8 @@ namespace Disp_WinForm
 
 
             //3. Напряжение АКБ
-            string akb_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string akb_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7381,8 +7646,7 @@ namespace Disp_WinForm
 
 
             //6. Напряжение внутреннего АКБ
-            string v_akb__answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string v_akb__answer = macros.WialonRequest("&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7399,8 +7663,7 @@ namespace Disp_WinForm
                 + "\"tbl\":[]}");
 
             //7. Качество связи GSM
-            string GMS_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string GMS_answer = macros.WialonRequest("&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7418,8 +7681,7 @@ namespace Disp_WinForm
 
 
             //9. Тревожная кнопка
-            string tk_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string tk_answer = macros.WialonRequest("&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7437,8 +7699,8 @@ namespace Disp_WinForm
 
 
             //11. Зажигание
-            string ign_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string ign_answer = macros.WialonRequest(
+                 "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7454,8 +7716,8 @@ namespace Disp_WinForm
                 + "\"vs\":\"0\","
                 + "\"tbl\":[]}");
             //12. Статус GPS
-            string gps_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string gps_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7476,8 +7738,8 @@ namespace Disp_WinForm
             /////////////////
 
             //Произвольное поле 1
-            string pp1_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp1_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7485,8 +7747,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 2
-            string pp2_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp2_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7494,8 +7756,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 3
-            string pp3_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp3_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7503,8 +7765,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 4
-            string pp4_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp4_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7512,8 +7774,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 5
-            string pp5_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp5_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7521,8 +7783,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 6
-            string pp6_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp6_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7530,8 +7792,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 7
-            string pp7_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp7_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7540,8 +7802,8 @@ namespace Disp_WinForm
 
 
             //Произвольное поле 11
-            string pp11_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp11_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7549,8 +7811,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 12
-            string pp12_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp12_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7558,8 +7820,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 13
-            string pp13_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp13_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7567,8 +7829,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 14
-            string pp14_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp14_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7576,8 +7838,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 16
-            string pp16_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp16_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7585,8 +7847,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 17
-            string pp17_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp17_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7596,8 +7858,8 @@ namespace Disp_WinForm
 
 
             //Произвольное поле 19
-            string pp19_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp19_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7605,8 +7867,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 20
-            string pp20_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp20_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7614,8 +7876,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 24
-            string pp24_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp24_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7623,8 +7885,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 25
-            string pp25_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp25_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7632,8 +7894,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 28
-            string pp28_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp28_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7641,8 +7903,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 29
-            string pp29_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp29_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7650,8 +7912,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 30
-            string pp30_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp30_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7659,8 +7921,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 31
-            string pp31_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp31_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7668,8 +7930,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 32
-            string pp32_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp32_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7677,8 +7939,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 33
-            string pp33_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp33_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7686,8 +7948,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 34
-            string pp34_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp34_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7695,8 +7957,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 35
-            string pp35_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp35_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7704,8 +7966,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 36
-            string pp36_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp36_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7713,8 +7975,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 37
-            string pp37_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp37_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7722,8 +7984,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 38
-            string pp38_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp38_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7734,8 +7996,8 @@ namespace Disp_WinForm
             ///Добавляем в группу Объекты All
             /////////////////
 
-            string get_units_on_group = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=core/search_item&params={"
+            string get_units_on_group = macros.WialonRequest(
+                "&svc=core/search_item&params={"
                 + "\"id\":\"2612\","
                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -7744,8 +8006,8 @@ namespace Disp_WinForm
             list_get_units_on_group.item.u.Add(cr_obj_out.item.id);//Доповляем в список новый объект
             string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-            string gr_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit_group/update_units&params={"
+            string gr_answer = macros.WialonRequest(
+                "&svc=unit_group/update_units&params={"
                 + "\"itemId\":\"2612\","
                 + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
@@ -7755,8 +8017,8 @@ namespace Disp_WinForm
             ///
 
             //Start engine
-            string cmd_start_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_command_definition&params={"
+            string cmd_start_answer = macros.WialonRequest(
+                "&svc=unit/update_command_definition&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7767,8 +8029,8 @@ namespace Disp_WinForm
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
             //Stop engine
-            string cmd_stop_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_command_definition&params={"
+            string cmd_stop_answer = macros.WialonRequest(
+                "&svc=unit/update_command_definition&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7779,8 +8041,8 @@ namespace Disp_WinForm
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
             //Service
-            string cmd_service_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_command_definition&params={"
+            string cmd_service_answer = macros.WialonRequest(
+                "&svc=unit/update_command_definition&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7790,12 +8052,18 @@ namespace Disp_WinForm
                 + "\"p\":\"TPASS: 081983;\","
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
+            //получаем айди SIM-card
+            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+
+
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers) "
                 + "values('" + cr_obj_out.item.id
                 + "', '" + textBox_id_to_create.Text.ToString()
                 + "', '" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "','"
                 + maskedTextBox_sim_no_to_create.Text.ToString()
-                + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', '1', '1', '1', '1','1', null, '" + vars_form.user_login_id + "');");
+                + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', " +
+                "'" + id_sim + "'," +
+                "'1', '1', '1','1', null, '" + vars_form.user_login_id + "');");
             macros.sql_command(sql2);
 
             //получаем айди созданного объекта
@@ -7822,6 +8090,8 @@ namespace Disp_WinForm
             textBox_id_to_create.Text = "";
             maskedTextBox_PUK.Text = "";
             maskedTextBox_sim_no_to_create.Text = "";
+            comboBox_tel_select.Text = "";
+            search_tovar_comboBox.Text = "";
             button_create_object.BackColor = Color.Green;
         }
         private void S()
@@ -7836,10 +8106,48 @@ namespace Disp_WinForm
                 return;
             }
 
+            // Проверям существует ли данный номер в системе
+            string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_phone_number|sys_phone_number2\"," +
+                                                     "\"propValueMask\":\"" + "*" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m = JsonConvert.DeserializeObject<RootObject>(unswer);
+            if (m.items.Count > 0)
+            {
+                MessageBox.Show("Указанный телефон существует в WL");
+                return;
+            }
+
+            // Проверям существует ли указанный ИМЕЙ в системе
+            string unswer2 = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_unique_id\"," +
+                                                     "\"propValueMask\":\"" + textBox_id_to_create.Text + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m2 = JsonConvert.DeserializeObject<RootObject>(unswer2);
+            if (m2.items.Count > 0)
+            {
+                MessageBox.Show("Указанный IMEI существует в WL");
+                return;
+            }
+
             /////////////////
             ///Создаем объект
             /////////////////
-            string cr_obj_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"8\",\"dataFlags\":\"1\"}";
+            string cr_obj_in =  "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"8\",\"dataFlags\":\"1\"}";
             string json = macros.WialonRequest(cr_obj_in);
             var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
             if (cr_obj_out.error != 0)
@@ -7852,8 +8160,8 @@ namespace Disp_WinForm
             ///Создаем пароль доступа к объекту
             /////////////////
 
-            string accsess_pass_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_access_password&params={"
+            string accsess_pass_answer = macros.WialonRequest(
+                "&svc=unit/update_access_password&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"accessPassword\":\"" + textBox_id_to_create.Text + "\"}");
             var accsess_pass_answer_out = JsonConvert.DeserializeObject<RootObject>(json);
@@ -7866,8 +8174,8 @@ namespace Disp_WinForm
             /////////////////
             ///Установливаем имя объекта и ID оборудования и 
             /////////////////
-            string item_id_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_device_type&params={"
+            string item_id_in = 
+                "&svc=unit/update_device_type&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id
                 + "\",\"deviceTypeId\":\"" + "8"
                 + "\",\"uniqueId\":\"" + textBox_id_to_create.Text.ToString() + "\"}";
@@ -7883,8 +8191,8 @@ namespace Disp_WinForm
             ///Добавляем в группу Объекты All
             /////////////////
 
-            string get_units_on_group = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=core/search_item&params={"
+            string get_units_on_group = macros.WialonRequest(
+                "&svc=core/search_item&params={"
                 + "\"id\":\"2612\","
                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -7893,8 +8201,8 @@ namespace Disp_WinForm
             list_get_units_on_group.item.u.Add(cr_obj_out.item.id);//Доповляем в список новый объект
             string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-            string gr_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit_group/update_units&params={"
+            string gr_answer = macros.WialonRequest(
+                "&svc=unit_group/update_units&params={"
                 + "\"itemId\":\"2612\","
                 + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
@@ -7903,8 +8211,8 @@ namespace Disp_WinForm
             /////////////////
 
             //Произвольное поле 1
-            string pp1_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp1_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7912,8 +8220,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 2
-            string pp2_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp2_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7921,8 +8229,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 3
-            string pp3_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp3_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7930,8 +8238,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 4
-            string pp4_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp4_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7939,8 +8247,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 5
-            string pp5_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp5_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7948,8 +8256,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 6
-            string pp6_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp6_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7957,8 +8265,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 7
-            string pp7_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp7_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7966,8 +8274,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 8
-            string pp8_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp8_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7975,8 +8283,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 9
-            string pp9_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp9_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7984,8 +8292,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 10
-            string pp10_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp10_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7993,8 +8301,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 11
-            string pp11_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp11_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8002,8 +8310,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 12
-            string pp12_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp12_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8011,8 +8319,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 13
-            string pp13_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp13_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8020,8 +8328,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 14
-            string pp14_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp14_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8029,8 +8337,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 15
-            string pp15_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp15_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8038,8 +8346,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 16
-            string pp16_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp16_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8047,8 +8355,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 17
-            string pp17_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp17_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8056,8 +8364,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 18
-            string pp18_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp18_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8065,13 +8373,14 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 19
-            string pp19_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp19_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
                 + "\"n\":\"Електронна скринька\","
                 + "\"v\":\"\"}");
+
 
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers) "
                 + "values('" + cr_obj_out.item.id
@@ -8104,6 +8413,8 @@ namespace Disp_WinForm
             textBox_id_to_create.Text = "";
             maskedTextBox_PUK.Text = "";
             maskedTextBox_sim_no_to_create.Text = "";
+            comboBox_tel_select.Text = "";
+            search_tovar_comboBox.Text = "";
             button_create_object.BackColor = Color.Green;
         }
         private void SLED()
@@ -8123,10 +8434,49 @@ namespace Disp_WinForm
                 return;
             }
 
+
+            // Проверям существует ли данный номер в системе
+            string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_phone_number|sys_phone_number2\"," +
+                                                     "\"propValueMask\":\"" + "*" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m = JsonConvert.DeserializeObject<RootObject>(unswer);
+            if (m.items.Count > 0)
+            {
+                MessageBox.Show("Указанный телефон существует в WL");
+                return;
+            }
+
+            // Проверям существует ли указанный ИМЕЙ в системе
+            string unswer2 = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_unique_id\"," +
+                                                     "\"propValueMask\":\"" + textBox_id_to_create.Text + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m2 = JsonConvert.DeserializeObject<RootObject>(unswer2);
+            if (m2.items.Count > 0)
+            {
+                MessageBox.Show("Указанный IMEI существует в WL");
+                return;
+            }
+
             /////////////////
             ///Создаем объект
             /////////////////
-            string cr_obj_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"37\",\"dataFlags\":\"1\"}";
+            string cr_obj_in =  "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"37\",\"dataFlags\":\"1\"}";
             string json = macros.WialonRequest(cr_obj_in);
             var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
             if (cr_obj_out.error != 0)
@@ -8138,8 +8488,8 @@ namespace Disp_WinForm
             /////////////////
             ///Установливаем имя объекта и ID оборудования и 
             /////////////////
-            string item_id_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_device_type&params={"
+            string item_id_in = 
+                "&svc=unit/update_device_type&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id
                 + "\",\"deviceTypeId\":\"" + "37"
                 + "\",\"uniqueId\":\"" + textBox_id_to_create.Text.ToString() + "\"}";
@@ -8153,7 +8503,7 @@ namespace Disp_WinForm
             /////////////////
             ///Устанавливаем номер СИМ
             /////////////////
-            string item_phone_in = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string item_phone_in =  "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
             string json3 = macros.WialonRequest(item_phone_in);
             var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
             if (item_phone_out.error != 0)
@@ -8166,8 +8516,8 @@ namespace Disp_WinForm
             ///Изменение настроек фильтрации информации о положении объекта в сообщениях
             /////////////////
 
-            string mes_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                                                                                                                + "&svc=unit/update_messages_filter&params={"
+            string mes_answer = macros.WialonRequest(
+                                                                                                                "&svc=unit/update_messages_filter&params={"
                                                                                                                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                                                                                                                 + "\"enabled\":\"true\","
                                                                                                                 + "\"skipInvalid\":\"true\","
@@ -8181,8 +8531,8 @@ namespace Disp_WinForm
             /////////////////
 
             //1. Статус Погоня
-            string arm_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string arm_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8200,8 +8550,8 @@ namespace Disp_WinForm
 
 
             //2. Статус Заряд батареи
-            string door_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string door_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8218,8 +8568,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[{\"x\":1,\"a\":-0.07142857,\"b\":100}]}");
 
             //3. Всего сеансов
-            string akb_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string akb_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8236,8 +8586,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[]}");
 
             //4. Причина последнего сна
-            string siren_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string siren_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8254,8 +8604,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[]}");
 
             //5. Длительность последнего сна
-            string d_udara_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string d_udara_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8272,8 +8622,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[{\"x\":1,\"a\":0.0166666666,\"b\":0}]}");
 
             //6. Источник пробуждения
-            string v_akb__answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string v_akb__answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8290,8 +8640,8 @@ namespace Disp_WinForm
                 + "\"tbl\":[]}");
 
             //7. Источник перезагрузки
-            string GMS_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_sensor&params={"
+            string GMS_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8314,8 +8664,8 @@ namespace Disp_WinForm
             /////////////////
 
             //Произвольное поле 1
-            string pp1_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp1_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8323,8 +8673,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 2
-            string pp2_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp2_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8332,8 +8682,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 3
-            string pp3_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp3_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8342,8 +8692,8 @@ namespace Disp_WinForm
 
 
             //Произвольное поле 4
-            string pp4_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp4_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8351,8 +8701,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 5
-            string pp5_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp5_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8360,8 +8710,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 6
-            string pp6_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp6_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8369,8 +8719,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 7
-            string pp7_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp7_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8378,8 +8728,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 8
-            string pp8_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp8_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8387,8 +8737,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 9
-            string pp9_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp9_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8396,8 +8746,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 10
-            string pp10_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp10_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8405,8 +8755,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 11
-            string pp11_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp11_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8414,8 +8764,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 12
-            string pp12_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp12_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8423,8 +8773,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 3
-            string pp33_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                                                                                                                + "&svc=item/update_custom_field&params={"
+            string pp33_answer = macros.WialonRequest(
+                                                                                                                "&svc=item/update_custom_field&params={"
                                                                                                                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                                                                                                                 + "\"id\":\"0\","
                                                                                                                 + "\"callMode\":\"create\","
@@ -8432,8 +8782,8 @@ namespace Disp_WinForm
                                                                                                                 + "\"v\":\"\"}");
 
             //Произвольное поле 13
-            string pp13_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp13_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8441,8 +8791,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 14
-            string pp14_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp14_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8450,8 +8800,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 15
-            string pp15_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp15_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8459,8 +8809,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 16
-            string pp16_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp16_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8468,8 +8818,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 17
-            string pp17_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp17_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8477,8 +8827,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 18
-            string pp18_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp18_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8486,8 +8836,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 19
-            string pp19_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp19_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8495,8 +8845,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 20
-            string pp20_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp20_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8504,8 +8854,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 21
-            string pp21_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp21_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8513,8 +8863,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 22
-            string pp22_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp22_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8522,8 +8872,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Административное поле 23
-            string pp23_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp23_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8531,8 +8881,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 24
-            string pp24_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp24_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8540,8 +8890,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 25
-            string pp25_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp25_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8549,8 +8899,8 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 26
-            string pp26_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=item/update_custom_field&params={"
+            string pp26_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8563,8 +8913,8 @@ namespace Disp_WinForm
             ///Добавляем в группу Объекты All
             /////////////////
 
-            string get_units_on_group = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=core/search_item&params={"
+            string get_units_on_group = macros.WialonRequest(
+                "&svc=core/search_item&params={"
                 + "\"id\":\"2612\","
                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -8573,8 +8923,8 @@ namespace Disp_WinForm
             list_get_units_on_group.item.u.Add(cr_obj_out.item.id);//Доповляем в список новый объект
             string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-            string gr_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit_group/update_units&params={"
+            string gr_answer = macros.WialonRequest(
+                "&svc=unit_group/update_units&params={"
                 + "\"itemId\":\"2612\","
                 + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
@@ -8584,8 +8934,8 @@ namespace Disp_WinForm
             ///
 
             //Start engine
-            string cmd_start_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_command_definition&params={"
+            string cmd_start_answer = macros.WialonRequest(
+                "&svc=unit/update_command_definition&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8596,8 +8946,8 @@ namespace Disp_WinForm
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
             //Stop engine
-            string cmd_stop_answer = macros.WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                + "&svc=unit/update_command_definition&params={"
+            string cmd_stop_answer = macros.WialonRequest(
+                "&svc=unit/update_command_definition&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -8607,14 +8957,17 @@ namespace Disp_WinForm
                 + "\"p\":\"%26setparam 0104 1%26setparam 0204 120%26setparam 0201 120%26saveparams\","
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
-
+            //получаем айди SIM-card
+            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
 
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card) "
                 + "values('" + cr_obj_out.item.id
                 + "', '" + textBox_id_to_create.Text.ToString()
                 + "', '" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "','"
                 + maskedTextBox_sim_no_to_create.Text.ToString()
-                + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', '1', '1', '1', '1','1', null, '"
+                + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', " +
+                "'" + id_sim + "'," +
+                " '1', '1', '1','1', null, '"
                 + vars_form.user_login_id
                 + "', '" + textBox_id_to_create.Text.ToString() + "');");
             macros.sql_command(sql2);
@@ -8644,10 +8997,163 @@ namespace Disp_WinForm
             textBox_id_to_create.Text = "";
             maskedTextBox_PUK.Text = "";
             maskedTextBox_sim_no_to_create.Text = "";
+            comboBox_tel_select.Text = "";
+            search_tovar_comboBox.Text = "";
             button_create_object.BackColor = Color.Green;
         }
-            
+
+        private void comboBox_tel_select_DropDownClosed(object sender, EventArgs e)
+        {
+            //if (comboBox_tel_select.Text.Contains("F"))
+            //{ comboBox_tel_select.Text = comboBox_tel_select.Text.Remove(comboBox_tel_select.Text.Length - 1); }
+            //DataTable t = new DataTable();
+            //t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
+            //if (t != null & t.Rows.Count > 0)
+            //{
+            //    maskedTextBox_sim_no_to_create.Text = t.Rows[0][1].ToString();
+            //    //Clipboard.SetText(textBox_id_to_create.Text);
+            //}
+        }
+
+
+
+        private void BarCode()
+        {
+            var writer = new BarcodeWriter
+            {
+                Format = BarcodeFormat.CODE_39,
+                Options = new ZXing.Common.EncodingOptions
+                {
+                    Height = 60,
+                    Width = 40,
+                    PureBarcode = false,
+                    Margin = 0
+                },
+            };
+
+            writer
+                .Write(textBox_id_to_create.Text)
+                .Save(streamToPrint);
+        }
+
+        private void edit_img()
+        {
+            string firstText = "Hello";
+            string secondText = "World";
+
+            PointF firstLocation = new PointF(10f, 10f);
+            PointF secondLocation = new PointF(10f, 50f);
+
+            string imageFilePath = @"C:\Temp\barcode.png";
+            Bitmap bitmap = (Bitmap)Image.FromFile(imageFilePath);//load the image file
+
+            using (Graphics graphics = Graphics.FromImage(bitmap))
+            {
+                using (Font arialFont = new Font("Arial", 10))
+                {
+                    graphics.DrawString(firstText, arialFont, Brushes.Blue, firstLocation);
+                    graphics.DrawString(secondText, arialFont, Brushes.Red, secondLocation);
+                }
+            }
+
+            bitmap.Save(@"C:\Temp\barcode1.png");//save the image file
+        }
+
+
+
+        private void PrintBarCode_Click(object sender, EventArgs e)
+        {
+            if (comboBox_printers.GetItemText(comboBox_printers.SelectedItem) == "")
+            {
+                MessageBox.Show("Вибери прінтер");
+                return;
+            }
+            print();
+
+        }
+        private void GetPrinters()
+        {
+            comboBox_printers.Items.Clear();
+            foreach (string printer in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
+            {
+                comboBox_printers.Items.Add(printer);
+                for (int i = 0; i < comboBox_printers.Items.Count; i++)
+                {
+                    if (comboBox_printers.GetItemText(comboBox_printers.Items[i]).Contains("Xprinter"))
+                    {
+                        comboBox_printers.SelectedItem  = comboBox_printers.Items[i];
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void print()
+        {
+            BarCode();
+
+            using (var pd = new System.Drawing.Printing.PrintDocument())
+            {
+                pd.PrinterSettings.PrinterName = comboBox_printers.GetItemText(comboBox_printers.SelectedItem);
+                pd.DefaultPageSettings.PaperSize = new PaperSize("70 x 40 mm", 270, 150);
+                pd.PrintPage += (_, e) =>
+                {
+                    Image img;
+                    using (var bmpTemp = new Bitmap(streamToPrint))
+                    {
+                        img = new Bitmap(bmpTemp);
+                    }
+
+                    e.Graphics.DrawImage(img, 50, 50);
+                };
+                pd.Print();
+                pd.Dispose();
+            }
+        }
+
+        private void search_tovar_comboBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            maskedTextBox_BLE_CODE.Text = "";
+            maskedTextBox_GSM_CODE.Text = "";
+            textBox_id_to_create.Text = "";
+            maskedTextBox_PUK.Text = "";
+            textBox_bt_enable.Text = "";
+
+            if (e.KeyChar == (char)13)
+            {
+                DataTable t = new DataTable();
+                t = macros.GetData("SELECT CN, IMEI, BtKey, Puk, gsm_code, tag_access_code, SN FROM btk.Invice_Tovar where SN='" + search_tovar_comboBox.Text + "';");
+                if (t != null & t.Rows.Count > 0)
+                {
+                    textBox_id_to_create.Text = t.Rows[0][0].ToString();
+                    maskedTextBox_GSM_CODE.Text = t.Rows[0][4].ToString();
+                    maskedTextBox_PUK.Text = t.Rows[0][3].ToString();
+                    maskedTextBox_BLE_CODE.Text = t.Rows[0][2].ToString();
+                    textBox_bt_enable.Text = t.Rows[0][5].ToString();
+                    Clipboard.SetText(textBox_id_to_create.Text);
+                }
+            }
+        }
+
+        private void comboBox_tel_select_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            maskedTextBox_sim_no_to_create.Text = "";
+            if (e.KeyChar == (char)13)
+            {
+                
+                if (comboBox_tel_select.Text.Contains("F"))
+                { comboBox_tel_select.Text = comboBox_tel_select.Text.Remove(comboBox_tel_select.Text.Length - 1); }
+                DataTable t = new DataTable();
+                t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
+                if (t != null & t.Rows.Count > 0)
+                {
+                    maskedTextBox_sim_no_to_create.Text = t.Rows[0][1].ToString();
+                    //Clipboard.SetText(textBox_id_to_create.Text);
+                }
+            }
+        }
     }
+
 
     internal class List_add_alarm
     {

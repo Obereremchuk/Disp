@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using DocumentFormat.OpenXml.Packaging;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
+using System.Drawing.Printing;
 
 namespace Disp_WinForm
 {
@@ -126,7 +127,7 @@ namespace Disp_WinForm
                 }
                 return json;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 GetEidFromToken();
                 return json;
@@ -226,7 +227,7 @@ namespace Disp_WinForm
                 {
                     MessageBox.Show("Необхідна повторна авторизація (" + answer.reason + ")");
                     log_write("Error " + "get_eid_from_token(): " + answer.ToString());
-                    Application.Restart();
+                    Application.Exit();
                     return;
                 }
                 else 
@@ -412,8 +413,7 @@ namespace Disp_WinForm
         // Создание датчиков объекта, информация по по ссылке: http://sdk.wialon.com/wiki/ru/local/remoteapi1704/apiref/unit/update_sensor
         public string create_sensor_wl(int id_object, string name_sensor, string type_sensor, string unit, string parametr, int position, string type_validation, int id_sensor_for_validation, string table_calculation)
         {
-            string answer = WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                                                                                          + "&svc=unit/update_sensor&params={"
+            string answer = WialonRequest("&svc=unit/update_sensor&params={"
                                                                                           + "\"itemId\":\"" + id_object + "\","
                                                                                           + "\"id\":\"0\","
                                                                                           + "\"callMode\":\"create\","
@@ -434,8 +434,7 @@ namespace Disp_WinForm
         // Создание датчиков объекта, информация по по ссылке: http://sdk.wialon.com/wiki/ru/local/remoteapi1704/apiref/unit/update_sensor
         public string create_custom_field_wl(int id_object, string name_field, string value)
         {
-            string answer = WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                                                                                                              + "&svc=item/update_custom_field&params={"
+            string answer = WialonRequest("&svc=item/update_custom_field&params={"
                                                                                                               + "\"itemId\":\"" + id_object + "\","
                                                                                                               + "\"id\":\"0\","
                                                                                                               + "\"callMode\":\"create\","
@@ -447,8 +446,7 @@ namespace Disp_WinForm
         // Создание админитсративных полей вдля объекта в Виалоне
         public string create_admin_field_wl(int id_object, string name_field, string value)
         {
-            string answer = WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                                                                                                      + "&svc=item/update_admin_field&params={"
+            string answer = WialonRequest("&svc=item/update_admin_field&params={"
                                                                                                       + "\"id\":\"0\","
                                                                                                       + "\"callMode\":\"create\","
                                                                                                       + "\"itemId\":\"" + id_object + "\","
@@ -460,8 +458,7 @@ namespace Disp_WinForm
         // Создание команд для объекта в Виалоне
         public string create_commads_wl(int id_object, string name_command, string command, int acl_flag)
         {
-            string answer = WialonRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid
-                                                                                                    + "&svc=unit/update_command_definition&params={"
+            string answer = WialonRequest("&svc=unit/update_command_definition&params={"
                                                                                                     + "\"itemId\":\"" + id_object + "\","
                                                                                                     + "\"id\":\"0\","
                                                                                                     + "\"callMode\":\"create\","
