@@ -402,7 +402,8 @@ namespace Disp_WinForm
                                             "Users.username as 'Створив'," +
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
-                                            "Activation_object.Activation_date as 'Дата активації'" +
+                                            "Activation_object.Activation_date as 'Дата активації'," +
+                                            "idZayavki " +
                                             "FROM btk.Zayavki, btk.Kontragenti, btk.Users, btk.Activation_object, btk.testing_object " +
                                             "where Zayavki.Activation_object_idActivation_object=Activation_object.idActivation_object " +
                                             "AND testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
@@ -422,7 +423,8 @@ namespace Disp_WinForm
                                             "Users.username as 'Створив'," +
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
-                                            "Activation_object.Activation_date as 'Дата активації'" +
+                                            "Activation_object.Activation_date as 'Дата активації'," +
+                                            "idZayavki " +
                                             "FROM btk.Zayavki, btk.Kontragenti, btk.Users, btk.Activation_object, btk.testing_object " +
                                             "where Zayavki.Activation_object_idActivation_object=Activation_object.idActivation_object " +
                                             "AND testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
@@ -444,7 +446,8 @@ namespace Disp_WinForm
                                             "Users.username as 'Створив'," +
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
-                                            "Activation_object.Activation_date as 'Дата активації'" +
+                                            "Activation_object.Activation_date as 'Дата активації'," +
+                                            "idZayavki " +
                                             "FROM btk.Zayavki, btk.Kontragenti, btk.Users, btk.Activation_object, btk.testing_object " +
                                             "where Zayavki.Activation_object_idActivation_object=Activation_object.idActivation_object " +
                                             "AND testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
@@ -466,7 +469,8 @@ namespace Disp_WinForm
                                             "Users.username as 'Створив'," +
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
-                                            "Activation_object.Activation_date as 'Дата активації'" +
+                                            "Activation_object.Activation_date as 'Дата активації'," +
+                                            "idZayavki " +
                                             "FROM btk.Zayavki, btk.Kontragenti, btk.Users, btk.Activation_object, btk.testing_object " +
                                             "where Zayavki.Activation_object_idActivation_object=Activation_object.idActivation_object " +
                                             "AND testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
@@ -489,7 +493,8 @@ namespace Disp_WinForm
                                             "Users.username as 'Створив'," +
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
-                                            "Activation_object.Activation_date as 'Дата активації'" +
+                                            "Activation_object.Activation_date as 'Дата активації'," +
+                                            "idZayavki " +
                                             "FROM btk.Zayavki, btk.Kontragenti, btk.Users, btk.Activation_object, btk.testing_object " +
                                             "where Zayavki.Activation_object_idActivation_object=Activation_object.idActivation_object " +
                                             "AND testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
@@ -511,7 +516,8 @@ namespace Disp_WinForm
                                             "Users.username as 'Створив'," +
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
-                                            "Activation_object.Activation_date as 'Дата активації'" +
+                                            "Activation_object.Activation_date as 'Дата активації'," +
+                                            "idZayavki " +
                                             "FROM btk.Zayavki, btk.Kontragenti, btk.Users, btk.Activation_object, btk.testing_object " +
                                             "where Zayavki.Activation_object_idActivation_object=Activation_object.idActivation_object " +
                                             "AND testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
@@ -532,7 +538,8 @@ namespace Disp_WinForm
                                             "Users.username as 'Створив'," +
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
-                                            "Activation_object.Activation_date as 'Дата активації'" +
+                                            "Activation_object.Activation_date as 'Дата активації'," +
+                                            "idZayavki " +
                                             "FROM btk.Zayavki, btk.Kontragenti, btk.Users, btk.Activation_object, btk.testing_object " +
                                             "where Zayavki.Activation_object_idActivation_object=Activation_object.idActivation_object " +
                                             "AND testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
@@ -553,7 +560,8 @@ namespace Disp_WinForm
                                             "Users.username as 'Створив'," +
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
-                                            "Activation_object.Activation_date as 'Дата активації'" +
+                                            "Activation_object.Activation_date as 'Дата активації'," +
+                                            "idZayavki " +
                                             "FROM btk.Zayavki, btk.Kontragenti, btk.Users, btk.Activation_object, btk.testing_object " +
                                             "where Zayavki.Activation_object_idActivation_object=Activation_object.idActivation_object " +
                                             "AND testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
@@ -574,7 +582,8 @@ namespace Disp_WinForm
                                             "Users.username as 'Створив'," +
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
-                                            "Activation_object.Activation_date as 'Дата активації'" +
+                                            "Activation_object.Activation_date as 'Дата активації'," +
+                                            "idZayavki " +
                                             "FROM btk.Zayavki, btk.Kontragenti, btk.Users, btk.Activation_object, btk.testing_object " +
                                             "where Zayavki.Activation_object_idActivation_object=Activation_object.idActivation_object " +
                                             "AND testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
@@ -596,6 +605,7 @@ namespace Disp_WinForm
                 }
                 dataGridView_zayavki_na_activation.FirstDisplayedScrollingRowIndex = scrollPosition;
             }
+            dataGridView_zayavki_na_activation.Columns["idZayavki"].Visible = false;
 
 
         }
@@ -2732,13 +2742,13 @@ namespace Disp_WinForm
 
         private void form_form_Zayavki_activated(object sender, EventArgs e)
         {
-            //this.Visible = false;// блокируем окно контрагентов пока открыто окно добавления контрагента
+            this.Enabled = false;// блокируем окно контрагентов пока открыто окно добавления контрагента
         }
 
         private void form_form_Zayavki_deactivated(object sender, FormClosedEventArgs e)
         {
             vars_form.if_open_created_zayavka = 0;
-            //this.Visible = true;// разблокируем окно контрагентов кактолько закрыто окно добавления контрагента
+            this.Enabled = true;// разблокируем окно контрагентов кактолько закрыто окно добавления контрагента
             update_zayavki_na_aktivation_2W();
 
         }
@@ -2759,7 +2769,8 @@ namespace Disp_WinForm
                 return;
             }
 
-            vars_form.id_testing_for_zayavki = dataGridView_zayavki_na_activation.Rows[e.RowIndex].Cells[0].Value.ToString();
+            vars_form.id_testing_for_zayavki = dataGridView_zayavki_na_activation.Rows[e.RowIndex].Cells[7].Value.ToString();
+            vars_form.id_db_zayavki_for_activation = dataGridView_zayavki_na_activation.Rows[e.RowIndex].Cells[10].Value.ToString();
             vars_form.if_open_created_zayavka = 1;
 
             Zayavki form_Zayavki = new Zayavki();
@@ -2907,6 +2918,7 @@ namespace Disp_WinForm
                     maskedTextBox_BLE_CODE.Enabled = false;
                     textBox_id_to_create.Enabled = false;
                     maskedTextBox_PUK.Enabled = false;
+                    maskedTextBox_PUK.ReadOnly = false;
                     maskedTextBox_sim_no_to_create.Enabled = false;
                     search_tovar_comboBox.Enabled = false;
                     maskedTextBox_BLE_CODE.Text = "";
@@ -2922,6 +2934,7 @@ namespace Disp_WinForm
                     maskedTextBox_BLE_CODE.Enabled = false;
                     textBox_id_to_create.Enabled = true;
                     maskedTextBox_PUK.Enabled = true;
+                    maskedTextBox_PUK.ReadOnly = false;
                     maskedTextBox_sim_no_to_create.Enabled = true;
                     search_tovar_comboBox.Enabled = false;
                     maskedTextBox_BLE_CODE.Text = "";
@@ -2937,6 +2950,7 @@ namespace Disp_WinForm
                     maskedTextBox_BLE_CODE.Enabled = false;
                     textBox_id_to_create.Enabled = true;
                     maskedTextBox_PUK.Enabled = true;
+                    maskedTextBox_PUK.ReadOnly = false;
                     maskedTextBox_sim_no_to_create.Enabled = true;
                     search_tovar_comboBox.Enabled = false;
                     maskedTextBox_BLE_CODE.Text = "";
@@ -2952,6 +2966,7 @@ namespace Disp_WinForm
                     maskedTextBox_BLE_CODE.Enabled = false;
                     textBox_id_to_create.Enabled = true;
                     maskedTextBox_PUK.Enabled = true;
+                    maskedTextBox_PUK.ReadOnly = false;
                     maskedTextBox_sim_no_to_create.Enabled = true;
                     search_tovar_comboBox.Enabled = false;
                     maskedTextBox_BLE_CODE.Text = "";
@@ -3027,7 +3042,7 @@ namespace Disp_WinForm
                     maskedTextBox_BLE_CODE.Enabled = false;
                     textBox_id_to_create.Enabled = true;
                     maskedTextBox_PUK.Enabled = false;
-                    maskedTextBox_sim_no_to_create.Enabled = false;
+                    maskedTextBox_sim_no_to_create.Enabled = true;
                     search_tovar_comboBox.Enabled = false;
                     maskedTextBox_BLE_CODE.Text = "";
                     maskedTextBox_GSM_CODE.Text = "";
@@ -3042,6 +3057,7 @@ namespace Disp_WinForm
                     maskedTextBox_BLE_CODE.Enabled = true;
                     textBox_id_to_create.Enabled = true;
                     maskedTextBox_PUK.Enabled = true;
+                    maskedTextBox_PUK.ReadOnly = true;
                     maskedTextBox_sim_no_to_create.Enabled = true;
                     search_tovar_comboBox.Enabled = true;
                     maskedTextBox_BLE_CODE.Text = "";
@@ -3057,6 +3073,7 @@ namespace Disp_WinForm
                     maskedTextBox_BLE_CODE.Enabled = true;
                     textBox_id_to_create.Enabled = true;
                     maskedTextBox_PUK.Enabled = true;
+                    maskedTextBox_PUK.ReadOnly = true;
                     maskedTextBox_sim_no_to_create.Enabled = true;
                     search_tovar_comboBox.Enabled = true;
                     maskedTextBox_BLE_CODE.Text = "";
@@ -3072,6 +3089,7 @@ namespace Disp_WinForm
                     maskedTextBox_BLE_CODE.Enabled = true;
                     textBox_id_to_create.Enabled = true;
                     maskedTextBox_PUK.Enabled = true;
+                    maskedTextBox_PUK.ReadOnly = true;
                     maskedTextBox_sim_no_to_create.Enabled = true;
                     search_tovar_comboBox.Enabled = true;
                     maskedTextBox_BLE_CODE.Text = "";
@@ -3087,6 +3105,7 @@ namespace Disp_WinForm
                     maskedTextBox_BLE_CODE.Enabled = true;
                     textBox_id_to_create.Enabled = true;
                     maskedTextBox_PUK.Enabled = true;
+                    maskedTextBox_PUK.ReadOnly = true;
                     maskedTextBox_sim_no_to_create.Enabled = true;
                     search_tovar_comboBox.Enabled = true;
                     maskedTextBox_BLE_CODE.Text = "";
@@ -9131,6 +9150,7 @@ namespace Disp_WinForm
                     maskedTextBox_BLE_CODE.Text = t.Rows[0][2].ToString();
                     textBox_bt_enable.Text = t.Rows[0][5].ToString();
                     Clipboard.SetText(textBox_id_to_create.Text);
+                    comboBox_tel_select.Focus();
                 }
             }
         }
@@ -9148,9 +9168,14 @@ namespace Disp_WinForm
                 if (t != null & t.Rows.Count > 0)
                 {
                     maskedTextBox_sim_no_to_create.Text = t.Rows[0][1].ToString();
-                    //Clipboard.SetText(textBox_id_to_create.Text);
+                    Clipboard.SetText(maskedTextBox_sim_no_to_create.Text);
                 }
             }
+        }
+
+        private void comboBox_list_poructs_DropDownClosed(object sender, EventArgs e)
+        {
+            search_tovar_comboBox.Focus();
         }
     }
 

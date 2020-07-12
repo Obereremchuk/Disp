@@ -2714,7 +2714,7 @@ namespace Disp_WinForm
             textBox_lenth_name.Text = (50 - name_obj_new_textBox.Text.Length).ToString();
             if (name_obj_new_textBox.Text.Length >= 51)
             {
-                name_obj_new_textBox.BackColor = Color.Red;
+                name_obj_new_textBox.BackColor = Color.LightPink;
             }
             else
             {

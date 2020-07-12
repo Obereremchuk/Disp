@@ -59,22 +59,19 @@
             this.label14 = new System.Windows.Forms.Label();
             this.textBox_kont_osoba2 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.textBox_selected_object = new System.Windows.Forms.TextBox();
             this.comboBox_filter = new System.Windows.Forms.ComboBox();
-            this.textBox_id_testing = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.textBox_email = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox_sobstvennik_avto = new System.Windows.Forms.TextBox();
             this.maskedTextBox_tel2 = new System.Windows.Forms.MaskedTextBox();
             this.maskedTextBox_tel1 = new System.Windows.Forms.MaskedTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox_sobstvennik_avto = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.checkBox_for_all_time = new System.Windows.Forms.CheckBox();
             this.textBox_search_by_vin_testing = new System.Windows.Forms.TextBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.button_vidkripyty = new System.Windows.Forms.Button();
             this.button_cancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_tested_objects_zayavki)).BeginInit();
@@ -83,7 +80,6 @@
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_create
@@ -133,9 +129,9 @@
             // dateTimePicker_plan_date_zayavki
             // 
             this.dateTimePicker_plan_date_zayavki.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker_plan_date_zayavki.Location = new System.Drawing.Point(84, 45);
+            this.dateTimePicker_plan_date_zayavki.Location = new System.Drawing.Point(94, 152);
             this.dateTimePicker_plan_date_zayavki.Name = "dateTimePicker_plan_date_zayavki";
-            this.dateTimePicker_plan_date_zayavki.Size = new System.Drawing.Size(357, 20);
+            this.dateTimePicker_plan_date_zayavki.Size = new System.Drawing.Size(411, 20);
             this.dateTimePicker_plan_date_zayavki.TabIndex = 2;
             // 
             // comboBox_reason_zayavki
@@ -146,7 +142,7 @@
             "Монтаж",
             "Демонтаж",
             "Інше"});
-            this.comboBox_reason_zayavki.Location = new System.Drawing.Point(84, 71);
+            this.comboBox_reason_zayavki.Location = new System.Drawing.Point(84, 19);
             this.comboBox_reason_zayavki.Name = "comboBox_reason_zayavki";
             this.comboBox_reason_zayavki.Size = new System.Drawing.Size(357, 21);
             this.comboBox_reason_zayavki.TabIndex = 3;
@@ -154,11 +150,11 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 207);
+            this.label4.Location = new System.Drawing.Point(12, 23);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(69, 13);
+            this.label4.Size = new System.Drawing.Size(77, 13);
             this.label4.TabIndex = 17;
-            this.label4.Text = "Встановлює";
+            this.label4.Text = "Дилер. Ценрт";
             // 
             // label6
             // 
@@ -172,7 +168,7 @@
             // textBox_kontragent_sto_zayavki
             // 
             this.textBox_kontragent_sto_zayavki.Enabled = false;
-            this.textBox_kontragent_sto_zayavki.Location = new System.Drawing.Point(94, 204);
+            this.textBox_kontragent_sto_zayavki.Location = new System.Drawing.Point(94, 20);
             this.textBox_kontragent_sto_zayavki.Name = "textBox_kontragent_sto_zayavki";
             this.textBox_kontragent_sto_zayavki.ReadOnly = true;
             this.textBox_kontragent_sto_zayavki.Size = new System.Drawing.Size(369, 20);
@@ -187,7 +183,7 @@
             // 
             // button_select_kontragent_sto_zayavki
             // 
-            this.button_select_kontragent_sto_zayavki.Location = new System.Drawing.Point(469, 204);
+            this.button_select_kontragent_sto_zayavki.Location = new System.Drawing.Point(469, 20);
             this.button_select_kontragent_sto_zayavki.Name = "button_select_kontragent_sto_zayavki";
             this.button_select_kontragent_sto_zayavki.Size = new System.Drawing.Size(36, 20);
             this.button_select_kontragent_sto_zayavki.TabIndex = 17;
@@ -226,7 +222,7 @@
             // 
             // button_select_kontraget_zakazchik_zayavki
             // 
-            this.button_select_kontraget_zakazchik_zayavki.Location = new System.Drawing.Point(469, 20);
+            this.button_select_kontraget_zakazchik_zayavki.Location = new System.Drawing.Point(405, 72);
             this.button_select_kontraget_zakazchik_zayavki.Name = "button_select_kontraget_zakazchik_zayavki";
             this.button_select_kontraget_zakazchik_zayavki.Size = new System.Drawing.Size(36, 20);
             this.button_select_kontraget_zakazchik_zayavki.TabIndex = 8;
@@ -237,7 +233,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 23);
+            this.label8.Location = new System.Drawing.Point(2, 75);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(58, 13);
             this.label8.TabIndex = 147;
@@ -246,16 +242,16 @@
             // textBox_kontragent_zakazchik
             // 
             this.textBox_kontragent_zakazchik.Enabled = false;
-            this.textBox_kontragent_zakazchik.Location = new System.Drawing.Point(94, 20);
+            this.textBox_kontragent_zakazchik.Location = new System.Drawing.Point(84, 72);
             this.textBox_kontragent_zakazchik.Name = "textBox_kontragent_zakazchik";
             this.textBox_kontragent_zakazchik.ReadOnly = true;
-            this.textBox_kontragent_zakazchik.Size = new System.Drawing.Size(369, 20);
+            this.textBox_kontragent_zakazchik.Size = new System.Drawing.Size(316, 20);
             this.textBox_kontragent_zakazchik.TabIndex = 146;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(3, 49);
+            this.label10.Location = new System.Drawing.Point(13, 156);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(59, 13);
             this.label10.TabIndex = 151;
@@ -264,7 +260,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(3, 75);
+            this.label11.Location = new System.Drawing.Point(3, 23);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(62, 13);
             this.label11.TabIndex = 152;
@@ -273,7 +269,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(3, 23);
+            this.label12.Location = new System.Drawing.Point(3, 50);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(58, 13);
             this.label12.TabIndex = 154;
@@ -281,7 +277,7 @@
             // 
             // textBox_name_zayavka
             // 
-            this.textBox_name_zayavka.Location = new System.Drawing.Point(84, 19);
+            this.textBox_name_zayavka.Location = new System.Drawing.Point(84, 46);
             this.textBox_name_zayavka.Name = "textBox_name_zayavka";
             this.textBox_name_zayavka.Size = new System.Drawing.Size(357, 20);
             this.textBox_name_zayavka.TabIndex = 1;
@@ -316,7 +312,7 @@
             // dateTimePicker_filter_tested_zayavki
             // 
             this.dateTimePicker_filter_tested_zayavki.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker_filter_tested_zayavki.Location = new System.Drawing.Point(240, 19);
+            this.dateTimePicker_filter_tested_zayavki.Location = new System.Drawing.Point(238, 40);
             this.dateTimePicker_filter_tested_zayavki.Name = "dateTimePicker_filter_tested_zayavki";
             this.dateTimePicker_filter_tested_zayavki.Size = new System.Drawing.Size(86, 20);
             this.dateTimePicker_filter_tested_zayavki.TabIndex = 20;
@@ -327,13 +323,13 @@
             this.textBox_Coments.Location = new System.Drawing.Point(6, 20);
             this.textBox_Coments.Multiline = true;
             this.textBox_Coments.Name = "textBox_Coments";
-            this.textBox_Coments.Size = new System.Drawing.Size(435, 39);
+            this.textBox_Coments.Size = new System.Drawing.Size(499, 39);
             this.textBox_Coments.TabIndex = 160;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 155);
+            this.label7.Location = new System.Drawing.Point(2, 101);
             this.label7.MaximumSize = new System.Drawing.Size(100, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(76, 13);
@@ -342,7 +338,7 @@
             // 
             // textBox_kont_osoba1
             // 
-            this.textBox_kont_osoba1.Location = new System.Drawing.Point(84, 98);
+            this.textBox_kont_osoba1.Location = new System.Drawing.Point(84, 124);
             this.textBox_kont_osoba1.Name = "textBox_kont_osoba1";
             this.textBox_kont_osoba1.Size = new System.Drawing.Size(272, 20);
             this.textBox_kont_osoba1.TabIndex = 4;
@@ -350,7 +346,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(3, 131);
+            this.label14.Location = new System.Drawing.Point(3, 157);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(62, 13);
             this.label14.TabIndex = 166;
@@ -358,7 +354,7 @@
             // 
             // textBox_kont_osoba2
             // 
-            this.textBox_kont_osoba2.Location = new System.Drawing.Point(84, 127);
+            this.textBox_kont_osoba2.Location = new System.Drawing.Point(84, 153);
             this.textBox_kont_osoba2.Name = "textBox_kont_osoba2";
             this.textBox_kont_osoba2.Size = new System.Drawing.Size(272, 20);
             this.textBox_kont_osoba2.TabIndex = 6;
@@ -366,19 +362,11 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(3, 102);
+            this.label13.Location = new System.Drawing.Point(3, 128);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(62, 13);
             this.label13.TabIndex = 164;
             this.label13.Text = "Кон. особа";
-            // 
-            // textBox_selected_object
-            // 
-            this.textBox_selected_object.Location = new System.Drawing.Point(50, 22);
-            this.textBox_selected_object.Name = "textBox_selected_object";
-            this.textBox_selected_object.ReadOnly = true;
-            this.textBox_selected_object.Size = new System.Drawing.Size(247, 20);
-            this.textBox_selected_object.TabIndex = 170;
             // 
             // comboBox_filter
             // 
@@ -387,25 +375,16 @@
             "Не прикріплені",
             "Прикріплені",
             "Всі"});
-            this.comboBox_filter.Location = new System.Drawing.Point(113, 19);
+            this.comboBox_filter.Location = new System.Drawing.Point(111, 40);
             this.comboBox_filter.Name = "comboBox_filter";
             this.comboBox_filter.Size = new System.Drawing.Size(121, 21);
             this.comboBox_filter.TabIndex = 19;
             this.comboBox_filter.DropDownClosed += new System.EventHandler(this.comboBox_filter_DropDownClosed);
             // 
-            // textBox_id_testing
-            // 
-            this.textBox_id_testing.Location = new System.Drawing.Point(6, 22);
-            this.textBox_id_testing.Name = "textBox_id_testing";
-            this.textBox_id_testing.ReadOnly = true;
-            this.textBox_id_testing.Size = new System.Drawing.Size(38, 20);
-            this.textBox_id_testing.TabIndex = 173;
-            this.textBox_id_testing.TextChanged += new System.EventHandler(this.textBox_id_testing_TextChanged);
-            // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(12, 181);
+            this.label18.Location = new System.Drawing.Point(2, 182);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(35, 13);
             this.label18.TabIndex = 177;
@@ -413,35 +392,47 @@
             // 
             // textBox_email
             // 
-            this.textBox_email.Location = new System.Drawing.Point(94, 178);
+            this.textBox_email.Location = new System.Drawing.Point(84, 179);
             this.textBox_email.Name = "textBox_email";
-            this.textBox_email.Size = new System.Drawing.Size(411, 20);
+            this.textBox_email.Size = new System.Drawing.Size(357, 20);
             this.textBox_email.TabIndex = 16;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label18);
+            this.groupBox1.Controls.Add(this.textBox_sobstvennik_avto);
             this.groupBox1.Controls.Add(this.maskedTextBox_tel2);
             this.groupBox1.Controls.Add(this.textBox_name_zayavka);
+            this.groupBox1.Controls.Add(this.textBox_email);
             this.groupBox1.Controls.Add(this.maskedTextBox_tel1);
-            this.groupBox1.Controls.Add(this.dateTimePicker_plan_date_zayavki);
             this.groupBox1.Controls.Add(this.comboBox_reason_zayavki);
-            this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.textBox_kont_osoba1);
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.textBox_kont_osoba2);
             this.groupBox1.Controls.Add(this.label14);
+            this.groupBox1.Controls.Add(this.textBox_kontragent_zakazchik);
+            this.groupBox1.Controls.Add(this.button_select_kontraget_zakazchik_zayavki);
+            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(447, 158);
+            this.groupBox1.Size = new System.Drawing.Size(447, 265);
             this.groupBox1.TabIndex = 178;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Загальна інформація";
             // 
+            // textBox_sobstvennik_avto
+            // 
+            this.textBox_sobstvennik_avto.Location = new System.Drawing.Point(84, 98);
+            this.textBox_sobstvennik_avto.Name = "textBox_sobstvennik_avto";
+            this.textBox_sobstvennik_avto.Size = new System.Drawing.Size(357, 20);
+            this.textBox_sobstvennik_avto.TabIndex = 178;
+            // 
             // maskedTextBox_tel2
             // 
-            this.maskedTextBox_tel2.Location = new System.Drawing.Point(362, 128);
+            this.maskedTextBox_tel2.Location = new System.Drawing.Point(362, 154);
             this.maskedTextBox_tel2.Mask = "(999) 000-00-00";
             this.maskedTextBox_tel2.Name = "maskedTextBox_tel2";
             this.maskedTextBox_tel2.Size = new System.Drawing.Size(79, 20);
@@ -449,7 +440,7 @@
             // 
             // maskedTextBox_tel1
             // 
-            this.maskedTextBox_tel1.Location = new System.Drawing.Point(362, 98);
+            this.maskedTextBox_tel1.Location = new System.Drawing.Point(362, 124);
             this.maskedTextBox_tel1.Mask = "(999) 000-00-00";
             this.maskedTextBox_tel1.Name = "maskedTextBox_tel1";
             this.maskedTextBox_tel1.Size = new System.Drawing.Size(79, 20);
@@ -457,16 +448,14 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox_sobstvennik_avto);
-            this.groupBox2.Controls.Add(this.label18);
             this.groupBox2.Controls.Add(this.textBox_vin_zayavki);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.textBox_email);
+            this.groupBox2.Controls.Add(this.dateTimePicker_plan_date_zayavki);
             this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.textBox_kontragent_sto_zayavki);
             this.groupBox2.Controls.Add(this.textBox_license_plate_zayavki);
-            this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.button_select_kontragent_sto_zayavki);
@@ -474,29 +463,19 @@
             this.groupBox2.Controls.Add(this.comboBox_brand_zayavki);
             this.groupBox2.Controls.Add(this.comboBox_date_vipuska_zayavki);
             this.groupBox2.Controls.Add(this.comboBox_product_zayavki);
-            this.groupBox2.Controls.Add(this.textBox_kontragent_zakazchik);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.button_select_kontraget_zakazchik_zayavki);
             this.groupBox2.Location = new System.Drawing.Point(465, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(517, 238);
+            this.groupBox2.Size = new System.Drawing.Size(517, 185);
             this.groupBox2.TabIndex = 179;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Інформація про обєкт";
             // 
-            // textBox_sobstvennik_avto
-            // 
-            this.textBox_sobstvennik_avto.Location = new System.Drawing.Point(94, 152);
-            this.textBox_sobstvennik_avto.Name = "textBox_sobstvennik_avto";
-            this.textBox_sobstvennik_avto.Size = new System.Drawing.Size(411, 20);
-            this.textBox_sobstvennik_avto.TabIndex = 178;
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.textBox_Coments);
-            this.groupBox3.Location = new System.Drawing.Point(12, 176);
+            this.groupBox3.Location = new System.Drawing.Point(465, 203);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(447, 74);
+            this.groupBox3.Size = new System.Drawing.Size(517, 74);
             this.groupBox3.TabIndex = 180;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Коментар";
@@ -504,24 +483,24 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.groupBox5);
-            this.groupBox4.Controls.Add(this.groupBox6);
             this.groupBox4.Controls.Add(this.dataGridView_tested_objects_zayavki);
-            this.groupBox4.Location = new System.Drawing.Point(12, 256);
+            this.groupBox4.Location = new System.Drawing.Point(12, 285);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(970, 265);
+            this.groupBox4.Size = new System.Drawing.Size(970, 236);
             this.groupBox4.TabIndex = 181;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Прикріплення тестування";
+            this.groupBox4.Text = "Пшук авто по VIN";
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.button_vidkripyty);
             this.groupBox5.Controls.Add(this.checkBox_for_all_time);
             this.groupBox5.Controls.Add(this.comboBox_filter);
             this.groupBox5.Controls.Add(this.textBox_search_by_vin_testing);
             this.groupBox5.Controls.Add(this.dateTimePicker_filter_tested_zayavki);
-            this.groupBox5.Location = new System.Drawing.Point(615, 23);
+            this.groupBox5.Location = new System.Drawing.Point(6, 19);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(343, 67);
+            this.groupBox5.Size = new System.Drawing.Size(465, 67);
             this.groupBox5.TabIndex = 175;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Пошук";
@@ -529,7 +508,7 @@
             // checkBox_for_all_time
             // 
             this.checkBox_for_all_time.AutoSize = true;
-            this.checkBox_for_all_time.Location = new System.Drawing.Point(240, 45);
+            this.checkBox_for_all_time.Location = new System.Drawing.Point(238, 17);
             this.checkBox_for_all_time.Name = "checkBox_for_all_time";
             this.checkBox_for_all_time.Size = new System.Drawing.Size(91, 17);
             this.checkBox_for_all_time.TabIndex = 175;
@@ -539,31 +518,19 @@
             // 
             // textBox_search_by_vin_testing
             // 
-            this.textBox_search_by_vin_testing.Location = new System.Drawing.Point(6, 19);
+            this.textBox_search_by_vin_testing.Location = new System.Drawing.Point(4, 40);
             this.textBox_search_by_vin_testing.Name = "textBox_search_by_vin_testing";
             this.textBox_search_by_vin_testing.Size = new System.Drawing.Size(101, 20);
             this.textBox_search_by_vin_testing.TabIndex = 174;
             this.textBox_search_by_vin_testing.TextChanged += new System.EventHandler(this.textBox_search_by_vin_testing_TextChanged);
             // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.textBox_selected_object);
-            this.groupBox6.Controls.Add(this.button_vidkripyty);
-            this.groupBox6.Controls.Add(this.textBox_id_testing);
-            this.groupBox6.Location = new System.Drawing.Point(6, 23);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(394, 67);
-            this.groupBox6.TabIndex = 174;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Вибране тестування";
-            // 
             // button_vidkripyty
             // 
-            this.button_vidkripyty.Location = new System.Drawing.Point(309, 21);
+            this.button_vidkripyty.Location = new System.Drawing.Point(368, 13);
             this.button_vidkripyty.Name = "button_vidkripyty";
-            this.button_vidkripyty.Size = new System.Drawing.Size(75, 23);
+            this.button_vidkripyty.Size = new System.Drawing.Size(91, 47);
             this.button_vidkripyty.TabIndex = 18;
-            this.button_vidkripyty.Text = "Відкріпити";
+            this.button_vidkripyty.Text = "Очистити";
             this.button_vidkripyty.UseVisualStyleBackColor = true;
             this.button_vidkripyty.Click += new System.EventHandler(this.button_vidkripyty_Click);
             // 
@@ -582,11 +549,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(994, 562);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button_cancel);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button_create);
             this.Name = "Zayavki";
             this.Text = "Zayavki";
@@ -601,8 +568,6 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -640,9 +605,7 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox textBox_kont_osoba2;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBox_selected_object;
         private System.Windows.Forms.ComboBox comboBox_filter;
-        private System.Windows.Forms.TextBox textBox_id_testing;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox textBox_email;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -655,7 +618,6 @@
         private System.Windows.Forms.Button button_cancel;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.TextBox textBox_search_by_vin_testing;
-        private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.CheckBox checkBox_for_all_time;
         private System.Windows.Forms.TextBox textBox_sobstvennik_avto;
     }

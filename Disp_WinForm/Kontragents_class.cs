@@ -165,8 +165,8 @@ namespace Disp_WinForm
         
 
 
-            songs.Add(new Kontragents_class(1, "АВТ Баварія", "АВТ Баварія", 1, 34, new DateTime(2007, 10, 21, 5, 42, 0), new DateTime(2007, 10, 21, 5, 42, 0), "", "Диллер/СТО", 1, 1, 34, 1, "Київ", "Semenivska"));
-            songs.Add(new Kontragents_class(2, "АВТ Баварія", "АВТ Баварія", 1, 34, new DateTime(2007, 10, 21, 5, 42, 0), new DateTime(2007, 10, 21, 5, 42, 0), "", "Диллер/СТО", 1, 1, 34, 1, "Київ", "Semenivska"));
+            songs.Add(new Kontragents_class(1, "АВТ Баварія", "АВТ Баварія", 1, 34, new DateTime(2007, 10, 21, 5, 42, 0), new DateTime(2007, 10, 21, 5, 42, 0), "", "Дилер/СТО", 1, 1, 34, 1, "Київ", "Semenivska"));
+            songs.Add(new Kontragents_class(2, "АВТ Баварія", "АВТ Баварія", 1, 34, new DateTime(2007, 10, 21, 5, 42, 0), new DateTime(2007, 10, 21, 5, 42, 0), "", "Дилер/СТО", 1, 1, 34, 1, "Київ", "Semenivska"));
             return songs;
         }
     }

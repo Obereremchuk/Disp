@@ -250,7 +250,7 @@ namespace Disp_WinForm
         private void comboBox_work_in_DropDown(object sender, EventArgs e)
         {
             comboBox_work_in.BackColor = Color.Empty;
-            string sql = string.Format("select Kontragenti.idKontragenti, concat(btk.Kontragenti.Kontragenti_short_name, '(',btk.Kontragenti.Kontragenti_full_name, ')') AS full_short  FROM btk.Kontragenti where Kontragenticol_kategory='Диллер/СТО'");
+            string sql = string.Format("select Kontragenti.idKontragenti, concat(btk.Kontragenti.Kontragenti_short_name, '(',btk.Kontragenti.Kontragenti_full_name, ')') AS full_short  FROM btk.Kontragenti where Kontragenticol_kategory='Дилер/СТО'");
             comboBox_work_in.DisplayMember = "full_short";
             comboBox_work_in.ValueMember = "idKontragenti";
             comboBox_work_in.DataSource = macros.GetData(sql);
@@ -259,7 +259,7 @@ namespace Disp_WinForm
         private void comboBox_work_in_TextUpdate(object sender, EventArgs e)
         {
             string from_textbox = comboBox_work_in.Text.ToString();
-            string sql = string.Format("select Kontragenti.idKontragenti, concat(btk.Kontragenti.Kontragenti_short_name, '(',btk.Kontragenti.Kontragenti_full_name, ')') AS full_short  FROM btk.Kontragenti where Kontragenticol_kategory = 'Диллер/СТО' and (Kontragenti_short_name like '%" + comboBox_work_in.Text + "%' or Kontragenti_full_name like '%" + comboBox_work_in.Text + "%')");
+            string sql = string.Format("select Kontragenti.idKontragenti, concat(btk.Kontragenti.Kontragenti_short_name, '(',btk.Kontragenti.Kontragenti_full_name, ')') AS full_short  FROM btk.Kontragenti where Kontragenticol_kategory = 'Дилер/СТО' and (Kontragenti_short_name like '%" + comboBox_work_in.Text + "%' or Kontragenti_full_name like '%" + comboBox_work_in.Text + "%')");
             comboBox_work_in.DataSource = macros.GetData(sql);
             comboBox_work_in.DisplayMember = "full_short";
             comboBox_work_in.ValueMember = "idKontragenti";

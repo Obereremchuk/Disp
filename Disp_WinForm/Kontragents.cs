@@ -48,36 +48,9 @@ namespace Disp_WinForm
                     "Kontragenti_full_name as 'Повна назва', " +
                     "Kontragenticol_misto as 'Місто', " +
                     "Kontragenticol_kategory as 'Категорія' " +
-                    "FROM btk.Kontragenti where (Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%') and (kontragent_type_idkontragent_type = '" + comboBox_type_kontragent_filter.SelectedValue.ToString() + "' ) ;");
+                    "FROM btk.Kontragenti where (Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%') and (kontragent_type_idkontragent_type = '" + comboBox_type_kontragent_filter.SelectedValue + "' ) ;");
 
-            //if (vars_form.select_sto_or_zakazchik_for_zayavki == 0)
-            //{
-
-            //    sql = string.Format("SELECT idKontragenti,  " +
-            //        "Kontragenti_short_name as 'Скорочена назва', " +
-            //        "Kontragenti_full_name as 'Повна назва', " +
-            //        "Kontragenticol_misto as 'Місто', " +
-            //        "Kontragenticol_kategory as 'Категорія' " +
-            //        "FROM btk.Kontragenti where (Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%') and (kontragent_type_idkontragent_type = '"+ comboBox_type_kontragent_filter.SelectedValue.ToString() + "' ) ;");
-            //}
-            //else if (vars_form.select_sto_or_zakazchik_for_zayavki == 1)
-            //{
-            //    sql = string.Format("SELECT idKontragenti,  " +
-            //        "Kontragenti_short_name as 'Скорочена назва', " +
-            //        "Kontragenti_full_name as 'Повна назва', " +
-            //        "Kontragenticol_misto as 'Місто', " +
-            //        "Kontragenticol_kategory as 'Категорія' " +
-            //        "FROM btk.Kontragenti where (Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%') and Kontragenticol_kategory like 'Диллер/СТО';");
-            //}
-            //else if (vars_form.select_sto_or_zakazchik_for_zayavki == 2)
-            //{
-            //    sql = string.Format("SELECT idKontragenti,  " +
-            //        "Kontragenti_short_name as 'Скорочена назва', " +
-            //        "Kontragenti_full_name as 'Повна назва', " +
-            //        "Kontragenticol_misto as 'Місто', " +
-            //        "Kontragenticol_kategory as 'Категорія' " +
-            //        "FROM btk.Kontragenti where Kontragenti_full_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenti_short_name like '%" + textBox_search_kontragents.Text + "%' or Kontragenticol_kategory like 'Замовник' or Kontragenticol_misto like '%" + textBox_search_kontragents.Text + "%';");
-            //}
+            
             dataListView_kontragents.BeginUpdate();
             this.dataListView_kontragents.DataSource = macros.GetData(sql);
             dataListView_kontragents.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);

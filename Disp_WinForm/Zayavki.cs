@@ -18,7 +18,9 @@ namespace Disp_WinForm
             // Строим список Продуктов
             TimeSpan ts2 = new TimeSpan(00, 00, 00);
             dateTimePicker_filter_tested_zayavki.Value = DateTime.Now.Date + ts2;
-            
+            comboBox_reason_zayavki.SelectedIndex = 0;
+            checkBox_for_all_time.Checked = true;
+
 
         }
 
@@ -62,7 +64,7 @@ namespace Disp_WinForm
                                             "Activation_object_idActivation_object," +
                                             "testing_object_idtesting_object " +
                                             "FROM btk.Zayavki " +
-                                            "where Zayavkicol_name = '" + vars_form.id_testing_for_zayavki + "';");
+                                            "where idZayavki = '" + vars_form.id_db_zayavki_for_activation + "';");
 
                 textBox_name_zayavka.Text = table.Rows[0][1].ToString();
                 dateTimePicker_plan_date_zayavki.Value = Convert.ToDateTime(table.Rows[0][2].ToString());
@@ -146,16 +148,47 @@ namespace Disp_WinForm
                 maskedTextBox_tel2.Text = table.Rows[0][20].ToString();
                 idZayavki = table.Rows[0][0].ToString();
 
-                string name_testing_added = macros.sql_command("SELECT Object_idObject from btk.testing_object where idtesting_object = '" + table.Rows[0][23].ToString() + "'");
-                textBox_selected_object.Text = macros.sql_command("SELECT Object_name FROM btk.Object where idObject = '" + name_testing_added + "'");
+                //string name_testing_added = macros.sql_command("SELECT Object_idObject from btk.testing_object where idtesting_object = '" + table.Rows[0][23].ToString() + "'");
+                //textBox_selected_object.Text = macros.sql_command("SELECT Object_name FROM btk.Object where idObject = '" + name_testing_added + "'");
                 idtesting_object = macros.sql_command("SELECT idtesting_object from btk.testing_object where idtesting_object = '" + table.Rows[0][23].ToString() + "'");
-                if (idtesting_object == "1")
+                if (idtesting_object != "1")
                 {
-                    textBox_id_testing.Text = "";
-                }
-                else
-                {
-                    textBox_id_testing.Text = idtesting_object;
+                    try
+                    {
+                        //textBox_selected_object.Text = dataGridView_tested_objects_zayavki.Rows[e.RowIndex].Cells[3].Value.ToString(); //ID об"єкту(8)
+                        //idtesting_object = dataGridView_tested_objects_zayavki.Rows[e.RowIndex].Cells[0].Value.ToString();
+                        //textBox_id_testing.Text = dataGridView_tested_objects_zayavki.Rows[e.RowIndex].Cells[2].Value.ToString();
+
+                        //string SelectetRowCellVin = dataGridView_tested_objects_zayavki.Rows[e.RowIndex].Cells[4].Value.ToString();
+                        DataTable table2 = new DataTable();
+                        table2 = macros.GetData("SELECT " +
+                                                    "idtesting_object as Id, " +
+                                                    "Object_idObject as idWl," +
+                                                    "testing_object.idtesting_object as 'Тест'," +
+                                                    "Object.Object_name as Назва," +
+                                                    "TS_info.TS_infocol_vin as VIN," +
+                                                    "Object.Object_imei as IMEI," +
+                                                    "Kontragenti.Kontragenti_full_name as Установник," +
+                                                    "testing_objectcol_edit_timestamp as Дата_тестування," +
+                                                    "Users.username as Тестував " +
+                                                    "FROM btk.testing_object, btk.Object, btk.TS_info, btk.Kontragenti, btk.Users " +
+                                                    "WHERE " +
+                                                    "testing_object.Users_idUsers=Users.idUsers and " +
+                                                    "testing_object.idtesting_object =  '" + vars_form.id_testing_for_zayavki + "' and " +                                                    
+                                                    "Kontragenti.idKontragenti=TS_info.Kontragenti_idKontragenti and " +
+                                                    "Object.TS_info_idTS_info=TS_info.idTS_info and " +
+                                                    "Object.idObject = testing_object.Object_idObject ;");
+                        dataGridView_tested_objects_zayavki.DataSource = table2;
+                        dataGridView_tested_objects_zayavki.DefaultCellStyle.BackColor = Color.LightGreen;
+                        idtesting_object = dataGridView_tested_objects_zayavki.Rows[dataGridView_tested_objects_zayavki.CurrentCell.RowIndex].Cells[0].Value.ToString();
+                        dataGridView_tested_objects_zayavki.ClearSelection();
+                        dataGridView_tested_objects_zayavki.Columns["Id"].Visible = false;
+                        dataGridView_tested_objects_zayavki.Columns["idWl"].Visible = false;
+                    }
+                    catch { }
+
+                    dataGridView_tested_objects_zayavki.DefaultCellStyle.BackColor = Color.LightGreen;
+                    dataGridView_tested_objects_zayavki.ClearSelection();
                 }
 
             }
@@ -166,11 +199,11 @@ namespace Disp_WinForm
             string searchbydate = "";
             if (checkBox_for_all_time.Checked == true)
             {
-                searchbydate = ";";
+                searchbydate = " order by testing_objectcol_edit_timestamp DESC;";
             }
             else
             {
-                searchbydate = "and(testing_objectcol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_filter_tested_zayavki.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "');";
+                searchbydate = "and(testing_objectcol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_filter_tested_zayavki.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "') order by testing_objectcol_edit_timestamp DESC;";
             }
             //ПОлучим последний созданный айди тестирование, и возмем из него дату для верного отображения которую покладем в даттаймпикер
             DataTable table = new DataTable();
@@ -239,6 +272,7 @@ namespace Disp_WinForm
                                             "Object.idObject = testing_object.Object_idObject " + searchbydate);
             }
             dataGridView_tested_objects_zayavki.DataSource = table;
+            dataGridView_tested_objects_zayavki.DefaultCellStyle.BackColor = Color.White;
             this.dataGridView_tested_objects_zayavki.Columns["Id"].Visible = false;
             this.dataGridView_tested_objects_zayavki.Columns["idWl"].Visible = false;
 
@@ -350,7 +384,7 @@ namespace Disp_WinForm
             {
                 // insert activation
 
-                if (textBox_selected_object.Text == "")
+                if (idtesting_object == "")
                 {
                     idtesting_object = "1";
                 }
@@ -424,13 +458,13 @@ namespace Disp_WinForm
             else
             {   // insert activation
 
-                if (textBox_selected_object.Text == "")
+                if (idtesting_object == "")
                 {
                     idtesting_object = "1";
                 }
 
-                if (textBox_id_testing.Text == "") 
-                { textBox_id_testing.Text = "10"; }
+                //if (textBox_id_testing.Text == "") 
+                //{ textBox_id_testing.Text = "10"; }
 
                 string id_object_from_testing = macros.sql_command("select Object_idObject from btk.testing_object where idtesting_object = '" + idtesting_object + "';");
 
@@ -530,9 +564,42 @@ namespace Disp_WinForm
                 return;
             }
 
-            textBox_selected_object.Text = dataGridView_tested_objects_zayavki.Rows[e.RowIndex].Cells[3].Value.ToString(); //ID об"єкту(8)
-            idtesting_object = dataGridView_tested_objects_zayavki.Rows[e.RowIndex].Cells[0].Value.ToString();
-            textBox_id_testing.Text = dataGridView_tested_objects_zayavki.Rows[e.RowIndex].Cells[2].Value.ToString();
+            try
+            {
+                //textBox_selected_object.Text = dataGridView_tested_objects_zayavki.Rows[e.RowIndex].Cells[3].Value.ToString(); //ID об"єкту(8)
+                //idtesting_object = dataGridView_tested_objects_zayavki.Rows[e.RowIndex].Cells[0].Value.ToString();
+                //textBox_id_testing.Text = dataGridView_tested_objects_zayavki.Rows[e.RowIndex].Cells[2].Value.ToString();
+
+                string SelectetRowCellVin = dataGridView_tested_objects_zayavki.Rows[e.RowIndex].Cells[4].Value.ToString();
+                DataTable table = new DataTable();
+                table = macros.GetData("SELECT " +
+                                            "idtesting_object as Id, " +
+                                            "Object_idObject as idWl," +
+                                            "testing_object.idtesting_object as 'Тест'," +
+                                            "Object.Object_name as Назва," +
+                                            "TS_info.TS_infocol_vin as VIN," +
+                                            "Object.Object_imei as IMEI," +
+                                            "Kontragenti.Kontragenti_full_name as Установник," +
+                                            "testing_objectcol_edit_timestamp as Дата_тестування," +
+                                            "Users.username as Тестував " +
+                                            "FROM btk.testing_object, btk.Object, btk.TS_info, btk.Kontragenti, btk.Users " +
+                                            "WHERE " +
+                                            "testing_object.Users_idUsers=Users.idUsers and " +
+                                            "TS_info.TS_infocol_vin LIKE  '%" + SelectetRowCellVin + "%' and " +
+                                            "testing_object.idtesting_object NOT IN (select testing_object_idtesting_object from btk.Zayavki) and " +
+                                            "Kontragenti.idKontragenti=TS_info.Kontragenti_idKontragenti and " +
+                                            "Object.TS_info_idTS_info=TS_info.idTS_info and " +
+                                            "Object.idObject = testing_object.Object_idObject ;");
+                dataGridView_tested_objects_zayavki.DataSource = table;
+                dataGridView_tested_objects_zayavki.DefaultCellStyle.BackColor = Color.LightGreen;
+                idtesting_object = dataGridView_tested_objects_zayavki.Rows[dataGridView_tested_objects_zayavki.CurrentCell.RowIndex].Cells[0].Value.ToString();
+                dataGridView_tested_objects_zayavki.ClearSelection();
+                this.dataGridView_tested_objects_zayavki.Columns["Id"].Visible = false;
+                this.dataGridView_tested_objects_zayavki.Columns["idWl"].Visible = false;
+            }
+            catch { }
+
+
         }
 
         private void comboBox_filter_DropDownClosed(object sender, EventArgs e)
@@ -547,9 +614,11 @@ namespace Disp_WinForm
 
         private void button_vidkripyty_Click(object sender, EventArgs e)
         {
-            textBox_selected_object.Text = ""; //ID об"єкту(8)
+            //textBox_selected_object.Text = ""; //ID об"єкту(8)
             idtesting_object = "";
-            textBox_id_testing.Text = "";
+            textBox_search_by_vin_testing.Text = "";
+            buid_datagreed_tested_object();
+            //textBox_id_testing.Text = "";
         }
 
         private void button_cancel_Click(object sender, EventArgs e)
@@ -569,20 +638,6 @@ namespace Disp_WinForm
         private void textBox_search_by_vin_testing_TextChanged(object sender, EventArgs e)
         {
             buid_datagreed_tested_object();
-        }
-
-        private void textBox_id_testing_TextChanged(object sender, EventArgs e)
-        {
-            if (textBox_id_testing.Text == "" || textBox_id_testing.Text == "10")
-            {
-                textBox_id_testing.ResetBackColor();
-                textBox_selected_object.ResetBackColor();
-            }
-            else
-            {
-                textBox_id_testing.BackColor = Color.LightGreen;
-                textBox_selected_object.BackColor = Color.LightGreen;
-            }
         }
 
         private void checkBox_for_all_time_CheckedChanged(object sender, EventArgs e)
