@@ -69,22 +69,20 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.button_vidkripyty = new System.Windows.Forms.Button();
             this.checkBox_for_all_time = new System.Windows.Forms.CheckBox();
             this.textBox_search_by_vin_testing = new System.Windows.Forms.TextBox();
-            this.button_vidkripyty = new System.Windows.Forms.Button();
             this.button_cancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_tested_objects_zayavki)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // button_create
             // 
-            this.button_create.Location = new System.Drawing.Point(815, 527);
+            this.button_create.Location = new System.Drawing.Point(815, 514);
             this.button_create.Name = "button_create";
             this.button_create.Size = new System.Drawing.Size(75, 23);
             this.button_create.TabIndex = 21;
@@ -299,20 +297,20 @@
             this.dataGridView_tested_objects_zayavki.AllowUserToResizeRows = false;
             this.dataGridView_tested_objects_zayavki.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView_tested_objects_zayavki.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_tested_objects_zayavki.Location = new System.Drawing.Point(6, 91);
+            this.dataGridView_tested_objects_zayavki.Location = new System.Drawing.Point(6, 46);
             this.dataGridView_tested_objects_zayavki.MultiSelect = false;
             this.dataGridView_tested_objects_zayavki.Name = "dataGridView_tested_objects_zayavki";
             this.dataGridView_tested_objects_zayavki.ReadOnly = true;
             this.dataGridView_tested_objects_zayavki.RowHeadersVisible = false;
             this.dataGridView_tested_objects_zayavki.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_tested_objects_zayavki.Size = new System.Drawing.Size(952, 136);
+            this.dataGridView_tested_objects_zayavki.Size = new System.Drawing.Size(952, 181);
             this.dataGridView_tested_objects_zayavki.TabIndex = 156;
             this.dataGridView_tested_objects_zayavki.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_tested_objects_zayavki_CellDoubleClick);
             // 
             // dateTimePicker_filter_tested_zayavki
             // 
             this.dateTimePicker_filter_tested_zayavki.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker_filter_tested_zayavki.Location = new System.Drawing.Point(238, 40);
+            this.dateTimePicker_filter_tested_zayavki.Location = new System.Drawing.Point(240, 19);
             this.dateTimePicker_filter_tested_zayavki.Name = "dateTimePicker_filter_tested_zayavki";
             this.dateTimePicker_filter_tested_zayavki.Size = new System.Drawing.Size(86, 20);
             this.dateTimePicker_filter_tested_zayavki.TabIndex = 20;
@@ -323,7 +321,7 @@
             this.textBox_Coments.Location = new System.Drawing.Point(6, 20);
             this.textBox_Coments.Multiline = true;
             this.textBox_Coments.Name = "textBox_Coments";
-            this.textBox_Coments.Size = new System.Drawing.Size(499, 39);
+            this.textBox_Coments.Size = new System.Drawing.Size(776, 39);
             this.textBox_Coments.TabIndex = 160;
             // 
             // label7
@@ -375,7 +373,7 @@
             "Не прикріплені",
             "Прикріплені",
             "Всі"});
-            this.comboBox_filter.Location = new System.Drawing.Point(111, 40);
+            this.comboBox_filter.Location = new System.Drawing.Point(113, 19);
             this.comboBox_filter.Name = "comboBox_filter";
             this.comboBox_filter.Size = new System.Drawing.Size(121, 21);
             this.comboBox_filter.TabIndex = 19;
@@ -418,7 +416,7 @@
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(447, 265);
+            this.groupBox1.Size = new System.Drawing.Size(447, 211);
             this.groupBox1.TabIndex = 178;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Загальна інформація";
@@ -465,7 +463,7 @@
             this.groupBox2.Controls.Add(this.comboBox_product_zayavki);
             this.groupBox2.Location = new System.Drawing.Point(465, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(517, 185);
+            this.groupBox2.Size = new System.Drawing.Size(517, 211);
             this.groupBox2.TabIndex = 179;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Інформація про обєкт";
@@ -473,42 +471,42 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.textBox_Coments);
-            this.groupBox3.Location = new System.Drawing.Point(465, 203);
+            this.groupBox3.Location = new System.Drawing.Point(12, 471);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(517, 74);
+            this.groupBox3.Size = new System.Drawing.Size(788, 66);
             this.groupBox3.TabIndex = 180;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Коментар";
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.groupBox5);
+            this.groupBox4.Controls.Add(this.button_vidkripyty);
+            this.groupBox4.Controls.Add(this.checkBox_for_all_time);
+            this.groupBox4.Controls.Add(this.comboBox_filter);
             this.groupBox4.Controls.Add(this.dataGridView_tested_objects_zayavki);
-            this.groupBox4.Location = new System.Drawing.Point(12, 285);
+            this.groupBox4.Controls.Add(this.textBox_search_by_vin_testing);
+            this.groupBox4.Controls.Add(this.dateTimePicker_filter_tested_zayavki);
+            this.groupBox4.Location = new System.Drawing.Point(12, 229);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(970, 236);
             this.groupBox4.TabIndex = 181;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Пшук авто по VIN";
             // 
-            // groupBox5
+            // button_vidkripyty
             // 
-            this.groupBox5.Controls.Add(this.button_vidkripyty);
-            this.groupBox5.Controls.Add(this.checkBox_for_all_time);
-            this.groupBox5.Controls.Add(this.comboBox_filter);
-            this.groupBox5.Controls.Add(this.textBox_search_by_vin_testing);
-            this.groupBox5.Controls.Add(this.dateTimePicker_filter_tested_zayavki);
-            this.groupBox5.Location = new System.Drawing.Point(6, 19);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(465, 67);
-            this.groupBox5.TabIndex = 175;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Пошук";
+            this.button_vidkripyty.Location = new System.Drawing.Point(463, 16);
+            this.button_vidkripyty.Name = "button_vidkripyty";
+            this.button_vidkripyty.Size = new System.Drawing.Size(91, 24);
+            this.button_vidkripyty.TabIndex = 18;
+            this.button_vidkripyty.Text = "Очистити";
+            this.button_vidkripyty.UseVisualStyleBackColor = true;
+            this.button_vidkripyty.Click += new System.EventHandler(this.button_vidkripyty_Click);
             // 
             // checkBox_for_all_time
             // 
             this.checkBox_for_all_time.AutoSize = true;
-            this.checkBox_for_all_time.Location = new System.Drawing.Point(238, 17);
+            this.checkBox_for_all_time.Location = new System.Drawing.Point(332, 21);
             this.checkBox_for_all_time.Name = "checkBox_for_all_time";
             this.checkBox_for_all_time.Size = new System.Drawing.Size(91, 17);
             this.checkBox_for_all_time.TabIndex = 175;
@@ -518,25 +516,15 @@
             // 
             // textBox_search_by_vin_testing
             // 
-            this.textBox_search_by_vin_testing.Location = new System.Drawing.Point(4, 40);
+            this.textBox_search_by_vin_testing.Location = new System.Drawing.Point(6, 19);
             this.textBox_search_by_vin_testing.Name = "textBox_search_by_vin_testing";
             this.textBox_search_by_vin_testing.Size = new System.Drawing.Size(101, 20);
             this.textBox_search_by_vin_testing.TabIndex = 174;
             this.textBox_search_by_vin_testing.TextChanged += new System.EventHandler(this.textBox_search_by_vin_testing_TextChanged);
             // 
-            // button_vidkripyty
-            // 
-            this.button_vidkripyty.Location = new System.Drawing.Point(368, 13);
-            this.button_vidkripyty.Name = "button_vidkripyty";
-            this.button_vidkripyty.Size = new System.Drawing.Size(91, 47);
-            this.button_vidkripyty.TabIndex = 18;
-            this.button_vidkripyty.Text = "Очистити";
-            this.button_vidkripyty.UseVisualStyleBackColor = true;
-            this.button_vidkripyty.Click += new System.EventHandler(this.button_vidkripyty_Click);
-            // 
             // button_cancel
             // 
-            this.button_cancel.Location = new System.Drawing.Point(907, 527);
+            this.button_cancel.Location = new System.Drawing.Point(907, 514);
             this.button_cancel.Name = "button_cancel";
             this.button_cancel.Size = new System.Drawing.Size(75, 23);
             this.button_cancel.TabIndex = 22;
@@ -548,7 +536,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(994, 562);
+            this.ClientSize = new System.Drawing.Size(994, 550);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button_cancel);
             this.Controls.Add(this.groupBox4);
@@ -566,8 +554,7 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -616,7 +603,6 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button button_vidkripyty;
         private System.Windows.Forms.Button button_cancel;
-        private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.TextBox textBox_search_by_vin_testing;
         private System.Windows.Forms.CheckBox checkBox_for_all_time;
         private System.Windows.Forms.TextBox textBox_sobstvennik_avto;

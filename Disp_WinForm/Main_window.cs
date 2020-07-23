@@ -22,6 +22,7 @@ namespace Disp_WinForm
         delegate void UpdateGridHandler(DataTable table);
         delegate void UpdateGridThreadHandler(DataTable table);
         private string streamToPrint = Directory.GetCurrentDirectory() + "\\barcode.png";
+        private int LoadedGoogleMessage = 0;
 
 
         public Main_window()
@@ -2339,7 +2340,22 @@ namespace Disp_WinForm
                 this.dataGridView_close_alarm
                     .FirstDisplayedScrollingRowIndex; //сохраняем позицию скрола перед обновлением таблицы
 
+            //save sort
+            DataGridViewColumn oldColumn = dataGridView_close_alarm.SortedColumn;
+            ListSortDirection direction;
+            if (dataGridView_close_alarm.SortOrder == SortOrder.Ascending) direction = ListSortDirection.Ascending;
+            else direction = ListSortDirection.Descending;
+
             dataGridView_close_alarm.DataSource = ds_close_alarm;
+
+            if (oldColumn != null)
+            {
+                DataGridViewColumn newColumn = dataGridView_close_alarm.Columns[oldColumn.Name.ToString()];
+                dataGridView_close_alarm.Sort(newColumn, direction);
+                newColumn.HeaderCell.SortGlyphDirection =
+                                 direction == ListSortDirection.Ascending ?
+                                 SortOrder.Ascending : SortOrder.Descending;
+            }
 
 
 
@@ -2356,29 +2372,32 @@ namespace Disp_WinForm
         }
         private void dataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridView_close_alarm.Rows[e.RowIndex].Cells[9].Value.ToString() == "")
+            if (e.RowIndex != -1)
             {
-                vars_form.search_id = dataGridView_close_alarm.Rows[e.RowIndex].Cells[8].Value.ToString();
-                vars_form.id_notif = dataGridView_close_alarm.Rows[e.RowIndex].Cells[0].Value.ToString();
-                vars_form.id_status = dataGridView_close_alarm.Rows[e.RowIndex].Cells[7].Value.ToString();
-                vars_form.unit_name = dataGridView_close_alarm.Rows[e.RowIndex].Cells[2].Value.ToString();
-                vars_form.alarm_name = dataGridView_close_alarm.Rows[e.RowIndex].Cells[3].Value.ToString();
-                vars_form.restrict_un_group = true;
-                detail subwindow = new detail();
-                subwindow.Show();
-            }
-            else
-            {
+                if (dataGridView_close_alarm.Rows[e.RowIndex].Cells[9].Value.ToString() == "")
+                {
+                    vars_form.search_id = dataGridView_close_alarm.Rows[e.RowIndex].Cells[8].Value.ToString();
+                    vars_form.id_notif = dataGridView_close_alarm.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    vars_form.id_status = dataGridView_close_alarm.Rows[e.RowIndex].Cells[7].Value.ToString();
+                    vars_form.unit_name = dataGridView_close_alarm.Rows[e.RowIndex].Cells[2].Value.ToString();
+                    vars_form.alarm_name = dataGridView_close_alarm.Rows[e.RowIndex].Cells[3].Value.ToString();
+                    vars_form.restrict_un_group = true;
+                    detail subwindow = new detail();
+                    subwindow.Show();
+                }
+                else
+                {
 
-                vars_form.search_id = dataGridView_close_alarm.Rows[e.RowIndex].Cells[8].Value.ToString(); ;
-                vars_form.id_notif = dataGridView_close_alarm.Rows[e.RowIndex].Cells[9].Value.ToString();
-                vars_form.id_status = dataGridView_close_alarm.Rows[e.RowIndex].Cells[7].Value.ToString();
-                vars_form.unit_name = dataGridView_close_alarm.Rows[e.RowIndex].Cells[2].Value.ToString();
-                vars_form.alarm_name = dataGridView_close_alarm.Rows[e.RowIndex].Cells[3].Value.ToString();
-                vars_form.restrict_un_group = true;
+                    vars_form.search_id = dataGridView_close_alarm.Rows[e.RowIndex].Cells[8].Value.ToString(); ;
+                    vars_form.id_notif = dataGridView_close_alarm.Rows[e.RowIndex].Cells[9].Value.ToString();
+                    vars_form.id_status = dataGridView_close_alarm.Rows[e.RowIndex].Cells[7].Value.ToString();
+                    vars_form.unit_name = dataGridView_close_alarm.Rows[e.RowIndex].Cells[2].Value.ToString();
+                    vars_form.alarm_name = dataGridView_close_alarm.Rows[e.RowIndex].Cells[3].Value.ToString();
+                    vars_form.restrict_un_group = true;
 
-                detail subwindow = new detail();
-                subwindow.Show();
+                    detail subwindow = new detail();
+                    subwindow.Show();
+                }
             }
 
 
@@ -2755,7 +2774,7 @@ namespace Disp_WinForm
 
         private void button_create_zayavka_Click(object sender, EventArgs e)
         {
-
+            vars_form.if_open_created_zayavka = 0;
             Zayavki form_Zayavki = new Zayavki();
             form_Zayavki.Activated += new EventHandler(form_form_Zayavki_activated);
             form_Zayavki.FormClosed += new FormClosedEventHandler(form_form_Zayavki_deactivated);
@@ -2887,10 +2906,12 @@ namespace Disp_WinForm
 
         private void Google_masseges()
         {
-            //GeckoPreferences.User["browser.xul.error_pages.enabled"] = true;
-
-            geckoWebBrowser_GoogleMaseges.Navigate("https://messages.google.com/web/authentication");
-
+            if (LoadedGoogleMessage == 0)
+            {
+                LoadedGoogleMessage = 1;
+                //GeckoPreferences.User["browser.xul.error_pages.enabled"] = true;
+                geckoWebBrowser_GoogleMaseges.Navigate("https://messages.google.com/web/authentication");
+            }
         }
 
         private void build_list_products()

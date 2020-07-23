@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using Gecko;
-
-
+using System.Text.RegularExpressions;
 
 namespace Disp_WinForm
 {     
@@ -444,6 +443,19 @@ namespace Disp_WinForm
                 MessageBox.Show("Перевірь щось, можливо зір..");
                 return;
             }
+
+            string pattern = @"\p{IsCyrillic}";
+            if (Regex.Matches(textBox_vin.Text, pattern).Count > 0)
+            {
+                textBox_vin.BackColor = Color.LightPink;
+                MessageBox.Show("Проверь VIN, только латиницей!");
+                return;
+            }
+            else
+            {
+                textBox_vin.BackColor = Color.White;
+            }
+            
 
 
             commands_fill_anketa();
@@ -2130,10 +2142,11 @@ namespace Disp_WinForm
         // escape non utf charter
         private void textBox_licence_plate_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (System.Text.Encoding.UTF8.GetByteCount(new char[] { e.KeyChar }) > 1)
-            {
-                e.Handled = true;
-            }
+            //if (System.Text.Encoding.UTF8.GetByteCount(new char[] { e.KeyChar }) > 1)
+            //{
+            //    e.Handled = true;
+            //}
+            
         }
 
         
@@ -2283,7 +2296,7 @@ namespace Disp_WinForm
                                                                    "Subscription_idSubscr=idSubscr and " +
                                                                    "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
 
-            if (get_produt_testing_device == "10" || get_produt_testing_device == "11")
+            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")
             {
                 string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
                                                         "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
@@ -2316,6 +2329,19 @@ namespace Disp_WinForm
             if (comboBox_ustanoshik_poisk.DroppedDown == false)
             { comboBox_ustanoshik_poisk.DroppedDown = true; }
             
+        }
+
+        private void textBox_vin_TextChanged(object sender, EventArgs e)
+        {
+            string pattern = @"\p{IsCyrillic}";
+            if (Regex.Matches(textBox_vin.Text, pattern).Count > 0) 
+            {
+                textBox_vin.BackColor = Color.LightPink;
+            }
+            else
+            {
+                textBox_vin.BackColor = Color.White;
+            }
         }
     }
 }

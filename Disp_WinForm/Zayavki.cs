@@ -199,7 +199,7 @@ namespace Disp_WinForm
             string searchbydate = "";
             if (checkBox_for_all_time.Checked == true)
             {
-                searchbydate = " order by testing_objectcol_edit_timestamp DESC;";
+                searchbydate = " order by testing_objectcol_edit_timestamp DESC Limit 10;";
             }
             else
             {
@@ -380,6 +380,7 @@ namespace Disp_WinForm
                 MessageBox.Show("Не заповнені обовязкові поля");
                 return;
             }
+            //если открыта созданная заявка выполняем этот сценалий
             if (vars_form.if_open_created_zayavka == 1)
             {
                 // insert activation
@@ -455,6 +456,7 @@ namespace Disp_WinForm
 
 
             }
+            //если если создается новая заявка выполняем этот сценалий
             else
             {   // insert activation
 
@@ -585,7 +587,7 @@ namespace Disp_WinForm
                                             "FROM btk.testing_object, btk.Object, btk.TS_info, btk.Kontragenti, btk.Users " +
                                             "WHERE " +
                                             "testing_object.Users_idUsers=Users.idUsers and " +
-                                            "TS_info.TS_infocol_vin LIKE  '%" + SelectetRowCellVin + "%' and " +
+                                            "testing_object.idtesting_object =  '" + dataGridView_tested_objects_zayavki.Rows[e.RowIndex].Cells[0].Value.ToString() + "' and " +
                                             "testing_object.idtesting_object NOT IN (select testing_object_idtesting_object from btk.Zayavki) and " +
                                             "Kontragenti.idKontragenti=TS_info.Kontragenti_idKontragenti and " +
                                             "Object.TS_info_idTS_info=TS_info.idTS_info and " +

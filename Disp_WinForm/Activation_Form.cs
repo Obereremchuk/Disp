@@ -948,7 +948,7 @@ namespace Disp_WinForm
                     List<DataRow> woruser_list = users.AsEnumerable().ToList();
                     foreach (DataRow workuser in woruser_list)
                     {
-                        if (workuser[0].ToString() != vars_form.wl_user_id.ToString() & workuser[0].ToString() != null & workuser[0].ToString() != "")
+                        if (workuser[0].ToString() != vars_form.wl_user_id.ToString() & workuser[0].ToString() != null & workuser[0].ToString() != "" & workuser[0].ToString() != "0")
                         {
 
                             //set full Accsess client account for workuser 
@@ -1019,9 +1019,27 @@ namespace Disp_WinForm
                     macros.GetData("insert into btk.Client_accounts (name, pass, date, reason, Object_idObject, Users_idUsers) value ('" + email_textBox.Text + "','" + pass + "','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','Create account','" + vars_form.id_db_object_for_activation + "','" + vars_form.user_login_id + "');");
 
 
+
                     //update treeView_user_accounts after making chenge
                     build_list_account();
                     email_textBox_TextChanged(email_textBox, EventArgs.Empty);
+
+
+
+                    //через запятую перебираем все аккауты из тривив и добавляем в accounts для записи в виалон
+                    string accounts = "";
+                    for (int index1 = 0; index1 < treeView_user_accounts.Nodes[0].Nodes.Count; index1++)
+                    {
+                        accounts = accounts + treeView_user_accounts.Nodes[0].Nodes[index1].Text + ", ";
+                    }
+
+                    //update коли тестував in WL
+                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                    + "\"id\":\"21\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
 
                 }
                 else if (dialogResult == DialogResult.No)
@@ -2363,13 +2381,14 @@ namespace Disp_WinForm
                         {
                             //Chenge feild ВО1
                             macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo1_vo_form + "','1','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
-                        }
-                        string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                            string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
                                                              "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
                                                              "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                              "\"callMode\":\"update\"," +
                                                              "\"n\":\"" + keyvalue.Value.n + "\"," +
                                                              "\"v\":\"" + textBox_vo1.Text + "\"}");
+                        }
+                        
                     }
                 }
 
@@ -2381,14 +2400,15 @@ namespace Disp_WinForm
                         {
                             //Chenge feild ВО2
                             macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo2_vo_form + "','2','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
-                        }
-
-                        string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                            string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
                                                              "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
                                                              "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                              "\"callMode\":\"update\"," +
                                                              "\"n\":\"" + keyvalue.Value.n + "\"," +
                                                              "\"v\":\"" + textBox_vo2.Text + "\"}");
+                        }
+
+                        
                     }
                 }
 
@@ -2400,13 +2420,14 @@ namespace Disp_WinForm
                         {
                             //Chenge feild ВО3
                             macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo3_vo_form + "','3','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
-                        }
-                        string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                            string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
                                                              "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
                                                              "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                              "\"callMode\":\"update\"," +
                                                              "\"n\":\"" + keyvalue.Value.n + "\"," +
                                                              "\"v\":\"" + textBox_vo3.Text + "\"}");
+                        }
+                        
                     }
                 }
             }
@@ -2435,24 +2456,30 @@ namespace Disp_WinForm
                     "idActivation_object = '"+ vars_form.id_db_activation_for_activation + "'" +
                     ";");
 
-                //update lic plate in db
                 string id_ts_info_fo_object_activation = macros.sql_command("select TS_info_idTS_info from btk.Object where idObject = '" + vars_form.id_db_object_for_activation + "'");
-                macros.sql_command("update btk.TS_info set TS_infocol_licence_plate = '" + textBox_licence_plate.Text + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
 
-                //update lic plate in WL
-                string pp25_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
-                                                               + "\"n\":\"registration_plate\","
-                                                               + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+                if (textBox_licence_plate.Text != "")
+                {
+                    //update lic plate in db
+                    macros.sql_command("update btk.TS_info set TS_infocol_licence_plate = '" + textBox_licence_plate.Text + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
 
-                //update VIN plate in db
-                macros.sql_command("update btk.TS_info set TS_infocol_vin = '" + textBox_vin_zayavka.Text + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
+                    //update lic plate in WL
+                    string pp25_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
+                                                                   + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                   + "\"n\":\"registration_plate\","
+                                                                   + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+                }
 
-                //update VIN plate in WL
-                string pp28_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                               + "\"n\":\"vin\","
-                                                               + "\"v\":\"" + textBox_vin_zayavka.Text.Replace("\"", "%5C%22") + "\"}");
+                if (textBox_vin_zayavka.Text != "")
+                {
+                    //update VIN plate in WL
+                    string pp28_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
+                                                                   + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                   + "\"n\":\"vin\","
+                                                                   + "\"v\":\"" + textBox_vin_zayavka.Text.Replace("\"", "%5C%22") + "\"}");
+                    //update VIN plate in db
+                    macros.sql_command("update btk.TS_info set TS_infocol_vin = '" + textBox_vin_zayavka.Text + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
+                }
 
                 //update хто тестував in WL
                 string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
@@ -2521,33 +2548,40 @@ namespace Disp_WinForm
                                                                     "'" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
                                                                     "'" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'" +
                                                                     ");");
-                //update lic plate in db
+
                 string id_ts_info_fo_object_activation = macros.sql_command("select TS_info_idTS_info from btk.Object where idObject = '" + vars_form.id_db_object_for_activation + "'");
-                macros.sql_command("update btk.TS_info set TS_infocol_licence_plate = '" + textBox_licence_plate.Text + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
+                if (textBox_licence_plate.Text != "")
+                {
+                    //update lic plate in db
+                    macros.sql_command("update btk.TS_info set TS_infocol_licence_plate = '" + textBox_licence_plate.Text + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
 
-                //update lic plate in WL
-                //Характеристики licence plate
-                string pp25_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
-                                                               + "\"n\":\"registration_plate\","
-                                                               + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+                    //update lic plate in WL
+                    //Характеристики licence plate
+                    string pp25_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
+                                                                   + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                   + "\"n\":\"registration_plate\","
+                                                                   + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+                }
 
-                //update VIN in db
-                macros.sql_command("update btk.TS_info set TS_infocol_vin = '" + textBox_vin_zayavka.Text + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
+                if (textBox_vin_zayavka.Text != "")
+                {
+                    //update VIN in db
+                    macros.sql_command("update btk.TS_info set TS_infocol_vin = '" + textBox_vin_zayavka.Text + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
 
-                //update VIN in WL
-                string pp28_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
-                                                               + "\"n\":\"vin\","
-                                                               + "\"v\":\"" + textBox_vin_zayavka.Text.Replace("\"", "%5C%22") + "\"}");
+                    //update VIN in WL
+                    string pp28_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
+                                                                   + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                   + "\"n\":\"vin\","
+                                                                   + "\"v\":\"" + textBox_vin_zayavka.Text.Replace("\"", "%5C%22") + "\"}");
 
-                //update хто тестував in WL
-                string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
-                                                                + "\"id\":\"22\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"4.1.1 Оператор, що активував\","
-                                                                + "\"v\":\"" + vars_form.user_login_name + "\"}");
+                    //update хто тестував in WL
+                    string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                    + "\"id\":\"22\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"4.1.1 Оператор, що активував\","
+                                                                    + "\"v\":\"" + vars_form.user_login_name + "\"}");
+                }
 
                 //update коли тестував in WL
                 string pp7_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"

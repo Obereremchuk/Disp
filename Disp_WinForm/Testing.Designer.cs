@@ -553,6 +553,7 @@
             this.textBox_vin.Name = "textBox_vin";
             this.textBox_vin.Size = new System.Drawing.Size(89, 20);
             this.textBox_vin.TabIndex = 6;
+            this.textBox_vin.TextChanged += new System.EventHandler(this.textBox_vin_TextChanged);
             // 
             // comboBox_kuzov_type
             // 

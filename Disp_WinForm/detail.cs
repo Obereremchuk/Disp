@@ -1734,7 +1734,7 @@ namespace Disp_WinForm
                     List<DataRow> woruser_list = users.AsEnumerable().ToList();
                     foreach (DataRow workuser in woruser_list)
                     {
-                        if (workuser[0].ToString() != vars_form.user_login_id)
+                        if (workuser[0].ToString() != vars_form.wl_user_id.ToString() & workuser[0].ToString() != null & workuser[0].ToString() != "" & workuser[0].ToString() != "0")
                         {
 
                             //set full Accsess client account for workuser 
@@ -1809,6 +1809,22 @@ namespace Disp_WinForm
                     //update treeView_user_accounts after making chenge
                     build_list_account();
                     email_textBoxTextChanged(email_textBox, EventArgs.Empty);
+
+
+                    //через запятую перебираем все аккауты из тривив и добавляем в accounts для записи в виалон
+                    string accounts = "";
+                    for (int index1 = 0; index1 < treeView_user_accounts.Nodes[0].Nodes.Count; index1++)
+                    {
+                        accounts = accounts + treeView_user_accounts.Nodes[0].Nodes[index1].Text + ", ";
+                    }
+
+                    //update коли тестував in WL
+                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                    + "\"id\":\"21\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
 
                 }
                 else if (dialogResult == DialogResult.No)
