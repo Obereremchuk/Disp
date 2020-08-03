@@ -3443,6 +3443,9 @@ namespace Disp_WinForm
             //35. Температура двигателя
             string eng_temp_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Температура двигателя", "temperature", "C", "eng_temp", 35, "1", 0, "");
 
+            //36. Сработка датчика глушения
+            string aux_zone_1_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сработка датчика глушения", "digital", "Вкл/Выкл", "aux_zone_1", 36, "1", 0, "");
+
             /////////////////
             ///Создаем произвольные поля
             /////////////////
@@ -3915,6 +3918,9 @@ namespace Disp_WinForm
 
             //35. Температура двигателя
             string eng_temp_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Температура двигателя", "temperature", "C", "eng_temp", 35, "1", 0, "");
+
+            //36. Сработка датчика глушения
+            string aux_zone_1_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сработка датчика глушения", "digital", "Вкл/Выкл", "aux_zone_1", 36, "1", 0, "");
 
 
             /////////////////
@@ -4390,6 +4396,9 @@ namespace Disp_WinForm
 
             //35. Температура двигателя
             string eng_temp_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Температура двигателя", "temperature", "C", "eng_temp", 35, "1", 0, "");
+
+            //36. Сработка датчика глушения
+            string aux_zone_1_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сработка датчика глушения", "digital", "Вкл/Выкл", "aux_zone_1", 36, "1", 0, "");
 
 
             /////////////////

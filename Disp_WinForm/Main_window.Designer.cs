@@ -994,7 +994,7 @@
             this.dataGridView_testing.RowHeadersVisible = false;
             this.dataGridView_testing.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridView_testing.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_testing.Size = new System.Drawing.Size(1356, 512);
+            this.dataGridView_testing.Size = new System.Drawing.Size(1356, 440);
             this.dataGridView_testing.TabIndex = 13;
             this.dataGridView_testing.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_testing_CellDoubleClick);
             this.dataGridView_testing.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_testing_CellFormatting);

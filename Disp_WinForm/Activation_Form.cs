@@ -784,6 +784,21 @@ namespace Disp_WinForm
                 //update treeView_user_accounts after making chenge
                 build_list_account();
 
+                //через запятую перебираем все аккауты из тривив и добавляем в accounts для записи в виалон
+                string accounts = "";
+                for (int index1 = 0; index1 < treeView_user_accounts.Nodes[0].Nodes.Count; index1++)
+                {
+                    accounts = accounts + treeView_user_accounts.Nodes[0].Nodes[index1].Text + ", ";
+                }
+
+                //update коли тестував in WL
+                string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"id\":\"21\","
+                                                                + "\"callMode\":\"update\","
+                                                                + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+
             }
             else if (dialogResult == DialogResult.No)
             {

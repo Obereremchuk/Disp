@@ -703,11 +703,14 @@ namespace Disp_WinForm
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"year\","
                                                                + "\"v\":\"" + comboBox_test_production_date.GetItemText(this.comboBox_test_production_date.SelectedItem).ToString() + "\"}");
-                //Характеристики licence plate
-                string pp25_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                               + "\"n\":\"registration_plate\","
-                                                               + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+                if (textBox_licence_plate.Text.Replace("\"", "%5C%22") != "")
+                {
+                    //Характеристики licence plate
+                    string pp25_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
+                                                                   + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                   + "\"n\":\"registration_plate\","
+                                                                   + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+                }
                 //Характеристики brend
                 string pp26_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -718,11 +721,14 @@ namespace Disp_WinForm
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"model\","
                                                                + "\"v\":\"" + comboBox_test_model.GetItemText(this.comboBox_test_model.SelectedItem).ToString() + "\"}");
-                //Характеристики vin
-                string pp28_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                               + "\"n\":\"vin\","
-                                                               + "\"v\":\"" + textBox_vin.Text.Replace("\"", "%5C%22") + "\"}");
+                if (textBox_vin.Text.Replace("\"", "%5C%22") != "")
+                {
+                    //Характеристики vin
+                    string pp28_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
+                                                                   + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                   + "\"n\":\"vin\","
+                                                                   + "\"v\":\"" + textBox_vin.Text.Replace("\"", "%5C%22") + "\"}");
+                }
 
                 //3.9.1 Кнопки введення PIN коду: штатні, додатково встановленні
                 string pp234_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
@@ -998,18 +1004,18 @@ namespace Disp_WinForm
                         ///
                         ///
                         ///
-                        //string ev = macros.wialon_request_lite("&svc=core/search_items&params={" +
-                        //                                       "\"spec\":{"
-                        //                                       + "\"itemsType\":\"avl_unit_group\","
-                        //                                       + "\"propName\":\"sys_name\","
-                        //                                       + "\"propValueMask\":\"*актив*\", " 
-                        //                                       + "\"sortType\":\"sys_name\"," 
-                        //                                       + "\"or_logic\":\"1\"}," 
-                        //                                       + "\"or_logic\":\"1\"," 
-                        //                                       + "\"force\":\"1\"," 
-                        //                                       + "\"flags\":\"1\"," 
-                        //                                       + "\"from\":\"0\"," 
-                        //                                       + "\"to\":\"0\"}");//получаем текущее местоположение объекта
+                        string ev = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                               "\"spec\":{"
+                                                               + "\"itemsType\":\"avl_unit_group\","
+                                                               + "\"propName\":\"sys_name\","
+                                                               + "\"propValueMask\":\"*актив*\", "
+                                                               + "\"sortType\":\"sys_name\","
+                                                               + "\"or_logic\":\"1\"},"
+                                                               + "\"or_logic\":\"1\","
+                                                               + "\"force\":\"1\","
+                                                               + "\"flags\":\"1\","
+                                                               + "\"from\":\"0\","
+                                                               + "\"to\":\"0\"}");//получаем текущее местоположение объекта
 
                         //Запрашиваем айди продукта тестируемого обїекта
                         string get_produt_testing_device = macros.sql_command("select " +
@@ -1244,8 +1250,8 @@ namespace Disp_WinForm
                     macros.sql_command("update btk.Object set Objectcol_testing_ok = 'Не завершено' where idObject = '" + vars_form.id_db_object_for_test + "';");
 
                     string Subject = "505 Протестовано успішно! VIN: " + textBox_vin.Text + ", Обєкт: " + name_obj_textBox.Text;
-                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua><e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>";
-                    DataTable dt = new DataTable();
+                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua><e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>"; 
+                     DataTable dt = new DataTable();
 
                     dt.Columns.Add("Параметр");
                     dt.Columns.Add("Значення");
@@ -1353,7 +1359,7 @@ namespace Disp_WinForm
                                                                                "Subscription_idSubscr=idSubscr and " +
                                                                                "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
 
-                        //string ev = macros.wialon_request_lite("&svc=core/search_items&params={" +
+                        //string ev1 = macros.WialonRequest("&svc=core/search_items&params={" +
                         //                                        "\"spec\":{"
                         //                                        + "\"itemsType\":\"avl_unit_group\","
                         //                                        + "\"propName\":\"sys_name\","
@@ -1366,7 +1372,7 @@ namespace Disp_WinForm
                         //                                        + "\"from\":\"0\","
                         //                                        + "\"to\":\"0\"}");//получаем текущее местоположение объекта
 
-                        //string ev2 = macros.wialon_request_lite("&svc=core/search_items&params={" +
+                        //string ev2 = macros.WialonRequest("&svc=core/search_items&params={" +
                         //                                        "\"spec\":{"
                         //                                        + "\"itemsType\":\"avl_unit_group\","
                         //                                        + "\"propName\":\"sys_name\","
@@ -1380,6 +1386,123 @@ namespace Disp_WinForm
                         //                                        + "\"to\":\"0\"}");//получаем текущее местоположение объекта
 
 
+                        if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14") //Добавляем в группы для CNTP_910, CNTP_730
+                        {
+                            //Запрашиваем объекты из группы srv_prizrak_910
+                            string get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
+                                                                                                            + "\"id\":\"22573\","
+                                                                                                            + "\"flags\":\"1\"}");//получаем все объекты группы
+                            var list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            //Проверяем если в группе srv_prizrak_910 количество объектов более 1000, то используем группу srv_prizrak_910_2. Если меньше тысящи добовляем тестируемый объект в группе srv_prizrak_910. 
+                            if (list_get_units_on_group.item.u.Count > 1000)
+                            {
+                                //Запрашиваем объекты из группы srv_prizrak_910_2
+                                get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
+                                                                                                            + "\"id\":\"23145\","
+                                                                                                            + "\"flags\":\"1\"}");//получаем все объекты группы
+                                list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+
+                                // Проверяем если в группе srv_prizrak_910_2 количество объектов более 1000, то используем группу srv_prizrak_910_3. Если меньше тысящи добовляем тестируемый объект в группе srv_prizrak_910_2.
+                                if (list_get_units_on_group.item.u.Count > 1000)
+                                {
+                                    //Запрашиваем объекты из группы srv_prizrak_910_3
+                                    get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
+                                                                                                                + "\"id\":\"23147\","
+                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+                                    list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                                    //Доповляем в группу srv_prizrak_910_3 тестируемый объект
+                                    list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));
+                                    string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+                                    //обновляем в Виалоне группу все объекты + новый
+                                    string gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
+                                                                                                                     + "\"itemId\":\"23147\","
+                                                                                                                     + "\"units\":" + units_in_group + "}");
+                                }
+                                else
+                                {
+                                    //Доповляем в группу srv_prizrak_910_2 тестируемый объект 
+                                    list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));
+                                    string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+                                    //обновляем в Виалоне группу все объекты + новый
+                                    string gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
+                                                                                                                     + "\"itemId\":\"23145\","
+                                                                                                                     + "\"units\":" + units_in_group + "}");
+                                }
+                            }
+                            else
+                            {
+                                //Доповляем в группу srv_prizrak_910 тестируемый объект
+                                list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                                string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+                                //обновляем в Виалоне группу все объекты + новый
+                                string gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
+                                                                                                                 + "\"itemId\":\"22573\","
+                                                                                                                 + "\"units\":" + units_in_group + "}");
+                            }
+                        }
+
+                        if (get_produt_testing_device == "2" || get_produt_testing_device == "3" || get_produt_testing_device == "4" || 
+                            get_produt_testing_device == "6" || get_produt_testing_device == "7" || get_produt_testing_device == "12" || 
+                            get_produt_testing_device == "17") //Добавляем в группы для Bitrek
+                        {
+                            //Запрашиваем объекты из группы srv_BI530
+                            string get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
+                                                                                                            + "\"id\":\"22956\","
+                                                                                                            + "\"flags\":\"1\"}");//получаем все объекты группы
+                            var list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                            //Проверяем если в группе srv_BI530 количество объектов более 1000, то используем группу srv_BI530_2. Если меньше тысящи добовляем тестируемый объект в группе srv_BI530. 
+                            if (list_get_units_on_group.item.u.Count > 1000)
+                            {
+                                //Запрашиваем объекты из группы srv_BI530_2
+                                get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
+                                                                                                            + "\"id\":\"23144\","
+                                                                                                            + "\"flags\":\"1\"}");//получаем все объекты группы
+                                list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+
+                                // Проверяем если в группе srv_BI530_2 количество объектов более 1000, то используем группу srv_BI530_3. Если меньше тысящи добовляем тестируемый объект в группе srv_BI530_2.
+                                if (list_get_units_on_group.item.u.Count > 1000)
+                                {
+                                    //Запрашиваем объекты из группы srv_BI530_3
+                                    get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
+                                                                                                                + "\"id\":\"23146\","
+                                                                                                                + "\"flags\":\"1\"}");//получаем все объекты группы
+                                    list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                                    //Доповляем в группу srv_BI530_3 тестируемый объект
+                                    list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));
+                                    string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+                                    //обновляем в Виалоне группу все объекты + новый
+                                    string gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
+                                                                                                                     + "\"itemId\":\"23146\","
+                                                                                                                     + "\"units\":" + units_in_group + "}");
+                                }
+                                else
+                                {
+                                    //Доповляем в группу srv_BI530_2 тестируемый объект 
+                                    list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));
+                                    string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+                                    //обновляем в Виалоне группу все объекты + новый
+                                    string gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
+                                                                                                                     + "\"itemId\":\"23144\","
+                                                                                                                     + "\"units\":" + units_in_group + "}");
+                                }
+                            }
+                            else
+                            {
+                                //Доповляем в группу srv_BI530 тестируемый объект
+                                list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));//Доповляем в список новый объект
+                                string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+                                //обновляем в Виалоне группу все объекты + новый
+                                string gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
+                                                                                                                 + "\"itemId\":\"22956\","
+                                                                                                                 + "\"units\":" + units_in_group + "}");
+                            }
+                        }
 
                         //Установка Групп в зависимсти от продукта
                         if (get_produt_testing_device == "11" || get_produt_testing_device == "3")//Добавляем в группы для CNTP_910, CNTP_730
@@ -1614,7 +1737,7 @@ namespace Disp_WinForm
                     macros.sql_command("update btk.Object set Objectcol_testing_ok = 'Успішно' where idObject = '" + vars_form.id_db_object_for_test + "';");
 
                     string Subject = "505 Протестовано успішно! VIN: " + textBox_vin.Text + ", Обєкт: " + name_obj_textBox.Text;
-                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua><e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>";
+                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua><e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>";
                     DataTable dt = new DataTable();
 
                     dt.Columns.Add("Параметр");
@@ -1691,10 +1814,10 @@ namespace Disp_WinForm
                                         + "[{\"lon\":\"" + test_out.item.pos["x"] + "\""
                                         + ",\"lat\":\"" + test_out.item.pos["y"] + "\"}]&flags=1255211008&uid=" +
                                         vars_form.wl_user_id + "";
-                    string json3=macros.WialonRequestSimple(get_adress);
-                    //MyWebRequest myRequest = new MyWebRequest(get_adress);
-                    //string json3 = myRequest.GetResponse();
-                    var get_adress_out = JsonConvert.DeserializeObject<string[]>(json3);
+                    //string json3=macros.WialonRequestSimple(get_adress);
+                    MyWebRequest myRequest = new MyWebRequest(get_adress);
+                    string json44 = myRequest.GetResponse();
+                    var get_adress_out = JsonConvert.DeserializeObject<string[]>(json44);
                     label_test_address.Text = get_adress_out[0].ToString();
                 }
 
