@@ -1,35 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using MySql.Data.MySqlClient;
-using Newtonsoft.Json;
-using Gecko;
-using System.Net;
+﻿using Gecko;
+using System;
 using System.Collections.Specialized;
+using System.Data;
 using System.Web;
+using System.Windows.Forms;
 
 namespace Disp_WinForm
 {
     public partial class Login_Form : Form
     {
-        Macros macros = new Macros();
+        private Macros macros = new Macros();
+
         public Login_Form()
         {
-            
             InitializeComponent();
             string t = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Firefox";
             Xpcom.Initialize(t);
             Gecko.CertOverrideService.GetService().ValidityOverride += geckoWebBrowser1_ValidityOverride;
             wialon_login_form();
-            vars_form.version = "0.845";
-            label_Version.Text= "v." + vars_form.version;
+            vars_form.version = "0.846";
+            label_Version.Text = "v." + vars_form.version;
         }
 
         private void geckoWebBrowser1_ValidityOverride(object sender, Gecko.Events.CertOverrideEventArgs e)
@@ -44,7 +34,6 @@ namespace Disp_WinForm
             GeckoPreferences.User["browser.xul.error_pages.enabled"] = true;
 
             geckoWebBrowser1.Navigate("https://navi.venbest.com.ua/login.html?client_id=disp&access_type=-1&activation_time=0&duration=100000&flags=1&lang=ru");
-
         }
 
         private void geckoWebBrowser1_DocumentCompleted(object sender, Gecko.Events.GeckoDocumentCompletedEventArgs e)

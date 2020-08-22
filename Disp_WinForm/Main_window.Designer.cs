@@ -1497,6 +1497,7 @@
             this.textBox_id_to_create.Name = "textBox_id_to_create";
             this.textBox_id_to_create.Size = new System.Drawing.Size(251, 20);
             this.textBox_id_to_create.TabIndex = 36;
+            this.textBox_id_to_create.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_id_to_create_KeyPress);
             // 
             // button_copy_sms
             // 

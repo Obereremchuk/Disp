@@ -2,23 +2,20 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.Remoting.Activation;
 using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using System.Windows.Forms;
 
 namespace Disp_WinForm
 {
     public partial class Activation_Form : Form
     {
-        Macros macros = new Macros();
+        private Macros macros = new Macros();
         private string id_new_user;
         private List<TreeNode> _unselectableNodes = new List<TreeNode>();
+
         public Activation_Form()
         {
             //TopMost = true;
@@ -27,10 +24,7 @@ namespace Disp_WinForm
             //load_form();
             build_list_account();
             button_add_2_account.Enabled = false;
-
         }
-
-        
 
         private void get_remaynder()
         {
@@ -60,7 +54,7 @@ namespace Disp_WinForm
         }
 
         private void Read_data()
-         {
+        {
             if (vars_form.if_open_created_activation == 1)
             {
                 load_form_for_zayavka();
@@ -92,7 +86,6 @@ namespace Disp_WinForm
 
             foreach (var keyvalue in m.items[0].flds)
             {
-
                 if (keyvalue.Value.n.Contains("УВАГА"))
                 {
                     //Chenge feild Uvaga
@@ -103,7 +96,6 @@ namespace Disp_WinForm
                     //Chenge feild Кодове слово
                     kodove_slovo_textBox.Text = keyvalue.Value.v;
                 }
-
             }
             //load VO
             DataTable VO = macros.GetData("select Kontakti_idKontakti, VOcol_num_vo from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "';");
@@ -113,7 +105,6 @@ namespace Disp_WinForm
                 {
                     if (row[1].ToString() == "1")
                     {
-
                         string VO_falilia = macros.sql_command("SELECT Kontakti_familia FROM btk.Kontakti where idKontakti = '" + row[0].ToString() + "';");
                         string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + row[0].ToString() + "';");
                         string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + row[0].ToString() + "';");
@@ -188,7 +179,6 @@ namespace Disp_WinForm
                             textBox_vo5.Text = VO_familia_imya_phone + ", " + VO_phone2;
                         }
                     }
-
                 }
                 if (textBox_vo1.Text == "")
                 {
@@ -253,7 +243,6 @@ namespace Disp_WinForm
 
             foreach (var keyvalue in m.items[0].flds)
             {
-
                 if (keyvalue.Value.n.Contains("УВАГА"))
                 {
                     //Chenge feild Uvaga
@@ -264,15 +253,10 @@ namespace Disp_WinForm
                     //Chenge feild Кодове слово
                     kodove_slovo_textBox.Text = keyvalue.Value.v;
                 }
-
-                
-                
-
             }
             //Открітие отработаніх активаций. ХЗ ли нужно
             ////load VO
             //DataTable VO = macros.GetData("SELECT Users_idUsers, comment, alarm_button FROM btk.Activation_object where Object_idObject = '"+vars_form.id_db_object_for_activation+"';");
-
 
             //load VO
             DataTable VO = macros.GetData("select Kontakti_idKontakti, VOcol_num_vo from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "';");
@@ -282,7 +266,6 @@ namespace Disp_WinForm
                 {
                     if (row[1].ToString() == "1")
                     {
-
                         string VO_falilia = macros.sql_command("SELECT Kontakti_familia FROM btk.Kontakti where idKontakti = '" + row[0].ToString() + "';");
                         string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + row[0].ToString() + "';");
                         string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + row[0].ToString() + "';");
@@ -357,7 +340,6 @@ namespace Disp_WinForm
                             textBox_vo5.Text = VO_familia_imya_phone + ", " + VO_phone2;
                         }
                     }
-
                 }
                 if (textBox_vo1.Text == "")
                 {
@@ -382,7 +364,7 @@ namespace Disp_WinForm
             }
 
             //Load data from opened activation
-            string tk_tested = macros.sql_command("SELECT alarm_button FROM btk.Activation_object where idActivation_object = '"+vars_form.id_db_activation_for_activation+"'");
+            string tk_tested = macros.sql_command("SELECT alarm_button FROM btk.Activation_object where idActivation_object = '" + vars_form.id_db_activation_for_activation + "'");
             if (tk_tested == "1")
             { checkBox_tk_tested.Checked = true; }
             else if (tk_tested == "0" || tk_tested == "")
@@ -391,7 +373,7 @@ namespace Disp_WinForm
             string pin_chenged = macros.sql_command("SELECT pin_chenged FROM btk.Activation_object where idActivation_object = '" + vars_form.id_db_activation_for_activation + "'");
             if (pin_chenged == "1")
             { checkBox_pin_chenged.Checked = true; }
-            else if(pin_chenged == "0" || pin_chenged == "") 
+            else if (pin_chenged == "0" || pin_chenged == "")
             { checkBox_pin_chenged.Checked = false; }
 
             //load data from zayavki
@@ -412,7 +394,7 @@ namespace Disp_WinForm
                 "where " +
                 "Zayavki.products_idproducts = products.idproducts " +
                 "and Kontragenti.idKontragenti = Zayavki.Kontragenti_idKontragenti_zakazchik " +
-                "and Zayavki.idZayavki = '" +vars_form.id_db_zayavki_for_activation +"' " +
+                "and Zayavki.idZayavki = '" + vars_form.id_db_zayavki_for_activation + "' " +
                 "and Zayavki.testing_object_idtesting_object = testing_object.idtesting_object " +
                 "and testing_object.Object_idObject = Object.idObject " +
                 "and Object.TS_info_idTS_info = TS_info.idTS_info " +
@@ -427,11 +409,10 @@ namespace Disp_WinForm
             textBox_product.Text = table2.Rows[0][6].ToString();
             textBox_zamovnik.Text = table2.Rows[0][7].ToString();
             textBox_licence_plate.Text = table2.Rows[0][8].ToString();
-            textBox_vin_zayavka.Text= table2.Rows[0][9].ToString();
+            textBox_vin_zayavka.Text = table2.Rows[0][9].ToString();
             //load coments for activation
             DataTable table = new DataTable();
 
-            
             table = macros.GetData("SELECT " +
                 "coments as 'Коментарій'," +
                 "date_insert as 'Дата'," +
@@ -439,7 +420,7 @@ namespace Disp_WinForm
                 "FROM btk.activation_comments, btk.Users " +
                 "where " +
                 "Users.idUsers = activation_comments.Users_idUsers " +
-                "and Activation_object_idActivation_object = '" +vars_form.id_db_activation_for_activation+"'; ");
+                "and Activation_object_idActivation_object = '" + vars_form.id_db_activation_for_activation + "'; ");
 
             dataGridView_activation_coments.DataSource = table;
 
@@ -447,7 +428,6 @@ namespace Disp_WinForm
             dataGridView_activation_coments.Columns["Дата"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView_activation_coments.Columns["Користувач"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView_activation_coments.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            
         }
 
         private void cancel_button_Click(object sender, EventArgs e)
@@ -468,20 +448,18 @@ namespace Disp_WinForm
         {
             //vars_form.id_object_for_activation = "1098";
 
-
             string json = macros.WialonRequest("&svc=core/check_accessors&params={" +
-                                                    "\"items\":[\""+ vars_form.id_wl_object_for_activation + "\"]," +
-                                                    "\"flags\":\"1\"}");//Получаем айди всех елементов у которых есть доступ к данному объекту            
+                                                    "\"items\":[\"" + vars_form.id_wl_object_for_activation + "\"]," +
+                                                    "\"flags\":\"1\"}");//Получаем айди всех елементов у которых есть доступ к данному объекту
 
-            var wl_accounts = JsonConvert.DeserializeObject < Dictionary <string, Dictionary<int, Dictionary<string, string>>>>(json);
-            string get="";
+            var wl_accounts = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<int, Dictionary<string, string>>>>(json);
+            string get = "";
             for (int index = 0; index < wl_accounts[vars_form.id_wl_object_for_activation].Values.Count; index++)
             {
                 var item = wl_accounts.ElementAt(0);
                 int key_index = item.Value.ElementAt(index).Key;
-                get = get+ "," + key_index.ToString();
-
-            }// стрим список айди в один запрос 
+                get = get + "," + key_index.ToString();
+            }// стрим список айди в один запрос
             string json2 = macros.WialonRequest("&svc=core/search_items&params={" +
                                                      "\"spec\":{" +
                                                      "\"itemsType\":\"\"," +
@@ -508,12 +486,10 @@ namespace Disp_WinForm
                 int tree_index = 0;
                 for (int index = 0; index < m.items.Count; index++)
                 {
-                    
                     if (m.items[index].nm.Contains("@"))
                     {
                         treeView_user_accounts.Nodes[0].Nodes.Add(new TreeNode(m.items[index].nm)); //выводим в дерево все учетки которые похожи на почту, ищем по @
                         treeView_user_accounts.Nodes[0].Nodes[tree_index].NodeFont = boldFont;
-                        
 
                         string json1 = macros.WialonRequest("&svc=core/search_items&params={" +
                                                                  "\"spec\":{" +
@@ -557,20 +533,16 @@ namespace Disp_WinForm
                             treeView_user_accounts.Nodes[0].Nodes[tree_index].Nodes.Add(m4.items[index1].nm);
                             _unselectableNodes.Add(treeView_user_accounts.Nodes[0].Nodes[tree_index].Nodes[index1]);
                         }
-                        tree_index ++;
-
+                        tree_index++;
                     }
                 }
                 treeView_user_accounts.EndUpdate();
                 treeView_user_accounts.ExpandAll();
-
-                
             }
             catch (Exception e)
             {
                 string er = e.ToString();
             }
-            
         }
 
         // set node of treeview as unselectable
@@ -581,7 +553,6 @@ namespace Disp_WinForm
                 e.Cancel = true;
             }
         }
-
 
         /// User account manage
         ///
@@ -704,19 +675,13 @@ namespace Disp_WinForm
                         {
                         }
 
-                        
                         //Save in db client account
                         macros.GetData("insert into btk.Client_accounts (name, pass, date, reason, Object_idObject, Users_idUsers) value ('" + treeView_user_accounts.SelectedNode.Text + "','','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','Delete account','" + vars_form.id_db_object_for_activation + "','" + vars_form.user_login_id + "');");
 
                         build_list_account();//обновляем тривив
-
-
-                        
-                        
                     }
                     else if (dialogResult == DialogResult.No)
                     {
-
                     }
                 }
             }
@@ -725,8 +690,7 @@ namespace Disp_WinForm
         // give right on selectetd object to exist user account
         private void button_add_2_account_Click(object sender, EventArgs e)
         {
-
-            DialogResult dialogResult = MessageBox.Show("Надати авто в доступ: "+email_textBox.Text+"?", "Дозволити?", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Надати авто в доступ: " + email_textBox.Text + "?", "Дозволити?", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 string user_data_answer = macros.WialonRequest("&svc=core/search_items&params={" +
@@ -751,14 +715,12 @@ namespace Disp_WinForm
                 var set_object_accsess = JsonConvert.DeserializeObject<RootObject>(set_object_accsess_answer);
 
                 //get data resource for selected user account
-                string get_resource_user_answer = macros.wl_core_search_items("avl_resource", "sys_name", email_textBox.Text, "sys_name",1,0,1);
+                string get_resource_user_answer = macros.wl_core_search_items("avl_resource", "sys_name", email_textBox.Text, "sys_name", 1, 0, 1);
                 var get_resource_user = JsonConvert.DeserializeObject<RootObject>(get_resource_user_answer);
 
                 //get data resource_user for selected user account
                 string get_resource_user_user_answer = macros.wl_core_search_items("avl_resource", "sys_name", email_textBox.Text + "_user", "sys_name", 1, 0, 1);
                 var get_resource_user_user = JsonConvert.DeserializeObject<RootObject>(get_resource_user_user_answer);
-
-                
 
                 //get product id from id object
                 string product_id = get_product_from_id_object(vars_form.id_wl_object_for_activation);
@@ -791,21 +753,20 @@ namespace Disp_WinForm
                     accounts = accounts + treeView_user_accounts.Nodes[0].Nodes[index1].Text + ", ";
                 }
 
-                //update коли тестував in WL
+                //update Обліковий запис WL
                 string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
-                                                                + "\"id\":\"21\","
+                                                                + "\"id\":\"25\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"4.4 Обліковий запис WL\","
                                                                 + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
-
             }
             else if (dialogResult == DialogResult.No)
             {
             }
         }
 
-        // remove right to object on selectes user account  
+        // remove right to object on selectes user account
         private void button_remove_2_account_Click(object sender, EventArgs e)
         {
             if (treeView_user_accounts.SelectedNode is null)
@@ -862,13 +823,11 @@ namespace Disp_WinForm
                                 {
                                     if (num.Value.Un[0].ToString() == vars_form.id_wl_object_for_activation)
                                     {
-                                       string result = delete_notif(ResourceData.items[0].id, num.Value.Id);
+                                        string result = delete_notif(ResourceData.items[0].id, num.Value.Id);
                                     }
-
                                 }
                             }
                         }
-                        
 
                         ///////////
                         //Доступ на объект
@@ -881,11 +840,8 @@ namespace Disp_WinForm
                         //log user action
                         macros.LogUserAction(vars_form.user_login_id, "Прибрати з доступу користувача", saving_selected_account, vars_form.id_wl_object_for_activation, Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
 
-
                         //update treeView_user_accounts after making chenge
                         build_list_account();
-
-                        
                     }
                     else if (dialogResult == DialogResult.No)
                     {
@@ -893,6 +849,7 @@ namespace Disp_WinForm
                 }
             }
         }
+
         //create new user account and giv right to object
         private void account_create_button_Click(object sender, EventArgs e)
         {
@@ -925,12 +882,11 @@ namespace Disp_WinForm
                     }
                     //---------------------------------------------------------------
 
-
-                    // cteate new user 
+                    // cteate new user
                     string created_user_answer = macros.WialonRequest("&svc=core/create_user&params={" +
-                                                            "\"creatorId\":\""+vars_form.wl_user_id+"\"," +
+                                                            "\"creatorId\":\"" + vars_form.wl_user_id + "\"," +
                                                             "\"name\":\"" + email_textBox.Text + "\"," +
-                                                            "\"password\":\"" +pass+ "\"," +
+                                                            "\"password\":\"" + pass + "\"," +
                                                             "\"dataFlags\":\"1\"}");
                     var created_user_data = JsonConvert.DeserializeObject<RootObject>(created_user_answer);
 
@@ -950,7 +906,6 @@ namespace Disp_WinForm
                                                              "\"skipCreatorCheck\":\"1\"}");
                     var created_resource_user_data = JsonConvert.DeserializeObject<RootObject>(created_resource_user_answer);
 
-
                     //Доступ на объект for nwe user
                     string set_right_object_answer = macros.WialonRequest("&svc=user/update_item_access&params={" +
                                                             "\"userId\":\"" + created_user_data.item.id + "\"," +
@@ -965,22 +920,21 @@ namespace Disp_WinForm
                     {
                         if (workuser[0].ToString() != vars_form.wl_user_id.ToString() & workuser[0].ToString() != null & workuser[0].ToString() != "" & workuser[0].ToString() != "0")
                         {
-
-                            //set full Accsess client account for workuser 
+                            //set full Accsess client account for workuser
                             string set_right_user_suport_answer = macros.WialonRequest("&svc=user/update_item_access&params={" +
                                                                      "\"userId\":\"" + workuser[0].ToString() + "\"," +
                                                                      "\"itemId\":\"" + created_user_data.item.id + "\"," +
                                                                      "\"accessMask\":\"-1\"}");
                             var set_right_user_suport_ = JsonConvert.DeserializeObject<RootObject>(set_right_user_suport_answer);
 
-                            //set full Accsess client resourse "username" for workuser 
+                            //set full Accsess client resourse "username" for workuser
                             string set_right_resource_support_answer = macros.WialonRequest("&svc=user/update_item_access&params={" +
                                                                      "\"userId\":\"" + workuser[0].ToString() + "\"," +
                                                                      "\"itemId\":\"" + created_resource_data.item.id + "\"," +
                                                                      "\"accessMask\":\"-1\"}");
                             var set_right_resourc_support = JsonConvert.DeserializeObject<RootObject>(set_right_resource_support_answer);
 
-                            //set full Accsess client resourse "username.._user" for workuser 
+                            //set full Accsess client resourse "username.._user" for workuser
                             string set_right_resource_user_support_answer = macros.WialonRequest("&svc=user/update_item_access&params={" +
                                                                      "\"userId\":\"" + workuser[0].ToString() + "\"," +
                                                                      "\"itemId\":\"" + created_resource_user_data.item.id + "\"," +
@@ -988,7 +942,7 @@ namespace Disp_WinForm
                             var set_right_resource_user_support = JsonConvert.DeserializeObject<RootObject>(set_right_resource_user_support_answer);
                         }
                         else
-                        { 
+                        {
                         }
                     }
 
@@ -1006,13 +960,11 @@ namespace Disp_WinForm
                                                              "\"accessMask\":\"52785134440321\"}");
                     var set_right_resource_user = JsonConvert.DeserializeObject<RootObject>(set_right_resource_user_answer);
 
-                    
-
                     //get product id from id object
                     string product_id = get_product_from_id_object(vars_form.id_wl_object_for_activation);
 
                     //create notif depends product id
-                    
+
                     if (product_id == "10" || product_id == "11" || product_id == "13" || product_id == "14")//CNTP_910, CNTK_910
                     {
                         create_notif_910(email_textBox.Text, created_user_data.item.id, vars_form.id_wl_object_for_activation, created_resource_data.item.id, created_resource_user_data.item.id);
@@ -1021,9 +973,9 @@ namespace Disp_WinForm
                     {
                         create_notif_730(email_textBox.Text, created_user_data.item.id, vars_form.id_wl_object_for_activation, created_resource_data.item.id, created_resource_user_data.item.id);
                     }
-                    else 
-                    { 
-                        MessageBox.Show("Невідомий продукт, сповіщення не створені"); 
+                    else
+                    {
+                        MessageBox.Show("Невідомий продукт, сповіщення не створені");
                     }
                     string Body = "<p>Добрий день!</p><p></p><p>Дякуємо за ваш вибір!</p><p>Для вас було створено доступ в систему моніторингу ВЕНБЕСТ. </p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою мобільного додатку:</p><p>1.Завантажте мобільний додаток Wialon Local: https://venbest.ua/gps-prilozheniia/</p> <p>2.При першому вході в мобільний додаток введіть такі дані:</p><p>a.Адреса серверу: https://navi.venbest.com.ua/;</p> <p>Посилання вводиться зверху сторінки вводу логіну та паролю. Після його введення необхідно натиснути на іконку у вигляді щита (праворуч рядка вводу).</p><p>b.Логін: " + email_textBox.Text + "</p><p>c.Пароль: " + pass + " </p><p>Зверніть, будь ласка, увагу, що логін та пароль чутливий до регістру символів, які ви вводите.</p><p> <br></p><p>3.Якщо ви бажаєте отримувати сповіщення, увімкніть їх в налаштуваннях.</p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою браузеру:</p><p>1.Перейдіть за посиланням: https://navi.venbest.com.ua/</p> <p>2.Введіть логін: " + email_textBox.Text + "</p><p>3.Введіть пароль: " + pass + "</p><p>  <br></p><p>Змініть, будь ласка, пароль в налаштуваннях користувача при вході через браузер.</p><p>----------------------------------------------</p><p>Департамент супутникових систем охорони</p><p>Група Компаній «ВЕНБЕСТ»</p><p>Т 044 501 33 77;</p><p>auto@venbest.com.ua | https://venbest.ua/ohrana-avto-i-zashchita-ot-ugona</p>";
                     macros.send_mail_auto(email_textBox.Text, "ВЕНБЕСТ. Вхід в систему моніторингу", Body);
@@ -1033,13 +985,9 @@ namespace Disp_WinForm
 
                     macros.GetData("insert into btk.Client_accounts (name, pass, date, reason, Object_idObject, Users_idUsers) value ('" + email_textBox.Text + "','" + pass + "','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','Create account','" + vars_form.id_db_object_for_activation + "','" + vars_form.user_login_id + "');");
 
-
-
                     //update treeView_user_accounts after making chenge
                     build_list_account();
                     email_textBox_TextChanged(email_textBox, EventArgs.Empty);
-
-
 
                     //через запятую перебираем все аккауты из тривив и добавляем в accounts для записи в виалон
                     string accounts = "";
@@ -1048,14 +996,13 @@ namespace Disp_WinForm
                         accounts = accounts + treeView_user_accounts.Nodes[0].Nodes[index1].Text + ", ";
                     }
 
-                    //update коли тестував in WL
+                    //update Обліковий запис WL
                     string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                     + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
-                                                                    + "\"id\":\"21\","
+                                                                    + "\"id\":\"25\","
                                                                     + "\"callMode\":\"update\","
                                                                     + "\"n\":\"4.4 Обліковий запис WL\","
                                                                     + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
-
                 }
                 else if (dialogResult == DialogResult.No)
                 {
@@ -1066,9 +1013,6 @@ namespace Disp_WinForm
                 MessageBox.Show("Перевірьте імя користувача");
             }
         }
-
-
-
 
         private string get_product_from_id_object(string id_oject)
         {
@@ -1109,7 +1053,7 @@ namespace Disp_WinForm
                             pass = CreatePassword(6);
                             textBox_account_pss.Text = pass;
                         }
-                        else 
+                        else
                         {
                             pass = textBox_account_pss.Text;
                         }
@@ -1141,18 +1085,16 @@ namespace Disp_WinForm
                                                              "\"newPassword\":\"" + pass + "\"}");
                     var m1 = JsonConvert.DeserializeObject<RootObject>(json1);
 
-                    string Body = "<p>Добрий день!</p><p>;</p><p>Відповідно до Вашого запиту,</p><p>Для Вас було відновлено пароль для доступу в систему моніторингу ВЕНБЕСТ. </p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою мобільного додатку:</p><p>1.Завантажте мобільний додаток Wialon Local: https://venbest.ua/gps-prilozheniia/</p> <p>2.При першому вході в мобільний додаток введіть такі дані:</p><p>a.Адреса серверу: https://navi.venbest.com.ua/;</p> <p>Посилання вводиться зверху сторінки вводу логіну та паролю. Після його введення необхідно натиснути на іконку у вигляді щита (праворуч рядка вводу).</p><p>b.Логін: "+ treeView_user_accounts.SelectedNode.Text + "</p><p>c.Пароль: " + pass + " </p><p>Зверніть, будь ласка, увагу, що логін та пароль чутливий до регістру символів, які ви вводите.</p><p> <br></p><p>3.Якщо ви бажаєте отримувати сповіщення, увімкніть їх в налаштуваннях.</p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою браузеру:</p><p>1.Перейдіть за посиланням: https://navi.venbest.com.ua/</p> <p>2.Введіть логін: "+ treeView_user_accounts.SelectedNode.Text + "</p><p>3.Введіть пароль: "+ pass + "</p><p>  <br></p><p>Змініть, будь ласка, пароль в налаштуваннях користувача при вході через браузер.</p><p>----------------------------------------------</p><p>Департамент супутникових систем охорони</p><p>Група Компаній «ВЕНБЕСТ»</p><p>Т 044 501 33 77;</p><p>auto@venbest.com.ua | https://venbest.ua/ohrana-avto-i-zashchita-ot-ugona</p>";
-                    macros.send_mail_auto(treeView_user_accounts.SelectedNode.Text, "ВЕНБЕСТ. Вхід в систему моніторингу", Body+ pass);
+                    string Body = "<p>Добрий день!</p><p>;</p><p>Відповідно до Вашого запиту,</p><p>Для Вас було відновлено пароль для доступу в систему моніторингу ВЕНБЕСТ. </p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою мобільного додатку:</p><p>1.Завантажте мобільний додаток Wialon Local: https://venbest.ua/gps-prilozheniia/</p> <p>2.При першому вході в мобільний додаток введіть такі дані:</p><p>a.Адреса серверу: https://navi.venbest.com.ua/;</p> <p>Посилання вводиться зверху сторінки вводу логіну та паролю. Після його введення необхідно натиснути на іконку у вигляді щита (праворуч рядка вводу).</p><p>b.Логін: " + treeView_user_accounts.SelectedNode.Text + "</p><p>c.Пароль: " + pass + " </p><p>Зверніть, будь ласка, увагу, що логін та пароль чутливий до регістру символів, які ви вводите.</p><p> <br></p><p>3.Якщо ви бажаєте отримувати сповіщення, увімкніть їх в налаштуваннях.</p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою браузеру:</p><p>1.Перейдіть за посиланням: https://navi.venbest.com.ua/</p> <p>2.Введіть логін: " + treeView_user_accounts.SelectedNode.Text + "</p><p>3.Введіть пароль: " + pass + "</p><p>  <br></p><p>Змініть, будь ласка, пароль в налаштуваннях користувача при вході через браузер.</p><p>----------------------------------------------</p><p>Департамент супутникових систем охорони</p><p>Група Компаній «ВЕНБЕСТ»</p><p>Т 044 501 33 77;</p><p>auto@venbest.com.ua | https://venbest.ua/ohrana-avto-i-zashchita-ot-ugona</p>";
+                    macros.send_mail_auto(treeView_user_accounts.SelectedNode.Text, "ВЕНБЕСТ. Вхід в систему моніторингу", Body + pass);
                     macros.send_mail_auto("auto@venbest.com.ua", "ВЕНБЕСТ. Вхід в систему моніторингу", Body + pass);
 
                     //Save in db client account
                     macros.GetData("insert into btk.Client_accounts (name, pass, date, reason, Object_idObject, Users_idUsers) value ('" + treeView_user_accounts.SelectedNode.Text + "','" + pass + "','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','Chenge pass account','" + vars_form.id_db_object_for_activation + "','" + vars_form.user_login_id + "');");
-                    
                 }
                 else if (dialogResult == DialogResult.No)
                 {
                 }
-
             }
         }
 
@@ -1161,7 +1103,7 @@ namespace Disp_WinForm
         {
             string CreteNotifAnswer = macros.WialonRequest("&svc=resource/update_notification&params={" +
                                                             "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
-                                                            "\"id\":\""+notif_id+"\"," +                                                   /* ID уведомления (0 для создания) */
+                                                            "\"id\":\"" + notif_id + "\"," +                                                   /* ID уведомления (0 для создания) */
                                                             "\"callMode\":\"delete\"" +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
                                                         "}"
                                                     );
@@ -1173,7 +1115,7 @@ namespace Disp_WinForm
         {
             //Cработка: Датчик удара/наклона/буксировки
             string CreteNotifAnswer = macros.WialonRequest("&svc=resource/update_notification&params={" +
-                                                            "\"itemId\":\""+ resours_id +"\"," +                                             /* ID ресурса */ 
+                                                            "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
                                                             "\"id\":\"0\"," +                                                   /* ID уведомления (0 для создания) */
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
                                                             "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
@@ -1232,7 +1174,7 @@ namespace Disp_WinForm
                                                                         "{" +
                                                                             "\"t\":\"email\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
                                                                             "\"p\":{" +
-                                                                                    "\"email_to\":\""+ user_account_name +"\"," +
+                                                                                    "\"email_to\":\"" + user_account_name + "\"," +
                                                                                     "\"html\":\"0\"," +
                                                                                     "\"img_attach\":\"0\"," +
                                                                                     "\"subj\":\"\"" +
@@ -1247,7 +1189,7 @@ namespace Disp_WinForm
                                                                         "{" +
                                                                             "\"t\":\"mobile_apps\"," +                                /* тип контроля: https://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/resource/get_notification_data#tipy_dejstvij */
                                                                             "\"p\":{" +
-                                                                                    "\"apps\":\"{" + "\\" + "\"Wialon Local" + "\\"+"\"" + ":" + "[" + user_account_id + "]" + "}\"" +
+                                                                                    "\"apps\":\"{" + "\\" + "\"Wialon Local" + "\\" + "\"" + ":" + "[" + user_account_id + "]" + "}\"" +
                                                                                    "}" +
                                                                         "}" +
                                                                  "]" +
@@ -1503,8 +1445,6 @@ namespace Disp_WinForm
                                                         "}"
                                                     );
 
-
-
             //Сработка: Датчики взлома
             string CreteNotifAnswer5 = macros.WialonRequest("&svc=resource/update_notification&params={" +
                                                             "\"itemId\":\"" + resours_id + "\"," +                                             /* ID ресурса */
@@ -1670,7 +1610,6 @@ namespace Disp_WinForm
                                                                  "]" +
                                                         "}"
                                                     );
-
         }
 
         // CNTP_730 create nitif for new user account
@@ -2090,7 +2029,6 @@ namespace Disp_WinForm
                                                                  "]" +
                                                         "}"
                                                     );
-
         }
 
         private void button_chenge_uvaga_Click(object sender, EventArgs e)
@@ -2102,7 +2040,6 @@ namespace Disp_WinForm
 
             if (m.error == 0)
             {
-
                 string st = macros.sql_command("UPDATE btk.Object " +
                                "SET " +
                                "Object_name = '" + name_obj_new_textBox.Text + "' " +
@@ -2113,7 +2050,7 @@ namespace Disp_WinForm
                     Read_data();
 
                     //log user action
-                    macros.LogUserAction(vars_form.user_login_id, "Зміна поля Увага", name_object_current_textBox.Text, vars_form.id_db_object_for_activation , Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
+                    macros.LogUserAction(vars_form.user_login_id, "Зміна поля Увага", name_object_current_textBox.Text, vars_form.id_db_object_for_activation, Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
 
                     MessageBox.Show("Змінено!");
                 }
@@ -2126,7 +2063,6 @@ namespace Disp_WinForm
             {
                 MessageBox.Show("Упс, здається не вийшло");
             }
-
         }
 
         private void button_add_vo1_Click(object sender, EventArgs e)
@@ -2160,7 +2096,6 @@ namespace Disp_WinForm
                 {
                     textBox_vo1.Text = VO_falilia.ToUpper() + " " + VO_imya_phone + ", " + VO_phone2;
                 }
-                
             }
             if (vars_form.num_vo == 2)
             {
@@ -2172,16 +2107,16 @@ namespace Disp_WinForm
                 {
                     textBox_vo2.Text = "";
                 }
-                else 
-                {textBox_vo2.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                else
+                {
+                    textBox_vo2.Text = VO_familia_imya_phone + ", " + VO_phone2;
                 }
-                
             }
             if (vars_form.num_vo == 3)
             {
                 string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo3_vo_form + "';");
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo3_vo_form + "';");
-                if (VO_phone2 == "   -   -" )
+                if (VO_phone2 == "   -   -")
                 { VO_phone2 = ""; }
                 if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
                 {
@@ -2191,7 +2126,6 @@ namespace Disp_WinForm
                 {
                     textBox_vo3.Text = VO_familia_imya_phone + ", " + VO_phone2;
                 }
-                
             }
             if (vars_form.num_vo == 4)
             {
@@ -2239,6 +2173,7 @@ namespace Disp_WinForm
             Kontacts_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
             Kontacts_form.Show();
         }
+
         private void button_add_vo5_Click(object sender, EventArgs e)
         {
             vars_form.num_vo = 5;
@@ -2250,8 +2185,6 @@ namespace Disp_WinForm
 
         private void button_user_account_on_off_Click(object sender, EventArgs e)
         {
-            
-
             if (treeView_user_accounts.SelectedNode is null)
             {
                 MessageBox.Show("Вибери користувача");
@@ -2282,18 +2215,16 @@ namespace Disp_WinForm
 
                     //log user action
                     macros.LogUserAction(vars_form.user_login_id, "Відключити користувача", treeView_user_accounts.SelectedNode.Text, "", Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
-
                 }
                 else if (dialogResult == DialogResult.No)
                 {
                 }
-
             }
         }
 
         private void save_button_Click(object sender, EventArgs e)
         {
-            if (name_obj_new_textBox.Text.Length>=51)
+            if (name_obj_new_textBox.Text.Length >= 51)
             {
                 MessageBox.Show("Відкорегуй нову назву обекта");
                 return;
@@ -2304,7 +2235,7 @@ namespace Disp_WinForm
                 MessageBox.Show("Оберіть результат тестування");
                 return;
             }
-            else if ((comboBox_activation_result.SelectedIndex == 1 | comboBox_activation_result.SelectedIndex == 2) & textBox_comments.Text=="")
+            else if ((comboBox_activation_result.SelectedIndex == 1 | comboBox_activation_result.SelectedIndex == 2) & textBox_comments.Text == "")
             {
                 MessageBox.Show("Опишіть ситуацію в коментрі.");
                 return;
@@ -2318,10 +2249,10 @@ namespace Disp_WinForm
                     "Activation_object_idActivation_object," +
                     "Users_idUsers" +
                     ") values (" +
-                    "'"+ MySqlHelper.EscapeString(textBox_comments.Text)+"', " +
-                    "'"+ Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
-                    "'"+vars_form.id_db_activation_for_activation+"'," +
-                    "'"+vars_form.user_login_id+"'" +
+                    "'" + MySqlHelper.EscapeString(textBox_comments.Text) + "', " +
+                    "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                    "'" + vars_form.id_db_activation_for_activation + "'," +
+                    "'" + vars_form.user_login_id + "'" +
                     "); ");
             }
 
@@ -2341,9 +2272,6 @@ namespace Disp_WinForm
 
             var object_data = JsonConvert.DeserializeObject<RootObject>(json);
 
-
-            
-
             if (name_object_current_textBox.Text != name_obj_new_textBox.Text)
             {
                 //Меняем имя об"екта
@@ -2357,10 +2285,9 @@ namespace Disp_WinForm
                                "WHERE " +
                                "idObject = '" + vars_form.id_db_object_for_activation + "';");
             }
-            
+
             foreach (var keyvalue in object_data.items[0].flds)
             {
-
                 if (keyvalue.Value.n.Contains("УВАГА"))
                 {
                     if (keyvalue.Value.v != uvaga_textBox.Text)
@@ -2403,7 +2330,6 @@ namespace Disp_WinForm
                                                              "\"n\":\"" + keyvalue.Value.n + "\"," +
                                                              "\"v\":\"" + textBox_vo1.Text + "\"}");
                         }
-                        
                     }
                 }
 
@@ -2422,8 +2348,6 @@ namespace Disp_WinForm
                                                              "\"n\":\"" + keyvalue.Value.n + "\"," +
                                                              "\"v\":\"" + textBox_vo2.Text + "\"}");
                         }
-
-                        
                     }
                 }
 
@@ -2442,7 +2366,6 @@ namespace Disp_WinForm
                                                              "\"n\":\"" + keyvalue.Value.n + "\"," +
                                                              "\"v\":\"" + textBox_vo3.Text + "\"}");
                         }
-                        
                     }
                 }
             }
@@ -2468,7 +2391,7 @@ namespace Disp_WinForm
                     "alarm_button = '" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
                     "pin_chenged = '" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'" +
                     "where " +
-                    "idActivation_object = '"+ vars_form.id_db_activation_for_activation + "'" +
+                    "idActivation_object = '" + vars_form.id_db_activation_for_activation + "'" +
                     ";");
 
                 string id_ts_info_fo_object_activation = macros.sql_command("select TS_info_idTS_info from btk.Object where idObject = '" + vars_form.id_db_object_for_activation + "'");
@@ -2504,7 +2427,7 @@ namespace Disp_WinForm
                                                                 + "\"n\":\"4.1.1 Оператор, що активував\","
                                                                 + "\"v\":\"" + vars_form.user_login_name + "\"}");
 
-                //update коли тестував in WL
+                //update коли активації in WL
                 string pp7_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
                                                                 + "\"id\":\"21\","
@@ -2522,12 +2445,10 @@ namespace Disp_WinForm
                 //update коли тестував in WL
                 string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
-                                                                + "\"id\":\"21\","
+                                                                + "\"id\":\"25\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"4.4 Обліковий запис WL\","
                                                                 + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
-
-
             }
             else if (vars_form.if_open_created_activation == 0)
             {
@@ -2589,7 +2510,7 @@ namespace Disp_WinForm
                                                                    + "\"n\":\"vin\","
                                                                    + "\"v\":\"" + textBox_vin_zayavka.Text.Replace("\"", "%5C%22") + "\"}");
 
-                    //update хто тестував in WL
+                    //update хто активації in WL
                     string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                     + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
                                                                     + "\"id\":\"22\","
@@ -2598,7 +2519,7 @@ namespace Disp_WinForm
                                                                     + "\"v\":\"" + vars_form.user_login_name + "\"}");
                 }
 
-                //update коли тестував in WL
+                //update коли активації in WL
                 string pp7_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
                                                                 + "\"id\":\"21\","
@@ -2616,7 +2537,7 @@ namespace Disp_WinForm
                 //update коли тестував in WL
                 string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
-                                                                + "\"id\":\"21\","
+                                                                + "\"id\":\"25\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"4.4 Обліковий запис WL\","
                                                                 + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
@@ -2668,12 +2589,10 @@ namespace Disp_WinForm
 
                     //log user action
                     macros.LogUserAction(vars_form.user_login_id, "Відключити користувача", treeView_user_accounts.SelectedNode.Text, "", Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
-
                 }
                 else if (dialogResult == DialogResult.No)
                 {
                 }
-
             }
         }
 
@@ -2692,7 +2611,7 @@ namespace Disp_WinForm
         private void button_call_kont1_Click(object sender, EventArgs e)
         {
             string path = macros.GetProcessPath("microsip");
-            if (path=="")
+            if (path == "")
             { MessageBox.Show("Для виклику необхідно запустити Microsip!"); return; }
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
@@ -2701,8 +2620,6 @@ namespace Disp_WinForm
             startInfo.Arguments = "/C " + path + " " + maskedTextBox_kont_phone1.Text;
             process.StartInfo = startInfo;
             process.Start();
-
-
         }
 
         private void button_call_cont2_Click(object sender, EventArgs e)
@@ -2721,7 +2638,7 @@ namespace Disp_WinForm
 
         private void button_name_obj_generate_Click(object sender, EventArgs e)
         {
-            string id_db_object = macros.sql_command("select Object_idObject from btk.Activation_object where idActivation_object = '" + vars_form.id_db_activation_for_activation+"'");
+            string id_db_object = macros.sql_command("select Object_idObject from btk.Activation_object where idActivation_object = '" + vars_form.id_db_activation_for_activation + "'");
 
             DataTable name = macros.GetData("select " +
                 "TS_model.TS_modelcol_name_short," +

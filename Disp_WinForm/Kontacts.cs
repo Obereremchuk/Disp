@@ -56,7 +56,17 @@ namespace Disp_WinForm
             if (vars_form.num_vo >= 1)// vars_form.num_vo = 0 >> run for electrik (testuvannya) (idKontact_type=2(Електрик)), vars_form.num_vo = 1 >> run from VO (idKontact_type=1(Кліент))
             {
                 MySqlConnection myConnection = new MySqlConnection("server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True; charset=utf8");
-                string sql = string.Format("SELECT * FROM btk.Kontakti where (Kontakti_imya like '%" + textBox_search_kontackts.Text + "%' or Kontakti_familia like '%" + textBox_search_kontackts.Text + "%' or Phonebook_idPhonebook like '%" + textBox_search_kontackts.Text + "%' or Phonebook_idPhonebook1 like '%" + textBox_search_kontackts.Text + "%') and Kontact_type_idKontact_type = '1';");
+                string sql = string.Format("SELECT * FROM btk.Kontakti, btk.Phonebook " +
+                    "where " +
+                    "(" +
+                    "Kontakti_imya like '%" + textBox_search_kontackts.Text + "%' " +
+                    "Kontakti_otchestvo like '%" + textBox_search_kontackts.Text + "%' " + 
+                    "or Kontakti_familia like '%" + textBox_search_kontackts.Text + "%' " +
+                    "or Phonebook.Phonebookcol_phone like '%" + textBox_search_kontackts.Text + "%' " +
+                    ") " +
+                    "and (Phonebook.idPhonebook = Kontakti.Phonebook_idPhonebook) " +
+                    //"and (Phonebook.idPhonebook = Kontakti.Phonebook_idPhonebook or Phonebook.idPhonebook = Kontakti.Phonebook_idPhonebook1) " +
+                    "and Kontact_type_idKontact_type = '1';");
                 MySqlCommand myDataAdapter = new MySqlCommand(sql, myConnection);
                 myConnection.Open();
                 MySqlDataReader reader = myDataAdapter.ExecuteReader();

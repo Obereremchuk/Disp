@@ -748,7 +748,7 @@ namespace Disp_WinForm
                 }
 
                 mail.IsBodyHtml = true;
-                mail.Body = htmlMessageBody(dataGridView_hronologija_trivog).ToString();
+                mail.Body = "УВАГА: " + textBox_Uvaga.Text + System.Environment.NewLine + htmlMessageBody(dataGridView_hronologija_trivog).ToString();
 
                 SmtpServer.Port = 25;
                 SmtpServer.Credentials = new System.Net.NetworkCredential("noreply@venbest.com.ua", "L2TPr6");
@@ -1460,6 +1460,7 @@ namespace Disp_WinForm
                     }
                 }
             }
+            MessageBox.Show("Збережено");
         }
 
 
@@ -1821,7 +1822,7 @@ namespace Disp_WinForm
                     //update коли тестував in WL
                     string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                     + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
-                                                                    + "\"id\":\"21\","
+                                                                    + "\"id\":\"25\","
                                                                     + "\"callMode\":\"update\","
                                                                     + "\"n\":\"4.4 Обліковий запис WL\","
                                                                     + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
@@ -1909,7 +1910,7 @@ namespace Disp_WinForm
                 //update коли тестував in WL
                 string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
-                                                                + "\"id\":\"21\","
+                                                                + "\"id\":\"25\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"4.4 Обліковий запис WL\","
                                                                 + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");

@@ -115,6 +115,9 @@ namespace Disp_WinForm
             if (get_produt_testing_device == "10" || get_produt_testing_device == "11")
             {
                 checkBox_test_relay_plus.Enabled = false;
+                //if keyless select sposob avtorizacii tag only
+                if (get_produt_testing_device == "10")
+                { comboBox_pin_or_tag.SelectedIndex = 3; }
             }
             else if (get_produt_testing_device == "2" || get_produt_testing_device == "3")
             {
@@ -133,6 +136,10 @@ namespace Disp_WinForm
                 label11.Enabled = false;
                 label_test_dop_2.Enabled = false;
                 label_autstart.Enabled = false;
+
+                //if keyless select sposob avtorizacii tag only
+                if (get_produt_testing_device == "2")
+                { comboBox_pin_or_tag.SelectedIndex = 3; }
             }
         }
 
@@ -324,9 +331,9 @@ namespace Disp_WinForm
 
 
             //textBox_device1.Text = db_TS_info.Rows[0]["TS_infocol_place_treker"].ToString();
-            TextBox_device2.Text = db_TS_info.Rows[0]["TS_infocol_place_alarm"].ToString();
+            comboBox_device2.Text = db_TS_info.Rows[0]["TS_infocol_place_alarm"].ToString();
 
-            textBox_zvich_relay_place.Text = db_TS_info.Rows[0]["TS_infocol_place_relay"].ToString();
+            comboBox_zvich_relay_place.Text = db_TS_info.Rows[0]["TS_infocol_place_relay"].ToString();
             //ActiveControl = textBox_zvich_relay_lancug;
             textBox_zvich_relay_lancug.Text = db_TS_info.Rows[0]["TS_infocol_wire_cut"].ToString();
             textBox_CAN_relay_place.Text= db_TS_info.Rows[0]["TS_infocol_can_place_relay"].ToString();
@@ -494,8 +501,8 @@ namespace Disp_WinForm
 
             macros.sql_command("update btk.TS_info set " +
                                //"TS_infocol_place_treker='" + textBox_device1.Text + "', " +
-                               "TS_infocol_place_alarm='" + MySqlHelper.EscapeString(TextBox_device2.Text) + "', " +
-                               "TS_infocol_place_relay='" + MySqlHelper.EscapeString(textBox_zvich_relay_place.Text) + "', " +
+                               "TS_infocol_place_alarm='" + MySqlHelper.EscapeString(comboBox_device2.Text) + "', " +
+                               "TS_infocol_place_relay='" + MySqlHelper.EscapeString(comboBox_zvich_relay_place.Text) + "', " +
                                "TS_infocol_wire_cut='" + MySqlHelper.EscapeString(textBox_zvich_relay_lancug.Text) + "', " +
                                "TS_infocol_can_place_relay='" + MySqlHelper.EscapeString(textBox_CAN_relay_place.Text) + "', " +
                                "TS_infocol_can_wire_cut='" + MySqlHelper.EscapeString(textBox_CAN_relay_lancug.Text) + "', " +
@@ -550,15 +557,17 @@ namespace Disp_WinForm
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"name\":\"" + name_obj_textBox.Text.Replace("\"", "%5C%22") + "\"}");
 
+                if (vars_form.if_open_created_testing == 0)
+                {
 
-
-                //Произвольное поле  name operator
-                string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"6\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"3.1.1 Оператор, що тестував\","
-                                                                + "\"v\":\"" + vars_form.user_login_name + "\"}");
+                    //Произвольное поле  name operator
+                    string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                    + "\"id\":\"6\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"3.1.1 Оператор, що тестував\","
+                                                                    + "\"v\":\"" + vars_form.user_login_name + "\"}");
+                }
 
                 //Произвольное поле 0 УВАГА
                 string pp1_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
@@ -609,13 +618,17 @@ namespace Disp_WinForm
                                                                 + "\"n\":\"3.2.1 Установник: назва, адреса\","
                                                                 + "\"v\":\"" + comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem).ToString() + "\"}");
 
-                //Произвольное поле дата установки = дата тестирования
-                string pp12_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"12\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"3.3 Дата установки\","
-                                                                + "\"v\":\"" + DateTime.Now.Date + "\"}");
+
+                if (vars_form.if_open_created_testing == 0)
+                {
+                    //Произвольное поле дата установки = дата тестирования
+                    string pp12_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                    + "\"id\":\"12\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"3.3 Дата установки\","
+                                                                    + "\"v\":\"" + DateTime.Now.Date + "\"}");
+                }
 
                 //Произвольное поле место установки сигналызації
                 string pp13_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
@@ -623,7 +636,7 @@ namespace Disp_WinForm
                                                                 + "\"id\":\"13\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.4 Місце установки пристрою ВЕНБЕСТ\","
-                                                                + "\"v\":\"" + TextBox_device2.Text.Replace("\"", "%5C%22") + "\"}");
+                                                                + "\"v\":\"" + comboBox_device2.Text.Replace("\"", "%5C%22") + "\"}");
                 
                 //Произвольное поле place relay
                 string pp14_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
@@ -638,7 +651,7 @@ namespace Disp_WinForm
                                                               + "\"id\":\"15\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.6.2 Звичайне реле\","
-                                                              + "\"v\":\"" + ("Місце: " + textBox_zvich_relay_place.Text + ". Ланцюг: " + textBox_zvich_relay_lancug.Text).Replace("\"", "%5C%22") + "\"}");
+                                                              + "\"v\":\"" + ("Місце: " + comboBox_zvich_relay_place.Text + ". Ланцюг: " + textBox_zvich_relay_lancug.Text).Replace("\"", "%5C%22") + "\"}");
 
                 //Произвольное поле service button
                 string pp16_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
@@ -755,15 +768,17 @@ namespace Disp_WinForm
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"name\":\"" + name_obj_textBox.Text.Replace("\"", "%5C%22") + "\"}");
 
-                //Произвольное поле  name operator
-                string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"7\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"3.1.1 Оператор, що тестував\","
-                                                                + "\"v\":\"" + vars_form.user_login_name + "\"}");
+                if (vars_form.if_open_created_testing == 0)
+                {
+                    //Произвольное поле  name operator
+                    string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                    + "\"id\":\"7\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"3.1.1 Оператор, що тестував\","
+                                                                    + "\"v\":\"" + vars_form.user_login_name + "\"}");
 
-
+                }
 
                 //Произвольное поле 0 УВАГА
                 string pp1_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
@@ -785,14 +800,14 @@ namespace Disp_WinForm
                                                               + "\"id\":\"15\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.5 Назва та місце установки сигналізації\","
-                                                              + "\"v\":\"" + TextBox_device2.Text.Replace("\"", "%5C%22") + "\"}");
+                                                              + "\"v\":\"" + comboBox_device2.Text.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле place relay
                 string pp3_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                               + "\"id\":\"16\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.6.1  Реле блокування: місце встановлення\","
-                                                              + "\"v\":\"" + textBox_zvich_relay_place.Text.Replace("\"", "%5C%22") + "\"}");
+                                                              + "\"v\":\"" + comboBox_zvich_relay_place.Text.Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле wire cut
                 string pp4_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -921,13 +936,17 @@ namespace Disp_WinForm
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.2.2 Установник - монтажник: ПІБ, №тел.\","
                                                                   + "\"v\":\"" + comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
-                //Произвольное поле дата установки = дата тестирования
-                string pp20_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"13\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"3.3 Дата установки\","
-                                                                + "\"v\":\"" + DateTime.Now.Date + "\"}");
+
+                if (vars_form.if_open_created_testing == 0)
+                {
+                    //Произвольное поле дата установки = дата тестирования
+                    string pp20_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                    + "\"id\":\"13\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"3.3 Дата установки\","
+                                                                    + "\"v\":\"" + DateTime.Now.Date + "\"}");
+                }
                 //Произвольное поле новій ПИН
                 string pp21_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -970,6 +989,50 @@ namespace Disp_WinForm
                     if (textBox_commets.Text == "")
                     {
                         MessageBox.Show("тестування не успішне? Додай коментар");
+
+                        string Subject = "505 Неуспішне тестування ! VIN: " + textBox_vin.Text + ", Обєкт: " + name_obj_textBox.Text;
+                        string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua><e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>";
+                        DataTable dt = new DataTable();
+
+                        dt.Columns.Add("Параметр");
+                        dt.Columns.Add("Значення");
+                        object[] row = { "VIN", textBox_vin.Text };
+                        dt.Rows.Add(row);
+                        object[] row1 = { "Обєкт", name_obj_textBox.Text };
+                        dt.Rows.Add(row1);
+                        object[] row2 = { "IMEI", imei_obj_textBox.Text };
+                        dt.Rows.Add(row2);
+                        if (checkBox_test_autostart.Checked is true)
+                        {
+                            object[] row3 = { "Автозапуск", "Встановлено" };
+                            dt.Rows.Add(row3);
+                        }
+                        
+                        object[] row4 = { "Марка", comboBox_test_brand.GetItemText(this.comboBox_test_brand.SelectedItem) };
+                        dt.Rows.Add(row4);
+                        object[] row5 = { "Модель", comboBox_test_model.GetItemText(this.comboBox_test_model.SelectedItem) };
+                        dt.Rows.Add(row5);
+                        object[] row6 = { "Колір", comboBox_color.GetItemText(this.comboBox_color.SelectedItem) };
+                        dt.Rows.Add(row6);
+                        object[] row7 = { "Рік випуску", comboBox_test_production_date.GetItemText(this.comboBox_test_production_date.SelectedItem) };
+                        dt.Rows.Add(row7);
+                        object[] row8 = { "Держ. Номер", textBox_licence_plate.Text };
+                        dt.Rows.Add(row8);
+                        object[] row9 = { "СТО", comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem) };
+                        dt.Rows.Add(row9);
+                        object[] row10 = { "Установник", comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem) };
+                        dt.Rows.Add(row10);
+                        object[] row11 = { "Дата тестування", DateTime.Now.ToString() };
+                        dt.Rows.Add(row11);
+                        object[] row13 = { "Оператор що тестував", vars_form.user_login_name };
+                        dt.Rows.Add(row13);
+                        object[] row14 = { "Коментар", textBox_commets.Text };
+                        dt.Rows.Add(row14);
+
+
+                        string Body = macros.ConvertDataTableToHTML(dt);
+
+                        macros.send_mail(recip, Subject, Body);
                         return;
                     }
 
@@ -1289,6 +1352,17 @@ namespace Disp_WinForm
                     dt.Rows.Add(row11);
                     object[] row13 = { "Оператор що тестував", vars_form.user_login_name };
                     dt.Rows.Add(row13);
+                    
+                    object[] row15 = { "Додатково встановлені датчики", (checkBox_sensor_gps.Checked ? "GPS, " : "")
+                                                                        + (checkBox_sensor_glushenia.Checked ? "Глушіння, " : "")
+                                                                        + (checkBox_sensor_autostart.Checked ? "Автозапуск, " : "")
+                                                                        + (checkBox_sensor_objema.Checked ? "Обєму, " : "")
+                                                                        + (checkBox_lock_hood.Checked ? "GPS, " : "")};
+                    dt.Rows.Add(row15);
+                    object[] row14 = { "Коментар", textBox_commets.Text };
+                    dt.Rows.Add(row14);
+                    
+
 
                     string Body = macros.ConvertDataTableToHTML(dt);
 

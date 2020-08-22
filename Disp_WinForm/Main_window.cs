@@ -1,5 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 using System.Data;
@@ -13,32 +12,29 @@ using ZXing;
 
 namespace Disp_WinForm
 {
-
     public partial class Main_window : Form
     {
-        Macros macros = new Macros();
+        private Macros macros = new Macros();
         private static System.Timers.Timer aTimer;
-        
-        delegate void UpdateGridHandler(DataTable table);
-        delegate void UpdateGridThreadHandler(DataTable table);
+
+        private delegate void UpdateGridHandler(DataTable table);
+
+        private delegate void UpdateGridThreadHandler(DataTable table);
+
         private string streamToPrint = Directory.GetCurrentDirectory() + "\\barcode.png";
         private int LoadedGoogleMessage = 0;
-
 
         public Main_window()
         {
             this.Font = new System.Drawing.Font("Arial", vars_form.setting_font_size);
 
-
             InitializeComponent();
-            
+
             this.Text = "Disp v." + vars_form.version;
             comboBox_activovani_select.SelectedIndex = 0;
             comboBox_prikripleno_select.SelectedIndex = 0;
             comboBox_activation_filter.SelectedIndex = 0;
             comboBox_testing_filter.SelectedIndex = 0;
-
-
 
             aTimer = new System.Timers.Timer();
 
@@ -56,11 +52,8 @@ namespace Disp_WinForm
             dateTime_rep_from.Value = DateTime.Now.Date + ts1;
             dateTime_rep_to.Value = DateTime.Now.Date + ts2;
 
-
             //dataGridView_for_activation.DefaultCellStyle.SelectionBackColor = Color.White;
             //dataGridView_for_activation.DefaultCellStyle.SelectionForeColor = Color.Black;
-
-
         }
 
         private void init()
@@ -126,8 +119,6 @@ namespace Disp_WinForm
             comboBox_sort_column.SelectedIndexChanged += new System.EventHandler(this.comboBox_sort_column_SelectedIndexChanged);
             vars_form.sort = "msg_time";
             vars_form.sort_close = "msg_time";
-
-            
         }
 
         private void accsses()
@@ -145,7 +136,7 @@ namespace Disp_WinForm
                         tabControl_testing.TabPages.Remove(tabPage3);
                         tabControl_testing.TabPages.Remove(tab_create_object);
                     }
-                    else 
+                    else
                     {
                         tabControl_testing.TabPages.Remove(tabPage3);
                         tabControl_testing.TabPages.Remove(tabPage_zvit);
@@ -163,40 +154,48 @@ namespace Disp_WinForm
             aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent_open);
             aTimer.AutoReset = true;
             aTimer.Enabled = true;
-        }//Запускаем таймер на 2 сек 
+        }//Запускаем таймер на 2 сек
 
         private void OnTimedEvent_808(object sender, EventArgs e)
         {
             update_808_dgv();
         }
+
         private void OnTimedEvent_lost(object sender, EventArgs e)
         {
             update_lost_dgv();
         }
+
         private void OnTimedEvent_909(object sender, EventArgs e)
         {
             update_909_dgv();
         }
+
         private void OnTimedEvent_open(object sender, EventArgs e)
         {
             update_open_dgv();
         }
+
         private void OnTimedEvent_sale(object sender, EventArgs e)
         {
             update_sale_dgv();
         }
+
         private void OnTimedEvent_dilery(object sender, EventArgs e)
         {
             update_dilery_dgv();
         }
+
         private void OnTimedEvent_testing(object sender, EventArgs e)
         {
             update_testing_dgv();
         }
+
         private void OnTimedEvent_activation(object sender, EventArgs e)
         {
             update_actication_dgv();
         }
+
         private void OnTimedEvent_zayavki_na_aktivation(object sender, EventArgs e)
         {
             update_zayavki_na_aktivation_2W();
@@ -302,7 +301,6 @@ namespace Disp_WinForm
             }
             else if (tabControl_testing.SelectedTab.Name == "tabPage_testing")
             {
-                
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_808);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_909);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_open);
@@ -314,8 +312,6 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.Enabled = false;
                 update_testing_dgv();
-
-
             }
             else if (tabControl_testing.SelectedTab.Name == "tabPage2")
             {
@@ -344,11 +340,9 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
-                
+
                 //aTimer.AutoReset = true;
                 aTimer.Enabled = false;
-                
-
             }
             else if (tabControl_testing.SelectedTab.Name == "tabPage_zayavki_activation")
             {
@@ -383,12 +377,12 @@ namespace Disp_WinForm
             }
         }
 
-        /// Обновляем вкладку zayavki Activation W2 
-        /// 
+        /// Обновляем вкладку zayavki Activation W2
+        ///
         private void update_zayavki_na_aktivation_2W()
         {
             //ПОлучим последний созданный айди тестирование, и возмем из него дату для верного отображения которую покладем в даттаймпикер
-            
+
             DataTable table = new DataTable();
 
             if (comboBox_activovani_select.SelectedIndex == 0 & comboBox_prikripleno_select.SelectedIndex == 0)// Отбор в заявках всі/всі
@@ -480,7 +474,6 @@ namespace Disp_WinForm
                                             "AND Activation_object.Object_idObject != '10' " +
                                             "AND (Zayavkicol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_for_zayavki_na_activation_W2.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "') " +
                                             "and testing_object_idtesting_object = 1;");
-
             }
             else if (comboBox_activovani_select.SelectedIndex == 2 & comboBox_prikripleno_select.SelectedIndex == 1)//неактивовані/прікріплені
             {
@@ -594,8 +587,6 @@ namespace Disp_WinForm
                                             "AND (Zayavkicol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_for_zayavki_na_activation_W2.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "') ;");
             }
 
-
-
             int scrollPosition = dataGridView_zayavki_na_activation.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
             dataGridView_zayavki_na_activation.DataSource = table;
             if (dataGridView_zayavki_na_activation.Rows.Count >= 1)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
@@ -607,13 +598,9 @@ namespace Disp_WinForm
                 dataGridView_zayavki_na_activation.FirstDisplayedScrollingRowIndex = scrollPosition;
             }
             dataGridView_zayavki_na_activation.Columns["idZayavki"].Visible = false;
-
-
         }
 
-
-
-        /// Обновляем вкладку For Activation  
+        /// Обновляем вкладку For Activation
         private void update_actication_dgv()
         {
             //ПОлучим последний созданный айди тестирование, и возмем из него дату для верного отображения которую покладем в даттаймпикер
@@ -713,14 +700,13 @@ namespace Disp_WinForm
                     "where " +
                     "Activation_object.Object_idObject != '10' " +
                     "and Activation_object.Activation_date between '" + Convert.ToDateTime(dateTimePicker_activation_filter_start.Value).Date.ToString("yyyy-MM-dd") + "' and '" + Convert.ToDateTime(dateTimePicker_activation_filter_end.Value).Date.ToString("yyyy-MM-dd") + "' " +
-                    "and Activation_object.new_name_obj like '%"+ textBox_search_object_name_activation.Text + "%' " +
+                    "and Activation_object.new_name_obj like '%" + textBox_search_object_name_activation.Text + "%' " +
                     "and TS_brand.idTS_brand = Zayavki.TS_brand_idTS_brand " +
                     "and TS_model.idTS_model = Zayavki.TS_model_idTS_model " +
                     "and products.idproducts = Zayavki.products_idproducts " +
                     "and Zayavki.Activation_object_idActivation_object = Activation_object.idActivation_object " +
                     "order by idZayavki desc" +
                     "; ");
-
             }
 
             int scrollPosition = dataGridView_for_activation.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
@@ -751,7 +737,7 @@ namespace Disp_WinForm
             }
         }
 
-        /// Обновляем вкладку Testing 
+        /// Обновляем вкладку Testing
         private void update_testing_dgv()
         {
             DataTable table = new DataTable();
@@ -822,7 +808,6 @@ namespace Disp_WinForm
             int scrollPosition = dataGridView_testing.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
             dataGridView_testing.DataSource = table;
 
-
             dataGridView_testing.Columns["№ тестування"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView_testing.Columns["Назва обекту"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView_testing.Columns["IMEI"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -833,7 +818,6 @@ namespace Disp_WinForm
 
             dataGridView_testing.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
-
             if (dataGridView_testing.Rows.Count >= 1)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
             {
                 if (scrollPosition == -1)
@@ -842,7 +826,6 @@ namespace Disp_WinForm
                 }
                 dataGridView_testing.FirstDisplayedScrollingRowIndex = scrollPosition;
             }
-
         }
 
         private void dataGridView_testing_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -864,16 +847,12 @@ namespace Disp_WinForm
                 //        e.CellStyle.BackColor = Color.Pink;
                 //    }
                 //}
-
-
             }
             dataGridView_testing.ResumeLayout();
         }
 
-
-
         /// Обновляем вкладку Диллеры
-        /// 
+        ///
         private void update_dilery_dgv()
         {
             DataTable table = new DataTable();
@@ -894,10 +873,11 @@ namespace Disp_WinForm
             UpdateGridHandler ug = UpdateGrid_dilery;
             ug.BeginInvoke(table, cb_dilery, null);
         }
+
         private void cb_dilery(IAsyncResult res)
         {
-
         }
+
         private void UpdateGrid1_dilery(DataTable table)
         {
             //save sort
@@ -912,7 +892,7 @@ namespace Disp_WinForm
             if (dataGridView_dilery.DataSource != null)
             {
                 scrollPosition = dataGridView_dilery.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                
+
                 try
                 {
                     selectpozition = dataGridView_dilery.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
@@ -952,8 +932,8 @@ namespace Disp_WinForm
                 dataGridView_dilery.ClearSelection();
                 dataGridView_dilery.Rows[selectpozition].Selected = true;
             }
-
         }
+
         private void UpdateGrid_dilery(DataTable table)
         {
             if (dataGridView_dilery.InvokeRequired)
@@ -975,7 +955,7 @@ namespace Disp_WinForm
                 if (dataGridView_dilery.DataSource != null)
                 {
                     scrollPosition = dataGridView_dilery.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                   
+
                     try
                     {
                         selectpozition = dataGridView_dilery.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
@@ -1017,6 +997,7 @@ namespace Disp_WinForm
                 }
             }
         }
+
         private void dataGridView_dilery_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex <= -1 || e.ColumnIndex <= -1)
@@ -1036,7 +1017,6 @@ namespace Disp_WinForm
             }
             else
             {
-
                 vars_form.search_id = dataGridView_dilery.Rows[e.RowIndex].Cells[4].Value.ToString(); //ID об"єкту(8)
                 vars_form.id_notif = dataGridView_dilery.Rows[e.RowIndex].Cells[0].Value.ToString();//Згруповано до ID тривоги(9)
                 vars_form.id_status = dataGridView_dilery.Rows[e.RowIndex].Cells[5].Value.ToString();//Статус(7)
@@ -1048,7 +1028,6 @@ namespace Disp_WinForm
                 //string id_notif = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
                 // MessageBox.Show(cellValue);
             }
-
 
             DataTable results1 = macros.GetData("SELECT " +
                                                  "alarm_locked, " +
@@ -1073,10 +1052,10 @@ namespace Disp_WinForm
                            "WHERE " +
                            "idnotification = '" + vars_form.id_notif + "';");
 
-
             detail subwindow = new detail();
             subwindow.Show();
         }
+
         private void dataGridView_dilery_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             dataGridView_dilery.SuspendLayout();
@@ -1107,10 +1086,8 @@ namespace Disp_WinForm
             dataGridView_dilery.ResumeLayout();
         }
 
-
-
         /// Обновляем вкладку Продажи
-        /// 
+        ///
         private void update_sale_dgv()
         {
             DataTable table = new DataTable();
@@ -1132,10 +1109,11 @@ namespace Disp_WinForm
             UpdateGridHandler ug = UpdateGrid_sale;
             ug.BeginInvoke(table, cb_sale, null);
         }
+
         private void cb_sale(IAsyncResult res)
         {
-
         }
+
         private void UpdateGrid1_sale(DataTable table)
         {
             //save sort
@@ -1150,7 +1128,7 @@ namespace Disp_WinForm
             if (dataGridView_sales.DataSource != null)
             {
                 scrollPosition = dataGridView_sales.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                
+
                 try
                 {
                     selectpozition = dataGridView_sales.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
@@ -1191,6 +1169,7 @@ namespace Disp_WinForm
                 dataGridView_sales.Rows[selectpozition].Selected = true;
             }
         }
+
         private void UpdateGrid_sale(DataTable table)
         {
             if (dataGridView_sales.InvokeRequired)
@@ -1212,7 +1191,7 @@ namespace Disp_WinForm
                 if (dataGridView_sales.DataSource != null)
                 {
                     scrollPosition = dataGridView_sales.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                    
+
                     try
                     {
                         selectpozition = dataGridView_sales.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
@@ -1228,7 +1207,7 @@ namespace Disp_WinForm
                 DataTable sortedDT = dv.ToTable();
 
                 dataGridView_sales.DataSource = table;
-                
+
                 //restote sort
                 if (oldColumn != null)
                 {
@@ -1254,6 +1233,7 @@ namespace Disp_WinForm
                 }
             }
         }
+
         private void dataGridView_sales_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex <= -1 || e.ColumnIndex <= -1)
@@ -1273,7 +1253,6 @@ namespace Disp_WinForm
             }
             else
             {
-
                 vars_form.search_id = dataGridView_sales.Rows[e.RowIndex].Cells[4].Value.ToString(); //ID об"єкту(8)
                 vars_form.id_notif = dataGridView_sales.Rows[e.RowIndex].Cells[0].Value.ToString();//Згруповано до ID тривоги(9)
                 vars_form.id_status = dataGridView_sales.Rows[e.RowIndex].Cells[5].Value.ToString();//Статус(7)
@@ -1310,11 +1289,10 @@ namespace Disp_WinForm
                            "WHERE " +
                            "idnotification = '" + vars_form.id_notif + "';");
 
-
-
             detail subwindow = new detail();
             subwindow.Show();
         }
+
         private void dataGridView_sales_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             dataGridView_sales.SuspendLayout();
@@ -1345,10 +1323,8 @@ namespace Disp_WinForm
             dataGridView_sales.ResumeLayout();
         }
 
-
-
         /// Обновляем вкладку 808
-        /// 
+        ///
         private void update_808_dgv()
         {
             DataTable table = new DataTable();
@@ -1370,10 +1346,11 @@ namespace Disp_WinForm
             UpdateGridHandler ug = UpdateGrid_808;
             ug.BeginInvoke(table, cb_808, null);
         }
+
         private void cb_808(IAsyncResult res)
         {
-
         }
+
         private void UpdateGrid1_808(DataTable table)
         {
             //save sort
@@ -1388,7 +1365,7 @@ namespace Disp_WinForm
             if (dataGridView_808_n.DataSource != null)
             {
                 scrollPosition = dataGridView_808_n.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                
+
                 try
                 {
                     selectpozition = dataGridView_808_n.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
@@ -1427,8 +1404,8 @@ namespace Disp_WinForm
                 dataGridView_808_n.ClearSelection();
                 dataGridView_808_n.Rows[selectpozition].Selected = true;
             }
-            
         }
+
         private void UpdateGrid_808(DataTable table)
         {
             if (dataGridView_808_n.InvokeRequired)
@@ -1450,7 +1427,7 @@ namespace Disp_WinForm
                 if (dataGridView_808_n.DataSource != null)
                 {
                     scrollPosition = dataGridView_808_n.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                    
+
                     try
                     {
                         selectpozition = dataGridView_808_n.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
@@ -1490,9 +1467,9 @@ namespace Disp_WinForm
                     dataGridView_808_n.ClearSelection();
                     dataGridView_808_n.Rows[selectpozition].Selected = true;
                 }
-                
             }
         }
+
         private void dataGridView_808_n_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             dataGridView_808_n.SuspendLayout();
@@ -1522,6 +1499,7 @@ namespace Disp_WinForm
             dataGridView_808_n.Columns[4].Visible = false;
             dataGridView_808_n.ResumeLayout();
         }
+
         private void dataGridView_808_n_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex <= -1 || e.ColumnIndex <= -1)
@@ -1541,7 +1519,6 @@ namespace Disp_WinForm
             }
             else
             {
-
                 vars_form.search_id = dataGridView_808_n.Rows[e.RowIndex].Cells[4].Value.ToString(); //ID об"єкту(8)
                 vars_form.id_notif = dataGridView_808_n.Rows[e.RowIndex].Cells[0].Value.ToString();//Згруповано до ID тривоги(9)
                 vars_form.id_status = dataGridView_808_n.Rows[e.RowIndex].Cells[5].Value.ToString();//Статус(7)
@@ -1579,9 +1556,8 @@ namespace Disp_WinForm
             subwindow.Show();
         }
 
-
         /// Обновляем вкладку lost
-        /// 
+        ///
         private void update_lost_dgv()
         {
             DataTable table = new DataTable();
@@ -1601,10 +1577,11 @@ namespace Disp_WinForm
             UpdateGridHandler ug = UpdateGrid_lost;
             ug.BeginInvoke(table, cb_lost, null);
         }
+
         private void cb_lost(IAsyncResult res)
         {
-
         }
+
         private void UpdateGrid1_lost(DataTable table)
         {
             //save sort
@@ -1619,7 +1596,7 @@ namespace Disp_WinForm
             if (dataGridView_lost.DataSource != null)
             {
                 scrollPosition = dataGridView_lost.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                
+
                 try
                 {
                     selectpozition = dataGridView_lost.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
@@ -1629,7 +1606,6 @@ namespace Disp_WinForm
                     selectpozition = 0;
                 }
             }
-
 
             DataView dv = table.DefaultView;
             dv.Sort = "Дата зміни desc";
@@ -1660,9 +1636,8 @@ namespace Disp_WinForm
                 dataGridView_lost.ClearSelection();
                 dataGridView_lost.Rows[selectpozition].Selected = true;
             }
-            
-
         }
+
         private void UpdateGrid_lost(DataTable table)
         {
             if (dataGridView_lost.InvokeRequired)
@@ -1684,7 +1659,7 @@ namespace Disp_WinForm
                 if (dataGridView_lost.DataSource != null)
                 {
                     scrollPosition = dataGridView_lost.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                    
+
                     try
                     {
                         selectpozition = dataGridView_lost.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
@@ -1724,9 +1699,9 @@ namespace Disp_WinForm
                     dataGridView_lost.ClearSelection();
                     dataGridView_lost.Rows[selectpozition].Selected = true;
                 }
-                
             }
         }
+
         private void dataGridView_lost_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             //return;
@@ -1757,6 +1732,7 @@ namespace Disp_WinForm
             dataGridView_lost.Columns[4].Visible = false;
             dataGridView_lost.ResumeLayout();
         }
+
         private void dataGridView_lost_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex <= -1 || e.ColumnIndex <= -1)
@@ -1776,7 +1752,6 @@ namespace Disp_WinForm
             }
             else
             {
-
                 vars_form.search_id = dataGridView_lost.Rows[e.RowIndex].Cells[4].Value.ToString(); //ID об"єкту(8)
                 vars_form.id_notif = dataGridView_lost.Rows[e.RowIndex].Cells[0].Value.ToString();//Згруповано до ID тривоги(9)
                 vars_form.id_status = dataGridView_lost.Rows[e.RowIndex].Cells[5].Value.ToString();//Статус(7)
@@ -1814,9 +1789,8 @@ namespace Disp_WinForm
             subwindow.Show();
         }
 
-
         /// Обновляем вкладку 909
-        /// 
+        ///
         private void update_909_dgv()
         {
             DataTable table = new DataTable();
@@ -1840,10 +1814,11 @@ namespace Disp_WinForm
             UpdateGridHandler ug = UpdateGrid_909;
             ug.BeginInvoke(table, cb_909, null);
         }
+
         private void cb_909(IAsyncResult res)
         {
-
         }
+
         private void UpdateGrid1_909(DataTable table)
         {
             //save sort
@@ -1851,14 +1826,14 @@ namespace Disp_WinForm
             ListSortDirection direction;
             if (dataGridView_909_n.SortOrder == SortOrder.Ascending) direction = ListSortDirection.Ascending;
             else direction = ListSortDirection.Descending;
-            
+
             //save scrol and selected row
-            int scrollPosition=0;
-            int selectpozition=0;
+            int scrollPosition = 0;
+            int selectpozition = 0;
             if (dataGridView_909_n.DataSource != null)
             {
                 scrollPosition = dataGridView_909_n.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                
+
                 try
                 {
                     selectpozition = dataGridView_909_n.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
@@ -1868,7 +1843,7 @@ namespace Disp_WinForm
                     selectpozition = 0;
                 }
             }
-            
+
             DataView dv = table.DefaultView;
             dv.Sort = "Дата зміни desc";
             DataTable sortedDT = dv.ToTable();
@@ -1906,15 +1881,15 @@ namespace Disp_WinForm
             if (dataGridView_909_n.Rows.Count >= selectpozition)
             {
                 dataGridView_909_n.ClearSelection();
-                try 
+                try
                 {
-                    dataGridView_909_n.Rows[selectpozition].Selected = true; 
+                    dataGridView_909_n.Rows[selectpozition].Selected = true;
                 }
                 catch (Exception)
                 { }
-                
             }
         }
+
         private void UpdateGrid_909(DataTable table)
         {
             if (dataGridView_909_n.InvokeRequired)
@@ -1931,8 +1906,8 @@ namespace Disp_WinForm
                 else direction = ListSortDirection.Descending;
 
                 //save scrol and selected row
-                int scrollPosition =0;
-                int selectpozition=0;
+                int scrollPosition = 0;
+                int selectpozition = 0;
                 if (dataGridView_909_n.DataSource != null)
                 {
                     scrollPosition = dataGridView_909_n.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
@@ -1961,7 +1936,7 @@ namespace Disp_WinForm
                 //    dataGridView_909_n.Refresh();
                 //}
                 ////----------------------------------------------------------------------
-                
+
                 //restote sort
                 if (oldColumn != null)
                 {
@@ -1985,11 +1960,9 @@ namespace Disp_WinForm
                     dataGridView_909_n.ClearSelection();
                     dataGridView_909_n.Rows[selectpozition].Selected = true;
                 }
-                
-
-                
             }
         }
+
         private void dataGridView_909_n_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex <= -1 || e.ColumnIndex <= -1)
@@ -2009,7 +1982,6 @@ namespace Disp_WinForm
             }
             else
             {
-
                 vars_form.search_id = dataGridView_909_n.Rows[e.RowIndex].Cells[4].Value.ToString(); //ID об"єкту(8)
                 vars_form.id_notif = dataGridView_909_n.Rows[e.RowIndex].Cells[0].Value.ToString();//Згруповано до ID тривоги(9)
                 vars_form.id_status = dataGridView_909_n.Rows[e.RowIndex].Cells[5].Value.ToString();//Статус(7)
@@ -2042,10 +2014,10 @@ namespace Disp_WinForm
                                 "WHERE " +
                                 "idnotification = '" + vars_form.id_notif + "';");
 
-
             detail subwindow = new detail();
             subwindow.Show();
         }
+
         private void dataGridView_909_n_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             dataGridView_909_n.SuspendLayout();
@@ -2076,10 +2048,8 @@ namespace Disp_WinForm
             dataGridView_909_n.ResumeLayout();
         }
 
-
-
         /// Обновляем вкладку Открытые тревоги
-        /// 
+        ///
         private void update_open_dgv()
         {
             DataTable table = new DataTable();
@@ -2097,10 +2067,11 @@ namespace Disp_WinForm
             UpdateGridHandler ug = UpdateGrid_open;
             ug.BeginInvoke(table, cb_open, null);
         }
+
         private void cb_open(IAsyncResult res)
         {
-
         }
+
         private void UpdateGrid1_open(DataTable table)
         {
             //save sort
@@ -2115,7 +2086,7 @@ namespace Disp_WinForm
             if (dataGridView_open_alarm.DataSource != null)
             {
                 scrollPosition = dataGridView_open_alarm.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                
+
                 try
                 {
                     selectpozition = dataGridView_open_alarm.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
@@ -2125,7 +2096,6 @@ namespace Disp_WinForm
                     selectpozition = 0;
                 }
             }
-
 
             dataGridView_open_alarm.DataSource = table;
 
@@ -2151,8 +2121,8 @@ namespace Disp_WinForm
                 dataGridView_open_alarm.ClearSelection();
                 dataGridView_open_alarm.Rows[selectpozition].Selected = true;
             }
-            
         }
+
         private void UpdateGrid_open(DataTable table)
         {
             if (dataGridView_open_alarm.InvokeRequired)
@@ -2174,7 +2144,7 @@ namespace Disp_WinForm
                 if (dataGridView_open_alarm.DataSource != null)
                 {
                     scrollPosition = dataGridView_open_alarm.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-                    
+
                     try
                     {
                         selectpozition = dataGridView_open_alarm.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
@@ -2184,7 +2154,6 @@ namespace Disp_WinForm
                         selectpozition = 0;
                     }
                 }
-
 
                 dataGridView_open_alarm.DataSource = table;
 
@@ -2213,6 +2182,7 @@ namespace Disp_WinForm
                 }
             }
         }
+
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex <= -1 || e.ColumnIndex <= -1)
@@ -2232,7 +2202,6 @@ namespace Disp_WinForm
             }
             else
             {
-
                 vars_form.search_id = dataGridView_open_alarm.Rows[e.RowIndex].Cells[8].Value.ToString(); //ID об"єкту(8)
                 vars_form.id_notif = dataGridView_open_alarm.Rows[e.RowIndex].Cells[9].Value.ToString();//Згруповано до ID тривоги(9)
                 vars_form.id_status = dataGridView_open_alarm.Rows[e.RowIndex].Cells[4].Value.ToString();//Статус(7)
@@ -2272,7 +2241,8 @@ namespace Disp_WinForm
             detail subwindow = new detail();
             subwindow.Show();
         }
-        void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             dataGridView_open_alarm.SuspendLayout();
 
@@ -2298,11 +2268,8 @@ namespace Disp_WinForm
             dataGridView_open_alarm.ResumeLayout();
         }
 
-
-
         public void mysql_close_alarm()
         {
-
             DataTable ds_close_alarm = new DataTable();
 
             ds_close_alarm = macros.GetData("SELECT " +
@@ -2331,8 +2298,6 @@ namespace Disp_WinForm
                                                     "order by notification.idnotification DESC " +
                                                     "limit " + textBox_limit_close.Text.ToString() + " ");
 
-
-
             dataGridView_close_alarm.AutoGenerateColumns = false;
             dataGridView_close_alarm.RowHeadersVisible = false;
 
@@ -2357,8 +2322,6 @@ namespace Disp_WinForm
                                  SortOrder.Ascending : SortOrder.Descending;
             }
 
-
-
             if (ds_close_alarm.Rows.Count > 0) // если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
             {
                 if (scrollPosition == -1)
@@ -2368,8 +2331,8 @@ namespace Disp_WinForm
 
                 this.dataGridView_close_alarm.FirstDisplayedScrollingRowIndex = scrollPosition;
             }
-
         }
+
         private void dataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
@@ -2387,7 +2350,6 @@ namespace Disp_WinForm
                 }
                 else
                 {
-
                     vars_form.search_id = dataGridView_close_alarm.Rows[e.RowIndex].Cells[8].Value.ToString(); ;
                     vars_form.id_notif = dataGridView_close_alarm.Rows[e.RowIndex].Cells[9].Value.ToString();
                     vars_form.id_status = dataGridView_close_alarm.Rows[e.RowIndex].Cells[7].Value.ToString();
@@ -2399,9 +2361,8 @@ namespace Disp_WinForm
                     subwindow.Show();
                 }
             }
-
-
         }
+
         private void dataGridView3_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (dataGridView_close_alarm.Rows[e.RowIndex].Cells[9].Value.ToString() != "")
@@ -2409,8 +2370,6 @@ namespace Disp_WinForm
                 e.CellStyle.BackColor = Color.Gray;
             }
         }
-
-
 
         private void Main_window_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -2511,7 +2470,6 @@ namespace Disp_WinForm
 
         private void textBox_limit_close_TextChanged(object sender, EventArgs e)
         {
-
             if (textBox_limit_close.Text.ToString() == "")
             { textBox_limit_close.Text = "1"; }
             mysql_close_alarm();
@@ -2519,7 +2477,6 @@ namespace Disp_WinForm
 
         private void button_test_sel_obj_yes_Click(object sender, EventArgs e)
         {
-            
             if (listBox_test_search_result.SelectedItems.Count <= 0)
             {
                 return;
@@ -2527,7 +2484,6 @@ namespace Disp_WinForm
 
             vars_form.id_wl_object_for_test = listBox_test_search_result.SelectedValue.ToString();
             vars_form.id_db_object_for_test = macros.sql_command("SELECT idObject FROM btk.Object where Object_id_wl=" + vars_form.id_wl_object_for_test + ";");
-
 
             Testing form_Testing = new Testing();
             form_Testing.Activated += new EventHandler(form_Testing_activated);
@@ -2537,24 +2493,21 @@ namespace Disp_WinForm
 
         private void dataGridView_testing_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-
             if (e.RowIndex <= -1 || e.ColumnIndex <= -1)
             {
                 return;
             }
 
-            vars_form.id_db_object_for_test = macros.sql_command("SELECT Object_idObject FROM btk.testing_object where idtesting_object ='" + dataGridView_testing.Rows[e.RowIndex].Cells[0].Value.ToString() + "';"); 
+            vars_form.id_db_object_for_test = macros.sql_command("SELECT Object_idObject FROM btk.testing_object where idtesting_object ='" + dataGridView_testing.Rows[e.RowIndex].Cells[0].Value.ToString() + "';");
             vars_form.id_wl_object_for_test = macros.sql_command("SELECT Object_id_wl FROM btk.Object where idObject ='" + vars_form.id_db_object_for_test + "';");
             vars_form.id_db_openning_testing = dataGridView_testing.Rows[e.RowIndex].Cells[0].Value.ToString();
             vars_form.if_open_created_testing = 1;
-
 
             Testing form_Testing = new Testing();
             form_Testing.Activated += new EventHandler(form_Testing_activated);
             form_Testing.FormClosed += new FormClosedEventHandler(form_Testing_deactivated);
             textBox_test_search.Text = "";
             form_Testing.Show();
-
         }
 
         private void form_Testing_activated(object sender, EventArgs e)
@@ -2605,7 +2558,6 @@ namespace Disp_WinForm
             vars_form.id_wl_object_for_test = listBox_test_search_result.SelectedValue.ToString();
             vars_form.id_db_object_for_test = macros.sql_command("SELECT idObject FROM btk.Object where Object_id_wl=" + vars_form.id_wl_object_for_test + ";");
 
-
             Testing form_Testing = new Testing();
             form_Testing.Activated += new EventHandler(form_Testing_activated);
             form_Testing.FormClosed += new FormClosedEventHandler(form_Testing_deactivated);
@@ -2624,7 +2576,6 @@ namespace Disp_WinForm
             }
         }
 
-
         private void button_start_activation_Click(object sender, EventArgs e)
         {
             if (listBox_activation_result_search.SelectedItems.Count <= 0)
@@ -2635,7 +2586,6 @@ namespace Disp_WinForm
             vars_form.id_wl_object_for_activation = listBox_activation_result_search.SelectedValue.ToString();
             vars_form.id_db_object_for_activation = macros.sql_command("SELECT idObject FROM btk.Object where Object_id_wl=" + vars_form.id_wl_object_for_activation + ";");
 
-
             vars_form.if_open_created_activation = 0;
             Activation_Form activation_form = new Activation_Form();
             activation_form.Activated += new EventHandler(activation_form_activated);
@@ -2645,23 +2595,20 @@ namespace Disp_WinForm
 
         private void activation_form_activated(object sender, EventArgs e)
         {
-            this.Visible = false;// блокируем окно  пока открыто окно добавления 
+            this.Visible = false;// блокируем окно  пока открыто окно добавления
         }
 
         private void activation_form_deactivated(object sender, FormClosedEventArgs e)
         {
-            this.Visible = true;// разблокируем окно  кактолько закрыто окно добавления 
+            this.Visible = true;// разблокируем окно  кактолько закрыто окно добавления
             vars_form.if_open_created_activation = 0;
             update_actication_dgv();
         }
-
-
 
         private void Main_window_Shown(object sender, EventArgs e)
         {
             init();
             //get_mqsql_data();
-
 
             SetTimer();
 
@@ -2675,7 +2622,6 @@ namespace Disp_WinForm
             checkBox_hide_groupe_alarm.Checked = true;
 
             comboBox_sort_column.SelectedIndexChanged += checkBox_sort_order_CheckedChanged;
-
         }
 
         private void button_lenik_get_rep_vidpra_Click(object sender, EventArgs e)
@@ -2690,12 +2636,8 @@ namespace Disp_WinForm
                 gmr_police = 0;
             }
 
-
-
-
             DataSet data = new DataSet();
 
-            
             data = macros.GetData_dataset("SELECT " +
                                   "notification.idnotification, " +
                                   "notification.unit_name, " +
@@ -2754,10 +2696,7 @@ namespace Disp_WinForm
 
         private void Main_window_Load(object sender, EventArgs e)
         {
-            
-
         }
-
 
         private void form_form_Zayavki_activated(object sender, EventArgs e)
         {
@@ -2769,7 +2708,6 @@ namespace Disp_WinForm
             vars_form.if_open_created_zayavka = 0;
             this.Enabled = true;// разблокируем окно контрагентов кактолько закрыто окно добавления контрагента
             update_zayavki_na_aktivation_2W();
-
         }
 
         private void button_create_zayavka_Click(object sender, EventArgs e)
@@ -2797,7 +2735,6 @@ namespace Disp_WinForm
             form_Zayavki.FormClosed += new FormClosedEventHandler(form_form_Zayavki_deactivated);
             form_Zayavki.Show();
         }
-
 
         private void dataGridView_for_activation_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -2878,7 +2815,6 @@ namespace Disp_WinForm
             }
             else
             {
-
                 row.DefaultCellStyle.BackColor = Color.White;
             }
         }
@@ -2902,7 +2838,7 @@ namespace Disp_WinForm
         /// ////////
         /// </summary>
 
-        /// 
+        ///
 
         private void Google_masseges()
         {
@@ -2949,6 +2885,7 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     break;
+
                 case "2"://CNTK
                     //HW_id = 9;
                     maskedTextBox_GSM_CODE.Enabled = false;
@@ -2962,9 +2899,10 @@ namespace Disp_WinForm
                     maskedTextBox_GSM_CODE.Text = "";
                     textBox_id_to_create.Text = "";
                     maskedTextBox_PUK.Text = "";
-                    maskedTextBox_sim_no_to_create.Text = "";;
+                    maskedTextBox_sim_no_to_create.Text = ""; ;
                     textBox_bt_enable.Text = "";
                     break;
+
                 case "3"://CNTP
                     //int HW_id = "9";
                     maskedTextBox_GSM_CODE.Enabled = false;
@@ -2981,6 +2919,7 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     break;
+
                 case "4"://CNTP-SE
                     //int HW_id = "38";
                     maskedTextBox_GSM_CODE.Enabled = false;
@@ -2997,6 +2936,7 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     break;
+
                 case "5"://SLED
                     //selectet_product = "37";
                     maskedTextBox_GSM_CODE.Enabled = false;
@@ -3012,6 +2952,7 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     break;
+
                 case "6"://C_n
                     //selectet_product = "9";
                     maskedTextBox_GSM_CODE.Enabled = false;
@@ -3027,6 +2968,7 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     break;
+
                 case "7"://K_n
                     //selectet_product = "9";
                     maskedTextBox_GSM_CODE.Enabled = false;
@@ -3042,6 +2984,7 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     break;
+
                 case "8"://W
                     //selectet_product = "456";
                     maskedTextBox_GSM_CODE.Enabled = false;
@@ -3057,6 +3000,7 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     break;
+
                 case "9"://S
                     //selectet_product = "8";
                     maskedTextBox_GSM_CODE.Enabled = false;
@@ -3072,6 +3016,7 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     break;
+
                 case "10"://CNTK_910
                     //selectet_product = "9";
                     maskedTextBox_GSM_CODE.Enabled = true;
@@ -3088,6 +3033,7 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     break;
+
                 case "11"://CNTP_910
                     //selectet_product = "9";
                     maskedTextBox_GSM_CODE.Enabled = true;
@@ -3104,6 +3050,7 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     break;
+
                 case "12"://CNTP_910_SE_N
                     //selectet_product = "9";
                     maskedTextBox_GSM_CODE.Enabled = true;
@@ -3120,6 +3067,7 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     break;
+
                 case "13"://CNTP_910_SE_P
                     //selectet_product = "9";
                     maskedTextBox_GSM_CODE.Enabled = true;
@@ -3174,39 +3122,51 @@ namespace Disp_WinForm
                 case "Пусто":
                     MessageBox.Show("Выбери продукт");
                     break;
+
                 case "CNTK":
                     CNTK();
                     break;
+
                 case "CNTP":
                     CNTP();
                     break;
+
                 case "CNTP-SE":
                     MessageBox.Show("В разработке, скоро будет..");
                     break;
+
                 case "SLED":
                     SLED();
                     break;
+
                 case "C_n":
                     C_N();
                     break;
+
                 case "K_n":
                     K_n();
                     break;
+
                 case "W":
                     MessageBox.Show("В разработке, скоро будет..");
                     break;
+
                 case "S":
                     S();
                     break;
+
                 case "CNTK_910":
                     CNTK_910();
                     break;
+
                 case "CNTP_910":
                     CNTP_910();
                     break;
+
                 case "CNTP_910_SE_N":
                     CNTP_910_N();
                     break;
+
                 case "CNTP_910_SE_P":
                     CNTP_910_P();
                     break;
@@ -3248,7 +3208,7 @@ namespace Disp_WinForm
                                                      "\"spec\":{" +
                                                      "\"itemsType\":\"avl_unit\"," +
                                                      "\"propName\":\"sys_phone_number|sys_phone_number2\"," +
-                                                     "\"propValueMask\":\""+ "*" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "\", " +
+                                                     "\"propValueMask\":\"" + "*" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "\", " +
                                                      "\"sortType\":\"sys_name\"," +
                                                      "\"or_logic\":\"1\"}," +
                                                      "\"force\":\"1\"," +
@@ -3256,7 +3216,7 @@ namespace Disp_WinForm
                                                      "\"from\":\"0\"," +
                                                      "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
             var m = JsonConvert.DeserializeObject<RootObject>(unswer);
-            if (m.items.Count>0)
+            if (m.items.Count > 0)
             {
                 MessageBox.Show("Указанный телефон существует в WL");
                 return;
@@ -3284,7 +3244,7 @@ namespace Disp_WinForm
             /////////////////
             ///Создаем объект
             /////////////////
-            string cr_obj_in =  "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
+            string cr_obj_in = "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
             string json = macros.WialonRequest(cr_obj_in);
             var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
             if (cr_obj_out.error != 0)
@@ -3309,9 +3269,9 @@ namespace Disp_WinForm
             }
 
             /////////////////
-            ///Установливаем имя объекта и ID оборудования и 
+            ///Установливаем имя объекта и ID оборудования и
             /////////////////
-            string item_id_in = 
+            string item_id_in =
                 "&svc=unit/update_device_type&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id
                 + "\",\"deviceTypeId\":\"" + "9"
@@ -3326,7 +3286,7 @@ namespace Disp_WinForm
             /////////////////
             ///Устанавливаем номер СИМ
             /////////////////
-            string item_phone_in =  "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string item_phone_in = "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
             string json3 = macros.WialonRequest(item_phone_in);
             var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
             if (item_phone_out.error != 0)
@@ -3510,66 +3470,65 @@ namespace Disp_WinForm
             //Произвольное поле 20
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.9.2 Штатні кнопки введення PIN-коду", "");
 
-            //Административное поле 21
+            //Административное поле 1
             answer = macros.create_admin_field_wl(cr_obj_out.item.id, "3.9.3 GSM-код", maskedTextBox_GSM_CODE.Text.ToString());
 
-            //Административное поле 22
+            //Административное поле 2
             answer = macros.create_admin_field_wl(cr_obj_out.item.id, "3.9.4 PUK-код", maskedTextBox_PUK.Text.ToString());
 
-            //Административное поле 23
+            //Административное поле 3
             answer = macros.create_admin_field_wl(cr_obj_out.item.id, "3.9.5 Bluetuth-код", maskedTextBox_BLE_CODE.Text.ToString());
 
-            //Произвольное поле 24
+            //Произвольное поле 21
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "4.1 Дата активації", "");
 
-            //Произвольное поле 25
+            //Произвольное поле 22
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "4.1.1 Оператор, що активував", "");
 
-            //Произвольное поле 26
+            //Произвольное поле 23
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "4.2 Дата встановлення PIN-коду", "");
 
-            //Произвольное поле 27
+            //Произвольное поле 24
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "4.3 PIN-код встановлено особою(клієнт/установлник)", "");
 
-            //Произвольное поле 28
+            //Произвольное поле 25
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "4.4 Обліковий запис WL", "");
 
-            //Произвольное поле 29
+            //Произвольное поле 26
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "5.1 Менеджер", "");
 
-            //Произвольное поле 30
+            //Произвольное поле 27
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "5.2 Договір обслуговування", "");
 
-            //Произвольное поле 31
+            //Произвольное поле 28
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "5.3 Гарантія до", "");
 
-            //Произвольное поле 32
+            //Произвольное поле 29
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "5.4 Дата закінчення договору страхування", "");
 
-            //Произвольное поле 33
+            //Произвольное поле 30
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "8.1 Паркінг 1", "");
 
-            //Произвольное поле 34
+            //Произвольное поле 31
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "8.2 Паркінг 2", "");
 
-            //Произвольное поле 35
+            //Произвольное поле 33
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "9.0 Примітки", "");
 
-            //Произвольное поле 36
+            //Произвольное поле 33
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "9.1 Техпаспорт", "");
 
-            //Произвольное поле 37
+            //Произвольное поле 34
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "9.2.1 Дата перевірки картки", "ДД.ММ.РРРР");
 
-            //Произвольное поле 38
+            //Произвольное поле 35
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "9.2.2 Оператор перевірки картки", "Прізвище");
 
-            //Произвольное поле 39
+            //Произвольное поле 36
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "10 Кодове слово", "");
 
             //Админитстративное поле 40
             answer = macros.create_admin_field_wl(cr_obj_out.item.id, "13 Prizrak 910 SN", search_tovar_comboBox.Text);
-
 
             /////////////////
             ///Добавляем в группу Объекты All
@@ -3594,7 +3553,7 @@ namespace Disp_WinForm
             ///Создаем команды
             /////////////////
             ///http://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/unit/update_command_definition
-            /// 83886080- закрыта команда  для клиента 
+            /// 83886080- закрыта команда  для клиента
             /// 16777216- открыта команда для клиента
 
             //0 - Запросить текущее состояние
@@ -3640,7 +3599,7 @@ namespace Disp_WinForm
             string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режиме", "%23valet=0%23", 16777216);
 
             //получаем айди SIM-card
-            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '"+ maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
 
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card, Objectcol_puk, Objectcol_gsm_code, Objectcol_ble_code, Objectcol_bt_enable, Objectcol_sn_prizrak) "
                 + "values('" + cr_obj_out.item.id
@@ -3649,7 +3608,7 @@ namespace Disp_WinForm
                 + " " + textBox_id_to_create.Text.ToString() + "','"
                 + maskedTextBox_sim_no_to_create.Text.ToString()
                 + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "'," +
-                " '"+ id_sim + "'," +
+                " '" + id_sim + "'," +
                 " '1', '1', '1','1', null, '" + vars_form.user_login_id + "', '"
                 + textBox_id_to_create.Text.ToString() + "', '"
                 + maskedTextBox_PUK.Text.ToString() + "', '"
@@ -3673,7 +3632,6 @@ namespace Disp_WinForm
             string sql5 = string.Format("insert into btk.object_subscr (Object_idObject, Subscription_idSubscr) values (" + id_object + "," + sql4 + ");");
             macros.sql_command(sql5);
 
-
             ///////////////////////
             //Если все прошло успешно - завечиваем зеленым кнопку и затирает текстбоксы
             //////////////////////////
@@ -3688,6 +3646,7 @@ namespace Disp_WinForm
             comboBox_tel_select.Text = "";
             search_tovar_comboBox.Text = "";
         }
+
         private void CNTP_910()
         {
             /////////////////////
@@ -3760,7 +3719,7 @@ namespace Disp_WinForm
             /////////////////
             ///Создаем объект
             /////////////////
-            string cr_obj_in =  "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
+            string cr_obj_in = "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
             string json = macros.WialonRequest(cr_obj_in);
             var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
             if (cr_obj_out.error != 0)
@@ -3785,9 +3744,9 @@ namespace Disp_WinForm
             }
 
             /////////////////
-            ///Установливаем имя объекта и ID оборудования и 
+            ///Установливаем имя объекта и ID оборудования и
             /////////////////
-            string item_id_in = 
+            string item_id_in =
                 "&svc=unit/update_device_type&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id
                 + "\",\"deviceTypeId\":\"" + "9"
@@ -3802,7 +3761,7 @@ namespace Disp_WinForm
             /////////////////
             ///Устанавливаем номер СИМ
             /////////////////
-            string item_phone_in =  "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string item_phone_in = "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
             string json3 = macros.WialonRequest(item_phone_in);
             var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
             if (item_phone_out.error != 0)
@@ -3921,7 +3880,6 @@ namespace Disp_WinForm
 
             //36. Сработка датчика глушения
             string aux_zone_1_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сработка датчика глушения", "digital", "Вкл/Выкл", "aux_zone_1", 36, "1", 0, "");
-
 
             /////////////////
             ///Создаем произвольные поля
@@ -4047,8 +4005,6 @@ namespace Disp_WinForm
             //Админитстративное поле 40
             answer = macros.create_admin_field_wl(cr_obj_out.item.id, "13 Prizrak 910 SN", search_tovar_comboBox.Text);
 
-
-
             /////////////////
             ///Добавляем в группу Объекты All
             /////////////////
@@ -4072,7 +4028,7 @@ namespace Disp_WinForm
             ///Создаем команды
             /////////////////
             ///http://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/unit/update_command_definition
-            /// 83886080- закрыта команда  для клиента 
+            /// 83886080- закрыта команда  для клиента
             /// 16777216- открыта команда для клиента
 
             //0 - Запросить текущее состояние
@@ -4127,9 +4083,9 @@ namespace Disp_WinForm
                                         + " " + textBox_id_to_create.Text.ToString() + "','"
                                         + maskedTextBox_sim_no_to_create.Text.ToString()
                                         + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', " +
-                                        "'"+ id_sim + "'," +
+                                        "'" + id_sim + "'," +
                                         " '1', '1', '1','1', null, '" + vars_form.user_login_id + "', '"
-                                        +textBox_id_to_create.Text.ToString() + "', '"
+                                        + textBox_id_to_create.Text.ToString() + "', '"
                                         + maskedTextBox_PUK.Text.ToString() + "', '"
                                         + maskedTextBox_GSM_CODE.Text.ToString() + "', '"
                                         + maskedTextBox_BLE_CODE.Text.ToString() + "', '"
@@ -4151,7 +4107,6 @@ namespace Disp_WinForm
             string sql5 = string.Format("insert into btk.object_subscr (Object_idObject, Subscription_idSubscr) values (" + id_object + "," + sql4 + ");");
             macros.sql_command(sql5);
 
-
             ///////////////////////
             //Если все прошло успешно - завечиваем зеленым кнопку и затирает текстбоксы
             //////////////////////////
@@ -4166,6 +4121,7 @@ namespace Disp_WinForm
             search_tovar_comboBox.Text = "";
             button_create_object.BackColor = Color.Green;
         }
+
         private void CNTP_910_P()
         {
             /////////////////////
@@ -4238,7 +4194,7 @@ namespace Disp_WinForm
             /////////////////
             ///Создаем объект
             /////////////////
-            string cr_obj_in =  "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
+            string cr_obj_in = "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
             string json = macros.WialonRequest(cr_obj_in);
             var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
             if (cr_obj_out.error != 0)
@@ -4263,9 +4219,9 @@ namespace Disp_WinForm
             }
 
             /////////////////
-            ///Установливаем имя объекта и ID оборудования и 
+            ///Установливаем имя объекта и ID оборудования и
             /////////////////
-            string item_id_in = 
+            string item_id_in =
                 "&svc=unit/update_device_type&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id
                 + "\",\"deviceTypeId\":\"" + "9"
@@ -4280,7 +4236,7 @@ namespace Disp_WinForm
             /////////////////
             ///Устанавливаем номер СИМ
             /////////////////
-            string item_phone_in =  "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string item_phone_in = "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
             string json3 = macros.WialonRequest(item_phone_in);
             var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
             if (item_phone_out.error != 0)
@@ -4399,7 +4355,6 @@ namespace Disp_WinForm
 
             //36. Сработка датчика глушения
             string aux_zone_1_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сработка датчика глушения", "digital", "Вкл/Выкл", "aux_zone_1", 36, "1", 0, "");
-
 
             /////////////////
             ///Создаем произвольные поля
@@ -4525,8 +4480,6 @@ namespace Disp_WinForm
             //Админитстративное поле 40
             answer = macros.create_admin_field_wl(cr_obj_out.item.id, "13 Prizrak 910 SN", search_tovar_comboBox.Text);
 
-
-
             /////////////////
             ///Добавляем в группу Объекты All
             /////////////////
@@ -4550,7 +4503,7 @@ namespace Disp_WinForm
             ///Создаем команды
             /////////////////
             ///http://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/unit/update_command_definition
-            /// 83886080- закрыта команда  для клиента 
+            /// 83886080- закрыта команда  для клиента
             /// 16777216- открыта команда для клиента
 
             //0 - Запросить текущее состояние
@@ -4629,7 +4582,6 @@ namespace Disp_WinForm
             string sql5 = string.Format("insert into btk.object_subscr (Object_idObject, Subscription_idSubscr) values (" + id_object + "," + sql4 + ");");
             macros.sql_command(sql5);
 
-
             ///////////////////////
             //Если все прошло успешно - завечиваем зеленым кнопку и затирает текстбоксы
             //////////////////////////
@@ -4644,6 +4596,7 @@ namespace Disp_WinForm
             search_tovar_comboBox.Text = "";
             button_create_object.BackColor = Color.Green;
         }
+
         private void CNTP_910_N()
         {
             /////////////////////
@@ -4716,7 +4669,7 @@ namespace Disp_WinForm
             /////////////////
             ///Создаем объект
             /////////////////
-            string cr_obj_in =  "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
+            string cr_obj_in = "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
             string json = macros.WialonRequest(cr_obj_in);
             var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
             if (cr_obj_out.error != 0)
@@ -4741,9 +4694,9 @@ namespace Disp_WinForm
             }
 
             /////////////////
-            ///Установливаем имя объекта и ID оборудования и 
+            ///Установливаем имя объекта и ID оборудования и
             /////////////////
-            string item_id_in = 
+            string item_id_in =
                 "&svc=unit/update_device_type&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id
                 + "\",\"deviceTypeId\":\"" + "9"
@@ -4758,7 +4711,7 @@ namespace Disp_WinForm
             /////////////////
             ///Устанавливаем номер СИМ
             /////////////////
-            string item_phone_in =  "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string item_phone_in = "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
             string json3 = macros.WialonRequest(item_phone_in);
             var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
             if (item_phone_out.error != 0)
@@ -4877,7 +4830,6 @@ namespace Disp_WinForm
 
             //36. Сработка датчика глушения
             string aux_zone_1_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сработка датчика глушения", "digital", "Вкл/Выкл", "aux_zone_1", 36, "1", 0, "");
-
 
             /////////////////
             ///Создаем произвольные поля
@@ -5003,8 +4955,6 @@ namespace Disp_WinForm
             //Админитстративное поле 40
             answer = macros.create_admin_field_wl(cr_obj_out.item.id, "13 Prizrak 910 SN", search_tovar_comboBox.Text);
 
-
-
             /////////////////
             ///Добавляем в группу Объекты All
             /////////////////
@@ -5028,7 +4978,7 @@ namespace Disp_WinForm
             ///Создаем команды
             /////////////////
             ///http://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/unit/update_command_definition
-            /// 83886080- закрыта команда  для клиента 
+            /// 83886080- закрыта команда  для клиента
             /// 16777216- открыта команда для клиента
 
             //0 - Запросить текущее состояние
@@ -5107,7 +5057,6 @@ namespace Disp_WinForm
             string sql5 = string.Format("insert into btk.object_subscr (Object_idObject, Subscription_idSubscr) values (" + id_object + "," + sql4 + ");");
             macros.sql_command(sql5);
 
-
             ///////////////////////
             //Если все прошло успешно - завечиваем зеленым кнопку и затирает текстбоксы
             //////////////////////////
@@ -5122,6 +5071,7 @@ namespace Disp_WinForm
             search_tovar_comboBox.Text = "";
             button_create_object.BackColor = Color.Green;
         }
+
         private void CNTP()
         {
             /////////////////////
@@ -5194,7 +5144,7 @@ namespace Disp_WinForm
             /////////////////
             ///Создаем объект
             /////////////////
-            string cr_obj_in =  "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
+            string cr_obj_in = "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
             string json = macros.WialonRequest(cr_obj_in);
             var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
             if (cr_obj_out.error != 0)
@@ -5220,9 +5170,9 @@ namespace Disp_WinForm
             }
 
             /////////////////
-            ///Установливаем имя объекта и ID оборудования и 
+            ///Установливаем имя объекта и ID оборудования и
             /////////////////
-            string item_id_in = 
+            string item_id_in =
                 "&svc=unit/update_device_type&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id
                 + "\",\"deviceTypeId\":\"" + "9"
@@ -5239,7 +5189,7 @@ namespace Disp_WinForm
             /////////////////
             ///Устанавливаем номер СИМ
             /////////////////
-            string item_phone_in =  "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string item_phone_in = "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
             string json3 = macros.WialonRequest(item_phone_in);
             var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
             if (item_phone_out.error != 0)
@@ -5933,7 +5883,6 @@ namespace Disp_WinForm
             string sql5 = string.Format("insert into btk.object_subscr (Object_idObject, Subscription_idSubscr) values (" + id_object + "," + sql4 + ");");
             macros.sql_command(sql5);
 
-
             ///////////////////////
             //Если все прошло успешно - завечиваем зеленым кнопку и затирает текстбоксы
             //////////////////////////
@@ -5947,6 +5896,7 @@ namespace Disp_WinForm
             search_tovar_comboBox.Text = "";
             button_create_object.BackColor = Color.Green;
         }
+
         private void CNTK()
         {
             /////////////////////
@@ -6019,7 +5969,7 @@ namespace Disp_WinForm
             /////////////////
             ///Создаем объект
             /////////////////
-            string cr_obj_in =  "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
+            string cr_obj_in = "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
             string json = macros.WialonRequest(cr_obj_in);
             var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
             if (cr_obj_out.error != 0)
@@ -6044,9 +5994,9 @@ namespace Disp_WinForm
             }
 
             /////////////////
-            ///Установливаем имя объекта и ID оборудования и 
+            ///Установливаем имя объекта и ID оборудования и
             /////////////////
-            string item_id_in = 
+            string item_id_in =
                 "&svc=unit/update_device_type&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id
                 + "\",\"deviceTypeId\":\"" + "9"
@@ -6061,7 +6011,7 @@ namespace Disp_WinForm
             /////////////////
             ///Устанавливаем номер СИМ
             /////////////////
-            string item_phone_in =  "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string item_phone_in = "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
             string json3 = macros.WialonRequest(item_phone_in);
             var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
             if (item_phone_out.error != 0)
@@ -6767,6 +6717,7 @@ namespace Disp_WinForm
             search_tovar_comboBox.Text = "";
             button_create_object.BackColor = Color.Green;
         }
+
         private void C_N()
         {
             /////////////////////
@@ -6822,11 +6773,10 @@ namespace Disp_WinForm
                 return;
             }
 
-
             /////////////////
             ///Создаем объект
             /////////////////
-            string cr_obj_in =  "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
+            string cr_obj_in = "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
             string json = macros.WialonRequest(cr_obj_in);
             var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
             if (cr_obj_out.error != 0)
@@ -6851,9 +6801,9 @@ namespace Disp_WinForm
             }
 
             /////////////////
-            ///Установливаем имя объекта и ID оборудования и 
+            ///Установливаем имя объекта и ID оборудования и
             /////////////////
-            string item_id_in = 
+            string item_id_in =
                 "&svc=unit/update_device_type&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id
                 + "\",\"deviceTypeId\":\"" + "9"
@@ -6868,7 +6818,7 @@ namespace Disp_WinForm
             /////////////////
             ///Устанавливаем номер СИМ
             /////////////////
-            string item_phone_in =  "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string item_phone_in = "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
             string json3 = macros.WialonRequest(item_phone_in);
             var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
             if (item_phone_out.error != 0)
@@ -7403,7 +7353,7 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 34
-            string pp34_answer = macros.WialonRequest( "&svc=item/update_custom_field&params={"
+            string pp34_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7411,7 +7361,7 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 35
-            string pp35_answer = macros.WialonRequest( "&svc=item/update_custom_field&params={"
+            string pp35_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7419,7 +7369,7 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 36
-            string pp36_answer = macros.WialonRequest( "&svc=item/update_custom_field&params={"
+            string pp36_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7427,7 +7377,7 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 37
-            string pp37_answer = macros.WialonRequest( "&svc=item/update_custom_field&params={"
+            string pp37_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7435,7 +7385,7 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 38
-            string pp38_answer = macros.WialonRequest( "&svc=item/update_custom_field&params={"
+            string pp38_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7443,7 +7393,7 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 39
-            string pp39_answer = macros.WialonRequest( "&svc=item/update_admin_field&params={"
+            string pp39_answer = macros.WialonRequest("&svc=item/update_admin_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7451,7 +7401,7 @@ namespace Disp_WinForm
                 + "\"v\":\"" + textBox_id_to_create.Text.ToString() + "\"}");
 
             //Произвольное поле 40
-            string pp40_answer = macros.WialonRequest( "&svc=item/update_admin_field&params={"
+            string pp40_answer = macros.WialonRequest("&svc=item/update_admin_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7459,7 +7409,7 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 41
-            string pp41_answer = macros.WialonRequest( "&svc=item/update_admin_field&params={"
+            string pp41_answer = macros.WialonRequest("&svc=item/update_admin_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7470,7 +7420,7 @@ namespace Disp_WinForm
             ///Добавляем в группу Объекты All
             /////////////////
 
-            string get_units_on_group = macros.WialonRequest( "&svc=core/search_item&params={"
+            string get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
                 + "\"id\":\"2612\","
                 + "\"flags\":\"1\"}");//получаем все объекты группы
 
@@ -7479,7 +7429,7 @@ namespace Disp_WinForm
             list_get_units_on_group.item.u.Add(cr_obj_out.item.id);//Доповляем в список новый объект
             string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
 
-            string gr_answer = macros.WialonRequest( "&svc=unit_group/update_units&params={"
+            string gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                 + "\"itemId\":\"2612\","
                 + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
@@ -7489,7 +7439,7 @@ namespace Disp_WinForm
             ///
 
             //Start engine
-            string cmd_start_answer = macros.WialonRequest( "&svc=unit/update_command_definition&params={"
+            string cmd_start_answer = macros.WialonRequest("&svc=unit/update_command_definition&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7511,7 +7461,7 @@ namespace Disp_WinForm
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
             //Service
-            string cmd_service_answer = macros.WialonRequest( "&svc=unit/update_command_definition&params={"
+            string cmd_service_answer = macros.WialonRequest("&svc=unit/update_command_definition&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"id\":\"0\","
                 + "\"callMode\":\"create\","
@@ -7548,7 +7498,6 @@ namespace Disp_WinForm
             string sql5 = string.Format("insert into btk.object_subscr (Object_idObject, Subscription_idSubscr) values (" + id_object + "," + sql4 + ");");
             macros.sql_command(sql5);
 
-
             ///////////////////////
             //Если все прошло успешно - завечиваем зеленым кнопку и затирает текстбоксы
             //////////////////////////
@@ -7562,6 +7511,7 @@ namespace Disp_WinForm
             search_tovar_comboBox.Text = "";
             button_create_object.BackColor = Color.Green;
         }
+
         private void K_n()
         {
             /////////////////////
@@ -7578,7 +7528,6 @@ namespace Disp_WinForm
                 maskedTextBox_sim_no_to_create.BackColor = Color.Red;
                 return;
             }
-
 
             // Проверям существует ли данный номер в системе
             string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
@@ -7618,11 +7567,10 @@ namespace Disp_WinForm
                 return;
             }
 
-
             /////////////////
             ///Создаем объект
             /////////////////
-            string cr_obj_in =  "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
+            string cr_obj_in = "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
             string json = macros.WialonRequest(cr_obj_in);
             var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
             if (cr_obj_out.error != 0)
@@ -7635,7 +7583,7 @@ namespace Disp_WinForm
             ///Создаем пароль доступа к объекту
             /////////////////
 
-            string accsess_pass_answer = macros.WialonRequest( "&svc=unit/update_access_password&params={"
+            string accsess_pass_answer = macros.WialonRequest("&svc=unit/update_access_password&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
                 + "\"accessPassword\":\"11111\"}");
             var accsess_pass_answer_out = JsonConvert.DeserializeObject<RootObject>(json);
@@ -7646,7 +7594,7 @@ namespace Disp_WinForm
             }
 
             /////////////////
-            ///Установливаем имя объекта и ID оборудования и 
+            ///Установливаем имя объекта и ID оборудования и
             /////////////////
             string item_id_in = "&svc=unit/update_device_type&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id
@@ -7662,7 +7610,7 @@ namespace Disp_WinForm
             /////////////////
             ///Устанавливаем номер СИМ
             /////////////////
-            string item_phone_in =  "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string item_phone_in = "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
             string json3 = macros.WialonRequest(item_phone_in);
             var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
             if (item_phone_out.error != 0)
@@ -7673,7 +7621,6 @@ namespace Disp_WinForm
             /////////////////
             ///Создаем датчики
             /////////////////
-
 
             //3. Напряжение АКБ
             string akb_answer = macros.WialonRequest(
@@ -7692,7 +7639,6 @@ namespace Disp_WinForm
                 + "\"vt\":\"1\","
                 + "\"vs\":\"0\","
                 + "\"tbl\":[]}");
-
 
             //6. Напряжение внутреннего АКБ
             string v_akb__answer = macros.WialonRequest("&svc=unit/update_sensor&params={"
@@ -7728,7 +7674,6 @@ namespace Disp_WinForm
                 + "\"vs\":\"0\","
                 + "\"tbl\":[{\"x\":0,\"a\":20,\"b\":0},{\"x\":1,\"a\":20,\"b\":0},{\"x\":2,\"a\":20,\"b\":0},{\"x\":3,\"a\":20,\"b\":0},{\"x\":4,\"a\":20,\"b\":0},{\"x\":5,\"a\":20,\"b\":0}]}");
 
-
             //9. Тревожная кнопка
             string tk_answer = macros.WialonRequest("&svc=unit/update_sensor&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -7745,7 +7690,6 @@ namespace Disp_WinForm
                 + "\"vt\":\"1\","
                 + "\"vs\":\"0\","
                 + "\"tbl\":[{\"x\":0,\"a\":0,\"b\":1},{\"x\":5.9,\"a\":0,\"b\":1},{\"x\":6,\"a\":0,\"b\":0},{\"x\":13,\"a\":0,\"b\":0}]}");
-
 
             //11. Зажигание
             string ign_answer = macros.WialonRequest(
@@ -7849,7 +7793,6 @@ namespace Disp_WinForm
                 + "\"n\":\"3.1.1 Оператор, що тестував\","
                 + "\"v\":\"\"}");
 
-
             //Произвольное поле 11
             string pp11_answer = macros.WialonRequest(
                 "&svc=item/update_custom_field&params={"
@@ -7903,8 +7846,6 @@ namespace Disp_WinForm
                 + "\"callMode\":\"create\","
                 + "\"n\":\"3.6.2 Реле блокування: елемент блокування\","
                 + "\"v\":\"\"}");
-
-
 
             //Произвольное поле 19
             string pp19_answer = macros.WialonRequest(
@@ -8104,7 +8045,6 @@ namespace Disp_WinForm
             //получаем айди SIM-card
             string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
 
-
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers) "
                 + "values('" + cr_obj_out.item.id
                 + "', '" + textBox_id_to_create.Text.ToString()
@@ -8129,7 +8069,6 @@ namespace Disp_WinForm
             string sql5 = string.Format("insert into btk.object_subscr (Object_idObject, Subscription_idSubscr) values (" + id_object + "," + sql4 + ");");
             macros.sql_command(sql5);
 
-
             ///////////////////////
             //Если все прошло успешно - завечиваем зеленым кнопку и затирает текстбоксы
             //////////////////////////
@@ -8143,6 +8082,7 @@ namespace Disp_WinForm
             search_tovar_comboBox.Text = "";
             button_create_object.BackColor = Color.Green;
         }
+
         private void S()
         {
             /////////////////////
@@ -8196,7 +8136,7 @@ namespace Disp_WinForm
             /////////////////
             ///Создаем объект
             /////////////////
-            string cr_obj_in =  "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"8\",\"dataFlags\":\"1\"}";
+            string cr_obj_in = "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"8\",\"dataFlags\":\"1\"}";
             string json = macros.WialonRequest(cr_obj_in);
             var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
             if (cr_obj_out.error != 0)
@@ -8221,9 +8161,9 @@ namespace Disp_WinForm
             }
 
             /////////////////
-            ///Установливаем имя объекта и ID оборудования и 
+            ///Установливаем имя объекта и ID оборудования и
             /////////////////
-            string item_id_in = 
+            string item_id_in =
                 "&svc=unit/update_device_type&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id
                 + "\",\"deviceTypeId\":\"" + "8"
@@ -8430,7 +8370,6 @@ namespace Disp_WinForm
                 + "\"n\":\"Електронна скринька\","
                 + "\"v\":\"\"}");
 
-
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers) "
                 + "values('" + cr_obj_out.item.id
                 + "', '" + textBox_id_to_create.Text.ToString()
@@ -8466,6 +8405,7 @@ namespace Disp_WinForm
             search_tovar_comboBox.Text = "";
             button_create_object.BackColor = Color.Green;
         }
+
         private void SLED()
         {
             /////////////////////
@@ -8482,7 +8422,6 @@ namespace Disp_WinForm
                 maskedTextBox_sim_no_to_create.BackColor = Color.Red;
                 return;
             }
-
 
             // Проверям существует ли данный номер в системе
             string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
@@ -8525,7 +8464,7 @@ namespace Disp_WinForm
             /////////////////
             ///Создаем объект
             /////////////////
-            string cr_obj_in =  "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"37\",\"dataFlags\":\"1\"}";
+            string cr_obj_in = "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"37\",\"dataFlags\":\"1\"}";
             string json = macros.WialonRequest(cr_obj_in);
             var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
             if (cr_obj_out.error != 0)
@@ -8535,9 +8474,9 @@ namespace Disp_WinForm
             }
 
             /////////////////
-            ///Установливаем имя объекта и ID оборудования и 
+            ///Установливаем имя объекта и ID оборудования и
             /////////////////
-            string item_id_in = 
+            string item_id_in =
                 "&svc=unit/update_device_type&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id
                 + "\",\"deviceTypeId\":\"" + "37"
@@ -8552,7 +8491,7 @@ namespace Disp_WinForm
             /////////////////
             ///Устанавливаем номер СИМ
             /////////////////
-            string item_phone_in =  "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string item_phone_in = "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
             string json3 = macros.WialonRequest(item_phone_in);
             var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
             if (item_phone_out.error != 0)
@@ -8596,7 +8535,6 @@ namespace Disp_WinForm
                 + "\"vt\":\"1\","
                 + "\"vs\":\"0\","
                 + "\"tbl\":[]}");
-
 
             //2. Статус Заряд батареи
             string door_answer = macros.WialonRequest(
@@ -8706,8 +8644,6 @@ namespace Disp_WinForm
                 + "\"vs\":\"0\","
                 + "\"tbl\":[]}");
 
-
-
             /////////////////
             ///Создаем произвольные поля
             /////////////////
@@ -8738,7 +8674,6 @@ namespace Disp_WinForm
                 + "\"callMode\":\"create\","
                 + "\"n\":\"2.1 І Відповідальна особа (основна)\","
                 + "\"v\":\"\"}");
-
 
             //Произвольное поле 4
             string pp4_answer = macros.WialonRequest(
@@ -8956,8 +8891,6 @@ namespace Disp_WinForm
                 + "\"n\":\"10 Кодове слово\","
                 + "\"v\":\"\"}");
 
-
-
             /////////////////
             ///Добавляем в группу Объекты All
             /////////////////
@@ -9035,8 +8968,6 @@ namespace Disp_WinForm
             string sql5 = string.Format("insert into btk.object_subscr (Object_idObject, Subscription_idSubscr) values (" + id_object + "," + sql4 + ");");
             macros.sql_command(sql5);
 
-
-
             ///////////////////////
             //Если все прошло успешно - завечиваем зеленым кнопку и затирает текстбоксы
             //////////////////////////
@@ -9063,8 +8994,6 @@ namespace Disp_WinForm
             //    //Clipboard.SetText(textBox_id_to_create.Text);
             //}
         }
-
-
 
         private void BarCode()
         {
@@ -9108,8 +9037,6 @@ namespace Disp_WinForm
             bitmap.Save(@"C:\Temp\barcode1.png");//save the image file
         }
 
-
-
         private void PrintBarCode_Click(object sender, EventArgs e)
         {
             if (comboBox_printers.GetItemText(comboBox_printers.SelectedItem) == "")
@@ -9118,8 +9045,8 @@ namespace Disp_WinForm
                 return;
             }
             print();
-
         }
+
         private void GetPrinters()
         {
             comboBox_printers.Items.Clear();
@@ -9130,7 +9057,7 @@ namespace Disp_WinForm
                 {
                     if (comboBox_printers.GetItemText(comboBox_printers.Items[i]).Contains("Xprinter"))
                     {
-                        comboBox_printers.SelectedItem  = comboBox_printers.Items[i];
+                        comboBox_printers.SelectedItem = comboBox_printers.Items[i];
                         return;
                     }
                 }
@@ -9190,7 +9117,6 @@ namespace Disp_WinForm
             maskedTextBox_sim_no_to_create.Text = "";
             if (e.KeyChar == (char)13)
             {
-                
                 if (comboBox_tel_select.Text.Contains("F"))
                 { comboBox_tel_select.Text = comboBox_tel_select.Text.Remove(comboBox_tel_select.Text.Length - 1); }
                 DataTable t = new DataTable();
@@ -9207,8 +9133,32 @@ namespace Disp_WinForm
         {
             search_tovar_comboBox.Focus();
         }
-    }
 
+        private void textBox_id_to_create_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                search_tovar_comboBox.Text = "";
+                maskedTextBox_BLE_CODE.Text = "";
+                maskedTextBox_GSM_CODE.Text = "";
+                maskedTextBox_PUK.Text = "";
+                textBox_bt_enable.Text = "";
+
+                DataTable t = new DataTable();
+                t = macros.GetData("SELECT CN, IMEI, BtKey, Puk, gsm_code, tag_access_code, SN FROM btk.Invice_Tovar where CN='" + textBox_id_to_create.Text + "';");
+                if (t != null & t.Rows.Count > 0)
+                {
+                    textBox_id_to_create.Text = t.Rows[0][0].ToString();
+                    maskedTextBox_GSM_CODE.Text = t.Rows[0][4].ToString();
+                    maskedTextBox_PUK.Text = t.Rows[0][3].ToString();
+                    maskedTextBox_BLE_CODE.Text = t.Rows[0][2].ToString();
+                    textBox_bt_enable.Text = t.Rows[0][5].ToString();
+                    search_tovar_comboBox.Text = t.Rows[0][6].ToString();
+                    comboBox_tel_select.Focus();
+                }
+            }
+        }
+    }
 
     internal class List_add_alarm
     {
@@ -9281,6 +9231,4 @@ namespace Disp_WinForm
         public static int if_open_created_testing { get; set; }
         public static int if_open_created_activation { get; set; }
     }
-
-        
-    }
+}

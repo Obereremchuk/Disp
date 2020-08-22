@@ -41,7 +41,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.button3 = new System.Windows.Forms.Button();
-            this.TextBox_device2 = new System.Windows.Forms.TextBox();
             this.checkBox_sensor_autostart = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -85,7 +84,6 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.textBox_zvich_relay_lancug = new System.Windows.Forms.TextBox();
             this.checkBox_block_prizrak_can = new System.Windows.Forms.CheckBox();
-            this.textBox_zvich_relay_place = new System.Windows.Forms.TextBox();
             this.label37 = new System.Windows.Forms.Label();
             this.textBox_CAN_relay_lancug = new System.Windows.Forms.TextBox();
             this.textBox_CAN_relay_place = new System.Windows.Forms.TextBox();
@@ -152,6 +150,8 @@
             this.tabPage_anketa = new System.Windows.Forms.TabPage();
             this.tabPage_map = new System.Windows.Forms.TabPage();
             this.geckoWebBrowser_testing = new Gecko.GeckoWebBrowser();
+            this.comboBox_device2 = new System.Windows.Forms.ComboBox();
+            this.comboBox_zvich_relay_place = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -279,8 +279,8 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.comboBox_device2);
             this.groupBox5.Controls.Add(this.button3);
-            this.groupBox5.Controls.Add(this.TextBox_device2);
             this.groupBox5.Controls.Add(this.checkBox_sensor_autostart);
             this.groupBox5.Controls.Add(this.label3);
             this.groupBox5.Controls.Add(this.label4);
@@ -312,13 +312,6 @@
             this.button3.Text = "+";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // TextBox_device2
-            // 
-            this.TextBox_device2.Location = new System.Drawing.Point(105, 68);
-            this.TextBox_device2.Name = "TextBox_device2";
-            this.TextBox_device2.Size = new System.Drawing.Size(366, 20);
-            this.TextBox_device2.TabIndex = 16;
             // 
             // checkBox_sensor_autostart
             // 
@@ -598,7 +591,9 @@
                 "женная на обшивке двери водителя",
             "На руле справа, кнопка : \"ГРОМКОСТЬ -\"",
             "На руле слева, кнопка : \"ГРОМКОСТЬ -\"",
-            "На руле справа, кнопка : \"CANCEL\""});
+            "На руле справа, кнопка : \"CANCEL\"",
+            "На руле справа, кнопка : \"Джойстик вниз\"",
+            "Дополнительный лепесток справа на руле кнопка \"Cancel\" нажатие на себя"});
             this.comboBox_service_button.Location = new System.Drawing.Point(105, 43);
             this.comboBox_service_button.Name = "comboBox_service_button";
             this.comboBox_service_button.Size = new System.Drawing.Size(366, 21);
@@ -690,16 +685,15 @@
             // 
             this.comboBox_wire_tk.FormattingEnabled = true;
             this.comboBox_wire_tk.Items.AddRange(new object[] {
-            "1. По правую руку водителя над педалью газа",
-            "2. По правую руку водителя, на стыке центральной консоли и панели приборов в углу" +
-                "",
-            "3. По левую руку водителя возле рычага открытия капота",
-            "4. По левую руку водителя возле рычага открытия бензобака",
-            "5. Справа от руля под кнопкой СТАРТ/СТОП",
-            "6. По правую руку водителя, на центральной консоли, под климат контролем в нише с" +
-                "лева",
-            "7. По левую руку водителя возле кнопки регулировки света",
-            "8. На кожухе рулевого колеса, по центру снизу"});
+            "По правую руку водителя над педалью газа",
+            "По правую руку водителя, на стыке центральной консоли и панели приборов в углу",
+            "По левую руку водителя возле рычага открытия капота",
+            "По левую руку водителя возле рычага открытия бензобака",
+            "Справа от руля под кнопкой СТАРТ/СТОП",
+            "По правую руку водителя, на центральной консоли, под климат контролем в нише слев" +
+                "а",
+            "По левую руку водителя возле кнопки регулировки света",
+            "На кожухе рулевого колеса, по центру снизу"});
             this.comboBox_wire_tk.Location = new System.Drawing.Point(105, 18);
             this.comboBox_wire_tk.Name = "comboBox_wire_tk";
             this.comboBox_wire_tk.Size = new System.Drawing.Size(366, 21);
@@ -732,9 +726,9 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.comboBox_zvich_relay_place);
             this.groupBox3.Controls.Add(this.textBox_zvich_relay_lancug);
             this.groupBox3.Controls.Add(this.checkBox_block_prizrak_can);
-            this.groupBox3.Controls.Add(this.textBox_zvich_relay_place);
             this.groupBox3.Controls.Add(this.label37);
             this.groupBox3.Controls.Add(this.textBox_CAN_relay_lancug);
             this.groupBox3.Controls.Add(this.textBox_CAN_relay_place);
@@ -751,7 +745,7 @@
             // 
             // textBox_zvich_relay_lancug
             // 
-            this.textBox_zvich_relay_lancug.Location = new System.Drawing.Point(105, 96);
+            this.textBox_zvich_relay_lancug.Location = new System.Drawing.Point(105, 97);
             this.textBox_zvich_relay_lancug.Name = "textBox_zvich_relay_lancug";
             this.textBox_zvich_relay_lancug.Size = new System.Drawing.Size(366, 20);
             this.textBox_zvich_relay_lancug.TabIndex = 26;
@@ -765,13 +759,6 @@
             this.checkBox_block_prizrak_can.TabIndex = 27;
             this.checkBox_block_prizrak_can.Text = "Блокує Прізрак по CAN";
             this.checkBox_block_prizrak_can.UseVisualStyleBackColor = true;
-            // 
-            // textBox_zvich_relay_place
-            // 
-            this.textBox_zvich_relay_place.Location = new System.Drawing.Point(105, 70);
-            this.textBox_zvich_relay_place.Name = "textBox_zvich_relay_place";
-            this.textBox_zvich_relay_place.Size = new System.Drawing.Size(366, 20);
-            this.textBox_zvich_relay_place.TabIndex = 25;
             // 
             // label37
             // 
@@ -808,7 +795,7 @@
             // label38
             // 
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(6, 100);
+            this.label38.Location = new System.Drawing.Point(6, 101);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(77, 13);
             this.label38.TabIndex = 104;
@@ -1483,7 +1470,7 @@
             // 
             // button_cancel
             // 
-            this.button_cancel.Location = new System.Drawing.Point(930, 717);
+            this.button_cancel.Location = new System.Drawing.Point(930, 707);
             this.button_cancel.Name = "button_cancel";
             this.button_cancel.Size = new System.Drawing.Size(75, 23);
             this.button_cancel.TabIndex = 57;
@@ -1493,7 +1480,7 @@
             // 
             // button_write
             // 
-            this.button_write.Location = new System.Drawing.Point(849, 717);
+            this.button_write.Location = new System.Drawing.Point(849, 707);
             this.button_write.Name = "button_write";
             this.button_write.Size = new System.Drawing.Size(75, 23);
             this.button_write.TabIndex = 56;
@@ -1548,11 +1535,49 @@
             this.geckoWebBrowser_testing.TabIndex = 0;
             this.geckoWebBrowser_testing.UseHttpActivityObserver = false;
             // 
+            // comboBox_device2
+            // 
+            this.comboBox_device2.FormattingEnabled = true;
+            this.comboBox_device2.Items.AddRange(new object[] {
+            "",
+            "За панелью приборов",
+            "За панелью приборов справа",
+            "За панелью приборов слева",
+            "За перчаточным карманом (за бардачком)",
+            "За воздуховодом левым",
+            "За воздуховодом правым",
+            "За монитором"});
+            this.comboBox_device2.Location = new System.Drawing.Point(105, 69);
+            this.comboBox_device2.Name = "comboBox_device2";
+            this.comboBox_device2.Size = new System.Drawing.Size(366, 21);
+            this.comboBox_device2.TabIndex = 97;
+            // 
+            // comboBox_zvich_relay_place
+            // 
+            this.comboBox_zvich_relay_place.FormattingEnabled = true;
+            this.comboBox_zvich_relay_place.Items.AddRange(new object[] {
+            "",
+            "За левой кик панелью в ногах водителя",
+            "За правой кик панелью в ногах пассажира",
+            "За панелью приборов",
+            "За перчаточным карманом",
+            "Под капотом в блоке предохранителей",
+            "В ногах водителя на левой стойке в блоке предохранителей",
+            "В ногах пассажира в блоке предохранителей",
+            "За монитором по центру",
+            "В подножке для левой ноги водителя",
+            "В ногах переднего пассажира, под ковролином в жгуте проводов",
+            "В правом заднем пороге"});
+            this.comboBox_zvich_relay_place.Location = new System.Drawing.Point(105, 70);
+            this.comboBox_zvich_relay_place.Name = "comboBox_zvich_relay_place";
+            this.comboBox_zvich_relay_place.Size = new System.Drawing.Size(366, 21);
+            this.comboBox_zvich_relay_place.TabIndex = 120;
+            // 
             // Testing
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1024, 785);
+            this.ClientSize = new System.Drawing.Size(1024, 749);
             this.Controls.Add(this.tabControl_testing);
             this.MaximumSize = new System.Drawing.Size(1300, 1000);
             this.Name = "Testing";
@@ -1615,7 +1640,6 @@
         private System.Windows.Forms.Button button_write;
         private System.Windows.Forms.ComboBox comboBox_pin_or_tag;
         private System.Windows.Forms.CheckBox checkBox_dop_1;
-        private System.Windows.Forms.TextBox TextBox_device2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBox_other_alarm;
@@ -1673,7 +1697,6 @@
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.TextBox textBox_CAN_relay_place;
         private System.Windows.Forms.TextBox textBox_CAN_relay_lancug;
-        private System.Windows.Forms.TextBox textBox_zvich_relay_place;
         private System.Windows.Forms.TextBox textBox_zvich_relay_lancug;
         private System.Windows.Forms.TextBox textBox_wireless_tk;
         private System.Windows.Forms.TextBox textBox_vin;
@@ -1711,5 +1734,7 @@
         private System.Windows.Forms.TabPage tabPage_anketa;
         private System.Windows.Forms.TabPage tabPage_map;
         private Gecko.GeckoWebBrowser geckoWebBrowser_testing;
+        private System.Windows.Forms.ComboBox comboBox_device2;
+        private System.Windows.Forms.ComboBox comboBox_zvich_relay_place;
     }
 }
