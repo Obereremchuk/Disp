@@ -28,6 +28,26 @@ namespace Disp_WinForm
 
         private void button_create_Click(object sender, EventArgs e)
         {
+            DataTable exsit_kontact1 = macros.GetData("SELECT * FROM btk.Phonebook where Phonebookcol_phone = '"+ maskedTextBox_tel1.Text +"';");
+            if (maskedTextBox_tel1.Text != "   -   -")
+            {
+                if (exsit_kontact1.Rows.Count > 0)
+                {
+                    MessageBox.Show(maskedTextBox_tel1.Text + "  існує в довіднику. Використовуй створений контакт.");
+                    return;
+                }
+            }
+
+            DataTable exsit_kontact2 = macros.GetData("SELECT * FROM btk.Phonebook where Phonebookcol_phone = '" + maskedTextBox_tel2.Text + "';");
+            if (maskedTextBox_tel2.Text != "   -   -")
+            {
+                if (exsit_kontact2.Rows.Count > 0)
+                {
+                    MessageBox.Show(maskedTextBox_tel2.Text + "  існує в довіднику. Використовуй створений контакт.");
+                    return;
+                }
+            }
+
             if (vars_form.num_vo == 0)
             {
                 if (comboBox_work_in.SelectedIndex == -1)
@@ -63,7 +83,7 @@ namespace Disp_WinForm
 
 
             string phoneID = "";
-            if (maskedTextBox_tel1.Text != "")
+            if (maskedTextBox_tel1.Text != "   -   -")
             {
                 macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone) values('" + maskedTextBox_tel1.Text.ToString() + "');");
                 phoneID = macros.sql_command("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
@@ -72,7 +92,7 @@ namespace Disp_WinForm
             { phoneID = "1"; }
 
             string phone2ID = "";
-            if (maskedTextBox_tel2.Text != "")
+            if (maskedTextBox_tel2.Text != "   -   -")
             {
                 macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone) values('" + maskedTextBox_tel2.Text.ToString() + "');");
                 phone2ID = macros.sql_command("SELECT MAX(idPhonebook) FROM btk.Phonebook;");

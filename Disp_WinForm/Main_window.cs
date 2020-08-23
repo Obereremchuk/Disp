@@ -619,7 +619,7 @@ namespace Disp_WinForm
                     "Zayavki.Zayavkicol_VIN as 'VIN'," +
                     "Activation_object.Activation_objectcol_result as 'Результат', " +
                     "Activation_object.new_name_obj as 'Назва обєкту', " +
-                    "Activation_object.comment as 'Коментар', " +
+                    "(SELECT coments FROM btk.activation_comments where Activation_object_idActivation_object = Activation_object.idActivation_object order by date_insert desc limit 1) as 'Коментар', " +
                     "remaynder_activate as 'Нагадати', " +
                     "remayder_date as 'Дата нагадування' " +
                     "FROM " +
@@ -653,7 +653,7 @@ namespace Disp_WinForm
                     "Zayavki.Zayavkicol_VIN as 'VIN'," +
                     "Activation_object.Activation_objectcol_result as 'Результат', " +
                     "Activation_object.new_name_obj as 'Назва обєкту', " +
-                    "Activation_object.comment as 'Коментар', " +
+                    "(SELECT coments FROM btk.activation_comments where Activation_object_idActivation_object = Activation_object.idActivation_object order by date_insert desc limit 1) as 'Коментар', " +
                     "remaynder_activate as 'Нагадати', " +
                     "remayder_date as 'Дата нагадування' " +
                     "FROM " +
@@ -688,7 +688,7 @@ namespace Disp_WinForm
                     "Zayavki.Zayavkicol_VIN as 'VIN'," +
                     "Activation_object.Activation_objectcol_result as 'Результат', " +
                     "Activation_object.new_name_obj as 'Назва обєкту', " +
-                    "Activation_object.comment as 'Коментар', " +
+                    "(SELECT coments FROM btk.activation_comments where Activation_object_idActivation_object = Activation_object.idActivation_object order by date_insert desc limit 1) as 'Коментар', " +
                     "remaynder_activate as 'Нагадати', " +
                     "remayder_date as 'Дата нагадування' " +
                     "FROM " +

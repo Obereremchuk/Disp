@@ -1305,7 +1305,7 @@ namespace Disp_WinForm
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo1_vo_form + "';");
                 if (VO_phone2 == "   -   -")
                 { VO_phone2 = ""; }
-                if (VO_falilia == "")
+                if (VO_falilia == "" & VO_imya_phone =="")
                 {
                     textBox_vo1.Text = "";
                 }

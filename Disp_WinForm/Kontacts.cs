@@ -60,7 +60,7 @@ namespace Disp_WinForm
                     "where " +
                     "(" +
                     "Kontakti_imya like '%" + textBox_search_kontackts.Text + "%' " +
-                    "Kontakti_otchestvo like '%" + textBox_search_kontackts.Text + "%' " + 
+                    "or Kontakti_otchestvo like '%" + textBox_search_kontackts.Text + "%' " + 
                     "or Kontakti_familia like '%" + textBox_search_kontackts.Text + "%' " +
                     "or Phonebook.Phonebookcol_phone like '%" + textBox_search_kontackts.Text + "%' " +
                     ") " +

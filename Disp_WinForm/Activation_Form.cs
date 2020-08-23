@@ -2088,7 +2088,7 @@ namespace Disp_WinForm
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo1_vo_form + "';");
                 if (VO_phone2 == "   -   -")
                 { VO_phone2 = ""; }
-                if (VO_falilia == "")
+                if (VO_falilia == "" & VO_imya_phone == "")
                 {
                     textBox_vo1.Text = "";
                 }
@@ -2412,7 +2412,7 @@ namespace Disp_WinForm
                 {
                     //update VIN plate in WL
                     string pp28_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
-                                                                   + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                   + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
                                                                    + "\"n\":\"vin\","
                                                                    + "\"v\":\"" + textBox_vin_zayavka.Text.Replace("\"", "%5C%22") + "\"}");
                     //update VIN plate in db
