@@ -913,7 +913,7 @@ namespace Disp_WinForm
                                                             "\"accessMask\":\"550611455877‬\"}");
                     var set_right_object = JsonConvert.DeserializeObject<RootObject>(set_right_object_answer);
 
-                    DataTable users = macros.GetData("SELECT user_id_wl FROM btk.Users where accsess_lvl = '1' or accsess_lvl = '5' or accsess_lvl = '8' or accsess_lvl = '9';");
+                    DataTable users = macros.GetData("SELECT idUsers, user_id_wl FROM btk.Users where (accsess_lvl = '1' or accsess_lvl = '5' or accsess_lvl = '8' or accsess_lvl = '9') and State != '0';");
 
                     List<DataRow> woruser_list = users.AsEnumerable().ToList();
                     foreach (DataRow workuser in woruser_list)
@@ -940,10 +940,12 @@ namespace Disp_WinForm
                                                                      "\"itemId\":\"" + created_resource_user_data.item.id + "\"," +
                                                                      "\"accessMask\":\"-1\"}");
                             var set_right_resource_user_support = JsonConvert.DeserializeObject<RootObject>(set_right_resource_user_support_answer);
+                        
                         }
                         else
                         {
                         }
+                        string t = workuser[0].ToString();
                     }
 
                     //Доступ на ресурс: username
@@ -1003,6 +1005,8 @@ namespace Disp_WinForm
                                                                     + "\"callMode\":\"update\","
                                                                     + "\"n\":\"4.4 Обліковий запис WL\","
                                                                     + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+
+                    Clipboard.SetText(textBox_account_pss.Text);
                 }
                 else if (dialogResult == DialogResult.No)
                 {
@@ -1091,6 +1095,7 @@ namespace Disp_WinForm
 
                     //Save in db client account
                     macros.GetData("insert into btk.Client_accounts (name, pass, date, reason, Object_idObject, Users_idUsers) value ('" + treeView_user_accounts.SelectedNode.Text + "','" + pass + "','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','Chenge pass account','" + vars_form.id_db_object_for_activation + "','" + vars_form.user_login_id + "');");
+                    Clipboard.SetText(textBox_account_pss.Text);
                 }
                 else if (dialogResult == DialogResult.No)
                 {

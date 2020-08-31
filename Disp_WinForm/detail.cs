@@ -52,7 +52,7 @@ namespace Disp_WinForm
             _search_id = vars_form.search_id;
             _unit_name = vars_form.unit_name;
             _restrict_un_group = vars_form.restrict_un_group;
-            _alarm_name = vars_form.alarm_name;
+            _alarm_name = vars_form.alarm_name.Replace("\n", String.Empty);
             _eid = vars_form.eid;
             wl_id = _search_id;
             id_db_obj = macros.sql_command("SELECT idObject FROM btk.Object where Object.Object_id_wl = '" + _search_id + "';");
@@ -1730,7 +1730,7 @@ namespace Disp_WinForm
                                                             "\"accessMask\":\"550611455877‬\"}");
                     var set_right_object = JsonConvert.DeserializeObject<RootObject>(set_right_object_answer);
 
-                    DataTable users = macros.GetData("SELECT user_id_wl FROM btk.Users where accsess_lvl = '1' or accsess_lvl = '5' or accsess_lvl = '8' or accsess_lvl = '9';");
+                    DataTable users = macros.GetData("SELECT idUsers, user_id_wl FROM btk.Users where (accsess_lvl = '1' or accsess_lvl = '5' or accsess_lvl = '8' or accsess_lvl = '9') and State != '0';");
 
                     List<DataRow> woruser_list = users.AsEnumerable().ToList();
                     foreach (DataRow workuser in woruser_list)
@@ -1826,7 +1826,8 @@ namespace Disp_WinForm
                                                                     + "\"callMode\":\"update\","
                                                                     + "\"n\":\"4.4 Обліковий запис WL\","
                                                                     + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
-
+                    Clipboard.SetText(textBox_account_pss.Text);
+                    
                 }
                 else if (dialogResult == DialogResult.No)
                 {
@@ -2922,7 +2923,7 @@ namespace Disp_WinForm
 
                     //Save in db client account
                     macros.GetData("insert into btk.Client_accounts (name, pass, date, reason, Object_idObject, Users_idUsers) value ('" + treeView_user_accounts.SelectedNode.Text + "','" + pass + "','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','Chenge pass account','" + id_db_obj + "','" + vars_form.user_login_id + "');");
-
+                    Clipboard.SetText(textBox_account_pss.Text);
                 }
                 else if (dialogResult == DialogResult.No)
                 {

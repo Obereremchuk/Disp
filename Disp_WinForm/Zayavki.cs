@@ -451,8 +451,8 @@ namespace Disp_WinForm
                                                         "WHERE idZayavki = '" + idZayavki + "'");
 
 
-                string id_object_from_testing = macros.sql_command("select Object_idObject from btk.testing_object where idtesting_object = '" + idtesting_object + "';");
-                macros.sql_command("update btk.Activation_object set Object_idObject = " + id_object_from_testing + " where idActivation_object = '" + idZayavki + "';");
+                //string id_object_from_testing = macros.sql_command("select Object_idObject from btk.testing_object where idtesting_object = '" + idtesting_object + "';");
+                //macros.sql_command("update btk.Activation_object set Object_idObject = " + id_object_from_testing + " where idActivation_object = '" + idZayavki + "';");
 
 
             }

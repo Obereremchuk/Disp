@@ -40,6 +40,7 @@
             this.comboBox_ustanoshik_poisk = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.comboBox_device2 = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
             this.checkBox_sensor_autostart = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -82,6 +83,7 @@
             this.textBox_wireless_tk = new System.Windows.Forms.TextBox();
             this.label35 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.comboBox_zvich_relay_place = new System.Windows.Forms.ComboBox();
             this.textBox_zvich_relay_lancug = new System.Windows.Forms.TextBox();
             this.checkBox_block_prizrak_can = new System.Windows.Forms.CheckBox();
             this.label37 = new System.Windows.Forms.Label();
@@ -150,8 +152,6 @@
             this.tabPage_anketa = new System.Windows.Forms.TabPage();
             this.tabPage_map = new System.Windows.Forms.TabPage();
             this.geckoWebBrowser_testing = new Gecko.GeckoWebBrowser();
-            this.comboBox_device2 = new System.Windows.Forms.ComboBox();
-            this.comboBox_zvich_relay_place = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -302,6 +302,23 @@
             this.groupBox5.TabIndex = 121;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Загальна інформація про установку";
+            // 
+            // comboBox_device2
+            // 
+            this.comboBox_device2.FormattingEnabled = true;
+            this.comboBox_device2.Items.AddRange(new object[] {
+            "",
+            "За панелью приборов",
+            "За панелью приборов справа",
+            "За панелью приборов слева",
+            "За перчаточным карманом (за бардачком)",
+            "За воздуховодом левым",
+            "За воздуховодом правым",
+            "За монитором"});
+            this.comboBox_device2.Location = new System.Drawing.Point(105, 69);
+            this.comboBox_device2.Name = "comboBox_device2";
+            this.comboBox_device2.Size = new System.Drawing.Size(366, 21);
+            this.comboBox_device2.TabIndex = 97;
             // 
             // button3
             // 
@@ -742,6 +759,27 @@
             this.groupBox3.TabIndex = 112;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Реле блокування";
+            // 
+            // comboBox_zvich_relay_place
+            // 
+            this.comboBox_zvich_relay_place.FormattingEnabled = true;
+            this.comboBox_zvich_relay_place.Items.AddRange(new object[] {
+            "",
+            "За левой кик панелью в ногах водителя",
+            "За правой кик панелью в ногах пассажира",
+            "За панелью приборов",
+            "За перчаточным карманом",
+            "Под капотом в блоке предохранителей",
+            "В ногах водителя на левой стойке в блоке предохранителей",
+            "В ногах пассажира в блоке предохранителей",
+            "За монитором по центру",
+            "В подножке для левой ноги водителя",
+            "В ногах переднего пассажира, под ковролином в жгуте проводов",
+            "В правом заднем пороге"});
+            this.comboBox_zvich_relay_place.Location = new System.Drawing.Point(105, 70);
+            this.comboBox_zvich_relay_place.Name = "comboBox_zvich_relay_place";
+            this.comboBox_zvich_relay_place.Size = new System.Drawing.Size(366, 21);
+            this.comboBox_zvich_relay_place.TabIndex = 120;
             // 
             // textBox_zvich_relay_lancug
             // 
@@ -1535,49 +1573,11 @@
             this.geckoWebBrowser_testing.TabIndex = 0;
             this.geckoWebBrowser_testing.UseHttpActivityObserver = false;
             // 
-            // comboBox_device2
-            // 
-            this.comboBox_device2.FormattingEnabled = true;
-            this.comboBox_device2.Items.AddRange(new object[] {
-            "",
-            "За панелью приборов",
-            "За панелью приборов справа",
-            "За панелью приборов слева",
-            "За перчаточным карманом (за бардачком)",
-            "За воздуховодом левым",
-            "За воздуховодом правым",
-            "За монитором"});
-            this.comboBox_device2.Location = new System.Drawing.Point(105, 69);
-            this.comboBox_device2.Name = "comboBox_device2";
-            this.comboBox_device2.Size = new System.Drawing.Size(366, 21);
-            this.comboBox_device2.TabIndex = 97;
-            // 
-            // comboBox_zvich_relay_place
-            // 
-            this.comboBox_zvich_relay_place.FormattingEnabled = true;
-            this.comboBox_zvich_relay_place.Items.AddRange(new object[] {
-            "",
-            "За левой кик панелью в ногах водителя",
-            "За правой кик панелью в ногах пассажира",
-            "За панелью приборов",
-            "За перчаточным карманом",
-            "Под капотом в блоке предохранителей",
-            "В ногах водителя на левой стойке в блоке предохранителей",
-            "В ногах пассажира в блоке предохранителей",
-            "За монитором по центру",
-            "В подножке для левой ноги водителя",
-            "В ногах переднего пассажира, под ковролином в жгуте проводов",
-            "В правом заднем пороге"});
-            this.comboBox_zvich_relay_place.Location = new System.Drawing.Point(105, 70);
-            this.comboBox_zvich_relay_place.Name = "comboBox_zvich_relay_place";
-            this.comboBox_zvich_relay_place.Size = new System.Drawing.Size(366, 21);
-            this.comboBox_zvich_relay_place.TabIndex = 120;
-            // 
             // Testing
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1024, 749);
+            this.ClientSize = new System.Drawing.Size(1024, 787);
             this.Controls.Add(this.tabControl_testing);
             this.MaximumSize = new System.Drawing.Size(1300, 1000);
             this.Name = "Testing";
