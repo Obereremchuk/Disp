@@ -918,25 +918,25 @@ namespace Disp_WinForm
                     List<DataRow> woruser_list = users.AsEnumerable().ToList();
                     foreach (DataRow workuser in woruser_list)
                     {
-                        if (workuser[0].ToString() != vars_form.wl_user_id.ToString() & workuser[0].ToString() != null & workuser[0].ToString() != "" & workuser[0].ToString() != "0")
+                        if (workuser[1].ToString() != vars_form.wl_user_id.ToString() & workuser[1].ToString() != null & workuser[1].ToString() != "" & workuser[1].ToString() != "0")
                         {
                             //set full Accsess client account for workuser
                             string set_right_user_suport_answer = macros.WialonRequest("&svc=user/update_item_access&params={" +
-                                                                     "\"userId\":\"" + workuser[0].ToString() + "\"," +
+                                                                     "\"userId\":\"" + workuser[1].ToString() + "\"," +
                                                                      "\"itemId\":\"" + created_user_data.item.id + "\"," +
                                                                      "\"accessMask\":\"-1\"}");
                             var set_right_user_suport_ = JsonConvert.DeserializeObject<RootObject>(set_right_user_suport_answer);
 
                             //set full Accsess client resourse "username" for workuser
                             string set_right_resource_support_answer = macros.WialonRequest("&svc=user/update_item_access&params={" +
-                                                                     "\"userId\":\"" + workuser[0].ToString() + "\"," +
+                                                                     "\"userId\":\"" + workuser[1].ToString() + "\"," +
                                                                      "\"itemId\":\"" + created_resource_data.item.id + "\"," +
                                                                      "\"accessMask\":\"-1\"}");
                             var set_right_resourc_support = JsonConvert.DeserializeObject<RootObject>(set_right_resource_support_answer);
 
                             //set full Accsess client resourse "username.._user" for workuser
                             string set_right_resource_user_support_answer = macros.WialonRequest("&svc=user/update_item_access&params={" +
-                                                                     "\"userId\":\"" + workuser[0].ToString() + "\"," +
+                                                                     "\"userId\":\"" + workuser[1].ToString() + "\"," +
                                                                      "\"itemId\":\"" + created_resource_user_data.item.id + "\"," +
                                                                      "\"accessMask\":\"-1\"}");
                             var set_right_resource_user_support = JsonConvert.DeserializeObject<RootObject>(set_right_resource_user_support_answer);
@@ -2373,6 +2373,32 @@ namespace Disp_WinForm
                         }
                     }
                 }
+                if (keyvalue.Value.n.Contains("02 Проект"))
+                {
+                    string kontragent_type_idkontragent_type = macros.sql_command("SELECT kontragent_type_idkontragent_type FROM btk.Zayavki, btk.Kontragenti where Kontragenti_idKontragenti_zakazchik = idKontragenti and Activation_object_idActivation_object = '" + vars_form.id_db_activation_for_activation +"';");
+                    //Chenge feild Проект
+                    //macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo3_vo_form + "','3','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
+                    if (kontragent_type_idkontragent_type == "2")
+                    {
+                        string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                                                     "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                     "\"id\":\"" + keyvalue.Value.id + "\"," +
+                                                     "\"callMode\":\"update\"," +
+                                                     "\"n\":\"" + keyvalue.Value.n + "\"," +
+                                                     "\"v\":\"" + textBox_zamovnik.Text + "\"}");
+                    }
+                    else 
+                    {
+                        string json1 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                                                     "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                     "\"id\":\"" + keyvalue.Value.id + "\"," +
+                                                     "\"callMode\":\"update\"," +
+                                                     "\"n\":\"" + keyvalue.Value.n + "\"," +
+                                                     "\"v\":\"Роздріб\"}");
+                    }
+
+                }
+
             }
 
             // insert/update activation
@@ -2645,13 +2671,14 @@ namespace Disp_WinForm
         {
             string id_db_object = macros.sql_command("select Object_idObject from btk.Activation_object where idActivation_object = '" + vars_form.id_db_activation_for_activation + "'");
 
-            DataTable name = macros.GetData("select " +
+                DataTable name = macros.GetData("select " +
                 "TS_model.TS_modelcol_name_short," +
                 "TS_brand.TS_brandcol_brand_short," +
                 "TS_info.TS_infocol_licence_plate," +
                 "Zayavki.Sobstvennik_avto_neme," +
-                "products.product_name," +
-                "Kontragenti.Kontragenti_short_name " +
+                "products.product_name, " +
+                "Kontragenti.Kontragenti_short_name, " +
+                "Kontragenti.kontragent_type_idkontragent_type " +
                 "from " +
                 "btk.TS_model," +
                 "btk.TS_brand," +
@@ -2674,10 +2701,12 @@ namespace Disp_WinForm
             string model = name.Rows[0][0].ToString();
             string brand = name.Rows[0][1].ToString();
             //string lic_pl = name.Rows[0][2].ToString();
-            string sobstv = name.Rows[0][3].ToString();
-            string product = name.Rows[0][4].ToString();
-            string zakazchik = name.Rows[0][5].ToString();
-            name_obj_new_textBox.Text = brand + " " + model + " " + textBox_licence_plate.Text + " (" + sobstv + ") (" + product + ") (" + zakazchik + ")";
+            string zakazchik = "";
+            if (name.Rows[0][6].ToString() == "2")
+            { zakazchik = " (" + name.Rows[0][5].ToString() + ")"; }
+            string sobstv = " (" + name.Rows[0][3].ToString() + ")";
+            string product = " (" + name.Rows[0][4].ToString() + ")";
+            name_obj_new_textBox.Text = brand + " " + model + " " + textBox_licence_plate.Text +  sobstv  + product +  zakazchik;
         }
 
         private void name_obj_new_textBox_TextChanged(object sender, EventArgs e)

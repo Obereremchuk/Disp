@@ -2769,8 +2769,8 @@ namespace Disp_WinForm
                 return;
             }
 
-            vars_form.id_testing_for_zayavki = dataGridView_zayavki_na_activation.Rows[e.RowIndex].Cells[7].Value.ToString();
-            vars_form.id_db_zayavki_for_activation = dataGridView_zayavki_na_activation.Rows[e.RowIndex].Cells[10].Value.ToString();
+            vars_form.id_testing_for_zayavki = dataGridView_zayavki_na_activation.Rows[e.RowIndex].Cells[8].Value.ToString();
+            vars_form.id_db_zayavki_for_activation = dataGridView_zayavki_na_activation.Rows[e.RowIndex].Cells[11].Value.ToString();
             vars_form.if_open_created_zayavka = 1;
 
             Zayavki form_Zayavki = new Zayavki();

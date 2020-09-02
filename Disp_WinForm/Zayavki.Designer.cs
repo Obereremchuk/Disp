@@ -137,8 +137,10 @@
             this.comboBox_reason_zayavki.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_reason_zayavki.FormattingEnabled = true;
             this.comboBox_reason_zayavki.Items.AddRange(new object[] {
-            "Монтаж",
-            "Демонтаж",
+            "Новий клієнт",
+            "Зміна СК",
+            "Зміна власника",
+            "Перехыдний клієнт",
             "Інше"});
             this.comboBox_reason_zayavki.Location = new System.Drawing.Point(84, 19);
             this.comboBox_reason_zayavki.Name = "comboBox_reason_zayavki";
@@ -491,7 +493,7 @@
             this.groupBox4.Size = new System.Drawing.Size(970, 236);
             this.groupBox4.TabIndex = 181;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Пшук авто по VIN";
+            this.groupBox4.Text = "Пошук авто по VIN";
             // 
             // button_vidkripyty
             // 

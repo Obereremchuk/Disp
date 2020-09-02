@@ -1659,7 +1659,7 @@ namespace Disp_WinForm
                         "testing_objectcol_dop2 = '" + (checkBox_test_dop_2.Checked ? "1" : "0") + "', " +
                         "testing_objectcol_autostart = '" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
                         "testing_objectcol_comments = '" + MySqlHelper.EscapeString(textBox_commets.Text) + "', " +
-                        "Users_idUsers = '" + vars_form.user_login_id + "', " +
+                        //"Users_idUsers = '" + vars_form.user_login_id + "', " +
                         "testing_objectcol_result = 'Не завершено' " +
                         "where " +
                         "idtesting_object = '" + vars_form.id_db_openning_testing + "' " +
@@ -2136,7 +2136,7 @@ namespace Disp_WinForm
                         "testing_objectcol_dop2 = '" + (checkBox_test_dop_2.Checked ? "1" : "0") + "', " +
                         "testing_objectcol_autostart = '" + (checkBox_test_autostart.Checked ? "1" : "0") + "', " +
                         "testing_objectcol_comments = '" + MySqlHelper.EscapeString(textBox_commets.Text) + "', " +
-                        "Users_idUsers = '" + vars_form.user_login_id + "', " +
+                        //"Users_idUsers = '" + vars_form.user_login_id + "', " +
                         "testing_objectcol_result = 'Успішно' " +
                         "where " +
                         "idtesting_object = '" + vars_form.id_db_openning_testing + "' " +
@@ -2713,7 +2713,7 @@ namespace Disp_WinForm
                     macros.sql_command("update btk.Object set Objectcol_testing_ok = 'Успішно' where idObject = '" + vars_form.id_db_object_for_test + "';");
 
                     string Subject = "505 Протестовано успішно! VIN: " + textBox_vin.Text + ", Обєкт: " + name_obj_textBox.Text;
-                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua><e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>";
+                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua><e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>,<a.oberemchuk@venbest.com.ua>";
                     DataTable dt = new DataTable();
 
                     dt.Columns.Add("Параметр");

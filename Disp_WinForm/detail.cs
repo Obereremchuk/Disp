@@ -1735,26 +1735,26 @@ namespace Disp_WinForm
                     List<DataRow> woruser_list = users.AsEnumerable().ToList();
                     foreach (DataRow workuser in woruser_list)
                     {
-                        if (workuser[0].ToString() != vars_form.wl_user_id.ToString() & workuser[0].ToString() != null & workuser[0].ToString() != "" & workuser[0].ToString() != "0")
+                        if (workuser[1].ToString() != vars_form.wl_user_id.ToString() & workuser[1].ToString() != null & workuser[1].ToString() != "" & workuser[1].ToString() != "0")
                         {
 
                             //set full Accsess client account for workuser 
                             string set_right_user_suport_answer = macros.WialonRequest("&svc=user/update_item_access&params={" +
-                                                                     "\"userId\":\"" + workuser[0].ToString() + "\"," +
+                                                                     "\"userId\":\"" + workuser[1].ToString() + "\"," +
                                                                      "\"itemId\":\"" + created_user_data.item.id + "\"," +
                                                                      "\"accessMask\":\"-1\"}");
                             var set_right_user_suport_ = JsonConvert.DeserializeObject<RootObject>(set_right_user_suport_answer);
 
                             //set full Accsess client resourse "username" for workuser 
                             string set_right_resource_support_answer = macros.WialonRequest("&svc=user/update_item_access&params={" +
-                                                                     "\"userId\":\"" + workuser[0].ToString() + "\"," +
+                                                                     "\"userId\":\"" + workuser[1].ToString() + "\"," +
                                                                      "\"itemId\":\"" + created_resource_data.item.id + "\"," +
                                                                      "\"accessMask\":\"-1\"}");
                             var set_right_resourc_support = JsonConvert.DeserializeObject<RootObject>(set_right_resource_support_answer);
 
                             //set full Accsess client resourse "username.._user" for workuser 
                             string set_right_resource_user_support_answer = macros.WialonRequest("&svc=user/update_item_access&params={" +
-                                                                     "\"userId\":\"" + workuser[0].ToString() + "\"," +
+                                                                     "\"userId\":\"" + workuser[1].ToString() + "\"," +
                                                                      "\"itemId\":\"" + created_resource_user_data.item.id + "\"," +
                                                                      "\"accessMask\":\"-1\"}");
                             var set_right_resource_user_support = JsonConvert.DeserializeObject<RootObject>(set_right_resource_user_support_answer);
