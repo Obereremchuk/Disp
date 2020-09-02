@@ -104,18 +104,20 @@
             this.textBox_kont2 = new System.Windows.Forms.TextBox();
             this.textBox_kont1 = new System.Windows.Forms.TextBox();
             this.dataGridView_activation_coments = new System.Windows.Forms.DataGridView();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.remaynder_checkBox = new System.Windows.Forms.CheckBox();
             this.remaynder_dateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_activation_coments)).BeginInit();
-            this.groupBox6.SuspendLayout();
             this.groupBox7.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -426,23 +428,23 @@
             "Успішно (PIN)",
             "Незавершено",
             "Інше"});
-            this.comboBox_activation_result.Location = new System.Drawing.Point(1060, 446);
+            this.comboBox_activation_result.Location = new System.Drawing.Point(409, 105);
             this.comboBox_activation_result.Name = "comboBox_activation_result";
-            this.comboBox_activation_result.Size = new System.Drawing.Size(197, 21);
+            this.comboBox_activation_result.Size = new System.Drawing.Size(278, 21);
             this.comboBox_activation_result.TabIndex = 19;
             // 
             // textBox_comments
             // 
-            this.textBox_comments.Location = new System.Drawing.Point(6, 19);
+            this.textBox_comments.Location = new System.Drawing.Point(409, 19);
             this.textBox_comments.Multiline = true;
             this.textBox_comments.Name = "textBox_comments";
-            this.textBox_comments.Size = new System.Drawing.Size(527, 62);
+            this.textBox_comments.Size = new System.Drawing.Size(278, 62);
             this.textBox_comments.TabIndex = 20;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(1084, 430);
+            this.label13.Location = new System.Drawing.Point(409, 89);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(93, 13);
             this.label13.TabIndex = 115;
@@ -460,7 +462,7 @@
             // 
             // save_button
             // 
-            this.save_button.Location = new System.Drawing.Point(1060, 543);
+            this.save_button.Location = new System.Drawing.Point(490, 297);
             this.save_button.Name = "save_button";
             this.save_button.Size = new System.Drawing.Size(75, 23);
             this.save_button.TabIndex = 118;
@@ -651,7 +653,7 @@
             // 
             // cancel_button
             // 
-            this.cancel_button.Location = new System.Drawing.Point(1182, 543);
+            this.cancel_button.Location = new System.Drawing.Point(612, 297);
             this.cancel_button.Name = "cancel_button";
             this.cancel_button.Size = new System.Drawing.Size(75, 23);
             this.cancel_button.TabIndex = 22;
@@ -868,25 +870,22 @@
             this.dataGridView_activation_coments.Name = "dataGridView_activation_coments";
             this.dataGridView_activation_coments.ReadOnly = true;
             this.dataGridView_activation_coments.RowHeadersVisible = false;
-            this.dataGridView_activation_coments.Size = new System.Drawing.Size(468, 123);
+            this.dataGridView_activation_coments.Size = new System.Drawing.Size(397, 301);
             this.dataGridView_activation_coments.TabIndex = 187;
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.textBox_comments);
-            this.groupBox6.Location = new System.Drawing.Point(12, 485);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(552, 92);
-            this.groupBox6.TabIndex = 188;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Коментар";
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.remaynder_checkBox);
+            this.groupBox7.Controls.Add(this.textBox_comments);
+            this.groupBox7.Controls.Add(this.remaynder_dateTimePicker);
             this.groupBox7.Controls.Add(this.dataGridView_activation_coments);
+            this.groupBox7.Controls.Add(this.comboBox_activation_result);
+            this.groupBox7.Controls.Add(this.label13);
+            this.groupBox7.Controls.Add(this.cancel_button);
+            this.groupBox7.Controls.Add(this.save_button);
             this.groupBox7.Location = new System.Drawing.Point(570, 424);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(480, 153);
+            this.groupBox7.Size = new System.Drawing.Size(694, 326);
             this.groupBox7.TabIndex = 189;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Обробки";
@@ -894,7 +893,7 @@
             // remaynder_checkBox
             // 
             this.remaynder_checkBox.AutoSize = true;
-            this.remaynder_checkBox.Location = new System.Drawing.Point(1060, 507);
+            this.remaynder_checkBox.Location = new System.Drawing.Point(490, 135);
             this.remaynder_checkBox.Name = "remaynder_checkBox";
             this.remaynder_checkBox.Size = new System.Drawing.Size(74, 17);
             this.remaynder_checkBox.TabIndex = 23;
@@ -903,27 +902,44 @@
             // 
             // remaynder_dateTimePicker
             // 
-            this.remaynder_dateTimePicker.Location = new System.Drawing.Point(1140, 504);
+            this.remaynder_dateTimePicker.Location = new System.Drawing.Point(570, 132);
             this.remaynder_dateTimePicker.Name = "remaynder_dateTimePicker";
             this.remaynder_dateTimePicker.Size = new System.Drawing.Size(117, 20);
             this.remaynder_dateTimePicker.TabIndex = 24;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.dataGridView1);
+            this.groupBox6.Location = new System.Drawing.Point(12, 485);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(552, 265);
+            this.groupBox6.TabIndex = 188;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Зміни";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(6, 19);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.Size = new System.Drawing.Size(540, 240);
+            this.dataGridView1.TabIndex = 187;
             // 
             // Activation_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1276, 589);
-            this.Controls.Add(this.remaynder_checkBox);
-            this.Controls.Add(this.remaynder_dateTimePicker);
+            this.ClientSize = new System.Drawing.Size(1276, 756);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.comboBox_activation_result);
-            this.Controls.Add(this.save_button);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.cancel_button);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.label13);
             this.Name = "Activation_Form";
             this.Text = "Активація об\"єкту";
             this.groupBox1.ResumeLayout(false);
@@ -936,11 +952,11 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_activation_coments)).EndInit();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
             this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -1018,7 +1034,6 @@
         private System.Windows.Forms.DataGridView dataGridView_activation_coments;
         private System.Windows.Forms.Button button_call_cont2;
         private System.Windows.Forms.Button button_call_kont1;
-        private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.CheckBox remaynder_checkBox;
         private System.Windows.Forms.DateTimePicker remaynder_dateTimePicker;
@@ -1026,5 +1041,7 @@
         private System.Windows.Forms.TextBox textBox_lenth_name;
         private System.Windows.Forms.TextBox textBox_vin_zayavka;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

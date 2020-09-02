@@ -62,7 +62,8 @@ namespace Disp_WinForm
                                             "Kontakt_phone_avto_2," +
                                             "Users_idUsers," +
                                             "Activation_object_idActivation_object," +
-                                            "testing_object_idtesting_object " +
+                                            "testing_object_idtesting_object," +
+                                            "email " +
                                             "FROM btk.Zayavki " +
                                             "where idZayavki = '" + vars_form.id_db_zayavki_for_activation + "';");
 
@@ -147,6 +148,7 @@ namespace Disp_WinForm
                 textBox_kont_osoba2.Text = table.Rows[0][19].ToString();
                 maskedTextBox_tel2.Text = table.Rows[0][20].ToString();
                 idZayavki = table.Rows[0][0].ToString();
+                textBox_email.Text = table.Rows[0][24].ToString();
 
                 //string name_testing_added = macros.sql_command("SELECT Object_idObject from btk.testing_object where idtesting_object = '" + table.Rows[0][23].ToString() + "'");
                 //textBox_selected_object.Text = macros.sql_command("SELECT Object_name FROM btk.Object where idObject = '" + name_testing_added + "'");
@@ -451,9 +453,10 @@ namespace Disp_WinForm
                                                         "WHERE idZayavki = '" + idZayavki + "'");
 
 
-                string Object_idObject = macros.sql_command("select Object_idObject from btk.testing_object where idtesting_object = '" + idtesting_object + "';");
-                string idActivation = macros.sql_command("#select idActivation_object, Object_idObject  from btk.Activation_object where Object_idObject = '" + idtesting_object + "' order by idActivation_object desc limit 1;");
-                macros.sql_command("update btk.Activation_object set Object_idObject = " + Object_idObject + " where idActivation_object = '" + idActivation + "';");
+                string idActivation_object = macros.sql_command("SELECT Activation_object_idActivation_object FROM btk.Zayavki_has_Activation_object where Zayavki_idZayavki = '" + idZayavki + "';");
+
+                string idObject = macros.sql_command("select Object_idObject from btk.testing_object where idtesting_object = '" + idtesting_object + "';");
+                macros.sql_command("update btk.Activation_object set Object_idObject = " + idObject + " where idActivation_object = '" + idActivation_object + "';");
 
 
             }
@@ -552,6 +555,17 @@ namespace Disp_WinForm
                                                                         "'" + maskedTextBox_tel2.Text + "'," +
                                                                         "'" + vars_form.user_login_id + "'," +
                                                                         "'" + textBox_email.Text + "'," +
+                                                                        "'" + id_created_activation + "'" +
+                                                                        ");");
+
+                string id_created_zayavka = macros.sql_command("SELECT max(idZayavki) FROM btk.Zayavki;");
+
+                macros.sql_command("insert into btk.Zayavki_has_Activation_object (" +
+                                                                        "Zayavki_idZayavki, " +
+                                                                        "Activation_object_idActivation_object" +
+                                                                        ") " +
+                                                                        "values (" +
+                                                                        "'" + id_created_zayavka + "'," +
                                                                         "'" + id_created_activation + "'" +
                                                                         ");");
 
