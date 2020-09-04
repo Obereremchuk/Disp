@@ -56,6 +56,20 @@ namespace Disp_WinForm
 
             //dataGridView_for_activation.DefaultCellStyle.SelectionBackColor = Color.White;
             //dataGridView_for_activation.DefaultCellStyle.SelectionForeColor = Color.Black;
+
+            string sql = string.Format("SELECT idUsers, username FROM btk.Users where accsess_lvl BETWEEN '4' AND '5';");
+            var temp = macros.GetData(sql);
+            comboBox_user_to_crate_obj.DataSource = null;
+            comboBox_user_to_crate_obj.DisplayMember = "username";
+            comboBox_user_to_crate_obj.ValueMember = "idUsers";
+            comboBox_user_to_crate_obj.DataSource = temp;
+            try
+            {
+                comboBox_user_to_crate_obj.SelectedValue = vars_form.user_login_id;
+            }
+            catch
+            { }
+            
         }
 
         private void init()
@@ -383,12 +397,31 @@ namespace Disp_WinForm
         //
         private void UpdateCreatedObjectsByUser(DateTime date)
         {
-            DataTable table = macros.GetData("SELECT Object_imei as 'IMEI', Objectcol_create_date  as 'Создано' " +
+            DataTable table = macros.GetData("SELECT " +
+                "(SELECT product_name FROM btk.products where idproducts = products_idproducts) as 'Продукт', " +
+                "Object_imei as 'IMEI', " +
+                "Objectcol_create_date  as 'Создано', " +
+                "idObject, " +
+                "(SELECT Simcardcol_imsi FROM btk.Simcard where idSimcard = Simcard_idSimcard) as 'Simcardcol_imsi', " +
+                "(SELECT Simcardcol_number FROM btk.Simcard where idSimcard = Simcard_idSimcard) as 'Simcardcol_number', " +
+                "Objectcol_puk, " +
+                "Objectcol_gsm_code, " +
+                "Objectcol_ble_code, " +
+                "Objectcol_bt_enable, " +
+                "products_idproducts " +
                 "FROM btk.Object " +
-                "where Users_idUsers = '"+ vars_form.user_login_id + "' " +
+                "where Users_idUsers = '"+ comboBox_user_to_crate_obj.SelectedValue + "' " +
                 "and Objectcol_create_date BETWEEN '" + Convert.ToDateTime(date + new TimeSpan(00, 00, 0)).ToString("yyyy-MM-dd HH:mm:ss") + "' " +
                 "and '" + Convert.ToDateTime(date + new TimeSpan(23, 59, 59)).ToString("yyyy-MM-dd HH:mm:ss") + "' " +
                 "order by Objectcol_create_date desc;");
+            dataGridView_CreatedObjects.Columns["idObject"].Visible = false;
+            dataGridView_CreatedObjects.Columns["Simcardcol_imsi"].Visible = false;
+            dataGridView_CreatedObjects.Columns["Simcardcol_number"].Visible = false;
+            dataGridView_CreatedObjects.Columns["Objectcol_puk"].Visible = false;
+            dataGridView_CreatedObjects.Columns["Objectcol_gsm_code"].Visible = false;
+            dataGridView_CreatedObjects.Columns["Objectcol_ble_code"].Visible = false;
+            dataGridView_CreatedObjects.Columns["Objectcol_bt_enable"].Visible = false;
+            dataGridView_CreatedObjects.Columns["products_idproducts"].Visible = false;
             if (table.Rows.Count == 0)
             { dataGridView_CreatedObjects.DataSource = null; }
             else
@@ -662,7 +695,7 @@ namespace Disp_WinForm
                     "Zayavki.Zayavkicol_VIN as 'VIN'," +
                     "Activation_object.Activation_objectcol_result as 'Результат', " +
                     "Activation_object.new_name_obj as 'Назва обєкту', " +
-                    "(SELECT coments FROM btk.activation_comments where Activation_object_idActivation_object = Activation_object.idActivation_object order by date_insert desc limit 1) as 'Коментар', " +
+                    "Activation_object.comment as 'Коментар', " +
                     "remaynder_activate as 'Нагадати', " +
                     "remayder_date as 'Дата нагадування' " +
                     "FROM " +
@@ -696,7 +729,7 @@ namespace Disp_WinForm
                     "Zayavki.Zayavkicol_VIN as 'VIN'," +
                     "Activation_object.Activation_objectcol_result as 'Результат', " +
                     "Activation_object.new_name_obj as 'Назва обєкту', " +
-                    "(SELECT coments FROM btk.activation_comments where Activation_object_idActivation_object = Activation_object.idActivation_object order by date_insert desc limit 1) as 'Коментар', " +
+                    "Activation_object.comment as 'Коментар', " +
                     "remaynder_activate as 'Нагадати', " +
                     "remayder_date as 'Дата нагадування' " +
                     "FROM " +
@@ -731,7 +764,8 @@ namespace Disp_WinForm
                     "Zayavki.Zayavkicol_VIN as 'VIN'," +
                     "Activation_object.Activation_objectcol_result as 'Результат', " +
                     "Activation_object.new_name_obj as 'Назва обєкту', " +
-                    "(SELECT coments FROM btk.activation_comments where Activation_object_idActivation_object = Activation_object.idActivation_object order by date_insert desc limit 1) as 'Коментар', " +
+                    //"(SELECT coments FROM btk.activation_comments where Activation_object_idActivation_object = Activation_object.idActivation_object order by date_insert desc limit 1) as 'Коментар', " +
+                    "Activation_object.comment as 'Коментар', " +
                     "remaynder_activate as 'Нагадати', " +
                     "remayder_date as 'Дата нагадування' " +
                     "FROM " +
@@ -2906,6 +2940,7 @@ namespace Disp_WinForm
             textBox_id_to_create.Enabled = false;
             maskedTextBox_PUK.Enabled = false;
             maskedTextBox_sim_no_to_create.Enabled = false;
+            comboBox_tel_select.Enabled = false;
         }// Строим список продуктов - Имя=Название продукта, Значение=краткое название
 
         private void comboBox_list_poructs_SelectedIndexChanged(object sender, EventArgs e)
@@ -3082,7 +3117,8 @@ namespace Disp_WinForm
                     maskedTextBox_BLE_CODE.Enabled = false;
                     textBox_id_to_create.Enabled = true;
                     maskedTextBox_PUK.Enabled = false;
-                    maskedTextBox_sim_no_to_create.Enabled = true;
+                    maskedTextBox_sim_no_to_create.Enabled = false;
+                    comboBox_tel_select.Enabled = false;
                     search_tovar_comboBox.Enabled = false;
                     maskedTextBox_BLE_CODE.Text = "";
                     maskedTextBox_GSM_CODE.Text = "";
@@ -3255,6 +3291,7 @@ namespace Disp_WinForm
                     CNTP_910_P();
                     break;
             }
+            UpdateCreatedObjectsByUser(DateTime.Now.Date);
         }
 
         private void CNTK_910()
@@ -3268,6 +3305,7 @@ namespace Disp_WinForm
                 textBox_id_to_create.BackColor = Color.Red;//Если IMEI короче 4х символов останавливается и подсвкечиваем красным
                 return;
             }
+            
             if (maskedTextBox_sim_no_to_create.Text.Length <= 11)//Если IMEI короче 4х символов останавливается и подсвкечиваем красным
             {
                 maskedTextBox_sim_no_to_create.BackColor = Color.Red;
@@ -9178,24 +9216,24 @@ namespace Disp_WinForm
                 return;
             }
 
-            // Проверям существует ли данный номер в системе
-            string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
-                                                     "\"spec\":{" +
-                                                     "\"itemsType\":\"avl_unit\"," +
-                                                     "\"propName\":\"sys_phone_number|sys_phone_number2\"," +
-                                                     "\"propValueMask\":\"" + "*" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "\", " +
-                                                     "\"sortType\":\"sys_name\"," +
-                                                     "\"or_logic\":\"1\"}," +
-                                                     "\"force\":\"1\"," +
-                                                     "\"flags\":\"1\"," +
-                                                     "\"from\":\"0\"," +
-                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
-            var m = JsonConvert.DeserializeObject<RootObject>(unswer);
-            if (m.items.Count > 0)
-            {
-                MessageBox.Show("Указанный телефон существует в WL");
-                return;
-            }
+            //// Проверям существует ли данный номер в системе
+            //string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
+            //                                         "\"spec\":{" +
+            //                                         "\"itemsType\":\"avl_unit\"," +
+            //                                         "\"propName\":\"sys_phone_number|sys_phone_number2\"," +
+            //                                         "\"propValueMask\":\"" + "*" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "\", " +
+            //                                         "\"sortType\":\"sys_name\"," +
+            //                                         "\"or_logic\":\"1\"}," +
+            //                                         "\"force\":\"1\"," +
+            //                                         "\"flags\":\"1\"," +
+            //                                         "\"from\":\"0\"," +
+            //                                         "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            //var m = JsonConvert.DeserializeObject<RootObject>(unswer);
+            //if (m.items.Count > 0)
+            //{
+            //    MessageBox.Show("Указанный телефон существует в WL");
+            //    return;
+            //}
 
             // Проверям существует ли указанный ИМЕЙ в системе
             string unswer2 = macros.WialonRequest("&svc=core/search_items&params={" +
@@ -9457,7 +9495,7 @@ namespace Disp_WinForm
                 + "values('" + cr_obj_out.item.id
                 + "', '" + textBox_id_to_create.Text.ToString()
                 + "', '" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "','"
-                + maskedTextBox_sim_no_to_create.Text.ToString()
+                + ""
                 + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', '1', '1', '1', '1','1', null, '" + vars_form.user_login_id + "');");
             macros.sql_command(sql2);
 
@@ -10230,6 +10268,7 @@ namespace Disp_WinForm
             maskedTextBox_PUK.Text = "";
             textBox_bt_enable.Text = "";
             button_create_object.BackColor = Color.Empty;
+            textBox_id_to_create.BackColor = Color.Empty;
 
             if (e.KeyChar == (char)13)
             {
@@ -10257,9 +10296,38 @@ namespace Disp_WinForm
             maskedTextBox_PUK.Text = "";
             textBox_bt_enable.Text = "";
             button_create_object.BackColor = Color.Empty;
+            maskedTextBox_sim_no_to_create.BackColor = Color.Empty;
+        }
+
+        private void comboBox_user_to_crate_obj_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateCreatedObjectsByUser(dateTimePicker_date_created_by_user.Value.Date);
         }
 
 
+        private void dataGridView_CreatedObjects_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex <= -1 || e.ColumnIndex <= -1)
+            {
+                return;
+            }
+
+            if (dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[3].Value.ToString() != "")//Згруповано до ID тривоги(9)
+            {
+                comboBox_list_poructs.SelectedValue = Convert.ToInt16(dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[10].Value.ToString());
+                textBox_id_to_create.Text= dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[1].Value.ToString();
+                search_tovar_comboBox.Text = macros.sql_command("SELECT SN FROM btk.Invice_Tovar where CN = '"+ textBox_id_to_create.Text + "';");
+                textBox_bt_enable.Text = dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[9].Value.ToString();
+                maskedTextBox_BLE_CODE.Text = dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[8].Value.ToString();
+                maskedTextBox_GSM_CODE.Text = dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[7].Value.ToString();
+                maskedTextBox_PUK.Text = dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[6].Value.ToString();
+                //textBox_bt_enable.Text = dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[8].Value.ToString();
+                maskedTextBox_sim_no_to_create.Text= dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[5].Value.ToString();
+                comboBox_tel_select.Text= dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[4].Value.ToString();
+
+                
+            }
+        }
     }
 
     internal class List_add_alarm
