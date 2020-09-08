@@ -3743,8 +3743,19 @@ namespace Disp_WinForm
             //6 - Выключить сервисный режиме
             string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режиме", "%23valet=0%23", 16777216);
 
-            //получаем айди SIM-card
-            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            string id_sim = "";
+
+            DataTable t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
+            if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "';");
+            }
+            else
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            }
 
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card, Objectcol_puk, Objectcol_gsm_code, Objectcol_ble_code, Objectcol_bt_enable, Objectcol_sn_prizrak) "
                 + "values('" + cr_obj_out.item.id
@@ -4223,9 +4234,21 @@ namespace Disp_WinForm
             //6 - Выключить сервисный режиме
             string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режиме", "%23valet=0%23", 16777216);
 
-            //получаем айди SIM-card
-            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            string id_sim = "";
 
+            DataTable t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
+            if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "';");
+            }
+            else
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            }
+
+            
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card, Objectcol_puk, Objectcol_gsm_code, Objectcol_ble_code, Objectcol_bt_enable, Objectcol_sn_prizrak) "
                                         + "values('" + cr_obj_out.item.id
                                         + "', '" + textBox_id_to_create.Text.ToString()
@@ -4701,8 +4724,19 @@ namespace Disp_WinForm
             //6 - Выключить сервисный режиме
             string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режиме", "%23valet=0%23", 16777216);
 
-            //получаем айди SIM-card
-            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            string id_sim = "";
+
+            DataTable t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
+            if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "';");
+            }
+            else
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            }
 
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card, Objectcol_puk, Objectcol_gsm_code, Objectcol_ble_code, Objectcol_bt_enable, Objectcol_sn_prizrak) "
                                         + "values('" + cr_obj_out.item.id
@@ -5179,8 +5213,19 @@ namespace Disp_WinForm
             //6 - Выключить сервисный режиме
             string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режиме", "%23valet=0%23", 16777216);
 
-            //получаем айди SIM-card
-            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            string id_sim = "";
+
+            DataTable t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
+            if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "';");
+            }
+            else
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            }
 
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card, Objectcol_puk, Objectcol_gsm_code, Objectcol_ble_code, Objectcol_bt_enable, Objectcol_sn_prizrak) "
                                         + "values('" + cr_obj_out.item.id
@@ -6015,8 +6060,19 @@ namespace Disp_WinForm
                 + "\"p\":\"TPASS: 081983;\","
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
-            //получаем айди SIM-card
-            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            string id_sim = "";
+
+            DataTable t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
+            if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "';");
+            }
+            else
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            }
 
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card, Objectcol_puk) "
                 + "values('" + cr_obj_out.item.id
@@ -6839,8 +6895,19 @@ namespace Disp_WinForm
                 + "\"p\":\"TPASS: 081983;\","
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
-            //получаем айди SIM-card
-            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            string id_sim = "";
+
+            DataTable t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
+            if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "';");
+            }
+            else
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            }
 
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card, Objectcol_puk) "
                 + "values('" + cr_obj_out.item.id
@@ -7636,8 +7703,19 @@ namespace Disp_WinForm
                 + "\"p\":\"TPASS: 081983;\","
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
-            //получаем айди SIM-card
-            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            string id_sim = "";
+
+            DataTable t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
+            if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "';");
+            }
+            else
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            }
 
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers) "
                 + "values('" + cr_obj_out.item.id
@@ -8125,8 +8203,19 @@ namespace Disp_WinForm
                 + "\"p\":\"TPASS: 081983;\","
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
-            //получаем айди SIM-card
-            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            string id_sim = "";
+
+            DataTable t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
+            if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "';");
+            }
+            else
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            }
 
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers) "
                 + "values('" + cr_obj_out.item.id
@@ -8686,8 +8775,19 @@ namespace Disp_WinForm
                 + "\"p\":\"TPASS: 081983;\","
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
-            //получаем айди SIM-card
-            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            string id_sim = "";
+
+            DataTable t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
+            if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "';");
+            }
+            else
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            }
 
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers) "
                 + "values('" + cr_obj_out.item.id
@@ -9216,8 +9316,19 @@ namespace Disp_WinForm
                 + "\"p\":\"TPASS: 081983;\","
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
-            //получаем айди SIM-card
-            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            string id_sim = "";
+
+            DataTable t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
+            if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "';");
+            }
+            else
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            }
 
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers) "
                 + "values('" + cr_obj_out.item.id
@@ -10116,8 +10227,19 @@ namespace Disp_WinForm
                 + "\"p\":\"%26setparam 0104 1%26setparam 0204 120%26setparam 0201 120%26saveparams\","
                 + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
 
-            //получаем айди SIM-card
-            string id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            string id_sim = "";
+
+            DataTable t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
+            if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "';");
+            }
+            else
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            }
 
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card) "
                 + "values('" + cr_obj_out.item.id
@@ -10320,7 +10442,8 @@ namespace Disp_WinForm
                             Clipboard.SetText(maskedTextBox_sim_no_to_create.Text);
                         }
                         else
-                        {
+                        { 
+                            maskedTextBox_sim_no_to_create.Mask = "+38\\0000000000";
                             maskedTextBox_sim_no_to_create.Text = t.Rows[0][1].ToString();
                             Clipboard.SetText(maskedTextBox_sim_no_to_create.Text);
                         }
@@ -10411,11 +10534,97 @@ namespace Disp_WinForm
                 maskedTextBox_GSM_CODE.Text = dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[7].Value.ToString();
                 maskedTextBox_PUK.Text = dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[6].Value.ToString();
                 //textBox_bt_enable.Text = dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[8].Value.ToString();
-                maskedTextBox_sim_no_to_create.Text= dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[5].Value.ToString();
+                
                 comboBox_tel_select.Text= dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[4].Value.ToString();
 
-                
+                string d = dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[5].Value.ToString();
+
+                DataTable t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_number ='" + dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[5].Value.ToString() + "';");
+                if (t.Rows.Count > 0)
+                {
+                    if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+                    {
+                        maskedTextBox_sim_no_to_create.Mask = "";
+                    }
+                    else
+                    {
+                        maskedTextBox_sim_no_to_create.Mask = "+38\\0000000000";
+                    }
+                }
+                maskedTextBox_sim_no_to_create.Text = dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[5].Value.ToString();
             }
+        }
+
+        private void label11_DoubleClick(object sender, EventArgs e)
+        {
+            if (button_add_910.Visible == false)
+            { 
+                button_add_910.Visible = true;
+                textBox_id_to_create.Enabled = true;
+                maskedTextBox_GSM_CODE.Enabled = true;
+                maskedTextBox_PUK.Enabled = true;
+                maskedTextBox_BLE_CODE.Enabled = true;
+                textBox_bt_enable.Enabled = true;
+                search_tovar_comboBox.Enabled = true;
+                comboBox_tel_select.Enabled = false;
+                maskedTextBox_sim_no_to_create.Enabled = false;
+                comboBox_list_poructs.Enabled = false;
+
+                textBox_id_to_create.ReadOnly = false;
+                maskedTextBox_GSM_CODE.ReadOnly = false;
+                maskedTextBox_PUK.ReadOnly = false;
+                maskedTextBox_BLE_CODE.ReadOnly = false;
+                textBox_bt_enable.ReadOnly = false;
+                search_tovar_comboBox.KeyPress -= search_tovar_comboBox_KeyPress;
+                textBox_id_to_create.KeyPress -= textBox_id_to_create_KeyPress;
+                button_create_object.Enabled = false;
+            }
+            else 
+            { 
+                button_add_910.Visible = false;
+                textBox_id_to_create.Enabled = false;
+                maskedTextBox_GSM_CODE.Enabled = false;
+                maskedTextBox_PUK.Enabled = false;
+                maskedTextBox_BLE_CODE.Enabled = false;
+                textBox_bt_enable.Enabled = false;
+                search_tovar_comboBox.Enabled = false;
+                comboBox_list_poructs.Enabled = true;
+                maskedTextBox_PUK.ReadOnly = true;
+                maskedTextBox_BLE_CODE.ReadOnly = true; 
+                maskedTextBox_GSM_CODE.ReadOnly = true;
+                search_tovar_comboBox.KeyPress += search_tovar_comboBox_KeyPress;
+                textBox_id_to_create.KeyPress += textBox_id_to_create_KeyPress;
+                button_create_object.Enabled = true;
+            }
+        }
+
+        private void button_add_910_Click(object sender, EventArgs e)
+        {
+            DataTable get = macros.GetData("SELECT SN, CN FROM btk.Invice_Tovar where SN = '" + search_tovar_comboBox.Text + "' or CN = '" + textBox_id_to_create.Text + "';");
+            if (get.Rows.Count == 0)
+            {
+                macros.sql_command("insert into btk.Invice_Tovar (" +
+                    "Tovar_idTovar," +
+                    "Invoice_data_idInvoice_data," +
+                    "SN," +
+                    "CN," +
+                    "BtKey," +
+                    "Puk," +
+                    "gsm_code," +
+                    "tag_access_code" +
+                    ") values (" +
+                    "'1'," +
+                    "'1'," +
+                    "'" + search_tovar_comboBox.Text + "'," +
+                    "'" + textBox_id_to_create.Text + "'," +
+                    "'" + maskedTextBox_BLE_CODE.Text + "'," +
+                    "'" + maskedTextBox_PUK.Text + "'," +
+                    "'" + maskedTextBox_GSM_CODE.Text + "'," +
+                    "'" + textBox_bt_enable.Text + "');");
+                MessageBox.Show("Prizrak SN: " + search_tovar_comboBox.Text + " добавлен в систему");
+            }
+            else
+            { MessageBox.Show("Блок с таким SN или IMEI существует в системе, проверь данные"); }
         }
     }
 
