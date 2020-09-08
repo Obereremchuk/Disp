@@ -414,18 +414,21 @@ namespace Disp_WinForm
                 "and Objectcol_create_date BETWEEN '" + Convert.ToDateTime(date + new TimeSpan(00, 00, 0)).ToString("yyyy-MM-dd HH:mm:ss") + "' " +
                 "and '" + Convert.ToDateTime(date + new TimeSpan(23, 59, 59)).ToString("yyyy-MM-dd HH:mm:ss") + "' " +
                 "order by Objectcol_create_date desc;");
-            dataGridView_CreatedObjects.Columns["idObject"].Visible = false;
-            dataGridView_CreatedObjects.Columns["Simcardcol_imsi"].Visible = false;
-            dataGridView_CreatedObjects.Columns["Simcardcol_number"].Visible = false;
-            dataGridView_CreatedObjects.Columns["Objectcol_puk"].Visible = false;
-            dataGridView_CreatedObjects.Columns["Objectcol_gsm_code"].Visible = false;
-            dataGridView_CreatedObjects.Columns["Objectcol_ble_code"].Visible = false;
-            dataGridView_CreatedObjects.Columns["Objectcol_bt_enable"].Visible = false;
-            dataGridView_CreatedObjects.Columns["products_idproducts"].Visible = false;
+            
             if (table.Rows.Count == 0)
             { dataGridView_CreatedObjects.DataSource = null; }
             else
-            { dataGridView_CreatedObjects.DataSource = table; }
+            { 
+                dataGridView_CreatedObjects.DataSource = table;
+                dataGridView_CreatedObjects.Columns["idObject"].Visible = false;
+                dataGridView_CreatedObjects.Columns["Simcardcol_imsi"].Visible = false;
+                dataGridView_CreatedObjects.Columns["Simcardcol_number"].Visible = false;
+                dataGridView_CreatedObjects.Columns["Objectcol_puk"].Visible = false;
+                dataGridView_CreatedObjects.Columns["Objectcol_gsm_code"].Visible = false;
+                dataGridView_CreatedObjects.Columns["Objectcol_ble_code"].Visible = false;
+                dataGridView_CreatedObjects.Columns["Objectcol_bt_enable"].Visible = false;
+                dataGridView_CreatedObjects.Columns["products_idproducts"].Visible = false;
+            }
 
 
             
@@ -2962,6 +2965,7 @@ namespace Disp_WinForm
                     maskedTextBox_PUK.Text = "";
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
+                    comboBox_tel_select.Enabled = false;
                     break;
 
                 case "2"://CNTK
@@ -2979,6 +2983,7 @@ namespace Disp_WinForm
                     maskedTextBox_PUK.Text = "";
                     maskedTextBox_sim_no_to_create.Text = ""; ;
                     textBox_bt_enable.Text = "";
+                    comboBox_tel_select.Enabled = true;
                     break;
 
                 case "3"://CNTP
@@ -2996,6 +3001,7 @@ namespace Disp_WinForm
                     maskedTextBox_PUK.Text = "";
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
+                    comboBox_tel_select.Enabled = true;
                     break;
 
                 case "4"://CNTP-SE
@@ -3013,6 +3019,7 @@ namespace Disp_WinForm
                     maskedTextBox_PUK.Text = "";
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
+                    comboBox_tel_select.Enabled = true;
                     break;
 
                 case "5"://SLED
@@ -3029,6 +3036,7 @@ namespace Disp_WinForm
                     maskedTextBox_PUK.Text = "";
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
+                    comboBox_tel_select.Enabled = true;
                     break;
 
                 case "6"://C_n
@@ -3045,6 +3053,7 @@ namespace Disp_WinForm
                     maskedTextBox_PUK.Text = "";
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
+                    comboBox_tel_select.Enabled = true;
                     break;
 
                 case "7"://K_n
@@ -3061,6 +3070,7 @@ namespace Disp_WinForm
                     maskedTextBox_PUK.Text = "";
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
+                    comboBox_tel_select.Enabled = true;
                     break;
 
                 case "17"://KB_n
@@ -3077,6 +3087,7 @@ namespace Disp_WinForm
                     maskedTextBox_PUK.Text = "";
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
+                    comboBox_tel_select.Enabled = true;
                     break;
 
                 case "12"://KP_n
@@ -3093,6 +3104,7 @@ namespace Disp_WinForm
                     maskedTextBox_PUK.Text = "";
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
+                    comboBox_tel_select.Enabled = true;
                     break;
 
                 case "8"://W
@@ -3109,6 +3121,7 @@ namespace Disp_WinForm
                     maskedTextBox_PUK.Text = "";
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
+                    comboBox_tel_select.Enabled = true;
                     break;
 
                 case "9"://S
@@ -3126,6 +3139,7 @@ namespace Disp_WinForm
                     maskedTextBox_PUK.Text = "";
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
+                    comboBox_tel_select.Enabled = false;
                     break;
 
                 case "10"://CNTK_910
@@ -3143,6 +3157,7 @@ namespace Disp_WinForm
                     maskedTextBox_PUK.Text = "";
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
+                    comboBox_tel_select.Enabled = true;
                     break;
 
                 case "11"://CNTP_910
@@ -3160,6 +3175,7 @@ namespace Disp_WinForm
                     maskedTextBox_PUK.Text = "";
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
+                    comboBox_tel_select.Enabled = true;
                     break;
 
                 case "13"://CNTP_910_SE_N
@@ -3177,6 +3193,7 @@ namespace Disp_WinForm
                     maskedTextBox_PUK.Text = "";
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
+                    comboBox_tel_select.Enabled = true;
                     break;
 
                 case "14"://CNTP_910_SE_P
@@ -3194,6 +3211,7 @@ namespace Disp_WinForm
                     maskedTextBox_PUK.Text = "";
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
+                    comboBox_tel_select.Enabled = true;
                     break;
             }
         }
@@ -3292,6 +3310,11 @@ namespace Disp_WinForm
                     break;
             }
             UpdateCreatedObjectsByUser(DateTime.Now.Date);
+        }
+
+        private void check_err_create_obj()
+        {
+            
         }
 
         private void CNTK_910()
@@ -3742,6 +3765,9 @@ namespace Disp_WinForm
 
             //получаем айди созданного объекта
             string id_object = macros.sql_command("SELECT MAX(idObject) FROM btk.Object;");
+
+            // set datetime create
+            macros.sql_command("update btk.Object set date_cteate = now() where idobject = '"+ id_object + "';");
 
             //Создаем подписку для объекта
             string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('20'," + id_object + ");");
@@ -4220,6 +4246,9 @@ namespace Disp_WinForm
             //получаем айди созданного объекта
             string id_object = macros.sql_command("SELECT MAX(idObject) FROM btk.Object;");
 
+            // set datetime create
+            macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
+
             //Создаем подписку для объекта
             string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('11'," + id_object + ");");
             macros.sql_command(sql3);
@@ -4694,6 +4723,9 @@ namespace Disp_WinForm
 
             //получаем айди созданного объекта
             string id_object = macros.sql_command("SELECT MAX(idObject) FROM btk.Object;");
+
+            // set datetime create
+            macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
 
             //Создаем подписку для объекта
             string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('35','" + id_object + "');");
@@ -5173,6 +5205,9 @@ namespace Disp_WinForm
             //Создаем подписку для объекта
             string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('34','" + id_object + "');");
             macros.sql_command(sql3);
+
+            // set datetime create
+            macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
 
             //Получаем айди созданной подписки
             string sql4 = macros.sql_command("select max(idSubscr) from btk.Subscription;");
@@ -5996,6 +6031,9 @@ namespace Disp_WinForm
             //получаем айди созданного объекта
             string id_object = macros.sql_command("SELECT MAX(idObject) FROM btk.Object;");
 
+            // set datetime create
+            macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
+
             //Создаем подписку для объекта
             string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values(" + comboBox_list_poructs.SelectedValue.ToString() + "," + id_object + ");");
             macros.sql_command(sql3);
@@ -6817,6 +6855,9 @@ namespace Disp_WinForm
             //получаем айди созданного объекта
             string id_object = macros.sql_command("SELECT MAX(idObject) FROM btk.Object;");
 
+            // set datetime create
+            macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
+
             //Создаем подписку для объекта
             string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values(" + comboBox_list_poructs.SelectedValue.ToString() + "," + id_object + ");");
             macros.sql_command(sql3);
@@ -7611,6 +7652,9 @@ namespace Disp_WinForm
             //получаем айди созданного объекта
             string id_object = macros.sql_command("SELECT MAX(idObject) FROM btk.Object;");
 
+            // set datetime create
+            macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
+
             //Создаем подписку для объекта
             string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values(" + comboBox_list_poructs.SelectedValue.ToString() + "," + id_object + ");");
             macros.sql_command(sql3);
@@ -8096,6 +8140,9 @@ namespace Disp_WinForm
 
             //получаем айди созданного объекта
             string id_object = macros.sql_command("SELECT MAX(idObject) FROM btk.Object;");
+
+            // set datetime create
+            macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
 
             //Создаем подписку для объекта
             string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('7'," + id_object + ");");
@@ -8655,6 +8702,9 @@ namespace Disp_WinForm
             //получаем айди созданного объекта
             string id_object = macros.sql_command("SELECT MAX(idObject) FROM btk.Object;");
 
+            // set datetime create
+            macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
+
             //Создаем подписку для объекта
             string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('12'," + id_object + ");");
             macros.sql_command(sql3);
@@ -9182,6 +9232,9 @@ namespace Disp_WinForm
             //получаем айди созданного объекта
             string id_object = macros.sql_command("SELECT MAX(idObject) FROM btk.Object;");
 
+            // set datetime create
+            macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
+
             //Создаем подписку для объекта
             string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('7'," + id_object + ");");
             macros.sql_command(sql3);
@@ -9501,6 +9554,9 @@ namespace Disp_WinForm
 
             //получаем айди созданного объекта
             string id_object = macros.sql_command("SELECT MAX(idObject) FROM btk.Object;");
+
+            // set datetime create
+            macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
 
             //Создаем подписку для объекта
             string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('9'," + id_object + ");");
@@ -10078,6 +10134,9 @@ namespace Disp_WinForm
             //получаем айди созданного объекта
             string id_object = macros.sql_command("SELECT MAX(idObject) FROM btk.Object;");
 
+            // set datetime create
+            macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
+
             //Создаем подписку для объекта
             string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('5'," + id_object + ");");
             macros.sql_command(sql3);
@@ -10217,6 +10276,8 @@ namespace Disp_WinForm
             maskedTextBox_PUK.Text = "";
             textBox_bt_enable.Text = "";
             button_create_object.BackColor = Color.Empty;
+            comboBox_tel_select.BackColor = Color.Empty;
+            maskedTextBox_sim_no_to_create.BackColor = Color.Empty;
 
             if (e.KeyChar == (char)13)
             {
@@ -10240,16 +10301,44 @@ namespace Disp_WinForm
             button_create_object.Text = "Створити";
             button_create_object.BackColor = Color.Empty;
             maskedTextBox_sim_no_to_create.Text = "";
+            comboBox_tel_select.BackColor = Color.Empty;
+            maskedTextBox_sim_no_to_create.BackColor = Color.Empty;
             if (e.KeyChar == (char)13)
             {
-                if (comboBox_tel_select.Text.Contains("F"))
+                if (comboBox_tel_select.Text.Contains("F") || comboBox_tel_select.Text.Contains("А"))
                 { comboBox_tel_select.Text = comboBox_tel_select.Text.Remove(comboBox_tel_select.Text.Length - 1); }
                 DataTable t = new DataTable();
-                t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
+                t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
                 if (t != null & t.Rows.Count > 0)
                 {
-                    maskedTextBox_sim_no_to_create.Text = t.Rows[0][1].ToString();
-                    Clipboard.SetText(maskedTextBox_sim_no_to_create.Text);
+                    if (t.Rows[0][4].ToString() != "1")// if deactivated retorn error
+                    {
+                        if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+                        {
+                            maskedTextBox_sim_no_to_create.Mask = "";
+                            maskedTextBox_sim_no_to_create.Text = "+" + t.Rows[0][1].ToString();
+                            Clipboard.SetText(maskedTextBox_sim_no_to_create.Text);
+                        }
+                        else
+                        {
+                            maskedTextBox_sim_no_to_create.Text = t.Rows[0][1].ToString();
+                            Clipboard.SetText(maskedTextBox_sim_no_to_create.Text);
+                        }
+                    }
+                    else 
+                    {
+                        MessageBox.Show("Картка деактивована");
+                        maskedTextBox_sim_no_to_create.BackColor = Color.Red;
+                        maskedTextBox_sim_no_to_create.Text = t.Rows[0][1].ToString();
+                        Clipboard.SetText(maskedTextBox_sim_no_to_create.Text);
+                    }
+                    
+                }
+                else
+                {
+                    comboBox_tel_select.Text = "Не знайдено";
+                    comboBox_tel_select.Focus();
+                    comboBox_tel_select.BackColor = Color.Red;
                 }
             }
         }
