@@ -1147,11 +1147,14 @@ namespace Disp_WinForm
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"year\","
                                                                + "\"v\":\"" + comboBox_test_production_date.GetItemText(this.comboBox_test_production_date.SelectedItem).ToString() + "\"}");
-                //Характеристики licence plate
-                string pp13_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                               + "\"n\":\"registration_plate\","
-                                                               + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+                if (textBox_licence_plate.Text != "")
+                {
+                    //Характеристики licence plate
+                    string pp13_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
+                                                                   + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                   + "\"n\":\"registration_plate\","
+                                                                   + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+                }
                 //Характеристики brend
                 string pp14_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -1162,13 +1165,18 @@ namespace Disp_WinForm
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"model\","
                                                                + "\"v\":\"" + comboBox_test_model.GetItemText(this.comboBox_test_model.SelectedItem).ToString() + "\"}");
+
+                
+
                 //Характеристики vin
                 string pp16_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"vin\","
                                                                + "\"v\":\"" + textBox_vin.Text.Replace("\"", "%5C%22") + "\"}");
+
                 
-                
+
+
                 //Произвольное поле СТО
 
                 string pp18_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
@@ -1177,6 +1185,8 @@ namespace Disp_WinForm
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.2.1 Установник: назва, адреса\","
                                                                 + "\"v\":\"" + comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
+
+
                 //Произвольное поле Установщик
 
                 string pp19_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
@@ -1475,11 +1485,14 @@ namespace Disp_WinForm
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"year\","
                                                                + "\"v\":\"" + comboBox_test_production_date.GetItemText(this.comboBox_test_production_date.SelectedItem).ToString() + "\"}");
-                //Характеристики licence plate
-                string pp13_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                               + "\"n\":\"registration_plate\","
-                                                               + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+                if (textBox_licence_plate.Text != "")
+                {
+                    //Характеристики licence plate
+                    string pp13_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
+                                                                   + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                   + "\"n\":\"registration_plate\","
+                                                                   + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+                }
                 //Характеристики brend
                 string pp14_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","

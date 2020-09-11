@@ -397,7 +397,7 @@ namespace Disp_WinForm
         //
         private void UpdateCreatedObjectsByUser(DateTime date)
         {
-            DataTable table = macros.GetData("SELECT " +
+            string sql = "SELECT " +
                 "(SELECT product_name FROM btk.products where idproducts = products_idproducts) as 'Продукт', " +
                 "Object_imei as 'IMEI', " +
                 "Objectcol_create_date  as 'Создано', " +
@@ -413,8 +413,10 @@ namespace Disp_WinForm
                 "where Users_idUsers = '"+ comboBox_user_to_crate_obj.SelectedValue + "' " +
                 "and Objectcol_create_date BETWEEN '" + Convert.ToDateTime(date + new TimeSpan(00, 00, 0)).ToString("yyyy-MM-dd HH:mm:ss") + "' " +
                 "and '" + Convert.ToDateTime(date + new TimeSpan(23, 59, 59)).ToString("yyyy-MM-dd HH:mm:ss") + "' " +
-                "order by Objectcol_create_date desc;");
-            
+                "order by Objectcol_create_date desc;";
+            DataTable table = macros.GetData(sql);
+
+
             if (table.Rows.Count == 0)
             { dataGridView_CreatedObjects.DataSource = null; }
             else

@@ -120,6 +120,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.email_textBox = new Disp_WinForm.PlaceHolderTextBox();
             this.listBox_activation_list_search = new System.Windows.Forms.ListBox();
             this.account_create_button = new System.Windows.Forms.Button();
             this.button_add_2_account = new System.Windows.Forms.Button();
@@ -135,6 +136,7 @@
             this.account_delete_button = new System.Windows.Forms.Button();
             this.button_remove_2_account = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.comboBox_otvetstvenniy = new System.Windows.Forms.ComboBox();
             this.remaynder_checkBox = new System.Windows.Forms.CheckBox();
             this.remaynder_dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.button_sinhronize_time = new System.Windows.Forms.Button();
@@ -147,8 +149,6 @@
             this.dateTimePicker_nachalo_dejstvia = new System.Windows.Forms.DateTimePicker();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox_otrabotka_trevogi = new System.Windows.Forms.TextBox();
-            this.email_textBox = new Disp_WinForm.PlaceHolderTextBox();
-            this.comboBox_otvetstvenniy = new System.Windows.Forms.ComboBox();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_hronologija_trivog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_group_alarm)).BeginInit();
@@ -234,7 +234,6 @@
             this.dataGridView_hronologija_trivog.Location = new System.Drawing.Point(3, 19);
             this.dataGridView_hronologija_trivog.MultiSelect = false;
             this.dataGridView_hronologija_trivog.Name = "dataGridView_hronologija_trivog";
-            this.dataGridView_hronologija_trivog.ReadOnly = true;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -255,7 +254,6 @@
             this.Column_alarm_text.DefaultCellStyle = dataGridViewCellStyle2;
             this.Column_alarm_text.HeaderText = "Виконана дія";
             this.Column_alarm_text.Name = "Column_alarm_text";
-            this.Column_alarm_text.ReadOnly = true;
             this.Column_alarm_text.Width = 350;
             // 
             // Column_time_start_ack
@@ -264,7 +262,6 @@
             this.Column_time_start_ack.DataPropertyName = "time_start_ack";
             this.Column_time_start_ack.HeaderText = "Розпочато";
             this.Column_time_start_ack.Name = "Column_time_start_ack";
-            this.Column_time_start_ack.ReadOnly = true;
             this.Column_time_start_ack.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Column_time_start_ack.Width = 85;
             // 
@@ -274,7 +271,6 @@
             this.Column1.DataPropertyName = "current_status_alarm";
             this.Column1.HeaderText = "Cтатус";
             this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
             this.Column1.Width = 66;
             // 
             // Column_vizov_gmr
@@ -283,7 +279,6 @@
             this.Column_vizov_gmr.DataPropertyName = "vizov_gmp";
             this.Column_vizov_gmr.HeaderText = "ГМР";
             this.Column_vizov_gmr.Name = "Column_vizov_gmr";
-            this.Column_vizov_gmr.ReadOnly = true;
             this.Column_vizov_gmr.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Column_vizov_gmr.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Column_vizov_gmr.Width = 54;
@@ -294,7 +289,6 @@
             this.Column_vizov_police.DataPropertyName = "vizov_police";
             this.Column_vizov_police.HeaderText = "Поліція";
             this.Column_vizov_police.Name = "Column_vizov_police";
-            this.Column_vizov_police.ReadOnly = true;
             this.Column_vizov_police.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Column_vizov_police.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Column_vizov_police.Width = 68;
@@ -305,7 +299,6 @@
             this.Column_time_stamp.DataPropertyName = "time_stamp";
             this.Column_time_stamp.HeaderText = "Внесенно";
             this.Column_time_stamp.Name = "Column_time_stamp";
-            this.Column_time_stamp.ReadOnly = true;
             this.Column_time_stamp.Width = 81;
             // 
             // Column_Users_chenge
@@ -314,7 +307,6 @@
             this.Column_Users_chenge.DataPropertyName = "username";
             this.Column_Users_chenge.HeaderText = "Додав";
             this.Column_Users_chenge.Name = "Column_Users_chenge";
-            this.Column_Users_chenge.ReadOnly = true;
             this.Column_Users_chenge.Width = 65;
             // 
             // dataGridView_group_alarm
@@ -1114,6 +1106,15 @@
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "Створення, привязка до авто";
             // 
+            // email_textBox
+            // 
+            this.email_textBox.Location = new System.Drawing.Point(6, 19);
+            this.email_textBox.Name = "email_textBox";
+            this.email_textBox.PlaceHolderText = "Новий користувач (електронна скринька)";
+            this.email_textBox.Size = new System.Drawing.Size(336, 20);
+            this.email_textBox.TabIndex = 128;
+            this.email_textBox.TextChanged += new System.EventHandler(this.email_textBoxTextChanged);
+            // 
             // listBox_activation_list_search
             // 
             this.listBox_activation_list_search.FormattingEnabled = true;
@@ -1275,6 +1276,14 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Дії по обробці";
             // 
+            // comboBox_otvetstvenniy
+            // 
+            this.comboBox_otvetstvenniy.FormattingEnabled = true;
+            this.comboBox_otvetstvenniy.Location = new System.Drawing.Point(9, 131);
+            this.comboBox_otvetstvenniy.Name = "comboBox_otvetstvenniy";
+            this.comboBox_otvetstvenniy.Size = new System.Drawing.Size(262, 21);
+            this.comboBox_otvetstvenniy.TabIndex = 12;
+            // 
             // remaynder_checkBox
             // 
             this.remaynder_checkBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -1412,23 +1421,6 @@
             this.textBox_otrabotka_trevogi.Size = new System.Drawing.Size(262, 97);
             this.textBox_otrabotka_trevogi.TabIndex = 0;
             this.textBox_otrabotka_trevogi.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBox_otrabotka_trevogi_MouseDown);
-            // 
-            // email_textBox
-            // 
-            this.email_textBox.Location = new System.Drawing.Point(6, 19);
-            this.email_textBox.Name = "email_textBox";
-            this.email_textBox.PlaceHolderText = "Новий користувач (електронна скринька)";
-            this.email_textBox.Size = new System.Drawing.Size(336, 20);
-            this.email_textBox.TabIndex = 128;
-            this.email_textBox.TextChanged += new System.EventHandler(this.email_textBoxTextChanged);
-            // 
-            // comboBox_otvetstvenniy
-            // 
-            this.comboBox_otvetstvenniy.FormattingEnabled = true;
-            this.comboBox_otvetstvenniy.Location = new System.Drawing.Point(9, 131);
-            this.comboBox_otvetstvenniy.Name = "comboBox_otvetstvenniy";
-            this.comboBox_otvetstvenniy.Size = new System.Drawing.Size(262, 21);
-            this.comboBox_otvetstvenniy.TabIndex = 12;
             // 
             // detail
             // 
