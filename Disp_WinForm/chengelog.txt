@@ -1,0 +1,75 @@
+disp_0.8478
+detail:
+- Виконана дія > readonly=false
+testing:
+- SLED: If licence_plate=="" не обновляем в виалоне
+------------------------------------------
+
+0.8477
+Main_window(create object)^
+ - add hiden option for insert new prizrak
+- other fix
+-------------------------
+
+disp_0.8476
+Main_window (create object):
+-Исправлено IMSI visible в зависимости от продукта
+- add datatime creation date object for all products
+- add support inernational card (vodafone)
+-----------------------------------------
+
+0.8475
+Main_Window (create_object):
+- добавлено обновление списка созданного после создания объекта
+- при создании Смартфона удалено внесение номера телефона
+- Добавлено комбо для выбора пользователя по которому смотреть историю созданных блоков
+- Добавлено двойной клик по созданному объекту для загрузки его инфы
+Activation:
+- Переработано лог, UI, коментарии
+-----------------------------------
+
+0.8474
+Zayavki:
+- Переработано связка заявка-активация
+- Исправление в UI
+- fix email read
+------------------
+
+0.8473:
+Activation:
+ - Fix add user accounts
+Detalis:
+ - Fix add user accounts
+Zayavki:
+- fix update zayavka (wrog Activation_object)
+- Изменение списка причин создания заявки
+Actiation:
+- Создание имени (если собственник не СК то подставляем пусто)
+- При сохранении заполняем произвольное поле Проект в WL СК/Розница
+-------------------
+disp_0.8472:
+Testing:
+- add SLED
+- add K_n
+- add KB_n
+- add KP_n
+Activation:
+- fix wln_error on add new user
+- accounts: add copy to clipboard new pass
+- add copy to clipboard new pass
+Detalis:
+- fix wln_error on add new user
+Main Window (Object craete):
+- add KP_n
+- add KB_n
+- Fix K_n (remove relay, TK, commands block engin)
+- clear green color on enter text to ICC, ID, SN, tel_no
+- add table with created objects by curent user
+- UI chenge
+Zayavki:
+- Fix update zayavka (get wrong idActivation)
+Main Window (Zayavki):
+- add column idZayavki
+Edit_kontakts:
+- UI. First name, last name
+----------------------

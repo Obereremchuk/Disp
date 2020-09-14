@@ -10628,6 +10628,11 @@ namespace Disp_WinForm
             else
             { MessageBox.Show("Блок с таким SN или IMEI существует в системе, проверь данные"); }
         }
+
+        private void textBox_search_testing_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
     internal class List_add_alarm

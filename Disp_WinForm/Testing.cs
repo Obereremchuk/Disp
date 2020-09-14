@@ -426,8 +426,14 @@ namespace Disp_WinForm
 
         private void get_data_testing_obj()
         {
-            string name_obj = macros.sql_command("SELECT Object_name FROM btk.Object where idObject = " + vars_form.id_db_object_for_test + ";");
-            name_obj_textBox.Text = name_obj;
+            string name_obj = macros.WialonRequest("&svc=core/search_item&params={" +
+                                                    "\"id\":\"" + vars_form.id_wl_object_for_test + "\", " +
+                                                    "\"flags\":\"1\"}");
+            var m1 = JsonConvert.DeserializeObject<RootObject>(name_obj);
+
+
+            //string name_obj = macros.sql_command("SELECT Object_name FROM btk.Object where idObject = " + vars_form.id_db_object_for_test + ";");
+            name_obj_textBox.Text = m1.item.nm;
             imei_obj_textBox.Text = macros.sql_command("SELECT Object_imei FROM btk.Object where idObject = " + vars_form.id_db_object_for_test + ";");
 
             string id_db_TS_info = macros.sql_command("SELECT TS_info_idTS_info FROM btk.Object where Object_id_wl = " + vars_form.id_wl_object_for_test + ";");

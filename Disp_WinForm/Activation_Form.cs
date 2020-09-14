@@ -2507,6 +2507,8 @@ namespace Disp_WinForm
                                                                     "'" + textBox_comments.Text + "'" +
                                                                     ");");
 
+                vars_form.id_db_activation_for_activation = macros.sql_command("SELECT MAX(idActivation_object) FROM btk.Activation_object;");
+
                 string id_ts_info_fo_object_activation = macros.sql_command("select TS_info_idTS_info from btk.Object where idObject = '" + vars_form.id_db_object_for_activation + "'");
                 if (textBox_licence_plate.Text != "")
                 {
@@ -2601,8 +2603,33 @@ namespace Disp_WinForm
 
         private void InsertActivationChenges(string idActivation_object, string idUsers, string date, string Activation_objectcol_result, string new_name_obj, string new_pole_uvaga, string vo1, string vo2, string vo3, string vo4, string kodove_slovo, int alarm_button, int pin_chenged, string comment)
         {
-            DataTable chenges = macros.GetData("insert into btk.Activation_chenges (Activation_object_idActivation_object,Users_idUsers, Date,Activation_objectcol_result, new_name_obj, new_pole_uvaga, vo1,vo2,vo3,vo4,kodove_slovo,alarm_button,pin_chenged, comment) " +
-                "values('"+ idActivation_object + "', '"+ idUsers + "', '" + date + "', '" + Activation_objectcol_result + "', '"+ new_name_obj + "', '"+ new_pole_uvaga + "', '"+ vo1 + "', '"+ vo2 + "', '"+ vo3 + "', '"+ vo4 + "', '"+ kodove_slovo + "', '"+ alarm_button + "', '"+ pin_chenged + "', '" + comment + "'); ");
+            DataTable chenges = macros.GetData("insert into btk.Activation_chenges (" +
+                "Activation_object_idActivation_object," +
+                "Users_idUsers, " +
+                "Date,Activation_objectcol_result, " +
+                "new_name_obj, " +
+                "new_pole_uvaga, " +
+                "vo1," +
+                "vo2," +
+                "vo3," +
+                "vo4," +
+                "kodove_slovo," +
+                "alarm_button,pin_chenged, " +
+                "comment) " +
+                "values('"+ 
+                idActivation_object + "', '"+ 
+                idUsers + "', '" + date + "', '" + 
+                Activation_objectcol_result + "', '"+ 
+                new_name_obj + "', '"+ 
+                new_pole_uvaga + "', '"+ 
+                vo1 + "', '"+ 
+                vo2 + "', '"+ 
+                vo3 + "', '"+ 
+                vo4 + "', '"+ 
+                kodove_slovo + "', '"+ 
+                alarm_button + "', '"+ 
+                pin_chenged + "', '" + 
+                comment + "'); ");
         }//insert chenges activation
 
         private void ReadActivationChenges(string idActivation_object)
