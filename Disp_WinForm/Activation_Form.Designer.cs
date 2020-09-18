@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox_who_chenge_pin = new System.Windows.Forms.TextBox();
             this.textBox_lenth_name = new System.Windows.Forms.TextBox();
             this.button_name_obj_generate = new System.Windows.Forms.Button();
             this.checkBox_pin_chenged = new System.Windows.Forms.CheckBox();
@@ -107,6 +108,7 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.dataGridView_activation_chenges = new System.Windows.Forms.DataGridView();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -119,6 +121,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBox_who_chenge_pin);
             this.groupBox1.Controls.Add(this.textBox_lenth_name);
             this.groupBox1.Controls.Add(this.button_name_obj_generate);
             this.groupBox1.Controls.Add(this.checkBox_pin_chenged);
@@ -133,6 +136,7 @@
             this.groupBox1.Controls.Add(this.textBox_vo4);
             this.groupBox1.Controls.Add(this.textBox_vo2);
             this.groupBox1.Controls.Add(this.textBox_vo3);
+            this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.label8);
@@ -150,10 +154,18 @@
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Location = new System.Drawing.Point(12, 172);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(552, 307);
+            this.groupBox1.Size = new System.Drawing.Size(552, 362);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Інформація про клієнта";
+            // 
+            // textBox_who_chenge_pin
+            // 
+            this.textBox_who_chenge_pin.Location = new System.Drawing.Point(92, 305);
+            this.textBox_who_chenge_pin.Name = "textBox_who_chenge_pin";
+            this.textBox_who_chenge_pin.Size = new System.Drawing.Size(100, 20);
+            this.textBox_who_chenge_pin.TabIndex = 191;
+            this.textBox_who_chenge_pin.DoubleClick += new System.EventHandler(this.textBox_who_chenge_pin_DoubleClick);
             // 
             // textBox_lenth_name
             // 
@@ -176,7 +188,7 @@
             // checkBox_pin_chenged
             // 
             this.checkBox_pin_chenged.AutoSize = true;
-            this.checkBox_pin_chenged.Location = new System.Drawing.Point(327, 278);
+            this.checkBox_pin_chenged.Location = new System.Drawing.Point(6, 308);
             this.checkBox_pin_chenged.Name = "checkBox_pin_chenged";
             this.checkBox_pin_chenged.Size = new System.Drawing.Size(87, 17);
             this.checkBox_pin_chenged.TabIndex = 14;
@@ -186,7 +198,7 @@
             // checkBox_tk_tested
             // 
             this.checkBox_tk_tested.AutoSize = true;
-            this.checkBox_tk_tested.Location = new System.Drawing.Point(420, 278);
+            this.checkBox_tk_tested.Location = new System.Drawing.Point(6, 331);
             this.checkBox_tk_tested.Name = "checkBox_tk_tested";
             this.checkBox_tk_tested.Size = new System.Drawing.Size(94, 17);
             this.checkBox_tk_tested.TabIndex = 15;
@@ -196,7 +208,7 @@
             // button_add_vo5
             // 
             this.button_add_vo5.Enabled = false;
-            this.button_add_vo5.Location = new System.Drawing.Point(385, 226);
+            this.button_add_vo5.Location = new System.Drawing.Point(385, 253);
             this.button_add_vo5.Name = "button_add_vo5";
             this.button_add_vo5.Size = new System.Drawing.Size(46, 20);
             this.button_add_vo5.TabIndex = 12;
@@ -206,7 +218,7 @@
             // 
             // button_add_vo2
             // 
-            this.button_add_vo2.Location = new System.Drawing.Point(385, 148);
+            this.button_add_vo2.Location = new System.Drawing.Point(385, 175);
             this.button_add_vo2.Name = "button_add_vo2";
             this.button_add_vo2.Size = new System.Drawing.Size(46, 20);
             this.button_add_vo2.TabIndex = 9;
@@ -216,7 +228,7 @@
             // 
             // button_add_vo3
             // 
-            this.button_add_vo3.Location = new System.Drawing.Point(385, 174);
+            this.button_add_vo3.Location = new System.Drawing.Point(385, 201);
             this.button_add_vo3.Name = "button_add_vo3";
             this.button_add_vo3.Size = new System.Drawing.Size(46, 20);
             this.button_add_vo3.TabIndex = 10;
@@ -227,7 +239,7 @@
             // button_add_vo4
             // 
             this.button_add_vo4.Enabled = false;
-            this.button_add_vo4.Location = new System.Drawing.Point(385, 200);
+            this.button_add_vo4.Location = new System.Drawing.Point(385, 227);
             this.button_add_vo4.Name = "button_add_vo4";
             this.button_add_vo4.Size = new System.Drawing.Size(46, 20);
             this.button_add_vo4.TabIndex = 11;
@@ -237,7 +249,7 @@
             // 
             // button_add_vo1
             // 
-            this.button_add_vo1.Location = new System.Drawing.Point(385, 124);
+            this.button_add_vo1.Location = new System.Drawing.Point(385, 151);
             this.button_add_vo1.Name = "button_add_vo1";
             this.button_add_vo1.Size = new System.Drawing.Size(46, 20);
             this.button_add_vo1.TabIndex = 8;
@@ -247,7 +259,7 @@
             // 
             // textBox_vo1
             // 
-            this.textBox_vo1.Location = new System.Drawing.Point(6, 124);
+            this.textBox_vo1.Location = new System.Drawing.Point(6, 151);
             this.textBox_vo1.Name = "textBox_vo1";
             this.textBox_vo1.ReadOnly = true;
             this.textBox_vo1.Size = new System.Drawing.Size(373, 20);
@@ -256,7 +268,7 @@
             // 
             // textBox_vo5
             // 
-            this.textBox_vo5.Location = new System.Drawing.Point(6, 226);
+            this.textBox_vo5.Location = new System.Drawing.Point(6, 253);
             this.textBox_vo5.Name = "textBox_vo5";
             this.textBox_vo5.ReadOnly = true;
             this.textBox_vo5.Size = new System.Drawing.Size(373, 20);
@@ -264,7 +276,7 @@
             // 
             // textBox_vo4
             // 
-            this.textBox_vo4.Location = new System.Drawing.Point(6, 200);
+            this.textBox_vo4.Location = new System.Drawing.Point(6, 227);
             this.textBox_vo4.Name = "textBox_vo4";
             this.textBox_vo4.ReadOnly = true;
             this.textBox_vo4.Size = new System.Drawing.Size(373, 20);
@@ -272,7 +284,7 @@
             // 
             // textBox_vo2
             // 
-            this.textBox_vo2.Location = new System.Drawing.Point(6, 148);
+            this.textBox_vo2.Location = new System.Drawing.Point(6, 175);
             this.textBox_vo2.Name = "textBox_vo2";
             this.textBox_vo2.ReadOnly = true;
             this.textBox_vo2.Size = new System.Drawing.Size(373, 20);
@@ -281,7 +293,7 @@
             // 
             // textBox_vo3
             // 
-            this.textBox_vo3.Location = new System.Drawing.Point(6, 174);
+            this.textBox_vo3.Location = new System.Drawing.Point(6, 201);
             this.textBox_vo3.Name = "textBox_vo3";
             this.textBox_vo3.ReadOnly = true;
             this.textBox_vo3.Size = new System.Drawing.Size(373, 20);
@@ -291,7 +303,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(437, 230);
+            this.label10.Location = new System.Drawing.Point(437, 257);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(28, 13);
             this.label10.TabIndex = 127;
@@ -300,7 +312,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(437, 204);
+            this.label9.Location = new System.Drawing.Point(437, 231);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(28, 13);
             this.label9.TabIndex = 125;
@@ -309,7 +321,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(437, 178);
+            this.label8.Location = new System.Drawing.Point(437, 205);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(28, 13);
             this.label8.TabIndex = 123;
@@ -318,7 +330,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(437, 152);
+            this.label7.Location = new System.Drawing.Point(437, 179);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(28, 13);
             this.label7.TabIndex = 121;
@@ -344,7 +356,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(437, 128);
+            this.label2.Location = new System.Drawing.Point(437, 155);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(28, 13);
             this.label2.TabIndex = 117;
@@ -388,13 +400,15 @@
             // uvaga_textBox
             // 
             this.uvaga_textBox.Location = new System.Drawing.Point(6, 96);
+            this.uvaga_textBox.Multiline = true;
             this.uvaga_textBox.Name = "uvaga_textBox";
-            this.uvaga_textBox.Size = new System.Drawing.Size(424, 20);
+            this.uvaga_textBox.Size = new System.Drawing.Size(424, 49);
             this.uvaga_textBox.TabIndex = 7;
+            this.uvaga_textBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.uvaga_textBox_KeyDown);
             // 
             // kodove_slovo_textBox
             // 
-            this.kodove_slovo_textBox.Location = new System.Drawing.Point(6, 252);
+            this.kodove_slovo_textBox.Location = new System.Drawing.Point(6, 279);
             this.kodove_slovo_textBox.Name = "kodove_slovo_textBox";
             this.kodove_slovo_textBox.Size = new System.Drawing.Size(424, 20);
             this.kodove_slovo_textBox.TabIndex = 13;
@@ -411,7 +425,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(437, 256);
+            this.label5.Location = new System.Drawing.Point(437, 283);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(77, 13);
             this.label5.TabIndex = 107;
@@ -901,7 +915,16 @@
             this.groupBox7.Size = new System.Drawing.Size(694, 118);
             this.groupBox7.TabIndex = 189;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "groupBox7";
+            this.groupBox7.Text = "Статус";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(198, 309);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(113, 13);
+            this.label6.TabIndex = 127;
+            this.label6.Text = "Хто змінив від клієта";
             // 
             // Activation_Form
             // 
@@ -1015,5 +1038,7 @@
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.DataGridView dataGridView_activation_chenges;
         private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.TextBox textBox_who_chenge_pin;
+        private System.Windows.Forms.Label label6;
     }
 }

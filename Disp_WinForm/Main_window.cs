@@ -400,7 +400,7 @@ namespace Disp_WinForm
             string sql = "SELECT " +
                 "(SELECT product_name FROM btk.products where idproducts = products_idproducts) as 'Продукт', " +
                 "Object_imei as 'IMEI', " +
-                "Objectcol_create_date  as 'Создано', " +
+                "date_cteate as 'Создано', " +
                 "idObject, " +
                 "(SELECT Simcardcol_imsi FROM btk.Simcard where idSimcard = Simcard_idSimcard) as 'Simcardcol_imsi', " +
                 "(SELECT Simcardcol_number FROM btk.Simcard where idSimcard = Simcard_idSimcard) as 'Simcardcol_number', " +
@@ -411,7 +411,7 @@ namespace Disp_WinForm
                 "products_idproducts " +
                 "FROM btk.Object " +
                 "where Users_idUsers = '"+ comboBox_user_to_crate_obj.SelectedValue + "' " +
-                "and Objectcol_create_date BETWEEN '" + Convert.ToDateTime(date + new TimeSpan(00, 00, 0)).ToString("yyyy-MM-dd HH:mm:ss") + "' " +
+                "and date_cteate BETWEEN '" + Convert.ToDateTime(date + new TimeSpan(00, 00, 0)).ToString("yyyy-MM-dd HH:mm:ss") + "' " +
                 "and '" + Convert.ToDateTime(date + new TimeSpan(23, 59, 59)).ToString("yyyy-MM-dd HH:mm:ss") + "' " +
                 "order by Objectcol_create_date desc;";
             DataTable table = macros.GetData(sql);
@@ -10046,16 +10046,16 @@ namespace Disp_WinForm
                 + "\"n\":\"3.4 Місце установки\","
                 + "\"v\":\"\"}");
 
-            //Произвольное поле 3
-            string pp33_answer = macros.WialonRequest(
-                                                                                                                "&svc=item/update_custom_field&params={"
-                                                                                                                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
-                                                                                                                + "\"id\":\"0\","
-                                                                                                                + "\"callMode\":\"create\","
-                                                                                                                + "\"n\":\"4.0 Дата останньої заміни батареї\","
-                                                                                                                + "\"v\":\"\"}");
-
             //Произвольное поле 13
+            string pp33_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"4.0 Дата останньої заміни батареї\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 14
             string pp13_answer = macros.WialonRequest(
                 "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -10064,7 +10064,7 @@ namespace Disp_WinForm
                 + "\"n\":\"4.1 Дата активації\","
                 + "\"v\":\"\"}");
 
-            //Произвольное поле 14
+            //Произвольное поле 15
             string pp14_answer = macros.WialonRequest(
                 "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -10073,7 +10073,7 @@ namespace Disp_WinForm
                 + "\"n\":\"4.1.1 Оператор, що активував\","
                 + "\"v\":\"\"}");
 
-            //Произвольное поле 15
+            //Произвольное поле 16
             string pp15_answer = macros.WialonRequest(
                 "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -10082,7 +10082,7 @@ namespace Disp_WinForm
                 + "\"n\":\"4.4 Обліковий запис WL\","
                 + "\"v\":\"\"}");
 
-            //Произвольное поле 16
+            //Произвольное поле 17
             string pp16_answer = macros.WialonRequest(
                 "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -10091,7 +10091,7 @@ namespace Disp_WinForm
                 + "\"n\":\"5.1 Менеджер\","
                 + "\"v\":\"\"}");
 
-            //Произвольное поле 17
+            //Произвольное поле 18
             string pp17_answer = macros.WialonRequest(
                 "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -10100,7 +10100,7 @@ namespace Disp_WinForm
                 + "\"n\":\"5.2 Договір обслуговування\","
                 + "\"v\":\"\"}");
 
-            //Произвольное поле 18
+            //Произвольное поле 19
             string pp18_answer = macros.WialonRequest(
                 "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -10109,7 +10109,7 @@ namespace Disp_WinForm
                 + "\"n\":\"5.3 Гарантія до\","
                 + "\"v\":\"\"}");
 
-            //Произвольное поле 19
+            //Произвольное поле 20
             string pp19_answer = macros.WialonRequest(
                 "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -10118,7 +10118,7 @@ namespace Disp_WinForm
                 + "\"n\":\"8.1 Паркінг 1\","
                 + "\"v\":\"\"}");
 
-            //Произвольное поле 20
+            //Произвольное поле 21
             string pp20_answer = macros.WialonRequest(
                 "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -10127,7 +10127,7 @@ namespace Disp_WinForm
                 + "\"n\":\"8.2 Паркінг 2\","
                 + "\"v\":\"\"}");
 
-            //Произвольное поле 21
+            //Произвольное поле 22
             string pp21_answer = macros.WialonRequest(
                 "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -10136,7 +10136,7 @@ namespace Disp_WinForm
                 + "\"n\":\"9.0 Примітки\","
                 + "\"v\":\"\"}");
 
-            //Произвольное поле 22
+            //Произвольное поле 23
             string pp22_answer = macros.WialonRequest(
                 "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -10145,7 +10145,7 @@ namespace Disp_WinForm
                 + "\"n\":\"9.1 Техпаспорт\","
                 + "\"v\":\"\"}");
 
-            //Административное поле 23
+            //Административное поле 24
             string pp23_answer = macros.WialonRequest(
                 "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -10154,7 +10154,7 @@ namespace Disp_WinForm
                 + "\"n\":\"9.2.1 Дата перевірки картки\","
                 + "\"v\":\"\"}");
 
-            //Произвольное поле 24
+            //Произвольное поле 25
             string pp24_answer = macros.WialonRequest(
                 "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -10163,7 +10163,7 @@ namespace Disp_WinForm
                 + "\"n\":\"9.2.2 Оператор перевірки картки\","
                 + "\"v\":\"\"}");
 
-            //Произвольное поле 25
+            //Произвольное поле 26
             string pp25_answer = macros.WialonRequest(
                 "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -10172,7 +10172,7 @@ namespace Disp_WinForm
                 + "\"n\":\"9.9 Колір ТЗ\","
                 + "\"v\":\"\"}");
 
-            //Произвольное поле 26
+            //Произвольное поле 27
             string pp26_answer = macros.WialonRequest(
                 "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -10504,13 +10504,19 @@ namespace Disp_WinForm
         private void maskedTextBox_sim_no_to_create_KeyPress(object sender, KeyPressEventArgs e)
         {
             button_create_object.Text = "Створити";
-            search_tovar_comboBox.Text = "";
-            maskedTextBox_BLE_CODE.Text = "";
-            maskedTextBox_GSM_CODE.Text = "";
-            maskedTextBox_PUK.Text = "";
-            textBox_bt_enable.Text = "";
+            //maskedTextBox_sim_no_to_create.Text = "";
+            comboBox_tel_select.Text = "";
             button_create_object.BackColor = Color.Empty;
             maskedTextBox_sim_no_to_create.BackColor = Color.Empty;
+
+            if (e.KeyChar == (char)13)
+            {
+                string t = "SELECT Simcardcol_imsi FROM btk.Simcard where Simcardcol_number ='" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';";
+                if (t != "")
+                {
+                    comboBox_tel_select.Text = macros.sql_command(t);
+                }
+            }
         }
 
         private void comboBox_user_to_crate_obj_SelectedIndexChanged(object sender, EventArgs e)

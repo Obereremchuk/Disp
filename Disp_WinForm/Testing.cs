@@ -155,8 +155,8 @@ namespace Disp_WinForm
                 if (get_produt_testing_device == "2")
                 { comboBox_pin_or_tag.SelectedIndex = 3; }
             }
-            //SLED, K_n
-            else if (get_produt_testing_device == "5" || get_produt_testing_device == "7")
+            //SLED
+            else if (get_produt_testing_device == "5" )
             {
                 checkBox_sensor_gps.Enabled = false;
                 checkBox_sensor_glushenia.Enabled = false;
@@ -194,6 +194,46 @@ namespace Disp_WinForm
                 checkBox_dop_1.Enabled = false;
                 checkBox_test_dop_2.Enabled = false;
                 checkBox_test_autostart.Enabled = false;
+            }//K_n
+            else if ( get_produt_testing_device == "7")
+            {
+                checkBox_sensor_gps.Enabled = false;
+                checkBox_sensor_glushenia.Enabled = false;
+                checkBox_sensor_autostart.Enabled = false;
+                checkBox_sensor_objema.Enabled = false;
+                checkBox_lock_hood.Enabled = false;
+                textBox_other_alarm.Enabled = false;
+                textBox_CAN_relay_place.Enabled = false;
+                textBox_CAN_relay_lancug.Enabled = false;
+                comboBox_zvich_relay_place.Enabled = false;
+                textBox_zvich_relay_lancug.Enabled = false;
+                checkBox_block_prizrak_can.Enabled = false;
+                checkBox_test_relay_plus.Enabled = false;
+                comboBox_wire_tk.Enabled = false;
+                textBox_wireless_tk.Enabled = false;
+                comboBox_pin_or_tag.Enabled = false;
+                comboBox_service_button.Enabled = false;
+                comboBox_buttons_for_pin.Enabled = false;
+                textBox_current_pin.Enabled = false;
+                button_block_engine.Enabled = false;
+                button_unblock_engine.Enabled = false;
+                checkBox_test_zablocovano.Enabled = false;
+                checkBox_test_zablocovano.Checked = true;
+                //checkBox__test_vzlom.Enabled = false;
+                //checkBox__test_vzlom.Checked = true;
+                label1.Text = "Запалення";
+                checkBox_test_tk.Checked = true;
+                checkBox_test_tk.Enabled = false;
+                checkBox_test_du.Enabled = false;
+                checkBox_test_du.Checked = true;
+                checkBox1.Enabled = false;
+                checkBox2.Enabled = false;
+                checkBox3.Enabled = false;
+                checkBox4.Enabled = false;
+                checkBox5.Enabled = false;
+                checkBox_dop_1.Enabled = false;
+                checkBox_test_dop_2.Enabled = false;
+                checkBox_test_autostart.Enabled = false;
             }
             //KB_n
             else if (get_produt_testing_device == "17")
@@ -213,8 +253,9 @@ namespace Disp_WinForm
                 comboBox_service_button.Enabled = false;
                 comboBox_buttons_for_pin.Enabled = false;
                 textBox_current_pin.Enabled = false;
-                checkBox__test_vzlom.Enabled = false;
-                checkBox__test_vzlom.Checked = true;
+                //checkBox__test_vzlom.Enabled = false;
+                //checkBox__test_vzlom.Checked = true;
+                label1.Text = "Запалення";
                 checkBox_test_du.Enabled = false;
                 checkBox_test_du.Checked = true;
                 checkBox1.Enabled = false;
@@ -244,8 +285,9 @@ namespace Disp_WinForm
                 comboBox_service_button.Enabled = false;
                 comboBox_buttons_for_pin.Enabled = false;
                 textBox_current_pin.Enabled = false;
-                checkBox__test_vzlom.Enabled = false;
-                checkBox__test_vzlom.Checked = true;
+                //checkBox__test_vzlom.Enabled = false;
+                //checkBox__test_vzlom.Checked = true;
+                label1.Text = "Запалення";
                 checkBox_test_du.Enabled = false;
                 checkBox_test_du.Checked = true;
                 checkBox1.Enabled = false;
@@ -2171,7 +2213,7 @@ namespace Disp_WinForm
                     macros.sql_command("update btk.Object set Objectcol_testing_ok = 'Успішно' where idObject = '" + vars_form.id_db_object_for_test + "';");
 
                     string Subject = "505 Протестовано успішно! VIN: " + textBox_vin.Text + ", Обєкт: " + name_obj_textBox.Text;
-                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua><e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>"; 
+                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua>,<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>"; 
                      DataTable dt = new DataTable();
 
                     dt.Columns.Add("Параметр");
@@ -2732,7 +2774,7 @@ namespace Disp_WinForm
                     macros.sql_command("update btk.Object set Objectcol_testing_ok = 'Успішно' where idObject = '" + vars_form.id_db_object_for_test + "';");
 
                     string Subject = "505 Протестовано успішно! VIN: " + textBox_vin.Text + ", Обєкт: " + name_obj_textBox.Text;
-                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua><e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>,<a.oberemchuk@venbest.com.ua>";
+                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua>,<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>,<a.oberemchuk@venbest.com.ua>";
                     DataTable dt = new DataTable();
 
                     dt.Columns.Add("Параметр");
@@ -2970,6 +3012,17 @@ namespace Disp_WinForm
                     label_netconn.Text = ":(";
                     label_netconn.BackColor = Color.Red;
                 }
+                //Статус Запалення
+                if (test_out.item.lmsg.p.par5 >= 1)
+                {
+                    label__test_vzlom.Text = "Ввімкнено";
+                    label__test_vzlom.BackColor = Color.YellowGreen;
+                }
+                else
+                {
+                    label__test_vzlom.Text = "Вимкнено";
+                    label__test_vzlom.BackColor = Color.Empty;
+                }
             }
             else if (get_produt_testing_device == "17" )
             {
@@ -3020,6 +3073,17 @@ namespace Disp_WinForm
                 {
                     label_test_zablocovano.Text = "Заблоковано";
                     label_test_zablocovano.BackColor = Color.YellowGreen;
+                }
+                //Статус Запалення
+                if (test_out.item.lmsg.p.par5 >= 1)
+                {
+                    label__test_vzlom.Text = "Ввімкнено";
+                    label__test_vzlom.BackColor = Color.YellowGreen;
+                }
+                else
+                {
+                    label__test_vzlom.Text = "Вимкнено";
+                    label__test_vzlom.BackColor = Color.Empty;
                 }
             }
             else if (get_produt_testing_device == "12" )
@@ -3083,6 +3147,17 @@ namespace Disp_WinForm
                 {
                     label_test_tk.Text = "Ввімкнено";
                     label_test_tk.BackColor = Color.YellowGreen;
+                }
+                //Статус Запалення
+                if (test_out.item.lmsg.p.par5 >= 1)
+                {
+                    label__test_vzlom.Text = "Ввімкнено";
+                    label__test_vzlom.BackColor = Color.YellowGreen;
+                }
+                else
+                {
+                    label__test_vzlom.Text = "Вимкнено";
+                    label__test_vzlom.BackColor = Color.Empty;
                 }
             }
             else if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")

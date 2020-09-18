@@ -14,6 +14,7 @@ namespace Disp_WinForm
     {
         private Macros macros = new Macros();
         private string id_new_user;
+        private string date_chenge_pin;
         private List<TreeNode> _unselectableNodes = new List<TreeNode>();
 
         public Activation_Form()
@@ -24,6 +25,7 @@ namespace Disp_WinForm
             //load_form();
             build_list_account();
             button_add_2_account.Enabled = false;
+            get_remaynder();
         }
 
         private void get_remaynder()
@@ -355,9 +357,19 @@ namespace Disp_WinForm
 
             string pin_chenged = macros.sql_command("SELECT pin_chenged FROM btk.Activation_object where idActivation_object = '" + vars_form.id_db_activation_for_activation + "'");
             if (pin_chenged == "1")
-            { checkBox_pin_chenged.Checked = true; }
+            { 
+                checkBox_pin_chenged.Checked = true;
+                textBox_who_chenge_pin.ReadOnly = true;
+                textBox_who_chenge_pin.Text = macros.sql_command("SELECT Who_chenge_pin FROM btk.Activation_object where idActivation_object = '" + vars_form.id_db_activation_for_activation + "'");
+                date_chenge_pin = macros.sql_command("SELECT Date_chenge_pin FROM btk.Activation_object where idActivation_object = '" + vars_form.id_db_activation_for_activation + "'");
+            }
             else if (pin_chenged == "0" || pin_chenged == "")
-            { checkBox_pin_chenged.Checked = false; }
+            { 
+                checkBox_pin_chenged.Checked = false;
+                textBox_who_chenge_pin.ReadOnly = false;
+            }
+
+            
 
             //load data from zayavki
             DataTable table2 = new DataTable();
@@ -371,7 +383,10 @@ namespace Disp_WinForm
                 "products.product_name ," +
                 "Kontragenti.Kontragenti_short_name, " +
                 "TS_info.TS_infocol_licence_plate, " +
-                "Zayavki.Zayavkicol_VIN " +
+                "Zayavki.Zayavkicol_VIN, " +
+                "Zayavki.Zayavkicol_license_plate, " +
+                "TS_info.TS_infocol_vin, " +
+                "Kontragenti.kontragent_type_idkontragent_type " +
                 "from " +
                 "btk.Zayavki, btk.products, btk.Kontragenti, btk.TS_info, btk.testing_object, btk.Object " +
                 "where " +
@@ -390,11 +405,35 @@ namespace Disp_WinForm
             maskedTextBox_cont_phone2.Text = table2.Rows[0][4].ToString();
             textBox_email.Text = table2.Rows[0][5].ToString();
             textBox_product.Text = table2.Rows[0][6].ToString();
-            textBox_zamovnik.Text = table2.Rows[0][7].ToString();
-            textBox_licence_plate.Text = table2.Rows[0][8].ToString();
-            textBox_vin_zayavka.Text = table2.Rows[0][9].ToString();
+            // Формируем название проекта в зависимости от типа контрагента и названии контрагента
+            if (table2.Rows[0][12].ToString() == "1")
+            { textBox_zamovnik.Text = "Дилер (" + table2.Rows[0][7].ToString() + ")"; }
+            else if (table2.Rows[0][12].ToString() == "2")
+            { textBox_zamovnik.Text = "СК (" + table2.Rows[0][7].ToString() + ")"; }
+            else if (table2.Rows[0][12].ToString() == "3")
+            { textBox_zamovnik.Text = "Роздріб (" + table2.Rows[0][7].ToString() + ")"; }
+            else { textBox_zamovnik.Text = table2.Rows[0][7].ToString(); }
 
+            
+            // если номер не указан в завке , то смотрим в тестирование, если и там не указан то ставим пусто
+            if (table2.Rows[0][10].ToString() == "")
+            {
+                if (table2.Rows[0][8].ToString() == "")
+                { textBox_licence_plate.Text = ""; }
+                else
+                { textBox_licence_plate.Text = table2.Rows[0][8].ToString(); }
+            }
+            else { textBox_licence_plate.Text = table2.Rows[0][10].ToString(); }
 
+            // если номер не указан в завке , то смотрим в тестирование, если и там не указан то ставим пусто
+            if (table2.Rows[0][9].ToString() == "")
+            {
+                if (table2.Rows[0][11].ToString() == "")
+                { textBox_vin_zayavka.Text = ""; }
+                else
+                { textBox_vin_zayavka.Text = table2.Rows[0][11].ToString(); }
+            }
+            else { textBox_vin_zayavka.Text = table2.Rows[0][9].ToString(); }
 
             ReadActivationChenges(vars_form.id_db_activation_for_activation);
         }
@@ -722,13 +761,90 @@ namespace Disp_WinForm
                     accounts = accounts + treeView_user_accounts.Nodes[0].Nodes[index1].Text + ", ";
                 }
 
-                //update Обліковий запис WL
-                string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                if (product_id == "10" || product_id == "11")//CNTP_910, CNTK_910
+                {
+                    //update Обліковий запис WL
+                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
                                                                 + "\"id\":\"25\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"4.4 Обліковий запис WL\","
                                                                 + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                }
+                else if (product_id == "14" || product_id == "13")//CNTP_910_SE_N, CNTP_910_SE_P
+                {
+                    //update Обліковий запис WL
+                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"id\":\"25\","
+                                                                + "\"callMode\":\"update\","
+                                                                + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                }
+                else if (product_id == "2" || product_id == "3" || product_id == "6")//CNTP, CNTK, CN
+                {
+                    //update Обліковий запис WL
+                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"id\":\"27\","
+                                                                + "\"callMode\":\"update\","
+                                                                + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                }
+                else if (product_id == "5") //SLED
+                {
+                    //update Обліковий запис WL
+                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"id\":\"16\","
+                                                                + "\"callMode\":\"update\","
+                                                                + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                }
+                else if (product_id == "7") //K_n
+                {
+                    //update Обліковий запис WL
+                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"id\":\"13\","
+                                                                + "\"callMode\":\"update\","
+                                                                + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                }
+                else if (product_id == "12") //Kp_n
+                {
+                    //update Обліковий запис WL
+                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"id\":\"17\","
+                                                                + "\"callMode\":\"update\","
+                                                                + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                }
+                else if (product_id == "17") //Kp_n
+                {
+                    //update Обліковий запис WL
+                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"id\":\"15\","
+                                                                + "\"callMode\":\"update\","
+                                                                + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                }
+                else if (product_id == "9") //S
+                {
+                    //update Обліковий запис WL
+                    //string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                    //                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                    //                                            + "\"id\":\"15\","
+                    //                                            + "\"callMode\":\"update\","
+                    //                                            + "\"n\":\"4.4 Обліковий запис WL\","
+                    //                                            + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                }
+                else
+                {
+                    MessageBox.Show("Невідомий продукт, інформацію про обліковий запис в картку WL не внесено");
+                }
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -966,15 +1082,90 @@ namespace Disp_WinForm
                     {
                         accounts = accounts + treeView_user_accounts.Nodes[0].Nodes[index1].Text + ", ";
                     }
-
-                    //update Обліковий запис WL
-                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                    if (product_id == "10" || product_id == "11")//CNTP_910, CNTK_910
+                    {
+                        //update Обліковий запис WL
+                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                     + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
                                                                     + "\"id\":\"25\","
                                                                     + "\"callMode\":\"update\","
                                                                     + "\"n\":\"4.4 Обліковий запис WL\","
                                                                     + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
-
+                    }
+                    else if (product_id == "14" || product_id == "13")//CNTP_910_SE_N, CNTP_910_SE_P
+                    {
+                        //update Обліковий запис WL
+                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                    + "\"id\":\"25\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                    }
+                    else if (product_id == "2" || product_id == "3" || product_id == "6")//CNTP, CNTK, CN
+                    {
+                        //update Обліковий запис WL
+                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                    + "\"id\":\"27\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                    }
+                    else if (product_id == "5") //SLED
+                    {
+                        //update Обліковий запис WL
+                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                    + "\"id\":\"16\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                    }
+                    else if (product_id == "7") //K_n
+                    {
+                        //update Обліковий запис WL
+                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                    + "\"id\":\"13\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                    }
+                    else if (product_id == "12") //Kp_n
+                    {
+                        //update Обліковий запис WL
+                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                    + "\"id\":\"17\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                    }
+                    else if (product_id == "17") //Kp_n
+                    {
+                        //update Обліковий запис WL
+                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                    + "\"id\":\"15\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                    }
+                    else if (product_id == "9") //S
+                    {
+                        //update Обліковий запис WL
+                        //string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                        //                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                        //                                            + "\"id\":\"15\","
+                        //                                            + "\"callMode\":\"update\","
+                        //                                            + "\"n\":\"4.4 Обліковий запис WL\","
+                        //                                            + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Невідомий продукт, інформацію про обліковий запис в картку WL не внесено");
+                    }
                     Clipboard.SetText(textBox_account_pss.Text);
                 }
                 else if (dialogResult == DialogResult.No)
@@ -2272,7 +2463,7 @@ namespace Disp_WinForm
                                                                  "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                                  "\"callMode\":\"update\"," +
                                                                  "\"n\":\"" + keyvalue.Value.n + "\"," +
-                                                                 "\"v\":\"" + uvaga_textBox.Text + "\"}");
+                                                                 "\"v\":\"" + uvaga_textBox.Text.Replace("\"", "%5C%22") + "\"}");
                     }
                 }
                 if (keyvalue.Value.n.Contains("Кодове "))
@@ -2344,29 +2535,40 @@ namespace Disp_WinForm
                 }
                 if (keyvalue.Value.n.Contains("02 Проект"))
                 {
-                    string kontragent_type_idkontragent_type = macros.sql_command("SELECT kontragent_type_idkontragent_type FROM btk.Zayavki, btk.Kontragenti where Kontragenti_idKontragenti_zakazchik = idKontragenti and Activation_object_idActivation_object = '" + vars_form.id_db_activation_for_activation + "';");
-                    //Chenge feild Проект
-                    //macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo3_vo_form + "','3','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
-                    if (kontragent_type_idkontragent_type == "2")
+                    string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                                                    "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                    "\"id\":\"" + keyvalue.Value.id + "\"," +
+                                                    "\"callMode\":\"update\"," +
+                                                    "\"n\":\"" + keyvalue.Value.n + "\"," +
+                                                    "\"v\":\"" + textBox_zamovnik.Text + "\"}");
+                }
+
+                if (textBox_who_chenge_pin.ReadOnly is false)
+                {
+                    if (keyvalue.Value.n.Contains("4.2 Дата"))
                     {
                         string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
-                                                     "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
-                                                     "\"id\":\"" + keyvalue.Value.id + "\"," +
-                                                     "\"callMode\":\"update\"," +
-                                                     "\"n\":\"" + keyvalue.Value.n + "\"," +
-                                                     "\"v\":\"" + textBox_zamovnik.Text + "\"}");
+                                                        "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                        "\"id\":\"" + keyvalue.Value.id + "\"," +
+                                                        "\"callMode\":\"update\"," +
+                                                        "\"n\":\"" + keyvalue.Value.n + "\"," +
+                                                        "\"v\":\"" + DateTime.Now.Date.ToString() + "\"}");
                     }
-                    else
-                    {
-                        string json1 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
-                                                     "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
-                                                     "\"id\":\"" + keyvalue.Value.id + "\"," +
-                                                     "\"callMode\":\"update\"," +
-                                                     "\"n\":\"" + keyvalue.Value.n + "\"," +
-                                                     "\"v\":\"Роздріб\"}");
-                    }
-
                 }
+                if (textBox_who_chenge_pin.ReadOnly is false)
+                {
+                    if (keyvalue.Value.n.Contains("4.3 PIN-код"))
+                    {
+                        string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                                                        "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                        "\"id\":\"" + keyvalue.Value.id + "\"," +
+                                                        "\"callMode\":\"update\"," +
+                                                        "\"n\":\"" + keyvalue.Value.n + "\"," +
+                                                        "\"v\":\"" + textBox_who_chenge_pin.Text + "\"}");
+                    }
+                }
+
+
                 ReadActivationChenges(vars_form.id_db_activation_for_activation);
             }
 
@@ -2374,26 +2576,54 @@ namespace Disp_WinForm
 
             if (vars_form.if_open_created_activation == 1)
             {
-                macros.sql_command("update btk.Activation_object " +
-                    "set " +
-                    "Activation_date = '" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "', " +
-                    "Users_idUsers = '" + vars_form.user_login_id + "'," +
-                    "Object_idObject = '" + vars_form.id_db_object_for_activation + "'," +
-                    "Activation_objectcol_result = '" + comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) + "'," +
-                    "new_name_obj = '" + MySqlHelper.EscapeString(name_obj_new_textBox.Text) + "'," +
-                    "new_pole_uvaga = '" + MySqlHelper.EscapeString(uvaga_textBox.Text) + "'," +
-                    "vo1 = '" + vars_form.transfer_vo1_vo_form + "'," +
-                    "vo2 = '" + vars_form.transfer_vo2_vo_form + "'," +
-                    "vo3 = '" + vars_form.transfer_vo3_vo_form + "'," +
-                    "vo4 = '" + vars_form.transfer_vo4_vo_form + "'," +
-                    "vo5 = '" + vars_form.transfer_vo5_vo_form + "'," +
-                    "kodove_slovo = '" + MySqlHelper.EscapeString(kodove_slovo_textBox.Text) + "'," +
-                    "alarm_button = '" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
-                    "pin_chenged = '" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'," +
-                    "comment = '" + textBox_comments.Text + "' " +
-                    "where " +
-                    "idActivation_object = '" + vars_form.id_db_activation_for_activation + "'" +
-                    ";");
+                if (textBox_who_chenge_pin.ReadOnly is true)
+                {
+                    macros.sql_command("update btk.Activation_object " +
+                        "set " +
+                        "Activation_date = '" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "', " +
+                        "Users_idUsers = '" + vars_form.user_login_id + "'," +
+                        "Object_idObject = '" + vars_form.id_db_object_for_activation + "'," +
+                        "Activation_objectcol_result = '" + comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) + "'," +
+                        "new_name_obj = '" + MySqlHelper.EscapeString(name_obj_new_textBox.Text) + "'," +
+                        "new_pole_uvaga = '" + MySqlHelper.EscapeString(uvaga_textBox.Text) + "'," +
+                        "vo1 = '" + vars_form.transfer_vo1_vo_form + "'," +
+                        "vo2 = '" + vars_form.transfer_vo2_vo_form + "'," +
+                        "vo3 = '" + vars_form.transfer_vo3_vo_form + "'," +
+                        "vo4 = '" + vars_form.transfer_vo4_vo_form + "'," +
+                        "vo5 = '" + vars_form.transfer_vo5_vo_form + "'," +
+                        "kodove_slovo = '" + MySqlHelper.EscapeString(kodove_slovo_textBox.Text) + "'," +
+                        "alarm_button = '" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
+                        "pin_chenged = '" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'," +
+                        "comment = '" + textBox_comments.Text + "' " +
+                        "where " +
+                        "idActivation_object = '" + vars_form.id_db_activation_for_activation + "'" +
+                        ";");
+                }
+                else
+                {
+                    macros.sql_command("update btk.Activation_object " +
+                        "set " +
+                        "Activation_date = '" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "', " +
+                        "Users_idUsers = '" + vars_form.user_login_id + "'," +
+                        "Object_idObject = '" + vars_form.id_db_object_for_activation + "'," +
+                        "Activation_objectcol_result = '" + comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) + "'," +
+                        "new_name_obj = '" + MySqlHelper.EscapeString(name_obj_new_textBox.Text) + "'," +
+                        "new_pole_uvaga = '" + MySqlHelper.EscapeString(uvaga_textBox.Text) + "'," +
+                        "vo1 = '" + vars_form.transfer_vo1_vo_form + "'," +
+                        "vo2 = '" + vars_form.transfer_vo2_vo_form + "'," +
+                        "vo3 = '" + vars_form.transfer_vo3_vo_form + "'," +
+                        "vo4 = '" + vars_form.transfer_vo4_vo_form + "'," +
+                        "vo5 = '" + vars_form.transfer_vo5_vo_form + "'," +
+                        "kodove_slovo = '" + MySqlHelper.EscapeString(kodove_slovo_textBox.Text) + "'," +
+                        "alarm_button = '" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
+                        "pin_chenged = '" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'," +
+                        "Who_chenge_pin = '" + textBox_who_chenge_pin.Text + "'," +
+                        "Date_chenge_pin = '" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "'," +
+                        "comment = '" + textBox_comments.Text + "' " +
+                        "where " +
+                        "idActivation_object = '" + vars_form.id_db_activation_for_activation + "'" +
+                        ";");
+                }
 
                 string id_ts_info_fo_object_activation = macros.sql_command("select TS_info_idTS_info from btk.Object where idObject = '" + vars_form.id_db_object_for_activation + "'");
 
@@ -2436,20 +2666,22 @@ namespace Disp_WinForm
                                                                 + "\"n\":\"4.1 Дата активації\","
                                                                 + "\"v\":\"" + DateTime.Now.Date + "\"}");
 
-                //через запятую перебираем все аккауты из тривив и добавляем в accounts для записи в виалон
-                string accounts = "";
-                for (int index1 = 0; index1 < treeView_user_accounts.Nodes[0].Nodes.Count; index1++)
-                {
-                    accounts = accounts + treeView_user_accounts.Nodes[0].Nodes[index1].Text + ", ";
-                }
 
-                //update коли тестував in WL
-                string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
-                                                                + "\"id\":\"25\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"4.4 Обліковий запис WL\","
-                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+
+                ////через запятую перебираем все аккауты из тривив и добавляем в accounts для записи в виалон
+                //string accounts = "";
+                //for (int index1 = 0; index1 < treeView_user_accounts.Nodes[0].Nodes.Count; index1++)
+                //{
+                //    accounts = accounts + treeView_user_accounts.Nodes[0].Nodes[index1].Text + ", ";
+                //}
+
+                ////update коли тестував in WL
+                //string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                //                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                //                                                + "\"id\":\"25\","
+                //                                                + "\"callMode\":\"update\","
+                //                                                + "\"n\":\"4.4 Обліковий запис WL\","
+                //                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
                 //Insert chenges
                 InsertActivationChenges(
                     vars_form.id_db_activation_for_activation, 
@@ -2465,14 +2697,53 @@ namespace Disp_WinForm
                     kodove_slovo_textBox.Text,
                     checkBox_tk_tested.Checked ? 1 : 0,
                     checkBox_pin_chenged.Checked ? 1 : 0,
-                    textBox_comments.Text 
+                    textBox_comments.Text,
+                    textBox_who_chenge_pin.Text,
+                    DateTime.Now.Date
                     );
 
 
             }
             else if (vars_form.if_open_created_activation == 0)
             {
-                macros.sql_command("insert into btk.Activation_object (" +
+                if (textBox_who_chenge_pin.ReadOnly is true)
+                {
+                    macros.sql_command("insert into btk.Activation_object (" +
+                                                                    "Activation_date, " +
+                                                                    "Users_idUsers, " +
+                                                                    "Object_idObject," +
+                                                                    "Activation_objectcol_result," +
+                                                                    "new_name_obj," +
+                                                                    "new_pole_uvaga," +
+                                                                    "vo1," +
+                                                                    "vo2," +
+                                                                    "vo3," +
+                                                                    "vo4," +
+                                                                    "vo5, " +
+                                                                    "kodove_slovo," +
+                                                                    "alarm_button," +
+                                                                    "comment " +
+                                                                    ") " +
+                                                                    "values (" +
+                                                                    "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "'," +
+                                                                    "'" + vars_form.user_login_id + "'," +
+                                                                    "'" + vars_form.id_db_object_for_activation + "'," +
+                                                                    "'" + comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) + "'," +
+                                                                    "'" + MySqlHelper.EscapeString(name_obj_new_textBox.Text) + "'," +
+                                                                    "'" + MySqlHelper.EscapeString(uvaga_textBox.Text) + "'," +
+                                                                    "'" + vars_form.transfer_vo1_vo_form + "'," +
+                                                                    "'" + vars_form.transfer_vo2_vo_form + "'," +
+                                                                    "'" + vars_form.transfer_vo3_vo_form + "'," +
+                                                                    "'" + vars_form.transfer_vo4_vo_form + "'," +
+                                                                    "'" + vars_form.transfer_vo5_vo_form + "'," +
+                                                                    "'" + MySqlHelper.EscapeString(kodove_slovo_textBox.Text) + "'," +
+                                                                    "'" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
+                                                                    "'" + textBox_comments.Text + "'" +
+                                                                    ");");
+                }
+                else
+                {
+                    macros.sql_command("insert into btk.Activation_object (" +
                                                                     "Activation_date, " +
                                                                     "Users_idUsers, " +
                                                                     "Object_idObject," +
@@ -2487,6 +2758,8 @@ namespace Disp_WinForm
                                                                     "kodove_slovo," +
                                                                     "alarm_button," +
                                                                     "pin_chenged," +
+                                                                    "Who_chenge_pin," +
+                                                                    "Date_chenge_pin," +
                                                                     "comment " +
                                                                     ") " +
                                                                     "values (" +
@@ -2504,8 +2777,11 @@ namespace Disp_WinForm
                                                                     "'" + MySqlHelper.EscapeString(kodove_slovo_textBox.Text) + "'," +
                                                                     "'" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
                                                                     "'" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'," +
+                                                                    "'" + textBox_who_chenge_pin.Text + "'," +
+                                                                    "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "'," +
                                                                     "'" + textBox_comments.Text + "'" +
                                                                     ");");
+                }
 
                 vars_form.id_db_activation_for_activation = macros.sql_command("SELECT MAX(idActivation_object) FROM btk.Activation_object;");
 
@@ -2551,20 +2827,20 @@ namespace Disp_WinForm
                                                                 + "\"n\":\"4.1 Дата активації\","
                                                                 + "\"v\":\"" + DateTime.Now.Date + "\"}");
 
-                //через запятую перебираем все аккауты из тривив и добавляем в accounts для записи в виалон
-                string accounts = "";
-                for (int index1 = 0; index1 < treeView_user_accounts.Nodes[0].Nodes.Count; index1++)
-                {
-                    accounts = accounts + treeView_user_accounts.Nodes[0].Nodes[index1].Text + ", ";
-                }
+                ////через запятую перебираем все аккауты из тривив и добавляем в accounts для записи в виалон
+                //string accounts = "";
+                //for (int index1 = 0; index1 < treeView_user_accounts.Nodes[0].Nodes.Count; index1++)
+                //{
+                //    accounts = accounts + treeView_user_accounts.Nodes[0].Nodes[index1].Text + ", ";
+                //}
 
-                //update коли тестував in WL
-                string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
-                                                                + "\"id\":\"25\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"4.4 Обліковий запис WL\","
-                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                ////update коли тестував in WL
+                //string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                //                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                //                                                + "\"id\":\"25\","
+                //                                                + "\"callMode\":\"update\","
+                //                                                + "\"n\":\"4.4 Обліковий запис WL\","
+                //                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
 
                 //Insert chenges
                 InsertActivationChenges(
@@ -2581,7 +2857,9 @@ namespace Disp_WinForm
                     kodove_slovo_textBox.Text,
                     checkBox_tk_tested.Checked ? 1 : 0,
                     checkBox_pin_chenged.Checked ? 1 : 0,
-                    textBox_comments.Text
+                    textBox_comments.Text,
+                    textBox_who_chenge_pin.Text,
+                    DateTime.Now.Date
                     );
 
 
@@ -2589,7 +2867,7 @@ namespace Disp_WinForm
 
             if (remaynder_checkBox.Checked == true)
             {
-                string sql = string.Format("UPDATE btk.Activation_object SET remayder_date ='" + Convert.ToDateTime(remaynder_dateTimePicker.Value).ToString("yyyy-MM-dd") + "', remaynder_activate= 1 where idActivation_object=" + vars_form.id_db_activation_for_activation + ";");
+                string sql = string.Format("UPDATE btk.Activation_object SET remayder_date ='" + Convert.ToDateTime(remaynder_dateTimePicker.Value).ToString("yyyy-MM-dd HH:mm:ss") + "', remaynder_activate= 1 where idActivation_object=" + vars_form.id_db_activation_for_activation + ";");
                 macros.sql_command(sql);
             }
             if (remaynder_checkBox.Checked == false)
@@ -2601,7 +2879,7 @@ namespace Disp_WinForm
             this.Close();
         }
 
-        private void InsertActivationChenges(string idActivation_object, string idUsers, string date, string Activation_objectcol_result, string new_name_obj, string new_pole_uvaga, string vo1, string vo2, string vo3, string vo4, string kodove_slovo, int alarm_button, int pin_chenged, string comment)
+        private void InsertActivationChenges(string idActivation_object, string idUsers, string date, string Activation_objectcol_result, string new_name_obj, string new_pole_uvaga, string vo1, string vo2, string vo3, string vo4, string kodove_slovo, int alarm_button, int pin_chenged, string comment, string _Who_chenge_pin, DateTime _Date_chenge_pin)
         {
             DataTable chenges = macros.GetData("insert into btk.Activation_chenges (" +
                 "Activation_object_idActivation_object," +
@@ -2614,21 +2892,26 @@ namespace Disp_WinForm
                 "vo3," +
                 "vo4," +
                 "kodove_slovo," +
-                "alarm_button,pin_chenged, " +
+                "alarm_button," +
+                "pin_chenged, " +
+                "Who_chenge_pin, " +
+                "Date_chenge_pin, " +
                 "comment) " +
                 "values('"+ 
                 idActivation_object + "', '"+ 
                 idUsers + "', '" + date + "', '" + 
                 Activation_objectcol_result + "', '"+ 
-                new_name_obj + "', '"+ 
-                new_pole_uvaga + "', '"+ 
+                new_name_obj + "', '"+
+                MySqlHelper.EscapeString(new_pole_uvaga) + "', '"+ 
                 vo1 + "', '"+ 
                 vo2 + "', '"+ 
                 vo3 + "', '"+ 
                 vo4 + "', '"+ 
                 kodove_slovo + "', '"+ 
                 alarm_button + "', '"+ 
-                pin_chenged + "', '" + 
+                pin_chenged + "', '" +
+                _Who_chenge_pin + "', '" +
+                Convert.ToDateTime(_Date_chenge_pin).ToString("yyyy-MM-dd") + "', '" +
                 comment + "'); ");
         }//insert chenges activation
 
@@ -2791,21 +3074,33 @@ namespace Disp_WinForm
         private void textBox_vo1_DoubleClick(object sender, EventArgs e)
         {
             textBox_vo1.Text = "";
-            vars_form.transfer_vo1_vo_form = "";
+            vars_form.transfer_vo1_vo_form = "1";
         }
 
         private void textBox_vo2_DoubleClick(object sender, EventArgs e)
         {
             textBox_vo2.Text = "";
-            vars_form.transfer_vo2_vo_form = "";
+            vars_form.transfer_vo2_vo_form = "1";
         }
 
         private void textBox_vo3_DoubleClick(object sender, EventArgs e)
         {
             textBox_vo3.Text = "";
-            vars_form.transfer_vo3_vo_form = "";
+            vars_form.transfer_vo3_vo_form = "1";
         }
 
-        
+        private void textBox_who_chenge_pin_DoubleClick(object sender, EventArgs e)
+        {
+            textBox_who_chenge_pin.ReadOnly = false;
+            checkBox_pin_chenged.Checked = false;
+        }
+
+        private void uvaga_textBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+            }
+        }
     }
 }

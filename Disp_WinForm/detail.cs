@@ -1819,13 +1819,90 @@ namespace Disp_WinForm
                         accounts = accounts + treeView_user_accounts.Nodes[0].Nodes[index1].Text + ", ";
                     }
 
-                    //update коли тестував in WL
-                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                    if (product_id == "10" || product_id == "11")//CNTP_910, CNTK_910
+                    {
+                        //update Обліковий запис WL
+                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                     + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
                                                                     + "\"id\":\"25\","
                                                                     + "\"callMode\":\"update\","
                                                                     + "\"n\":\"4.4 Обліковий запис WL\","
                                                                     + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                    }
+                    else if (product_id == "14" || product_id == "13")//CNTP_910_SE_N, CNTP_910_SE_P
+                    {
+                        //update Обліковий запис WL
+                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                    + "\"id\":\"25\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                    }
+                    else if (product_id == "2" || product_id == "3" || product_id == "6")//CNTP, CNTK, CN
+                    {
+                        //update Обліковий запис WL
+                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                    + "\"id\":\"27\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                    }
+                    else if (product_id == "5") //SLED
+                    {
+                        //update Обліковий запис WL
+                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                    + "\"id\":\"16\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                    }
+                    else if (product_id == "7") //K_n
+                    {
+                        //update Обліковий запис WL
+                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                    + "\"id\":\"13\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                    }
+                    else if (product_id == "12") //Kp_n
+                    {
+                        //update Обліковий запис WL
+                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                    + "\"id\":\"17\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                    }
+                    else if (product_id == "17") //Kp_n
+                    {
+                        //update Обліковий запис WL
+                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                    + "\"id\":\"15\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                    }
+                    else if (product_id == "9") //S
+                    {
+                        //update Обліковий запис WL
+                        //string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                        //                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                        //                                            + "\"id\":\"15\","
+                        //                                            + "\"callMode\":\"update\","
+                        //                                            + "\"n\":\"4.4 Обліковий запис WL\","
+                        //                                            + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Невідомий продукт, інформацію про обліковий запис в картку WL не внесено");
+                    }
                     Clipboard.SetText(textBox_account_pss.Text);
                     
                 }
@@ -1908,13 +1985,90 @@ namespace Disp_WinForm
                     accounts = accounts + treeView_user_accounts.Nodes[0].Nodes[index1].Text + ", ";
                 }
 
-                //update коли тестував in WL
-                string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                if (product_id == "10" || product_id == "11")//CNTP_910, CNTK_910
+                {
+                    //update Обліковий запис WL
+                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
                                                                 + "\"id\":\"25\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"4.4 Обліковий запис WL\","
                                                                 + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                }
+                else if (product_id == "14" || product_id == "13")//CNTP_910_SE_N, CNTP_910_SE_P
+                {
+                    //update Обліковий запис WL
+                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"id\":\"25\","
+                                                                + "\"callMode\":\"update\","
+                                                                + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                }
+                else if (product_id == "2" || product_id == "3" || product_id == "6")//CNTP, CNTK, CN
+                {
+                    //update Обліковий запис WL
+                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"id\":\"27\","
+                                                                + "\"callMode\":\"update\","
+                                                                + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                }
+                else if (product_id == "5") //SLED
+                {
+                    //update Обліковий запис WL
+                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"id\":\"16\","
+                                                                + "\"callMode\":\"update\","
+                                                                + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                }
+                else if (product_id == "7") //K_n
+                {
+                    //update Обліковий запис WL
+                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"id\":\"13\","
+                                                                + "\"callMode\":\"update\","
+                                                                + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                }
+                else if (product_id == "12") //Kp_n
+                {
+                    //update Обліковий запис WL
+                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"id\":\"17\","
+                                                                + "\"callMode\":\"update\","
+                                                                + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                }
+                else if (product_id == "17") //Kp_n
+                {
+                    //update Обліковий запис WL
+                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"id\":\"15\","
+                                                                + "\"callMode\":\"update\","
+                                                                + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                }
+                else if (product_id == "9") //S
+                {
+                    //update Обліковий запис WL
+                    //string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                    //                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                    //                                            + "\"id\":\"15\","
+                    //                                            + "\"callMode\":\"update\","
+                    //                                            + "\"n\":\"4.4 Обліковий запис WL\","
+                    //                                            + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                }
+                else
+                {
+                    MessageBox.Show("Невідомий продукт, інформацію про обліковий запис в картку WL не внесено");
+                }
 
             }
             else if (dialogResult == DialogResult.No)

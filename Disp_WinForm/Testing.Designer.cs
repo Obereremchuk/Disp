@@ -152,6 +152,9 @@
             this.tabPage_anketa = new System.Windows.Forms.TabPage();
             this.tabPage_map = new System.Windows.Forms.TabPage();
             this.geckoWebBrowser_testing = new Gecko.GeckoWebBrowser();
+            this.label32 = new System.Windows.Forms.Label();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.label34 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -853,8 +856,6 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.tableLayoutPanel1);
-            this.groupBox2.Controls.Add(this.groupBox8);
-            this.groupBox2.Controls.Add(this.groupBox9);
             this.groupBox2.Location = new System.Drawing.Point(504, 9);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(501, 535);
@@ -913,9 +914,12 @@
             this.tableLayoutPanel1.Controls.Add(this.checkBox5, 0, 10);
             this.tableLayoutPanel1.Controls.Add(this.label_test_dop_1, 2, 11);
             this.tableLayoutPanel1.Controls.Add(this.label_eng_run, 2, 10);
+            this.tableLayoutPanel1.Controls.Add(this.label32, 1, 14);
+            this.tableLayoutPanel1.Controls.Add(this.checkBox6, 0, 14);
+            this.tableLayoutPanel1.Controls.Add(this.label34, 2, 14);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 19);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 14;
+            this.tableLayoutPanel1.RowCount = 15;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -929,36 +933,9 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(489, 322);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(489, 340);
             this.tableLayoutPanel1.TabIndex = 66;
             // 
             // checkBox_test_conn
@@ -1315,7 +1292,7 @@
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.panel1.Controls.Add(this.button_autostart_stop);
             this.panel1.Controls.Add(this.button_autostart);
-            this.panel1.Location = new System.Drawing.Point(26, 291);
+            this.panel1.Location = new System.Drawing.Point(26, 290);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(185, 25);
             this.panel1.TabIndex = 28;
@@ -1386,7 +1363,7 @@
             // 
             this.label_autstart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label_autstart.AutoSize = true;
-            this.label_autstart.Location = new System.Drawing.Point(218, 297);
+            this.label_autstart.Location = new System.Drawing.Point(218, 296);
             this.label_autstart.Name = "label_autstart";
             this.label_autstart.Size = new System.Drawing.Size(267, 13);
             this.label_autstart.TabIndex = 9;
@@ -1450,7 +1427,7 @@
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.textBox_commets);
-            this.groupBox8.Location = new System.Drawing.Point(0, 418);
+            this.groupBox8.Location = new System.Drawing.Point(504, 492);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(501, 117);
             this.groupBox8.TabIndex = 68;
@@ -1469,7 +1446,7 @@
             // 
             this.groupBox9.Controls.Add(this.panel_move_active);
             this.groupBox9.Controls.Add(this.comboBox_result);
-            this.groupBox9.Location = new System.Drawing.Point(0, 344);
+            this.groupBox9.Location = new System.Drawing.Point(504, 418);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(501, 185);
             this.groupBox9.TabIndex = 91;
@@ -1539,7 +1516,9 @@
             // tabPage_anketa
             // 
             this.tabPage_anketa.Controls.Add(this.groupBox1);
+            this.tabPage_anketa.Controls.Add(this.groupBox8);
             this.tabPage_anketa.Controls.Add(this.button_write);
+            this.tabPage_anketa.Controls.Add(this.groupBox9);
             this.tabPage_anketa.Controls.Add(this.button_cancel);
             this.tabPage_anketa.Controls.Add(this.groupBox2);
             this.tabPage_anketa.Location = new System.Drawing.Point(4, 22);
@@ -1572,6 +1551,38 @@
             this.geckoWebBrowser_testing.Size = new System.Drawing.Size(1015, 753);
             this.geckoWebBrowser_testing.TabIndex = 0;
             this.geckoWebBrowser_testing.UseHttpActivityObserver = false;
+            // 
+            // label32
+            // 
+            this.label32.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(26, 322);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(81, 13);
+            this.label32.TabIndex = 89;
+            this.label32.Text = "14. Зажигание";
+            this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.Location = new System.Drawing.Point(4, 322);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(15, 14);
+            this.checkBox6.TabIndex = 43;
+            this.checkBox6.UseVisualStyleBackColor = true;
+            this.checkBox6.Visible = false;
+            // 
+            // label34
+            // 
+            this.label34.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(218, 322);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(267, 13);
+            this.label34.TabIndex = 90;
+            this.label34.Text = "#";
+            this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Testing
             // 
@@ -1736,5 +1747,8 @@
         private Gecko.GeckoWebBrowser geckoWebBrowser_testing;
         private System.Windows.Forms.ComboBox comboBox_device2;
         private System.Windows.Forms.ComboBox comboBox_zvich_relay_place;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.CheckBox checkBox6;
+        private System.Windows.Forms.Label label34;
     }
 }
