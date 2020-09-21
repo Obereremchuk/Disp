@@ -30,7 +30,7 @@ namespace Disp_WinForm
 
         private void get_remaynder()
         {
-            string sql2 = string.Format("select remaynder_activate from btk.Activation_object where idActivation_object=" + vars_form.id_db_activation_for_activation + ";");
+            string sql2 = string.Format("select remaynder_activate from btk.Activation_object where idActivation_object=" + vars_form.id_db_object_for_activation + ";");
             string remaynder_activate = macros.sql_command(sql2);
             if (remaynder_activate == "True")
             {
