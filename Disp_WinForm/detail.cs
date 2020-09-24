@@ -180,7 +180,7 @@ namespace Disp_WinForm
                         string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + row[0].ToString() + "';");
                         if (VO_phone2 == "   -   -")
                         { VO_phone2 = ""; }
-                        if (VO_falilia == "")
+                        if (VO_falilia == "" & VO_imya_phone == "")
                         {
                             textBox_vo1.Text = "";
                         }
@@ -1656,7 +1656,7 @@ namespace Disp_WinForm
 
         public string CreatePassword(int length)
         {
-            const string valid = "abcdefghjklmnpqrstuvwxyz123456789";
+            const string valid = "abcdefghkmnpqrstuvwxyz123456789";
             StringBuilder res = new StringBuilder();
             Random rnd = new Random();
             while (0 < length--)

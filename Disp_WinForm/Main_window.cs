@@ -10402,6 +10402,7 @@ namespace Disp_WinForm
             button_create_object.BackColor = Color.Empty;
             comboBox_tel_select.BackColor = Color.Empty;
             maskedTextBox_sim_no_to_create.BackColor = Color.Empty;
+            textBox_id_to_create.BackColor = Color.Empty;
 
             if (e.KeyChar == (char)13)
             {

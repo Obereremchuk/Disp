@@ -28,25 +28,26 @@ namespace Disp_WinForm
 
         private void button_create_Click(object sender, EventArgs e)
         {
-            DataTable exsit_kontact1 = macros.GetData("SELECT * FROM btk.Phonebook where Phonebookcol_phone = '"+ maskedTextBox_tel1.Text +"';");
-            if (maskedTextBox_tel1.Text != "   -   -")
-            {
-                if (exsit_kontact1.Rows.Count > 0)
-                {
-                    MessageBox.Show(maskedTextBox_tel1.Text + "  існує в довіднику. Використовуй створений контакт.");
-                    return;
-                }
-            }
+            //Проверяет есть ли в базе номер который пытаемся сохранить, пока убираем
+            //DataTable exsit_kontact1 = macros.GetData("SELECT * FROM btk.Phonebook where Phonebookcol_phone = '"+ maskedTextBox_tel1.Text +"';");
+            //if (maskedTextBox_tel1.Text != "   -   -")
+            //{
+            //    if (exsit_kontact1.Rows.Count > 0)
+            //    {
+            //        MessageBox.Show(maskedTextBox_tel1.Text + "  існує в довіднику. Використовуй створений контакт.");
+            //        return;
+            //    }
+            //}
 
-            DataTable exsit_kontact2 = macros.GetData("SELECT * FROM btk.Phonebook where Phonebookcol_phone = '" + maskedTextBox_tel2.Text + "';");
-            if (maskedTextBox_tel2.Text != "   -   -")
-            {
-                if (exsit_kontact2.Rows.Count > 0)
-                {
-                    MessageBox.Show(maskedTextBox_tel2.Text + "  існує в довіднику. Використовуй створений контакт.");
-                    return;
-                }
-            }
+            //DataTable exsit_kontact2 = macros.GetData("SELECT * FROM btk.Phonebook where Phonebookcol_phone = '" + maskedTextBox_tel2.Text + "';");
+            //if (maskedTextBox_tel2.Text != "   -   -")
+            //{
+            //    if (exsit_kontact2.Rows.Count > 0)
+            //    {
+            //        MessageBox.Show(maskedTextBox_tel2.Text + "  існує в довіднику. Використовуй створений контакт.");
+            //        return;
+            //    }
+            //}
 
             if (vars_form.num_vo == 0)
             {

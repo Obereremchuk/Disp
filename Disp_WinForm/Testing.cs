@@ -163,7 +163,7 @@ namespace Disp_WinForm
                 checkBox_sensor_autostart.Enabled = false;
                 checkBox_sensor_objema.Enabled = false;
                 checkBox_lock_hood.Enabled = false;
-                textBox_other_alarm.Enabled = false;
+                textBox_other_alarm.Enabled = true;
                 textBox_CAN_relay_place.Enabled = false;
                 textBox_CAN_relay_lancug.Enabled = false;
                 comboBox_zvich_relay_place.Enabled = false;
