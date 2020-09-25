@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 using System.Data;
@@ -2352,33 +2353,89 @@ namespace Disp_WinForm
 
         public void mysql_close_alarm()
         {
-            DataTable ds_close_alarm = new DataTable();
 
-            ds_close_alarm = macros.GetData("SELECT " +
-                                                    "idnotification, " +
-                                                    "unit_id, " +
-                                                    "unit_name, " +
-                                                    "type_alarm, " +
-                                                    "product, " +
-                                                    "speed, " +
-                                                    "curr_time, " +
-                                                    "msg_time, " +
-                                                    "location, " +
-                                                    "last_location, " +
-                                                    "btk.notification.time_stamp, " +
-                                                    "group_alarm, Status, " +
-                                                    "Users_idUsers, " +
-                                                    "alarm_locked_user," +
-                                                    "Users.username " +
-                                                    "FROM btk.notification, btk.Users " +
-                                                    "WHERE " +
-                                                    "Users.idUsers = notification.Users_idUsers " +
-                                                    "and group_alarm is null " +
-                                                    "and btk.notification.unit_name LIKE '%" + search_close_alarm.Text + "%' " +
-                                                    "and btk.notification.type_alarm like '%" + comboBox_close_alarm_type.Text + "%' " +
-                                                    "and Users.username like '%" + textBox_close_user_chenge.Text + "%' " +
-                                                    "order by notification.idnotification DESC " +
-                                                    "limit " + textBox_limit_close.Text.ToString() + " ");
+            string st1 = "CREATE TEMPORARY TABLE " +
+                "btk.temp1 as (" +
+                "SELECT " +
+                "idnotification, " +
+                "unit_id, " +
+                "unit_name, " +
+                "type_alarm, " +
+                "product, " +
+                "speed, " +
+                "curr_time, " +
+                "msg_time, location, " +
+                "last_location, " +
+                "notification.time_stamp, " +
+                "group_alarm, " +
+                "Status, " +
+                "Users_idUsers, " +
+                "alarm_locked_user " +
+                "FROM btk.notification " +
+                "WHERE " +
+                "group_alarm is null " +
+                "order by notification.idnotification DESC limit " + textBox_limit_close.Text.ToString() + ");";
+
+            string st2 = "SELECT " +
+                "idnotification, " +
+                "unit_id, unit_name, " +
+                "type_alarm, product, " +
+                "speed, " +
+                "curr_time, " +
+                "msg_time, " +
+                "location, " +
+                "last_location, " +
+                "temp1.time_stamp, " +
+                "group_alarm, Status, " +
+                "Users_idUsers, " +
+                "alarm_locked_user, " +
+                "Users.username " +
+                "FROM btk.temp1, btk.Users " +
+                "WHERE " +
+                "Users.idUsers = temp1.Users_idUsers " +
+                "and group_alarm is null " +
+                "and btk.temp1.unit_name LIKE '%" + search_close_alarm.Text + "%' " +
+                "and btk.temp1.type_alarm like '%" + comboBox_close_alarm_type.Text + "%' " +
+                "and Users.username like '%" + textBox_close_user_chenge.Text + "%'";
+
+            string st3 = "DROP TABLE IF EXISTS temp1;";
+
+
+
+            string connectionString = "server = 10.44.30.32; " +
+                                      "user id=lozik;" +
+                                      "password=lozik;" +
+                                      "database=btk;" +
+                                      "pooling=true;" +
+                                      "SslMode=none;" +
+                                      "Convert Zero Datetime = True;" +
+                                      "charset=utf8;";
+
+            DataTable ds_close_alarm = new DataTable();
+            using (MySqlConnection northwindConnection = new MySqlConnection(connectionString))
+            {
+                northwindConnection.Open();
+
+                MySqlCommand command = new MySqlCommand(st3, northwindConnection);
+                MySqlDataReader reader = command.ExecuteReader();
+                reader.Close();
+
+                command = new MySqlCommand(st1, northwindConnection);
+                reader = command.ExecuteReader();
+                reader.Close();
+
+                command = new MySqlCommand(st2, northwindConnection);
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                adapter.SelectCommand = command;
+                ds_close_alarm.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                adapter.Fill(ds_close_alarm);
+
+                command = new MySqlCommand(st3, northwindConnection);
+                reader = command.ExecuteReader();
+                reader.Close();
+
+                northwindConnection.Close();
+            }
 
             dataGridView_close_alarm.AutoGenerateColumns = false;
             dataGridView_close_alarm.RowHeadersVisible = false;
