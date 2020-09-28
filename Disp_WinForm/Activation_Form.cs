@@ -369,9 +369,9 @@ namespace Disp_WinForm
                 textBox_who_chenge_pin.ReadOnly = false;
             }
 
-            
 
-            //load data from zayavki
+
+            //load data from zayavki Zayavki.Zayavkicol_comment
             DataTable table2 = new DataTable();
             table2 = macros.GetData("SELECT " +
                 "Sobstvennik_avto_neme ," +
@@ -386,7 +386,8 @@ namespace Disp_WinForm
                 "Zayavki.Zayavkicol_VIN, " +
                 "Zayavki.Zayavkicol_license_plate, " +
                 "TS_info.TS_infocol_vin, " +
-                "Kontragenti.kontragent_type_idkontragent_type " +
+                "Kontragenti.kontragent_type_idkontragent_type, " +
+                "Zayavki.Zayavkicol_comment " +
                 "from " +
                 "btk.Zayavki, btk.products, btk.Kontragenti, btk.TS_info, btk.testing_object, btk.Object " +
                 "where " +
@@ -405,6 +406,7 @@ namespace Disp_WinForm
             maskedTextBox_cont_phone2.Text = table2.Rows[0][4].ToString();
             textBox_email.Text = table2.Rows[0][5].ToString();
             textBox_product.Text = table2.Rows[0][6].ToString();
+            textBox_zayavka_comments.Text = table2.Rows[0][13].ToString();
             // Формируем название проекта в зависимости от типа контрагента и названии контрагента
             if (table2.Rows[0][12].ToString() == "1")
             { textBox_zamovnik.Text = "Дилер (" + table2.Rows[0][7].ToString() + ")"; }
@@ -2566,6 +2568,15 @@ namespace Disp_WinForm
                                                         "\"n\":\"" + keyvalue.Value.n + "\"," +
                                                         "\"v\":\"" + textBox_who_chenge_pin.Text + "\"}");
                     }
+                }
+                if (keyvalue.Value.n.Contains("9.1 Техпаспор"))
+                {
+                    string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                                                    "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                    "\"id\":\"" + keyvalue.Value.id + "\"," +
+                                                    "\"callMode\":\"update\"," +
+                                                    "\"n\":\"" + keyvalue.Value.n + "\"," +
+                                                    "\"v\":\"" + textBox_vlasnik.Text + "\"}");
                 }
 
 

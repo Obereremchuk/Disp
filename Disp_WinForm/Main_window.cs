@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Timers;
 using System.Windows.Forms;
@@ -2353,9 +2354,19 @@ namespace Disp_WinForm
 
         public void mysql_close_alarm()
         {
+            //create random name for table
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var stringChars = new char[5];
+            var random = new Random();
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+            var name_table = new String(stringChars);
+            //-------------------
 
             string st1 = "CREATE TEMPORARY TABLE " +
-                "btk.temp1 as (" +
+                "btk."+ name_table +" as (" +
                 "SELECT " +
                 "idnotification, " +
                 "unit_id, " +
@@ -2385,20 +2396,20 @@ namespace Disp_WinForm
                 "msg_time, " +
                 "location, " +
                 "last_location, " +
-                "temp1.time_stamp, " +
+                "" + name_table + ".time_stamp, " +
                 "group_alarm, Status, " +
                 "Users_idUsers, " +
                 "alarm_locked_user, " +
                 "Users.username " +
-                "FROM btk.temp1, btk.Users " +
+                "FROM btk." + name_table + ", btk.Users " +
                 "WHERE " +
-                "Users.idUsers = temp1.Users_idUsers " +
+                "Users.idUsers = " + name_table + ".Users_idUsers " +
                 "and group_alarm is null " +
-                "and btk.temp1.unit_name LIKE '%" + search_close_alarm.Text + "%' " +
-                "and btk.temp1.type_alarm like '%" + comboBox_close_alarm_type.Text + "%' " +
+                "and btk." + name_table + ".unit_name LIKE '%" + search_close_alarm.Text + "%' " +
+                "and btk." + name_table + ".type_alarm like '%" + comboBox_close_alarm_type.Text + "%' " +
                 "and Users.username like '%" + textBox_close_user_chenge.Text + "%'";
 
-            string st3 = "DROP TABLE IF EXISTS temp1;";
+            string st3 = "DROP TABLE IF EXISTS " + name_table + ";";
 
 
 
@@ -2416,12 +2427,12 @@ namespace Disp_WinForm
             {
                 northwindConnection.Open();
 
-                MySqlCommand command = new MySqlCommand(st3, northwindConnection);
-                MySqlDataReader reader = command.ExecuteReader();
-                reader.Close();
+                //MySqlCommand command = new MySqlCommand(st3, northwindConnection);
+                //MySqlDataReader reader = command.ExecuteReader();
+                //reader.Close();
 
-                command = new MySqlCommand(st1, northwindConnection);
-                reader = command.ExecuteReader();
+                MySqlCommand command = new MySqlCommand(st1, northwindConnection);
+                MySqlDataReader reader = command.ExecuteReader();
                 reader.Close();
 
                 command = new MySqlCommand(st2, northwindConnection);
