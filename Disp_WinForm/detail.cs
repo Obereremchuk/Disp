@@ -414,7 +414,7 @@ namespace Disp_WinForm
                                     .Add(new TreeNode("ВО3" + ": " + keyvalue.Value.v.ToString()));
                                 }
                             }
-                            if (keyvalue.Value.n.Contains(" ІV Відп"))
+                            if (keyvalue.Value.n.Contains(" IV Відп"))
                             {
                                 if (keyvalue.Value.v != "")
                                 {
@@ -601,7 +601,7 @@ namespace Disp_WinForm
 
             if (comboBox_status_trevogi.SelectedItem.ToString() == "909" & (_id_status == "Обробляется" || _id_status == "Відкрито"))//если изменяем статус с Обробляется на 909  - отправляем меил со всейхронологией обработки тревоги
             {
-                string recipient = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.yacenko@venbest.com.ua>,<a.oberemchuk@venbest.com.ua>,<d.lenik@venbest.com.ua>,<mc@venbest.com.ua>,<v.bogoley@venbest.com.ua>";
+                string recipient = "<" + vars_form.user_login_email + ">," + "<d.yacenko@venbest.com.ua>,<a.oberemchuk@venbest.com.ua>,<v.bogoley@venbest.com.ua>";
                 send_email(recipient);
             }
 

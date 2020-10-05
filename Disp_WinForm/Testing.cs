@@ -1731,7 +1731,7 @@ namespace Disp_WinForm
                                        vars_form.id_db_object_for_test + "';");
 
                     string Subject = "505 Неуспішне тестування ! VIN: " + textBox_vin.Text + ", Обєкт: " + name_obj_textBox.Text;
-                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua><e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>";
+                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua><e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>,<v.konoval@venbest.com.ua>";
                     DataTable dt = new DataTable();
 
                     dt.Columns.Add("Параметр");

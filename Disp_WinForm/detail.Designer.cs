@@ -1338,7 +1338,8 @@
             "808",
             "Дилеры",
             "Продажи",
-            "808_звязок"});
+            "808_звязок",
+            "Учетки"});
             this.comboBox_status_trevogi.Location = new System.Drawing.Point(280, 102);
             this.comboBox_status_trevogi.Name = "comboBox_status_trevogi";
             this.comboBox_status_trevogi.Size = new System.Drawing.Size(229, 21);

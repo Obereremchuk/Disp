@@ -43,13 +43,17 @@ namespace Disp_WinForm
             panel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
 
             TimeSpan ts1 = new TimeSpan(00, 00, 0);
+            TimeSpan ts2 = new TimeSpan(23, 59, 59);
 
             dateTimePicker_testing_date.Value = DateTime.Now.Date + ts1;
             dateTimePicker_for_zayavki_na_activation_W2.Value = DateTime.Now.Date + ts1;
             dateTimePicker_activation_filter_start.Value = DateTime.Now.Date;
             dateTimePicker_activation_filter_end.Value = DateTime.Now.Date;
 
-            TimeSpan ts2 = new TimeSpan(23, 59, 59);
+            dateTimePicker_From_close_alarm.Value = DateTime.Now.Date.AddDays(-1) + ts1;
+            dateTimePicker_To_close_alarm.Value = DateTime.Now.Date + ts2;
+
+            
 
             dateTime_rep_from.Value = DateTime.Now.Date + ts1;
             dateTime_rep_to.Value = DateTime.Now.Date + ts2;
@@ -160,6 +164,12 @@ namespace Disp_WinForm
                         tabControl_testing.TabPages.Remove(tabPage_zvit);
                         textBox_activation_search.Enabled = false;
                         tabControl_testing.TabPages.Remove(tab_create_object);
+                        tabControl_testing.TabPages.Remove(tabPage_zayavki_activation);
+                        tabControl_testing.TabPages.Remove(tabPage6);
+                        tabControl_testing.TabPages.Remove(tabPage_work_whith_obj);
+                        tabControl_testing.TabPages.Remove(tabPage4);
+
+
                     }
                 }
             }
@@ -217,6 +227,11 @@ namespace Disp_WinForm
         private void OnTimedEvent_zayavki_na_aktivation(object sender, EventArgs e)
         {
             update_zayavki_na_aktivation_2W();
+        }
+
+        private void OnTimedEvent_accounts(object sender, EventArgs e)
+        {
+            update_accounts_dgv();
         }
 
         private void tabControl_testing_Selecting(object sender, TabControlCancelEventArgs e)
@@ -393,6 +408,21 @@ namespace Disp_WinForm
                 GetPrinters();
                 UpdateCreatedObjectsByUser(DateTime.Now.Date);
                 search_tovar_comboBox.Enabled = false;
+            }
+            else if (tabControl_testing.SelectedTab.Name == "tabPage_accounts")
+            {
+                update_accounts_dgv();
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_808);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_909);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_open);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_sale);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_dilery);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_testing);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
+                aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent_accounts);
+                aTimer.Enabled = true;
             }
         }
 
@@ -2132,6 +2162,243 @@ namespace Disp_WinForm
             dataGridView_909_n.ResumeLayout();
         }
 
+
+        /// Обновляем вкладку accounts
+        ///
+        private void update_accounts_dgv()
+        {
+            DataTable table = new DataTable();
+            table = macros.GetData("SELECT idnotification as 'ID тривоги'," +
+                                   "product as 'Продукт'," +
+                                   "unit_name as 'Назва об’єкту'," +
+                                   "type_alarm as 'Тип тривоги'," +
+                                   "unit_id as 'ID'," +
+                                   "Status as 'Статус'," +
+                                   "alarm_locked_user as 'Обробляє'," +
+                                   "notification.time_stamp as 'Дата зміни'," +
+                                   "group_alarm as 'Згруповано до', " +
+                                   "Users.username as 'Створив'," +
+                                   "speed, " +
+                                   "remaynder_activate as 'Нагадати', " +
+                                   "remayder_date as 'Дата нагадування', " +
+                                   "otvetstvenniy as 'Відповідальний'  FROM btk.notification, btk.Users WHERE Users.idUsers=notification.Users_idUsers and Status = 'Учетки' " + vars_form.hide_group_alarm + "  ;");//order by btk.notification." + vars_form.sort.ToString() + " " + vars_form.order_sort + "
+            //table = vars_form.table_808;
+            UpdateGridHandler ug = UpdateGrid_accounts;
+            ug.BeginInvoke(table, cb_accounts, null);
+        }
+
+        private void cb_accounts(IAsyncResult res)
+        {
+        }
+
+        private void UpdateGrid1_accounts(DataTable table)
+        {
+            //save sort
+            DataGridViewColumn oldColumn = dataGridView_accounts.SortedColumn;
+            ListSortDirection direction;
+            if (dataGridView_accounts.SortOrder == SortOrder.Ascending) direction = ListSortDirection.Ascending;
+            else direction = ListSortDirection.Descending;
+
+            //save scrol and selected row
+            int scrollPosition = 0;
+            int selectpozition = 0;
+            if (dataGridView_accounts.DataSource != null)
+            {
+                scrollPosition = dataGridView_accounts.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+
+                try
+                {
+                    if (dataGridView_accounts.Rows.Count > 0)
+                    {
+                        selectpozition = dataGridView_accounts.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                    }
+                }
+                catch (Exception)
+                {
+                    selectpozition = 0;
+                }
+            }
+
+            DataView dv = table.DefaultView;
+            dv.Sort = "Дата зміни desc";
+            DataTable sortedDT = dv.ToTable();
+
+            dataGridView_accounts.DataSource = table;
+
+            if (oldColumn != null)
+            {
+                DataGridViewColumn newColumn = dataGridView_accounts.Columns[oldColumn.Name.ToString()];
+                dataGridView_accounts.Sort(newColumn, direction);
+                newColumn.HeaderCell.SortGlyphDirection =
+                                 direction == ListSortDirection.Ascending ?
+                                 SortOrder.Ascending : SortOrder.Descending;
+            }
+
+            if (dataGridView_accounts.Rows.Count > 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
+            {
+                if (scrollPosition == -1)
+                {
+                    scrollPosition = 0;
+                }
+                dataGridView_accounts.FirstDisplayedScrollingRowIndex = scrollPosition;
+            }
+            if (dataGridView_accounts.Rows.Count > selectpozition)
+            {
+                dataGridView_accounts.ClearSelection();
+                dataGridView_accounts.Rows[selectpozition].Selected = true;
+            }
+        }
+
+        private void UpdateGrid_accounts(DataTable table)
+        {
+            if (dataGridView_accounts.InvokeRequired)
+            {
+                UpdateGridThreadHandler handler = UpdateGrid1_accounts;
+                dataGridView_accounts.BeginInvoke(handler, table);
+            }
+            else
+            {
+                //save sort
+                DataGridViewColumn oldColumn = dataGridView_accounts.SortedColumn;
+                ListSortDirection direction;
+                if (dataGridView_accounts.SortOrder == SortOrder.Ascending) direction = ListSortDirection.Ascending;
+                else direction = ListSortDirection.Descending;
+
+                //save scrol and selected row
+                int scrollPosition = 0;
+                int selectpozition = 0;
+                if (dataGridView_accounts.DataSource != null)
+                {
+                    scrollPosition = dataGridView_accounts.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+
+                    try
+                    {
+                        selectpozition = dataGridView_accounts.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                    }
+                    catch (Exception)
+                    {
+                        selectpozition = 0;
+                    }
+                }
+
+                DataView dv = table.DefaultView;
+                dv.Sort = "Дата зміни desc";
+                DataTable sortedDT = dv.ToTable();
+
+                dataGridView_accounts.DataSource = table;
+
+                //restote sort
+                if (oldColumn != null)
+                {
+                    DataGridViewColumn newColumn = dataGridView_accounts.Columns[oldColumn.Name.ToString()];
+                    dataGridView_accounts.Sort(newColumn, direction);
+                    newColumn.HeaderCell.SortGlyphDirection =
+                                     direction == ListSortDirection.Ascending ?
+                                     SortOrder.Ascending : SortOrder.Descending;
+                }
+
+                if (dataGridView_accounts.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
+                {
+                    if (scrollPosition == -1)
+                    {
+                        scrollPosition = 0;
+                    }
+                    dataGridView_accounts.FirstDisplayedScrollingRowIndex = scrollPosition;
+                }
+                if (dataGridView_accounts.Rows.Count >= selectpozition)
+                {
+                    dataGridView_accounts.ClearSelection();
+                    dataGridView_accounts.Rows[selectpozition].Selected = true;
+                }
+            }
+        }
+
+        private void dataGridView_accounts_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            dataGridView_accounts.SuspendLayout();
+
+            if (dataGridView_accounts.Rows[e.RowIndex].Cells[11].Value is true)
+            {
+                if (Convert.ToDateTime(dataGridView_accounts.Rows[e.RowIndex].Cells[12].Value) == DateTime.Now.Date)
+                {
+                    e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#bcccf2");
+                }
+                else if (Convert.ToDateTime(dataGridView_accounts.Rows[e.RowIndex].Cells[12].Value) <= DateTime.Now.Date)
+                {
+                    e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#F9A780");
+                }
+                else if (Convert.ToDateTime(dataGridView_accounts.Rows[e.RowIndex].Cells[12].Value) >= DateTime.Now.Date)
+                {
+                    e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#C8FAB7");
+                }
+            }
+            else
+            {
+                e.CellStyle.BackColor = Color.White;
+            }
+
+            dataGridView_accounts.Columns[10].Visible = false;
+            dataGridView_accounts.Columns[8].Visible = false;
+            dataGridView_accounts.Columns[4].Visible = false;
+            dataGridView_accounts.ResumeLayout();
+        }
+
+        private void dataGridView_accounts_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex <= -1 || e.ColumnIndex <= -1)
+            {
+                return;
+            }
+
+            if (dataGridView_accounts.Rows[e.RowIndex].Cells[9].Value.ToString() == "")//Згруповано до ID тривоги(9)
+            {
+                vars_form.search_id = dataGridView_accounts.Rows[e.RowIndex].Cells[4].Value.ToString(); //ID об"єкту(8)
+                vars_form.id_notif = dataGridView_accounts.Rows[e.RowIndex].Cells[0].Value.ToString();//ID Тривоги (0)
+                vars_form.id_status = dataGridView_accounts.Rows[e.RowIndex].Cells[5].Value.ToString();//Статус(7)
+                vars_form.unit_name = dataGridView_accounts.Rows[e.RowIndex].Cells[2].Value.ToString();//Назва об"єкту(2)
+                vars_form.alarm_name = dataGridView_accounts.Rows[e.RowIndex].Cells[3].Value.ToString();//Тип тривоги(3)
+                vars_form.restrict_un_group = false;
+                vars_form.zvernenya = dataGridView_accounts.Rows[e.RowIndex].Cells[11].Value.ToString();//Звернення(4)
+            }
+            else
+            {
+                vars_form.search_id = dataGridView_accounts.Rows[e.RowIndex].Cells[4].Value.ToString(); //ID об"єкту(8)
+                vars_form.id_notif = dataGridView_accounts.Rows[e.RowIndex].Cells[0].Value.ToString();//Згруповано до ID тривоги(9)
+                vars_form.id_status = dataGridView_accounts.Rows[e.RowIndex].Cells[5].Value.ToString();//Статус(7)
+                vars_form.unit_name = dataGridView_accounts.Rows[e.RowIndex].Cells[2].Value.ToString();//Назва об"єкту(2)
+                vars_form.alarm_name = dataGridView_accounts.Rows[e.RowIndex].Cells[3].Value.ToString();//Тип тривоги(3)
+                vars_form.restrict_un_group = false;
+                vars_form.zvernenya = dataGridView_accounts.Rows[e.RowIndex].Cells[10].Value.ToString();//Звернення(4)
+            }
+
+            // Блокируем обработку тревоги однвременно двумя операторами, и вносим информацию кто открыл тревогу
+            DataTable results1 = macros.GetData("SELECT " +
+                                                "alarm_locked, " +
+                                                "alarm_locked_user " +
+                                                "FROM btk.notification " +
+                                                "WHERE " +
+                                                "idnotification = '" + vars_form.id_notif + "';");
+
+            if (vars_form.user_login_name != "admin" & vars_form.user_login_name != results1.Rows[0][1].ToString())
+            {
+                if (results1.Rows[0][0].ToString() == "1")
+                {
+                    MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
+                    return;
+                }
+            }
+
+            macros.GetData("UPDATE btk.notification " +
+                           "SET " +
+                           "alarm_locked = '1', " +
+                           "alarm_locked_user = '" + vars_form.user_login_name + "' " +
+                           "WHERE " +
+                           "idnotification = '" + vars_form.id_notif + "';");
+
+            detail subwindow = new detail();
+            subwindow.Show();
+        }
+
         /// Обновляем вкладку Открытые тревоги
         ///
         private void update_open_dgv()
@@ -2352,6 +2619,16 @@ namespace Disp_WinForm
             dataGridView_open_alarm.ResumeLayout();
         }
 
+        private void dateTimePicker_From_close_alarm_ValueChanged(object sender, EventArgs e)
+        {
+            mysql_close_alarm();
+        }
+
+        private void dateTimePicker_To_close_alarm_ValueChanged(object sender, EventArgs e)
+        {
+            mysql_close_alarm();
+        }
+
         public void mysql_close_alarm()
         {
             //create random name for table
@@ -2385,7 +2662,8 @@ namespace Disp_WinForm
                 "FROM btk.notification " +
                 "WHERE " +
                 "group_alarm is null " +
-                "order by notification.idnotification DESC limit " + textBox_limit_close.Text.ToString() + ");";
+                "and msg_time between '"+ Convert.ToDateTime(dateTimePicker_From_close_alarm.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(dateTimePicker_To_close_alarm.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' " +
+                "order by notification.idnotification DESC limit " + textBox_limit_close.Text + ");";
 
             string st2 = "SELECT " +
                 "idnotification, " +
@@ -2594,15 +2872,6 @@ namespace Disp_WinForm
             //mysql_open_alarm();
         }
 
-        private void search_close_alarm_TextChanged(object sender, EventArgs e)
-        {
-            mysql_close_alarm();
-        }
-
-        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
-        {
-            mysql_close_alarm();
-        }
 
         private void comboBox_close_alarm_type_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -2944,21 +3213,21 @@ namespace Disp_WinForm
             update_zayavki_na_aktivation_2W();
         }
 
-        private void dataGridView_for_activation_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        private void dataGridView_for_activation_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             DataGridViewRow row = dataGridView_for_activation.Rows[e.RowIndex];
 
             if (dataGridView_for_activation.Rows[e.RowIndex].Cells[11].Value is true)
             {
-                if (Convert.ToDateTime(dataGridView_for_activation.Rows[e.RowIndex].Cells[12].Value) == DateTime.Now.Date)
+                if (Convert.ToDateTime(dataGridView_for_activation.Rows[e.RowIndex].Cells[12].Value) == DateTime.Now)
                 {
                     row.DefaultCellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#bcccf2");
                 }
-                else if (Convert.ToDateTime(dataGridView_for_activation.Rows[e.RowIndex].Cells[12].Value) <= DateTime.Now.Date)
+                else if (Convert.ToDateTime(dataGridView_for_activation.Rows[e.RowIndex].Cells[12].Value) <= DateTime.Now)
                 {
                     row.DefaultCellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#F9A780");
                 }
-                else if (Convert.ToDateTime(dataGridView_for_activation.Rows[e.RowIndex].Cells[12].Value) >= DateTime.Now.Date)
+                else if (Convert.ToDateTime(dataGridView_for_activation.Rows[e.RowIndex].Cells[12].Value) >= DateTime.Now)
                 {
                     row.DefaultCellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#C8FAB7");
                 }
@@ -2967,6 +3236,11 @@ namespace Disp_WinForm
             {
                 row.DefaultCellStyle.BackColor = Color.White;
             }
+        }
+
+        private void dataGridView_for_activation_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            
         }
 
         private void dateTimePicker_activation_filter_start_CloseUp(object sender, EventArgs e)
@@ -10707,6 +10981,14 @@ namespace Disp_WinForm
         private void textBox_search_testing_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void search_close_alarm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                mysql_close_alarm();
+            }
         }
     }
 
