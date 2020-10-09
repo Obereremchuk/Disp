@@ -44,6 +44,7 @@ namespace Disp_WinForm
             InitializeComponent();
             string t = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Firefox";
             Xpcom.Initialize(t);
+            GeckoPreferences.User["dom.max_script_run_time"] = 0;
 
             // Looad varible data
             _id_notif = vars_form.id_notif;
@@ -420,6 +421,34 @@ namespace Disp_WinForm
                                 {
                                     treeView_client_info.Nodes[0].Nodes
                                     .Add(new TreeNode("ВО4" + ": " + keyvalue.Value.v.ToString()));
+                                }
+                                //Групируем ВО4 рядом со всеми ВО
+                                foreach (TreeNode TreeViewNode in treeView_client_info.Nodes[0].Nodes)
+                                {
+                                    if (TreeViewNode.Text.Contains("ВО4"))
+                                    {
+                                        var lastNode = TreeViewNode;
+                                        treeView_client_info.Nodes[0].Nodes.Remove(lastNode);
+                                        treeView_client_info.Nodes[0].Nodes.Insert(4, lastNode);
+                                    }
+                                }
+                            }
+                            if (keyvalue.Value.n.Contains(" V Відп"))
+                            {
+                                if (keyvalue.Value.v != "")
+                                {
+                                    treeView_client_info.Nodes[0].Nodes
+                                    .Add(new TreeNode("ВО5" + ": " + keyvalue.Value.v.ToString()));
+                                }
+                                //Групируем ВО5 рядом со всеми ВО
+                                foreach (TreeNode TreeViewNode in treeView_client_info.Nodes[0].Nodes)
+                                {
+                                    if (TreeViewNode.Text.Contains("ВО4"))
+                                    {
+                                        var lastNode = TreeViewNode;
+                                        treeView_client_info.Nodes[0].Nodes.Remove(lastNode);
+                                        treeView_client_info.Nodes[0].Nodes.Insert(5, lastNode);
+                                    }
                                 }
                             }
                             if (keyvalue.Value.n.Contains("ня сервісної"))
@@ -1354,19 +1383,19 @@ namespace Disp_WinForm
         private void textBox_vo1_DoubleClick(object sender, EventArgs e)
         {
             textBox_vo1.Text = "";
-            vars_form.transfer_vo1_vo_form = "";
+            vars_form.transfer_vo1_vo_form = "1";
         }
 
         private void textBox_vo2_DoubleClick(object sender, EventArgs e)
         {
             textBox_vo2.Text = "";
-            vars_form.transfer_vo2_vo_form = "";
+            vars_form.transfer_vo2_vo_form = "1";
         }
 
         private void textBox_vo3_DoubleClick(object sender, EventArgs e)
         {
             textBox_vo3.Text = "";
-            vars_form.transfer_vo3_vo_form = "";
+            vars_form.transfer_vo3_vo_form = "1";
         }
 
         private void button_vo_save_Click(object sender, EventArgs e)

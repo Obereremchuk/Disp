@@ -16,9 +16,10 @@ namespace Disp_WinForm
             InitializeComponent();
             string t = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Firefox";
             Xpcom.Initialize(t);
+            GeckoPreferences.User["dom.max_script_run_time"] = 0;
             Gecko.CertOverrideService.GetService().ValidityOverride += geckoWebBrowser1_ValidityOverride;
             wialon_login_form();
-            vars_form.version = "0.85";
+            vars_form.version = "0.853";
             label_Version.Text = "v." + vars_form.version;
         }
 

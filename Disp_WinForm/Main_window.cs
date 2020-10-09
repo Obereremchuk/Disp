@@ -53,7 +53,7 @@ namespace Disp_WinForm
             dateTimePicker_From_close_alarm.Value = DateTime.Now.Date.AddDays(-1) + ts1;
             dateTimePicker_To_close_alarm.Value = DateTime.Now.Date + ts2;
 
-            
+
 
             dateTime_rep_from.Value = DateTime.Now.Date + ts1;
             dateTime_rep_to.Value = DateTime.Now.Date + ts2;
@@ -75,7 +75,7 @@ namespace Disp_WinForm
             }
             catch
             { }
-            
+
         }
 
         private void init()
@@ -442,7 +442,7 @@ namespace Disp_WinForm
                 "Objectcol_bt_enable, " +
                 "products_idproducts " +
                 "FROM btk.Object " +
-                "where Users_idUsers = '"+ comboBox_user_to_crate_obj.SelectedValue + "' " +
+                "where Users_idUsers = '" + comboBox_user_to_crate_obj.SelectedValue + "' " +
                 "and date_cteate BETWEEN '" + Convert.ToDateTime(date + new TimeSpan(00, 00, 0)).ToString("yyyy-MM-dd HH:mm:ss") + "' " +
                 "and '" + Convert.ToDateTime(date + new TimeSpan(23, 59, 59)).ToString("yyyy-MM-dd HH:mm:ss") + "' " +
                 "order by Objectcol_create_date desc;";
@@ -452,7 +452,7 @@ namespace Disp_WinForm
             if (table.Rows.Count == 0)
             { dataGridView_CreatedObjects.DataSource = null; }
             else
-            { 
+            {
                 dataGridView_CreatedObjects.DataSource = table;
                 dataGridView_CreatedObjects.Columns["idObject"].Visible = false;
                 dataGridView_CreatedObjects.Columns["Simcardcol_imsi"].Visible = false;
@@ -465,7 +465,7 @@ namespace Disp_WinForm
             }
 
 
-            
+
         }
 
         private void dateTimePicker_date_created_by_user_ValueChanged(object sender, EventArgs e)
@@ -2643,7 +2643,7 @@ namespace Disp_WinForm
             //-------------------
 
             string st1 = "CREATE TEMPORARY TABLE " +
-                "btk."+ name_table +" as (" +
+                "btk." + name_table + " as (" +
                 "SELECT " +
                 "idnotification, " +
                 "unit_id, " +
@@ -2662,7 +2662,7 @@ namespace Disp_WinForm
                 "FROM btk.notification " +
                 "WHERE " +
                 "group_alarm is null " +
-                "and msg_time between '"+ Convert.ToDateTime(dateTimePicker_From_close_alarm.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(dateTimePicker_To_close_alarm.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' " +
+                "and msg_time between '" + Convert.ToDateTime(dateTimePicker_From_close_alarm.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(dateTimePicker_To_close_alarm.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' " +
                 "order by notification.idnotification DESC limit " + textBox_limit_close.Text + ");";
 
             string st2 = "SELECT " +
@@ -3240,7 +3240,7 @@ namespace Disp_WinForm
 
         private void dataGridView_for_activation_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            
+
         }
 
         private void dateTimePicker_activation_filter_start_CloseUp(object sender, EventArgs e)
@@ -3587,7 +3587,7 @@ namespace Disp_WinForm
 
         private void button_create_object_Click(object sender, EventArgs e)
         {
-            
+
             ///////
             ///В зависимости от выбранного продукта в комбоксе запускаем необходимый
             ///
@@ -3658,7 +3658,7 @@ namespace Disp_WinForm
 
         private void check_err_create_obj()
         {
-            
+
         }
 
         private void CNTK_910()
@@ -3672,7 +3672,7 @@ namespace Disp_WinForm
                 textBox_id_to_create.BackColor = Color.Red;//Если IMEI короче 4х символов останавливается и подсвкечиваем красным
                 return;
             }
-            
+
             if (maskedTextBox_sim_no_to_create.Text.Length <= 11)//Если IMEI короче 4х символов останавливается и подсвкечиваем красным
             {
                 maskedTextBox_sim_no_to_create.BackColor = Color.Red;
@@ -4122,7 +4122,7 @@ namespace Disp_WinForm
             string id_object = macros.sql_command("SELECT MAX(idObject) FROM btk.Object;");
 
             // set datetime create
-            macros.sql_command("update btk.Object set date_cteate = now() where idobject = '"+ id_object + "';");
+            macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
 
             //Создаем подписку для объекта
             string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('20'," + id_object + ");");
@@ -4149,7 +4149,7 @@ namespace Disp_WinForm
             button_create_object.BackColor = Color.Green;
             comboBox_tel_select.Text = "";
             search_tovar_comboBox.Text = "";
-            
+
         }
 
         private void CNTP_910()
@@ -4592,7 +4592,7 @@ namespace Disp_WinForm
                 id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
             }
 
-            
+
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card, Objectcol_puk, Objectcol_gsm_code, Objectcol_ble_code, Objectcol_bt_enable, Objectcol_sn_prizrak) "
                                         + "values('" + cr_obj_out.item.id
                                         + "', '" + textBox_id_to_create.Text.ToString()
@@ -9691,7 +9691,7 @@ namespace Disp_WinForm
             macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
 
             //Создаем подписку для объекта
-            string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('7'," + id_object + ");");
+            string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('17'," + id_object + ");");
             macros.sql_command(sql3);
 
             //Получаем айди созданной подписки
@@ -10787,20 +10787,20 @@ namespace Disp_WinForm
                             Clipboard.SetText(maskedTextBox_sim_no_to_create.Text);
                         }
                         else
-                        { 
+                        {
                             maskedTextBox_sim_no_to_create.Mask = "+38\\0000000000";
                             maskedTextBox_sim_no_to_create.Text = t.Rows[0][1].ToString();
                             Clipboard.SetText(maskedTextBox_sim_no_to_create.Text);
                         }
                     }
-                    else 
+                    else
                     {
                         MessageBox.Show("Картка деактивована");
                         maskedTextBox_sim_no_to_create.BackColor = Color.Red;
                         maskedTextBox_sim_no_to_create.Text = t.Rows[0][1].ToString();
                         Clipboard.SetText(maskedTextBox_sim_no_to_create.Text);
                     }
-                    
+
                 }
                 else
                 {
@@ -10878,15 +10878,15 @@ namespace Disp_WinForm
             if (dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[3].Value.ToString() != "")//Згруповано до ID тривоги(9)
             {
                 comboBox_list_poructs.SelectedValue = Convert.ToInt16(dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[10].Value.ToString());
-                textBox_id_to_create.Text= dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[1].Value.ToString();
-                search_tovar_comboBox.Text = macros.sql_command("SELECT SN FROM btk.Invice_Tovar where CN = '"+ textBox_id_to_create.Text + "';");
+                textBox_id_to_create.Text = dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[1].Value.ToString();
+                search_tovar_comboBox.Text = macros.sql_command("SELECT SN FROM btk.Invice_Tovar where CN = '" + textBox_id_to_create.Text + "';");
                 textBox_bt_enable.Text = dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[9].Value.ToString();
                 maskedTextBox_BLE_CODE.Text = dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[8].Value.ToString();
                 maskedTextBox_GSM_CODE.Text = dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[7].Value.ToString();
                 maskedTextBox_PUK.Text = dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[6].Value.ToString();
                 //textBox_bt_enable.Text = dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[8].Value.ToString();
-                
-                comboBox_tel_select.Text= dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[4].Value.ToString();
+
+                comboBox_tel_select.Text = dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[4].Value.ToString();
 
                 string d = dataGridView_CreatedObjects.Rows[e.RowIndex].Cells[5].Value.ToString();
 
@@ -10909,7 +10909,7 @@ namespace Disp_WinForm
         private void label11_DoubleClick(object sender, EventArgs e)
         {
             if (button_add_910.Visible == false)
-            { 
+            {
                 button_add_910.Visible = true;
                 textBox_id_to_create.Enabled = true;
                 maskedTextBox_GSM_CODE.Enabled = true;
@@ -10930,8 +10930,8 @@ namespace Disp_WinForm
                 textBox_id_to_create.KeyPress -= textBox_id_to_create_KeyPress;
                 button_create_object.Enabled = false;
             }
-            else 
-            { 
+            else
+            {
                 button_add_910.Visible = false;
                 textBox_id_to_create.Enabled = false;
                 maskedTextBox_GSM_CODE.Enabled = false;
@@ -10941,7 +10941,7 @@ namespace Disp_WinForm
                 search_tovar_comboBox.Enabled = false;
                 comboBox_list_poructs.Enabled = true;
                 maskedTextBox_PUK.ReadOnly = true;
-                maskedTextBox_BLE_CODE.ReadOnly = true; 
+                maskedTextBox_BLE_CODE.ReadOnly = true;
                 maskedTextBox_GSM_CODE.ReadOnly = true;
                 search_tovar_comboBox.KeyPress += search_tovar_comboBox_KeyPress;
                 textBox_id_to_create.KeyPress += textBox_id_to_create_KeyPress;
@@ -10990,7 +10990,8 @@ namespace Disp_WinForm
                 mysql_close_alarm();
             }
         }
-    }
+
+    }   
 
     internal class List_add_alarm
     {
