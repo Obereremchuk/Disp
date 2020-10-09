@@ -134,6 +134,13 @@ namespace Disp_WinForm
             // Put the cells in edit mode when user enters them.
             dataGridView_testing.EditMode = DataGridViewEditMode.EditOnEnter;
 
+            dataGridView_accounts.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
+            dataGridView_accounts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            // Set the DataGridView control's border.
+            dataGridView_accounts.BorderStyle = BorderStyle.Fixed3D;
+            // Put the cells in edit mode when user enters them.
+            dataGridView_accounts.EditMode = DataGridViewEditMode.EditOnEnter;
+
             vars_form.order_sort = "desc";
             vars_form.hide_group_alarm = " and group_alarm is null";
             comboBox_sort_column.SelectedIndexChanged -= new System.EventHandler(this.comboBox_sort_column_SelectedIndexChanged);

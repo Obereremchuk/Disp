@@ -17,6 +17,7 @@ namespace Disp_WinForm
         public Add_alarm()
         {
             InitializeComponent();
+            textBox_filter_object_ohrani.Focus();
         }
 
         
@@ -88,6 +89,23 @@ namespace Disp_WinForm
             form.Show();
             this.Close();
 
+        }
+
+        private void textBox_filter_object_ohrani_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                if (listBox_object_ohrani.SelectedIndex <= -1)
+                {
+                    MessageBox.Show("Необхідно вибрати об'єкт");
+                    return;
+                }
+                vars_form.add_alarm_unit_id = listBox_object_ohrani.SelectedValue.ToString();
+                add_alarm_full form = new add_alarm_full();
+                form.Show();
+                this.Close();
+            }
+            
         }
     }
 }

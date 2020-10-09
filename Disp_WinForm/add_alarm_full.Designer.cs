@@ -66,7 +66,7 @@
             this.comboBox_source_in.Location = new System.Drawing.Point(142, 19);
             this.comboBox_source_in.Name = "comboBox_source_in";
             this.comboBox_source_in.Size = new System.Drawing.Size(562, 21);
-            this.comboBox_source_in.TabIndex = 4;
+            this.comboBox_source_in.TabIndex = 1;
             this.comboBox_source_in.SelectedIndexChanged += new System.EventHandler(this.comboBox_source_in_SelectedIndexChanged);
             // 
             // label1
@@ -83,7 +83,7 @@
             this.button_vnesty_zapis.Location = new System.Drawing.Point(625, 463);
             this.button_vnesty_zapis.Name = "button_vnesty_zapis";
             this.button_vnesty_zapis.Size = new System.Drawing.Size(86, 23);
-            this.button_vnesty_zapis.TabIndex = 7;
+            this.button_vnesty_zapis.TabIndex = 5;
             this.button_vnesty_zapis.Text = "Вести запис";
             this.button_vnesty_zapis.UseVisualStyleBackColor = true;
             this.button_vnesty_zapis.Click += new System.EventHandler(this.button_vnesty_zapis_Click);
@@ -93,7 +93,7 @@
             this.button_cancel.Location = new System.Drawing.Point(511, 463);
             this.button_cancel.Name = "button_cancel";
             this.button_cancel.Size = new System.Drawing.Size(86, 23);
-            this.button_cancel.TabIndex = 8;
+            this.button_cancel.TabIndex = 6;
             this.button_cancel.Text = "Скасувати";
             this.button_cancel.UseVisualStyleBackColor = true;
             this.button_cancel.Click += new System.EventHandler(this.button_cancel_Click);
@@ -132,14 +132,14 @@
             this.textBox_primitka.Location = new System.Drawing.Point(142, 124);
             this.textBox_primitka.Name = "textBox_primitka";
             this.textBox_primitka.Size = new System.Drawing.Size(561, 20);
-            this.textBox_primitka.TabIndex = 8;
+            this.textBox_primitka.TabIndex = 4;
             // 
             // textBox_email_account
             // 
             this.textBox_email_account.Location = new System.Drawing.Point(142, 98);
             this.textBox_email_account.Name = "textBox_email_account";
             this.textBox_email_account.Size = new System.Drawing.Size(561, 20);
-            this.textBox_email_account.TabIndex = 8;
+            this.textBox_email_account.TabIndex = 3;
             this.textBox_email_account.TextChanged += new System.EventHandler(this.textBox_email_account_TextChanged);
             // 
             // comboBox_account
@@ -157,8 +157,7 @@
             this.comboBox_account.Location = new System.Drawing.Point(142, 71);
             this.comboBox_account.Name = "comboBox_account";
             this.comboBox_account.Size = new System.Drawing.Size(562, 21);
-            this.comboBox_account.TabIndex = 7;
-            this.comboBox_account.SelectedIndexChanged += new System.EventHandler(this.comboBox_account_SelectedIndexChanged);
+            this.comboBox_account.TabIndex = 2;
             // 
             // label5
             // 

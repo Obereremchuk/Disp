@@ -223,6 +223,7 @@ namespace Disp_WinForm
                                "msg_time, " +
                                "product, " +
                                "type_alarm, " +
+                               "time_stamp, " +
                                "Users_idUsers, status) " +
                                "VALUES('" + object_name + "'," +
                                "'" + vars_form.add_alarm_unit_id + "'," +
@@ -230,6 +231,7 @@ namespace Disp_WinForm
                                "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                "'" + object_product + "'," +
                                "'" + comboBox_source_in.GetItemText(comboBox_source_in.SelectedItem) + "'," +
+                               "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                "'" + vars_form.user_login_id + "','Учетки')");
 
                 string id_created_notification = macros.sql_command("SELECT max(idnotification) FROM btk.notification;");
@@ -280,11 +282,6 @@ namespace Disp_WinForm
             if (comboBox_source_in.SelectedIndex == 2)
             { comboBox_account.Enabled = true; textBox_email_account.Enabled = true; textBox_primitka.Enabled = true; }
             else { comboBox_account.Enabled = false; textBox_email_account.Enabled = false; textBox_primitka.Enabled = false; }
-        }
-
-        private void comboBox_account_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
         }
 
         private bool IsValidEmail(string source)
