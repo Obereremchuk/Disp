@@ -153,7 +153,7 @@ namespace Disp_WinForm
                     if (Convert.ToInt32(user["accsess_lvl"]) <= 5)
                     {
                     }
-                    else if (Convert.ToInt32(user["accsess_lvl"]) == 8)
+                    else if (Convert.ToInt32(user["accsess_lvl"]) <= 6 && Convert.ToInt32(user["accsess_lvl"]) >= 8)
                     {
                         tabControl_testing.TabPages.Remove(tabPage3);
                         tabControl_testing.TabPages.Remove(tab_create_object);
@@ -249,6 +249,7 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
                 aTimer.AutoReset = true;
                 aTimer.Enabled = true;
             }
@@ -265,6 +266,7 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
                 aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
                 aTimer.AutoReset = true;
                 aTimer.Enabled = true;
             }
@@ -281,6 +283,7 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
                 aTimer.AutoReset = true;
                 aTimer.Enabled = true;
             }
@@ -297,6 +300,7 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
                 aTimer.AutoReset = true;
                 aTimer.Enabled = true;
             }
@@ -313,6 +317,7 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
                 aTimer.AutoReset = true;
                 aTimer.Enabled = true;
             }
@@ -329,6 +334,7 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
                 aTimer.AutoReset = true;
                 aTimer.Enabled = true;
             }
@@ -343,6 +349,7 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
                 aTimer.Enabled = false;
                 update_testing_dgv();
             }
@@ -358,6 +365,7 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
                 aTimer.Enabled = false;
             }
             else if (tabControl_testing.SelectedTab.Name == "tabPage_activation")
@@ -373,6 +381,7 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
 
                 //aTimer.AutoReset = true;
                 aTimer.Enabled = false;
@@ -389,6 +398,7 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
                 aTimer.Enabled = false;
             }
             else if (tabControl_testing.SelectedTab.Name == "tab_create_object")
@@ -402,6 +412,7 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
                 aTimer.Enabled = false;
                 build_list_products();
                 Google_masseges();
