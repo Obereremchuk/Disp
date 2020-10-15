@@ -329,6 +329,29 @@ namespace Disp_WinForm
                     vars_form.transfer_vo5_vo_form = "1";
                 }
             }
+            else
+            {
+                if (textBox_vo1.Text == "")
+                {
+                    vars_form.transfer_vo1_vo_form = "1";
+                }
+                if (textBox_vo2.Text == "")
+                {
+                    vars_form.transfer_vo2_vo_form = "1";
+                }
+                if (textBox_vo3.Text == "")
+                {
+                    vars_form.transfer_vo3_vo_form = "1";
+                }
+                if (textBox_vo4.Text == "")
+                {
+                    vars_form.transfer_vo4_vo_form = "1";
+                }
+                if (textBox_vo5.Text == "")
+                {
+                    vars_form.transfer_vo5_vo_form = "1";
+                }
+            }
 
             //Load data from opened activation
             string tk_tested = macros.sql_command("SELECT alarm_button FROM btk.Activation_object where idActivation_object = '" + vars_form.id_db_activation_for_activation + "'");
@@ -914,7 +937,34 @@ namespace Disp_WinForm
                     DateTime.Now.Date
                     );
 
+                if (comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem).Contains("Успішно"))
+                {
+                    string Subject = "707 Активовано успішно! VIN: " + textBox_vin_zayavka.Text + ", Обєкт: " + name_obj_new_textBox.Text + ", Проект: " + textBox_zamovnik.Text;
+                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua>,<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<y.kravchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>";
+                    DataTable dt = new DataTable();
 
+                    dt.Columns.Add("Параметр");
+                    dt.Columns.Add("Значення");
+                    object[] row = { "VIN", textBox_vin_zayavka.Text };
+                    dt.Rows.Add(row);
+                    object[] row1 = { "Обєкт", name_obj_new_textBox.Text };
+                    dt.Rows.Add(row1);
+                    object[] row2 = { "IMEI", imei_object_textBox.Text };
+                    dt.Rows.Add(row2);
+
+                    object[] row11 = { "Дата дата активації", DateTime.Now.ToString() };
+                    dt.Rows.Add(row11);
+                    object[] row13 = { "Оператор що активував", vars_form.user_login_name };
+                    dt.Rows.Add(row13);
+                    object[] row3 = { "Статс активації", comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) };
+                    dt.Rows.Add(row3);
+                    object[] row14 = { "Коментар", textBox_comments.Text };
+                    dt.Rows.Add(row14);
+
+                    string Body = macros.ConvertDataTableToHTML(dt);
+
+                    macros.send_mail(recip, Subject, Body);
+                }
             }
             else if (vars_form.if_open_created_activation == 0)
             {
@@ -1074,7 +1124,36 @@ namespace Disp_WinForm
                     DateTime.Now.Date
                     );
 
+                
 
+                if (comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) == "Успішно" || comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) == "Успішно(PIN)")
+                {
+                    string Subject = "707 Активовано успішно! VIN: " + textBox_vin_zayavka.Text + ", Обєкт: " + name_obj_new_textBox.Text + ", Проект: " + textBox_zamovnik.Text;
+                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua>,<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<y.kravchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>";
+                    DataTable dt = new DataTable();
+
+                    dt.Columns.Add("Параметр");
+                    dt.Columns.Add("Значення");
+                    object[] row = { "VIN", textBox_vin_zayavka.Text };
+                    dt.Rows.Add(row);
+                    object[] row1 = { "Обєкт", name_obj_new_textBox.Text };
+                    dt.Rows.Add(row1);
+                    object[] row2 = { "IMEI", imei_object_textBox.Text };
+                    dt.Rows.Add(row2);
+
+                    object[] row11 = { "Дата дата активації", DateTime.Now.ToString() };
+                    dt.Rows.Add(row11);
+                    object[] row13 = { "Оператор що активував", vars_form.user_login_name };
+                    dt.Rows.Add(row13);
+                    object[] row3 = { "Статс активації", comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) };
+                    dt.Rows.Add(row3);
+                    object[] row14 = { "Коментар", textBox_comments.Text };
+                    dt.Rows.Add(row14);
+
+                    string Body = macros.ConvertDataTableToHTML(dt);
+
+                    macros.send_mail(recip, Subject, Body);
+                }
             }
 
             if (remaynder_checkBox.Checked == true)

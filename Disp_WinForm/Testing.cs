@@ -1699,7 +1699,7 @@ namespace Disp_WinForm
             {
                 if (checkBox_test_tk.Checked is false || checkBox_test_zablocovano.Checked is false ||
                     checkBox_test_du.Checked is false || checkBox__test_vzlom.Checked is false ||
-                    checkBox_test_koordinati.Checked is false)// выполняем если завершается тестирование неуспехом
+                    checkBox_test_koordinati.Checked is false || comboBox_result.SelectedIndex == 1)// выполняем если завершается тестирование неуспехом
                 {
                     if (textBox_commets.Text == "")
                     {
@@ -2274,7 +2274,7 @@ namespace Disp_WinForm
                 
                 if (checkBox_test_tk.Checked is false || checkBox_test_zablocovano.Checked is false ||
                     checkBox_test_du.Checked is false || checkBox__test_vzlom.Checked is false ||
-                    checkBox_test_koordinati.Checked is false)
+                    checkBox_test_koordinati.Checked is false || comboBox_result.SelectedIndex == 1)
                 {
                     if (textBox_commets.Text == "")
                     {
