@@ -67,6 +67,7 @@
             this.listBox_commads_wl = new System.Windows.Forms.ListBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label10 = new System.Windows.Forms.Label();
             this.textBox_Uvaga = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label_lmst = new System.Windows.Forms.Label();
@@ -120,7 +121,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
-            this.email_textBox = new Disp_WinForm.PlaceHolderTextBox();
             this.listBox_activation_list_search = new System.Windows.Forms.ListBox();
             this.account_create_button = new System.Windows.Forms.Button();
             this.button_add_2_account = new System.Windows.Forms.Button();
@@ -149,6 +149,7 @@
             this.dateTimePicker_nachalo_dejstvia = new System.Windows.Forms.DateTimePicker();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox_otrabotka_trevogi = new System.Windows.Forms.TextBox();
+            this.email_textBox = new Disp_WinForm.PlaceHolderTextBox();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_hronologija_trivog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_group_alarm)).BeginInit();
@@ -489,6 +490,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label10);
             this.tabPage3.Controls.Add(this.textBox_Uvaga);
             this.tabPage3.Controls.Add(this.groupBox1);
             this.tabPage3.Controls.Add(this.groupBox10);
@@ -502,6 +504,15 @@
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Обробка";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(10, 43);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(41, 13);
+            this.label10.TabIndex = 13;
+            this.label10.Text = "label10";
             // 
             // textBox_Uvaga
             // 
@@ -1106,15 +1117,6 @@
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "Створення, привязка до авто";
             // 
-            // email_textBox
-            // 
-            this.email_textBox.Location = new System.Drawing.Point(6, 19);
-            this.email_textBox.Name = "email_textBox";
-            this.email_textBox.PlaceHolderText = "Новий користувач (електронна скринька)";
-            this.email_textBox.Size = new System.Drawing.Size(336, 20);
-            this.email_textBox.TabIndex = 128;
-            this.email_textBox.TextChanged += new System.EventHandler(this.email_textBoxTextChanged);
-            // 
             // listBox_activation_list_search
             // 
             this.listBox_activation_list_search.FormattingEnabled = true;
@@ -1423,6 +1425,15 @@
             this.textBox_otrabotka_trevogi.TabIndex = 0;
             this.textBox_otrabotka_trevogi.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBox_otrabotka_trevogi_MouseDown);
             // 
+            // email_textBox
+            // 
+            this.email_textBox.Location = new System.Drawing.Point(6, 19);
+            this.email_textBox.Name = "email_textBox";
+            this.email_textBox.PlaceHolderText = "Новий користувач (електронна скринька)";
+            this.email_textBox.Size = new System.Drawing.Size(336, 20);
+            this.email_textBox.TabIndex = 128;
+            this.email_textBox.TextChanged += new System.EventHandler(this.email_textBoxTextChanged);
+            // 
             // detail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1582,5 +1593,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox checkBox_geozone_all;
         private System.Windows.Forms.ComboBox comboBox_otvetstvenniy;
+        private System.Windows.Forms.Label label10;
     }
 }
