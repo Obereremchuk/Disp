@@ -6,21 +6,27 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace Disp_WinForm
 {
     public partial class Activation_Form : Form
     {
+        private static System.Timers.Timer aTimer3;
         private Macros macros = new Macros();
-        private string id_new_user;
         private string date_chenge_pin;
+        private string get_produt_testing_device;
+        
 
         public Activation_Form()
         {
             InitializeComponent();
             Read_data();
             get_remaynder();
+            get_produt_device();
+            aTimer3 = new System.Timers.Timer();
+            timer();
         }
 
         private void get_remaynder()
@@ -81,111 +87,90 @@ namespace Disp_WinForm
                     kodove_slovo_textBox.Text = keyvalue.Value.v;
                 }
             }
-            //load VO
-            DataTable VO = macros.GetData("select Kontakti_idKontakti, VOcol_num_vo from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "';");
-            if (VO.Rows.Count >= 1)
+
+
+            //load VO1
+            string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "' and VOcol_num_vo = '1' ORDER BY idVO DESC limit 1;");
+
+            string VO_falilia = macros.sql_command("SELECT Kontakti_familia FROM btk.Kontakti where idKontakti = '" + VO1.ToString() + "';");
+            string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO1.ToString() + "';");
+            string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO1.ToString() + "';");
+            if (VO_phone2 == "   -   -")
+            { VO_phone2 = ""; }
+            if (VO_falilia == "" & VO_imya_phone == "" || VO_imya_phone.Contains("Пусто"))
             {
-                foreach (DataRow row in VO.Rows)
-                {
-                    if (row[1].ToString() == "1")
-                    {
-                        string VO_falilia = macros.sql_command("SELECT Kontakti_familia FROM btk.Kontakti where idKontakti = '" + row[0].ToString() + "';");
-                        string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + row[0].ToString() + "';");
-                        string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + row[0].ToString() + "';");
-                        if (VO_phone2 == "   -   -")
-                        { VO_phone2 = ""; }
-                        if (VO_falilia == "" & VO_imya_phone == "")
-                        {
-                            textBox_vo1.Text = "";
-                        }
-                        else
-                        {
-                            textBox_vo1.Text = VO_falilia.ToUpper() + " " + VO_imya_phone + ", " + VO_phone2;
-                        }
-                    }
-                    if (row[1].ToString() == "2")
-                    {
-                        string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + row[0].ToString() + "';");
-                        string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + row[0].ToString() + "';");
-                        if (VO_phone2 == "   -   -")
-                        { VO_phone2 = ""; }
-                        if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
-                        {
-                            textBox_vo2.Text = "";
-                        }
-                        else
-                        {
-                            textBox_vo2.Text = VO_familia_imya_phone + ", " + VO_phone2;
-                        }
-                    }
-                    if (row[1].ToString() == "3")
-                    {
-                        string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + row[0].ToString() + "';");
-                        string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + row[0].ToString() + "';");
-                        if (VO_phone2 == "   -   -")
-                        { VO_phone2 = ""; }
-                        if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
-                        {
-                            textBox_vo3.Text = "";
-                        }
-                        else
-                        {
-                            textBox_vo3.Text = VO_familia_imya_phone + ", " + VO_phone2;
-                        }
-                    }
-                    if (row[1].ToString() == "4")
-                    {
-                        string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + row[0].ToString() + "';");
-                        string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + row[0].ToString() + "';");
-                        if (VO_phone2 == "   -   -")
-                        { VO_phone2 = ""; }
-                        if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
-                        {
-                            textBox_vo4.Text = "";
-                        }
-                        else
-                        {
-                            textBox_vo4.Text = VO_familia_imya_phone + ", " + VO_phone2;
-                        }
-                    }
-                    if (row[1].ToString() == "5")
-                    {
-                        string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + row[0].ToString() + "';");
-                        string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + row[0].ToString() + "';");
-                        if (VO_phone2 == "   -   -")
-                        { VO_phone2 = ""; }
-                        if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
-                        {
-                            textBox_vo5.Text = "";
-                        }
-                        else
-                        {
-                            textBox_vo5.Text = VO_familia_imya_phone + ", " + VO_phone2;
-                        }
-                    }
-                }
-                if (textBox_vo1.Text == "")
-                {
-                    vars_form.transfer_vo1_vo_form = "1";
-                }
-                if (textBox_vo2.Text == "")
-                {
-                    vars_form.transfer_vo2_vo_form = "1";
-                }
-                if (textBox_vo3.Text == "")
-                {
-                    vars_form.transfer_vo3_vo_form = "1";
-                }
-                if (textBox_vo4.Text == "")
-                {
-                    vars_form.transfer_vo4_vo_form = "1";
-                }
-                if (textBox_vo5.Text == "")
-                {
-                    vars_form.transfer_vo5_vo_form = "1";
-                }
+                textBox_vo1.Text = "";
+                vars_form.transfer_vo1_vo_form = "1";
+            }
+            else
+            {
+                textBox_vo1.Text = VO_falilia.ToUpper() + " " + VO_imya_phone + ", " + VO_phone2;
             }
 
+            //load VO2
+            string VO2 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "' and VOcol_num_vo = '2' ORDER BY idVO DESC limit 1;");
+            string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO2.ToString() + "';");
+            VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO2.ToString() + "';");
+            if (VO_phone2 == "   -   -")
+            { VO_phone2 = ""; }
+            if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
+            {
+                textBox_vo2.Text = "";
+                vars_form.transfer_vo2_vo_form = "1";
+            }
+            else
+            {
+                textBox_vo2.Text = VO_familia_imya_phone + ", " + VO_phone2;
+            }
+
+
+            //load VO3
+            string VO3 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "' and VOcol_num_vo = '3' ORDER BY idVO DESC limit 1;");
+            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO3.ToString() + "';");
+            VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO3.ToString() + "';");
+            if (VO_phone2 == "   -   -")
+            { VO_phone2 = ""; }
+            if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
+            {
+                textBox_vo3.Text = "";
+                vars_form.transfer_vo3_vo_form = "1";
+            }
+            else
+            {
+                textBox_vo3.Text = VO_familia_imya_phone + ", " + VO_phone2;
+            }
+
+            //load VO4
+            string VO4 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "' and VOcol_num_vo = '4' ORDER BY idVO DESC limit 1;");
+            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO4.ToString() + "';");
+            VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO4.ToString() + "';");
+            if (VO_phone2 == "   -   -")
+            { VO_phone2 = ""; }
+            if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
+            {
+                textBox_vo4.Text = "";
+                vars_form.transfer_vo4_vo_form = "1";
+            }
+            else
+            {
+                textBox_vo4.Text = VO_familia_imya_phone + ", " + VO_phone2;
+            }
+
+            //load VO5
+            string VO5 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "' and VOcol_num_vo = '5' ORDER BY idVO DESC limit 1;");
+            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO5.ToString() + "';");
+            VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO5.ToString() + "';");
+            if (VO_phone2 == "   -   -")
+            { VO_phone2 = ""; }
+            if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
+            {
+                textBox_vo5.Text = "";
+                vars_form.transfer_vo5_vo_form = "1";
+            }
+            else
+            {
+                textBox_vo5.Text = VO_familia_imya_phone + ", " + VO_phone2;
+            }
         }
 
         //init command on load form
@@ -225,132 +210,88 @@ namespace Disp_WinForm
             ////load VO
             //DataTable VO = macros.GetData("SELECT Users_idUsers, comment, alarm_button FROM btk.Activation_object where Object_idObject = '"+vars_form.id_db_object_for_activation+"';");
 
-            //load VO
-            DataTable VO = macros.GetData("select Kontakti_idKontakti, VOcol_num_vo from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "';");
-            if (VO.Rows.Count >= 1)
+
+            //load VO1
+            string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "' and VOcol_num_vo = '1' ORDER BY idVO DESC limit 1;");
+
+            string VO_falilia = macros.sql_command("SELECT Kontakti_familia FROM btk.Kontakti where idKontakti = '" + VO1.ToString() + "';");
+            string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO1.ToString() + "';");
+            string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO1.ToString() + "';");
+            if (VO_phone2 == "   -   -")
+            { VO_phone2 = ""; }
+            if (VO_falilia == "" & VO_imya_phone == "" || VO_imya_phone.Contains("Пусто"))
             {
-                foreach (DataRow row in VO.Rows)
-                {
-                    if (row[1].ToString() == "1")
-                    {
-                        string VO_falilia = macros.sql_command("SELECT Kontakti_familia FROM btk.Kontakti where idKontakti = '" + row[0].ToString() + "';");
-                        string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + row[0].ToString() + "';");
-                        string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + row[0].ToString() + "';");
-                        if (VO_phone2 == "   -   -")
-                        { VO_phone2 = ""; }
-                        if (VO_falilia == "" & VO_imya_phone == "")
-                        {
-                            textBox_vo1.Text = "";
-                        }
-                        else
-                        {
-                            textBox_vo1.Text = VO_falilia.ToUpper() + " " + VO_imya_phone + ", " + VO_phone2;
-                        }
-                    }
-                    if (row[1].ToString() == "2")
-                    {
-                        string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + row[0].ToString() + "';");
-                        string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + row[0].ToString() + "';");
-                        if (VO_phone2 == "   -   -")
-                        { VO_phone2 = ""; }
-                        if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
-                        {
-                            textBox_vo2.Text = "";
-                        }
-                        else
-                        {
-                            textBox_vo2.Text = VO_familia_imya_phone + ", " + VO_phone2;
-                        }
-                    }
-                    if (row[1].ToString() == "3")
-                    {
-                        string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + row[0].ToString() + "';");
-                        string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + row[0].ToString() + "';");
-                        if (VO_phone2 == "   -   -")
-                        { VO_phone2 = ""; }
-                        if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
-                        {
-                            textBox_vo3.Text = "";
-                        }
-                        else
-                        {
-                            textBox_vo3.Text = VO_familia_imya_phone + ", " + VO_phone2;
-                        }
-                    }
-                    if (row[1].ToString() == "4")
-                    {
-                        string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + row[0].ToString() + "';");
-                        string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + row[0].ToString() + "';");
-                        if (VO_phone2 == "   -   -")
-                        { VO_phone2 = ""; }
-                        if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
-                        {
-                            textBox_vo4.Text = "";
-                        }
-                        else
-                        {
-                            textBox_vo4.Text = VO_familia_imya_phone + ", " + VO_phone2;
-                        }
-                    }
-                    if (row[1].ToString() == "5")
-                    {
-                        string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + row[0].ToString() + "';");
-                        string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + row[0].ToString() + "';");
-                        if (VO_phone2 == "   -   -")
-                        { VO_phone2 = ""; }
-                        if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
-                        {
-                            textBox_vo5.Text = "";
-                        }
-                        else
-                        {
-                            textBox_vo5.Text = VO_familia_imya_phone + ", " + VO_phone2;
-                        }
-                    }
-                }
-                if (textBox_vo1.Text == "")
-                {
-                    vars_form.transfer_vo1_vo_form = "1";
-                }
-                if (textBox_vo2.Text == "")
-                {
-                    vars_form.transfer_vo2_vo_form = "1";
-                }
-                if (textBox_vo3.Text == "")
-                {
-                    vars_form.transfer_vo3_vo_form = "1";
-                }
-                if (textBox_vo4.Text == "")
-                {
-                    vars_form.transfer_vo4_vo_form = "1";
-                }
-                if (textBox_vo5.Text == "")
-                {
-                    vars_form.transfer_vo5_vo_form = "1";
-                }
+                textBox_vo1.Text = "";
+                vars_form.transfer_vo1_vo_form = "1";
             }
             else
             {
-                if (textBox_vo1.Text == "")
-                {
-                    vars_form.transfer_vo1_vo_form = "1";
-                }
-                if (textBox_vo2.Text == "")
-                {
-                    vars_form.transfer_vo2_vo_form = "1";
-                }
-                if (textBox_vo3.Text == "")
-                {
-                    vars_form.transfer_vo3_vo_form = "1";
-                }
-                if (textBox_vo4.Text == "")
-                {
-                    vars_form.transfer_vo4_vo_form = "1";
-                }
-                if (textBox_vo5.Text == "")
-                {
-                    vars_form.transfer_vo5_vo_form = "1";
-                }
+                textBox_vo1.Text = VO_falilia.ToUpper() + " " + VO_imya_phone + ", " + VO_phone2;
+            }
+
+            //load VO2
+            string VO2 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "' and VOcol_num_vo = '2' ORDER BY idVO DESC limit 1;");
+            string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO2.ToString() + "';");
+            VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO2.ToString() + "';");
+            if (VO_phone2 == "   -   -")
+            { VO_phone2 = ""; }
+            if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
+            {
+                textBox_vo2.Text = "";
+                vars_form.transfer_vo2_vo_form = "1";
+            }
+            else
+            {
+                textBox_vo2.Text = VO_familia_imya_phone + ", " + VO_phone2;
+            }
+
+
+            //load VO3
+            string VO3 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "' and VOcol_num_vo = '3' ORDER BY idVO DESC limit 1;");
+            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO3.ToString() + "';");
+            VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO3.ToString() + "';");
+            if (VO_phone2 == "   -   -")
+            { VO_phone2 = ""; }
+            if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
+            {
+                textBox_vo3.Text = "";
+                vars_form.transfer_vo3_vo_form = "1";
+            }
+            else
+            {
+                textBox_vo3.Text = VO_familia_imya_phone + ", " + VO_phone2;
+            }
+
+            //load VO4
+            string VO4 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "' and VOcol_num_vo = '4' ORDER BY idVO DESC limit 1;");
+            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO4.ToString() + "';");
+            VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO4.ToString() + "';");
+            if (VO_phone2 == "   -   -")
+            { VO_phone2 = ""; }
+            if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
+            {
+                textBox_vo4.Text = "";
+                vars_form.transfer_vo4_vo_form = "1";
+            }
+            else
+            {
+                textBox_vo4.Text = VO_familia_imya_phone + ", " + VO_phone2;
+            }
+
+            //load VO5
+            string VO5 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "' and VOcol_num_vo = '5' ORDER BY idVO DESC limit 1;");
+            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO5.ToString() + "';");
+            VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO5.ToString() + "';");
+            if (VO_phone2 == "   -   -")
+            { VO_phone2 = ""; }
+            if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
+            {
+                textBox_vo5.Text = "";
+                vars_form.transfer_vo5_vo_form = "1";
+            }
+            else
+            {
+                textBox_vo5.Text = VO_familia_imya_phone + ", " + VO_phone2;
             }
 
             //Load data from opened activation
@@ -629,21 +570,22 @@ namespace Disp_WinForm
                 MessageBox.Show("Опишіть ситуацію в коментрі.");
                 return;
             }
-            // 
-            //if ((comboBox_activation_result.SelectedIndex == 1 | comboBox_activation_result.SelectedIndex == 2) | textBox_comments.Text != "")
-            //{
-            //    macros.sql_command("insert into btk.activation_comments (" +
-            //        "coments," +
-            //        "date_insert," +
-            //        "Activation_object_idActivation_object," +
-            //        "Users_idUsers" +
-            //        ") values (" +
-            //        "'" + MySqlHelper.EscapeString(textBox_comments.Text) + "', " +
-            //        "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
-            //        "'" + vars_form.id_db_activation_for_activation + "'," +
-            //        "'" + vars_form.user_login_id + "'" +
-            //        "); ");
-            //}
+
+            // if object name is changed - update name in WL and db
+            if (name_object_current_textBox.Text != name_obj_new_textBox.Text)
+            {
+                //Меняем имя об"екта in WL
+                string name_answer = macros.WialonRequest("&svc=item/update_name&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"name\":\"" + name_obj_new_textBox.Text + "\"}");
+                //Меняем имя об"екта in DB
+                macros.sql_command("UPDATE btk.Object " +
+                               "SET " +
+                               "Object_name = '" + name_obj_new_textBox.Text + "' " +
+                               "WHERE " +
+                               "idObject = '" + vars_form.id_db_object_for_activation + "';");
+            }
+
 
             //Загружаем произвольные поля объекта
             string json = macros.WialonRequest("&svc=core/search_items&params={" +
@@ -661,151 +603,174 @@ namespace Disp_WinForm
 
             var object_data = JsonConvert.DeserializeObject<RootObject>(json);
 
-            if (name_object_current_textBox.Text != name_obj_new_textBox.Text)
-            {
-                //Меняем имя об"екта
-                string name_answer = macros.WialonRequest("&svc=item/update_name&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
-                                                                + "\"name\":\"" + name_obj_new_textBox.Text + "\"}");
-
-                macros.sql_command("UPDATE btk.Object " +
-                               "SET " +
-                               "Object_name = '" + name_obj_new_textBox.Text + "' " +
-                               "WHERE " +
-                               "idObject = '" + vars_form.id_db_object_for_activation + "';");
-            }
-
+            //chek if exist costom feild in WL VO4, VO5
+            int vo4_exist = 0;
+            int vo5_exist = 0;
             foreach (var keyvalue in object_data.items[0].flds)
             {
-                if (keyvalue.Value.n.Contains("УВАГА"))
+                if (keyvalue.Value.n.Contains("2.4 ІV Від"))
                 {
-                    if (keyvalue.Value.v != uvaga_textBox.Text)
-                    {
-                        //Chenge feild Uvaga
+                    vo4_exist = 1;
+                }
+                if (keyvalue.Value.n.Contains("2.5 V Від"))
+                {
+                    vo5_exist = 1;
+                }
+            }
+            if (vo4_exist == 0)
+            { macros.create_custom_field_wl(Convert.ToInt32(vars_form.id_wl_object_for_activation), "2.4 ІV Відповідальна особа", ""); }
+            if (vo5_exist == 0)
+            { macros.create_custom_field_wl(Convert.ToInt32(vars_form.id_wl_object_for_activation), "2.5 V Відповідальна особа", ""); }
+
+            //Загружаем заново произвольные поля объекта
+            json = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_id\"," +
+                                                     "\"propValueMask\":\"" + vars_form.id_wl_object_for_activation + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"or_logic\":\"1\"," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"15208907\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"1\"}");//15208907
+
+            object_data = JsonConvert.DeserializeObject<RootObject>(json);
+
+
+            //update costom feild in WL, Upatate VO in WL and DB
+            foreach (var keyvalue in object_data.items[0].flds)
+            {
+                switch (keyvalue.Value.n)
+                {
+                    //Chenge feild Uvaga
+                    case string a when a.Contains("УВАГА") & keyvalue.Value.v != uvaga_textBox.Text:
+                        string json1 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                                                                    "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                                    "\"id\":\"" + keyvalue.Value.id + "\"," +
+                                                                    "\"callMode\":\"update\"," +
+                                                                    "\"n\":\"" + keyvalue.Value.n + "\"," +
+                                                                    "\"v\":\"" + uvaga_textBox.Text.Replace("\"", "%5C%22") + "\"}");
+                        break;
+
+                    //Chenge feild Кодове слово
+                    case string a when a.Contains("Кодове ") & keyvalue.Value.v != kodove_slovo_textBox.Text:
                         string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
-                                                                 "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
-                                                                 "\"id\":\"" + keyvalue.Value.id + "\"," +
-                                                                 "\"callMode\":\"update\"," +
-                                                                 "\"n\":\"" + keyvalue.Value.n + "\"," +
-                                                                 "\"v\":\"" + uvaga_textBox.Text.Replace("\"", "%5C%22") + "\"}");
-                    }
-                }
-                if (keyvalue.Value.n.Contains("Кодове "))
-                {
-                    if (keyvalue.Value.v != kodove_slovo_textBox.Text)
-                    {
-                        //Chenge feild Кодове слово
-                        string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
-                                                             "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
-                                                             "\"id\":\"" + keyvalue.Value.id + "\"," +
-                                                             "\"callMode\":\"update\"," +
-                                                             "\"n\":\"" + keyvalue.Value.n + "\"," +
-                                                             "\"v\":\"" + kodove_slovo_textBox.Text + "\"}");
-                    }
-                }
+                                                                "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                                "\"id\":\"" + keyvalue.Value.id + "\"," +
+                                                                "\"callMode\":\"update\"," +
+                                                                "\"n\":\"" + keyvalue.Value.n + "\"," +
+                                                                "\"v\":\"" + kodove_slovo_textBox.Text + "\"}");
+                        break;
 
-                if (keyvalue.Value.n.Contains("2.1 І Від"))
-                {
-                    if (keyvalue.Value.v != textBox_vo1.Text)
-                    {
-                        if (textBox_vo1.Text != "1")
-                        {
-                            //Chenge feild ВО1
-                            macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo1_vo_form + "','1','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
-                            string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
-                                                             "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
-                                                             "\"id\":\"" + keyvalue.Value.id + "\"," +
-                                                             "\"callMode\":\"update\"," +
-                                                             "\"n\":\"" + keyvalue.Value.n + "\"," +
-                                                             "\"v\":\"" + textBox_vo1.Text + "\"}");
-                        }
-                    }
-                }
+                    //Chenge feild ВО1
+                    case string a when a.Contains("2.1 І Від") & keyvalue.Value.v != textBox_vo1.Text & textBox_vo1.Text != "1":
+                        macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo1_vo_form + "','1','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
+                        string json3 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                                                         "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                         "\"id\":\"" + keyvalue.Value.id + "\"," +
+                                                         "\"callMode\":\"update\"," +
+                                                         "\"n\":\"" + keyvalue.Value.n + "\"," +
+                                                         "\"v\":\"" + textBox_vo1.Text + "\"}");
+                        break;
 
-                if (keyvalue.Value.n.Contains("2.2 ІІ Від"))
-                {
-                    if (keyvalue.Value.v != textBox_vo2.Text)
-                    {
-                        if (textBox_vo2.Text != "1")
-                        {
-                            //Chenge feild ВО2
-                            macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo2_vo_form + "','2','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
-                            string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
-                                                             "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
-                                                             "\"id\":\"" + keyvalue.Value.id + "\"," +
-                                                             "\"callMode\":\"update\"," +
-                                                             "\"n\":\"" + keyvalue.Value.n + "\"," +
-                                                             "\"v\":\"" + textBox_vo2.Text + "\"}");
-                        }
-                    }
-                }
+                    //Chenge feild ВО2
+                    case string a when a.Contains("2.2 ІІ Від") & keyvalue.Value.v != textBox_vo2.Text & textBox_vo2.Text != "1":
+                        macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo2_vo_form + "','2','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
+                        string json4 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                                                         "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                         "\"id\":\"" + keyvalue.Value.id + "\"," +
+                                                         "\"callMode\":\"update\"," +
+                                                         "\"n\":\"" + keyvalue.Value.n + "\"," +
+                                                         "\"v\":\"" + textBox_vo2.Text + "\"}");
+                        break;
 
-                if (keyvalue.Value.n.Contains("2.3 ІІІ Від"))
-                {
-                    if (keyvalue.Value.v != textBox_vo3.Text)
-                    {
-                        if (textBox_vo3.Text != "1")
-                        {
-                            //Chenge feild ВО3
-                            macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo3_vo_form + "','3','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
-                            string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
-                                                             "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
-                                                             "\"id\":\"" + keyvalue.Value.id + "\"," +
-                                                             "\"callMode\":\"update\"," +
-                                                             "\"n\":\"" + keyvalue.Value.n + "\"," +
-                                                             "\"v\":\"" + textBox_vo3.Text + "\"}");
-                        }
-                    }
-                }
+                    //Chenge feild ВО3
+                    case string a when a.Contains("2.3 ІІІ Від") & keyvalue.Value.v != textBox_vo3.Text & textBox_vo3.Text != "1":
+                        macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo3_vo_form + "','3','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
+                        string json5 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                                                         "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                         "\"id\":\"" + keyvalue.Value.id + "\"," +
+                                                         "\"callMode\":\"update\"," +
+                                                         "\"n\":\"" + keyvalue.Value.n + "\"," +
+                                                         "\"v\":\"" + textBox_vo3.Text + "\"}");
+                        break;
 
+                    //Chenge feild ВО4
+                    case string a when a.Contains("2.4 ІV Від") & keyvalue.Value.v != textBox_vo4.Text & textBox_vo4.Text != "1":
+                        macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo4_vo_form + "','4','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
+                        string json6 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                                                         "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                         "\"id\":\"" + keyvalue.Value.id + "\"," +
+                                                         "\"callMode\":\"update\"," +
+                                                         "\"n\":\"" + keyvalue.Value.n + "\"," +
+                                                         "\"v\":\"" + textBox_vo4.Text + "\"}");
+                        break;
 
-                if (keyvalue.Value.n.Contains("02 Проект"))
-                {
-                    string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                    //Chenge feild ВО5
+                    case string a when a.Contains("2.5 V Від") & keyvalue.Value.v != textBox_vo5.Text & textBox_vo5.Text != "1":
+                        macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo5_vo_form + "','5','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
+                        string json7 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                                                         "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                         "\"id\":\"" + keyvalue.Value.id + "\"," +
+                                                         "\"callMode\":\"update\"," +
+                                                         "\"n\":\"" + keyvalue.Value.n + "\"," +
+                                                         "\"v\":\"" + textBox_vo5.Text + "\"}");
+                        break;
+
+                    //Chenge feild Proekt
+                    case string a when a.Contains("02 Проект"):
+                        string json8 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
                                                     "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
                                                     "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                     "\"callMode\":\"update\"," +
                                                     "\"n\":\"" + keyvalue.Value.n + "\"," +
                                                     "\"v\":\"" + textBox_zamovnik.Text + "\"}");
-                }
+                        break;
 
-                if (textBox_who_chenge_pin.ReadOnly is false)
-                {
-                    if (keyvalue.Value.n.Contains("4.2 Дата"))
-                    {
-                        string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                    //Chenge feild Date pin setup
+                    case string a when a.Contains("4.2 Дата") & textBox_who_chenge_pin.ReadOnly is false:
+                        string json9 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
                                                         "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
                                                         "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                         "\"callMode\":\"update\"," +
                                                         "\"n\":\"" + keyvalue.Value.n + "\"," +
                                                         "\"v\":\"" + DateTime.Now.Date.ToString() + "\"}");
-                    }
-                }
-                if (textBox_who_chenge_pin.ReadOnly is false)
-                {
-                    if (keyvalue.Value.n.Contains("4.3 PIN-код"))
-                    {
-                        string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                        break;
+
+                    //Chenge feild who chenge pin 
+                    case string a when a.Contains("4.3 PIN-код") & textBox_who_chenge_pin.ReadOnly is false:
+                        string json10 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
                                                         "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
                                                         "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                         "\"callMode\":\"update\"," +
                                                         "\"n\":\"" + keyvalue.Value.n + "\"," +
                                                         "\"v\":\"" + textBox_who_chenge_pin.Text + "\"}");
-                    }
-                }
-                if (keyvalue.Value.n.Contains("9.1 Техпаспор"))
-                {
-                    string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                        break;
+
+                    //Chenge feild Tex-passport 
+                    case string a when a.Contains("9.1 Техпаспор") & textBox_svidoctvo_tz.Text == "":
+                        string json11 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
                                                     "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
                                                     "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                     "\"callMode\":\"update\"," +
                                                     "\"n\":\"" + keyvalue.Value.n + "\"," +
                                                     "\"v\":\"" + textBox_vlasnik.Text + "\"}");
-                }
+                        break;
 
-
-                ReadActivationChenges(vars_form.id_db_activation_for_activation);
+                    //Chenge feild Tex-passport and svidoctvo s slov clienta esli vneseno  v pole textBox_svidoctvo_tz
+                    case string a when a.Contains("9.1 Техпаспор") & textBox_svidoctvo_tz.Text != "":
+                        string json12 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                                                    "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                    "\"id\":\"" + keyvalue.Value.id + "\"," +
+                                                    "\"callMode\":\"update\"," +
+                                                    "\"n\":\"" + keyvalue.Value.n + "\"," +
+                                                    "\"v\":\"" + textBox_vlasnik.Text + " (" + textBox_svidoctvo_tz.Text + ")" + "\"}");
+                        break;
+                } 
             }
+            ReadActivationChenges(vars_form.id_db_activation_for_activation);
 
             // insert/update activation
 
@@ -872,6 +837,8 @@ namespace Disp_WinForm
                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
                                                                    + "\"n\":\"registration_plate\","
                                                                    + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+
+                    
                 }
 
                 if (textBox_vin_zayavka.Text != "")
@@ -1237,7 +1204,7 @@ namespace Disp_WinForm
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = "/C " + path + " " + maskedTextBox_kont_phone1.Text;
+            startInfo.Arguments = "/C " + path + " " + new String(maskedTextBox_kont_phone1.Text.Where(Char.IsDigit).ToArray());
             process.StartInfo = startInfo;
             process.Start();
         }
@@ -1251,7 +1218,7 @@ namespace Disp_WinForm
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = "/C " + path + " " + maskedTextBox_cont_phone2.Text;
+            startInfo.Arguments = "/C " + path + " " + new String(maskedTextBox_kont_phone1.Text.Where(Char.IsDigit).ToArray());
             process.StartInfo = startInfo;
             process.Start();
         }
@@ -1329,6 +1296,18 @@ namespace Disp_WinForm
             vars_form.transfer_vo3_vo_form = "1";
         }
 
+        private void textBox_vo4_DoubleClick(object sender, EventArgs e)
+        {
+            textBox_vo4.Text = "";
+            vars_form.transfer_vo4_vo_form = "1";
+        }
+
+        private void textBox_vo5_DoubleClick(object sender, EventArgs e)
+        {
+            textBox_vo5.Text = "";
+            vars_form.transfer_vo5_vo_form = "1";
+        }
+
         private void textBox_who_chenge_pin_DoubleClick(object sender, EventArgs e)
         {
             textBox_who_chenge_pin.ReadOnly = false;
@@ -1341,6 +1320,108 @@ namespace Disp_WinForm
             {
                 e.SuppressKeyPress = true;
             }
+        }
+
+        private void get_produt_device()
+        {
+            //get product of testing device
+            get_produt_testing_device = macros.sql_command("select " +
+                                                                   "products_has_Tarif.products_idproducts " +
+                                                                   "from " +
+                                                                   "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
+                                                                   "where " +
+                                                                   "Object.Object_id_wl = " + vars_form.id_wl_object_for_activation + " and " +
+                                                                   "Object.idObject=Object_idObject and " +
+                                                                   "Subscription_idSubscr=idSubscr and " +
+                                                                   "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
+        }
+
+        private void getobjwl()
+        {
+            if (get_produt_testing_device == "2" || get_produt_testing_device == "3")
+            {
+                string json = macros.WialonRequest("&svc=core/search_item&params={"
+                                                         + "\"id\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                         + "\"flags\":\"‭‭‭‭2098177‬‬‬‬\"}"); //
+                var test_out = JsonConvert.DeserializeObject<RootObject>(json);
+
+                if (test_out.item.lmsg is null)
+                {
+                    return;
+                }
+                //Статус TK
+                if (test_out.item.lmsg.p.AIN2 >= 4)
+                {
+                    checkBox_tk_tested.BackColor = Color.Empty;
+                }
+                else
+                {
+                    checkBox_tk_tested.BackColor = Color.YellowGreen;
+                }
+            }
+            else if (get_produt_testing_device == "12")
+            {
+                string json = macros.WialonRequest("&svc=core/search_item&params={"
+                                                         + "\"id\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                         + "\"flags\":\"‭‭‭‭2098177‬‬‬‬\"}"); //
+                var test_out = JsonConvert.DeserializeObject<RootObject>(json);
+
+                if (test_out.item.lmsg is null)
+                {
+                    return;
+                }
+
+                //Статус TK
+                if (test_out.item.lmsg.p.AIN2 >= 4)
+                {
+                    checkBox_tk_tested.BackColor = Color.Empty;
+                }
+                else
+                {
+                    checkBox_tk_tested.BackColor = Color.YellowGreen;
+                }
+            }
+            else if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")
+            {
+
+                string json = macros.WialonRequest("&svc=unit/calc_last_message&params={"
+                                                         + "\"unitId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                         + "\"sensors\":\"\","
+                                                         + "\"flags\":\"1\"}"); //
+
+                Dictionary<string, string> sens_910 = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+                
+                //Статус TK
+                if (sens_910["5"] == "1")
+                {
+                    checkBox_tk_tested.BackColor = Color.YellowGreen;
+                }
+                else
+                {
+                    checkBox_tk_tested.BackColor = Color.Empty;
+                }
+            }
+        }
+
+        private void timer()
+        {
+
+            aTimer3.Interval = 2000;
+            aTimer3.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            aTimer3.AutoReset = true;
+            aTimer3.Enabled = true;
+        }
+
+        private void OnTimedEvent(object sender, EventArgs e)
+        {
+            if (InvokeRequired)
+            {
+                this.BeginInvoke(new System.Timers.ElapsedEventHandler(OnTimedEvent)
+                    , new object[] { sender, e });
+
+                return; // в этом побочном потоке ничего не делаем больше
+            }
+            getobjwl();
         }
     }
 }

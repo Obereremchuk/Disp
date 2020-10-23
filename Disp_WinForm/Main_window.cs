@@ -1066,7 +1066,15 @@ namespace Disp_WinForm
             if (dataGridView_dilery.Rows.Count >= selectpozition)
             {
                 dataGridView_dilery.ClearSelection();
-                dataGridView_dilery.Rows[selectpozition].Selected = true;
+
+                try
+                {
+                    dataGridView_dilery.Rows[selectpozition].Selected = true;
+                }
+                catch (Exception)
+                {
+                    dataGridView_dilery.Rows[0].Selected = true;
+                }
             }
         }
 
@@ -1129,7 +1137,14 @@ namespace Disp_WinForm
                 if (dataGridView_dilery.Rows.Count >= selectpozition)
                 {
                     dataGridView_dilery.ClearSelection();
-                    dataGridView_dilery.Rows[selectpozition].Selected = true;
+                    try
+                    {
+                        dataGridView_dilery.Rows[selectpozition].Selected = true;
+                    }
+                    catch (Exception)
+                    {
+                        dataGridView_dilery.Rows[0].Selected = true;
+                    }
                 }
             }
         }
@@ -1302,7 +1317,16 @@ namespace Disp_WinForm
             if (dataGridView_sales.Rows.Count >= selectpozition)
             {
                 dataGridView_sales.ClearSelection();
-                dataGridView_sales.Rows[selectpozition].Selected = true;
+
+                try
+                {
+                    dataGridView_sales.Rows[selectpozition].Selected = true;
+                }
+                catch (Exception)
+                {
+                    dataGridView_sales.Rows[0].Selected = true;
+                }
+
             }
         }
 
@@ -1365,7 +1389,14 @@ namespace Disp_WinForm
                 if (dataGridView_sales.Rows.Count >= selectpozition)
                 {
                     dataGridView_sales.ClearSelection();
-                    dataGridView_sales.Rows[selectpozition].Selected = true;
+                    try
+                    {
+                        dataGridView_sales.Rows[selectpozition].Selected = true;
+                    }
+                    catch (Exception)
+                    {
+                        dataGridView_sales.Rows[0].Selected = true;
+                    }
                 }
             }
         }
@@ -1538,7 +1569,16 @@ namespace Disp_WinForm
             if (dataGridView_808_n.Rows.Count >= selectpozition)
             {
                 dataGridView_808_n.ClearSelection();
-                dataGridView_808_n.Rows[selectpozition].Selected = true;
+
+                try
+                {
+                    dataGridView_808_n.Rows[selectpozition].Selected = true;
+                }
+                catch (Exception)
+                {
+                    dataGridView_808_n.Rows[0].Selected = true;
+                }
+
             }
         }
 
@@ -1601,7 +1641,14 @@ namespace Disp_WinForm
                 if (dataGridView_808_n.Rows.Count >= selectpozition)
                 {
                     dataGridView_808_n.ClearSelection();
-                    dataGridView_808_n.Rows[selectpozition].Selected = true;
+                    try
+                    {
+                        dataGridView_808_n.Rows[selectpozition].Selected = true;
+                    }
+                    catch (Exception)
+                    {
+                        dataGridView_808_n.Rows[0].Selected = true;
+                    }
                 }
             }
         }
@@ -1770,7 +1817,15 @@ namespace Disp_WinForm
             if (dataGridView_lost.Rows.Count >= selectpozition)
             {
                 dataGridView_lost.ClearSelection();
-                dataGridView_lost.Rows[selectpozition].Selected = true;
+                try
+                {
+                    dataGridView_lost.Rows[selectpozition].Selected = true;
+                }
+                catch (Exception)
+                {
+                    dataGridView_lost.Rows[0].Selected = true;
+                }
+
             }
         }
 
@@ -1833,7 +1888,15 @@ namespace Disp_WinForm
                 if (dataGridView_lost.Rows.Count >= selectpozition)
                 {
                     dataGridView_lost.ClearSelection();
-                    dataGridView_lost.Rows[selectpozition].Selected = true;
+
+                    try
+                    {
+                        dataGridView_lost.Rows[selectpozition].Selected = true;
+                    }
+                    catch (Exception)
+                    {
+                        dataGridView_lost.Rows[0].Selected = true;
+                    }
                 }
             }
         }
@@ -2022,7 +2085,9 @@ namespace Disp_WinForm
                     dataGridView_909_n.Rows[selectpozition].Selected = true;
                 }
                 catch (Exception)
-                { }
+                {
+                    dataGridView_909_n.Rows[0].Selected = true;
+                }
             }
         }
 
@@ -2094,7 +2159,15 @@ namespace Disp_WinForm
                 if (dataGridView_909_n.Rows.Count >= selectpozition)
                 {
                     dataGridView_909_n.ClearSelection();
-                    dataGridView_909_n.Rows[selectpozition].Selected = true;
+
+                    try
+                    {
+                        dataGridView_909_n.Rows[selectpozition].Selected = true;
+                    }
+                    catch (Exception)
+                    {
+                        dataGridView_909_n.Rows[0].Selected = true;
+                    }
                 }
             }
         }
@@ -2267,7 +2340,15 @@ namespace Disp_WinForm
             if (dataGridView_accounts.Rows.Count > selectpozition)
             {
                 dataGridView_accounts.ClearSelection();
-                dataGridView_accounts.Rows[selectpozition].Selected = true;
+
+                try
+                {
+                    dataGridView_accounts.Rows[selectpozition].Selected = true;
+                }
+                catch (Exception)
+                {
+                    dataGridView_accounts.Rows[0].Selected = true;
+                }
             }
         }
 
@@ -2330,7 +2411,15 @@ namespace Disp_WinForm
                 if (dataGridView_accounts.Rows.Count >= selectpozition)
                 {
                     dataGridView_accounts.ClearSelection();
-                    dataGridView_accounts.Rows[selectpozition].Selected = true;
+
+                    try
+                    {
+                        dataGridView_accounts.Rows[selectpozition].Selected = true;
+                    }
+                    catch (Exception)
+                    {
+                        dataGridView_accounts.Rows[0].Selected = true;
+                    }
                 }
             }
         }
@@ -2492,7 +2581,15 @@ namespace Disp_WinForm
             if (dataGridView_open_alarm.Rows.Count >= selectpozition)
             {
                 dataGridView_open_alarm.ClearSelection();
-                dataGridView_open_alarm.Rows[selectpozition].Selected = true;
+
+                try
+                {
+                    dataGridView_open_alarm.Rows[selectpozition].Selected = true;
+                }
+                catch (Exception)
+                {
+                    dataGridView_open_alarm.Rows[0].Selected = true;
+                }
             }
         }
 
@@ -2551,7 +2648,14 @@ namespace Disp_WinForm
                 {
                     dataGridView_open_alarm.ClearSelection();
 
-                    dataGridView_open_alarm.Rows[selectpozition].Selected = true;
+                    try
+                    {
+                        dataGridView_open_alarm.Rows[selectpozition].Selected = true;
+                    }
+                    catch (Exception)
+                    {
+                        dataGridView_open_alarm.Rows[0].Selected = true;
+                    }
                 }
             }
         }
@@ -3937,48 +4041,54 @@ namespace Disp_WinForm
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.3 ІІІ Відповідальна особа", "");
 
             //Произвольное поле 6
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.1.1 Оператор, що тестував", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.4 ІV Відповідальна особа", "");
 
             //Произвольное поле 7
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.11 Додатково встановлені сигналізації", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.5 V Відповідальна особа", "");
 
             //Произвольное поле 8
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.12 Постановка авто под охрану через багажник?", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.1.1 Оператор, що тестував", "");
 
             //Произвольное поле 9
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.15 Додатково встановлені датчики", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.11 Додатково встановлені сигналізації", "");
 
             //Произвольное поле 10
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.2.1 Установник: назва, адреса", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.12 Постановка авто под охрану через багажник?", "");
 
             //Произвольное поле 11
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.2.2 Установник-монтажник: ПІБ, №тел.", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.15 Додатково встановлені датчики", "");
 
             //Произвольное поле 12
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.3 Дата установки", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.2.1 Установник: назва, адреса", "");
 
             //Произвольное поле 13
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.4 Місце установки пристрою ВЕНБЕСТ", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.2.2 Установник-монтажник: ПІБ, №тел.", "");
 
             //Произвольное поле 14
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.1 CAN-реле", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.3 Дата установки", "");
 
             //Произвольное поле 15
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.2 Звичайне реле", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.4 Місце установки пристрою ВЕНБЕСТ", "");
 
             //Произвольное поле 16
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.7 Місце встановлення сервісної кнопки", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.1 CAN-реле", "");
 
             //Произвольное поле 17
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.8.1 Дротова тривожна кнопка", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.2 Звичайне реле", "");
 
             //Произвольное поле 18
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.8.2 Бездротова тривожна кнопка", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.7 Місце встановлення сервісної кнопки", "");
 
             //Произвольное поле 19
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.3 Блокує Prizrak по CAN", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.8.1 Дротова тривожна кнопка", "");
 
             //Произвольное поле 20
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.8.2 Бездротова тривожна кнопка", "");
+
+            //Произвольное поле 21
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.3 Блокує Prizrak по CAN", "");
+
+            //Произвольное поле 21
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.9.2 Штатні кнопки введення PIN-коду", "");
 
             //Административное поле 1
@@ -4428,57 +4538,63 @@ namespace Disp_WinForm
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.3 ІІІ Відповідальна особа", "");
 
             //Произвольное поле 6
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.1.1 Оператор, що тестував", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.4 ІV Відповідальна особа", "");
 
             //Произвольное поле 7
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.11 Додатково встановлені сигналізації", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.5 V Відповідальна особа", "");
 
             //Произвольное поле 8
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.12 Постановка авто под охрану через багажник?", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.1.1 Оператор, що тестував", "");
 
             //Произвольное поле 9
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.15 Додатково встановлені датчики", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.11 Додатково встановлені сигналізації", "");
 
             //Произвольное поле 10
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.2.1 Установник: назва, адреса", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.12 Постановка авто под охрану через багажник?", "");
 
             //Произвольное поле 11
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.2.2 Установник-монтажник: ПІБ, №тел.", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.15 Додатково встановлені датчики", "");
 
             //Произвольное поле 12
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.3 Дата установки", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.2.1 Установник: назва, адреса", "");
 
             //Произвольное поле 13
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.4 Місце установки пристрою ВЕНБЕСТ", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.2.2 Установник-монтажник: ПІБ, №тел.", "");
 
             //Произвольное поле 14
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.1 CAN-реле", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.3 Дата установки", "");
 
             //Произвольное поле 15
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.2 Звичайне реле", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.4 Місце установки пристрою ВЕНБЕСТ", "");
 
             //Произвольное поле 16
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.7 Місце встановлення сервісної кнопки", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.1 CAN-реле", "");
 
             //Произвольное поле 17
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.8.1 Дротова тривожна кнопка", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.2 Звичайне реле", "");
 
             //Произвольное поле 18
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.8.2 Бездротова тривожна кнопка", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.7 Місце встановлення сервісної кнопки", "");
 
             //Произвольное поле 19
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.3 Блокує Prizrak по CAN", "");
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.8.1 Дротова тривожна кнопка", "");
 
             //Произвольное поле 20
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.8.2 Бездротова тривожна кнопка", "");
+
+            //Произвольное поле 21
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.3 Блокує Prizrak по CAN", "");
+
+            //Произвольное поле 22
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.9.2 Штатні кнопки введення PIN-коду", "");
 
-            //Административное поле 21
+            //Административное поле 1
             answer = macros.create_admin_field_wl(cr_obj_out.item.id, "3.9.3 GSM-код", maskedTextBox_GSM_CODE.Text.ToString());
 
-            //Административное поле 22
+            //Административное поле 2
             answer = macros.create_admin_field_wl(cr_obj_out.item.id, "3.9.4 PUK-код", maskedTextBox_PUK.Text.ToString());
 
-            //Административное поле 23
+            //Административное поле 3
             answer = macros.create_admin_field_wl(cr_obj_out.item.id, "3.9.5 Bluetuth-код", maskedTextBox_BLE_CODE.Text.ToString());
 
             //Произвольное поле 24
@@ -4916,6 +5032,12 @@ namespace Disp_WinForm
 
             //Произвольное поле 5
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.3 ІІІ Відповідальна особа", "");
+
+            //Произвольное поле 6
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.4 ІV Відповідальна особа", "");
+
+            //Произвольное поле 7
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.5 V Відповідальна особа", "");
 
             //Произвольное поле 6
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.1.1 Оператор, що тестував", "");
@@ -5405,6 +5527,12 @@ namespace Disp_WinForm
 
             //Произвольное поле 5
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.3 ІІІ Відповідальна особа", "");
+
+            //Произвольное поле 6
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.4 ІV Відповідальна особа", "");
+
+            //Произвольное поле 7
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.5 V Відповідальна особа", "");
 
             //Произвольное поле 6
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.1.1 Оператор, що тестував", "");
@@ -6041,6 +6169,12 @@ namespace Disp_WinForm
                 + "\"callMode\":\"create\","
                 + "\"n\":\"2.3 ІІІ Відповідальна особа\","
                 + "\"v\":\"\"}");
+
+            //Произвольное поле 6
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.4 ІV Відповідальна особа", "");
+
+            //Произвольное поле 7
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.5 V Відповідальна особа", "");
 
             //Произвольное поле 6
             string pp6_answer = macros.WialonRequest(
@@ -6877,6 +7011,14 @@ namespace Disp_WinForm
                 + "\"n\":\"2.3 ІІІ Відповідальна особа\","
                 + "\"v\":\"\"}");
 
+
+            //Произвольное поле 6
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.4 ІV Відповідальна особа", "");
+
+            //Произвольное поле 7
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.5 V Відповідальна особа", "");
+
+
             //Произвольное поле 6
             string pp6_answer = macros.WialonRequest(
                 "&svc=item/update_custom_field&params={"
@@ -7698,6 +7840,13 @@ namespace Disp_WinForm
                 + "\"n\":\"2.3 ІІІ Відповідальна особа\","
                 + "\"v\":\"\"}");
 
+
+            //Произвольное поле 6
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.4 ІV Відповідальна особа", "");
+
+            //Произвольное поле 7
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.5 V Відповідальна особа", "");
+
             //Произвольное поле 6
             string pp6_answer = macros.WialonRequest(
                 "&svc=item/update_custom_field&params={"
@@ -8372,6 +8521,13 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 6
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.4 ІV Відповідальна особа", "");
+
+            //Произвольное поле 7
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.5 V Відповідальна особа", "");
+
+
+            //Произвольное поле 6
             string pp7_answer = macros.WialonRequest(
                 "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -8882,6 +9038,13 @@ namespace Disp_WinForm
                 + "\"callMode\":\"create\","
                 + "\"n\":\"2.3 ІІІ Відповідальна особа\","
                 + "\"v\":\"\"}");
+
+
+            //Произвольное поле 6
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.4 ІV Відповідальна особа", "");
+
+            //Произвольное поле 7
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.5 V Відповідальна особа", "");
 
             //Произвольное поле 6
             string pp7_answer = macros.WialonRequest(
@@ -9443,6 +9606,12 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 6
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.4 ІV Відповідальна особа", "");
+
+            //Произвольное поле 7
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.5 V Відповідальна особа", "");
+
+            //Произвольное поле 6
             string pp7_answer = macros.WialonRequest(
                 "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -9896,6 +10065,15 @@ namespace Disp_WinForm
                 + "\"v\":\"\"}");
 
             //Произвольное поле 6
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.3 ІII Відповідальна особа", "");
+
+            //Произвольное поле 6
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.4 ІV Відповідальна особа", "");
+
+            //Произвольное поле 7
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.5 V Відповідальна особа", "");
+
+            //Произвольное поле 6
             string pp6_answer = macros.WialonRequest(
                 "&svc=item/update_custom_field&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -10346,6 +10524,12 @@ namespace Disp_WinForm
                 + "\"callMode\":\"create\","
                 + "\"n\":\"2.3 ІІІ Відповідальна особа\","
                 + "\"v\":\"\"}");
+
+            //Произвольное поле 6
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.4 ІV Відповідальна особа", "");
+
+            //Произвольное поле 7
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.5 V Відповідальна особа", "");
 
             //Произвольное поле 6
             string pp6_answer = macros.WialonRequest(

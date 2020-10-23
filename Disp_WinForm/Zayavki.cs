@@ -430,7 +430,7 @@ namespace Disp_WinForm
 
                 macros.sql_command("UPDATE btk.Zayavki set " +
                                                         "Zayavkicol_name = '" + textBox_name_zayavka.Text + "'," +
-                                                        "Zayavkicol_plan_date = '" + Convert.ToDateTime(dateTimePicker_filter_tested_zayavki.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                                        "Zayavkicol_plan_date = '" + Convert.ToDateTime(dateTimePicker_plan_date_zayavki.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                                         "Zayavkicol_reason = '" + comboBox_reason_zayavki.GetItemText(comboBox_reason_zayavki.SelectedItem) + "'," +
                                                         "Zayavkicol_VIN = '" + textBox_vin_zayavki.Text + "'," +
                                                         "TS_model_idTS_model = '" + comboBox_model_zayavki.SelectedValue + "'," +

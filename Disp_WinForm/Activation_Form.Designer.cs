@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox_svidoctvo_tz = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.uvaga_textBox = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.textBox_who_chenge_pin = new System.Windows.Forms.TextBox();
@@ -103,6 +105,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBox_svidoctvo_tz);
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.uvaga_textBox);
             this.groupBox1.Controls.Add(this.label22);
             this.groupBox1.Controls.Add(this.textBox_who_chenge_pin);
@@ -136,10 +140,26 @@
             this.groupBox1.Controls.Add(this.kodove_slovo_textBox);
             this.groupBox1.Location = new System.Drawing.Point(566, 19);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(554, 364);
+            this.groupBox1.Size = new System.Drawing.Size(554, 384);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Інформація про клієнта";
+            // 
+            // textBox_svidoctvo_tz
+            // 
+            this.textBox_svidoctvo_tz.Location = new System.Drawing.Point(93, 278);
+            this.textBox_svidoctvo_tz.Name = "textBox_svidoctvo_tz";
+            this.textBox_svidoctvo_tz.Size = new System.Drawing.Size(424, 20);
+            this.textBox_svidoctvo_tz.TabIndex = 193;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, 282);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(74, 13);
+            this.label3.TabIndex = 192;
+            this.label3.Text = "Свідоцтво ТЗ";
             // 
             // uvaga_textBox
             // 
@@ -161,7 +181,7 @@
             // 
             // textBox_who_chenge_pin
             // 
-            this.textBox_who_chenge_pin.Location = new System.Drawing.Point(179, 304);
+            this.textBox_who_chenge_pin.Location = new System.Drawing.Point(179, 330);
             this.textBox_who_chenge_pin.Name = "textBox_who_chenge_pin";
             this.textBox_who_chenge_pin.Size = new System.Drawing.Size(100, 20);
             this.textBox_who_chenge_pin.TabIndex = 191;
@@ -197,7 +217,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 281);
+            this.label5.Location = new System.Drawing.Point(6, 307);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(77, 13);
             this.label5.TabIndex = 107;
@@ -206,7 +226,7 @@
             // checkBox_pin_chenged
             // 
             this.checkBox_pin_chenged.AutoSize = true;
-            this.checkBox_pin_chenged.Location = new System.Drawing.Point(93, 307);
+            this.checkBox_pin_chenged.Location = new System.Drawing.Point(93, 333);
             this.checkBox_pin_chenged.Name = "checkBox_pin_chenged";
             this.checkBox_pin_chenged.Size = new System.Drawing.Size(87, 17);
             this.checkBox_pin_chenged.TabIndex = 14;
@@ -216,7 +236,7 @@
             // checkBox_tk_tested
             // 
             this.checkBox_tk_tested.AutoSize = true;
-            this.checkBox_tk_tested.Location = new System.Drawing.Point(93, 330);
+            this.checkBox_tk_tested.Location = new System.Drawing.Point(93, 356);
             this.checkBox_tk_tested.Name = "checkBox_tk_tested";
             this.checkBox_tk_tested.Size = new System.Drawing.Size(94, 17);
             this.checkBox_tk_tested.TabIndex = 15;
@@ -234,7 +254,6 @@
             // 
             // button_add_vo5
             // 
-            this.button_add_vo5.Enabled = false;
             this.button_add_vo5.Location = new System.Drawing.Point(472, 198);
             this.button_add_vo5.Name = "button_add_vo5";
             this.button_add_vo5.Size = new System.Drawing.Size(46, 20);
@@ -292,7 +311,6 @@
             // 
             // button_add_vo4
             // 
-            this.button_add_vo4.Enabled = false;
             this.button_add_vo4.Location = new System.Drawing.Point(472, 172);
             this.button_add_vo4.Name = "button_add_vo4";
             this.button_add_vo4.Size = new System.Drawing.Size(46, 20);
@@ -354,6 +372,7 @@
             this.textBox_vo5.ReadOnly = true;
             this.textBox_vo5.Size = new System.Drawing.Size(373, 20);
             this.textBox_vo5.TabIndex = 134;
+            this.textBox_vo5.DoubleClick += new System.EventHandler(this.textBox_vo5_DoubleClick);
             // 
             // textBox_vo4
             // 
@@ -362,6 +381,7 @@
             this.textBox_vo4.ReadOnly = true;
             this.textBox_vo4.Size = new System.Drawing.Size(373, 20);
             this.textBox_vo4.TabIndex = 133;
+            this.textBox_vo4.DoubleClick += new System.EventHandler(this.textBox_vo4_DoubleClick);
             // 
             // textBox_vo2
             // 
@@ -384,7 +404,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(285, 308);
+            this.label6.Location = new System.Drawing.Point(285, 334);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(113, 13);
             this.label6.TabIndex = 127;
@@ -417,7 +437,7 @@
             // 
             // kodove_slovo_textBox
             // 
-            this.kodove_slovo_textBox.Location = new System.Drawing.Point(93, 278);
+            this.kodove_slovo_textBox.Location = new System.Drawing.Point(93, 304);
             this.kodove_slovo_textBox.Name = "kodove_slovo_textBox";
             this.kodove_slovo_textBox.Size = new System.Drawing.Size(424, 20);
             this.kodove_slovo_textBox.TabIndex = 13;
@@ -704,9 +724,9 @@
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.dataGridView_activation_chenges);
-            this.groupBox6.Location = new System.Drawing.Point(6, 389);
+            this.groupBox6.Location = new System.Drawing.Point(6, 409);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(1117, 218);
+            this.groupBox6.Size = new System.Drawing.Size(1117, 198);
             this.groupBox6.TabIndex = 188;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Зміни";
@@ -722,7 +742,7 @@
             this.dataGridView_activation_chenges.Name = "dataGridView_activation_chenges";
             this.dataGridView_activation_chenges.ReadOnly = true;
             this.dataGridView_activation_chenges.RowHeadersVisible = false;
-            this.dataGridView_activation_chenges.Size = new System.Drawing.Size(1111, 199);
+            this.dataGridView_activation_chenges.Size = new System.Drawing.Size(1111, 179);
             this.dataGridView_activation_chenges.TabIndex = 187;
             // 
             // groupBox7
@@ -733,7 +753,7 @@
             this.groupBox7.Controls.Add(this.remaynder_dateTimePicker);
             this.groupBox7.Location = new System.Drawing.Point(6, 272);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(557, 111);
+            this.groupBox7.Size = new System.Drawing.Size(557, 131);
             this.groupBox7.TabIndex = 189;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Статус";
@@ -840,5 +860,7 @@
         private System.Windows.Forms.TextBox textBox_zayavka_comments;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox textBox_svidoctvo_tz;
+        private System.Windows.Forms.Label label3;
     }
 }
