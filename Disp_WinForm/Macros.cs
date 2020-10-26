@@ -545,7 +545,7 @@ namespace Disp_WinForm
         }
 
         public DataTable GetData(string sqlCommand)
-             {
+        {
             string connectionString = "server = 10.44.30.32; " +
                                       "user id=lozik;" +
                                       "password=lozik;" +

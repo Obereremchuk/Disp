@@ -460,7 +460,7 @@
             this.textBox_comments.Location = new System.Drawing.Point(178, 17);
             this.textBox_comments.Multiline = true;
             this.textBox_comments.Name = "textBox_comments";
-            this.textBox_comments.Size = new System.Drawing.Size(368, 88);
+            this.textBox_comments.Size = new System.Drawing.Size(368, 106);
             this.textBox_comments.TabIndex = 20;
             // 
             // save_button
@@ -711,12 +711,14 @@
             this.remaynder_checkBox.TabIndex = 23;
             this.remaynder_checkBox.Text = "Нагадати";
             this.remaynder_checkBox.UseVisualStyleBackColor = true;
+            this.remaynder_checkBox.CheckedChanged += new System.EventHandler(this.remaynder_checkBox_CheckedChanged);
             // 
             // remaynder_dateTimePicker
             // 
             this.remaynder_dateTimePicker.CustomFormat = "dd.MM.yy H:mm";
+            this.remaynder_dateTimePicker.Enabled = false;
             this.remaynder_dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.remaynder_dateTimePicker.Location = new System.Drawing.Point(6, 51);
+            this.remaynder_dateTimePicker.Location = new System.Drawing.Point(6, 103);
             this.remaynder_dateTimePicker.Name = "remaynder_dateTimePicker";
             this.remaynder_dateTimePicker.Size = new System.Drawing.Size(166, 20);
             this.remaynder_dateTimePicker.TabIndex = 24;
@@ -780,6 +782,7 @@
             this.Controls.Add(this.groupBox2);
             this.Name = "Activation_Form";
             this.Text = "Активація об\"єкту";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Activation_Form_FormClosed);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);

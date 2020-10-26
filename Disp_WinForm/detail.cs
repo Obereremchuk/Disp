@@ -42,12 +42,6 @@ namespace Disp_WinForm
 
             InitializeComponent();
 
-
-
-            
-
-
-
             string t = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\Firefox";
             Xpcom.Initialize(t);
             GeckoPreferences.User["dom.max_script_run_time"] = 0;
@@ -609,23 +603,31 @@ namespace Disp_WinForm
                             }
                         }
                         treeView_client_info.Nodes[0].Nodes.Insert(0, (new TreeNode("Назва об'єкту: " + m.items[0].nm.ToString())));
-
-                        treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("IMEI: " + m.items[0].uid.ToString()));
-                        treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("SIM: " + m.items[0].ph.ToString()));
-
-
-
-
-                        foreach (var keyvalue in m.items[0].aflds)
+                        try
                         {
-                            treeView_client_info.Nodes[4].Nodes
-                                .Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
-                            if (keyvalue.Value.n.Contains("PUK"))
+                            treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("IMEI: " + m.items[0].uid.ToString()));
+                            treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("SIM: " + m.items[0].ph.ToString()));
+                        }
+                        catch
+                        { }
+
+
+                        try
+                        {
+                            foreach (var keyvalue in m.items[0].aflds)
                             {
-                                treeView_client_info.Nodes[0].Nodes
-                                    .Add(new TreeNode("PUK код" + ": " + keyvalue.Value.v.ToString()));
+
+                                treeView_client_info.Nodes[4].Nodes
+                                    .Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
+                                if (keyvalue.Value.n.Contains("PUK"))
+                                {
+                                    treeView_client_info.Nodes[0].Nodes
+                                        .Add(new TreeNode("PUK код" + ": " + keyvalue.Value.v.ToString()));
+                                }
+
                             }
                         }
+                        catch { }
 
                         foreach (var keyvalue in m.items[0].pflds)
                         {

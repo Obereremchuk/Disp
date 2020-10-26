@@ -28,21 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle76 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle77 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle78 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle79 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle80 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle81 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle82 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle83 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle84 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle85 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle86 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle87 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle88 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle89 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle90 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl_testing = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.checkBox_hide_groupe_alarm = new System.Windows.Forms.CheckBox();
@@ -91,12 +91,13 @@
             this.tabPage_accounts = new System.Windows.Forms.TabPage();
             this.dataGridView_accounts = new System.Windows.Forms.DataGridView();
             this.tabPage_zayavki_activation = new System.Windows.Forms.TabPage();
-            this.dataGridView_zayavki_na_activation = new System.Windows.Forms.DataGridView();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.comboBox_prikripleno_select = new System.Windows.Forms.ComboBox();
-            this.comboBox_activovani_select = new System.Windows.Forms.ComboBox();
             this.button_create_zayavka = new System.Windows.Forms.Button();
+            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.checkBox_zayavki_za_ves_chas = new System.Windows.Forms.CheckBox();
+            this.textBox_search_zayavki = new System.Windows.Forms.TextBox();
+            this.dateTimePicker_from_for_zayavki_na_activation_W2 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker_for_zayavki_na_activation_W2 = new System.Windows.Forms.DateTimePicker();
+            this.dataGridView_zayavki_na_activation = new System.Windows.Forms.DataGridView();
             this.tabPage_testing = new System.Windows.Forms.TabPage();
             this.dataGridView_testing = new System.Windows.Forms.DataGridView();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
@@ -110,8 +111,8 @@
             this.tabPage_activation = new System.Windows.Forms.TabPage();
             this.dataGridView_for_activation = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.checkBox_activation_za_ves_chas_search = new System.Windows.Forms.CheckBox();
             this.dateTimePicker_activation_filter_end = new System.Windows.Forms.DateTimePicker();
-            this.comboBox_activation_filter = new System.Windows.Forms.ComboBox();
             this.textBox_search_object_name_activation = new System.Windows.Forms.TextBox();
             this.dateTimePicker_activation_filter_start = new System.Windows.Forms.DateTimePicker();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -190,6 +191,9 @@
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.checkBox_activation_uspishno_pin = new System.Windows.Forms.CheckBox();
+            this.checkBox_activation_neuspishno = new System.Windows.Forms.CheckBox();
+            this.checkBox_activation_uspishno = new System.Windows.Forms.CheckBox();
             this.tabControl_testing.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_open_alarm)).BeginInit();
@@ -211,8 +215,8 @@
             this.tabPage_accounts.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_accounts)).BeginInit();
             this.tabPage_zayavki_activation.SuspendLayout();
+            this.groupBox16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_zayavki_na_activation)).BeginInit();
-            this.groupBox10.SuspendLayout();
             this.tabPage_testing.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_testing)).BeginInit();
             this.groupBox7.SuspendLayout();
@@ -354,35 +358,35 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView_open_alarm.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_open_alarm.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle76.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle76.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle76.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle76.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle76.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle76.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle76.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_open_alarm.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle76;
             this.dataGridView_open_alarm.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_open_alarm.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle77.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle77.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle77.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle77.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle77.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle77.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle77.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_open_alarm.DefaultCellStyle = dataGridViewCellStyle77;
             this.dataGridView_open_alarm.Location = new System.Drawing.Point(3, 6);
             this.dataGridView_open_alarm.MultiSelect = false;
             this.dataGridView_open_alarm.Name = "dataGridView_open_alarm";
             this.dataGridView_open_alarm.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_open_alarm.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle78.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle78.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle78.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle78.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle78.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle78.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle78.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_open_alarm.RowHeadersDefaultCellStyle = dataGridViewCellStyle78;
             this.dataGridView_open_alarm.RowHeadersVisible = false;
             this.dataGridView_open_alarm.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_open_alarm.Size = new System.Drawing.Size(1353, 508);
@@ -424,14 +428,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView_close_alarm.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_close_alarm.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle79.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle79.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle79.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle79.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle79.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle79.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle79.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_close_alarm.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle79;
             this.dataGridView_close_alarm.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_close_alarm.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
@@ -447,26 +451,26 @@
             this.Column_time_stamp,
             this.Column_Users_idUsers_,
             this.Column_locked_user_});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_close_alarm.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle80.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle80.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle80.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle80.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle80.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle80.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle80.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_close_alarm.DefaultCellStyle = dataGridViewCellStyle80;
             this.dataGridView_close_alarm.Location = new System.Drawing.Point(3, 15);
             this.dataGridView_close_alarm.MultiSelect = false;
             this.dataGridView_close_alarm.Name = "dataGridView_close_alarm";
             this.dataGridView_close_alarm.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_close_alarm.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle81.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle81.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle81.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle81.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle81.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle81.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle81.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_close_alarm.RowHeadersDefaultCellStyle = dataGridViewCellStyle81;
             this.dataGridView_close_alarm.RowHeadersVisible = false;
             this.dataGridView_close_alarm.Size = new System.Drawing.Size(1350, 449);
             this.dataGridView_close_alarm.TabIndex = 1;
@@ -706,34 +710,34 @@
             // 
             // dataGridView2
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle82.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle82.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle82.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle82.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle82.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle82.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle82.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle82;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle83.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle83.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle83.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle83.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle83.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle83.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle83.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle83;
             this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView2.Location = new System.Drawing.Point(3, 3);
             this.dataGridView2.Name = "dataGridView2";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle84.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle84.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle84.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle84.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle84.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle84.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle84.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle84;
             this.dataGridView2.Size = new System.Drawing.Size(1356, 549);
             this.dataGridView2.TabIndex = 0;
             // 
@@ -841,34 +845,34 @@
             this.dataGridView_dilery.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_dilery.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle85.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle85.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle85.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle85.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle85.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle85.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle85.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_dilery.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle85;
             this.dataGridView_dilery.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_dilery.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle86.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle86.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle86.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle86.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle86.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle86.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle86.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_dilery.DefaultCellStyle = dataGridViewCellStyle86;
             this.dataGridView_dilery.Location = new System.Drawing.Point(3, 3);
             this.dataGridView_dilery.Name = "dataGridView_dilery";
             this.dataGridView_dilery.ReadOnly = true;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_dilery.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle87.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle87.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle87.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle87.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle87.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle87.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle87.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_dilery.RowHeadersDefaultCellStyle = dataGridViewCellStyle87;
             this.dataGridView_dilery.RowHeadersVisible = false;
             this.dataGridView_dilery.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_dilery.Size = new System.Drawing.Size(1356, 621);
@@ -894,34 +898,34 @@
             this.dataGridView_sales.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_sales.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle88.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle88.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle88.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle88.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle88.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle88.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle88.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_sales.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle88;
             this.dataGridView_sales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_sales.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle89.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle89.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle89.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle89.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle89.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle89.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle89.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_sales.DefaultCellStyle = dataGridViewCellStyle89;
             this.dataGridView_sales.Location = new System.Drawing.Point(3, 3);
             this.dataGridView_sales.Name = "dataGridView_sales";
             this.dataGridView_sales.ReadOnly = true;
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_sales.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle90.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle90.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle90.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle90.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle90.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle90.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle90.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_sales.RowHeadersDefaultCellStyle = dataGridViewCellStyle90;
             this.dataGridView_sales.RowHeadersVisible = false;
             this.dataGridView_sales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_sales.Size = new System.Drawing.Size(1356, 617);
@@ -960,8 +964,9 @@
             // 
             // tabPage_zayavki_activation
             // 
+            this.tabPage_zayavki_activation.Controls.Add(this.button_create_zayavka);
+            this.tabPage_zayavki_activation.Controls.Add(this.groupBox16);
             this.tabPage_zayavki_activation.Controls.Add(this.dataGridView_zayavki_na_activation);
-            this.tabPage_zayavki_activation.Controls.Add(this.groupBox10);
             this.tabPage_zayavki_activation.Location = new System.Drawing.Point(4, 22);
             this.tabPage_zayavki_activation.Name = "tabPage_zayavki_activation";
             this.tabPage_zayavki_activation.Padding = new System.Windows.Forms.Padding(3);
@@ -969,6 +974,73 @@
             this.tabPage_zayavki_activation.TabIndex = 11;
             this.tabPage_zayavki_activation.Text = "Заявки на установку";
             this.tabPage_zayavki_activation.UseVisualStyleBackColor = true;
+            // 
+            // button_create_zayavka
+            // 
+            this.button_create_zayavka.Location = new System.Drawing.Point(297, 12);
+            this.button_create_zayavka.Name = "button_create_zayavka";
+            this.button_create_zayavka.Size = new System.Drawing.Size(160, 81);
+            this.button_create_zayavka.TabIndex = 6;
+            this.button_create_zayavka.Text = "Створити нову заявку";
+            this.button_create_zayavka.UseVisualStyleBackColor = true;
+            this.button_create_zayavka.Click += new System.EventHandler(this.button_create_zayavka_Click);
+            // 
+            // groupBox16
+            // 
+            this.groupBox16.Controls.Add(this.checkBox_zayavki_za_ves_chas);
+            this.groupBox16.Controls.Add(this.textBox_search_zayavki);
+            this.groupBox16.Controls.Add(this.dateTimePicker_from_for_zayavki_na_activation_W2);
+            this.groupBox16.Controls.Add(this.dateTimePicker_for_zayavki_na_activation_W2);
+            this.groupBox16.Location = new System.Drawing.Point(6, 6);
+            this.groupBox16.Name = "groupBox16";
+            this.groupBox16.Size = new System.Drawing.Size(285, 87);
+            this.groupBox16.TabIndex = 9;
+            this.groupBox16.TabStop = false;
+            this.groupBox16.Text = "Пошук";
+            // 
+            // checkBox_zayavki_za_ves_chas
+            // 
+            this.checkBox_zayavki_za_ves_chas.AutoSize = true;
+            this.checkBox_zayavki_za_ves_chas.Enabled = false;
+            this.checkBox_zayavki_za_ves_chas.Location = new System.Drawing.Point(6, 64);
+            this.checkBox_zayavki_za_ves_chas.Name = "checkBox_zayavki_za_ves_chas";
+            this.checkBox_zayavki_za_ves_chas.Size = new System.Drawing.Size(86, 17);
+            this.checkBox_zayavki_za_ves_chas.TabIndex = 9;
+            this.checkBox_zayavki_za_ves_chas.Text = "За весь час";
+            this.checkBox_zayavki_za_ves_chas.UseVisualStyleBackColor = true;
+            this.checkBox_zayavki_za_ves_chas.CheckedChanged += new System.EventHandler(this.checkBox_zayavki_za_ves_chas_CheckedChanged);
+            // 
+            // textBox_search_zayavki
+            // 
+            this.textBox_search_zayavki.Location = new System.Drawing.Point(6, 19);
+            this.textBox_search_zayavki.Name = "textBox_search_zayavki";
+            this.textBox_search_zayavki.Size = new System.Drawing.Size(254, 20);
+            this.textBox_search_zayavki.TabIndex = 7;
+            this.textBox_search_zayavki.TextChanged += new System.EventHandler(this.textBox_search_zayavki_TextChanged);
+            // 
+            // dateTimePicker_from_for_zayavki_na_activation_W2
+            // 
+            this.dateTimePicker_from_for_zayavki_na_activation_W2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dateTimePicker_from_for_zayavki_na_activation_W2.CustomFormat = "dd.MM.yyyy";
+            this.dateTimePicker_from_for_zayavki_na_activation_W2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker_from_for_zayavki_na_activation_W2.Location = new System.Drawing.Point(6, 45);
+            this.dateTimePicker_from_for_zayavki_na_activation_W2.Name = "dateTimePicker_from_for_zayavki_na_activation_W2";
+            this.dateTimePicker_from_for_zayavki_na_activation_W2.Size = new System.Drawing.Size(124, 20);
+            this.dateTimePicker_from_for_zayavki_na_activation_W2.TabIndex = 8;
+            this.dateTimePicker_from_for_zayavki_na_activation_W2.ValueChanged += new System.EventHandler(this.dateTimePicker_from_for_zayavki_na_activation_W2_ValueChanged);
+            // 
+            // dateTimePicker_for_zayavki_na_activation_W2
+            // 
+            this.dateTimePicker_for_zayavki_na_activation_W2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dateTimePicker_for_zayavki_na_activation_W2.CustomFormat = "dd-MM-yyyy";
+            this.dateTimePicker_for_zayavki_na_activation_W2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker_for_zayavki_na_activation_W2.Location = new System.Drawing.Point(136, 45);
+            this.dateTimePicker_for_zayavki_na_activation_W2.Name = "dateTimePicker_for_zayavki_na_activation_W2";
+            this.dateTimePicker_for_zayavki_na_activation_W2.Size = new System.Drawing.Size(124, 20);
+            this.dateTimePicker_for_zayavki_na_activation_W2.TabIndex = 4;
+            this.dateTimePicker_for_zayavki_na_activation_W2.CloseUp += new System.EventHandler(this.dateTimePicker_for_zayavki_na_activation_W2_CloseUp);
             // 
             // dataGridView_zayavki_na_activation
             // 
@@ -989,73 +1061,7 @@
             this.dataGridView_zayavki_na_activation.Size = new System.Drawing.Size(1353, 525);
             this.dataGridView_zayavki_na_activation.TabIndex = 2;
             this.dataGridView_zayavki_na_activation.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_zayavki_na_activation_CellDoubleClick);
-            // 
-            // groupBox10
-            // 
-            this.groupBox10.Controls.Add(this.comboBox_prikripleno_select);
-            this.groupBox10.Controls.Add(this.comboBox_activovani_select);
-            this.groupBox10.Controls.Add(this.button_create_zayavka);
-            this.groupBox10.Controls.Add(this.dateTimePicker_for_zayavki_na_activation_W2);
-            this.groupBox10.Location = new System.Drawing.Point(3, 3);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(406, 90);
-            this.groupBox10.TabIndex = 0;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Керування заявками на активацію";
-            // 
-            // comboBox_prikripleno_select
-            // 
-            this.comboBox_prikripleno_select.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.comboBox_prikripleno_select.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_prikripleno_select.FormattingEnabled = true;
-            this.comboBox_prikripleno_select.Items.AddRange(new object[] {
-            "Всі",
-            "Прикріплені",
-            "Не прикріплені"});
-            this.comboBox_prikripleno_select.Location = new System.Drawing.Point(133, 61);
-            this.comboBox_prikripleno_select.Name = "comboBox_prikripleno_select";
-            this.comboBox_prikripleno_select.Size = new System.Drawing.Size(121, 21);
-            this.comboBox_prikripleno_select.TabIndex = 8;
-            this.comboBox_prikripleno_select.DropDownClosed += new System.EventHandler(this.comboBox_prikripleno_select_DropDownClosed);
-            // 
-            // comboBox_activovani_select
-            // 
-            this.comboBox_activovani_select.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.comboBox_activovani_select.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_activovani_select.FormattingEnabled = true;
-            this.comboBox_activovani_select.Items.AddRange(new object[] {
-            "Всі",
-            "Активовані",
-            "Неактивовані"});
-            this.comboBox_activovani_select.Location = new System.Drawing.Point(6, 61);
-            this.comboBox_activovani_select.Name = "comboBox_activovani_select";
-            this.comboBox_activovani_select.Size = new System.Drawing.Size(121, 21);
-            this.comboBox_activovani_select.TabIndex = 7;
-            this.comboBox_activovani_select.DropDownClosed += new System.EventHandler(this.comboBox_activovani_select_DropDownClosed);
-            // 
-            // button_create_zayavka
-            // 
-            this.button_create_zayavka.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.button_create_zayavka.Location = new System.Drawing.Point(6, 19);
-            this.button_create_zayavka.Name = "button_create_zayavka";
-            this.button_create_zayavka.Size = new System.Drawing.Size(392, 36);
-            this.button_create_zayavka.TabIndex = 6;
-            this.button_create_zayavka.Text = "Створити нову заявку";
-            this.button_create_zayavka.UseVisualStyleBackColor = true;
-            this.button_create_zayavka.Click += new System.EventHandler(this.button_create_zayavka_Click);
-            // 
-            // dateTimePicker_for_zayavki_na_activation_W2
-            // 
-            this.dateTimePicker_for_zayavki_na_activation_W2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.dateTimePicker_for_zayavki_na_activation_W2.Location = new System.Drawing.Point(260, 62);
-            this.dateTimePicker_for_zayavki_na_activation_W2.Name = "dateTimePicker_for_zayavki_na_activation_W2";
-            this.dateTimePicker_for_zayavki_na_activation_W2.Size = new System.Drawing.Size(138, 20);
-            this.dateTimePicker_for_zayavki_na_activation_W2.TabIndex = 4;
-            this.dateTimePicker_for_zayavki_na_activation_W2.CloseUp += new System.EventHandler(this.dateTimePicker_for_zayavki_na_activation_W2_CloseUp);
+            this.dataGridView_zayavki_na_activation.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_zayavki_na_activation_CellFormatting);
             // 
             // tabPage_testing
             // 
@@ -1209,52 +1215,57 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.checkBox_activation_uspishno);
+            this.groupBox3.Controls.Add(this.checkBox_activation_za_ves_chas_search);
+            this.groupBox3.Controls.Add(this.checkBox_activation_neuspishno);
+            this.groupBox3.Controls.Add(this.checkBox_activation_uspishno_pin);
             this.groupBox3.Controls.Add(this.dateTimePicker_activation_filter_end);
-            this.groupBox3.Controls.Add(this.comboBox_activation_filter);
             this.groupBox3.Controls.Add(this.textBox_search_object_name_activation);
             this.groupBox3.Controls.Add(this.dateTimePicker_activation_filter_start);
             this.groupBox3.Location = new System.Drawing.Point(361, 6);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(622, 102);
+            this.groupBox3.Size = new System.Drawing.Size(369, 102);
             this.groupBox3.TabIndex = 15;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Фільтр";
             // 
+            // checkBox_activation_za_ves_chas_search
+            // 
+            this.checkBox_activation_za_ves_chas_search.AutoSize = true;
+            this.checkBox_activation_za_ves_chas_search.Enabled = false;
+            this.checkBox_activation_za_ves_chas_search.Location = new System.Drawing.Point(6, 70);
+            this.checkBox_activation_za_ves_chas_search.Name = "checkBox_activation_za_ves_chas_search";
+            this.checkBox_activation_za_ves_chas_search.Size = new System.Drawing.Size(86, 17);
+            this.checkBox_activation_za_ves_chas_search.TabIndex = 19;
+            this.checkBox_activation_za_ves_chas_search.Text = "За весь час";
+            this.checkBox_activation_za_ves_chas_search.UseVisualStyleBackColor = true;
+            this.checkBox_activation_za_ves_chas_search.CheckedChanged += new System.EventHandler(this.checkBox_activation_za_ves_chas_search_CheckedChanged);
+            // 
             // dateTimePicker_activation_filter_end
             // 
-            this.dateTimePicker_activation_filter_end.Location = new System.Drawing.Point(318, 18);
+            this.dateTimePicker_activation_filter_end.CustomFormat = "dd-MM-yyyy";
+            this.dateTimePicker_activation_filter_end.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker_activation_filter_end.Location = new System.Drawing.Point(97, 44);
             this.dateTimePicker_activation_filter_end.Name = "dateTimePicker_activation_filter_end";
-            this.dateTimePicker_activation_filter_end.Size = new System.Drawing.Size(139, 20);
+            this.dateTimePicker_activation_filter_end.Size = new System.Drawing.Size(85, 20);
             this.dateTimePicker_activation_filter_end.TabIndex = 18;
             this.dateTimePicker_activation_filter_end.CloseUp += new System.EventHandler(this.dateTimePicker_activation_filter_end_CloseUp);
-            // 
-            // comboBox_activation_filter
-            // 
-            this.comboBox_activation_filter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_activation_filter.FormattingEnabled = true;
-            this.comboBox_activation_filter.Items.AddRange(new object[] {
-            "Незавершені активації",
-            "Успішні активаціїї",
-            "Всі"});
-            this.comboBox_activation_filter.Location = new System.Drawing.Point(463, 18);
-            this.comboBox_activation_filter.Name = "comboBox_activation_filter";
-            this.comboBox_activation_filter.Size = new System.Drawing.Size(145, 21);
-            this.comboBox_activation_filter.TabIndex = 17;
-            this.comboBox_activation_filter.DropDownClosed += new System.EventHandler(this.comboBox_activation_filter_DropDownClosed);
             // 
             // textBox_search_object_name_activation
             // 
             this.textBox_search_object_name_activation.Location = new System.Drawing.Point(6, 18);
             this.textBox_search_object_name_activation.Name = "textBox_search_object_name_activation";
-            this.textBox_search_object_name_activation.Size = new System.Drawing.Size(161, 20);
+            this.textBox_search_object_name_activation.Size = new System.Drawing.Size(176, 20);
             this.textBox_search_object_name_activation.TabIndex = 14;
             this.textBox_search_object_name_activation.TextChanged += new System.EventHandler(this.textBox_search_object_name_activation_TextChanged);
             // 
             // dateTimePicker_activation_filter_start
             // 
-            this.dateTimePicker_activation_filter_start.Location = new System.Drawing.Point(173, 18);
+            this.dateTimePicker_activation_filter_start.CustomFormat = "dd-MM-yyyy";
+            this.dateTimePicker_activation_filter_start.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker_activation_filter_start.Location = new System.Drawing.Point(6, 44);
             this.dateTimePicker_activation_filter_start.Name = "dateTimePicker_activation_filter_start";
-            this.dateTimePicker_activation_filter_start.Size = new System.Drawing.Size(139, 20);
+            this.dateTimePicker_activation_filter_start.Size = new System.Drawing.Size(85, 20);
             this.dateTimePicker_activation_filter_start.TabIndex = 13;
             this.dateTimePicker_activation_filter_start.CloseUp += new System.EventHandler(this.dateTimePicker_activation_filter_start_CloseUp);
             // 
@@ -2033,6 +2044,39 @@
             this.panel1.Size = new System.Drawing.Size(1370, 581);
             this.panel1.TabIndex = 1;
             // 
+            // checkBox_activation_uspishno_pin
+            // 
+            this.checkBox_activation_uspishno_pin.AutoSize = true;
+            this.checkBox_activation_uspishno_pin.Location = new System.Drawing.Point(259, 17);
+            this.checkBox_activation_uspishno_pin.Name = "checkBox_activation_uspishno_pin";
+            this.checkBox_activation_uspishno_pin.Size = new System.Drawing.Size(89, 17);
+            this.checkBox_activation_uspishno_pin.TabIndex = 20;
+            this.checkBox_activation_uspishno_pin.Text = "Успішно PIN";
+            this.checkBox_activation_uspishno_pin.UseVisualStyleBackColor = true;
+            this.checkBox_activation_uspishno_pin.CheckedChanged += new System.EventHandler(this.checkBox_activation_uspishno_pin_CheckedChanged);
+            // 
+            // checkBox_activation_neuspishno
+            // 
+            this.checkBox_activation_neuspishno.AutoSize = true;
+            this.checkBox_activation_neuspishno.Location = new System.Drawing.Point(259, 40);
+            this.checkBox_activation_neuspishno.Name = "checkBox_activation_neuspishno";
+            this.checkBox_activation_neuspishno.Size = new System.Drawing.Size(109, 17);
+            this.checkBox_activation_neuspishno.TabIndex = 21;
+            this.checkBox_activation_neuspishno.Text = "Не проводилось";
+            this.checkBox_activation_neuspishno.UseVisualStyleBackColor = true;
+            this.checkBox_activation_neuspishno.CheckedChanged += new System.EventHandler(this.checkBox_activation_neuspishno_CheckedChanged);
+            // 
+            // checkBox_activation_uspishno
+            // 
+            this.checkBox_activation_uspishno.AutoSize = true;
+            this.checkBox_activation_uspishno.Location = new System.Drawing.Point(259, 63);
+            this.checkBox_activation_uspishno.Name = "checkBox_activation_uspishno";
+            this.checkBox_activation_uspishno.Size = new System.Drawing.Size(68, 17);
+            this.checkBox_activation_uspishno.TabIndex = 22;
+            this.checkBox_activation_uspishno.Text = "Успішно";
+            this.checkBox_activation_uspishno.UseVisualStyleBackColor = true;
+            this.checkBox_activation_uspishno.CheckedChanged += new System.EventHandler(this.checkBox_activation_uspishno_CheckedChanged);
+            // 
             // Main_window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2069,8 +2113,9 @@
             this.tabPage_accounts.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_accounts)).EndInit();
             this.tabPage_zayavki_activation.ResumeLayout(false);
+            this.groupBox16.ResumeLayout(false);
+            this.groupBox16.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_zayavki_na_activation)).EndInit();
-            this.groupBox10.ResumeLayout(false);
             this.tabPage_testing.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_testing)).EndInit();
             this.groupBox7.ResumeLayout(false);
@@ -2176,11 +2221,8 @@
         private System.Windows.Forms.DataGridView dataGridView_testing;
         private System.Windows.Forms.TabPage tabPage_zayavki_activation;
         private System.Windows.Forms.DataGridView dataGridView_zayavki_na_activation;
-        private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.DateTimePicker dateTimePicker_for_zayavki_na_activation_W2;
         private System.Windows.Forms.Button button_create_zayavka;
-        private System.Windows.Forms.ComboBox comboBox_prikripleno_select;
-        private System.Windows.Forms.ComboBox comboBox_activovani_select;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
@@ -2196,7 +2238,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column_locked_user_;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.ComboBox comboBox_activation_filter;
         private System.Windows.Forms.ComboBox comboBox_testing_filter;
         private System.Windows.Forms.DateTimePicker dateTimePicker_activation_filter_end;
         private System.Windows.Forms.TabPage tabPage_lost;
@@ -2261,6 +2302,14 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.DateTimePicker dateTimePicker_From_close_alarm;
         private System.Windows.Forms.DateTimePicker dateTimePicker_To_close_alarm;
+        private System.Windows.Forms.TextBox textBox_search_zayavki;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_from_for_zayavki_na_activation_W2;
+        private System.Windows.Forms.GroupBox groupBox16;
+        private System.Windows.Forms.CheckBox checkBox_zayavki_za_ves_chas;
+        private System.Windows.Forms.CheckBox checkBox_activation_za_ves_chas_search;
+        private System.Windows.Forms.CheckBox checkBox_activation_uspishno;
+        private System.Windows.Forms.CheckBox checkBox_activation_neuspishno;
+        private System.Windows.Forms.CheckBox checkBox_activation_uspishno_pin;
     }
 }
 

@@ -17,11 +17,43 @@ namespace Disp_WinForm
         private Macros macros = new Macros();
         private string date_chenge_pin;
         private string get_produt_testing_device;
-        
+
+        private int _if_open_created_activation;
+        private string _id_wl_object_for_activation;
+        private string _id_db_object_for_activation;
+        private string _id_db_activation_for_activation;
+        private string _transfer_vo1_vo_form;
+        private string _transfer_vo2_vo_form;
+        private string _transfer_vo3_vo_form;
+        private string _transfer_vo4_vo_form;
+        private string _transfer_vo5_vo_form;
+        private string _id_db_zayavki_for_activation;
+        private string _user_login_id;
+        private int _num_vo;
+        private string _user_login_name;
+        private string _user_login_email;
+
 
         public Activation_Form()
         {
             InitializeComponent();
+
+            // Looad varible data
+            _if_open_created_activation = vars_form.if_open_created_activation;
+            _id_wl_object_for_activation = vars_form.id_wl_object_for_activation;
+            _id_db_object_for_activation = vars_form.id_db_object_for_activation;
+            _id_db_activation_for_activation = vars_form.id_db_activation_for_activation;
+            _transfer_vo1_vo_form = vars_form.transfer_vo1_vo_form;
+            _transfer_vo2_vo_form = vars_form.transfer_vo2_vo_form;
+            _transfer_vo3_vo_form = vars_form.transfer_vo3_vo_form;
+            _transfer_vo4_vo_form = vars_form.transfer_vo4_vo_form;
+            _transfer_vo5_vo_form = vars_form.transfer_vo5_vo_form;
+            _id_db_zayavki_for_activation = vars_form.id_db_zayavki_for_activation;
+            _user_login_id = vars_form.user_login_id;
+            _num_vo = vars_form.num_vo;
+            _user_login_name = vars_form.user_login_name;
+            _user_login_email = vars_form.user_login_email;
+
             Read_data();
             get_remaynder();
             get_produt_device();
@@ -31,12 +63,12 @@ namespace Disp_WinForm
 
         private void get_remaynder()
         {
-            string sql2 = string.Format("select remaynder_activate from btk.Activation_object where idActivation_object=" + vars_form.id_db_object_for_activation + ";");
+            string sql2 = string.Format("select remaynder_activate from btk.Activation_object where idActivation_object=" + _id_db_object_for_activation + ";");
             string remaynder_activate = macros.sql_command(sql2);
             if (remaynder_activate == "True")
             {
                 remaynder_checkBox.Checked = true;
-                string sql = string.Format("select remayder_date from btk.Activation_object where idActivation_object=" + vars_form.id_db_activation_for_activation + ";");
+                string sql = string.Format("select remayder_date from btk.Activation_object where idActivation_object=" + _id_db_activation_for_activation + ";");
                 string remayder_date = macros.sql_command(sql);
                 DateTime rem = Convert.ToDateTime(remayder_date);
                 remaynder_dateTimePicker.Value = rem;
@@ -45,11 +77,11 @@ namespace Disp_WinForm
 
         private void Read_data()
         {
-            if (vars_form.if_open_created_activation == 1)
+            if (_if_open_created_activation == 1)
             {
                 load_form_for_zayavka();
             }
-            else if (vars_form.if_open_created_activation == 0)
+            else if (_if_open_created_activation == 0)
             {
                 load_form_for_sengl_activation();
             }
@@ -61,7 +93,7 @@ namespace Disp_WinForm
                                                     "\"spec\":{" +
                                                     "\"itemsType\":\"avl_unit\"," +
                                                     "\"propName\":\"sys_id\"," +
-                                                    "\"propValueMask\":\"" + vars_form.id_wl_object_for_activation + "\", " +
+                                                    "\"propValueMask\":\"" + _id_wl_object_for_activation + "\", " +
                                                     "\"sortType\":\"sys_name\"," +
                                                     "\"or_logic\":\"1\"}," +
                                                     "\"force\":\"1\"," +
@@ -90,7 +122,7 @@ namespace Disp_WinForm
 
 
             //load VO1
-            string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "' and VOcol_num_vo = '1' ORDER BY idVO DESC limit 1;");
+            string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + _id_db_object_for_activation + "' and VOcol_num_vo = '1' ORDER BY idVO DESC limit 1;");
 
             string VO_falilia = macros.sql_command("SELECT Kontakti_familia FROM btk.Kontakti where idKontakti = '" + VO1.ToString() + "';");
             string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO1.ToString() + "';");
@@ -100,7 +132,7 @@ namespace Disp_WinForm
             if (VO_falilia == "" & VO_imya_phone == "" || VO_imya_phone.Contains("Пусто"))
             {
                 textBox_vo1.Text = "";
-                vars_form.transfer_vo1_vo_form = "1";
+                _transfer_vo1_vo_form = "1";
             }
             else
             {
@@ -108,7 +140,7 @@ namespace Disp_WinForm
             }
 
             //load VO2
-            string VO2 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "' and VOcol_num_vo = '2' ORDER BY idVO DESC limit 1;");
+            string VO2 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + _id_db_object_for_activation + "' and VOcol_num_vo = '2' ORDER BY idVO DESC limit 1;");
             string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO2.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO2.ToString() + "';");
             if (VO_phone2 == "   -   -")
@@ -116,7 +148,7 @@ namespace Disp_WinForm
             if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
             {
                 textBox_vo2.Text = "";
-                vars_form.transfer_vo2_vo_form = "1";
+                _transfer_vo2_vo_form = "1";
             }
             else
             {
@@ -125,7 +157,7 @@ namespace Disp_WinForm
 
 
             //load VO3
-            string VO3 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "' and VOcol_num_vo = '3' ORDER BY idVO DESC limit 1;");
+            string VO3 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + _id_db_object_for_activation + "' and VOcol_num_vo = '3' ORDER BY idVO DESC limit 1;");
             VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO3.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO3.ToString() + "';");
             if (VO_phone2 == "   -   -")
@@ -133,7 +165,7 @@ namespace Disp_WinForm
             if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
             {
                 textBox_vo3.Text = "";
-                vars_form.transfer_vo3_vo_form = "1";
+                _transfer_vo3_vo_form = "1";
             }
             else
             {
@@ -141,7 +173,7 @@ namespace Disp_WinForm
             }
 
             //load VO4
-            string VO4 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "' and VOcol_num_vo = '4' ORDER BY idVO DESC limit 1;");
+            string VO4 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + _id_db_object_for_activation + "' and VOcol_num_vo = '4' ORDER BY idVO DESC limit 1;");
             VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO4.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO4.ToString() + "';");
             if (VO_phone2 == "   -   -")
@@ -149,7 +181,7 @@ namespace Disp_WinForm
             if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
             {
                 textBox_vo4.Text = "";
-                vars_form.transfer_vo4_vo_form = "1";
+                _transfer_vo4_vo_form = "1";
             }
             else
             {
@@ -157,7 +189,7 @@ namespace Disp_WinForm
             }
 
             //load VO5
-            string VO5 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "' and VOcol_num_vo = '5' ORDER BY idVO DESC limit 1;");
+            string VO5 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + _id_db_object_for_activation + "' and VOcol_num_vo = '5' ORDER BY idVO DESC limit 1;");
             VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO5.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO5.ToString() + "';");
             if (VO_phone2 == "   -   -")
@@ -165,7 +197,7 @@ namespace Disp_WinForm
             if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
             {
                 textBox_vo5.Text = "";
-                vars_form.transfer_vo5_vo_form = "1";
+                _transfer_vo5_vo_form = "1";
             }
             else
             {
@@ -180,7 +212,7 @@ namespace Disp_WinForm
                                                     "\"spec\":{" +
                                                     "\"itemsType\":\"avl_unit\"," +
                                                     "\"propName\":\"sys_id\"," +
-                                                    "\"propValueMask\":\"" + vars_form.id_wl_object_for_activation + "\", " +
+                                                    "\"propValueMask\":\"" + _id_wl_object_for_activation + "\", " +
                                                     "\"sortType\":\"sys_name\"," +
                                                     "\"or_logic\":\"1\"}," +
                                                     "\"force\":\"1\"," +
@@ -208,11 +240,11 @@ namespace Disp_WinForm
             }
             //Открітие отработаніх активаций. ХЗ ли нужно
             ////load VO
-            //DataTable VO = macros.GetData("SELECT Users_idUsers, comment, alarm_button FROM btk.Activation_object where Object_idObject = '"+vars_form.id_db_object_for_activation+"';");
+            //DataTable VO = macros.GetData("SELECT Users_idUsers, comment, alarm_button FROM btk.Activation_object where Object_idObject = '"+_id_db_object_for_activation+"';");
 
 
             //load VO1
-            string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "' and VOcol_num_vo = '1' ORDER BY idVO DESC limit 1;");
+            string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + _id_db_object_for_activation + "' and VOcol_num_vo = '1' ORDER BY idVO DESC limit 1;");
 
             string VO_falilia = macros.sql_command("SELECT Kontakti_familia FROM btk.Kontakti where idKontakti = '" + VO1.ToString() + "';");
             string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO1.ToString() + "';");
@@ -222,7 +254,7 @@ namespace Disp_WinForm
             if (VO_falilia == "" & VO_imya_phone == "" || VO_imya_phone.Contains("Пусто"))
             {
                 textBox_vo1.Text = "";
-                vars_form.transfer_vo1_vo_form = "1";
+                _transfer_vo1_vo_form = "1";
             }
             else
             {
@@ -230,7 +262,7 @@ namespace Disp_WinForm
             }
 
             //load VO2
-            string VO2 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "' and VOcol_num_vo = '2' ORDER BY idVO DESC limit 1;");
+            string VO2 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + _id_db_object_for_activation + "' and VOcol_num_vo = '2' ORDER BY idVO DESC limit 1;");
             string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO2.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO2.ToString() + "';");
             if (VO_phone2 == "   -   -")
@@ -238,7 +270,7 @@ namespace Disp_WinForm
             if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
             {
                 textBox_vo2.Text = "";
-                vars_form.transfer_vo2_vo_form = "1";
+                _transfer_vo2_vo_form = "1";
             }
             else
             {
@@ -247,7 +279,7 @@ namespace Disp_WinForm
 
 
             //load VO3
-            string VO3 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "' and VOcol_num_vo = '3' ORDER BY idVO DESC limit 1;");
+            string VO3 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + _id_db_object_for_activation + "' and VOcol_num_vo = '3' ORDER BY idVO DESC limit 1;");
             VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO3.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO3.ToString() + "';");
             if (VO_phone2 == "   -   -")
@@ -255,7 +287,7 @@ namespace Disp_WinForm
             if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
             {
                 textBox_vo3.Text = "";
-                vars_form.transfer_vo3_vo_form = "1";
+                _transfer_vo3_vo_form = "1";
             }
             else
             {
@@ -263,7 +295,7 @@ namespace Disp_WinForm
             }
 
             //load VO4
-            string VO4 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "' and VOcol_num_vo = '4' ORDER BY idVO DESC limit 1;");
+            string VO4 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + _id_db_object_for_activation + "' and VOcol_num_vo = '4' ORDER BY idVO DESC limit 1;");
             VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO4.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO4.ToString() + "';");
             if (VO_phone2 == "   -   -")
@@ -271,7 +303,7 @@ namespace Disp_WinForm
             if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
             {
                 textBox_vo4.Text = "";
-                vars_form.transfer_vo4_vo_form = "1";
+                _transfer_vo4_vo_form = "1";
             }
             else
             {
@@ -279,7 +311,7 @@ namespace Disp_WinForm
             }
 
             //load VO5
-            string VO5 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + vars_form.id_db_object_for_activation + "' and VOcol_num_vo = '5' ORDER BY idVO DESC limit 1;");
+            string VO5 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + _id_db_object_for_activation + "' and VOcol_num_vo = '5' ORDER BY idVO DESC limit 1;");
             VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO5.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO5.ToString() + "';");
             if (VO_phone2 == "   -   -")
@@ -287,7 +319,7 @@ namespace Disp_WinForm
             if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
             {
                 textBox_vo5.Text = "";
-                vars_form.transfer_vo5_vo_form = "1";
+                _transfer_vo5_vo_form = "1";
             }
             else
             {
@@ -295,19 +327,19 @@ namespace Disp_WinForm
             }
 
             //Load data from opened activation
-            string tk_tested = macros.sql_command("SELECT alarm_button FROM btk.Activation_object where idActivation_object = '" + vars_form.id_db_activation_for_activation + "'");
+            string tk_tested = macros.sql_command("SELECT alarm_button FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "'");
             if (tk_tested == "1")
             { checkBox_tk_tested.Checked = true; }
             else if (tk_tested == "0" || tk_tested == "")
             { checkBox_tk_tested.Checked = false; }
 
-            string pin_chenged = macros.sql_command("SELECT pin_chenged FROM btk.Activation_object where idActivation_object = '" + vars_form.id_db_activation_for_activation + "'");
+            string pin_chenged = macros.sql_command("SELECT pin_chenged FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "'");
             if (pin_chenged == "1")
             { 
                 checkBox_pin_chenged.Checked = true;
                 textBox_who_chenge_pin.ReadOnly = true;
-                textBox_who_chenge_pin.Text = macros.sql_command("SELECT Who_chenge_pin FROM btk.Activation_object where idActivation_object = '" + vars_form.id_db_activation_for_activation + "'");
-                date_chenge_pin = macros.sql_command("SELECT Date_chenge_pin FROM btk.Activation_object where idActivation_object = '" + vars_form.id_db_activation_for_activation + "'");
+                textBox_who_chenge_pin.Text = macros.sql_command("SELECT Who_chenge_pin FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "'");
+                date_chenge_pin = macros.sql_command("SELECT Date_chenge_pin FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "'");
             }
             else if (pin_chenged == "0" || pin_chenged == "")
             { 
@@ -339,7 +371,7 @@ namespace Disp_WinForm
                 "where " +
                 "Zayavki.products_idproducts = products.idproducts " +
                 "and Kontragenti.idKontragenti = Zayavki.Kontragenti_idKontragenti_zakazchik " +
-                "and Zayavki.idZayavki = '" + vars_form.id_db_zayavki_for_activation + "' " +
+                "and Zayavki.idZayavki = '" + _id_db_zayavki_for_activation + "' " +
                 "and Zayavki.testing_object_idtesting_object = testing_object.idtesting_object " +
                 "and testing_object.Object_idObject = Object.idObject " +
                 "and Object.TS_info_idTS_info = TS_info.idTS_info " +
@@ -383,7 +415,7 @@ namespace Disp_WinForm
             }
             else { textBox_vin_zayavka.Text = table2.Rows[0][9].ToString(); }
 
-            ReadActivationChenges(vars_form.id_db_activation_for_activation);
+            ReadActivationChenges(_id_db_activation_for_activation);
         }
 
         private void cancel_button_Click(object sender, EventArgs e)
@@ -402,7 +434,7 @@ namespace Disp_WinForm
         private void button_chenge_uvaga_Click(object sender, EventArgs e)
         {
             string json = macros.WialonRequest("&svc=item/update_name&params={" +
-                                                    "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                    "\"itemId\":\"" + _id_wl_object_for_activation + "\"," +
                                                     "\"name\":\"" + name_obj_new_textBox.Text.ToString() + "\"}");
             var m = JsonConvert.DeserializeObject<RootObject>(json);
 
@@ -412,13 +444,13 @@ namespace Disp_WinForm
                                "SET " +
                                "Object_name = '" + name_obj_new_textBox.Text + "' " +
                                "WHERE " +
-                               "idObject = '" + vars_form.id_db_object_for_activation + "';");
+                               "idObject = '" + _id_db_object_for_activation + "';");
                 if (st == "")
                 {
                     Read_data();
 
                     //log user action
-                    macros.LogUserAction(vars_form.user_login_id, "Зміна поля Увага", name_object_current_textBox.Text, vars_form.id_db_object_for_activation, Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
+                    macros.LogUserAction(_user_login_id, "Зміна поля Увага", name_object_current_textBox.Text, _id_db_object_for_activation, Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
 
                     MessageBox.Show("Змінено!");
                 }
@@ -435,7 +467,7 @@ namespace Disp_WinForm
 
         private void button_add_vo1_Click(object sender, EventArgs e)
         {
-            vars_form.num_vo = 1;
+            _num_vo = 1;
             Kontacts Kontacts_form = new Kontacts();
             Kontacts_form.Activated += new EventHandler(form_vo_add_activated);
             Kontacts_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
@@ -449,11 +481,11 @@ namespace Disp_WinForm
 
         private void form_vo_add_deactivated(object sender, FormClosedEventArgs e)
         {
-            if (vars_form.num_vo == 1)//VO1 1 familia make upper case
+            if (_num_vo == 1)//VO1 1 familia make upper case
             {
-                string VO_falilia = macros.sql_command("SELECT Kontakti_familia FROM btk.Kontakti where idKontakti = '" + vars_form.transfer_vo1_vo_form + "';");
-                string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo1_vo_form + "';");
-                string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo1_vo_form + "';");
+                string VO_falilia = macros.sql_command("SELECT Kontakti_familia FROM btk.Kontakti where idKontakti = '" + _transfer_vo1_vo_form + "';");
+                string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + _transfer_vo1_vo_form + "';");
+                string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + _transfer_vo1_vo_form + "';");
                 if (VO_phone2 == "   -   -")
                 { VO_phone2 = ""; }
                 if (VO_falilia == "" & VO_imya_phone == "")
@@ -465,10 +497,10 @@ namespace Disp_WinForm
                     textBox_vo1.Text = VO_falilia.ToUpper() + " " + VO_imya_phone + ", " + VO_phone2;
                 }
             }
-            if (vars_form.num_vo == 2)
+            if (_num_vo == 2)
             {
-                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo2_vo_form + "';");
-                string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo2_vo_form + "';");
+                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + _transfer_vo2_vo_form + "';");
+                string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + _transfer_vo2_vo_form + "';");
                 if (VO_phone2 == "   -   -")
                 { VO_phone2 = ""; }
                 if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
@@ -480,10 +512,10 @@ namespace Disp_WinForm
                     textBox_vo2.Text = VO_familia_imya_phone + ", " + VO_phone2;
                 }
             }
-            if (vars_form.num_vo == 3)
+            if (_num_vo == 3)
             {
-                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo3_vo_form + "';");
-                string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo3_vo_form + "';");
+                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + _transfer_vo3_vo_form + "';");
+                string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + _transfer_vo3_vo_form + "';");
                 if (VO_phone2 == "   -   -")
                 { VO_phone2 = ""; }
                 if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
@@ -495,29 +527,29 @@ namespace Disp_WinForm
                     textBox_vo3.Text = VO_familia_imya_phone + ", " + VO_phone2;
                 }
             }
-            if (vars_form.num_vo == 4)
+            if (_num_vo == 4)
             {
-                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo4_vo_form + "';");
-                string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo4_vo_form + "';");
+                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + _transfer_vo4_vo_form + "';");
+                string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + _transfer_vo4_vo_form + "';");
                 if (VO_phone2 == "   -   -")
                 { VO_phone2 = ""; }
                 textBox_vo4.Text = VO_familia_imya_phone + ", " + VO_phone2;
             }
-            if (vars_form.num_vo == 5)
+            if (_num_vo == 5)
             {
-                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo5_vo_form + "';");
-                string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo5_vo_form + "';");
+                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + _transfer_vo5_vo_form + "';");
+                string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + _transfer_vo5_vo_form + "';");
                 if (VO_phone2 == "   -   -")
                 { VO_phone2 = ""; }
                 textBox_vo5.Text = VO_familia_imya_phone + ", " + VO_phone2;
             }
             this.Visible = true;// разблокируем окно контрагентов кактолько закрыто окно добавления контрагента
-            vars_form.num_vo = 0;
+            _num_vo = 0;
         }
 
         private void button_add_vo2_Click(object sender, EventArgs e)
         {
-            vars_form.num_vo = 2;
+            _num_vo = 2;
             Kontacts Kontacts_form = new Kontacts();
             Kontacts_form.Activated += new EventHandler(form_vo_add_activated);
             Kontacts_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
@@ -526,7 +558,7 @@ namespace Disp_WinForm
 
         private void button_add_vo3_Click(object sender, EventArgs e)
         {
-            vars_form.num_vo = 3;
+            _num_vo = 3;
             Kontacts Kontacts_form = new Kontacts();
             Kontacts_form.Activated += new EventHandler(form_vo_add_activated);
             Kontacts_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
@@ -535,7 +567,7 @@ namespace Disp_WinForm
 
         private void button_add_vo4_Click(object sender, EventArgs e)
         {
-            vars_form.num_vo = 4;
+            _num_vo = 4;
             Kontacts Kontacts_form = new Kontacts();
             Kontacts_form.Activated += new EventHandler(form_vo_add_activated);
             Kontacts_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
@@ -544,7 +576,7 @@ namespace Disp_WinForm
 
         private void button_add_vo5_Click(object sender, EventArgs e)
         {
-            vars_form.num_vo = 5;
+            _num_vo = 5;
             Kontacts Kontacts_form = new Kontacts();
             Kontacts_form.Activated += new EventHandler(form_vo_add_activated);
             Kontacts_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
@@ -576,14 +608,14 @@ namespace Disp_WinForm
             {
                 //Меняем имя об"екта in WL
                 string name_answer = macros.WialonRequest("&svc=item/update_name&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
                                                                 + "\"name\":\"" + name_obj_new_textBox.Text + "\"}");
                 //Меняем имя об"екта in DB
                 macros.sql_command("UPDATE btk.Object " +
                                "SET " +
                                "Object_name = '" + name_obj_new_textBox.Text + "' " +
                                "WHERE " +
-                               "idObject = '" + vars_form.id_db_object_for_activation + "';");
+                               "idObject = '" + _id_db_object_for_activation + "';");
             }
 
 
@@ -592,7 +624,7 @@ namespace Disp_WinForm
                                                      "\"spec\":{" +
                                                      "\"itemsType\":\"avl_unit\"," +
                                                      "\"propName\":\"sys_id\"," +
-                                                     "\"propValueMask\":\"" + vars_form.id_wl_object_for_activation + "\", " +
+                                                     "\"propValueMask\":\"" + _id_wl_object_for_activation + "\", " +
                                                      "\"sortType\":\"sys_name\"," +
                                                      "\"or_logic\":\"1\"}," +
                                                      "\"or_logic\":\"1\"," +
@@ -618,16 +650,16 @@ namespace Disp_WinForm
                 }
             }
             if (vo4_exist == 0)
-            { macros.create_custom_field_wl(Convert.ToInt32(vars_form.id_wl_object_for_activation), "2.4 ІV Відповідальна особа", ""); }
+            { macros.create_custom_field_wl(Convert.ToInt32(_id_wl_object_for_activation), "2.4 ІV Відповідальна особа", ""); }
             if (vo5_exist == 0)
-            { macros.create_custom_field_wl(Convert.ToInt32(vars_form.id_wl_object_for_activation), "2.5 V Відповідальна особа", ""); }
+            { macros.create_custom_field_wl(Convert.ToInt32(_id_wl_object_for_activation), "2.5 V Відповідальна особа", ""); }
 
             //Загружаем заново произвольные поля объекта
             json = macros.WialonRequest("&svc=core/search_items&params={" +
                                                      "\"spec\":{" +
                                                      "\"itemsType\":\"avl_unit\"," +
                                                      "\"propName\":\"sys_id\"," +
-                                                     "\"propValueMask\":\"" + vars_form.id_wl_object_for_activation + "\", " +
+                                                     "\"propValueMask\":\"" + _id_wl_object_for_activation + "\", " +
                                                      "\"sortType\":\"sys_name\"," +
                                                      "\"or_logic\":\"1\"}," +
                                                      "\"or_logic\":\"1\"," +
@@ -647,7 +679,7 @@ namespace Disp_WinForm
                     //Chenge feild Uvaga
                     case string a when a.Contains("УВАГА") & keyvalue.Value.v != uvaga_textBox.Text:
                         string json1 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
-                                                                    "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                                    "\"itemId\":\"" + _id_wl_object_for_activation + "\"," +
                                                                     "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                                     "\"callMode\":\"update\"," +
                                                                     "\"n\":\"" + keyvalue.Value.n + "\"," +
@@ -657,7 +689,7 @@ namespace Disp_WinForm
                     //Chenge feild Кодове слово
                     case string a when a.Contains("Кодове ") & keyvalue.Value.v != kodove_slovo_textBox.Text:
                         string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
-                                                                "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                                "\"itemId\":\"" + _id_wl_object_for_activation + "\"," +
                                                                 "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                                 "\"callMode\":\"update\"," +
                                                                 "\"n\":\"" + keyvalue.Value.n + "\"," +
@@ -666,9 +698,9 @@ namespace Disp_WinForm
 
                     //Chenge feild ВО1
                     case string a when a.Contains("2.1 І Від") & keyvalue.Value.v != textBox_vo1.Text & textBox_vo1.Text != "1":
-                        macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo1_vo_form + "','1','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
+                        macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + _id_db_object_for_activation + "','" + _transfer_vo1_vo_form + "','1','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + _user_login_id + "');");
                         string json3 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
-                                                         "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                         "\"itemId\":\"" + _id_wl_object_for_activation + "\"," +
                                                          "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                          "\"callMode\":\"update\"," +
                                                          "\"n\":\"" + keyvalue.Value.n + "\"," +
@@ -677,9 +709,9 @@ namespace Disp_WinForm
 
                     //Chenge feild ВО2
                     case string a when a.Contains("2.2 ІІ Від") & keyvalue.Value.v != textBox_vo2.Text & textBox_vo2.Text != "1":
-                        macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo2_vo_form + "','2','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
+                        macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + _id_db_object_for_activation + "','" + _transfer_vo2_vo_form + "','2','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + _user_login_id + "');");
                         string json4 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
-                                                         "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                         "\"itemId\":\"" + _id_wl_object_for_activation + "\"," +
                                                          "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                          "\"callMode\":\"update\"," +
                                                          "\"n\":\"" + keyvalue.Value.n + "\"," +
@@ -688,9 +720,9 @@ namespace Disp_WinForm
 
                     //Chenge feild ВО3
                     case string a when a.Contains("2.3 ІІІ Від") & keyvalue.Value.v != textBox_vo3.Text & textBox_vo3.Text != "1":
-                        macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo3_vo_form + "','3','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
+                        macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + _id_db_object_for_activation + "','" + _transfer_vo3_vo_form + "','3','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + _user_login_id + "');");
                         string json5 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
-                                                         "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                         "\"itemId\":\"" + _id_wl_object_for_activation + "\"," +
                                                          "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                          "\"callMode\":\"update\"," +
                                                          "\"n\":\"" + keyvalue.Value.n + "\"," +
@@ -699,9 +731,9 @@ namespace Disp_WinForm
 
                     //Chenge feild ВО4
                     case string a when a.Contains("2.4 ІV Від") & keyvalue.Value.v != textBox_vo4.Text & textBox_vo4.Text != "1":
-                        macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo4_vo_form + "','4','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
+                        macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + _id_db_object_for_activation + "','" + _transfer_vo4_vo_form + "','4','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + _user_login_id + "');");
                         string json6 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
-                                                         "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                         "\"itemId\":\"" + _id_wl_object_for_activation + "\"," +
                                                          "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                          "\"callMode\":\"update\"," +
                                                          "\"n\":\"" + keyvalue.Value.n + "\"," +
@@ -710,9 +742,9 @@ namespace Disp_WinForm
 
                     //Chenge feild ВО5
                     case string a when a.Contains("2.5 V Від") & keyvalue.Value.v != textBox_vo5.Text & textBox_vo5.Text != "1":
-                        macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + vars_form.id_db_object_for_activation + "','" + vars_form.transfer_vo5_vo_form + "','5','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
+                        macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + _id_db_object_for_activation + "','" + _transfer_vo5_vo_form + "','5','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + _user_login_id + "');");
                         string json7 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
-                                                         "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                         "\"itemId\":\"" + _id_wl_object_for_activation + "\"," +
                                                          "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                          "\"callMode\":\"update\"," +
                                                          "\"n\":\"" + keyvalue.Value.n + "\"," +
@@ -722,7 +754,7 @@ namespace Disp_WinForm
                     //Chenge feild Proekt
                     case string a when a.Contains("02 Проект"):
                         string json8 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
-                                                    "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                    "\"itemId\":\"" + _id_wl_object_for_activation + "\"," +
                                                     "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                     "\"callMode\":\"update\"," +
                                                     "\"n\":\"" + keyvalue.Value.n + "\"," +
@@ -732,7 +764,7 @@ namespace Disp_WinForm
                     //Chenge feild Date pin setup
                     case string a when a.Contains("4.2 Дата") & textBox_who_chenge_pin.ReadOnly is false:
                         string json9 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
-                                                        "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                        "\"itemId\":\"" + _id_wl_object_for_activation + "\"," +
                                                         "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                         "\"callMode\":\"update\"," +
                                                         "\"n\":\"" + keyvalue.Value.n + "\"," +
@@ -742,7 +774,7 @@ namespace Disp_WinForm
                     //Chenge feild who chenge pin 
                     case string a when a.Contains("4.3 PIN-код") & textBox_who_chenge_pin.ReadOnly is false:
                         string json10 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
-                                                        "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                        "\"itemId\":\"" + _id_wl_object_for_activation + "\"," +
                                                         "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                         "\"callMode\":\"update\"," +
                                                         "\"n\":\"" + keyvalue.Value.n + "\"," +
@@ -752,7 +784,7 @@ namespace Disp_WinForm
                     //Chenge feild Tex-passport 
                     case string a when a.Contains("9.1 Техпаспор") & textBox_svidoctvo_tz.Text == "":
                         string json11 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
-                                                    "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                    "\"itemId\":\"" + _id_wl_object_for_activation + "\"," +
                                                     "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                     "\"callMode\":\"update\"," +
                                                     "\"n\":\"" + keyvalue.Value.n + "\"," +
@@ -762,7 +794,7 @@ namespace Disp_WinForm
                     //Chenge feild Tex-passport and svidoctvo s slov clienta esli vneseno  v pole textBox_svidoctvo_tz
                     case string a when a.Contains("9.1 Техпаспор") & textBox_svidoctvo_tz.Text != "":
                         string json12 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
-                                                    "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\"," +
+                                                    "\"itemId\":\"" + _id_wl_object_for_activation + "\"," +
                                                     "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                     "\"callMode\":\"update\"," +
                                                     "\"n\":\"" + keyvalue.Value.n + "\"," +
@@ -770,33 +802,33 @@ namespace Disp_WinForm
                         break;
                 } 
             }
-            ReadActivationChenges(vars_form.id_db_activation_for_activation);
+            ReadActivationChenges(_id_db_activation_for_activation);
 
             // insert/update activation
 
-            if (vars_form.if_open_created_activation == 1)
+            if (_if_open_created_activation == 1)
             {
                 if (textBox_who_chenge_pin.ReadOnly is true)
                 {
                     macros.sql_command("update btk.Activation_object " +
                         "set " +
                         "Activation_date = '" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "', " +
-                        "Users_idUsers = '" + vars_form.user_login_id + "'," +
-                        "Object_idObject = '" + vars_form.id_db_object_for_activation + "'," +
+                        "Users_idUsers = '" + _user_login_id + "'," +
+                        "Object_idObject = '" + _id_db_object_for_activation + "'," +
                         "Activation_objectcol_result = '" + comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) + "'," +
                         "new_name_obj = '" + MySqlHelper.EscapeString(name_obj_new_textBox.Text) + "'," +
                         "new_pole_uvaga = '" + MySqlHelper.EscapeString(uvaga_textBox.Text) + "'," +
-                        "vo1 = '" + vars_form.transfer_vo1_vo_form + "'," +
-                        "vo2 = '" + vars_form.transfer_vo2_vo_form + "'," +
-                        "vo3 = '" + vars_form.transfer_vo3_vo_form + "'," +
-                        "vo4 = '" + vars_form.transfer_vo4_vo_form + "'," +
-                        "vo5 = '" + vars_form.transfer_vo5_vo_form + "'," +
+                        "vo1 = '" + _transfer_vo1_vo_form + "'," +
+                        "vo2 = '" + _transfer_vo2_vo_form + "'," +
+                        "vo3 = '" + _transfer_vo3_vo_form + "'," +
+                        "vo4 = '" + _transfer_vo4_vo_form + "'," +
+                        "vo5 = '" + _transfer_vo5_vo_form + "'," +
                         "kodove_slovo = '" + MySqlHelper.EscapeString(kodove_slovo_textBox.Text) + "'," +
                         "alarm_button = '" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
                         "pin_chenged = '" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'," +
                         "comment = '" + textBox_comments.Text + "' " +
                         "where " +
-                        "idActivation_object = '" + vars_form.id_db_activation_for_activation + "'" +
+                        "idActivation_object = '" + _id_db_activation_for_activation + "'" +
                         ";");
                 }
                 else
@@ -804,16 +836,16 @@ namespace Disp_WinForm
                     macros.sql_command("update btk.Activation_object " +
                         "set " +
                         "Activation_date = '" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "', " +
-                        "Users_idUsers = '" + vars_form.user_login_id + "'," +
-                        "Object_idObject = '" + vars_form.id_db_object_for_activation + "'," +
+                        "Users_idUsers = '" + _user_login_id + "'," +
+                        "Object_idObject = '" + _id_db_object_for_activation + "'," +
                         "Activation_objectcol_result = '" + comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) + "'," +
                         "new_name_obj = '" + MySqlHelper.EscapeString(name_obj_new_textBox.Text) + "'," +
                         "new_pole_uvaga = '" + MySqlHelper.EscapeString(uvaga_textBox.Text) + "'," +
-                        "vo1 = '" + vars_form.transfer_vo1_vo_form + "'," +
-                        "vo2 = '" + vars_form.transfer_vo2_vo_form + "'," +
-                        "vo3 = '" + vars_form.transfer_vo3_vo_form + "'," +
-                        "vo4 = '" + vars_form.transfer_vo4_vo_form + "'," +
-                        "vo5 = '" + vars_form.transfer_vo5_vo_form + "'," +
+                        "vo1 = '" + _transfer_vo1_vo_form + "'," +
+                        "vo2 = '" + _transfer_vo2_vo_form + "'," +
+                        "vo3 = '" + _transfer_vo3_vo_form + "'," +
+                        "vo4 = '" + _transfer_vo4_vo_form + "'," +
+                        "vo5 = '" + _transfer_vo5_vo_form + "'," +
                         "kodove_slovo = '" + MySqlHelper.EscapeString(kodove_slovo_textBox.Text) + "'," +
                         "alarm_button = '" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
                         "pin_chenged = '" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'," +
@@ -821,11 +853,11 @@ namespace Disp_WinForm
                         "Date_chenge_pin = '" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "'," +
                         "comment = '" + textBox_comments.Text + "' " +
                         "where " +
-                        "idActivation_object = '" + vars_form.id_db_activation_for_activation + "'" +
+                        "idActivation_object = '" + _id_db_activation_for_activation + "'" +
                         ";");
                 }
 
-                string id_ts_info_fo_object_activation = macros.sql_command("select TS_info_idTS_info from btk.Object where idObject = '" + vars_form.id_db_object_for_activation + "'");
+                string id_ts_info_fo_object_activation = macros.sql_command("select TS_info_idTS_info from btk.Object where idObject = '" + _id_db_object_for_activation + "'");
 
                 if (textBox_licence_plate.Text != "")
                 {
@@ -834,7 +866,7 @@ namespace Disp_WinForm
 
                     //update lic plate in WL
                     string pp25_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
-                                                                   + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                   + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
                                                                    + "\"n\":\"registration_plate\","
                                                                    + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
 
@@ -845,7 +877,7 @@ namespace Disp_WinForm
                 {
                     //update VIN plate in WL
                     string pp28_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
-                                                                   + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                   + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
                                                                    + "\"n\":\"vin\","
                                                                    + "\"v\":\"" + textBox_vin_zayavka.Text.Replace("\"", "%5C%22") + "\"}");
                     //update VIN plate in db
@@ -854,15 +886,15 @@ namespace Disp_WinForm
 
                 //update хто тестував in WL
                 string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
                                                                 + "\"id\":\"22\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"4.1.1 Оператор, що активував\","
-                                                                + "\"v\":\"" + vars_form.user_login_name + "\"}");
+                                                                + "\"v\":\"" + _user_login_name + "\"}");
 
                 //update коли активації in WL
                 string pp7_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
                                                                 + "\"id\":\"21\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"4.1 Дата активації\","
@@ -879,15 +911,15 @@ namespace Disp_WinForm
 
                 ////update коли тестував in WL
                 //string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                //                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                //                                                + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
                 //                                                + "\"id\":\"25\","
                 //                                                + "\"callMode\":\"update\","
                 //                                                + "\"n\":\"4.4 Обліковий запис WL\","
                 //                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
                 //Insert chenges
                 InsertActivationChenges(
-                    vars_form.id_db_activation_for_activation, 
-                    vars_form.user_login_id,
+                    _id_db_activation_for_activation, 
+                    _user_login_id,
                     Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"),
                     comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem), 
                     name_obj_new_textBox.Text,
@@ -907,7 +939,7 @@ namespace Disp_WinForm
                 if (comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem).Contains("Успішно"))
                 {
                     string Subject = "707 Активовано успішно! VIN: " + textBox_vin_zayavka.Text + ", Обєкт: " + name_obj_new_textBox.Text + ", Проект: " + textBox_zamovnik.Text;
-                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua>,<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<y.kravchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>";
+                    string recip = "<" + _user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua>,<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<y.kravchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>";
                     DataTable dt = new DataTable();
 
                     dt.Columns.Add("Параметр");
@@ -921,7 +953,7 @@ namespace Disp_WinForm
 
                     object[] row11 = { "Дата дата активації", DateTime.Now.ToString() };
                     dt.Rows.Add(row11);
-                    object[] row13 = { "Оператор що активував", vars_form.user_login_name };
+                    object[] row13 = { "Оператор що активував", _user_login_name };
                     dt.Rows.Add(row13);
                     object[] row3 = { "Статс активації", comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) };
                     dt.Rows.Add(row3);
@@ -933,7 +965,7 @@ namespace Disp_WinForm
                     macros.send_mail(recip, Subject, Body);
                 }
             }
-            else if (vars_form.if_open_created_activation == 0)
+            else if (_if_open_created_activation == 0)
             {
                 if (textBox_who_chenge_pin.ReadOnly is true)
                 {
@@ -955,16 +987,16 @@ namespace Disp_WinForm
                                                                     ") " +
                                                                     "values (" +
                                                                     "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "'," +
-                                                                    "'" + vars_form.user_login_id + "'," +
-                                                                    "'" + vars_form.id_db_object_for_activation + "'," +
+                                                                    "'" + _user_login_id + "'," +
+                                                                    "'" + _id_db_object_for_activation + "'," +
                                                                     "'" + comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) + "'," +
                                                                     "'" + MySqlHelper.EscapeString(name_obj_new_textBox.Text) + "'," +
                                                                     "'" + MySqlHelper.EscapeString(uvaga_textBox.Text) + "'," +
-                                                                    "'" + vars_form.transfer_vo1_vo_form + "'," +
-                                                                    "'" + vars_form.transfer_vo2_vo_form + "'," +
-                                                                    "'" + vars_form.transfer_vo3_vo_form + "'," +
-                                                                    "'" + vars_form.transfer_vo4_vo_form + "'," +
-                                                                    "'" + vars_form.transfer_vo5_vo_form + "'," +
+                                                                    "'" + _transfer_vo1_vo_form + "'," +
+                                                                    "'" + _transfer_vo2_vo_form + "'," +
+                                                                    "'" + _transfer_vo3_vo_form + "'," +
+                                                                    "'" + _transfer_vo4_vo_form + "'," +
+                                                                    "'" + _transfer_vo5_vo_form + "'," +
                                                                     "'" + MySqlHelper.EscapeString(kodove_slovo_textBox.Text) + "'," +
                                                                     "'" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
                                                                     "'" + textBox_comments.Text + "'" +
@@ -993,16 +1025,16 @@ namespace Disp_WinForm
                                                                     ") " +
                                                                     "values (" +
                                                                     "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "'," +
-                                                                    "'" + vars_form.user_login_id + "'," +
-                                                                    "'" + vars_form.id_db_object_for_activation + "'," +
+                                                                    "'" + _user_login_id + "'," +
+                                                                    "'" + _id_db_object_for_activation + "'," +
                                                                     "'" + comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) + "'," +
                                                                     "'" + MySqlHelper.EscapeString(name_obj_new_textBox.Text) + "'," +
                                                                     "'" + MySqlHelper.EscapeString(uvaga_textBox.Text) + "'," +
-                                                                    "'" + vars_form.transfer_vo1_vo_form + "'," +
-                                                                    "'" + vars_form.transfer_vo2_vo_form + "'," +
-                                                                    "'" + vars_form.transfer_vo3_vo_form + "'," +
-                                                                    "'" + vars_form.transfer_vo4_vo_form + "'," +
-                                                                    "'" + vars_form.transfer_vo5_vo_form + "'," +
+                                                                    "'" + _transfer_vo1_vo_form + "'," +
+                                                                    "'" + _transfer_vo2_vo_form + "'," +
+                                                                    "'" + _transfer_vo3_vo_form + "'," +
+                                                                    "'" + _transfer_vo4_vo_form + "'," +
+                                                                    "'" + _transfer_vo5_vo_form + "'," +
                                                                     "'" + MySqlHelper.EscapeString(kodove_slovo_textBox.Text) + "'," +
                                                                     "'" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
                                                                     "'" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'," +
@@ -1012,9 +1044,9 @@ namespace Disp_WinForm
                                                                     ");");
                 }
 
-                vars_form.id_db_activation_for_activation = macros.sql_command("SELECT MAX(idActivation_object) FROM btk.Activation_object;");
+                _id_db_activation_for_activation = macros.sql_command("SELECT MAX(idActivation_object) FROM btk.Activation_object;");
 
-                string id_ts_info_fo_object_activation = macros.sql_command("select TS_info_idTS_info from btk.Object where idObject = '" + vars_form.id_db_object_for_activation + "'");
+                string id_ts_info_fo_object_activation = macros.sql_command("select TS_info_idTS_info from btk.Object where idObject = '" + _id_db_object_for_activation + "'");
                 if (textBox_licence_plate.Text != "")
                 {
                     //update lic plate in db
@@ -1023,7 +1055,7 @@ namespace Disp_WinForm
                     //update lic plate in WL
                     //Характеристики licence plate
                     string pp25_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
-                                                                   + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                   + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
                                                                    + "\"n\":\"registration_plate\","
                                                                    + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
                 }
@@ -1035,22 +1067,22 @@ namespace Disp_WinForm
 
                     //update VIN in WL
                     string pp28_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
-                                                                   + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                   + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
                                                                    + "\"n\":\"vin\","
                                                                    + "\"v\":\"" + textBox_vin_zayavka.Text.Replace("\"", "%5C%22") + "\"}");
 
                     //update хто активації in WL
                     string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                    + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
                                                                     + "\"id\":\"22\","
                                                                     + "\"callMode\":\"update\","
                                                                     + "\"n\":\"4.1.1 Оператор, що активував\","
-                                                                    + "\"v\":\"" + vars_form.user_login_name + "\"}");
+                                                                    + "\"v\":\"" + _user_login_name + "\"}");
                 }
 
                 //update коли активації in WL
                 string pp7_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                                + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
                                                                 + "\"id\":\"21\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"4.1 Дата активації\","
@@ -1065,7 +1097,7 @@ namespace Disp_WinForm
 
                 ////update коли тестував in WL
                 //string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                //                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                //                                                + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
                 //                                                + "\"id\":\"25\","
                 //                                                + "\"callMode\":\"update\","
                 //                                                + "\"n\":\"4.4 Обліковий запис WL\","
@@ -1073,8 +1105,8 @@ namespace Disp_WinForm
 
                 //Insert chenges
                 InsertActivationChenges(
-                    vars_form.id_db_activation_for_activation,
-                    vars_form.user_login_id,
+                    _id_db_activation_for_activation,
+                    _user_login_id,
                     Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"),
                     comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem),
                     name_obj_new_textBox.Text,
@@ -1096,7 +1128,7 @@ namespace Disp_WinForm
                 if (comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) == "Успішно" || comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) == "Успішно(PIN)")
                 {
                     string Subject = "707 Активовано успішно! VIN: " + textBox_vin_zayavka.Text + ", Обєкт: " + name_obj_new_textBox.Text + ", Проект: " + textBox_zamovnik.Text;
-                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua>,<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<y.kravchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>";
+                    string recip = "<" + _user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua>,<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<y.kravchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>";
                     DataTable dt = new DataTable();
 
                     dt.Columns.Add("Параметр");
@@ -1110,7 +1142,7 @@ namespace Disp_WinForm
 
                     object[] row11 = { "Дата дата активації", DateTime.Now.ToString() };
                     dt.Rows.Add(row11);
-                    object[] row13 = { "Оператор що активував", vars_form.user_login_name };
+                    object[] row13 = { "Оператор що активував", _user_login_name };
                     dt.Rows.Add(row13);
                     object[] row3 = { "Статс активації", comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) };
                     dt.Rows.Add(row3);
@@ -1125,12 +1157,12 @@ namespace Disp_WinForm
 
             if (remaynder_checkBox.Checked == true)
             {
-                string sql = string.Format("UPDATE btk.Activation_object SET remayder_date ='" + Convert.ToDateTime(remaynder_dateTimePicker.Value).ToString("yyyy-MM-dd HH:mm:ss") + "', remaynder_activate= 1 where idActivation_object=" + vars_form.id_db_activation_for_activation + ";");
+                string sql = string.Format("UPDATE btk.Activation_object SET remayder_date ='" + Convert.ToDateTime(remaynder_dateTimePicker.Value).ToString("yyyy-MM-dd HH:mm:ss") + "', remaynder_activate= 1 where idActivation_object=" + _id_db_activation_for_activation + ";");
                 macros.sql_command(sql);
             }
             if (remaynder_checkBox.Checked == false)
             {
-                string sql = string.Format("UPDATE btk.Activation_object SET remayder_date = null, remaynder_activate= 0 where idActivation_object=" + vars_form.id_db_activation_for_activation + ";");
+                string sql = string.Format("UPDATE btk.Activation_object SET remayder_date = null, remaynder_activate= 0 where idActivation_object=" + _id_db_activation_for_activation + ";");
                 macros.sql_command(sql);
             }
 
@@ -1218,14 +1250,14 @@ namespace Disp_WinForm
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = "/C " + path + " " + new String(maskedTextBox_kont_phone1.Text.Where(Char.IsDigit).ToArray());
+            startInfo.Arguments = "/C " + path + " " + new String(maskedTextBox_cont_phone2.Text.Where(Char.IsDigit).ToArray());
             process.StartInfo = startInfo;
             process.Start();
         }
 
         private void button_name_obj_generate_Click(object sender, EventArgs e)
         {
-            string id_db_object = macros.sql_command("select Object_idObject from btk.Activation_object where idActivation_object = '" + vars_form.id_db_activation_for_activation + "'");
+            string id_db_object = macros.sql_command("select Object_idObject from btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "'");
 
             DataTable name = macros.GetData("select " +
             "TS_model.TS_modelcol_name_short," +
@@ -1281,31 +1313,31 @@ namespace Disp_WinForm
         private void textBox_vo1_DoubleClick(object sender, EventArgs e)
         {
             textBox_vo1.Text = "";
-            vars_form.transfer_vo1_vo_form = "1";
+            _transfer_vo1_vo_form = "1";
         }
 
         private void textBox_vo2_DoubleClick(object sender, EventArgs e)
         {
             textBox_vo2.Text = "";
-            vars_form.transfer_vo2_vo_form = "1";
+            _transfer_vo2_vo_form = "1";
         }
 
         private void textBox_vo3_DoubleClick(object sender, EventArgs e)
         {
             textBox_vo3.Text = "";
-            vars_form.transfer_vo3_vo_form = "1";
+            _transfer_vo3_vo_form = "1";
         }
 
         private void textBox_vo4_DoubleClick(object sender, EventArgs e)
         {
             textBox_vo4.Text = "";
-            vars_form.transfer_vo4_vo_form = "1";
+            _transfer_vo4_vo_form = "1";
         }
 
         private void textBox_vo5_DoubleClick(object sender, EventArgs e)
         {
             textBox_vo5.Text = "";
-            vars_form.transfer_vo5_vo_form = "1";
+            _transfer_vo5_vo_form = "1";
         }
 
         private void textBox_who_chenge_pin_DoubleClick(object sender, EventArgs e)
@@ -1330,7 +1362,7 @@ namespace Disp_WinForm
                                                                    "from " +
                                                                    "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
                                                                    "where " +
-                                                                   "Object.Object_id_wl = " + vars_form.id_wl_object_for_activation + " and " +
+                                                                   "Object.Object_id_wl = " + _id_wl_object_for_activation + " and " +
                                                                    "Object.idObject=Object_idObject and " +
                                                                    "Subscription_idSubscr=idSubscr and " +
                                                                    "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
@@ -1341,7 +1373,7 @@ namespace Disp_WinForm
             if (get_produt_testing_device == "2" || get_produt_testing_device == "3")
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
-                                                         + "\"id\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                         + "\"id\":\"" + _id_wl_object_for_activation + "\","
                                                          + "\"flags\":\"‭‭‭‭2098177‬‬‬‬\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
@@ -1362,7 +1394,7 @@ namespace Disp_WinForm
             else if (get_produt_testing_device == "12")
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
-                                                         + "\"id\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                         + "\"id\":\"" + _id_wl_object_for_activation + "\","
                                                          + "\"flags\":\"‭‭‭‭2098177‬‬‬‬\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
@@ -1385,7 +1417,7 @@ namespace Disp_WinForm
             {
 
                 string json = macros.WialonRequest("&svc=unit/calc_last_message&params={"
-                                                         + "\"unitId\":\"" + vars_form.id_wl_object_for_activation + "\","
+                                                         + "\"unitId\":\"" + _id_wl_object_for_activation + "\","
                                                          + "\"sensors\":\"\","
                                                          + "\"flags\":\"1\"}"); //
 
@@ -1422,6 +1454,23 @@ namespace Disp_WinForm
                 return; // в этом побочном потоке ничего не делаем больше
             }
             getobjwl();
+        }
+
+        private void Activation_Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            macros.GetData("UPDATE btk.Activation_object " +
+                                "SET " +
+                                "Locked = '0', " +
+                                "Locked_user = '' " +
+                                "WHERE " +
+                                "idActivation_object = '" + _id_db_activation_for_activation + "';");
+        }
+
+        private void remaynder_checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (remaynder_checkBox.Checked == true)
+            { remaynder_dateTimePicker.Enabled = true; }
+            else { remaynder_dateTimePicker.Enabled = false; }
         }
     }
 }
