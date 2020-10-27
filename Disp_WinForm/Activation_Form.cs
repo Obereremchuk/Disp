@@ -467,7 +467,7 @@ namespace Disp_WinForm
 
         private void button_add_vo1_Click(object sender, EventArgs e)
         {
-            _num_vo = 1;
+            vars_form.kontakts_opened_from = 1;
             Kontacts Kontacts_form = new Kontacts();
             Kontacts_form.Activated += new EventHandler(form_vo_add_activated);
             Kontacts_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);

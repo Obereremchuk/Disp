@@ -53,7 +53,7 @@ namespace Disp_WinForm
 
         private void Get_kontackts()
         {
-            if (vars_form.num_vo >= 1)// vars_form.num_vo = 0 >> run for electrik (testuvannya) (idKontact_type=2(Електрик)), vars_form.num_vo = 1 >> run from VO (idKontact_type=1(Кліент))
+            if (vars_form.kontakts_opened_from == 1)// vars_form.num_vo = 0 >> run for electrik (testuvannya) (idKontact_type=2(Електрик)), vars_form.num_vo = 1 >> run from VO (idKontact_type=1(Кліент))
             {
                 MySqlConnection myConnection = new MySqlConnection("server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True; charset=utf8");
                 string sql = string.Format("SELECT * FROM btk.Kontakti, btk.Phonebook " +
@@ -204,7 +204,7 @@ namespace Disp_WinForm
 
         private void listView_kontackts_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (vars_form.num_vo >= 1)
+            if (vars_form.kontakts_opened_from == 1)
             {
                 ListViewHitTestInfo info = listView_kontackts.HitTest(e.X, e.Y);
                 ListViewItem item = info.Item;

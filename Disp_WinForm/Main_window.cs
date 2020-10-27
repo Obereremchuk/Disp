@@ -11480,7 +11480,7 @@ namespace Disp_WinForm
         public static string zvernenya { get; set; }
         public static string sort { get; set; }
         public static string sort_close { get; set; }
-        public static string type_alarm_sort_close { get; set; }
+        public static int kontakts_opened_from { get; set; }//electrik=0, vo=1
         public static string order_sort { get; set; }
         public static string order_close_sort { get; set; }
         public static int setting_font_size { get; set; }
