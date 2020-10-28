@@ -481,7 +481,12 @@ namespace Disp_WinForm
 
         private void form_vo_add_deactivated(object sender, FormClosedEventArgs e)
         {
-            if (_num_vo == 1)//VO1 1 familia make upper case
+            _transfer_vo1_vo_form = vars_form.transfer_vo1_vo_form;
+            _transfer_vo2_vo_form = vars_form.transfer_vo2_vo_form;
+            _transfer_vo3_vo_form = vars_form.transfer_vo3_vo_form;
+            _transfer_vo4_vo_form = vars_form.transfer_vo4_vo_form;
+            _transfer_vo5_vo_form = vars_form.transfer_vo5_vo_form;
+            if (vars_form.kontakts_opened_from == 1)//VO1 1 familia make upper case
             {
                 string VO_falilia = macros.sql_command("SELECT Kontakti_familia FROM btk.Kontakti where idKontakti = '" + _transfer_vo1_vo_form + "';");
                 string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + _transfer_vo1_vo_form + "';");
@@ -497,7 +502,7 @@ namespace Disp_WinForm
                     textBox_vo1.Text = VO_falilia.ToUpper() + " " + VO_imya_phone + ", " + VO_phone2;
                 }
             }
-            if (_num_vo == 2)
+            if (vars_form.kontakts_opened_from == 2)
             {
                 string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + _transfer_vo2_vo_form + "';");
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + _transfer_vo2_vo_form + "';");
@@ -512,7 +517,7 @@ namespace Disp_WinForm
                     textBox_vo2.Text = VO_familia_imya_phone + ", " + VO_phone2;
                 }
             }
-            if (_num_vo == 3)
+            if (vars_form.kontakts_opened_from == 3)
             {
                 string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + _transfer_vo3_vo_form + "';");
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + _transfer_vo3_vo_form + "';");
@@ -527,7 +532,7 @@ namespace Disp_WinForm
                     textBox_vo3.Text = VO_familia_imya_phone + ", " + VO_phone2;
                 }
             }
-            if (_num_vo == 4)
+            if (vars_form.kontakts_opened_from == 4)
             {
                 string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + _transfer_vo4_vo_form + "';");
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + _transfer_vo4_vo_form + "';");
@@ -535,7 +540,7 @@ namespace Disp_WinForm
                 { VO_phone2 = ""; }
                 textBox_vo4.Text = VO_familia_imya_phone + ", " + VO_phone2;
             }
-            if (_num_vo == 5)
+            if (vars_form.kontakts_opened_from == 5)
             {
                 string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + _transfer_vo5_vo_form + "';");
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + _transfer_vo5_vo_form + "';");
@@ -544,12 +549,12 @@ namespace Disp_WinForm
                 textBox_vo5.Text = VO_familia_imya_phone + ", " + VO_phone2;
             }
             this.Visible = true;// разблокируем окно контрагентов кактолько закрыто окно добавления контрагента
-            _num_vo = 0;
+            vars_form.kontakts_opened_from = 0;
         }
 
         private void button_add_vo2_Click(object sender, EventArgs e)
         {
-            _num_vo = 2;
+            vars_form.kontakts_opened_from = 2;
             Kontacts Kontacts_form = new Kontacts();
             Kontacts_form.Activated += new EventHandler(form_vo_add_activated);
             Kontacts_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
@@ -558,7 +563,7 @@ namespace Disp_WinForm
 
         private void button_add_vo3_Click(object sender, EventArgs e)
         {
-            _num_vo = 3;
+            vars_form.kontakts_opened_from = 3;
             Kontacts Kontacts_form = new Kontacts();
             Kontacts_form.Activated += new EventHandler(form_vo_add_activated);
             Kontacts_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
@@ -567,7 +572,7 @@ namespace Disp_WinForm
 
         private void button_add_vo4_Click(object sender, EventArgs e)
         {
-            _num_vo = 4;
+            vars_form.kontakts_opened_from = 4;
             Kontacts Kontacts_form = new Kontacts();
             Kontacts_form.Activated += new EventHandler(form_vo_add_activated);
             Kontacts_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
@@ -576,7 +581,7 @@ namespace Disp_WinForm
 
         private void button_add_vo5_Click(object sender, EventArgs e)
         {
-            _num_vo = 5;
+            vars_form.kontakts_opened_from = 5;
             Kontacts Kontacts_form = new Kontacts();
             Kontacts_form.Activated += new EventHandler(form_vo_add_activated);
             Kontacts_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
