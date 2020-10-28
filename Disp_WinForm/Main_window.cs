@@ -3321,6 +3321,7 @@ namespace Disp_WinForm
                                   "notification.curr_time, " +
                                   "alarm_ack.time_start_ack, " +
                                   "notification.time_stamp, " +
+                                  "notification.Status, " +
                                   "alarm_ack.alarm_text, " +
                                   "alarm_ack.vizov_gmp, " +
                                   "alarm_ack.vizov_police " +

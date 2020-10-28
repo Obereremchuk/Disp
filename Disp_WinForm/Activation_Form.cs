@@ -385,6 +385,7 @@ namespace Disp_WinForm
             textBox_email.Text = table2.Rows[0][5].ToString();
             textBox_product.Text = table2.Rows[0][6].ToString();
             textBox_zayavka_comments.Text = table2.Rows[0][13].ToString();
+            textBox_svidoctvo_tz.Text= macros.sql_command("SELECT svidoctvo_tz FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "'");
             // Формируем название проекта в зависимости от типа контрагента и названии контрагента
             if (table2.Rows[0][12].ToString() == "1")
             { textBox_zamovnik.Text = "Дилер (" + table2.Rows[0][7].ToString() + ")"; }
@@ -831,7 +832,8 @@ namespace Disp_WinForm
                         "kodove_slovo = '" + MySqlHelper.EscapeString(kodove_slovo_textBox.Text) + "'," +
                         "alarm_button = '" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
                         "pin_chenged = '" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'," +
-                        "comment = '" + textBox_comments.Text + "' " +
+                        "comment = '" + textBox_comments.Text + "', " +
+                        "svidoctvo_tz = '" + textBox_svidoctvo_tz.Text + "' " +
                         "where " +
                         "idActivation_object = '" + _id_db_activation_for_activation + "'" +
                         ";");
@@ -856,7 +858,8 @@ namespace Disp_WinForm
                         "pin_chenged = '" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'," +
                         "Who_chenge_pin = '" + textBox_who_chenge_pin.Text + "'," +
                         "Date_chenge_pin = '" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "'," +
-                        "comment = '" + textBox_comments.Text + "' " +
+                        "comment = '" + textBox_comments.Text + "', " +
+                        "svidoctvo_tz = '" + textBox_svidoctvo_tz.Text + "' " +
                         "where " +
                         "idActivation_object = '" + _id_db_activation_for_activation + "'" +
                         ";");
@@ -988,7 +991,8 @@ namespace Disp_WinForm
                                                                     "vo5, " +
                                                                     "kodove_slovo," +
                                                                     "alarm_button," +
-                                                                    "comment " +
+                                                                    "comment, " +
+                                                                    "svidoctvo_tz " +
                                                                     ") " +
                                                                     "values (" +
                                                                     "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "'," +
@@ -1004,7 +1008,8 @@ namespace Disp_WinForm
                                                                     "'" + _transfer_vo5_vo_form + "'," +
                                                                     "'" + MySqlHelper.EscapeString(kodove_slovo_textBox.Text) + "'," +
                                                                     "'" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
-                                                                    "'" + textBox_comments.Text + "'" +
+                                                                    "'" + textBox_comments.Text + "', " +
+                                                                    "'" + textBox_svidoctvo_tz.Text + "' " +
                                                                     ");");
                 }
                 else
@@ -1026,7 +1031,8 @@ namespace Disp_WinForm
                                                                     "pin_chenged," +
                                                                     "Who_chenge_pin," +
                                                                     "Date_chenge_pin," +
-                                                                    "comment " +
+                                                                    "comment, " +
+                                                                    "svidoctvo_tz " +
                                                                     ") " +
                                                                     "values (" +
                                                                     "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "'," +
@@ -1045,7 +1051,8 @@ namespace Disp_WinForm
                                                                     "'" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'," +
                                                                     "'" + textBox_who_chenge_pin.Text + "'," +
                                                                     "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "'," +
-                                                                    "'" + textBox_comments.Text + "'" +
+                                                                    "'" + textBox_comments.Text + "', " +
+                                                                    "'" + textBox_svidoctvo_tz.Text + "' "+
                                                                     ");");
                 }
 

@@ -140,6 +140,9 @@
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.label_test_dop_1 = new System.Windows.Forms.Label();
             this.label_eng_run = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.label34 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.textBox_commets = new System.Windows.Forms.TextBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
@@ -152,9 +155,8 @@
             this.tabPage_anketa = new System.Windows.Forms.TabPage();
             this.tabPage_map = new System.Windows.Forms.TabPage();
             this.geckoWebBrowser_testing = new Gecko.GeckoWebBrowser();
-            this.label32 = new System.Windows.Forms.Label();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.label34 = new System.Windows.Forms.Label();
+            this.textBox_jammer_place = new System.Windows.Forms.TextBox();
+            this.textBox_gps_place = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -264,18 +266,13 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.groupBox5);
             this.groupBox1.Controls.Add(this.comboBox_ustanoshik_poisk);
             this.groupBox1.Controls.Add(this.comboBox_test_sto);
-            this.groupBox1.Controls.Add(this.groupBox4);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.groupBox7);
-            this.groupBox1.Controls.Add(this.groupBox6);
-            this.groupBox1.Controls.Add(this.groupBox3);
-            this.groupBox1.Location = new System.Drawing.Point(6, 6);
+            this.groupBox1.Location = new System.Drawing.Point(7, 9);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(482, 734);
+            this.groupBox1.Size = new System.Drawing.Size(482, 74);
             this.groupBox1.TabIndex = 66;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Анкета";
@@ -283,10 +280,12 @@
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.comboBox_device2);
-            this.groupBox5.Controls.Add(this.button3);
             this.groupBox5.Controls.Add(this.checkBox_sensor_autostart);
+            this.groupBox5.Controls.Add(this.button3);
             this.groupBox5.Controls.Add(this.label3);
             this.groupBox5.Controls.Add(this.label4);
+            this.groupBox5.Controls.Add(this.textBox_gps_place);
+            this.groupBox5.Controls.Add(this.textBox_jammer_place);
             this.groupBox5.Controls.Add(this.textBox_other_alarm);
             this.groupBox5.Controls.Add(this.checkBox_lock_hood);
             this.groupBox5.Controls.Add(this.checkBox_sensor_objema);
@@ -299,9 +298,9 @@
             this.groupBox5.Controls.Add(this.imei_obj_textBox);
             this.groupBox5.Controls.Add(this.label18);
             this.groupBox5.Controls.Add(this.label25);
-            this.groupBox5.Location = new System.Drawing.Point(0, 192);
+            this.groupBox5.Location = new System.Drawing.Point(7, 208);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(482, 149);
+            this.groupBox5.Size = new System.Drawing.Size(482, 180);
             this.groupBox5.TabIndex = 121;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Загальна інформація про установку";
@@ -336,7 +335,7 @@
             // checkBox_sensor_autostart
             // 
             this.checkBox_sensor_autostart.AutoSize = true;
-            this.checkBox_sensor_autostart.Location = new System.Drawing.Point(225, 94);
+            this.checkBox_sensor_autostart.Location = new System.Drawing.Point(374, 96);
             this.checkBox_sensor_autostart.Name = "checkBox_sensor_autostart";
             this.checkBox_sensor_autostart.Size = new System.Drawing.Size(85, 17);
             this.checkBox_sensor_autostart.TabIndex = 19;
@@ -364,7 +363,7 @@
             // 
             // textBox_other_alarm
             // 
-            this.textBox_other_alarm.Location = new System.Drawing.Point(105, 116);
+            this.textBox_other_alarm.Location = new System.Drawing.Point(104, 154);
             this.textBox_other_alarm.Name = "textBox_other_alarm";
             this.textBox_other_alarm.Size = new System.Drawing.Size(366, 20);
             this.textBox_other_alarm.TabIndex = 22;
@@ -372,7 +371,7 @@
             // checkBox_lock_hood
             // 
             this.checkBox_lock_hood.AutoSize = true;
-            this.checkBox_lock_hood.Location = new System.Drawing.Point(378, 93);
+            this.checkBox_lock_hood.Location = new System.Drawing.Point(374, 112);
             this.checkBox_lock_hood.Name = "checkBox_lock_hood";
             this.checkBox_lock_hood.Size = new System.Drawing.Size(96, 17);
             this.checkBox_lock_hood.TabIndex = 21;
@@ -382,7 +381,7 @@
             // checkBox_sensor_objema
             // 
             this.checkBox_sensor_objema.AutoSize = true;
-            this.checkBox_sensor_objema.Location = new System.Drawing.Point(313, 93);
+            this.checkBox_sensor_objema.Location = new System.Drawing.Point(374, 128);
             this.checkBox_sensor_objema.Name = "checkBox_sensor_objema";
             this.checkBox_sensor_objema.Size = new System.Drawing.Size(64, 17);
             this.checkBox_sensor_objema.TabIndex = 20;
@@ -392,22 +391,24 @@
             // checkBox_sensor_gps
             // 
             this.checkBox_sensor_gps.AutoSize = true;
-            this.checkBox_sensor_gps.Location = new System.Drawing.Point(105, 94);
+            this.checkBox_sensor_gps.Location = new System.Drawing.Point(104, 99);
             this.checkBox_sensor_gps.Name = "checkBox_sensor_gps";
             this.checkBox_sensor_gps.Size = new System.Drawing.Size(48, 17);
             this.checkBox_sensor_gps.TabIndex = 17;
             this.checkBox_sensor_gps.Text = "GPS";
             this.checkBox_sensor_gps.UseVisualStyleBackColor = true;
+            this.checkBox_sensor_gps.CheckedChanged += new System.EventHandler(this.checkBox_sensor_gps_CheckedChanged);
             // 
             // checkBox_sensor_glushenia
             // 
             this.checkBox_sensor_glushenia.AutoSize = true;
-            this.checkBox_sensor_glushenia.Location = new System.Drawing.Point(154, 94);
+            this.checkBox_sensor_glushenia.Location = new System.Drawing.Point(104, 124);
             this.checkBox_sensor_glushenia.Name = "checkBox_sensor_glushenia";
             this.checkBox_sensor_glushenia.Size = new System.Drawing.Size(71, 17);
             this.checkBox_sensor_glushenia.TabIndex = 18;
             this.checkBox_sensor_glushenia.Text = "Глушіння";
             this.checkBox_sensor_glushenia.UseVisualStyleBackColor = true;
+            this.checkBox_sensor_glushenia.CheckedChanged += new System.EventHandler(this.checkBox_sensor_glushenia_CheckedChanged);
             // 
             // label22
             // 
@@ -452,7 +453,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(7, 120);
+            this.label18.Location = new System.Drawing.Point(6, 158);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(89, 13);
             this.label18.TabIndex = 115;
@@ -483,7 +484,7 @@
             this.groupBox4.Controls.Add(this.comboBox_test_model);
             this.groupBox4.Controls.Add(this.comboBox_kuzov_type);
             this.groupBox4.Controls.Add(this.comboBox_color);
-            this.groupBox4.Location = new System.Drawing.Point(0, 74);
+            this.groupBox4.Location = new System.Drawing.Point(7, 89);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(482, 113);
             this.groupBox4.TabIndex = 97;
@@ -587,7 +588,7 @@
             this.groupBox7.Controls.Add(this.textBox_current_pin);
             this.groupBox7.Controls.Add(this.label16);
             this.groupBox7.Controls.Add(this.label15);
-            this.groupBox7.Location = new System.Drawing.Point(0, 603);
+            this.groupBox7.Location = new System.Drawing.Point(7, 650);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(482, 131);
             this.groupBox7.TabIndex = 120;
@@ -694,7 +695,7 @@
             this.groupBox6.Controls.Add(this.label33);
             this.groupBox6.Controls.Add(this.textBox_wireless_tk);
             this.groupBox6.Controls.Add(this.label35);
-            this.groupBox6.Location = new System.Drawing.Point(0, 523);
+            this.groupBox6.Location = new System.Drawing.Point(6, 570);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(482, 74);
             this.groupBox6.TabIndex = 119;
@@ -756,7 +757,7 @@
             this.groupBox3.Controls.Add(this.label38);
             this.groupBox3.Controls.Add(this.checkBox_test_relay_plus);
             this.groupBox3.Controls.Add(this.label14);
-            this.groupBox3.Location = new System.Drawing.Point(0, 347);
+            this.groupBox3.Location = new System.Drawing.Point(6, 394);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(482, 170);
             this.groupBox3.TabIndex = 112;
@@ -1424,6 +1425,38 @@
             this.label_eng_run.Text = "#";
             this.label_eng_run.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label32
+            // 
+            this.label32.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(26, 322);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(81, 13);
+            this.label32.TabIndex = 89;
+            this.label32.Text = "14. Зажигание";
+            this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.Location = new System.Drawing.Point(4, 322);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(15, 14);
+            this.checkBox6.TabIndex = 43;
+            this.checkBox6.UseVisualStyleBackColor = true;
+            this.checkBox6.Visible = false;
+            // 
+            // label34
+            // 
+            this.label34.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(218, 322);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(267, 13);
+            this.label34.TabIndex = 90;
+            this.label34.Text = "#";
+            this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.textBox_commets);
@@ -1510,21 +1543,26 @@
             this.tabControl_testing.Location = new System.Drawing.Point(3, 3);
             this.tabControl_testing.Name = "tabControl_testing";
             this.tabControl_testing.SelectedIndex = 0;
-            this.tabControl_testing.Size = new System.Drawing.Size(1023, 779);
+            this.tabControl_testing.Size = new System.Drawing.Size(1023, 812);
             this.tabControl_testing.TabIndex = 122;
             // 
             // tabPage_anketa
             // 
+            this.tabPage_anketa.Controls.Add(this.groupBox5);
             this.tabPage_anketa.Controls.Add(this.groupBox1);
+            this.tabPage_anketa.Controls.Add(this.groupBox4);
             this.tabPage_anketa.Controls.Add(this.groupBox8);
             this.tabPage_anketa.Controls.Add(this.button_write);
             this.tabPage_anketa.Controls.Add(this.groupBox9);
             this.tabPage_anketa.Controls.Add(this.button_cancel);
             this.tabPage_anketa.Controls.Add(this.groupBox2);
+            this.tabPage_anketa.Controls.Add(this.groupBox3);
+            this.tabPage_anketa.Controls.Add(this.groupBox7);
+            this.tabPage_anketa.Controls.Add(this.groupBox6);
             this.tabPage_anketa.Location = new System.Drawing.Point(4, 22);
             this.tabPage_anketa.Name = "tabPage_anketa";
             this.tabPage_anketa.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_anketa.Size = new System.Drawing.Size(1015, 753);
+            this.tabPage_anketa.Size = new System.Drawing.Size(1015, 786);
             this.tabPage_anketa.TabIndex = 0;
             this.tabPage_anketa.Text = "Тестування";
             this.tabPage_anketa.UseVisualStyleBackColor = true;
@@ -1552,43 +1590,27 @@
             this.geckoWebBrowser_testing.TabIndex = 0;
             this.geckoWebBrowser_testing.UseHttpActivityObserver = false;
             // 
-            // label32
+            // textBox_jammer_place
             // 
-            this.label32.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(26, 322);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(81, 13);
-            this.label32.TabIndex = 89;
-            this.label32.Text = "14. Зажигание";
-            this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.textBox_jammer_place.Enabled = false;
+            this.textBox_jammer_place.Location = new System.Drawing.Point(182, 122);
+            this.textBox_jammer_place.Name = "textBox_jammer_place";
+            this.textBox_jammer_place.Size = new System.Drawing.Size(161, 20);
+            this.textBox_jammer_place.TabIndex = 22;
             // 
-            // checkBox6
+            // textBox_gps_place
             // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(4, 322);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(15, 14);
-            this.checkBox6.TabIndex = 43;
-            this.checkBox6.UseVisualStyleBackColor = true;
-            this.checkBox6.Visible = false;
-            // 
-            // label34
-            // 
-            this.label34.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(218, 322);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(267, 13);
-            this.label34.TabIndex = 90;
-            this.label34.Text = "#";
-            this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.textBox_gps_place.Enabled = false;
+            this.textBox_gps_place.Location = new System.Drawing.Point(182, 97);
+            this.textBox_gps_place.Name = "textBox_gps_place";
+            this.textBox_gps_place.Size = new System.Drawing.Size(161, 20);
+            this.textBox_gps_place.TabIndex = 22;
             // 
             // Testing
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1024, 787);
+            this.ClientSize = new System.Drawing.Size(1024, 815);
             this.Controls.Add(this.tabControl_testing);
             this.MaximumSize = new System.Drawing.Size(1300, 1000);
             this.Name = "Testing";
@@ -1750,5 +1772,7 @@
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.TextBox textBox_gps_place;
+        private System.Windows.Forms.TextBox textBox_jammer_place;
     }
 }

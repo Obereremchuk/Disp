@@ -528,8 +528,12 @@ namespace Disp_WinForm
             if (other_sensor.Contains("Замок"))
             { checkBox_lock_hood.Checked = true; }
 
-            
-            
+            textBox_gps_place.Text= db_TS_info.Rows[0]["TS_infocol_gps_place"].ToString();
+            textBox_jammer_place.Text = db_TS_info.Rows[0]["TS_infocol_jammer_place"].ToString();
+
+
+
+
 
             textBox_uvaga.Text = db_TS_info.Rows[0]["TS_infocol_uvaga"].ToString();
             textBox_wireless_tk.Text = db_TS_info.Rows[0]["TS_infocol_wireless_tk"].ToString();
@@ -657,8 +661,8 @@ namespace Disp_WinForm
             else
             { wireless_tk = textBox_wireless_tk.Text; }
 
-            string other_sensor = (checkBox_sensor_gps.Checked ? "GPS, " : "") 
-                + (checkBox_sensor_glushenia.Checked ? "Глушіння, " : "")
+            string other_sensor = (checkBox_sensor_gps.Checked ? "GPS-Місце: "+textBox_gps_place.Text+", " : "") 
+                + (checkBox_sensor_glushenia.Checked ? "Глушіння-Місце: " + textBox_jammer_place.Text + ", " : "")
                 + (checkBox_sensor_autostart.Checked ? "Автозапуск, " : "")
                 + (checkBox_sensor_objema.Checked ? "Обєму, " : "")
                 + (checkBox_lock_hood.Checked ? "Замок капоту, " : "");
@@ -689,6 +693,8 @@ namespace Disp_WinForm
                                "Kontakti_idKontakti='" + comboBox_ustanoshik_poisk.SelectedValue.ToString() + "', " +
                                "Kontragenti_idKontragenti='" + comboBox_test_sto.SelectedValue.ToString() + "', " +
                                "TS_infocol_relay_on_plus='" + (checkBox_test_relay_plus.Checked ? "1" : "0") + "', " +
+                               "TS_infocol_jammer_place='" + textBox_jammer_place.Text + "', " +
+                               "TS_infocol_gps_place='" + textBox_gps_place.Text + "', " +
                                "TS_infocol_new_pin='" + MySqlHelper.EscapeString(textBox_current_pin.Text) + "' " +
                                "where idTS_info=" + id_db_TS_info + ";");
 
@@ -3688,6 +3694,20 @@ namespace Disp_WinForm
             {
                 textBox_vin.BackColor = Color.White;
             }
+        }
+
+        private void checkBox_sensor_gps_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_sensor_gps.Checked is true)
+            { textBox_gps_place.Enabled = true; }
+            else { textBox_gps_place.Enabled = false; }
+        }
+
+        private void checkBox_sensor_glushenia_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_sensor_glushenia.Checked is true)
+            { textBox_jammer_place.Enabled = true; }
+            else { textBox_jammer_place.Enabled = false; }
         }
     }
 }
