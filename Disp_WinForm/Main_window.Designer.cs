@@ -28,21 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle76 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle77 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle78 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle79 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle80 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle81 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle82 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle83 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle84 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle85 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle86 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle87 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle88 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle89 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle90 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl_testing = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.checkBox_hide_groupe_alarm = new System.Windows.Forms.CheckBox();
@@ -111,7 +111,10 @@
             this.tabPage_activation = new System.Windows.Forms.TabPage();
             this.dataGridView_for_activation = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.checkBox_activation_uspishno = new System.Windows.Forms.CheckBox();
             this.checkBox_activation_za_ves_chas_search = new System.Windows.Forms.CheckBox();
+            this.checkBox_activation_neuspishno = new System.Windows.Forms.CheckBox();
+            this.checkBox_activation_uspishno_pin = new System.Windows.Forms.CheckBox();
             this.dateTimePicker_activation_filter_end = new System.Windows.Forms.DateTimePicker();
             this.textBox_search_object_name_activation = new System.Windows.Forms.TextBox();
             this.dateTimePicker_activation_filter_start = new System.Windows.Forms.DateTimePicker();
@@ -134,13 +137,8 @@
             this.dateTime_rep_from = new System.Windows.Forms.DateTimePicker();
             this.dateTime_rep_to = new System.Windows.Forms.DateTimePicker();
             this.tab_create_object = new System.Windows.Forms.TabPage();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.comboBox_user_to_crate_obj = new System.Windows.Forms.ComboBox();
-            this.dateTimePicker_date_created_by_user = new System.Windows.Forms.DateTimePicker();
-            this.dataGridView_CreatedObjects = new System.Windows.Forms.DataGridView();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.geckoWebBrowser_GoogleMaseges = new Gecko.GeckoWebBrowser();
+            this.tabControl_in_object_create = new System.Windows.Forms.TabControl();
+            this.tabPage_create_in_ctreate_obj = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button_add_910 = new System.Windows.Forms.Button();
             this.comboBox_printers = new System.Windows.Forms.ComboBox();
@@ -166,6 +164,36 @@
             this.textBox_bt_enable = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.comboBox_user_to_crate_obj = new System.Windows.Forms.ComboBox();
+            this.dateTimePicker_date_created_by_user = new System.Windows.Forms.DateTimePicker();
+            this.dataGridView_CreatedObjects = new System.Windows.Forms.DataGridView();
+            this.tabPage_add_in_ctreate_obj = new System.Windows.Forms.TabPage();
+            this.respone_textBox = new System.Windows.Forms.TextBox();
+            this.request_textBox = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBox3 = new System.Windows.Forms.MaskedTextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.maskedTextBox4 = new System.Windows.Forms.MaskedTextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.Request_button = new System.Windows.Forms.Button();
+            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.listBox3 = new System.Windows.Forms.ListBox();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.geckoWebBrowser_GoogleMaseges = new Gecko.GeckoWebBrowser();
             this.tabPage_work_whith_obj = new System.Windows.Forms.TabPage();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -191,9 +219,7 @@
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.checkBox_activation_uspishno_pin = new System.Windows.Forms.CheckBox();
-            this.checkBox_activation_neuspishno = new System.Windows.Forms.CheckBox();
-            this.checkBox_activation_uspishno = new System.Windows.Forms.CheckBox();
+            this.checkBox_inshe = new System.Windows.Forms.CheckBox();
             this.tabControl_testing.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_open_alarm)).BeginInit();
@@ -232,10 +258,13 @@
             this.tabPage_zvit.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tab_create_object.SuspendLayout();
+            this.tabControl_in_object_create.SuspendLayout();
+            this.tabPage_create_in_ctreate_obj.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBox12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_CreatedObjects)).BeginInit();
+            this.tabPage_add_in_ctreate_obj.SuspendLayout();
             this.groupBox11.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.tabPage_work_whith_obj.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage4.SuspendLayout();
@@ -268,7 +297,7 @@
             this.tabControl_testing.Location = new System.Drawing.Point(0, 0);
             this.tabControl_testing.Name = "tabControl_testing";
             this.tabControl_testing.SelectedIndex = 0;
-            this.tabControl_testing.Size = new System.Drawing.Size(1370, 581);
+            this.tabControl_testing.Size = new System.Drawing.Size(1370, 684);
             this.tabControl_testing.TabIndex = 0;
             this.tabControl_testing.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl_testing_Selecting);
             // 
@@ -282,7 +311,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1362, 555);
+            this.tabPage1.Size = new System.Drawing.Size(1362, 658);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Відкриті тривоги";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -291,7 +320,7 @@
             // 
             this.checkBox_hide_groupe_alarm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox_hide_groupe_alarm.AutoSize = true;
-            this.checkBox_hide_groupe_alarm.Location = new System.Drawing.Point(266, 526);
+            this.checkBox_hide_groupe_alarm.Location = new System.Drawing.Point(268, 631);
             this.checkBox_hide_groupe_alarm.Name = "checkBox_hide_groupe_alarm";
             this.checkBox_hide_groupe_alarm.Size = new System.Drawing.Size(67, 17);
             this.checkBox_hide_groupe_alarm.TabIndex = 4;
@@ -304,7 +333,7 @@
             // 
             this.checkBox_sort_order.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox_sort_order.AutoSize = true;
-            this.checkBox_sort_order.Location = new System.Drawing.Point(365, 526);
+            this.checkBox_sort_order.Location = new System.Drawing.Point(367, 631);
             this.checkBox_sort_order.Name = "checkBox_sort_order";
             this.checkBox_sort_order.Size = new System.Drawing.Size(70, 17);
             this.checkBox_sort_order.TabIndex = 3;
@@ -330,7 +359,7 @@
             "Звернення",
             "ID обєкту",
             "Згруповано до ID тривоги"});
-            this.comboBox_sort_column.Location = new System.Drawing.Point(451, 524);
+            this.comboBox_sort_column.Location = new System.Drawing.Point(453, 629);
             this.comboBox_sort_column.Name = "comboBox_sort_column";
             this.comboBox_sort_column.Size = new System.Drawing.Size(121, 21);
             this.comboBox_sort_column.TabIndex = 2;
@@ -340,7 +369,7 @@
             // button_add_alarm
             // 
             this.button_add_alarm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button_add_alarm.Location = new System.Drawing.Point(6, 520);
+            this.button_add_alarm.Location = new System.Drawing.Point(8, 625);
             this.button_add_alarm.Name = "button_add_alarm";
             this.button_add_alarm.Size = new System.Drawing.Size(139, 23);
             this.button_add_alarm.TabIndex = 1;
@@ -358,38 +387,38 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView_open_alarm.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            dataGridViewCellStyle76.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle76.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle76.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle76.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle76.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle76.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle76.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_open_alarm.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle76;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_open_alarm.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView_open_alarm.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle77.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle77.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle77.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle77.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle77.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle77.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle77.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_open_alarm.DefaultCellStyle = dataGridViewCellStyle77;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_open_alarm.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView_open_alarm.Location = new System.Drawing.Point(3, 6);
             this.dataGridView_open_alarm.MultiSelect = false;
             this.dataGridView_open_alarm.Name = "dataGridView_open_alarm";
             this.dataGridView_open_alarm.ReadOnly = true;
-            dataGridViewCellStyle78.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle78.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle78.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle78.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle78.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle78.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle78.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_open_alarm.RowHeadersDefaultCellStyle = dataGridViewCellStyle78;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_open_alarm.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView_open_alarm.RowHeadersVisible = false;
             this.dataGridView_open_alarm.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_open_alarm.Size = new System.Drawing.Size(1353, 508);
+            this.dataGridView_open_alarm.Size = new System.Drawing.Size(1353, 613);
             this.dataGridView_open_alarm.TabIndex = 0;
             this.dataGridView_open_alarm.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView_open_alarm.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
@@ -402,7 +431,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1362, 555);
+            this.tabPage2.Size = new System.Drawing.Size(1362, 658);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Пошук по тривогам";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -413,7 +442,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 82);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1356, 470);
+            this.groupBox2.Size = new System.Drawing.Size(1356, 573);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Архів відпрацьованих тривог";
@@ -428,14 +457,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView_close_alarm.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            dataGridViewCellStyle79.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle79.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle79.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle79.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle79.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle79.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle79.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_close_alarm.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle79;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_close_alarm.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView_close_alarm.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_close_alarm.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
@@ -451,28 +480,28 @@
             this.Column_time_stamp,
             this.Column_Users_idUsers_,
             this.Column_locked_user_});
-            dataGridViewCellStyle80.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle80.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle80.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle80.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle80.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle80.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle80.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_close_alarm.DefaultCellStyle = dataGridViewCellStyle80;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_close_alarm.DefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView_close_alarm.Location = new System.Drawing.Point(3, 15);
             this.dataGridView_close_alarm.MultiSelect = false;
             this.dataGridView_close_alarm.Name = "dataGridView_close_alarm";
             this.dataGridView_close_alarm.ReadOnly = true;
-            dataGridViewCellStyle81.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle81.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle81.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle81.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle81.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle81.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle81.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_close_alarm.RowHeadersDefaultCellStyle = dataGridViewCellStyle81;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_close_alarm.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView_close_alarm.RowHeadersVisible = false;
-            this.dataGridView_close_alarm.Size = new System.Drawing.Size(1350, 449);
+            this.dataGridView_close_alarm.Size = new System.Drawing.Size(1350, 552);
             this.dataGridView_close_alarm.TabIndex = 1;
             this.dataGridView_close_alarm.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
             this.dataGridView_close_alarm.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView3_CellFormatting);
@@ -710,35 +739,35 @@
             // 
             // dataGridView2
             // 
-            dataGridViewCellStyle82.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle82.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle82.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle82.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle82.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle82.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle82.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle82;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle83.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle83.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle83.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle83.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle83.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle83.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle83.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle83;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView2.Location = new System.Drawing.Point(3, 3);
             this.dataGridView2.Name = "dataGridView2";
-            dataGridViewCellStyle84.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle84.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle84.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle84.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle84.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle84.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle84.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle84;
-            this.dataGridView2.Size = new System.Drawing.Size(1356, 549);
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            this.dataGridView2.Size = new System.Drawing.Size(1356, 652);
             this.dataGridView2.TabIndex = 0;
             // 
             // tabPage_909_n
@@ -747,7 +776,7 @@
             this.tabPage_909_n.Location = new System.Drawing.Point(4, 22);
             this.tabPage_909_n.Name = "tabPage_909_n";
             this.tabPage_909_n.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_909_n.Size = new System.Drawing.Size(1362, 555);
+            this.tabPage_909_n.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_909_n.TabIndex = 8;
             this.tabPage_909_n.Text = "909";
             this.tabPage_909_n.UseVisualStyleBackColor = true;
@@ -764,7 +793,7 @@
             this.dataGridView_909_n.ReadOnly = true;
             this.dataGridView_909_n.RowHeadersVisible = false;
             this.dataGridView_909_n.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_909_n.Size = new System.Drawing.Size(1356, 549);
+            this.dataGridView_909_n.Size = new System.Drawing.Size(1356, 652);
             this.dataGridView_909_n.TabIndex = 0;
             this.dataGridView_909_n.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_909_n_CellDoubleClick);
             this.dataGridView_909_n.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_909_n_CellFormatting);
@@ -775,7 +804,7 @@
             this.tabPage_808.Location = new System.Drawing.Point(4, 22);
             this.tabPage_808.Name = "tabPage_808";
             this.tabPage_808.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_808.Size = new System.Drawing.Size(1362, 555);
+            this.tabPage_808.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_808.TabIndex = 5;
             this.tabPage_808.Text = "808";
             this.tabPage_808.UseVisualStyleBackColor = true;
@@ -793,7 +822,7 @@
             this.dataGridView_808_n.ReadOnly = true;
             this.dataGridView_808_n.RowHeadersVisible = false;
             this.dataGridView_808_n.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_808_n.Size = new System.Drawing.Size(1356, 549);
+            this.dataGridView_808_n.Size = new System.Drawing.Size(1356, 652);
             this.dataGridView_808_n.TabIndex = 1;
             this.dataGridView_808_n.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_808_n_CellDoubleClick);
             this.dataGridView_808_n.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_808_n_CellFormatting);
@@ -804,7 +833,7 @@
             this.tabPage_lost.Location = new System.Drawing.Point(4, 22);
             this.tabPage_lost.Name = "tabPage_lost";
             this.tabPage_lost.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_lost.Size = new System.Drawing.Size(1362, 555);
+            this.tabPage_lost.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_lost.TabIndex = 12;
             this.tabPage_lost.Text = "808_звязок";
             this.tabPage_lost.UseVisualStyleBackColor = true;
@@ -822,7 +851,7 @@
             this.dataGridView_lost.ReadOnly = true;
             this.dataGridView_lost.RowHeadersVisible = false;
             this.dataGridView_lost.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_lost.Size = new System.Drawing.Size(1356, 549);
+            this.dataGridView_lost.Size = new System.Drawing.Size(1356, 652);
             this.dataGridView_lost.TabIndex = 2;
             this.dataGridView_lost.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_lost_CellDoubleClick);
             this.dataGridView_lost.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_lost_CellFormatting);
@@ -833,7 +862,7 @@
             this.tabPage_p.Location = new System.Drawing.Point(4, 22);
             this.tabPage_p.Name = "tabPage_p";
             this.tabPage_p.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_p.Size = new System.Drawing.Size(1362, 555);
+            this.tabPage_p.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_p.TabIndex = 6;
             this.tabPage_p.Text = "Дилеры";
             this.tabPage_p.UseVisualStyleBackColor = true;
@@ -845,37 +874,37 @@
             this.dataGridView_dilery.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle85.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle85.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle85.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle85.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle85.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle85.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle85.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_dilery.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle85;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_dilery.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridView_dilery.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle86.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle86.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle86.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle86.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle86.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle86.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle86.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_dilery.DefaultCellStyle = dataGridViewCellStyle86;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_dilery.DefaultCellStyle = dataGridViewCellStyle11;
             this.dataGridView_dilery.Location = new System.Drawing.Point(3, 3);
             this.dataGridView_dilery.Name = "dataGridView_dilery";
             this.dataGridView_dilery.ReadOnly = true;
-            dataGridViewCellStyle87.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle87.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle87.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle87.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle87.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle87.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle87.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_dilery.RowHeadersDefaultCellStyle = dataGridViewCellStyle87;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_dilery.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridView_dilery.RowHeadersVisible = false;
             this.dataGridView_dilery.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_dilery.Size = new System.Drawing.Size(1356, 621);
+            this.dataGridView_dilery.Size = new System.Drawing.Size(1356, 652);
             this.dataGridView_dilery.TabIndex = 0;
             this.dataGridView_dilery.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_dilery_CellDoubleClick);
             this.dataGridView_dilery.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_dilery_CellFormatting);
@@ -886,7 +915,7 @@
             this.tabPage_sales.Location = new System.Drawing.Point(4, 22);
             this.tabPage_sales.Name = "tabPage_sales";
             this.tabPage_sales.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_sales.Size = new System.Drawing.Size(1362, 555);
+            this.tabPage_sales.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_sales.TabIndex = 7;
             this.tabPage_sales.Text = "Продажи";
             this.tabPage_sales.UseVisualStyleBackColor = true;
@@ -898,37 +927,37 @@
             this.dataGridView_sales.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle88.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle88.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle88.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle88.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle88.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle88.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle88.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_sales.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle88;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_sales.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             this.dataGridView_sales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle89.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle89.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle89.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle89.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle89.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle89.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle89.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_sales.DefaultCellStyle = dataGridViewCellStyle89;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_sales.DefaultCellStyle = dataGridViewCellStyle14;
             this.dataGridView_sales.Location = new System.Drawing.Point(3, 3);
             this.dataGridView_sales.Name = "dataGridView_sales";
             this.dataGridView_sales.ReadOnly = true;
-            dataGridViewCellStyle90.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle90.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle90.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle90.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle90.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle90.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle90.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_sales.RowHeadersDefaultCellStyle = dataGridViewCellStyle90;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_sales.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.dataGridView_sales.RowHeadersVisible = false;
             this.dataGridView_sales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_sales.Size = new System.Drawing.Size(1356, 617);
+            this.dataGridView_sales.Size = new System.Drawing.Size(1356, 652);
             this.dataGridView_sales.TabIndex = 0;
             this.dataGridView_sales.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_sales_CellDoubleClick);
             this.dataGridView_sales.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_sales_CellFormatting);
@@ -939,7 +968,7 @@
             this.tabPage_accounts.Location = new System.Drawing.Point(4, 22);
             this.tabPage_accounts.Name = "tabPage_accounts";
             this.tabPage_accounts.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_accounts.Size = new System.Drawing.Size(1362, 555);
+            this.tabPage_accounts.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_accounts.TabIndex = 15;
             this.tabPage_accounts.Text = "Кабінет користувача";
             this.tabPage_accounts.UseVisualStyleBackColor = true;
@@ -957,7 +986,7 @@
             this.dataGridView_accounts.ReadOnly = true;
             this.dataGridView_accounts.RowHeadersVisible = false;
             this.dataGridView_accounts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_accounts.Size = new System.Drawing.Size(1356, 549);
+            this.dataGridView_accounts.Size = new System.Drawing.Size(1356, 652);
             this.dataGridView_accounts.TabIndex = 3;
             this.dataGridView_accounts.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_accounts_CellDoubleClick);
             this.dataGridView_accounts.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_accounts_CellFormatting);
@@ -970,7 +999,7 @@
             this.tabPage_zayavki_activation.Location = new System.Drawing.Point(4, 22);
             this.tabPage_zayavki_activation.Name = "tabPage_zayavki_activation";
             this.tabPage_zayavki_activation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_zayavki_activation.Size = new System.Drawing.Size(1362, 555);
+            this.tabPage_zayavki_activation.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_zayavki_activation.TabIndex = 11;
             this.tabPage_zayavki_activation.Text = "Заявки на установку";
             this.tabPage_zayavki_activation.UseVisualStyleBackColor = true;
@@ -1058,7 +1087,7 @@
             this.dataGridView_zayavki_na_activation.ReadOnly = true;
             this.dataGridView_zayavki_na_activation.RowHeadersVisible = false;
             this.dataGridView_zayavki_na_activation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_zayavki_na_activation.Size = new System.Drawing.Size(1353, 525);
+            this.dataGridView_zayavki_na_activation.Size = new System.Drawing.Size(1353, 556);
             this.dataGridView_zayavki_na_activation.TabIndex = 2;
             this.dataGridView_zayavki_na_activation.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_zayavki_na_activation_CellDoubleClick);
             this.dataGridView_zayavki_na_activation.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_zayavki_na_activation_CellFormatting);
@@ -1071,7 +1100,7 @@
             this.tabPage_testing.Location = new System.Drawing.Point(4, 22);
             this.tabPage_testing.Name = "tabPage_testing";
             this.tabPage_testing.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_testing.Size = new System.Drawing.Size(1362, 555);
+            this.tabPage_testing.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_testing.TabIndex = 3;
             this.tabPage_testing.Text = "Тестування";
             this.tabPage_testing.UseVisualStyleBackColor = true;
@@ -1092,7 +1121,7 @@
             this.dataGridView_testing.RowHeadersVisible = false;
             this.dataGridView_testing.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridView_testing.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_testing.Size = new System.Drawing.Size(1356, 440);
+            this.dataGridView_testing.Size = new System.Drawing.Size(1356, 543);
             this.dataGridView_testing.TabIndex = 13;
             this.dataGridView_testing.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_testing_CellDoubleClick);
             this.dataGridView_testing.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_testing_CellFormatting);
@@ -1187,7 +1216,7 @@
             this.tabPage_activation.Location = new System.Drawing.Point(4, 22);
             this.tabPage_activation.Name = "tabPage_activation";
             this.tabPage_activation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_activation.Size = new System.Drawing.Size(1362, 555);
+            this.tabPage_activation.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_activation.TabIndex = 4;
             this.tabPage_activation.Text = "Активація";
             this.tabPage_activation.UseVisualStyleBackColor = true;
@@ -1207,7 +1236,7 @@
             this.dataGridView_for_activation.ReadOnly = true;
             this.dataGridView_for_activation.RowHeadersVisible = false;
             this.dataGridView_for_activation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_for_activation.Size = new System.Drawing.Size(1356, 438);
+            this.dataGridView_for_activation.Size = new System.Drawing.Size(1356, 541);
             this.dataGridView_for_activation.TabIndex = 0;
             this.dataGridView_for_activation.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_for_activation_CellDoubleClick);
             this.dataGridView_for_activation.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_for_activation_CellFormatting);
@@ -1215,11 +1244,12 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.checkBox_activation_uspishno);
+            this.groupBox3.Controls.Add(this.checkBox_inshe);
             this.groupBox3.Controls.Add(this.checkBox_activation_za_ves_chas_search);
+            this.groupBox3.Controls.Add(this.checkBox_activation_uspishno);
+            this.groupBox3.Controls.Add(this.dateTimePicker_activation_filter_end);
             this.groupBox3.Controls.Add(this.checkBox_activation_neuspishno);
             this.groupBox3.Controls.Add(this.checkBox_activation_uspishno_pin);
-            this.groupBox3.Controls.Add(this.dateTimePicker_activation_filter_end);
             this.groupBox3.Controls.Add(this.textBox_search_object_name_activation);
             this.groupBox3.Controls.Add(this.dateTimePicker_activation_filter_start);
             this.groupBox3.Location = new System.Drawing.Point(361, 6);
@@ -1228,6 +1258,17 @@
             this.groupBox3.TabIndex = 15;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Фільтр";
+            // 
+            // checkBox_activation_uspishno
+            // 
+            this.checkBox_activation_uspishno.AutoSize = true;
+            this.checkBox_activation_uspishno.Location = new System.Drawing.Point(260, 83);
+            this.checkBox_activation_uspishno.Name = "checkBox_activation_uspishno";
+            this.checkBox_activation_uspishno.Size = new System.Drawing.Size(68, 17);
+            this.checkBox_activation_uspishno.TabIndex = 22;
+            this.checkBox_activation_uspishno.Text = "Успішно";
+            this.checkBox_activation_uspishno.UseVisualStyleBackColor = true;
+            this.checkBox_activation_uspishno.CheckedChanged += new System.EventHandler(this.checkBox_activation_uspishno_CheckedChanged);
             // 
             // checkBox_activation_za_ves_chas_search
             // 
@@ -1240,6 +1281,28 @@
             this.checkBox_activation_za_ves_chas_search.Text = "За весь час";
             this.checkBox_activation_za_ves_chas_search.UseVisualStyleBackColor = true;
             this.checkBox_activation_za_ves_chas_search.CheckedChanged += new System.EventHandler(this.checkBox_activation_za_ves_chas_search_CheckedChanged);
+            // 
+            // checkBox_activation_neuspishno
+            // 
+            this.checkBox_activation_neuspishno.AutoSize = true;
+            this.checkBox_activation_neuspishno.Location = new System.Drawing.Point(260, 37);
+            this.checkBox_activation_neuspishno.Name = "checkBox_activation_neuspishno";
+            this.checkBox_activation_neuspishno.Size = new System.Drawing.Size(109, 17);
+            this.checkBox_activation_neuspishno.TabIndex = 21;
+            this.checkBox_activation_neuspishno.Text = "Не проводилось";
+            this.checkBox_activation_neuspishno.UseVisualStyleBackColor = true;
+            this.checkBox_activation_neuspishno.CheckedChanged += new System.EventHandler(this.checkBox_activation_neuspishno_CheckedChanged);
+            // 
+            // checkBox_activation_uspishno_pin
+            // 
+            this.checkBox_activation_uspishno_pin.AutoSize = true;
+            this.checkBox_activation_uspishno_pin.Location = new System.Drawing.Point(260, 14);
+            this.checkBox_activation_uspishno_pin.Name = "checkBox_activation_uspishno_pin";
+            this.checkBox_activation_uspishno_pin.Size = new System.Drawing.Size(89, 17);
+            this.checkBox_activation_uspishno_pin.TabIndex = 20;
+            this.checkBox_activation_uspishno_pin.Text = "Успішно PIN";
+            this.checkBox_activation_uspishno_pin.UseVisualStyleBackColor = true;
+            this.checkBox_activation_uspishno_pin.CheckedChanged += new System.EventHandler(this.checkBox_activation_uspishno_pin_CheckedChanged);
             // 
             // dateTimePicker_activation_filter_end
             // 
@@ -1317,7 +1380,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1362, 555);
+            this.tabPage3.Size = new System.Drawing.Size(1362, 658);
             this.tabPage3.TabIndex = 9;
             this.tabPage3.Text = "Зупення обслуговування";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1388,7 +1451,7 @@
             this.tabPage_zvit.Location = new System.Drawing.Point(4, 22);
             this.tabPage_zvit.Name = "tabPage_zvit";
             this.tabPage_zvit.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_zvit.Size = new System.Drawing.Size(1362, 555);
+            this.tabPage_zvit.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_zvit.TabIndex = 10;
             this.tabPage_zvit.Text = "Звіти";
             this.tabPage_zvit.UseVisualStyleBackColor = true;
@@ -1452,101 +1515,37 @@
             // 
             // tab_create_object
             // 
-            this.tab_create_object.Controls.Add(this.groupBox12);
+            this.tab_create_object.Controls.Add(this.tabControl_in_object_create);
             this.tab_create_object.Controls.Add(this.groupBox11);
-            this.tab_create_object.Controls.Add(this.groupBox4);
             this.tab_create_object.Location = new System.Drawing.Point(4, 22);
             this.tab_create_object.Name = "tab_create_object";
             this.tab_create_object.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_create_object.Size = new System.Drawing.Size(1362, 555);
+            this.tab_create_object.Size = new System.Drawing.Size(1362, 658);
             this.tab_create_object.TabIndex = 13;
             this.tab_create_object.Text = "Сворення обекту";
             this.tab_create_object.UseVisualStyleBackColor = true;
             // 
-            // groupBox12
+            // tabControl_in_object_create
             // 
-            this.groupBox12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox12.Controls.Add(this.comboBox_user_to_crate_obj);
-            this.groupBox12.Controls.Add(this.dateTimePicker_date_created_by_user);
-            this.groupBox12.Controls.Add(this.dataGridView_CreatedObjects);
-            this.groupBox12.Location = new System.Drawing.Point(8, 362);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(387, 185);
-            this.groupBox12.TabIndex = 66;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "Створені обє\'кти користувачем";
+            this.tabControl_in_object_create.Controls.Add(this.tabPage_create_in_ctreate_obj);
+            this.tabControl_in_object_create.Controls.Add(this.tabPage_add_in_ctreate_obj);
+            this.tabControl_in_object_create.Location = new System.Drawing.Point(8, 6);
+            this.tabControl_in_object_create.Name = "tabControl_in_object_create";
+            this.tabControl_in_object_create.SelectedIndex = 0;
+            this.tabControl_in_object_create.Size = new System.Drawing.Size(406, 644);
+            this.tabControl_in_object_create.TabIndex = 63;
             // 
-            // comboBox_user_to_crate_obj
+            // tabPage_create_in_ctreate_obj
             // 
-            this.comboBox_user_to_crate_obj.FormattingEnabled = true;
-            this.comboBox_user_to_crate_obj.Location = new System.Drawing.Point(9, 18);
-            this.comboBox_user_to_crate_obj.Name = "comboBox_user_to_crate_obj";
-            this.comboBox_user_to_crate_obj.Size = new System.Drawing.Size(108, 21);
-            this.comboBox_user_to_crate_obj.TabIndex = 66;
-            this.comboBox_user_to_crate_obj.SelectedIndexChanged += new System.EventHandler(this.comboBox_user_to_crate_obj_SelectedIndexChanged);
-            // 
-            // dateTimePicker_date_created_by_user
-            // 
-            this.dateTimePicker_date_created_by_user.CustomFormat = "DD-MM-yyyy";
-            this.dateTimePicker_date_created_by_user.Location = new System.Drawing.Point(179, 19);
-            this.dateTimePicker_date_created_by_user.Name = "dateTimePicker_date_created_by_user";
-            this.dateTimePicker_date_created_by_user.Size = new System.Drawing.Size(197, 20);
-            this.dateTimePicker_date_created_by_user.TabIndex = 65;
-            this.dateTimePicker_date_created_by_user.ValueChanged += new System.EventHandler(this.dateTimePicker_date_created_by_user_ValueChanged);
-            // 
-            // dataGridView_CreatedObjects
-            // 
-            this.dataGridView_CreatedObjects.AllowUserToAddRows = false;
-            this.dataGridView_CreatedObjects.AllowUserToDeleteRows = false;
-            this.dataGridView_CreatedObjects.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView_CreatedObjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_CreatedObjects.Location = new System.Drawing.Point(9, 40);
-            this.dataGridView_CreatedObjects.Name = "dataGridView_CreatedObjects";
-            this.dataGridView_CreatedObjects.ReadOnly = true;
-            this.dataGridView_CreatedObjects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_CreatedObjects.Size = new System.Drawing.Size(367, 139);
-            this.dataGridView_CreatedObjects.TabIndex = 64;
-            this.dataGridView_CreatedObjects.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CreatedObjects_CellDoubleClick);
-            // 
-            // groupBox11
-            // 
-            this.groupBox11.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox11.Controls.Add(this.label11);
-            this.groupBox11.Controls.Add(this.geckoWebBrowser_GoogleMaseges);
-            this.groupBox11.Location = new System.Drawing.Point(401, 6);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(969, 541);
-            this.groupBox11.TabIndex = 62;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "CMC";
-            // 
-            // label11
-            // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(922, 519);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(39, 13);
-            this.label11.TabIndex = 62;
-            this.label11.Text = "enable";
-            this.label11.DoubleClick += new System.EventHandler(this.label11_DoubleClick);
-            // 
-            // geckoWebBrowser_GoogleMaseges
-            // 
-            this.geckoWebBrowser_GoogleMaseges.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.geckoWebBrowser_GoogleMaseges.FrameEventsPropagateToMainWindow = false;
-            this.geckoWebBrowser_GoogleMaseges.Location = new System.Drawing.Point(6, 17);
-            this.geckoWebBrowser_GoogleMaseges.Name = "geckoWebBrowser_GoogleMaseges";
-            this.geckoWebBrowser_GoogleMaseges.Size = new System.Drawing.Size(957, 518);
-            this.geckoWebBrowser_GoogleMaseges.TabIndex = 61;
-            this.geckoWebBrowser_GoogleMaseges.UseHttpActivityObserver = false;
+            this.tabPage_create_in_ctreate_obj.Controls.Add(this.groupBox4);
+            this.tabPage_create_in_ctreate_obj.Controls.Add(this.groupBox12);
+            this.tabPage_create_in_ctreate_obj.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_create_in_ctreate_obj.Name = "tabPage_create_in_ctreate_obj";
+            this.tabPage_create_in_ctreate_obj.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_create_in_ctreate_obj.Size = new System.Drawing.Size(398, 618);
+            this.tabPage_create_in_ctreate_obj.TabIndex = 0;
+            this.tabPage_create_in_ctreate_obj.Text = "Створення";
+            this.tabPage_create_in_ctreate_obj.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
@@ -1574,7 +1573,7 @@
             this.groupBox4.Controls.Add(this.textBox_bt_enable);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.label4);
-            this.groupBox4.Location = new System.Drawing.Point(8, 6);
+            this.groupBox4.Location = new System.Drawing.Point(6, 6);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(387, 350);
             this.groupBox4.TabIndex = 60;
@@ -1805,13 +1804,318 @@
             this.label4.TabIndex = 52;
             this.label4.Text = "GSM Code:";
             // 
+            // groupBox12
+            // 
+            this.groupBox12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox12.Controls.Add(this.comboBox_user_to_crate_obj);
+            this.groupBox12.Controls.Add(this.dateTimePicker_date_created_by_user);
+            this.groupBox12.Controls.Add(this.dataGridView_CreatedObjects);
+            this.groupBox12.Location = new System.Drawing.Point(6, 361);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(387, 251);
+            this.groupBox12.TabIndex = 66;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "Створені обє\'кти користувачем";
+            // 
+            // comboBox_user_to_crate_obj
+            // 
+            this.comboBox_user_to_crate_obj.FormattingEnabled = true;
+            this.comboBox_user_to_crate_obj.Location = new System.Drawing.Point(9, 18);
+            this.comboBox_user_to_crate_obj.Name = "comboBox_user_to_crate_obj";
+            this.comboBox_user_to_crate_obj.Size = new System.Drawing.Size(108, 21);
+            this.comboBox_user_to_crate_obj.TabIndex = 66;
+            this.comboBox_user_to_crate_obj.SelectedIndexChanged += new System.EventHandler(this.comboBox_user_to_crate_obj_SelectedIndexChanged);
+            // 
+            // dateTimePicker_date_created_by_user
+            // 
+            this.dateTimePicker_date_created_by_user.CustomFormat = "DD-MM-yyyy";
+            this.dateTimePicker_date_created_by_user.Location = new System.Drawing.Point(179, 19);
+            this.dateTimePicker_date_created_by_user.Name = "dateTimePicker_date_created_by_user";
+            this.dateTimePicker_date_created_by_user.Size = new System.Drawing.Size(197, 20);
+            this.dateTimePicker_date_created_by_user.TabIndex = 65;
+            this.dateTimePicker_date_created_by_user.ValueChanged += new System.EventHandler(this.dateTimePicker_date_created_by_user_ValueChanged);
+            // 
+            // dataGridView_CreatedObjects
+            // 
+            this.dataGridView_CreatedObjects.AllowUserToAddRows = false;
+            this.dataGridView_CreatedObjects.AllowUserToDeleteRows = false;
+            this.dataGridView_CreatedObjects.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView_CreatedObjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_CreatedObjects.Location = new System.Drawing.Point(9, 45);
+            this.dataGridView_CreatedObjects.Name = "dataGridView_CreatedObjects";
+            this.dataGridView_CreatedObjects.ReadOnly = true;
+            this.dataGridView_CreatedObjects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView_CreatedObjects.Size = new System.Drawing.Size(367, 200);
+            this.dataGridView_CreatedObjects.TabIndex = 64;
+            this.dataGridView_CreatedObjects.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CreatedObjects_CellDoubleClick);
+            // 
+            // tabPage_add_in_ctreate_obj
+            // 
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.respone_textBox);
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.request_textBox);
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.label13);
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.comboBox2);
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.maskedTextBox1);
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.textBox9);
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.label18);
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.label19);
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.comboBox3);
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.label20);
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.maskedTextBox2);
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.maskedTextBox3);
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.label21);
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.maskedTextBox4);
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.label22);
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.textBox11);
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.label23);
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.label24);
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.comboBox1);
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.Request_button);
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.textBox10);
+            this.tabPage_add_in_ctreate_obj.Controls.Add(this.listBox3);
+            this.tabPage_add_in_ctreate_obj.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_add_in_ctreate_obj.Name = "tabPage_add_in_ctreate_obj";
+            this.tabPage_add_in_ctreate_obj.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_add_in_ctreate_obj.Size = new System.Drawing.Size(398, 618);
+            this.tabPage_add_in_ctreate_obj.TabIndex = 1;
+            this.tabPage_add_in_ctreate_obj.Text = "Додати існуючий";
+            this.tabPage_add_in_ctreate_obj.UseVisualStyleBackColor = true;
+            // 
+            // respone_textBox
+            // 
+            this.respone_textBox.Location = new System.Drawing.Point(21, 425);
+            this.respone_textBox.Multiline = true;
+            this.respone_textBox.Name = "respone_textBox";
+            this.respone_textBox.Size = new System.Drawing.Size(371, 104);
+            this.respone_textBox.TabIndex = 81;
+            // 
+            // request_textBox
+            // 
+            this.request_textBox.Location = new System.Drawing.Point(21, 399);
+            this.request_textBox.Name = "request_textBox";
+            this.request_textBox.Size = new System.Drawing.Size(371, 20);
+            this.request_textBox.TabIndex = 80;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(23, 171);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(24, 13);
+            this.label13.TabIndex = 79;
+            this.label13.Text = "ICC";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(87, 167);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(305, 21);
+            this.comboBox2.TabIndex = 65;
+            // 
+            // maskedTextBox1
+            // 
+            this.maskedTextBox1.Location = new System.Drawing.Point(87, 194);
+            this.maskedTextBox1.Mask = "+38\\0000000000";
+            this.maskedTextBox1.Name = "maskedTextBox1";
+            this.maskedTextBox1.Size = new System.Drawing.Size(305, 20);
+            this.maskedTextBox1.TabIndex = 67;
+            // 
+            // textBox9
+            // 
+            this.textBox9.Location = new System.Drawing.Point(87, 218);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.Size = new System.Drawing.Size(305, 20);
+            this.textBox9.TabIndex = 66;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(23, 222);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(21, 13);
+            this.label18.TabIndex = 70;
+            this.label18.Text = "ID:";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(23, 194);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(46, 13);
+            this.label19.TabIndex = 72;
+            this.label19.Text = "SIM No:";
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Location = new System.Drawing.Point(87, 140);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(305, 21);
+            this.comboBox3.TabIndex = 64;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(23, 326);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(58, 13);
+            this.label20.TabIndex = 73;
+            this.label20.Text = "BLE Code:";
+            // 
+            // maskedTextBox2
+            // 
+            this.maskedTextBox2.Location = new System.Drawing.Point(87, 322);
+            this.maskedTextBox2.Mask = "000000";
+            this.maskedTextBox2.Name = "maskedTextBox2";
+            this.maskedTextBox2.ReadOnly = true;
+            this.maskedTextBox2.Size = new System.Drawing.Size(305, 20);
+            this.maskedTextBox2.TabIndex = 71;
+            // 
+            // maskedTextBox3
+            // 
+            this.maskedTextBox3.Location = new System.Drawing.Point(87, 296);
+            this.maskedTextBox3.Mask = "0000";
+            this.maskedTextBox3.Name = "maskedTextBox3";
+            this.maskedTextBox3.Size = new System.Drawing.Size(305, 20);
+            this.maskedTextBox3.TabIndex = 69;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(23, 248);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(53, 13);
+            this.label21.TabIndex = 75;
+            this.label21.Text = "Bt Enable";
+            // 
+            // maskedTextBox4
+            // 
+            this.maskedTextBox4.Location = new System.Drawing.Point(87, 270);
+            this.maskedTextBox4.Mask = "0000";
+            this.maskedTextBox4.Name = "maskedTextBox4";
+            this.maskedTextBox4.ReadOnly = true;
+            this.maskedTextBox4.Size = new System.Drawing.Size(305, 20);
+            this.maskedTextBox4.TabIndex = 68;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(23, 144);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(57, 13);
+            this.label22.TabIndex = 78;
+            this.label22.Text = "SN Prizrak";
+            // 
+            // textBox11
+            // 
+            this.textBox11.Location = new System.Drawing.Point(87, 244);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.ReadOnly = true;
+            this.textBox11.Size = new System.Drawing.Size(305, 20);
+            this.textBox11.TabIndex = 74;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(23, 300);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(32, 13);
+            this.label23.TabIndex = 76;
+            this.label23.Text = "PUK:";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(23, 274);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(62, 13);
+            this.label24.TabIndex = 77;
+            this.label24.Text = "GSM Code:";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(87, 97);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(305, 21);
+            this.comboBox1.TabIndex = 14;
+            // 
+            // Request_button
+            // 
+            this.Request_button.Location = new System.Drawing.Point(317, 535);
+            this.Request_button.Name = "Request_button";
+            this.Request_button.Size = new System.Drawing.Size(75, 77);
+            this.Request_button.TabIndex = 11;
+            this.Request_button.Text = "Розпочати";
+            this.Request_button.UseVisualStyleBackColor = true;
+            this.Request_button.Click += new System.EventHandler(this.Request_button_Click);
+            // 
+            // textBox10
+            // 
+            this.textBox10.Location = new System.Drawing.Point(87, 16);
+            this.textBox10.Name = "textBox10";
+            this.textBox10.Size = new System.Drawing.Size(305, 20);
+            this.textBox10.TabIndex = 13;
+            // 
+            // listBox3
+            // 
+            this.listBox3.FormattingEnabled = true;
+            this.listBox3.Location = new System.Drawing.Point(87, 35);
+            this.listBox3.Name = "listBox3";
+            this.listBox3.Size = new System.Drawing.Size(305, 56);
+            this.listBox3.TabIndex = 12;
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox11.Controls.Add(this.label11);
+            this.groupBox11.Controls.Add(this.geckoWebBrowser_GoogleMaseges);
+            this.groupBox11.Location = new System.Drawing.Point(416, 6);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(938, 644);
+            this.groupBox11.TabIndex = 62;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "CMC";
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(891, 622);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(39, 13);
+            this.label11.TabIndex = 62;
+            this.label11.Text = "enable";
+            this.label11.DoubleClick += new System.EventHandler(this.label11_DoubleClick);
+            // 
+            // geckoWebBrowser_GoogleMaseges
+            // 
+            this.geckoWebBrowser_GoogleMaseges.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.geckoWebBrowser_GoogleMaseges.FrameEventsPropagateToMainWindow = false;
+            this.geckoWebBrowser_GoogleMaseges.Location = new System.Drawing.Point(6, 17);
+            this.geckoWebBrowser_GoogleMaseges.Name = "geckoWebBrowser_GoogleMaseges";
+            this.geckoWebBrowser_GoogleMaseges.Size = new System.Drawing.Size(924, 621);
+            this.geckoWebBrowser_GoogleMaseges.TabIndex = 61;
+            this.geckoWebBrowser_GoogleMaseges.UseHttpActivityObserver = false;
+            // 
             // tabPage_work_whith_obj
             // 
             this.tabPage_work_whith_obj.Controls.Add(this.tabControl1);
             this.tabPage_work_whith_obj.Location = new System.Drawing.Point(4, 22);
             this.tabPage_work_whith_obj.Name = "tabPage_work_whith_obj";
             this.tabPage_work_whith_obj.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_work_whith_obj.Size = new System.Drawing.Size(1362, 555);
+            this.tabPage_work_whith_obj.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_work_whith_obj.TabIndex = 14;
             this.tabPage_work_whith_obj.Text = "Робота з об\'єктом";
             this.tabPage_work_whith_obj.UseVisualStyleBackColor = true;
@@ -2041,47 +2345,25 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1370, 581);
+            this.panel1.Size = new System.Drawing.Size(1370, 684);
             this.panel1.TabIndex = 1;
             // 
-            // checkBox_activation_uspishno_pin
+            // checkBox_inshe
             // 
-            this.checkBox_activation_uspishno_pin.AutoSize = true;
-            this.checkBox_activation_uspishno_pin.Location = new System.Drawing.Point(259, 17);
-            this.checkBox_activation_uspishno_pin.Name = "checkBox_activation_uspishno_pin";
-            this.checkBox_activation_uspishno_pin.Size = new System.Drawing.Size(89, 17);
-            this.checkBox_activation_uspishno_pin.TabIndex = 20;
-            this.checkBox_activation_uspishno_pin.Text = "Успішно PIN";
-            this.checkBox_activation_uspishno_pin.UseVisualStyleBackColor = true;
-            this.checkBox_activation_uspishno_pin.CheckedChanged += new System.EventHandler(this.checkBox_activation_uspishno_pin_CheckedChanged);
-            // 
-            // checkBox_activation_neuspishno
-            // 
-            this.checkBox_activation_neuspishno.AutoSize = true;
-            this.checkBox_activation_neuspishno.Location = new System.Drawing.Point(259, 40);
-            this.checkBox_activation_neuspishno.Name = "checkBox_activation_neuspishno";
-            this.checkBox_activation_neuspishno.Size = new System.Drawing.Size(109, 17);
-            this.checkBox_activation_neuspishno.TabIndex = 21;
-            this.checkBox_activation_neuspishno.Text = "Не проводилось";
-            this.checkBox_activation_neuspishno.UseVisualStyleBackColor = true;
-            this.checkBox_activation_neuspishno.CheckedChanged += new System.EventHandler(this.checkBox_activation_neuspishno_CheckedChanged);
-            // 
-            // checkBox_activation_uspishno
-            // 
-            this.checkBox_activation_uspishno.AutoSize = true;
-            this.checkBox_activation_uspishno.Location = new System.Drawing.Point(259, 63);
-            this.checkBox_activation_uspishno.Name = "checkBox_activation_uspishno";
-            this.checkBox_activation_uspishno.Size = new System.Drawing.Size(68, 17);
-            this.checkBox_activation_uspishno.TabIndex = 22;
-            this.checkBox_activation_uspishno.Text = "Успішно";
-            this.checkBox_activation_uspishno.UseVisualStyleBackColor = true;
-            this.checkBox_activation_uspishno.CheckedChanged += new System.EventHandler(this.checkBox_activation_uspishno_CheckedChanged);
+            this.checkBox_inshe.AutoSize = true;
+            this.checkBox_inshe.Location = new System.Drawing.Point(260, 60);
+            this.checkBox_inshe.Name = "checkBox_inshe";
+            this.checkBox_inshe.Size = new System.Drawing.Size(49, 17);
+            this.checkBox_inshe.TabIndex = 23;
+            this.checkBox_inshe.Text = "Інше";
+            this.checkBox_inshe.UseVisualStyleBackColor = true;
+            this.checkBox_inshe.CheckedChanged += new System.EventHandler(this.checkBox_inshe_CheckedChanged);
             // 
             // Main_window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1370, 581);
+            this.ClientSize = new System.Drawing.Size(1370, 684);
             this.Controls.Add(this.panel1);
             this.Name = "Main_window";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -2137,12 +2419,16 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.tab_create_object.ResumeLayout(false);
-            this.groupBox12.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_CreatedObjects)).EndInit();
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
+            this.tabControl_in_object_create.ResumeLayout(false);
+            this.tabPage_create_in_ctreate_obj.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox12.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_CreatedObjects)).EndInit();
+            this.tabPage_add_in_ctreate_obj.ResumeLayout(false);
+            this.tabPage_add_in_ctreate_obj.PerformLayout();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
             this.tabPage_work_whith_obj.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
@@ -2310,6 +2596,32 @@
         private System.Windows.Forms.CheckBox checkBox_activation_uspishno;
         private System.Windows.Forms.CheckBox checkBox_activation_neuspishno;
         private System.Windows.Forms.CheckBox checkBox_activation_uspishno_pin;
+        private System.Windows.Forms.TabControl tabControl_in_object_create;
+        private System.Windows.Forms.TabPage tabPage_create_in_ctreate_obj;
+        private System.Windows.Forms.TabPage tabPage_add_in_ctreate_obj;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox2;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox3;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox4;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button Request_button;
+        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.ListBox listBox3;
+        private System.Windows.Forms.TextBox respone_textBox;
+        private System.Windows.Forms.TextBox request_textBox;
+        private System.Windows.Forms.CheckBox checkBox_inshe;
     }
 }
 

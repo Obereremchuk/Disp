@@ -11452,6 +11452,19 @@ namespace Disp_WinForm
             { textBox_search_object_name_activation.Text = "Успішно"; }
             else { textBox_search_object_name_activation.Text = ""; }
         }
+
+        private void Request_button_Click(object sender, EventArgs e)
+        {
+            string a = macros.HTTPRequest(request_textBox.Text);
+            respone_textBox.Text = a;
+        }
+
+        private void checkBox_inshe_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_inshe.Checked is true)
+            { textBox_search_object_name_activation.Text = "Інше"; }
+            else { textBox_search_object_name_activation.Text = ""; }
+        }
     }
 
     internal class List_add_alarm

@@ -199,7 +199,10 @@ namespace Disp_WinForm
 
         private void textBox_search_kontackts_TextChanged(object sender, EventArgs e)
         {
-            Get_kontackts();
+            if (textBox_search_kontackts.Text.Length >= 3)
+            {
+                Get_kontackts();
+            }
         }
 
         private void listView_kontackts_MouseDoubleClick(object sender, MouseEventArgs e)

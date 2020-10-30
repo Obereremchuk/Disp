@@ -15,6 +15,7 @@ using DocumentFormat.OpenXml.Packaging;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using System.Drawing.Printing;
+using System.Net.Http.Headers;
 
 namespace Disp_WinForm
 {
@@ -200,6 +201,42 @@ namespace Disp_WinForm
                 return "";
             }
         }
+
+        public string HTTPRequest(string Request)
+        {
+            //{
+            //    var webUrl = "http://localhost/saleapi/api/";
+            //    var uri = "api/sales";
+            //    client.BaseAddress = new Uri(webUrl);
+            //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //    client.DefaultRequestHeaders.ConnectionClose = true;
+
+            //    //Set Basic Auth
+            //    var user = "username";
+            //    var password = "password";
+            //    var base64String = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{user}:{password}"));
+            //    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64String);
+
+            //    var result = await client.PostAsJsonAsync(uri, model);
+            //    return result;
+            //}//using (var client = new HttpClient())
+            
+
+            var user = "a.oberemchuk@venbest.com.ua";
+            var password = "!!034VBNhgTR62";
+
+            var client = new HttpClient();
+            var content = new StringContent(Request, Encoding.UTF8, "application/x-www-form-urlencoded");
+            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var address = "https://api.m2m.vodafone.com/m2m/v2/oauth2/access-token";
+            var base64String = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{user}:{password}"));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64String);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+            var result = client.PostAsync(address, content).Result;
+            string contents = result.Content.ReadAsStringAsync().Result;
+            return contents;
+        }
+
         public string WialonRequestSimple(string Request)
         {
 

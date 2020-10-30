@@ -89,6 +89,9 @@ namespace Disp_WinForm
 
         private void load_form_for_sengl_activation()
         {
+            textBox_service_botton.Text = macros.sql_command("SELECT TS_infocol_place_service_button FROM btk.Object, btk.TS_info where Object_id_wl = '" + _id_wl_object_for_activation + "' and TS_info.idTS_info = Object.TS_info_idTS_info;");
+            textBox_tk_botton.Text = macros.sql_command("SELECT TS_infocol_place_tk FROM btk.Object, btk.TS_info where Object_id_wl = '" + _id_wl_object_for_activation + "' and TS_info.idTS_info = Object.TS_info_idTS_info;");
+
             string json = macros.WialonRequest("&svc=core/search_items&params={" +
                                                     "\"spec\":{" +
                                                     "\"itemsType\":\"avl_unit\"," +
@@ -208,6 +211,10 @@ namespace Disp_WinForm
         //init command on load form
         private void load_form_for_zayavka()
         {
+
+            textBox_service_botton.Text = macros.sql_command("SELECT TS_infocol_place_service_button FROM btk.Object, btk.TS_info where Object_id_wl = '" + _id_wl_object_for_activation + "' and TS_info.idTS_info = Object.TS_info_idTS_info;");
+            textBox_tk_botton.Text = macros.sql_command("SELECT TS_infocol_place_tk FROM btk.Object, btk.TS_info where Object_id_wl = '" + _id_wl_object_for_activation + "' and TS_info.idTS_info = Object.TS_info_idTS_info;");
+
             string json = macros.WialonRequest("&svc=core/search_items&params={" +
                                                     "\"spec\":{" +
                                                     "\"itemsType\":\"avl_unit\"," +

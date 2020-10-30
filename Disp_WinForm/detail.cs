@@ -1436,7 +1436,7 @@ namespace Disp_WinForm
 
         private void button_add_vo1_Click(object sender, EventArgs e)
         {
-            vars_form.num_vo = 1;
+            vars_form.kontakts_opened_from = 1;
             Kontacts Kontacts_form = new Kontacts();
             Kontacts_form.Activated += new EventHandler(form_vo_add_activated);
             Kontacts_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
@@ -1445,7 +1445,7 @@ namespace Disp_WinForm
 
         private void button_add_vo2_Click(object sender, EventArgs e)
         {
-            vars_form.num_vo = 2;
+            vars_form.kontakts_opened_from = 2;
             Kontacts Kontacts_form = new Kontacts();
             Kontacts_form.Activated += new EventHandler(form_vo_add_activated);
             Kontacts_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
@@ -1454,7 +1454,7 @@ namespace Disp_WinForm
 
         private void button_add_vo3_Click(object sender, EventArgs e)
         {
-            vars_form.num_vo = 3;
+            vars_form.kontakts_opened_from = 3;
             Kontacts Kontacts_form = new Kontacts();
             Kontacts_form.Activated += new EventHandler(form_vo_add_activated);
             Kontacts_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
@@ -1463,7 +1463,7 @@ namespace Disp_WinForm
 
         private void button_add_vo4_Click(object sender, EventArgs e)
         {
-            vars_form.num_vo = 4;
+            vars_form.kontakts_opened_from = 4;
             Kontacts Kontacts_form = new Kontacts();
             Kontacts_form.Activated += new EventHandler(form_vo_add_activated);
             Kontacts_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);
@@ -1472,7 +1472,7 @@ namespace Disp_WinForm
 
         private void button_add_vo5_Click(object sender, EventArgs e)
         {
-            vars_form.num_vo = 5;
+            vars_form.kontakts_opened_from = 5;
             Kontacts Kontacts_form = new Kontacts();
             Kontacts_form.Activated += new EventHandler(form_vo_add_activated);
             Kontacts_form.FormClosed += new FormClosedEventHandler(form_vo_add_deactivated);

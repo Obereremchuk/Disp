@@ -156,7 +156,7 @@ namespace Disp_WinForm
                 { comboBox_pin_or_tag.SelectedIndex = 3; }
             }
             //SLED
-            else if (get_produt_testing_device == "5" )
+            else if (get_produt_testing_device == "5")
             {
                 checkBox_sensor_gps.Enabled = false;
                 checkBox_sensor_glushenia.Enabled = false;
@@ -195,7 +195,7 @@ namespace Disp_WinForm
                 checkBox_test_dop_2.Enabled = false;
                 checkBox_test_autostart.Enabled = false;
             }//K_n
-            else if ( get_produt_testing_device == "7")
+            else if (get_produt_testing_device == "7")
             {
                 checkBox_sensor_gps.Enabled = false;
                 checkBox_sensor_glushenia.Enabled = false;
@@ -303,7 +303,7 @@ namespace Disp_WinForm
 
         private void timer()
         {
-            
+
             aTimer3.Interval = 2000;
             aTimer3.Elapsed += new ElapsedEventHandler(OnTimedEvent);
             aTimer3.AutoReset = true;
@@ -480,7 +480,7 @@ namespace Disp_WinForm
 
             string id_db_TS_info = macros.sql_command("SELECT TS_info_idTS_info FROM btk.Object where Object_id_wl = " + vars_form.id_wl_object_for_test + ";");
 
-            
+
 
 
             if (id_db_TS_info == "1")
@@ -491,7 +491,7 @@ namespace Disp_WinForm
                 macros.sql_command("update btk.Object set TS_info_idTS_info=" + TS_infoID + " where Object_id_wl=" + vars_form.id_wl_object_for_test + "");
             }//Если не установленно значения в информации об автомобиле - устанавливаем дефоллтніе значения
 
-            DataTable db_TS_info = macros.GetData("SELECT * FROM btk.TS_info where idTS_info = "+ id_db_TS_info +"; ");
+            DataTable db_TS_info = macros.GetData("SELECT * FROM btk.TS_info where idTS_info = " + id_db_TS_info + "; ");
 
 
             //textBox_device1.Text = db_TS_info.Rows[0]["TS_infocol_place_treker"].ToString();
@@ -500,7 +500,7 @@ namespace Disp_WinForm
             comboBox_zvich_relay_place.Text = db_TS_info.Rows[0]["TS_infocol_place_relay"].ToString();
             //ActiveControl = textBox_zvich_relay_lancug;
             textBox_zvich_relay_lancug.Text = db_TS_info.Rows[0]["TS_infocol_wire_cut"].ToString();
-            textBox_CAN_relay_place.Text= db_TS_info.Rows[0]["TS_infocol_can_place_relay"].ToString();
+            textBox_CAN_relay_place.Text = db_TS_info.Rows[0]["TS_infocol_can_place_relay"].ToString();
             textBox_CAN_relay_lancug.Text = db_TS_info.Rows[0]["TS_infocol_can_wire_cut"].ToString();
 
             if (db_TS_info.Rows[0]["TS_infocol_block_prizrak_can"] is true)
@@ -518,8 +518,8 @@ namespace Disp_WinForm
             textBox_vin.Text = db_TS_info.Rows[0]["TS_infocol_vin"].ToString();
 
             string other_sensor = db_TS_info.Rows[0]["TS_infocol_other_sensor"].ToString();
-            
-            if (other_sensor.Contains("Глушіння") )
+
+            if (other_sensor.Contains("Глушіння"))
             { checkBox_sensor_glushenia.Checked = true; }
             if (other_sensor.Contains("Обєму"))
             { checkBox_sensor_objema.Checked = true; }
@@ -528,7 +528,7 @@ namespace Disp_WinForm
             if (other_sensor.Contains("Замок"))
             { checkBox_lock_hood.Checked = true; }
 
-            textBox_gps_place.Text= db_TS_info.Rows[0]["TS_infocol_gps_place"].ToString();
+            textBox_gps_place.Text = db_TS_info.Rows[0]["TS_infocol_gps_place"].ToString();
             textBox_jammer_place.Text = db_TS_info.Rows[0]["TS_infocol_jammer_place"].ToString();
 
 
@@ -551,7 +551,7 @@ namespace Disp_WinForm
             int p = Convert.ToInt16(db_TS_info.Rows[0]["Production_date_idProduction_date"]);
             comboBox_test_production_date.SelectedValue = p;
 
-            
+
             //DataTable dt = (DataTable)comboBox_ustanoshik_poisk.DataSource;
             DataTable dt = comboBox_ustanoshik_poisk.DataSource as DataTable;
 
@@ -578,10 +578,10 @@ namespace Disp_WinForm
                         comboBox_test_sto.SelectedIndex = i;
                         break;
                     }
-                i++;
+                    i++;
                 }
             }
-            
+
 
             //textBox_commets.Text =
             comboBox_wire_tk.Text = db_TS_info.Rows[0]["TS_infocol_place_tk"].ToString();
@@ -630,7 +630,7 @@ namespace Disp_WinForm
             {
                 textBox_vin.BackColor = Color.White;
             }
-            
+
 
 
             commands_fill_anketa();
@@ -639,7 +639,7 @@ namespace Disp_WinForm
 
         private void commands_fill_anketa()
         {
-            
+
 
             string id_db_TS_info = macros.sql_command("SELECT TS_info_idTS_info FROM btk.Object where Object_id_wl = " + vars_form.id_wl_object_for_test + ";");
 
@@ -648,7 +648,7 @@ namespace Disp_WinForm
             /////////////////
             ///
 
-            
+
             string wire_tk = "";
             if (comboBox_wire_tk.Text == "")
             { wire_tk = "Не встановлено"; }
@@ -661,7 +661,7 @@ namespace Disp_WinForm
             else
             { wireless_tk = textBox_wireless_tk.Text; }
 
-            string other_sensor = (checkBox_sensor_gps.Checked ? "GPS-Місце: "+textBox_gps_place.Text+", " : "") 
+            string other_sensor = (checkBox_sensor_gps.Checked ? "GPS-Місце: " + textBox_gps_place.Text + ", " : "")
                 + (checkBox_sensor_glushenia.Checked ? "Глушіння-Місце: " + textBox_jammer_place.Text + ", " : "")
                 + (checkBox_sensor_autostart.Checked ? "Автозапуск, " : "")
                 + (checkBox_sensor_objema.Checked ? "Обєму, " : "")
@@ -713,7 +713,7 @@ namespace Disp_WinForm
             //                                                       "Subscription_idSubscr=idSubscr and " +
             //                                                       "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
 
-            if (get_produt_testing_device=="10" || get_produt_testing_device=="11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")
+            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")
             {
 
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
@@ -807,7 +807,7 @@ namespace Disp_WinForm
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.4 Місце установки пристрою ВЕНБЕСТ\","
                                                                 + "\"v\":\"" + comboBox_device2.Text.Replace("\"", "%5C%22") + "\"}");
-                
+
                 //Произвольное поле place relay
                 string pp14_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -831,7 +831,7 @@ namespace Disp_WinForm
                                                                + "\"n\":\"3.7 Місце встановлення сервісної кнопки\","
                                                                + "\"v\":\"" + comboBox_service_button.Text.Replace("\"", "%5C%22") + "\"}");
 
-                    // Произвольное поле place wire tk
+                // Произвольное поле place wire tk
                 string pp17_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"id\":\"17\","
@@ -845,8 +845,8 @@ namespace Disp_WinForm
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.8.2 Бездротова тривожна кнопка\","
                                                               + "\"v\":\"" + wireless_tk.Replace("\"", "%5C%22") + "\"}");
-                
-                
+
+
                 //Произвольное поле  button fo pin
                 string pp20_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -986,7 +986,7 @@ namespace Disp_WinForm
                                                               + "\"n\":\"3.6.2 Реле блокування: елемент блокування\","
                                                               + "\"v\":\"" + textBox_zvich_relay_lancug.Text.Replace("\"", "%5C%22") + "\"}");
 
-                
+
                 //Произвольное поле place tk
                 string pp5_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -1015,7 +1015,7 @@ namespace Disp_WinForm
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.9.2 Штатні кнопки введення PIN-коду\","
                                                               + "\"v\":\"" + comboBox_buttons_for_pin.Text.Replace("\"", "%5C%22") + "\"}");
-                
+
                 //Додатково встановлені сигналізації\
                 string pp9_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -1091,7 +1091,7 @@ namespace Disp_WinForm
                                                                + "\"n\":\"3.1.1 Оператор, що тестував\","
                                                                + "\"v\":\"" + vars_form.user_login_name + "\"}");
                 //Произвольное поле СТО
-                
+
                 string pp18_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"id\":\"11\","
@@ -1099,13 +1099,13 @@ namespace Disp_WinForm
                                                                 + "\"n\":\"3.2.1 Установник: назва, адреса\","
                                                                 + "\"v\":\"" + comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
                 //Произвольное поле Установщик
-                
-                    string pp19_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"12\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"3.2.2 Установник - монтажник: ПІБ, №тел.\","
-                                                                  + "\"v\":\"" + comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
+
+                string pp19_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                            + "\"id\":\"12\","
+                                                            + "\"callMode\":\"update\","
+                                                            + "\"n\":\"3.2.2 Установник - монтажник: ПІБ, №тел.\","
+                                                              + "\"v\":\"" + comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
 
                 if (vars_form.if_open_created_testing == 0)
                 {
@@ -1175,7 +1175,7 @@ namespace Disp_WinForm
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"0 УВАГА\","
                                                                 + "\"v\":\"" + textBox_uvaga.Text.Replace("\"", "%5C%22") + "\"}");
-                
+
                 //Произвольное поле device2
                 string pp2_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -1183,9 +1183,9 @@ namespace Disp_WinForm
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.4 Місце установки\","
                                                               + "\"v\":\"" + comboBox_device2.Text.Replace("\"", "%5C%22") + "\"}");
-                
 
-                
+
+
                 //Характеристики kuzov type
                 string pp10_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -1220,7 +1220,7 @@ namespace Disp_WinForm
                                                                + "\"n\":\"model\","
                                                                + "\"v\":\"" + comboBox_test_model.GetItemText(this.comboBox_test_model.SelectedItem).ToString() + "\"}");
 
-                
+
 
                 //Характеристики vin
                 string pp16_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
@@ -1228,7 +1228,7 @@ namespace Disp_WinForm
                                                                + "\"n\":\"vin\","
                                                                + "\"v\":\"" + textBox_vin.Text.Replace("\"", "%5C%22") + "\"}");
 
-                
+
 
 
                 //Произвольное поле СТО
@@ -1268,9 +1268,9 @@ namespace Disp_WinForm
                                                                     + "\"n\":\"5.3 Гарантія до\","
                                                                     + "\"v\":\"" + (DateTime.Now.Date.AddYears(1)).AddDays(-1).ToString() + "\"}");
                 }
-                
 
-                
+
+
             }//Создаем произвольные поля, меняем имя обекта SLED
 
             else if (get_produt_testing_device == "12")//Создаем произвольные поля, меняем имя обекта KP_n
@@ -1434,7 +1434,7 @@ namespace Disp_WinForm
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"name\":\"" + name_obj_textBox.Text.Replace("\"", "%5C%22") + "\"}");
 
-                
+
 
                 //Произвольное поле 0 УВАГА
                 string pp1_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
@@ -1509,7 +1509,7 @@ namespace Disp_WinForm
                                                               + "\"v\":\"" + textBox_zvich_relay_lancug.Text.Replace("\"", "%5C%22") + "\"}");
 
 
-                
+
 
                 if (vars_form.if_open_created_testing == 0)
                 {
@@ -1562,7 +1562,7 @@ namespace Disp_WinForm
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"vin\","
                                                                + "\"v\":\"" + textBox_vin.Text.Replace("\"", "%5C%22") + "\"}");
-                
+
 
 
 
@@ -1687,7 +1687,7 @@ namespace Disp_WinForm
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"vin\","
                                                                + "\"v\":\"" + textBox_vin.Text.Replace("\"", "%5C%22") + "\"}");
-                
+
 
 
 
@@ -1711,7 +1711,7 @@ namespace Disp_WinForm
                     {
                         MessageBox.Show("тестування не успішне? Додай коментар");
 
-                       
+
                         return;
                     }
 
@@ -2219,8 +2219,8 @@ namespace Disp_WinForm
                     macros.sql_command("update btk.Object set Objectcol_testing_ok = 'Успішно' where idObject = '" + vars_form.id_db_object_for_test + "';");
 
                     string Subject = "505 Протестовано успішно! VIN: " + textBox_vin.Text + ", Обєкт: " + name_obj_textBox.Text;
-                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua>,<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>"; 
-                     DataTable dt = new DataTable();
+                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua>,<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>";
+                    DataTable dt = new DataTable();
 
                     dt.Columns.Add("Параметр");
                     dt.Columns.Add("Значення");
@@ -2258,7 +2258,7 @@ namespace Disp_WinForm
                     dt.Rows.Add(row11);
                     object[] row13 = { "Оператор що тестував", vars_form.user_login_name };
                     dt.Rows.Add(row13);
-                    
+
                     object[] row15 = { "Додатково встановлені датчики", (checkBox_sensor_gps.Checked ? "GPS, " : "")
                                                                         + (checkBox_sensor_glushenia.Checked ? "Глушіння, " : "")
                                                                         + (checkBox_sensor_autostart.Checked ? "Автозапуск, " : "")
@@ -2267,7 +2267,7 @@ namespace Disp_WinForm
                     dt.Rows.Add(row15);
                     object[] row14 = { "Коментар", textBox_commets.Text };
                     dt.Rows.Add(row14);
-                    
+
 
 
                     string Body = macros.ConvertDataTableToHTML(dt);
@@ -2277,7 +2277,7 @@ namespace Disp_WinForm
             }
             else
             {
-                
+
                 if (checkBox_test_tk.Checked is false || checkBox_test_zablocovano.Checked is false ||
                     checkBox_test_du.Checked is false || checkBox__test_vzlom.Checked is false ||
                     checkBox_test_koordinati.Checked is false || comboBox_result.SelectedIndex == 1)
@@ -2288,7 +2288,7 @@ namespace Disp_WinForm
                         return;
                     }
 
-                    
+
 
                     macros.sql_command("insert into btk.testing_object (" +
                                            "Object_idObject, " +
@@ -2324,7 +2324,7 @@ namespace Disp_WinForm
                 }
                 else
                 {
-                    
+
 
                     if (wl_group_activ_checkBox.Checked is true)
                     {
@@ -2424,8 +2424,8 @@ namespace Disp_WinForm
                             }
                         }
 
-                        if (get_produt_testing_device == "2" || get_produt_testing_device == "3" || get_produt_testing_device == "4" || 
-                            get_produt_testing_device == "6" || get_produt_testing_device == "12" || 
+                        if (get_produt_testing_device == "2" || get_produt_testing_device == "3" || get_produt_testing_device == "4" ||
+                            get_produt_testing_device == "6" || get_produt_testing_device == "12" ||
                             get_produt_testing_device == "17") //Добавляем в группы для Bitrek
                         {
                             //Запрашиваем объекты из группы srv_BI530
@@ -2843,7 +2843,7 @@ namespace Disp_WinForm
             //                                                       "Subscription_idSubscr=idSubscr and " +
             //                                                       "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
 
-            if (get_produt_testing_device == "2" || get_produt_testing_device == "3")
+            if (get_produt_testing_device == "2" || get_produt_testing_device == "3" || get_produt_testing_device == "6")
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
