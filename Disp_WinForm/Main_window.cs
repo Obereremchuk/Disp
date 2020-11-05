@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -8,6 +9,10 @@ using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using ZXing;
@@ -11453,10 +11458,22 @@ namespace Disp_WinForm
             else { textBox_search_object_name_activation.Text = ""; }
         }
 
+        
+
+        class AccessToken
+        {
+            public string access_token { get; set; }
+            public string token_type { get; set; }
+            public long expires_in { get; set; }
+        }
+
+
+
         private void Request_button_Click(object sender, EventArgs e)
         {
-            string a = macros.HTTPRequest(request_textBox.Text);
-            respone_textBox.Text = a;
+            macros.Vodafone_GetToken();
+            //respone_textBox.Text = a;
+            //var t = GetToken().Result;
         }
 
         private void checkBox_inshe_CheckedChanged(object sender, EventArgs e)
@@ -11537,5 +11554,6 @@ namespace Disp_WinForm
         public static int if_open_created_zayavka { get; set; }
         public static int if_open_created_testing { get; set; }
         public static int if_open_created_activation { get; set; }
+        public static string Vodafone_Token { get; set; }
     }
 }

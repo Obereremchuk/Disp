@@ -16,9 +16,14 @@ using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using System.Drawing.Printing;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using System.Net;
 
 namespace Disp_WinForm
 {
+
+
+
     public class Macros
     {
         public void log_write(string data)
@@ -202,40 +207,44 @@ namespace Disp_WinForm
             }
         }
 
-        public string HTTPRequest(string Request)
-        {
-            //{
-            //    var webUrl = "http://localhost/saleapi/api/";
-            //    var uri = "api/sales";
-            //    client.BaseAddress = new Uri(webUrl);
-            //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //    client.DefaultRequestHeaders.ConnectionClose = true;
+        
 
-            //    //Set Basic Auth
-            //    var user = "username";
-            //    var password = "password";
-            //    var base64String = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{user}:{password}"));
-            //    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64String);
 
-            //    var result = await client.PostAsJsonAsync(uri, model);
-            //    return result;
-            //}//using (var client = new HttpClient())
-            
+        public void Vodafone_GetToken()
+        {       
+            string API_user = "vb_api";
+            string API_user_password = "!!034VBNhgTR62";
+            string Request_ = "grant_type=client_credentials&scope=M2M_DEVICES_ALL&client_secret=pzSjfcZbZSf6Ke1w&client_id=5er5oCEWoVm3U4RYLh6pqB2Wfjv5eJ1d";
+            string address = "https://api.m2m.vodafone.com/m2m/v1/oauth2/access-token";
+            string base64String = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes($"{API_user}:{API_user_password}"));
 
-            var user = "a.oberemchuk@venbest.com.ua";
-            var password = "!!034VBNhgTR62";
 
             var client = new HttpClient();
-            var content = new StringContent(Request, Encoding.UTF8, "application/x-www-form-urlencoded");
-            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            var address = "https://api.m2m.vodafone.com/m2m/v2/oauth2/access-token";
-            var base64String = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{user}:{password}"));
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64String);
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+            var content = new StringContent(Request_, Encoding.UTF8, "application/x-www-form-urlencoded");
+            client.DefaultRequestHeaders.Add("Authorization", "Basic " + base64String);
+            var result = client.PostAsync(address, content).Result;
+            string contents = result.Content.ReadAsStringAsync().Result;
+            vars_form.Vodafone_Token= contents;
+        }
+
+        public string Vodafone_request(string Request)
+        {
+            string API_user = "vb_api";
+            string API_user_password = "!!034VBNhgTR62";
+            string Request_ = "grant_type=client_credentials&scope=M2M_DEVICES_ALL&client_secret=pzSjfcZbZSf6Ke1w&client_id=5er5oCEWoVm3U4RYLh6pqB2Wfjv5eJ1d";
+            string address = "https://api.m2m.vodafone.com/m2m/v1/oauth2/access-token";
+            string base64String = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes($"{API_user}:{API_user_password}"));
+
+
+            var client = new HttpClient();
+            var content = new StringContent(Request_, Encoding.UTF8, "application/x-www-form-urlencoded");
+            client.DefaultRequestHeaders.Add("Authorization", "Basic " + base64String);
             var result = client.PostAsync(address, content).Result;
             string contents = result.Content.ReadAsStringAsync().Result;
             return contents;
         }
+
+
 
         public string WialonRequestSimple(string Request)
         {

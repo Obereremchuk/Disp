@@ -899,7 +899,7 @@ namespace Disp_WinForm
                     macros.sql_command("update btk.TS_info set TS_infocol_vin = '" + textBox_vin_zayavka.Text + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
                 }
 
-                //update хто тестував in WL
+                //update хто активації in WL
                 string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
                                                                 + "\"id\":\"22\","
@@ -1483,6 +1483,7 @@ namespace Disp_WinForm
                                 "Locked_user = '' " +
                                 "WHERE " +
                                 "idActivation_object = '" + _id_db_activation_for_activation + "';");
+            aTimer3.Enabled = false;
         }
 
         private void remaynder_checkBox_CheckedChanged(object sender, EventArgs e)

@@ -22,7 +22,7 @@ namespace Disp_WinForm
         {
             InitializeComponent();
             //если форма открівается для добавления контакта как ВО то віключаем параметр работает где
-            if (vars_form.num_vo != 0)
+            if (vars_form.kontakts_opened_from != 0)
             {
                 comboBox_work_in.Enabled = false;
                 button_add_kontragent.Enabled = false;
@@ -94,7 +94,7 @@ namespace Disp_WinForm
 
         private void button_create_Click(object sender, EventArgs e)
         {
-            if (vars_form.num_vo == 0)
+            if (vars_form.kontakts_opened_from == 0) 
             {
                 if (comboBox_work_in.SelectedIndex == -1)
                 {
@@ -211,7 +211,7 @@ namespace Disp_WinForm
                 }
             }
 
-            if (vars_form.num_vo >= 1)
+            if (vars_form.kontakts_opened_from >= 1)
             {
                 macros.sql_command("update btk.Kontakti set "
                 + "Kontakti_imya='" + textBox_name.Text + "',"
