@@ -32,6 +32,7 @@ namespace Disp_WinForm
         private int _num_vo;
         private string _user_login_name;
         private string _user_login_email;
+        private string date_activation_in_db;
 
 
         public Activation_Form()
@@ -89,8 +90,10 @@ namespace Disp_WinForm
 
         private void load_form_for_sengl_activation()
         {
-            textBox_service_botton.Text = macros.sql_command("SELECT TS_infocol_place_service_button FROM btk.Object, btk.TS_info where Object_id_wl = '" + _id_wl_object_for_activation + "' and TS_info.idTS_info = Object.TS_info_idTS_info;");
-            textBox_tk_botton.Text = macros.sql_command("SELECT TS_infocol_place_tk FROM btk.Object, btk.TS_info where Object_id_wl = '" + _id_wl_object_for_activation + "' and TS_info.idTS_info = Object.TS_info_idTS_info;");
+            var ts_info = macros.GetData("SELECT TS_infocol_place_service_button, TS_infocol_place_tk, TS_infocol_button_for_pin FROM btk.Object, btk.TS_info where Object_id_wl = '" + _id_wl_object_for_activation + "' and TS_info.idTS_info = Object.TS_info_idTS_info;");
+            textBox_service_botton.Text = ts_info.Rows[0][0].ToString();
+            textBox_tk_botton.Text = ts_info.Rows[0][1].ToString();
+            textBox_button_for_PIN.Text = ts_info.Rows[0][2].ToString();
 
             string json = macros.WialonRequest("&svc=core/search_items&params={" +
                                                     "\"spec\":{" +
@@ -211,9 +214,10 @@ namespace Disp_WinForm
         //init command on load form
         private void load_form_for_zayavka()
         {
-
-            textBox_service_botton.Text = macros.sql_command("SELECT TS_infocol_place_service_button FROM btk.Object, btk.TS_info where Object_id_wl = '" + _id_wl_object_for_activation + "' and TS_info.idTS_info = Object.TS_info_idTS_info;");
-            textBox_tk_botton.Text = macros.sql_command("SELECT TS_infocol_place_tk FROM btk.Object, btk.TS_info where Object_id_wl = '" + _id_wl_object_for_activation + "' and TS_info.idTS_info = Object.TS_info_idTS_info;");
+            var ts_info = macros.GetData("SELECT TS_infocol_place_service_button, TS_infocol_place_tk, TS_infocol_button_for_pin FROM btk.Object, btk.TS_info where Object_id_wl = '" + _id_wl_object_for_activation + "' and TS_info.idTS_info = Object.TS_info_idTS_info;");
+            textBox_service_botton.Text = ts_info.Rows[0][0].ToString();
+            textBox_tk_botton.Text = ts_info.Rows[0][1].ToString();
+            textBox_button_for_PIN.Text = ts_info.Rows[0][2].ToString();
 
             string json = macros.WialonRequest("&svc=core/search_items&params={" +
                                                     "\"spec\":{" +
@@ -817,6 +821,22 @@ namespace Disp_WinForm
             }
             ReadActivationChenges(_id_db_activation_for_activation);
 
+            if (comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem).Contains("Успішно"))
+            {
+                string OldStatusActivation = macros.sql_command("SELECT Activation_objectcol_result FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "';");
+                if (!OldStatusActivation.Contains("Успішно"))
+                {
+                    //update коли активації in WL
+                    string pp7_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
+                                                                    + "\"id\":\"21\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"4.1 Дата активації\","
+                                                                    + "\"v\":\"" + DateTime.Now.Date + "\"}");
+                    date_activation_in_db = Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd");
+                }
+            }
+
             // insert/update activation
 
             if (_if_open_created_activation == 1)
@@ -825,7 +845,7 @@ namespace Disp_WinForm
                 {
                     macros.sql_command("update btk.Activation_object " +
                         "set " +
-                        "Activation_date = '" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "', " +
+                        "Activation_date = '" + date_activation_in_db + "', " +
                         "Users_idUsers = '" + _user_login_id + "'," +
                         "Object_idObject = '" + _id_db_object_for_activation + "'," +
                         "Activation_objectcol_result = '" + comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) + "'," +
@@ -839,7 +859,7 @@ namespace Disp_WinForm
                         "kodove_slovo = '" + MySqlHelper.EscapeString(kodove_slovo_textBox.Text) + "'," +
                         "alarm_button = '" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
                         "pin_chenged = '" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'," +
-                        "comment = '" + textBox_comments.Text + "', " +
+                        "comment = '" + MySqlHelper.EscapeString(textBox_comments.Text) + "', " +
                         "svidoctvo_tz = '" + textBox_svidoctvo_tz.Text + "' " +
                         "where " +
                         "idActivation_object = '" + _id_db_activation_for_activation + "'" +
@@ -849,7 +869,7 @@ namespace Disp_WinForm
                 {
                     macros.sql_command("update btk.Activation_object " +
                         "set " +
-                        "Activation_date = '" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "', " +
+                        "Activation_date = '" + date_activation_in_db + "', " +
                         "Users_idUsers = '" + _user_login_id + "'," +
                         "Object_idObject = '" + _id_db_object_for_activation + "'," +
                         "Activation_objectcol_result = '" + comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) + "'," +
@@ -865,7 +885,7 @@ namespace Disp_WinForm
                         "pin_chenged = '" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'," +
                         "Who_chenge_pin = '" + textBox_who_chenge_pin.Text + "'," +
                         "Date_chenge_pin = '" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "'," +
-                        "comment = '" + textBox_comments.Text + "', " +
+                        "comment = '" + MySqlHelper.EscapeString(textBox_comments.Text) + "', " +
                         "svidoctvo_tz = '" + textBox_svidoctvo_tz.Text + "' " +
                         "where " +
                         "idActivation_object = '" + _id_db_activation_for_activation + "'" +
@@ -907,46 +927,25 @@ namespace Disp_WinForm
                                                                 + "\"n\":\"4.1.1 Оператор, що активував\","
                                                                 + "\"v\":\"" + _user_login_name + "\"}");
 
-                //update коли активації in WL
-                string pp7_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
-                                                                + "\"id\":\"21\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"4.1 Дата активації\","
-                                                                + "\"v\":\"" + DateTime.Now.Date + "\"}");
+                
 
 
-
-                ////через запятую перебираем все аккауты из тривив и добавляем в accounts для записи в виалон
-                //string accounts = "";
-                //for (int index1 = 0; index1 < treeView_user_accounts.Nodes[0].Nodes.Count; index1++)
-                //{
-                //    accounts = accounts + treeView_user_accounts.Nodes[0].Nodes[index1].Text + ", ";
-                //}
-
-                ////update коли тестував in WL
-                //string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                //                                                + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
-                //                                                + "\"id\":\"25\","
-                //                                                + "\"callMode\":\"update\","
-                //                                                + "\"n\":\"4.4 Обліковий запис WL\","
-                //                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
                 //Insert chenges
                 InsertActivationChenges(
                     _id_db_activation_for_activation, 
                     _user_login_id,
-                    Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"),
+                    date_activation_in_db,
                     comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem), 
                     name_obj_new_textBox.Text,
-                    uvaga_textBox.Text,
+                    MySqlHelper.EscapeString(uvaga_textBox.Text),
                     textBox_vo1.Text,
                     textBox_vo2.Text,
                     textBox_vo3.Text,
                     textBox_vo4.Text,
-                    kodove_slovo_textBox.Text,
+                    MySqlHelper.EscapeString(kodove_slovo_textBox.Text),
                     checkBox_tk_tested.Checked ? 1 : 0,
                     checkBox_pin_chenged.Checked ? 1 : 0,
-                    textBox_comments.Text,
+                    MySqlHelper.EscapeString(textBox_comments.Text),
                     textBox_who_chenge_pin.Text,
                     DateTime.Now.Date
                     );
@@ -966,7 +965,7 @@ namespace Disp_WinForm
                     object[] row2 = { "IMEI", imei_object_textBox.Text };
                     dt.Rows.Add(row2);
 
-                    object[] row11 = { "Дата дата активації", DateTime.Now.ToString() };
+                    object[] row11 = { "Дата дата активації", date_activation_in_db };
                     dt.Rows.Add(row11);
                     object[] row13 = { "Оператор що активував", _user_login_name };
                     dt.Rows.Add(row13);
@@ -978,10 +977,15 @@ namespace Disp_WinForm
                     string Body = macros.ConvertDataTableToHTML(dt);
 
                     macros.send_mail(recip, Subject, Body);
+
+
+                    
                 }
             }
             else if (_if_open_created_activation == 0)
             {
+                
+
                 if (textBox_who_chenge_pin.ReadOnly is true)
                 {
                     macros.sql_command("insert into btk.Activation_object (" +
@@ -1002,7 +1006,7 @@ namespace Disp_WinForm
                                                                     "svidoctvo_tz " +
                                                                     ") " +
                                                                     "values (" +
-                                                                    "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "'," +
+                                                                    "'" + date_activation_in_db + "'," +
                                                                     "'" + _user_login_id + "'," +
                                                                     "'" + _id_db_object_for_activation + "'," +
                                                                     "'" + comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) + "'," +
@@ -1015,12 +1019,15 @@ namespace Disp_WinForm
                                                                     "'" + _transfer_vo5_vo_form + "'," +
                                                                     "'" + MySqlHelper.EscapeString(kodove_slovo_textBox.Text) + "'," +
                                                                     "'" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
-                                                                    "'" + textBox_comments.Text + "', " +
+                                                                    "'" + MySqlHelper.EscapeString(textBox_comments.Text) + "', " +
                                                                     "'" + textBox_svidoctvo_tz.Text + "' " +
                                                                     ");");
                 }
                 else
                 {
+                    ;
+
+                    
                     macros.sql_command("insert into btk.Activation_object (" +
                                                                     "Activation_date, " +
                                                                     "Users_idUsers, " +
@@ -1042,7 +1049,7 @@ namespace Disp_WinForm
                                                                     "svidoctvo_tz " +
                                                                     ") " +
                                                                     "values (" +
-                                                                    "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "'," +
+                                                                    "'" + date_activation_in_db + "'," +
                                                                     "'" + _user_login_id + "'," +
                                                                     "'" + _id_db_object_for_activation + "'," +
                                                                     "'" + comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) + "'," +
@@ -1058,7 +1065,7 @@ namespace Disp_WinForm
                                                                     "'" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'," +
                                                                     "'" + textBox_who_chenge_pin.Text + "'," +
                                                                     "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "'," +
-                                                                    "'" + textBox_comments.Text + "', " +
+                                                                    "'" + MySqlHelper.EscapeString(textBox_comments.Text) + "', " +
                                                                     "'" + textBox_svidoctvo_tz.Text + "' "+
                                                                     ");");
                 }
@@ -1099,13 +1106,8 @@ namespace Disp_WinForm
                                                                     + "\"v\":\"" + _user_login_name + "\"}");
                 }
 
-                //update коли активації in WL
-                string pp7_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
-                                                                + "\"id\":\"21\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"4.1 Дата активації\","
-                                                                + "\"v\":\"" + DateTime.Now.Date + "\"}");
+                
+
 
                 ////через запятую перебираем все аккауты из тривив и добавляем в accounts для записи в виалон
                 //string accounts = "";
@@ -1126,18 +1128,18 @@ namespace Disp_WinForm
                 InsertActivationChenges(
                     _id_db_activation_for_activation,
                     _user_login_id,
-                    Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"),
+                    date_activation_in_db,
                     comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem),
                     name_obj_new_textBox.Text,
-                    uvaga_textBox.Text,
+                    MySqlHelper.EscapeString(uvaga_textBox.Text),
                     textBox_vo1.Text,
                     textBox_vo2.Text,
                     textBox_vo3.Text,
                     textBox_vo4.Text,
-                    kodove_slovo_textBox.Text,
+                    MySqlHelper.EscapeString(kodove_slovo_textBox.Text),
                     checkBox_tk_tested.Checked ? 1 : 0,
                     checkBox_pin_chenged.Checked ? 1 : 0,
-                    textBox_comments.Text,
+                    MySqlHelper.EscapeString(textBox_comments.Text),
                     textBox_who_chenge_pin.Text,
                     DateTime.Now.Date
                     );
@@ -1171,6 +1173,8 @@ namespace Disp_WinForm
                     string Body = macros.ConvertDataTableToHTML(dt);
 
                     macros.send_mail(recip, Subject, Body);
+
+                    
                 }
             }
 

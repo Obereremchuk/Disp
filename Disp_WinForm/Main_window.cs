@@ -11471,8 +11471,7 @@ namespace Disp_WinForm
 
         private void Request_button_Click(object sender, EventArgs e)
         {
-            macros.Vodafone_GetToken();
-            //respone_textBox.Text = a;
+            macros.Vodafone_request(request_textBox.Text,"");
             //var t = GetToken().Result;
         }
 
@@ -11481,6 +11480,16 @@ namespace Disp_WinForm
             if (checkBox_inshe.Checked is true)
             { textBox_search_object_name_activation.Text = "Інше"; }
             else { textBox_search_object_name_activation.Text = ""; }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            macros.Vodafone_GetToken_v2();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            macros.Vodafone_TokenRefresh();
         }
     }
 
@@ -11554,6 +11563,11 @@ namespace Disp_WinForm
         public static int if_open_created_zayavka { get; set; }
         public static int if_open_created_testing { get; set; }
         public static int if_open_created_activation { get; set; }
-        public static string Vodafone_Token { get; set; }
+        public static string Vodafone_AccessToken { get; set; }
+        public static int Vodafone_ExpiresInMilliseconds { get; set; }
+        public static string Vodafone_RefreshToken { get; set; }
+        public static int Vodafone_RefreshTokenExpiresInMilliseconds { get; set; }
+        public static DateTime Vodafone_DateTimeTokenCreate { get; set; }
+
     }
 }

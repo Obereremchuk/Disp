@@ -207,42 +207,106 @@ namespace Disp_WinForm
             }
         }
 
-        
 
-
-        public void Vodafone_GetToken()
-        {       
-            string API_user = "vb_api";
-            string API_user_password = "!!034VBNhgTR62";
-            string Request_ = "grant_type=client_credentials&scope=M2M_DEVICES_ALL&client_secret=pzSjfcZbZSf6Ke1w&client_id=5er5oCEWoVm3U4RYLh6pqB2Wfjv5eJ1d";
-            string address = "https://api.m2m.vodafone.com/m2m/v1/oauth2/access-token";
-            string base64String = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes($"{API_user}:{API_user_password}"));
-
-
-            var client = new HttpClient();
-            var content = new StringContent(Request_, Encoding.UTF8, "application/x-www-form-urlencoded");
-            client.DefaultRequestHeaders.Add("Authorization", "Basic " + base64String);
-            var result = client.PostAsync(address, content).Result;
-            string contents = result.Content.ReadAsStringAsync().Result;
-            vars_form.Vodafone_Token= contents;
-        }
-
-        public string Vodafone_request(string Request)
+        public void Vodafone_GetToken_v1()
         {
             string API_user = "vb_api";
             string API_user_password = "!!034VBNhgTR62";
-            string Request_ = "grant_type=client_credentials&scope=M2M_DEVICES_ALL&client_secret=pzSjfcZbZSf6Ke1w&client_id=5er5oCEWoVm3U4RYLh6pqB2Wfjv5eJ1d";
+
+            string Request_v1 = "grant_type=client_credentials&scope=M2M_DEVICES_ALL&client_secret=pzSjfcZbZSf6Ke1w&client_id=5er5oCEWoVm3U4RYLh6pqB2Wfjv5eJ1d";
             string address = "https://api.m2m.vodafone.com/m2m/v1/oauth2/access-token";
             string base64String = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes($"{API_user}:{API_user_password}"));
 
 
             var client = new HttpClient();
-            var content = new StringContent(Request_, Encoding.UTF8, "application/x-www-form-urlencoded");
+            var content = new StringContent(Request_v1, Encoding.UTF8, "application/x-www-form-urlencoded");
             client.DefaultRequestHeaders.Add("Authorization", "Basic " + base64String);
             var result = client.PostAsync(address, content).Result;
             string contents = result.Content.ReadAsStringAsync().Result;
+            var res = JsonConvert.DeserializeObject<BearerToken>(contents);
+
+            vars_form.Vodafone_AccessToken = res.AccessToken;
+            vars_form.Vodafone_ExpiresInMilliseconds = res.ExpiresInMilliseconds;
+            
+        }
+
+        public void Vodafone_GetToken_v2()
+        {       
+            string myClientID = "5er5oCEWoVm3U4RYLh6pqB2Wfjv5eJ1d";
+            string myClientSecret = "pzSjfcZbZSf6Ke1w";
+
+            //string Request_v2 = "grant_type=password&scope=M2M_DEVICES_ALL&username=vb_api&password=!!034VBNhgTR62";
+            string Request_v2 = "grant_type=password&scope=M2M_CUSTOMERS_ALL&username=vb_api&password=!!034VBNhgTR62";
+            string address = "https://api.m2m.vodafone.com/m2m/v2/oauth2/access-token";
+            string base64String = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes($"{myClientID}:{myClientSecret}"));
+
+
+            var client = new HttpClient();
+            var content = new StringContent(Request_v2, Encoding.UTF8, "application/x-www-form-urlencoded");
+            client.DefaultRequestHeaders.Add("Authorization", "Basic " + base64String);
+            var result = client.PostAsync(address, content).Result;
+            string contents = result.Content.ReadAsStringAsync().Result;
+            var res = JsonConvert.DeserializeObject<BearerToken>(contents);
+
+            vars_form.Vodafone_AccessToken = res.AccessToken;
+            vars_form.Vodafone_ExpiresInMilliseconds = res.ExpiresInMilliseconds;
+            vars_form.Vodafone_RefreshToken = res.RefreshToken;
+            vars_form.Vodafone_RefreshTokenExpiresInMilliseconds = res.RefreshTokenExpiresInMilliseconds;
+            vars_form.Vodafone_DateTimeTokenCreate = DateTime.Now;
+        }
+
+        public void Vodafone_TokenRefresh()
+        {
+            string myClientID = "5er5oCEWoVm3U4RYLh6pqB2Wfjv5eJ1d";
+            string myClientSecret = "pzSjfcZbZSf6Ke1w";
+
+            string Request_v2 = "grant_type=refresh_token&scope=M2M_DEVICES_ALL&refresh_token=" + vars_form.Vodafone_RefreshToken;
+            string address = "https://api.m2m.vodafone.com/m2m/v2/oauth2/refresh";
+            string base64String = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes($"{myClientID}:{myClientSecret}"));
+
+            var client = new HttpClient();
+            var content = new StringContent(Request_v2, Encoding.UTF8, "application/x-www-form-urlencoded");
+            client.DefaultRequestHeaders.Add("Authorization", "Basic " + base64String);
+            var result = client.PostAsync(address, content).Result;
+            string contents = result.Content.ReadAsStringAsync().Result;
+            
+            var res = JsonConvert.DeserializeObject<BearerToken>(contents);
+
+            vars_form.Vodafone_AccessToken = res.AccessToken;
+            vars_form.Vodafone_ExpiresInMilliseconds = res.ExpiresInMilliseconds;
+            vars_form.Vodafone_RefreshToken = res.RefreshToken;
+            vars_form.Vodafone_RefreshTokenExpiresInMilliseconds = res.RefreshTokenExpiresInMilliseconds;
+        }
+
+        public string Vodafone_request(string EndPoint, string ICCID)
+        {
+            string EndPoint_ = "";
+            if (EndPoint == "devices")
+            { EndPoint_ = "/m2m/v1/devices"; }
+            else if(EndPoint == "serviceprofiles")
+            { EndPoint_ = "/m2m/v1/customers/serviceprofiles/list"; }
+            else if (EndPoint == "deviceId")
+            { EndPoint_ = "/m2m/v1/devices/"; }
+            
+
+
+            string BaseURI = "https://api.m2m.vodafone.com";
+            //string BaseURI = "https://dev-prd.api.m2m.vodafone.com";
+
+            string t = BaseURI + EndPoint_ + ICCID;
+
+            var client = new HttpClient();
+
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + vars_form.Vodafone_AccessToken);
+            var result = client.GetAsync(t).Result;
+            string contents = result.Content.ReadAsStringAsync().Result;
             return contents;
         }
+
+
+
+
+
 
 
 

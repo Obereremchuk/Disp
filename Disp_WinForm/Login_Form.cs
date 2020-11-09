@@ -19,7 +19,7 @@ namespace Disp_WinForm
             GeckoPreferences.User["dom.max_script_run_time"] = 0;
             CertOverrideService.GetService().ValidityOverride += geckoWebBrowser1_ValidityOverride;
             wialon_login_form();
-            vars_form.version = "0.867";
+            vars_form.version = "0.869";
             label_Version.Text = "v." + vars_form.version;
         }
 

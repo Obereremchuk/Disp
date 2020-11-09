@@ -9,6 +9,24 @@ using Newtonsoft.Json;
 
 namespace Disp_WinForm
 {
+    public class BearerToken
+    {
+        [JsonProperty(PropertyName = "access_token")]
+        public string AccessToken { get; set; }
+
+        [JsonProperty(PropertyName = "token_type")]
+        public string TokenType { get; set; }
+
+        [JsonProperty(PropertyName = "expires_in")]
+        public int ExpiresInMilliseconds { get; set; }
+
+        [JsonProperty(PropertyName = "refresh_token")]
+        public string RefreshToken { get; set; }
+
+        [JsonProperty(PropertyName = "refresh_token_expires_in")]
+        public int RefreshTokenExpiresInMilliseconds { get; set; }
+    }
+
     public class locator
     {
         public string h { get; set; }

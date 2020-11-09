@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.textBox_tk_botton = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBox_service_botton = new System.Windows.Forms.TextBox();
             this.textBox_svidoctvo_tz = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.uvaga_textBox = new System.Windows.Forms.TextBox();
@@ -95,10 +99,8 @@
             this.dataGridView_activation_chenges = new System.Windows.Forms.DataGridView();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.textBox_service_botton = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.textBox_tk_botton = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textBox_button_for_PIN = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -109,6 +111,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label14);
+            this.groupBox1.Controls.Add(this.textBox_button_for_PIN);
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.textBox_tk_botton);
             this.groupBox1.Controls.Add(this.label12);
@@ -148,10 +152,44 @@
             this.groupBox1.Controls.Add(this.kodove_slovo_textBox);
             this.groupBox1.Location = new System.Drawing.Point(566, 19);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(554, 430);
+            this.groupBox1.Size = new System.Drawing.Size(535, 463);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Інформація про клієнта";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 385);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(97, 13);
+            this.label13.TabIndex = 197;
+            this.label13.Text = "Тривожна кнопка";
+            // 
+            // textBox_tk_botton
+            // 
+            this.textBox_tk_botton.Location = new System.Drawing.Point(109, 382);
+            this.textBox_tk_botton.Name = "textBox_tk_botton";
+            this.textBox_tk_botton.ReadOnly = true;
+            this.textBox_tk_botton.Size = new System.Drawing.Size(408, 20);
+            this.textBox_tk_botton.TabIndex = 196;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 333);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(85, 13);
+            this.label12.TabIndex = 195;
+            this.label12.Text = "Сервіна кнопка";
+            // 
+            // textBox_service_botton
+            // 
+            this.textBox_service_botton.Location = new System.Drawing.Point(109, 330);
+            this.textBox_service_botton.Name = "textBox_service_botton";
+            this.textBox_service_botton.ReadOnly = true;
+            this.textBox_service_botton.Size = new System.Drawing.Size(408, 20);
+            this.textBox_service_botton.TabIndex = 194;
             // 
             // textBox_svidoctvo_tz
             // 
@@ -189,7 +227,7 @@
             // 
             // textBox_who_chenge_pin
             // 
-            this.textBox_who_chenge_pin.Location = new System.Drawing.Point(195, 384);
+            this.textBox_who_chenge_pin.Location = new System.Drawing.Point(195, 408);
             this.textBox_who_chenge_pin.Name = "textBox_who_chenge_pin";
             this.textBox_who_chenge_pin.Size = new System.Drawing.Size(100, 20);
             this.textBox_who_chenge_pin.TabIndex = 191;
@@ -234,7 +272,7 @@
             // checkBox_pin_chenged
             // 
             this.checkBox_pin_chenged.AutoSize = true;
-            this.checkBox_pin_chenged.Location = new System.Drawing.Point(109, 387);
+            this.checkBox_pin_chenged.Location = new System.Drawing.Point(109, 411);
             this.checkBox_pin_chenged.Name = "checkBox_pin_chenged";
             this.checkBox_pin_chenged.Size = new System.Drawing.Size(87, 17);
             this.checkBox_pin_chenged.TabIndex = 14;
@@ -244,7 +282,7 @@
             // checkBox_tk_tested
             // 
             this.checkBox_tk_tested.AutoSize = true;
-            this.checkBox_tk_tested.Location = new System.Drawing.Point(109, 410);
+            this.checkBox_tk_tested.Location = new System.Drawing.Point(109, 434);
             this.checkBox_tk_tested.Name = "checkBox_tk_tested";
             this.checkBox_tk_tested.Size = new System.Drawing.Size(94, 17);
             this.checkBox_tk_tested.TabIndex = 15;
@@ -412,7 +450,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(301, 388);
+            this.label6.Location = new System.Drawing.Point(301, 412);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(113, 13);
             this.label6.TabIndex = 127;
@@ -473,7 +511,7 @@
             // 
             // save_button
             // 
-            this.save_button.Location = new System.Drawing.Point(935, 690);
+            this.save_button.Location = new System.Drawing.Point(908, 710);
             this.save_button.Name = "save_button";
             this.save_button.Size = new System.Drawing.Size(75, 23);
             this.save_button.TabIndex = 118;
@@ -483,7 +521,7 @@
             // 
             // cancel_button
             // 
-            this.cancel_button.Location = new System.Drawing.Point(1057, 690);
+            this.cancel_button.Location = new System.Drawing.Point(1030, 710);
             this.cancel_button.Name = "cancel_button";
             this.cancel_button.Size = new System.Drawing.Size(75, 23);
             this.cancel_button.TabIndex = 22;
@@ -734,9 +772,9 @@
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.dataGridView_activation_chenges);
-            this.groupBox6.Location = new System.Drawing.Point(6, 455);
+            this.groupBox6.Location = new System.Drawing.Point(6, 488);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(1117, 198);
+            this.groupBox6.Size = new System.Drawing.Size(1095, 198);
             this.groupBox6.TabIndex = 188;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Зміни";
@@ -752,7 +790,7 @@
             this.dataGridView_activation_chenges.Name = "dataGridView_activation_chenges";
             this.dataGridView_activation_chenges.ReadOnly = true;
             this.dataGridView_activation_chenges.RowHeadersVisible = false;
-            this.dataGridView_activation_chenges.Size = new System.Drawing.Size(1111, 179);
+            this.dataGridView_activation_chenges.Size = new System.Drawing.Size(1089, 179);
             this.dataGridView_activation_chenges.TabIndex = 187;
             // 
             // groupBox7
@@ -776,47 +814,32 @@
             this.groupBox2.Controls.Add(this.groupBox1);
             this.groupBox2.Location = new System.Drawing.Point(12, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1125, 659);
+            this.groupBox2.Size = new System.Drawing.Size(1109, 692);
             this.groupBox2.TabIndex = 199;
             this.groupBox2.TabStop = false;
             // 
-            // label12
+            // label14
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 333);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(85, 13);
-            this.label12.TabIndex = 195;
-            this.label12.Text = "Сервіна кнопка";
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 360);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(86, 13);
+            this.label14.TabIndex = 199;
+            this.label14.Text = "Кнопки для PIN";
             // 
-            // textBox_service_botton
+            // textBox_button_for_PIN
             // 
-            this.textBox_service_botton.Location = new System.Drawing.Point(109, 330);
-            this.textBox_service_botton.Name = "textBox_service_botton";
-            this.textBox_service_botton.Size = new System.Drawing.Size(408, 20);
-            this.textBox_service_botton.TabIndex = 194;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 359);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(97, 13);
-            this.label13.TabIndex = 197;
-            this.label13.Text = "Тривожна кнопка";
-            // 
-            // textBox_tk_botton
-            // 
-            this.textBox_tk_botton.Location = new System.Drawing.Point(109, 356);
-            this.textBox_tk_botton.Name = "textBox_tk_botton";
-            this.textBox_tk_botton.Size = new System.Drawing.Size(408, 20);
-            this.textBox_tk_botton.TabIndex = 196;
+            this.textBox_button_for_PIN.Location = new System.Drawing.Point(109, 356);
+            this.textBox_button_for_PIN.Name = "textBox_button_for_PIN";
+            this.textBox_button_for_PIN.ReadOnly = true;
+            this.textBox_button_for_PIN.Size = new System.Drawing.Size(408, 20);
+            this.textBox_button_for_PIN.TabIndex = 198;
             // 
             // Activation_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1144, 725);
+            this.ClientSize = new System.Drawing.Size(1130, 745);
             this.Controls.Add(this.cancel_button);
             this.Controls.Add(this.save_button);
             this.Controls.Add(this.groupBox2);
@@ -909,5 +932,7 @@
         private System.Windows.Forms.TextBox textBox_tk_botton;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox textBox_service_botton;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox textBox_button_for_PIN;
     }
 }

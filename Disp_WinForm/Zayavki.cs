@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
@@ -429,7 +430,7 @@ namespace Disp_WinForm
                 phone2 = phone2.Replace(")", string.Empty);
 
                 macros.sql_command("UPDATE btk.Zayavki set " +
-                                                        "Zayavkicol_name = '" + textBox_name_zayavka.Text + "'," +
+                                                        "Zayavkicol_name = '" + MySqlHelper.EscapeString(textBox_name_zayavka.Text) + "'," +
                                                         "Zayavkicol_plan_date = '" + Convert.ToDateTime(dateTimePicker_plan_date_zayavki.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                                         "Zayavkicol_reason = '" + comboBox_reason_zayavki.GetItemText(comboBox_reason_zayavki.SelectedItem) + "'," +
                                                         "Zayavkicol_VIN = '" + textBox_vin_zayavki.Text + "'," +
@@ -440,16 +441,16 @@ namespace Disp_WinForm
                                                         "Zayavkicol_license_plate = '" + textBox_license_plate_zayavki.Text + "'," +
                                                         "Kontragenti_idKontragenti_zakazchik = '" + vars_form.id_kontragent_zakazchik_for_zayavki + "'," +
                                                         "Zayavkicol_data_vipuska = '" + comboBox_date_vipuska_zayavki.GetItemText(comboBox_date_vipuska_zayavki.SelectedItem) + "'," +
-                                                        "Zayavkicol_comment = '" + textBox_Coments.Text + "'," +
+                                                        "Zayavkicol_comment = '" + MySqlHelper.EscapeString(textBox_Coments.Text) + "'," +
                                                         "Zayavkicol_edit_timestamp = '" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                                         "testing_object_idtesting_object = '" + idtesting_object + "'," +
                                                         "Sobstvennik_avto_neme = '" + textBox_sobstvennik_avto.Text + "'," +
-                                                        "Kontakt_name_avto_1 = '" + textBox_kont_osoba1.Text + "'," +
+                                                        "Kontakt_name_avto_1 = '" + MySqlHelper.EscapeString(textBox_kont_osoba1.Text) + "'," +
                                                         "Kontakt_phone_avto_1 = '" + phone1 + "'," +
-                                                        "Kontakt_name_avto_2 = '" + textBox_kont_osoba2.Text + "'," +
+                                                        "Kontakt_name_avto_2 = '" + MySqlHelper.EscapeString(textBox_kont_osoba2.Text) + "'," +
                                                         "Kontakt_phone_avto_2 = '" + phone2 + "'," +
                                                         "Users_idUsers = '" + vars_form.user_login_id + "'," +
-                                                        "email = '" + textBox_email.Text + "'" +
+                                                        "email = '" + MySqlHelper.EscapeString(textBox_email.Text) + "'" +
                                                         "WHERE idZayavki = '" + idZayavki + "'");
 
 
@@ -534,7 +535,7 @@ namespace Disp_WinForm
                                                                         "Activation_object_idActivation_object" +
                                                                         ") " +
                                                                         "values (" +
-                                                                        "'" + textBox_name_zayavka.Text + "'," +
+                                                                        "'" + MySqlHelper.EscapeString(textBox_name_zayavka.Text) + "'," +
                                                                         "'" + Convert.ToDateTime(dateTimePicker_filter_tested_zayavki.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                                                         "'" + comboBox_reason_zayavki.GetItemText(comboBox_reason_zayavki.SelectedItem) + "'," +
                                                                         "'" + textBox_vin_zayavki.Text + "'," +
@@ -545,13 +546,13 @@ namespace Disp_WinForm
                                                                         "'" + textBox_license_plate_zayavki.Text + "'," +
                                                                         "'" + vars_form.id_kontragent_zakazchik_for_zayavki + "'," +
                                                                         "'" + comboBox_date_vipuska_zayavki.GetItemText(comboBox_date_vipuska_zayavki.SelectedItem) + "'," +
-                                                                        "'" + textBox_Coments.Text + "'," +
+                                                                        "'" + MySqlHelper.EscapeString(textBox_Coments.Text) + "'," +
                                                                         "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                                                         "'" + idtesting_object + "'," +
                                                                         "'" + textBox_sobstvennik_avto.Text + "'," +
-                                                                        "'" + textBox_kont_osoba1.Text + "'," +
+                                                                        "'" + MySqlHelper.EscapeString(textBox_kont_osoba1.Text) + "'," +
                                                                         "'" + maskedTextBox_tel1.Text + "'," +
-                                                                        "'" + textBox_kont_osoba2.Text + "'," +
+                                                                        "'" + MySqlHelper.EscapeString(textBox_kont_osoba2.Text) + "'," +
                                                                         "'" + maskedTextBox_tel2.Text + "'," +
                                                                         "'" + vars_form.user_login_id + "'," +
                                                                         "'" + textBox_email.Text + "'," +
