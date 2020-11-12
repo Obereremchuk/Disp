@@ -144,6 +144,20 @@ namespace Disp_WinForm
             // Put the cells in edit mode when user enters them.
             dataGridView_accounts.EditMode = DataGridViewEditMode.EditOnEnter;
 
+            dataGridView_Rouming.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
+            dataGridView_Rouming.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            // Set the DataGridView control's border.
+            dataGridView_Rouming.BorderStyle = BorderStyle.Fixed3D;
+            // Put the cells in edit mode when user enters them.
+            dataGridView_Rouming.EditMode = DataGridViewEditMode.EditOnEnter;
+
+            dataGridView_CM.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
+            dataGridView_CM.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            // Set the DataGridView control's border.
+            dataGridView_CM.BorderStyle = BorderStyle.Fixed3D;
+            // Put the cells in edit mode when user enters them.
+            dataGridView_CM.EditMode = DataGridViewEditMode.EditOnEnter;
+
             vars_form.order_sort = "desc";
             vars_form.hide_group_alarm = " and group_alarm is null";
             comboBox_sort_column.SelectedIndexChanged -= new System.EventHandler(this.comboBox_sort_column_SelectedIndexChanged);
@@ -244,6 +258,21 @@ namespace Disp_WinForm
             update_accounts_dgv();
         }
 
+        private void OnTimedEvent_Rouming(object sender, EventArgs e)
+        {
+            update_Rouming_dgv();
+        }
+
+        private void OnTimedEvent_CM(object sender, EventArgs e)
+        {
+            update_CM_dgv();
+        }
+
+        
+
+
+
+
         private void tabControl_testing_Selecting(object sender, TabControlCancelEventArgs e)
         {
             if (tabControl_testing.SelectedTab.Name == "tabPage_808")
@@ -258,6 +287,8 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_Rouming);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_CM);
                 update_808_dgv();
                 aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent_808);
                 aTimer.Interval = 2000;
@@ -276,6 +307,8 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_Rouming);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_CM);
                 update_lost_dgv();
                 aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Interval = 2000;
@@ -293,6 +326,8 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_Rouming);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_CM);
                 update_909_dgv();
                 aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent_909);
                 aTimer.Interval = 2000;
@@ -311,6 +346,8 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_Rouming);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_CM);
                 update_sale_dgv();
                 aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent_sale);
                 aTimer.Interval = 2000;
@@ -329,6 +366,8 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_Rouming);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_CM);
                 update_dilery_dgv();
                 aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent_dilery);
                 aTimer.Interval = 2000;
@@ -347,6 +386,8 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_Rouming);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_CM);
                 update_open_dgv();
                 aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent_open);
                 aTimer.Interval = 2000;
@@ -366,6 +407,8 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_Rouming);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_CM);
                 update_testing_dgv();
             }
             else if (tabControl_testing.SelectedTab.Name == "tabPage2")
@@ -381,6 +424,8 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_Rouming);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_CM);
                 mysql_close_alarm();
             }
             else if (tabControl_testing.SelectedTab.Name == "tabPage_activation")
@@ -395,6 +440,8 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_Rouming);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_CM);
                 update_actication_dgv();
                 aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent_activation);
                 aTimer.Interval = 3000;
@@ -415,6 +462,8 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_Rouming);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_CM);
                 update_zayavki_na_aktivation_2W();
             }
             else if (tabControl_testing.SelectedTab.Name == "tab_create_object")
@@ -430,6 +479,8 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_Rouming);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_CM);
                 build_list_products();
                 Google_masseges();
                 GetPrinters();
@@ -448,8 +499,48 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_Rouming);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_CM);
                 update_accounts_dgv();
                 aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent_accounts);
+                aTimer.AutoReset = true;
+                aTimer.Enabled = true;
+            }
+            else if (tabControl_testing.SelectedTab.Name == "tabPage_Rouming")
+            {
+                aTimer.Enabled = false;
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_808);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_909);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_open);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_sale);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_dilery);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_testing);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_CM);
+                update_Rouming_dgv();
+                aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent_Rouming);
+                aTimer.AutoReset = true;
+                aTimer.Enabled = true;
+            }
+            else if (tabControl_testing.SelectedTab.Name == "tabPage_CM")
+            {
+                aTimer.Enabled = false;
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_808);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_909);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_open);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_sale);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_dilery);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_testing);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_activation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_lost);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_zayavki_na_aktivation);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_accounts);
+                aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_Rouming);
+                update_CM_dgv();
+                aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent_CM);
                 aTimer.AutoReset = true;
                 aTimer.Enabled = true;
             }
@@ -1625,6 +1716,531 @@ namespace Disp_WinForm
             dataGridView_sales.ResumeLayout();
         }
 
+
+
+        /// Обновляем вкладку СМ 
+        ///
+        private void update_CM_dgv()
+        {
+            DataTable table = new DataTable();
+            table = macros.GetData("SELECT idnotification as 'ID тривоги'," +
+                                   "notification.product as 'Продукт'," +
+                                   "notification.unit_name as 'Назва об’єкту'," +
+                                   "notification.type_alarm as 'Тип тривоги'," +
+                                   "notification.unit_id as 'ID'," +
+                                   "notification.Status as 'Статус'," +
+                                   "notification.alarm_locked_user as 'Обробляє'," +
+                                   "notification.time_stamp as 'Дата зміни'," +
+                                   "notification.group_alarm as 'Згруповано до', " +
+                                   "Users.username as 'Створив'," +
+                                   "notification.speed, " +
+                                   "notification.remaynder_activate as 'Нагадати', " +
+                                   "notification.remayder_date as 'Дата нагадування'  " +
+                                   "FROM btk.notification, btk.Users " +
+                                   "WHERE Users.idUsers=notification.Users_idUsers " +
+                                   "and notification.Status = '110' " + vars_form.hide_group_alarm + "  ;");//order by btk.notification." + vars_form.sort.ToString() + " " + vars_form.order_sort + "
+            //table = vars_form.table_909;
+            UpdateGridHandler ug = UpdateGrid_CM;
+            ug.BeginInvoke(table, cb_CM, null);
+        }
+
+        private void cb_CM(IAsyncResult res)
+        {
+        }
+
+        private void UpdateGrid1_CM(DataTable table)
+        {
+            //save sort
+            DataGridViewColumn oldColumn = dataGridView_CM.SortedColumn;
+            ListSortDirection direction;
+            if (dataGridView_CM.SortOrder == SortOrder.Ascending) direction = ListSortDirection.Ascending;
+            else direction = ListSortDirection.Descending;
+
+            //save scrol and selected row
+            int scrollPosition = 0;
+            int selectpozition = 0;
+            if (dataGridView_CM.DataSource != null)
+            {
+                scrollPosition = dataGridView_CM.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+
+                try
+                {
+                    selectpozition = dataGridView_CM.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                }
+                catch (Exception)
+                {
+                    selectpozition = 0;
+                }
+            }
+
+            DataView dv = table.DefaultView;
+            dv.Sort = "Дата зміни desc";
+            DataTable sortedDT = dv.ToTable();
+
+            dataGridView_CM.DataSource = table;
+
+
+            //restote sort
+            if (oldColumn != null)
+            {
+                DataGridViewColumn newColumn = dataGridView_CM.Columns[oldColumn.Name.ToString()];
+                dataGridView_CM.Sort(newColumn, direction);
+                newColumn.HeaderCell.SortGlyphDirection =
+                                 direction == ListSortDirection.Ascending ?
+                                 SortOrder.Ascending : SortOrder.Descending;
+            }
+
+            if (dataGridView_CM.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
+            {
+                if (scrollPosition == -1)
+                {
+                    scrollPosition = 0;
+                }
+                dataGridView_CM.FirstDisplayedScrollingRowIndex = scrollPosition;
+            }
+            if (dataGridView_CM.Rows.Count >= selectpozition)
+            {
+                dataGridView_CM.ClearSelection();
+                try
+                {
+                    dataGridView_CM.Rows[selectpozition].Selected = true;
+                }
+                catch (Exception)
+                {
+                    dataGridView_CM.Rows[0].Selected = true;
+                }
+            }
+        }
+
+        private void UpdateGrid_CM(DataTable table)
+        {
+            if (dataGridView_CM.InvokeRequired)
+            {
+                UpdateGridThreadHandler handler = UpdateGrid1_CM;
+                dataGridView_CM.BeginInvoke(handler, table);
+            }
+            else
+            {
+                //save sort
+                DataGridViewColumn oldColumn = dataGridView_CM.SortedColumn;
+                ListSortDirection direction;
+                if (dataGridView_CM.SortOrder == SortOrder.Ascending) direction = ListSortDirection.Ascending;
+                else direction = ListSortDirection.Descending;
+
+                //save scrol and selected row
+                int scrollPosition = 0;
+                int selectpozition = 0;
+                if (dataGridView_CM.DataSource != null)
+                {
+                    scrollPosition = dataGridView_CM.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+                    try
+                    {
+                        selectpozition = dataGridView_CM.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                    }
+                    catch (Exception)
+                    {
+                        selectpozition = 0;
+                    }
+                }
+
+                DataView dv = table.DefaultView;
+                dv.Sort = "Дата зміни desc";
+                DataTable sortedDT = dv.ToTable();
+
+                dataGridView_CM.DataSource = table;
+
+
+                //restote sort
+                if (oldColumn != null)
+                {
+                    DataGridViewColumn newColumn = dataGridView_CM.Columns[oldColumn.Name.ToString()];
+                    dataGridView_CM.Sort(newColumn, direction);
+                    newColumn.HeaderCell.SortGlyphDirection =
+                                     direction == ListSortDirection.Ascending ?
+                                     SortOrder.Ascending : SortOrder.Descending;
+                }
+
+                if (dataGridView_CM.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
+                {
+                    if (scrollPosition == -1)
+                    {
+                        scrollPosition = 0;
+                    }
+                    dataGridView_CM.FirstDisplayedScrollingRowIndex = scrollPosition;
+                }
+                if (dataGridView_CM.Rows.Count >= selectpozition)
+                {
+                    dataGridView_CM.ClearSelection();
+
+                    try
+                    {
+                        dataGridView_CM.Rows[selectpozition].Selected = true;
+                    }
+                    catch (Exception)
+                    {
+                        dataGridView_CM.Rows[0].Selected = true;
+                    }
+                }
+            }
+        }
+
+        private void dataGridView_CM_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex <= -1 || e.ColumnIndex <= -1)
+            {
+                return;
+            }
+
+            if (dataGridView_CM.Rows[e.RowIndex].Cells[9].Value.ToString() == "")//Згруповано до ID тривоги(9)
+            {
+                vars_form.search_id = dataGridView_CM.Rows[e.RowIndex].Cells[4].Value.ToString(); //ID об"єкту(8)
+                vars_form.id_notif = dataGridView_CM.Rows[e.RowIndex].Cells[0].Value.ToString();//ID Тривоги (0)
+                vars_form.id_status = dataGridView_CM.Rows[e.RowIndex].Cells[5].Value.ToString();//Статус(7)
+                vars_form.unit_name = dataGridView_CM.Rows[e.RowIndex].Cells[2].Value.ToString();//Назва об"єкту(2)
+                vars_form.alarm_name = dataGridView_CM.Rows[e.RowIndex].Cells[3].Value.ToString();//Тип тривоги(3)
+                vars_form.restrict_un_group = false;
+                vars_form.zvernenya = dataGridView_CM.Rows[e.RowIndex].Cells[11].Value.ToString();//Звернення(4)
+            }
+            else
+            {
+                vars_form.search_id = dataGridView_CM.Rows[e.RowIndex].Cells[4].Value.ToString(); //ID об"єкту(8)
+                vars_form.id_notif = dataGridView_CM.Rows[e.RowIndex].Cells[0].Value.ToString();//Згруповано до ID тривоги(9)
+                vars_form.id_status = dataGridView_CM.Rows[e.RowIndex].Cells[5].Value.ToString();//Статус(7)
+                vars_form.unit_name = dataGridView_CM.Rows[e.RowIndex].Cells[2].Value.ToString();//Назва об"єкту(2)
+                vars_form.alarm_name = dataGridView_CM.Rows[e.RowIndex].Cells[3].Value.ToString();//Тип тривоги(3)
+                vars_form.restrict_un_group = false;
+                vars_form.zvernenya = dataGridView_CM.Rows[e.RowIndex].Cells[10].Value.ToString();//Звернення(4)
+            }
+
+            DataTable results1 = macros.GetData("SELECT " +
+                                         "alarm_locked, " +
+                                         "alarm_locked_user " +
+                                         "FROM btk.notification " +
+                                         "WHERE " +
+                                         "idnotification = '" + vars_form.id_notif + "';");
+
+            if (vars_form.user_login_name != "admin" & vars_form.user_login_name != results1.Rows[0][1].ToString())
+            {
+                if (results1.Rows[0][0].ToString() == "1")
+                {
+                    MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
+                    return;
+                }
+            }
+
+            macros.GetData("UPDATE btk.notification " +
+                                "SET " +
+                                "alarm_locked = '1', " +
+                                "alarm_locked_user = '" + vars_form.user_login_name + "' " +
+                                "WHERE " +
+                                "idnotification = '" + vars_form.id_notif + "';");
+
+            detail subwindow = new detail();
+            subwindow.Show();
+        }
+
+        private void dataGridView_CM_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            dataGridView_CM.SuspendLayout();
+
+            if (dataGridView_CM.Rows[e.RowIndex].Cells[11].Value is true)
+            {
+                //if (Convert.ToDateTime(dataGridView_Rouming.Rows[e.RowIndex].Cells[12].Value) == DateTime.Now.Date)
+                //{
+                //    e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#bcccf2");
+                //}
+                //else if (Convert.ToDateTime(dataGridView_Rouming.Rows[e.RowIndex].Cells[12].Value) <= DateTime.Now.Date)
+                //{
+                //    e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#F9A780");
+                //}
+                //else if (Convert.ToDateTime(dataGridView_Rouming.Rows[e.RowIndex].Cells[12].Value) >= DateTime.Now.Date)
+                //{
+                //    e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#C8FAB7");
+                //}
+            }
+            else
+            {
+                e.CellStyle.BackColor = Color.White;
+            }
+
+
+            dataGridView_CM.ResumeLayout();
+        }
+
+
+
+        /// Обновляем вкладку Rouming 
+        ///
+        private void update_Rouming_dgv()
+        {
+            DataTable table = new DataTable();
+            table = macros.GetData("SELECT idnotification as 'ID тривоги'," +
+                                   "notification.product as 'Продукт'," +
+                                   "notification.unit_name as 'Назва об’єкту'," +
+                                   "notification.type_alarm as 'Тип тривоги'," +
+                                   "notification.unit_id as 'ID'," +
+                                   "notification.Status as 'Статус'," +
+                                   "notification.alarm_locked_user as 'Обробляє'," +
+                                   "notification.time_stamp as 'Дата зміни'," +
+                                   "notification.group_alarm as 'Згруповано до', " +
+                                   "Users.username as 'Створив'," +
+                                   "notification.speed, " +
+                                   "notification.remaynder_activate as 'Нагадати', " +
+                                   "notification.remayder_date as 'Дата нагадування'  " +
+                                   "FROM btk.notification, btk.Users " +
+                                   "WHERE Users.idUsers=notification.Users_idUsers " +
+                                   "and notification.Status = 'Роумінг' " + vars_form.hide_group_alarm + "  ;");//order by btk.notification." + vars_form.sort.ToString() + " " + vars_form.order_sort + "
+            //table = vars_form.table_909;
+            UpdateGridHandler ug = UpdateGrid_Rouming;
+            ug.BeginInvoke(table, cb_Rouming, null);
+        }
+
+        private void cb_Rouming(IAsyncResult res)
+        {
+        }
+
+        private void UpdateGrid1_Rouming(DataTable table)
+        {
+            //save sort
+            DataGridViewColumn oldColumn = dataGridView_Rouming.SortedColumn;
+            ListSortDirection direction;
+            if (dataGridView_Rouming.SortOrder == SortOrder.Ascending) direction = ListSortDirection.Ascending;
+            else direction = ListSortDirection.Descending;
+
+            //save scrol and selected row
+            int scrollPosition = 0;
+            int selectpozition = 0;
+            if (dataGridView_Rouming.DataSource != null)
+            {
+                scrollPosition = dataGridView_Rouming.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+
+                try
+                {
+                    selectpozition = dataGridView_Rouming.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                }
+                catch (Exception)
+                {
+                    selectpozition = 0;
+                }
+            }
+
+            DataView dv = table.DefaultView;
+            dv.Sort = "Дата зміни desc";
+            DataTable sortedDT = dv.ToTable();
+
+            dataGridView_Rouming.DataSource = table;
+            ////------------------------------------------
+            //if (dataGridView_909_n.DataSource == null)
+            //{
+            //    dataGridView_909_n.DataSource = table;
+            //}
+            //else
+            //{
+            //    dataGridView_909_n.Refresh();
+            //}
+            ////----------------------------------------------------------------------
+
+            //restote sort
+            if (oldColumn != null)
+            {
+                DataGridViewColumn newColumn = dataGridView_Rouming.Columns[oldColumn.Name.ToString()];
+                dataGridView_Rouming.Sort(newColumn, direction);
+                newColumn.HeaderCell.SortGlyphDirection =
+                                 direction == ListSortDirection.Ascending ?
+                                 SortOrder.Ascending : SortOrder.Descending;
+            }
+
+            if (dataGridView_Rouming.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
+            {
+                if (scrollPosition == -1)
+                {
+                    scrollPosition = 0;
+                }
+                dataGridView_Rouming.FirstDisplayedScrollingRowIndex = scrollPosition;
+            }
+            if (dataGridView_Rouming.Rows.Count >= selectpozition)
+            {
+                dataGridView_Rouming.ClearSelection();
+                try
+                {
+                    dataGridView_Rouming.Rows[selectpozition].Selected = true;
+                }
+                catch (Exception)
+                {
+                    dataGridView_Rouming.Rows[0].Selected = true;
+                }
+            }
+        }
+
+        private void UpdateGrid_Rouming(DataTable table)
+        {
+            if (dataGridView_Rouming.InvokeRequired)
+            {
+                UpdateGridThreadHandler handler = UpdateGrid1_Rouming;
+                dataGridView_Rouming.BeginInvoke(handler, table);
+            }
+            else
+            {
+                //save sort
+                DataGridViewColumn oldColumn = dataGridView_Rouming.SortedColumn;
+                ListSortDirection direction;
+                if (dataGridView_Rouming.SortOrder == SortOrder.Ascending) direction = ListSortDirection.Ascending;
+                else direction = ListSortDirection.Descending;
+
+                //save scrol and selected row
+                int scrollPosition = 0;
+                int selectpozition = 0;
+                if (dataGridView_Rouming.DataSource != null)
+                {
+                    scrollPosition = dataGridView_Rouming.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
+                    try
+                    {
+                        selectpozition = dataGridView_Rouming.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                    }
+                    catch (Exception)
+                    {
+                        selectpozition = 0;
+                    }
+                }
+
+                DataView dv = table.DefaultView;
+                dv.Sort = "Дата зміни desc";
+                DataTable sortedDT = dv.ToTable();
+
+                dataGridView_Rouming.DataSource = table;
+                ////------------------------------------------
+                //if (dataGridView_909_n.DataSource == null)
+                //{
+                //    dataGridView_909_n.DataSource = table;
+                //}
+                //else
+                //{
+                //    dataGridView_909_n.Refresh();
+                //}
+                ////----------------------------------------------------------------------
+
+                //restote sort
+                if (oldColumn != null)
+                {
+                    DataGridViewColumn newColumn = dataGridView_Rouming.Columns[oldColumn.Name.ToString()];
+                    dataGridView_Rouming.Sort(newColumn, direction);
+                    newColumn.HeaderCell.SortGlyphDirection =
+                                     direction == ListSortDirection.Ascending ?
+                                     SortOrder.Ascending : SortOrder.Descending;
+                }
+
+                if (dataGridView_Rouming.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
+                {
+                    if (scrollPosition == -1)
+                    {
+                        scrollPosition = 0;
+                    }
+                    dataGridView_Rouming.FirstDisplayedScrollingRowIndex = scrollPosition;
+                }
+                if (dataGridView_Rouming.Rows.Count >= selectpozition)
+                {
+                    dataGridView_Rouming.ClearSelection();
+
+                    try
+                    {
+                        dataGridView_Rouming.Rows[selectpozition].Selected = true;
+                    }
+                    catch (Exception)
+                    {
+                        dataGridView_Rouming.Rows[0].Selected = true;
+                    }
+                }
+            }
+        }
+
+        private void dataGridView_Rouming_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex <= -1 || e.ColumnIndex <= -1)
+            {
+                return;
+            }
+
+            if (dataGridView_Rouming.Rows[e.RowIndex].Cells[9].Value.ToString() == "")//Згруповано до ID тривоги(9)
+            {
+                vars_form.search_id = dataGridView_Rouming.Rows[e.RowIndex].Cells[4].Value.ToString(); //ID об"єкту(8)
+                vars_form.id_notif = dataGridView_Rouming.Rows[e.RowIndex].Cells[0].Value.ToString();//ID Тривоги (0)
+                vars_form.id_status = dataGridView_Rouming.Rows[e.RowIndex].Cells[5].Value.ToString();//Статус(7)
+                vars_form.unit_name = dataGridView_Rouming.Rows[e.RowIndex].Cells[2].Value.ToString();//Назва об"єкту(2)
+                vars_form.alarm_name = dataGridView_Rouming.Rows[e.RowIndex].Cells[3].Value.ToString();//Тип тривоги(3)
+                vars_form.restrict_un_group = false;
+                vars_form.zvernenya = dataGridView_Rouming.Rows[e.RowIndex].Cells[11].Value.ToString();//Звернення(4)
+            }
+            else
+            {
+                vars_form.search_id = dataGridView_Rouming.Rows[e.RowIndex].Cells[4].Value.ToString(); //ID об"єкту(8)
+                vars_form.id_notif = dataGridView_Rouming.Rows[e.RowIndex].Cells[0].Value.ToString();//Згруповано до ID тривоги(9)
+                vars_form.id_status = dataGridView_Rouming.Rows[e.RowIndex].Cells[5].Value.ToString();//Статус(7)
+                vars_form.unit_name = dataGridView_Rouming.Rows[e.RowIndex].Cells[2].Value.ToString();//Назва об"єкту(2)
+                vars_form.alarm_name = dataGridView_Rouming.Rows[e.RowIndex].Cells[3].Value.ToString();//Тип тривоги(3)
+                vars_form.restrict_un_group = false;
+                vars_form.zvernenya = dataGridView_Rouming.Rows[e.RowIndex].Cells[10].Value.ToString();//Звернення(4)
+            }
+
+            DataTable results1 = macros.GetData("SELECT " +
+                                         "alarm_locked, " +
+                                         "alarm_locked_user " +
+                                         "FROM btk.notification " +
+                                         "WHERE " +
+                                         "idnotification = '" + vars_form.id_notif + "';");
+
+            if (vars_form.user_login_name != "admin" & vars_form.user_login_name != results1.Rows[0][1].ToString())
+            {
+                if (results1.Rows[0][0].ToString() == "1")
+                {
+                    MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
+                    return;
+                }
+            }
+
+            macros.GetData("UPDATE btk.notification " +
+                                "SET " +
+                                "alarm_locked = '1', " +
+                                "alarm_locked_user = '" + vars_form.user_login_name + "' " +
+                                "WHERE " +
+                                "idnotification = '" + vars_form.id_notif + "';");
+
+            detail subwindow = new detail();
+            subwindow.Show();
+        }
+
+        private void dataGridView_Rouming_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            dataGridView_Rouming.SuspendLayout();
+
+            if (dataGridView_Rouming.Rows[e.RowIndex].Cells[11].Value is true)
+            {
+                //if (Convert.ToDateTime(dataGridView_Rouming.Rows[e.RowIndex].Cells[12].Value) == DateTime.Now.Date)
+                //{
+                //    e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#bcccf2");
+                //}
+                //else if (Convert.ToDateTime(dataGridView_Rouming.Rows[e.RowIndex].Cells[12].Value) <= DateTime.Now.Date)
+                //{
+                //    e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#F9A780");
+                //}
+                //else if (Convert.ToDateTime(dataGridView_Rouming.Rows[e.RowIndex].Cells[12].Value) >= DateTime.Now.Date)
+                //{
+                //    e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#C8FAB7");
+                //}
+            }
+            else
+            {
+                e.CellStyle.BackColor = Color.White;
+            }
+
+            
+            dataGridView_Rouming.ResumeLayout();
+        }
+
+
+
+
+
+
         /// Обновляем вкладку 808
         ///
         private void update_808_dgv()
@@ -2644,6 +3260,10 @@ namespace Disp_WinForm
             detail subwindow = new detail();
             subwindow.Show();
         }
+
+
+
+
 
         /// Обновляем вкладку Открытые тревоги
         ///

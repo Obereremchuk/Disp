@@ -35,6 +35,8 @@
             this.button_cancel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dateTimePicker_start_rouming = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker_end_rouming = new System.Windows.Forms.DateTimePicker();
             this.textBox_primitka = new System.Windows.Forms.TextBox();
             this.textBox_email_account = new System.Windows.Forms.TextBox();
             this.comboBox_account = new System.Windows.Forms.ComboBox();
@@ -62,7 +64,8 @@
             this.comboBox_source_in.Items.AddRange(new object[] {
             "Звернення від кліента",
             "Внутрішне звернення",
-            "Кабінет користувача"});
+            "Кабінет користувача",
+            "Роумінг"});
             this.comboBox_source_in.Location = new System.Drawing.Point(142, 19);
             this.comboBox_source_in.Name = "comboBox_source_in";
             this.comboBox_source_in.Size = new System.Drawing.Size(562, 21);
@@ -80,9 +83,9 @@
             // 
             // button_vnesty_zapis
             // 
-            this.button_vnesty_zapis.Location = new System.Drawing.Point(625, 463);
+            this.button_vnesty_zapis.Location = new System.Drawing.Point(145, 464);
             this.button_vnesty_zapis.Name = "button_vnesty_zapis";
-            this.button_vnesty_zapis.Size = new System.Drawing.Size(86, 23);
+            this.button_vnesty_zapis.Size = new System.Drawing.Size(567, 47);
             this.button_vnesty_zapis.TabIndex = 5;
             this.button_vnesty_zapis.Text = "Вести запис";
             this.button_vnesty_zapis.UseVisualStyleBackColor = true;
@@ -90,7 +93,7 @@
             // 
             // button_cancel
             // 
-            this.button_cancel.Location = new System.Drawing.Point(511, 463);
+            this.button_cancel.Location = new System.Drawing.Point(3, 488);
             this.button_cancel.Name = "button_cancel";
             this.button_cancel.Size = new System.Drawing.Size(86, 23);
             this.button_cancel.TabIndex = 6;
@@ -112,6 +115,8 @@
             // groupBox2
             // 
             this.groupBox2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox2.Controls.Add(this.dateTimePicker_start_rouming);
+            this.groupBox2.Controls.Add(this.dateTimePicker_end_rouming);
             this.groupBox2.Controls.Add(this.textBox_primitka);
             this.groupBox2.Controls.Add(this.textBox_email_account);
             this.groupBox2.Controls.Add(this.comboBox_account);
@@ -126,6 +131,24 @@
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Опції звернення";
+            // 
+            // dateTimePicker_start_rouming
+            // 
+            this.dateTimePicker_start_rouming.CustomFormat = "dd.MM.yyyy";
+            this.dateTimePicker_start_rouming.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker_start_rouming.Location = new System.Drawing.Point(142, 71);
+            this.dateTimePicker_start_rouming.Name = "dateTimePicker_start_rouming";
+            this.dateTimePicker_start_rouming.Size = new System.Drawing.Size(122, 20);
+            this.dateTimePicker_start_rouming.TabIndex = 6;
+            // 
+            // dateTimePicker_end_rouming
+            // 
+            this.dateTimePicker_end_rouming.CustomFormat = "dd.MM.yyyy";
+            this.dateTimePicker_end_rouming.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker_end_rouming.Location = new System.Drawing.Point(142, 97);
+            this.dateTimePicker_end_rouming.Name = "dateTimePicker_end_rouming";
+            this.dateTimePicker_end_rouming.Size = new System.Drawing.Size(122, 20);
+            this.dateTimePicker_end_rouming.TabIndex = 7;
             // 
             // textBox_primitka
             // 
@@ -182,15 +205,15 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 75);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(134, 13);
+            this.label3.Size = new System.Drawing.Size(132, 13);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Діії з обліковим записом";
+            this.label3.Text = "Дії з обліковим записом";
             // 
             // add_alarm_full
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(723, 499);
+            this.ClientSize = new System.Drawing.Size(723, 523);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button_cancel);
@@ -220,5 +243,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_start_rouming;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_end_rouming;
     }
 }

@@ -27,7 +27,8 @@ namespace Disp_WinForm
             comboBox_account.Enabled = false; 
             textBox_email_account.Enabled = false; 
             textBox_primitka.Enabled = false;
-
+            dateTimePicker_start_rouming.Value = DateTime.Now.Date;
+            dateTimePicker_end_rouming.Value = DateTime.Now.Date;
         }
 
         private void build_list_account()
@@ -204,7 +205,7 @@ namespace Disp_WinForm
                                "'" + vars_form.user_login_id + "','Відкрито')");
             }
             else if (comboBox_source_in.SelectedIndex == 2)
-            {
+            {   
                 if (!IsValidEmail(textBox_email_account.Text))
                 {
                     MessageBox.Show("Невірна електронна пошта!");
@@ -267,6 +268,100 @@ namespace Disp_WinForm
                                     "'0', " +
                                     "'0'); ");
             }
+            if (comboBox_source_in.SelectedIndex == 3)
+            {
+                if (dateTimePicker_start_rouming.Value >= dateTimePicker_end_rouming.Value)
+                {
+                    MessageBox.Show("Перевір дату");
+                    return;
+                }
+                macros.sql_command("INSERT INTO btk.notification(" +
+                               "unit_name, " +
+                               "unit_id, " +
+                               "curr_time, " +
+                               "msg_time, " +
+                               "product, " +
+                               "type_alarm, " +
+                               "Users_idUsers, status) " +
+                               "VALUES('" + object_name + "'," +
+                               "'" + vars_form.add_alarm_unit_id + "'," +
+                               "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                               "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                               "'" + object_product + "'," +
+                               "'" + comboBox_source_in.GetItemText(comboBox_source_in.SelectedItem) + "'," +
+                               "'" + vars_form.user_login_id + "','Роумінг')");
+
+
+
+                string json = macros.WialonRequest("&svc=core/search_item&params={"
+                                                         + "\"id\":\"" + vars_form.add_alarm_unit_id + "\","
+                                                         + "\"flags\":\"‭‭‭‭8388873\"}"); //
+                var test_out = JsonConvert.DeserializeObject<RootObject>(json);
+
+                string project = "";
+                foreach (var keyvalue in test_out.item.flds)
+                {
+                    if (keyvalue.Value.n.Contains("Проект"))
+                    {
+                        project = keyvalue.Value.v.ToString();
+                        break;
+                    }
+                }
+
+
+
+                string Subject = "Запит на активацію послуги Роумінг."+ "      Проект: " + project + ", VIN: " + test_out.item.pflds[7].v + ", Держ. Номер: " + test_out.item.pflds[4].v ;
+                
+                DataTable users_send_mail = macros.GetData("SELECT user_mail FROM btk.Users where (dept_user = '115' or dept_user = '113') and State != '0';");
+
+                string recip = "";
+                foreach (DataRow user in users_send_mail.Rows)
+                {
+                    recip += "<" + user[0].ToString() + ">,";
+                }
+                recip = recip.TrimEnd(recip[recip.Length - 1]);
+                
+                
+                DataTable dt = new DataTable();
+
+                dt.Columns.Add("<b>Параметр</b>");
+                dt.Columns.Add("<b>Значення</b>");
+                object[] row = { "Проект", project };
+                dt.Rows.Add(row);
+                object[] row0 = { "VIN", test_out.item.pflds[7].v };
+                dt.Rows.Add(row0);
+                object[] row1 = { "Держ. Номер", test_out.item.pflds[4].v };
+                dt.Rows.Add(row1);
+                object[] row2 = { "Початок", dateTimePicker_start_rouming.Value.ToString("d") };
+                dt.Rows.Add(row2);
+                object[] row3 = { "Кінець", dateTimePicker_end_rouming.Value.ToString("d") };
+                dt.Rows.Add(row3);
+                object[] row5 = { "Договір", "" };
+                dt.Rows.Add(row5);
+                object[] row6 = { "<br />", "" };
+                dt.Rows.Add(row6);
+                object[] row7 = { "<br />", "" };
+                dt.Rows.Add(row7);
+                object[] row8 = { "Назва обєкту", test_out.item.nm };
+                dt.Rows.Add(row8);
+                object[] row9 = { "IMEI", test_out.item.uid };
+                dt.Rows.Add(row9);
+                
+
+
+                string Body = "Вітаємо!"
+                    + "<br />"
+                    + "<br />"
+                    + "До нас звернувся клієнт з проханням активувати послугу Роумінг. "
+                    + "<br />"
+                    + "Якщо ви погоджуєте активацію послуги - прохання надіслати у відповідь відповідну заявку."
+                    + "<br />"
+                    + "<br />"
+                    + macros.ConvertDataTableToHTML(dt);
+
+
+                macros.send_mail(recip, Subject, Body);
+            }
 
 
             this.Close();
@@ -280,8 +375,28 @@ namespace Disp_WinForm
         private void comboBox_source_in_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBox_source_in.SelectedIndex == 2)
-            { comboBox_account.Enabled = true; textBox_email_account.Enabled = true; textBox_primitka.Enabled = true; }
-            else { comboBox_account.Enabled = false; textBox_email_account.Enabled = false; textBox_primitka.Enabled = false; }
+            { 
+                comboBox_account.Enabled = true; textBox_email_account.Enabled = true; textBox_primitka.Enabled = true;
+                comboBox_account.Visible = true; textBox_email_account.Visible = true; textBox_primitka.Visible = true;
+                dateTimePicker_start_rouming.Visible = false; dateTimePicker_end_rouming.Visible = false;
+                label3.Visible = true; label4.Visible = true; label5.Visible = true;
+                label3.Text = "Дії з обліковим записом"; label4.Text = "Електронна пошта"; label5.Text = "Примітка";
+            }
+            else if (comboBox_source_in.SelectedIndex == 3)
+            {
+                comboBox_account.Enabled = false; textBox_email_account.Enabled = false; textBox_primitka.Enabled = false;
+                comboBox_account.Visible = false; textBox_email_account.Visible = false; textBox_primitka.Visible = false;
+                dateTimePicker_start_rouming.Visible = true; dateTimePicker_end_rouming.Visible = true;
+                label3.Visible = true; label4.Visible = true; label5.Visible = false;
+                label3.Text = "Початок"; label4.Text = "Кінець"; label5.Text = "Примітка";
+            }
+            else 
+            { 
+                comboBox_account.Enabled = false; textBox_email_account.Enabled = false; textBox_primitka.Enabled = false;
+                comboBox_account.Visible = false; textBox_email_account.Visible = false; textBox_primitka.Visible = false;
+                dateTimePicker_start_rouming.Visible = false; dateTimePicker_end_rouming.Visible = false;
+                label3.Visible = false; label4.Visible = false; label5.Visible = false;
+            }
         }
 
         private bool IsValidEmail(string source)
@@ -307,7 +422,13 @@ namespace Disp_WinForm
                     textBox_email_account.SelectionStart = textBox_email_account.Text.Length;
                 }
             }
-            
+
+            if (!IsValidEmail(textBox_email_account.Text))
+            {
+                textBox_email_account.BackColor = Color.LightPink;
+            }
+            else { textBox_email_account.BackColor = Color.Empty; }
+
         }
 
         private void treeView_object_info_Click(object sender, EventArgs e)
