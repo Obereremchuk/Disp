@@ -607,6 +607,10 @@ namespace Disp_WinForm
         }
         private void button_write_Click(object sender, EventArgs e)
         {
+            string jsonq = macros.WialonRequest("&svc=core/search_item&params={"
+                                                         + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                         + "\"flags\":\"‭‭‭‭8388873\"}"); //
+
             if (comboBox_kuzov_type.SelectedIndex == -1
                 || comboBox_color.SelectedIndex == -1
                 || comboBox_test_production_date.SelectedIndex == -1
@@ -639,7 +643,7 @@ namespace Disp_WinForm
 
         private void commands_fill_anketa()
         {
-
+            
 
             string id_db_TS_info = macros.sql_command("SELECT TS_info_idTS_info FROM btk.Object where Object_id_wl = " + vars_form.id_wl_object_for_test + ";");
 
@@ -712,6 +716,8 @@ namespace Disp_WinForm
             //                                                       "Object.idObject=Object_idObject and " +
             //                                                       "Subscription_idSubscr=idSubscr and " +
             //                                                       "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
+
+
 
             if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")
             {
@@ -850,7 +856,7 @@ namespace Disp_WinForm
                 //Произвольное поле  button fo pin
                 string pp20_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"20\","
+                                                              + "\"id\":\"22\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.9.2 Штатні кнопки введення PIN-коду\","
                                                               + "\"v\":\"" + comboBox_buttons_for_pin.Text.Replace("\"", "%5C%22") + "\"}");

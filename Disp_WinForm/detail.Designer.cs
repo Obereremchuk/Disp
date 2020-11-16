@@ -147,10 +147,8 @@
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.textBox7 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.label22 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label15 = new System.Windows.Forms.Label();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
@@ -180,6 +178,15 @@
             this.dateTimePicker_nachalo_dejstvia = new System.Windows.Forms.DateTimePicker();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox_otrabotka_trevogi = new System.Windows.Forms.TextBox();
+            this.groupBox17 = new System.Windows.Forms.GroupBox();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.radioButton5 = new System.Windows.Forms.RadioButton();
+            this.button2 = new System.Windows.Forms.Button();
+            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
+            this.label19 = new System.Windows.Forms.Label();
+            this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
+            this.label21 = new System.Windows.Forms.Label();
+            this.radioButton6 = new System.Windows.Forms.RadioButton();
             this.email_textBox = new Disp_WinForm.PlaceHolderTextBox();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_hronologija_trivog)).BeginInit();
@@ -210,6 +217,7 @@
             this.groupBox7.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox17.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -1356,6 +1364,7 @@
             // 
             // tabPage_rouming
             // 
+            this.tabPage_rouming.Controls.Add(this.groupBox17);
             this.tabPage_rouming.Controls.Add(this.groupBox16);
             this.tabPage_rouming.Controls.Add(this.groupBox8);
             this.tabPage_rouming.Controls.Add(this.groupBox7);
@@ -1389,10 +1398,8 @@
             // 
             this.groupBox8.Controls.Add(this.radioButton3);
             this.groupBox8.Controls.Add(this.radioButton2);
-            this.groupBox8.Controls.Add(this.textBox7);
             this.groupBox8.Controls.Add(this.button1);
             this.groupBox8.Controls.Add(this.radioButton1);
-            this.groupBox8.Controls.Add(this.label22);
             this.groupBox8.Controls.Add(this.dateTimePicker1);
             this.groupBox8.Controls.Add(this.label15);
             this.groupBox8.Controls.Add(this.dateTimePicker2);
@@ -1426,13 +1433,6 @@
             this.radioButton2.Text = "Global";
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
-            // textBox7
-            // 
-            this.textBox7.Location = new System.Drawing.Point(84, 203);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(122, 20);
-            this.textBox7.TabIndex = 25;
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(15, 130);
@@ -1452,15 +1452,6 @@
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Ukraine";
             this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(12, 206);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(49, 13);
-            this.label22.TabIndex = 26;
-            this.label22.Text = "Створив";
             // 
             // dateTimePicker1
             // 
@@ -1686,6 +1677,7 @@
             "Продажи",
             "808_звязок",
             "Учетки",
+            "Роумінг",
             "110"});
             this.comboBox_status_trevogi.Location = new System.Drawing.Point(280, 102);
             this.comboBox_status_trevogi.Name = "comboBox_status_trevogi";
@@ -1770,6 +1762,101 @@
             this.textBox_otrabotka_trevogi.TabIndex = 0;
             this.textBox_otrabotka_trevogi.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBox_otrabotka_trevogi_MouseDown);
             // 
+            // groupBox17
+            // 
+            this.groupBox17.Controls.Add(this.radioButton4);
+            this.groupBox17.Controls.Add(this.radioButton5);
+            this.groupBox17.Controls.Add(this.button2);
+            this.groupBox17.Controls.Add(this.radioButton6);
+            this.groupBox17.Controls.Add(this.dateTimePicker3);
+            this.groupBox17.Controls.Add(this.label19);
+            this.groupBox17.Controls.Add(this.dateTimePicker4);
+            this.groupBox17.Controls.Add(this.label21);
+            this.groupBox17.Location = new System.Drawing.Point(549, 3);
+            this.groupBox17.Name = "groupBox17";
+            this.groupBox17.Size = new System.Drawing.Size(216, 239);
+            this.groupBox17.TabIndex = 25;
+            this.groupBox17.TabStop = false;
+            this.groupBox17.Text = "Керування";
+            // 
+            // radioButton4
+            // 
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Location = new System.Drawing.Point(167, 107);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(40, 17);
+            this.radioButton4.TabIndex = 18;
+            this.radioButton4.TabStop = true;
+            this.radioButton4.Text = "EU";
+            this.radioButton4.UseVisualStyleBackColor = true;
+            // 
+            // radioButton5
+            // 
+            this.radioButton5.AutoSize = true;
+            this.radioButton5.Location = new System.Drawing.Point(96, 107);
+            this.radioButton5.Name = "radioButton5";
+            this.radioButton5.Size = new System.Drawing.Size(55, 17);
+            this.radioButton5.TabIndex = 17;
+            this.radioButton5.TabStop = true;
+            this.radioButton5.Text = "Global";
+            this.radioButton5.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(15, 130);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(192, 23);
+            this.button2.TabIndex = 15;
+            this.button2.Text = "Застосувати";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // dateTimePicker3
+            // 
+            this.dateTimePicker3.CustomFormat = "dd.MM.yy";
+            this.dateTimePicker3.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker3.Location = new System.Drawing.Point(84, 32);
+            this.dateTimePicker3.Name = "dateTimePicker3";
+            this.dateTimePicker3.Size = new System.Drawing.Size(122, 20);
+            this.dateTimePicker3.TabIndex = 0;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(12, 62);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(40, 13);
+            this.label19.TabIndex = 8;
+            this.label19.Text = "Кінець";
+            // 
+            // dateTimePicker4
+            // 
+            this.dateTimePicker4.CustomFormat = "dd.MM.yy";
+            this.dateTimePicker4.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker4.Location = new System.Drawing.Point(84, 58);
+            this.dateTimePicker4.Name = "dateTimePicker4";
+            this.dateTimePicker4.Size = new System.Drawing.Size(122, 20);
+            this.dateTimePicker4.TabIndex = 1;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(12, 38);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(49, 13);
+            this.label21.TabIndex = 7;
+            this.label21.Text = "Початок";
+            // 
+            // radioButton6
+            // 
+            this.radioButton6.AutoSize = true;
+            this.radioButton6.Location = new System.Drawing.Point(16, 107);
+            this.radioButton6.Name = "radioButton6";
+            this.radioButton6.Size = new System.Drawing.Size(62, 17);
+            this.radioButton6.TabIndex = 16;
+            this.radioButton6.TabStop = true;
+            this.radioButton6.Text = "Ukraine";
+            this.radioButton6.UseVisualStyleBackColor = true;
+            // 
             // email_textBox
             // 
             this.email_textBox.Location = new System.Drawing.Point(6, 19);
@@ -1833,6 +1920,8 @@
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox17.ResumeLayout(false);
+            this.groupBox17.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1973,9 +2062,16 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.Label label22;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.GroupBox groupBox17;
+        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.RadioButton radioButton5;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.RadioButton radioButton6;
+        private System.Windows.Forms.DateTimePicker dateTimePicker3;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.DateTimePicker dateTimePicker4;
+        private System.Windows.Forms.Label label21;
     }
 }

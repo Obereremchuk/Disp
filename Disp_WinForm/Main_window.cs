@@ -1763,13 +1763,16 @@ namespace Disp_WinForm
             {
                 scrollPosition = dataGridView_CM.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
 
-                try
+                if (dataGridView_CM.Rows.Count >= 1)
                 {
-                    selectpozition = dataGridView_CM.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
-                }
-                catch (Exception)
-                {
-                    selectpozition = 0;
+                    try
+                    {
+                        selectpozition = dataGridView_CM.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                    }
+                    catch (Exception)
+                    {
+                        selectpozition = 0;
+                    }
                 }
             }
 
@@ -1790,7 +1793,7 @@ namespace Disp_WinForm
                                  SortOrder.Ascending : SortOrder.Descending;
             }
 
-            if (dataGridView_CM.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
+            if (dataGridView_CM.Rows.Count >= 1)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
             {
                 if (scrollPosition == -1)
                 {
@@ -1798,7 +1801,8 @@ namespace Disp_WinForm
                 }
                 dataGridView_CM.FirstDisplayedScrollingRowIndex = scrollPosition;
             }
-            if (dataGridView_CM.Rows.Count >= selectpozition)
+            else { scrollPosition = -1; }
+            if (dataGridView_CM.Rows.Count >= 1)
             {
                 dataGridView_CM.ClearSelection();
                 try
@@ -2013,14 +2017,16 @@ namespace Disp_WinForm
             if (dataGridView_Rouming.DataSource != null)
             {
                 scrollPosition = dataGridView_Rouming.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
-
-                try
+                if (dataGridView_Rouming.Rows.Count >= 1)
                 {
-                    selectpozition = dataGridView_Rouming.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
-                }
-                catch (Exception)
-                {
-                    selectpozition = 0;
+                    try
+                    {
+                        selectpozition = dataGridView_Rouming.SelectedRows[0].Index; //dataGridView_909_n.CurrentCell.RowIndex;
+                    }
+                    catch (Exception)
+                    {
+                        selectpozition = 0;
+                    }
                 }
             }
 
@@ -2050,7 +2056,7 @@ namespace Disp_WinForm
                                  SortOrder.Ascending : SortOrder.Descending;
             }
 
-            if (dataGridView_Rouming.Rows.Count >= 0)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
+            if (dataGridView_Rouming.Rows.Count >= 1)// если позиция скрола -1 то не меняем положенеие скрола (для случаем когда скрола нет)
             {
                 if (scrollPosition == -1)
                 {
@@ -2058,7 +2064,7 @@ namespace Disp_WinForm
                 }
                 dataGridView_Rouming.FirstDisplayedScrollingRowIndex = scrollPosition;
             }
-            if (dataGridView_Rouming.Rows.Count >= selectpozition)
+            if (dataGridView_Rouming.Rows.Count >= 1)
             {
                 dataGridView_Rouming.ClearSelection();
                 try
@@ -4879,7 +4885,7 @@ namespace Disp_WinForm
             //Произвольное поле 21
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.3 Блокує Prizrak по CAN", "");
 
-            //Произвольное поле 21
+            //Произвольное поле 22
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.9.2 Штатні кнопки введення PIN-коду", "");
 
             //Административное поле 1
@@ -5830,70 +5836,70 @@ namespace Disp_WinForm
             //Произвольное поле 7
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.5 V Відповідальна особа", "");
 
-            //Произвольное поле 6
+            //Произвольное поле 8
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.1.1 Оператор, що тестував", "");
 
-            //Произвольное поле 7
+            //Произвольное поле 9
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.11 Додатково встановлені сигналізації", "");
 
-            //Произвольное поле 8
+            //Произвольное поле 10
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.12 Постановка авто под охрану через багажник?", "");
 
-            //Произвольное поле 9
+            //Произвольное поле 11
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.15 Додатково встановлені датчики", "");
 
-            //Произвольное поле 10
+            //Произвольное поле 12
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.2.1 Установник: назва, адреса", "");
 
-            //Произвольное поле 11
+            //Произвольное поле 13
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.2.2 Установник-монтажник: ПІБ, №тел.", "");
 
-            //Произвольное поле 12
+            //Произвольное поле 14
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.3 Дата установки", "");
 
-            //Произвольное поле 13
+            //Произвольное поле 15
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.4 Місце установки пристрою ВЕНБЕСТ", "");
 
-            //Произвольное поле 14
+            //Произвольное поле 16
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.1 CAN-реле", "");
 
-            //Произвольное поле 15
+            //Произвольное поле 17
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.2 Звичайне реле", "");
 
-            //Произвольное поле 16
+            //Произвольное поле 18
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.7 Місце встановлення сервісної кнопки", "");
 
-            //Произвольное поле 17
+            //Произвольное поле 19
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.8.1 Дротова тривожна кнопка", "");
 
-            //Произвольное поле 18
+            //Произвольное поле 20
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.8.2 Бездротова тривожна кнопка", "");
 
-            //Произвольное поле 19
-            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.9.1 Кнопки введення PIN коду: штатні, додатково встановленні", "");
+            //Произвольное поле 21
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.3 Блокує Prizrak по CAN", "");
 
-            //Произвольное поле 20
+            //Произвольное поле 22
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.9.2 Штатні кнопки введення PIN-коду", "");
 
-            //Административное поле 21
+            //Административное поле 1
             answer = macros.create_admin_field_wl(cr_obj_out.item.id, "3.9.3 GSM-код", maskedTextBox_GSM_CODE.Text.ToString());
 
-            //Административное поле 22
+            //Административное поле 2
             answer = macros.create_admin_field_wl(cr_obj_out.item.id, "3.9.4 PUK-код", maskedTextBox_PUK.Text.ToString());
 
-            //Административное поле 23
+            //Административное поле 3
             answer = macros.create_admin_field_wl(cr_obj_out.item.id, "3.9.5 Bluetuth-код", maskedTextBox_BLE_CODE.Text.ToString());
 
-            //Произвольное поле 24
+            //Произвольное поле 3
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "4.1 Дата активації", "");
 
-            //Произвольное поле 25
+            //Произвольное поле 4
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "4.1.1 Оператор, що активував", "");
 
-            //Произвольное поле 26
+            //Произвольное поле 5
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "4.2 Дата встановлення PIN-коду", "");
 
-            //Произвольное поле 27
+            //Произвольное поле 6
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "4.3 PIN-код встановлено особою(клієнт/установлник)", "");
 
             //Произвольное поле 28
@@ -6325,49 +6331,49 @@ namespace Disp_WinForm
             //Произвольное поле 7
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.5 V Відповідальна особа", "");
 
-            //Произвольное поле 6
+            //Произвольное поле 8
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.1.1 Оператор, що тестував", "");
 
-            //Произвольное поле 7
+            //Произвольное поле 9
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.11 Додатково встановлені сигналізації", "");
 
-            //Произвольное поле 8
+            //Произвольное поле 10
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.12 Постановка авто под охрану через багажник?", "");
 
-            //Произвольное поле 9
+            //Произвольное поле 11
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.15 Додатково встановлені датчики", "");
 
-            //Произвольное поле 10
+            //Произвольное поле 12
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.2.1 Установник: назва, адреса", "");
 
-            //Произвольное поле 11
+            //Произвольное поле 13
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.2.2 Установник-монтажник: ПІБ, №тел.", "");
 
-            //Произвольное поле 12
+            //Произвольное поле 14
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.3 Дата установки", "");
 
-            //Произвольное поле 13
+            //Произвольное поле 15
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.4 Місце установки пристрою ВЕНБЕСТ", "");
 
-            //Произвольное поле 14
+            //Произвольное поле 16
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.1 CAN-реле", "");
 
-            //Произвольное поле 15
+            //Произвольное поле 17
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.2 Звичайне реле", "");
 
-            //Произвольное поле 16
+            //Произвольное поле 18
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.7 Місце встановлення сервісної кнопки", "");
 
-            //Произвольное поле 17
+            //Произвольное поле 19
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.8.1 Дротова тривожна кнопка", "");
 
-            //Произвольное поле 18
+            //Произвольное поле 20
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.8.2 Бездротова тривожна кнопка", "");
 
-            //Произвольное поле 19
+            //Произвольное поле 21
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.9.1 Кнопки введення PIN коду: штатні, додатково встановленні", "");
 
-            //Произвольное поле 20
+            //Произвольное поле 22
             answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.9.2 Штатні кнопки введення PIN-коду", "");
 
             //Административное поле 21

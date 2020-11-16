@@ -291,7 +291,22 @@ namespace Disp_WinForm
                                "'" + comboBox_source_in.GetItemText(comboBox_source_in.SelectedItem) + "'," +
                                "'" + vars_form.user_login_id + "','Роумінг')");
 
+                string id_created_notification = macros.sql_command("SELECT max(idnotification) FROM btk.notification;");
 
+                macros.sql_command("insert into btk.alarm_ack(" +
+                                    "alarm_text, " +
+                                    "notification_idnotification, " +
+                                    "Users_chenge, time_start_ack, " +
+                                    "current_status_alarm, " +
+                                    "vizov_police, " +
+                                    "vizov_gmp) " +
+                                    "values('" + textBox_email_account.Text + "', " +
+                                    "'" + id_created_notification + "'," +
+                                    "'" + vars_form.user_login_id + "', " +
+                                    "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                    " '" + "Роумінг" + "', " +
+                                    "'0', " +
+                                    "'0'); ");
 
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.add_alarm_unit_id + "\","
