@@ -868,7 +868,7 @@ namespace Disp_WinForm
                     "and(idZayavki like '%" + textBox_search_object_name_activation.Text + "%' " +
                     "or Activation_object.new_name_obj like '%" + textBox_search_object_name_activation.Text + "%' " +
                     "or Zayavkicol_name like '%" + textBox_search_object_name_activation.Text + "%' " +
-                    " or Activation_objectcol_result like '%" + textBox_search_object_name_activation.Text + "%' " +
+                    " or Activation_objectcol_result like '" + textBox_search_object_name_activation.Text + "' " +
                     "or Zayavkicol_VIN like '%" + textBox_search_object_name_activation.Text + "%') " +
                     "and TS_brand.idTS_brand = Zayavki.TS_brand_idTS_brand " +
                     "and TS_model.idTS_model = Zayavki.TS_model_idTS_model " +
@@ -908,7 +908,7 @@ namespace Disp_WinForm
                     "and(idZayavki like '%" + textBox_search_object_name_activation.Text + "%' " +
                     "or Activation_object.new_name_obj like '%" + textBox_search_object_name_activation.Text + "%' " +
                     "or Zayavkicol_name like '%" + textBox_search_object_name_activation.Text + "%' " +
-                    "or Activation_objectcol_result like '%" + textBox_search_object_name_activation.Text + "%' " +
+                    "or Activation_objectcol_result like '" + textBox_search_object_name_activation.Text + "' " +
                     "or Zayavkicol_VIN like '%" + textBox_search_object_name_activation.Text + "%') " +
                     "and TS_brand.idTS_brand = Zayavki.TS_brand_idTS_brand " +
                     "and TS_model.idTS_model = Zayavki.TS_model_idTS_model " +
@@ -11327,15 +11327,6 @@ namespace Disp_WinForm
 
             //Произвольное поле 7
             macros.create_custom_field_wl(cr_obj_out.item.id, "2.5 V Відповідальна особа", "");
-
-            //Произвольное поле 6
-            string pp6_answer = macros.WialonRequest(
-                "&svc=item/update_custom_field&params={"
-                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
-                + "\"id\":\"0\","
-                + "\"callMode\":\"create\","
-                + "\"n\":\"3.10.2 Версія ПЗ Keyless\","
-                + "\"v\":\"\"}");
 
             //Произвольное поле 7
             string pp7_answer = macros.WialonRequest(

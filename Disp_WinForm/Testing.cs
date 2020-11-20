@@ -733,149 +733,171 @@ namespace Disp_WinForm
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"name\":\"" + name_obj_textBox.Text.Replace("\"", "%5C%22") + "\"}");
 
-                if (vars_form.if_open_created_testing == 0)
+
+                //update costom feild in WL, Upatate VO in WL and DB
+                foreach (var keyvalue in test_out.item.flds)
                 {
-
-                    //Произвольное поле  name operator
-                    string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                    + "\"id\":\"6\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"3.1.1 Оператор, що тестував\","
-                                                                    + "\"v\":\"" + vars_form.user_login_name + "\"}");
-                }
-
-                //Произвольное поле 0 УВАГА
-                string pp1_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                    switch (keyvalue.Value.n)
+                    {
+                        //Произвольное поле  name operator
+                        case string a when a.Contains("3.1.1 ") & vars_form.if_open_created_testing == 0:
+                            string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                            + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                            + "\"callMode\":\"update\","
+                                                                            + "\"n\":\"3.1.1 Оператор, що тестував\","
+                                                                            + "\"v\":\"" + vars_form.user_login_name + "\"}");
+                            break;
+                        //Произвольное поле 0 УВАГА
+                        case string a when a.Contains("0 УВАГА"):
+                            string pp1_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"1\","
+                                                                + "\"id\":\"" + keyvalue.Value.id + "\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"0 УВАГА\","
                                                                 + "\"v\":\"" + textBox_uvaga.Text.Replace("\"", "%5C%22") + "\"}");
+                            break;
 
-                //Произвольное поле  other alarm
-                string pp7_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                        //Произвольное поле  other alarm
+                        case string a when a.Contains("3.11 "):
+                            string pp7_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                               + "\"id\":\"7\","
+                                                               + "\"id\":\"" + keyvalue.Value.id + "\","
                                                                + "\"callMode\":\"update\","
                                                                + "\"n\":\"3.11 Додатково встановлені сигналізації\","
                                                                + "\"v\":\"" + textBox_other_alarm.Text.Replace("\"", "%5C%22") + "\"}");
-
-                ////Произвольное поле  в охрану с багажника
-                //string pp8_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                //                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                //                                               + "\"id\":\"8\","
-                //                                               + "\"callMode\":\"update\","
-                //                                               + "\"n\":\"3.12 Постановка авто под охрану через багажник?\","
-                //                                               + "\"v\":\"" + (checkBox_arm_from_bagagnik.Checked ? "Так" : "Ні") + "\"}");
-
-                //Произвольное поле  в охрану с багажника
-                string pp9_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Додатково встановлені датчики
+                        case string a when a.Contains("3.15 "):
+                            string pp9_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"9\","
+                                                                + "\"id\":\"" + keyvalue.Value.id + "\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.15 Додатково встановлені датчики\","
                                                                 + "\"v\":\"" + other_sensor.Replace("\"", "%5C%22") + "\"}");
-
-
-                //Произвольное поле Установщик
-                string pp10_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Произвольное поле Установщик
+                        case string a when a.Contains("3.2.2 "):
+                            string pp10_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"10\","
+                                                                + "\"id\":\"" + keyvalue.Value.id + "\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.2.2 Установник - монтажник: ПІБ, №тел.\","
                                                                   + "\"v\":\"" + comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem).ToString() + "\"}");
-
-                //Произвольное поле СТО
-                string pp11_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Произвольное поле СТО
+                        case string a when a.Contains("3.2.1 "):
+                            string pp11_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"11\","
+                                                                + "\"id\":\"" + keyvalue.Value.id + "\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.2.1 Установник: назва, адреса\","
                                                                 + "\"v\":\"" + comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem).ToString() + "\"}");
-
-
-                if (vars_form.if_open_created_testing == 0)
-                {
-                    //Произвольное поле дата установки = дата тестирования
-                    string pp12_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Произвольное поле дата установки = дата тестирования
+                        case string a when a.Contains("3.3 ") & vars_form.if_open_created_testing == 0:
+                            string pp12_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                     + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                    + "\"id\":\"12\","
+                                                                    + "\"id\":\"" + keyvalue.Value.id + "\","
                                                                     + "\"callMode\":\"update\","
                                                                     + "\"n\":\"3.3 Дата установки\","
                                                                     + "\"v\":\"" + DateTime.Now.Date + "\"}");
-                }
-
-                //Произвольное поле место установки сигналызації
-                string pp13_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Произвольное поле место установки сигналызації
+                        case string a when a.Contains("3.4 "):
+                            string pp13_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"13\","
+                                                                + "\"id\":\"" + keyvalue.Value.id + "\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"3.4 Місце установки пристрою ВЕНБЕСТ\","
                                                                 + "\"v\":\"" + comboBox_device2.Text.Replace("\"", "%5C%22") + "\"}");
-
-                //Произвольное поле place relay
-                string pp14_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Произвольное поле place relay
+                        case string a when a.Contains("3.6.1 "):
+                            string pp14_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"14\","
+                                                              + "\"id\":\"" + keyvalue.Value.id + "\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.6.1 CAN-реле\","
                                                               + "\"v\":\"" + ("Місце: " + textBox_CAN_relay_place.Text + ". Ланцюг: " + textBox_CAN_relay_lancug.Text).Replace("\"", "%5C%22") + "\"}");
-                //Произвольное поле wire cut
-                string pp15_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Произвольное поле wire cut
+                        case string a when a.Contains("3.6.2 "):
+                            string pp15_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"15\","
+                                                              + "\"id\":\"" + keyvalue.Value.id + "\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.6.2 Звичайне реле\","
                                                               + "\"v\":\"" + ("Місце: " + comboBox_zvich_relay_place.Text + ". Ланцюг: " + textBox_zvich_relay_lancug.Text).Replace("\"", "%5C%22") + "\"}");
-
-                //Произвольное поле service button
-                string pp16_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Произвольное поле service button
+                        case string a when a.Contains("3.7 "):
+                            string pp16_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                               + "\"id\":\"16\","
+                                                               + "\"id\":\"" + keyvalue.Value.id + "\","
                                                                + "\"callMode\":\"update\","
                                                                + "\"n\":\"3.7 Місце встановлення сервісної кнопки\","
                                                                + "\"v\":\"" + comboBox_service_button.Text.Replace("\"", "%5C%22") + "\"}");
-
-                // Произвольное поле place wire tk
-                string pp17_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        // Произвольное поле place wire tk
+                        case string a when a.Contains("3.8.1 "):
+                            string pp17_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                               + "\"id\":\"17\","
+                                                               + "\"id\":\"" + keyvalue.Value.id + "\","
                                                                + "\"callMode\":\"update\","
                                                                + "\"n\":\"3.8.1 Дротова тривожна кнопка\","
                                                                + "\"v\":\"" + wire_tk.Replace("\"", "%5C%22") + "\"}");
-                //Произвольное поле wireless_tk
-                string pp18_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Произвольное поле wireless_tk
+                        case string a when a.Contains("3.8.2 "):
+                            string pp18_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"18\","
+                                                              + "\"id\":\"" + keyvalue.Value.id + "\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.8.2 Бездротова тривожна кнопка\","
                                                               + "\"v\":\"" + wireless_tk.Replace("\"", "%5C%22") + "\"}");
-
-
-                //Произвольное поле  button fo pin
-                string pp20_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Произвольное поле  button fo pin
+                        case string a when a.Contains("3.9.2 Штатні кнопки введення PIN-коду"):
+                            string pp20_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"22\","
+                                                              + "\"id\":\"" + keyvalue.Value.id + "\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.9.2 Штатні кнопки введення PIN-коду\","
                                                               + "\"v\":\"" + comboBox_buttons_for_pin.Text.Replace("\"", "%5C%22") + "\"}");
-
-                //Произвольное поле новій ПИН
-                string pp21_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Произвольное поле новій ПИН
+                        case string a when a.Contains("4.3 "):
+                            string pp21_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"24\","
+                                                                + "\"id\":\"" + keyvalue.Value.id + "\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"4.3 PIN-код встановлено особою(клієнт / установлник)\","
                                                                 + "\"v\":\"" + textBox_current_pin.Text.Replace("\"", "%5C%22") + "\"}");
-
-                //Произвольное поле Гарантія до
-                string pp211_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Произвольное поле Гарантія до
+                        case string a when a.Contains("5.3 "):
+                            string pp211_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"28\","
+                                                                + "\"id\":\"" + keyvalue.Value.id + "\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"5.3 Гарантія до\","
                                                                 + "\"v\":\"" + (DateTime.Now.Date.AddYears(1)).AddDays(-1).ToString() + "\"}");
+                            break;
+                        //3.6.3 Блокує Prizrak по CA
+                        case string a when a.Contains("3.6.3 "):
+                            string pp234_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                + "\"callMode\":\"update\","
+                                                                + "\"n\":\"3.6.3 Блокує Prizrak по CAN\","
+                                                                + "\"v\":\"" + (checkBox_block_prizrak_can.Checked ? "Так" : "Ні") + "\"}");
+                            break;
+
+                    }
+                }
+                
+                
 
                 //Характеристики kuzov type
                 string pp22_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
@@ -892,14 +914,22 @@ namespace Disp_WinForm
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"year\","
                                                                + "\"v\":\"" + comboBox_test_production_date.GetItemText(this.comboBox_test_production_date.SelectedItem).ToString() + "\"}");
-                if (textBox_licence_plate.Text.Replace("\"", "%5C%22") != "")
+                if (textBox_licence_plate.Text != "")
                 {
                     //Характеристики licence plate
-                    string pp25_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
-                                                                   + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                   + "\"n\":\"registration_plate\","
-                                                                   + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+                    macros.WialonRequest("&svc=item/update_profile_field&params={"
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                               + "\"n\":\"registration_plate\","
+                                                               + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
                 }
+                else
+                {//Характеристики licence plate
+                    macros.WialonRequest("&svc=item/update_profile_field&params={"
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                               + "\"n\":\"registration_plate\","
+                                                               + "\"v\":\"-\"}");
+                }
+
                 //Характеристики brend
                 string pp26_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -919,13 +949,7 @@ namespace Disp_WinForm
                                                                    + "\"v\":\"" + textBox_vin.Text.Replace("\"", "%5C%22") + "\"}");
                 }
 
-                //3.9.1 Кнопки введення PIN коду: штатні, додатково встановленні
-                string pp234_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"19\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"3.6.3 Блокує Prizrak по CAN\","
-                                                                + "\"v\":\"" + (checkBox_block_prizrak_can.Checked ? "Так" : "Ні") + "\"}");
+                
 
 
 
@@ -944,107 +968,159 @@ namespace Disp_WinForm
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"name\":\"" + name_obj_textBox.Text.Replace("\"", "%5C%22") + "\"}");
 
-                if (vars_form.if_open_created_testing == 0)
+                //update costom feild in WL, Upatate VO in WL and DB
+                foreach (var keyvalue in test_out.item.flds)
                 {
-                    //Произвольное поле  name operator
-                    string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                    + "\"id\":\"7\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"3.1.1 Оператор, що тестував\","
-                                                                    + "\"v\":\"" + vars_form.user_login_name + "\"}");
-
-                }
-
-                //Произвольное поле 0 УВАГА
-                string pp1_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                    switch (keyvalue.Value.n)
+                    {
+                        //Произвольное поле  name operator
+                        case string a when a.Contains("3.1.1 Оператор, що тестував") & vars_form.if_open_created_testing == 0:
+                            string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                            + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                            + "\"callMode\":\"update\","
+                                                                            + "\"n\":\"3.1.1 Оператор, що тестував\","
+                                                                            + "\"v\":\"" + vars_form.user_login_name + "\"}");
+                            break;
+                        //Произвольное поле 0 УВАГА
+                        case string a when a.Contains("0 УВАГА"):
+                            string pp1_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"1\","
+                                                                + "\"id\":\"" + keyvalue.Value.id + "\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"0 УВАГА\","
                                                                 + "\"v\":\"" + textBox_uvaga.Text.Replace("\"", "%5C%22") + "\"}");
-                ////Произвольное поле device1
-                //string pp100_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                //                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                //                                                + "\"id\":\"14\","
-                //                                                + "\"callMode\":\"update\","
-                //                                                + "\"n\":\"3.4 Місце установки пристрою ВЕНБЕСТ\","
-                //                                                + "\"v\":\"" + textBox_device1.Text.Replace("\"", "%5C%22") + "\"}");
-                //Произвольное поле device2
-                string pp2_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Произвольное поле device2
+                        case string a when a.Contains("3.5 "):
+                            string pp2_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"15\","
+                                                              + "\"id\":\"" + keyvalue.Value.id + "\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.5 Назва та місце установки сигналізації\","
                                                               + "\"v\":\"" + comboBox_device2.Text.Replace("\"", "%5C%22") + "\"}");
-                //Произвольное поле place relay
-                string pp3_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Произвольное поле place relay
+                        case string a when a.Contains("3.6.1  "):
+                            string pp3_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"16\","
+                                                              + "\"id\":\"" + keyvalue.Value.id + "\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.6.1  Реле блокування: місце встановлення\","
                                                               + "\"v\":\"" + comboBox_zvich_relay_place.Text.Replace("\"", "%5C%22") + "\"}");
-                //Произвольное поле wire cut
-                string pp4_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Произвольное поле wire cut
+                        case string a when a.Contains("3.6.2 "):
+                            
+                            string pp4_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                          + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                          + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                          + "\"callMode\":\"update\","
+                                                                          + "\"n\":\"3.6.2 Реле блокування: елемент блокування\","
+                                                                          + "\"v\":\"" + textBox_zvich_relay_lancug.Text.Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        //Произвольное поле place tk
+                        case string a when a.Contains("3.8.2"):
+                            
+                            string pp5_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                          + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                          + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                          + "\"callMode\":\"update\","
+                                                                          + "\"n\":\"3.8.2 Бездротова тривожна кнопка\","
+                                                                          + "\"v\":\"" + wireless_tk.Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        //Произвольное поле place wireles tk
+                        case string a when a.Contains("3.8.1 "):
+                            string pp60_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"17\","
-                                                              + "\"callMode\":\"update\","
-                                                              + "\"n\":\"3.6.2 Реле блокування: елемент блокування\","
-                                                              + "\"v\":\"" + textBox_zvich_relay_lancug.Text.Replace("\"", "%5C%22") + "\"}");
-
-
-                //Произвольное поле place tk
-                string pp5_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"20\","
-                                                              + "\"callMode\":\"update\","
-                                                              + "\"n\":\"3.8.2 Бездротова тривожна кнопка\","
-                                                              + "\"v\":\"" + wireless_tk.Replace("\"", "%5C%22") + "\"}");
-                //Произвольное поле place wireles tk
-                string pp60_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"19\","
+                                                              + "\"id\":\"" + keyvalue.Value.id + "\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.8.1 Дротова тривожна кнопка\","
                                                               + "\"v\":\"" + wire_tk.Replace("\"", "%5C%22") + "\"}");
-                //Произвольное поле service button
-                string pp7_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"18\","
-                                                              + "\"callMode\":\"update\","
-                                                              + "\"n\":\"3.7 Місце встановлення сервісної кнопки\","
-                                                              + "\"v\":\"" + comboBox_service_button.Text.Replace("\"", "%5C%22") + "\"}");
-                //Произвольное поле  button fo pin
-                string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"22\","
-                                                              + "\"callMode\":\"update\","
-                                                              + "\"n\":\"3.9.2 Штатні кнопки введення PIN-коду\","
-                                                              + "\"v\":\"" + comboBox_buttons_for_pin.Text.Replace("\"", "%5C%22") + "\"}");
-
-                //Додатково встановлені сигналізації\
-                string pp9_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"8\","
-                                                              + "\"callMode\":\"update\","
-                                                              + "\"n\":\"3.11 Додатково встановлені сигналізації\","
-                                                              + "\"v\":\"" + textBox_other_alarm.Text.Replace("\"", "%5C%22") + "\"}");
-
-                //3.15 Додатково встановлені датчики
-                string pp99_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"10\","
-                                                              + "\"callMode\":\"update\","
-                                                              + "\"n\":\"3.15 Додатково встановлені датчики\","
-                                                              + "\"v\":\"" + other_sensor.Replace("\"", "%5C%22") + "\"}");
-
-                ////Постановка авто под охрану через багажник?
-                //string pp90_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                //                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                //                                              + "\"id\":\"9\","
-                //                                              + "\"callMode\":\"update\","
-                //                                              + "\"n\":\"3.12 Постановка авто под охрану через багажник?\","
-                //                                              + "\"v\":\"" + (checkBox_arm_from_bagagnik.Checked ? "Так" : "Ні") + "\"}");
+                            break;
+                        //Произвольное поле service button
+                        case string a when a.Contains("3.7 "):
+                            string pp7_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                          + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                          + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                          + "\"callMode\":\"update\","
+                                                                          + "\"n\":\"3.7 Місце встановлення сервісної кнопки\","
+                                                                          + "\"v\":\"" + comboBox_service_button.Text.Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        //Произвольное поле  button fo pin
+                        case string a when a.Contains("3.9.2 "):
+                            string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                          + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                          + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                          + "\"callMode\":\"update\","
+                                                                          + "\"n\":\"3.9.2 Штатні кнопки введення PIN-коду\","
+                                                                          + "\"v\":\"" + comboBox_buttons_for_pin.Text.Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        //Додатково встановлені сигналізації
+                        case string a when a.Contains("3.11 "):
+                            string pp9_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                          + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                          + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                          + "\"callMode\":\"update\","
+                                                                          + "\"n\":\"3.11 Додатково встановлені сигналізації\","
+                                                                          + "\"v\":\"" + textBox_other_alarm.Text.Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        //3.15 Додатково встановлені датчики
+                        case string a when a.Contains("3.15 "):
+                            string pp99_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                          + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                          + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                          + "\"callMode\":\"update\","
+                                                                          + "\"n\":\"3.15 Додатково встановлені датчики\","
+                                                                          + "\"v\":\"" + other_sensor.Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        //Произвольное поле СТО
+                        case string a when a.Contains("3.2.1 "):
+                            string pp18_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                            + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                            + "\"callMode\":\"update\","
+                                                                            + "\"n\":\"3.2.1 Установник: назва, адреса\","
+                                                                            + "\"v\":\"" + comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        //Произвольное поле Установщик
+                        case string a when a.Contains("3.2.2 "):
+                            string pp19_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                        + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                        + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                        + "\"callMode\":\"update\","
+                                                                        + "\"n\":\"3.2.2 Установник - монтажник: ПІБ, №тел.\","
+                                                                          + "\"v\":\"" + comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        //Произвольное поле дата установки = дата тестированиz
+                        case string a when a.Contains("3.3 ") & vars_form.if_open_created_testing == 0:
+                            string pp20_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                    + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"3.3 Дата установки\","
+                                                                    + "\"v\":\"" + DateTime.Now.Date + "\"}");
+                            break;
+                        //Произвольное поле Гарантія до
+                        case string a when a.Contains("5.3 ") & vars_form.if_open_created_testing == 0:
+                            string pp211_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                            + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                            + "\"callMode\":\"update\","
+                                                                            + "\"n\":\"5.3 Гарантія до\","
+                                                                            + "\"v\":\"" + (DateTime.Now.Date.AddYears(1)).AddDays(-1).ToString() + "\"}");
+                            break;
+                        //Произвольное поле новій ПИН
+                        case string a when a.Contains("4.3 "):
+                            string pp21_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                            + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                            + "\"callMode\":\"update\","
+                                                                            + "\"n\":\"4.3 PIN-код встановлено особою(клієнт/установлник)\","
+                                                                            + "\"v\":\"" + textBox_current_pin.Text.Replace("\"", "%5C%22") + "\"}");
+                            break;
+                    }
+                }
 
                 //Характеристики kuzov type
                 string pp10_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
@@ -1061,11 +1137,25 @@ namespace Disp_WinForm
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"year\","
                                                                + "\"v\":\"" + comboBox_test_production_date.GetItemText(this.comboBox_test_production_date.SelectedItem).ToString() + "\"}");
-                //Характеристики licence plate
-                string pp13_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
+
+                if (textBox_licence_plate.Text != "")
+                {
+                    //Характеристики licence plate
+                    string pp13_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"registration_plate\","
                                                                + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+                }
+                else
+                {//Характеристики licence plate
+                    string pp13_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                               + "\"n\":\"registration_plate\","
+                                                               + "\"v\":\"-\"}");
+                }
+
+
+
                 //Характеристики brend
                 string pp14_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -1081,71 +1171,8 @@ namespace Disp_WinForm
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"vin\","
                                                                + "\"v\":\"" + textBox_vin.Text.Replace("\"", "%5C%22") + "\"}");
-                //Произвольное поле  relay plus?
-                //string pp17_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                //                                              + "\"itemId\":\"" + vars_form.id_object_for_test + "\","
-                //                                              + "\"id\":\"22\","
-                //                                              + "\"callMode\":\"update\","
-                //                                              + "\"n\":\"3.9.2 Штатні кнопки введення PIN-коду\","
-                //                                              + "\"v\":\"" + comboBox_buttons_for_pin.Text + "\"}");
 
-                //Произвольное поле  relay plus?
-                string pp17_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                               + "\"id\":\"7\","
-                                                               + "\"callMode\":\"update\","
-                                                               + "\"n\":\"3.1.1 Оператор, що тестував\","
-                                                               + "\"v\":\"" + vars_form.user_login_name + "\"}");
-                //Произвольное поле СТО
 
-                string pp18_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"11\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"3.2.1 Установник: назва, адреса\","
-                                                                + "\"v\":\"" + comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
-                //Произвольное поле Установщик
-
-                string pp19_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                            + "\"id\":\"12\","
-                                                            + "\"callMode\":\"update\","
-                                                            + "\"n\":\"3.2.2 Установник - монтажник: ПІБ, №тел.\","
-                                                              + "\"v\":\"" + comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
-
-                if (vars_form.if_open_created_testing == 0)
-                {
-                    //Произвольное поле дата установки = дата тестирования
-                    string pp20_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                    + "\"id\":\"13\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"3.3 Дата установки\","
-                                                                    + "\"v\":\"" + DateTime.Now.Date + "\"}");
-
-                    //Произвольное поле Гарантія до
-                    string pp211_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                    + "\"id\":\"30\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"5.3 Гарантія до\","
-                                                                    + "\"v\":\"" + (DateTime.Now.Date.AddYears(1)).AddDays(-1).ToString() + "\"}");
-                }
-                //Произвольное поле новій ПИН
-                string pp21_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"26\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"4.3 PIN-код встановлено особою(клієнт/установлник)\","
-                                                                + "\"v\":\"" + textBox_current_pin.Text.Replace("\"", "%5C%22") + "\"}");
-
-                ////3.9.1 Кнопки введення PIN коду: штатні, додатково встановленні
-                //string pp23_answer = macros.wialon_request_lite("&svc=item/update_custom_field&params={"
-                //                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                //                                                + "\"id\":\"21\","
-                //                                                + "\"callMode\":\"update\","
-                //                                                + "\"n\":\"3.9.1 Кнопки введення PIN коду: штатні, додатково встановленні\","
-                //                                                + "\"v\":\"" + textBox_pin_button_external.Text.Replace("\"", "%5C%22") + "\"}");
 
 
             }//Создаем произвольные поля, меняем имя обекта old CNTP, CNTK, CNTP-SE, C_n
@@ -1162,36 +1189,86 @@ namespace Disp_WinForm
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"name\":\"" + name_obj_textBox.Text.Replace("\"", "%5C%22") + "\"}");
 
-                if (vars_form.if_open_created_testing == 0)
+
+                //update costom feild in WL, Upatate VO in WL and DB
+                foreach (var keyvalue in test_out.item.flds)
                 {
-                    //Произвольное поле  name operator
-                    string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                    + "\"id\":\"7\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"3.1.1 Оператор, що тестував\","
-                                                                    + "\"v\":\"" + vars_form.user_login_name + "\"}");
-
-                }
-
-                //Произвольное поле 0 УВАГА
-                string pp1_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                    switch (keyvalue.Value.n)
+                    {
+                        //Произвольное поле  name operator
+                        case string a when a.Contains("3.1.1 Оператор, що тестував") & vars_form.if_open_created_testing == 0:
+                            string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                            + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                            + "\"callMode\":\"update\","
+                                                                            + "\"n\":\"3.1.1 Оператор, що тестував\","
+                                                                            + "\"v\":\"" + vars_form.user_login_name + "\"}");
+                            break;
+                        //Произвольное поле 0 УВАГА
+                        case string a when a.Contains("0 УВАГА"):
+                            string pp1_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"1\","
+                                                                + "\"id\":\"" + keyvalue.Value.id + "\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"0 УВАГА\","
                                                                 + "\"v\":\"" + textBox_uvaga.Text.Replace("\"", "%5C%22") + "\"}");
-
-                //Произвольное поле device2
-                string pp2_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Произвольное поле device2
+                        case string a when a.Contains("3.4 "):
+                            string pp2_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"12\","
+                                                              + "\"id\":\"" + keyvalue.Value.id + "\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.4 Місце установки\","
                                                               + "\"v\":\"" + comboBox_device2.Text.Replace("\"", "%5C%22") + "\"}");
-
-
-
+                            break;
+                        //Произвольное поле СТО
+                        case string a when a.Contains("3.2.1 "):
+                            string pp18_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                            + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                            + "\"callMode\":\"update\","
+                                                                            + "\"n\":\"3.2.1 Установник: назва, адреса\","
+                                                                            + "\"v\":\"" + comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        //Произвольное поле Установщик
+                        case string a when a.Contains("3.2.2 "):
+                            string pp19_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                        + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                        + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                        + "\"callMode\":\"update\","
+                                                                        + "\"n\":\"3.2.2 Установник - монтажник: ПІБ, №тел.\","
+                                                                          + "\"v\":\"" + comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        //Произвольное поле дата установки = дата тестированиz
+                        case string a when a.Contains("3.3 ") & vars_form.if_open_created_testing == 0:
+                            string pp20_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                    + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"3.3 Дата установки\","
+                                                                    + "\"v\":\"" + DateTime.Now.Date + "\"}");
+                            break;
+                        //Произвольное поле Гарантія до
+                        case string a when a.Contains("5.3 ") & vars_form.if_open_created_testing == 0:
+                            string pp211_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                            + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                            + "\"callMode\":\"update\","
+                                                                            + "\"n\":\"5.3 Гарантія до\","
+                                                                            + "\"v\":\"" + (DateTime.Now.Date.AddYears(1)).AddDays(-1).ToString() + "\"}");
+                            break;
+                        //Произвольное поле новій ПИН
+                        case string a when a.Contains("4.3 "):
+                            string pp21_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                            + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                            + "\"callMode\":\"update\","
+                                                                            + "\"n\":\"4.3 PIN-код встановлено особою(клієнт/установлник)\","
+                                                                            + "\"v\":\"" + textBox_current_pin.Text.Replace("\"", "%5C%22") + "\"}");
+                            break;
+                    }
+                }
                 //Характеристики kuzov type
                 string pp10_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -1210,10 +1287,17 @@ namespace Disp_WinForm
                 if (textBox_licence_plate.Text != "")
                 {
                     //Характеристики licence plate
-                    string pp13_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
-                                                                   + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                   + "\"n\":\"registration_plate\","
-                                                                   + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+                    macros.WialonRequest("&svc=item/update_profile_field&params={"
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                               + "\"n\":\"registration_plate\","
+                                                               + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+                }
+                else
+                {//Характеристики licence plate
+                    macros.WialonRequest("&svc=item/update_profile_field&params={"
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                               + "\"n\":\"registration_plate\","
+                                                               + "\"v\":\"-\"}");
                 }
                 //Характеристики brend
                 string pp14_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
@@ -1237,43 +1321,7 @@ namespace Disp_WinForm
 
 
 
-                //Произвольное поле СТО
-
-                string pp18_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"9\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"3.2.1 Установник: назва, адреса\","
-                                                                + "\"v\":\"" + comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
-
-
-                //Произвольное поле Установщик
-
-                string pp19_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                            + "\"id\":\"10\","
-                                                            + "\"callMode\":\"update\","
-                                                            + "\"n\":\"3.2.2 Установник - монтажник: ПІБ, №тел.\","
-                                                              + "\"v\":\"" + comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
-
-                if (vars_form.if_open_created_testing == 0)
-                {
-                    //Произвольное поле дата установки = дата тестирования
-                    string pp20_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                    + "\"id\":\"11\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"3.3 Дата установки\","
-                                                                    + "\"v\":\"" + DateTime.Now.Date + "\"}");
-
-                    //Произвольное поле Гарантія до
-                    string pp211_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                    + "\"id\":\"19\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"5.3 Гарантія до\","
-                                                                    + "\"v\":\"" + (DateTime.Now.Date.AddYears(1)).AddDays(-1).ToString() + "\"}");
-                }
+                
 
 
 
@@ -1291,68 +1339,119 @@ namespace Disp_WinForm
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"name\":\"" + name_obj_textBox.Text.Replace("\"", "%5C%22") + "\"}");
 
-                if (vars_form.if_open_created_testing == 0)
+                //update costom feild in WL, Upatate VO in WL and DB
+                foreach (var keyvalue in test_out.item.flds)
                 {
-                    //Произвольное поле  name operator
-                    string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                    + "\"id\":\"6\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"3.1.1 Оператор, що тестував\","
-                                                                    + "\"v\":\"" + vars_form.user_login_name + "\"}");
-
-                }
-
-                //Произвольное поле 0 УВАГА
-                string pp1_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                    switch (keyvalue.Value.n)
+                    {
+                        //Произвольное поле  name operator
+                        case string a when a.Contains("3.1.1 Оператор, що тестував") & vars_form.if_open_created_testing == 0:
+                            string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                            + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                            + "\"callMode\":\"update\","
+                                                                            + "\"n\":\"3.1.1 Оператор, що тестував\","
+                                                                            + "\"v\":\"" + vars_form.user_login_name + "\"}");
+                            break;
+                        //Произвольное поле 0 УВАГА
+                        case string a when a.Contains("0 УВАГА"):
+                            string pp1_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"1\","
+                                                                + "\"id\":\"" + keyvalue.Value.id + "\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"0 УВАГА\","
                                                                 + "\"v\":\"" + textBox_uvaga.Text.Replace("\"", "%5C%22") + "\"}");
-
-                //Произвольное поле device2
-                string pp2_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Произвольное поле device2
+                        case string a when a.Contains("3.4 "):
+                            string pp2_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"10\","
+                                                              + "\"id\":\"" + keyvalue.Value.id + "\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.4 Місце установки\","
                                                               + "\"v\":\"" + comboBox_device2.Text.Replace("\"", "%5C%22") + "\"}");
-
-
-                //Произвольное поле place relay
-                string pp3_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Произвольное поле place relay
+                        case string a when a.Contains("3.6.1  "):
+                            string pp3_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"11\","
+                                                              + "\"id\":\"" + keyvalue.Value.id + "\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.6.1  Реле блокування: місце встановлення\","
                                                               + "\"v\":\"" + comboBox_zvich_relay_place.Text.Replace("\"", "%5C%22") + "\"}");
-                //Произвольное поле wire cut
-                string pp4_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"12\","
-                                                              + "\"callMode\":\"update\","
-                                                              + "\"n\":\"3.6.2 Реле блокування: елемент блокування\","
-                                                              + "\"v\":\"" + textBox_zvich_relay_lancug.Text.Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        //Произвольное поле wire cut
+                        case string a when a.Contains("3.6.2 "):
 
+                            string pp4_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                          + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                          + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                          + "\"callMode\":\"update\","
+                                                                          + "\"n\":\"3.6.2 Реле блокування: елемент блокування\","
+                                                                          + "\"v\":\"" + textBox_zvich_relay_lancug.Text.Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        //Произвольное поле place tk
+                        case string a when a.Contains("3.8.2"):
 
-                //Произвольное поле place tk
-                string pp5_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            string pp5_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                          + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                          + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                          + "\"callMode\":\"update\","
+                                                                          + "\"n\":\"3.8.2 Бездротова тривожна кнопка\","
+                                                                          + "\"v\":\"" + wireless_tk.Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        //Произвольное поле place wireles tk
+                        case string a when a.Contains("3.8.1 "):
+                            string pp60_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"13\","
-                                                              + "\"callMode\":\"update\","
-                                                              + "\"n\":\"3.8.2 Бездротова тривожна кнопка\","
-                                                              + "\"v\":\"" + wireless_tk.Replace("\"", "%5C%22") + "\"}");
-                //Произвольное поле place wireles tk
-                string pp60_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"14\","
+                                                              + "\"id\":\"" + keyvalue.Value.id + "\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.8.1 Дротова тривожна кнопка\","
                                                               + "\"v\":\"" + wire_tk.Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        
+                        
+                        //Произвольное поле СТО
+                        case string a when a.Contains("3.2.1 "):
+                            string pp18_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                            + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                            + "\"callMode\":\"update\","
+                                                                            + "\"n\":\"3.2.1 Установник: назва, адреса\","
+                                                                            + "\"v\":\"" + comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        //Произвольное поле Установщик
+                        case string a when a.Contains("3.2.2 "):
+                            string pp19_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                        + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                        + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                        + "\"callMode\":\"update\","
+                                                                        + "\"n\":\"3.2.2 Установник - монтажник: ПІБ, №тел.\","
+                                                                          + "\"v\":\"" + comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        //Произвольное поле дата установки = дата тестированиz
+                        case string a when a.Contains("3.3 ") & vars_form.if_open_created_testing == 0:
+                            string pp20_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                    + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"3.3 Дата установки\","
+                                                                    + "\"v\":\"" + DateTime.Now.Date + "\"}");
+                            break;
+                        //Произвольное поле Гарантія до
+                        case string a when a.Contains("5.3 ") & vars_form.if_open_created_testing == 0:
+                            string pp211_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                            + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                            + "\"callMode\":\"update\","
+                                                                            + "\"n\":\"5.3 Гарантія до\","
+                                                                            + "\"v\":\"" + (DateTime.Now.Date.AddYears(1)).AddDays(-1).ToString() + "\"}");
+                            break;
+                    }
+                }
 
-
-
+                
+                
                 //Характеристики kuzov type
                 string pp10_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -1368,11 +1467,21 @@ namespace Disp_WinForm
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"year\","
                                                                + "\"v\":\"" + comboBox_test_production_date.GetItemText(this.comboBox_test_production_date.SelectedItem).ToString() + "\"}");
-                //Характеристики licence plate
-                string pp13_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
+                if (textBox_licence_plate.Text != "")
+                {
+                    //Характеристики licence plate
+                    macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"registration_plate\","
                                                                + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+                }
+                else
+                {//Характеристики licence plate
+                    macros.WialonRequest("&svc=item/update_profile_field&params={"
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                               + "\"n\":\"registration_plate\","
+                                                               + "\"v\":\"-\"}");
+                }
                 //Характеристики brend
                 string pp14_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -1388,41 +1497,7 @@ namespace Disp_WinForm
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"vin\","
                                                                + "\"v\":\"" + textBox_vin.Text.Replace("\"", "%5C%22") + "\"}");
-                //Произвольное поле СТО
-
-                string pp18_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"7\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"3.2.1 Установник: назва, адреса\","
-                                                                + "\"v\":\"" + comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
-                //Произвольное поле Установщик
-
-                string pp19_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                            + "\"id\":\"8\","
-                                                            + "\"callMode\":\"update\","
-                                                            + "\"n\":\"3.2.2 Установник - монтажник: ПІБ, №тел.\","
-                                                              + "\"v\":\"" + comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
-
-                if (vars_form.if_open_created_testing == 0)
-                {
-                    //Произвольное поле дата установки = дата тестирования
-                    string pp20_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                    + "\"id\":\"9\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"3.3 Дата установки\","
-                                                                    + "\"v\":\"" + DateTime.Now.Date + "\"}");
-
-                    //Произвольное поле Гарантія до
-                    string pp211_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                    + "\"id\":\"19\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"5.3 Гарантія до\","
-                                                                    + "\"v\":\"" + (DateTime.Now.Date.AddYears(1)).AddDays(-1).ToString() + "\"}");
-                }
+                
 
 
 
@@ -1440,95 +1515,95 @@ namespace Disp_WinForm
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"name\":\"" + name_obj_textBox.Text.Replace("\"", "%5C%22") + "\"}");
 
-
-
-                //Произвольное поле 0 УВАГА
-                string pp1_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                //update costom feild in WL, Upatate VO in WL and DB
+                foreach (var keyvalue in test_out.item.flds)
+                {
+                    switch (keyvalue.Value.n)
+                    {
+                        //Произвольное поле  name operator
+                        case string a when a.Contains("3.1.1 Оператор, що тестував") & vars_form.if_open_created_testing == 0:
+                            string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                            + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                            + "\"callMode\":\"update\","
+                                                                            + "\"n\":\"3.1.1 Оператор, що тестував\","
+                                                                            + "\"v\":\"" + vars_form.user_login_name + "\"}");
+                            break;
+                        //Произвольное поле 0 УВАГА
+                        case string a when a.Contains("0 УВАГА"):
+                            string pp1_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"1\","
+                                                                + "\"id\":\"" + keyvalue.Value.id + "\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"0 УВАГА\","
                                                                 + "\"v\":\"" + textBox_uvaga.Text.Replace("\"", "%5C%22") + "\"}");
-
-                if (vars_form.if_open_created_testing == 0)
-                {
-                    //Произвольное поле  name operator
-                    string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                    + "\"id\":\"6\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"3.1.1 Оператор, що тестував\","
-                                                                    + "\"v\":\"" + vars_form.user_login_name + "\"}");
-
-                }
-
-                //Произвольное поле СТО
-
-                string pp18_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"7\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"3.2.1 Установник: назва, адреса\","
-                                                                + "\"v\":\"" + comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
-                //Произвольное поле Установщик
-
-                string pp19_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                            + "\"id\":\"8\","
-                                                            + "\"callMode\":\"update\","
-                                                            + "\"n\":\"3.2.2 Установник - монтажник: ПІБ, №тел.\","
-                                                              + "\"v\":\"" + comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
-
-                if (vars_form.if_open_created_testing == 0)
-                {
-                    //Произвольное поле дата установки = дата тестирования
-                    string pp20_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                    + "\"id\":\"9\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"3.3 Дата установки\","
-                                                                    + "\"v\":\"" + DateTime.Now.Date + "\"}");
-                }
-
-                //Произвольное поле device2
-                string pp2_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Произвольное поле device2
+                        case string a when a.Contains("3.4 "):
+                            string pp2_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"10\","
+                                                              + "\"id\":\"" + keyvalue.Value.id + "\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.4 Місце установки\","
                                                               + "\"v\":\"" + comboBox_device2.Text.Replace("\"", "%5C%22") + "\"}");
-
-
-                //Произвольное поле place relay
-                string pp3_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Произвольное поле place relay
+                        case string a when a.Contains("3.6.1  "):
+                            string pp3_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"11\","
+                                                              + "\"id\":\"" + keyvalue.Value.id + "\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.6.1  Реле блокування: місце встановлення\","
                                                               + "\"v\":\"" + comboBox_zvich_relay_place.Text.Replace("\"", "%5C%22") + "\"}");
-                //Произвольное поле wire cut
-                string pp4_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                              + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"12\","
-                                                              + "\"callMode\":\"update\","
-                                                              + "\"n\":\"3.6.2 Реле блокування: елемент блокування\","
-                                                              + "\"v\":\"" + textBox_zvich_relay_lancug.Text.Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        //Произвольное поле wire cut
+                        case string a when a.Contains("3.6.2 "):
 
-
-
-
-                if (vars_form.if_open_created_testing == 0)
-                {
-                    //Произвольное поле Гарантія до
-                    string pp211_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            string pp4_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                          + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                          + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                          + "\"callMode\":\"update\","
+                                                                          + "\"n\":\"3.6.2 Реле блокування: елемент блокування\","
+                                                                          + "\"v\":\"" + textBox_zvich_relay_lancug.Text.Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        //Произвольное поле СТО
+                        case string a when a.Contains("3.2.1 "):
+                            string pp18_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                            + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                            + "\"callMode\":\"update\","
+                                                                            + "\"n\":\"3.2.1 Установник: назва, адреса\","
+                                                                            + "\"v\":\"" + comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        //Произвольное поле Установщик
+                        case string a when a.Contains("3.2.2 "):
+                            string pp19_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                        + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                        + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                        + "\"callMode\":\"update\","
+                                                                        + "\"n\":\"3.2.2 Установник - монтажник: ПІБ, №тел.\","
+                                                                          + "\"v\":\"" + comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        //Произвольное поле дата установки = дата тестированиz
+                        case string a when a.Contains("3.3 ") & vars_form.if_open_created_testing == 0:
+                            string pp20_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                     + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                    + "\"id\":\"18\","
+                                                                    + "\"id\":\"" + keyvalue.Value.id + "\","
                                                                     + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"5.3 Гарантія до\","
-                                                                    + "\"v\":\"" + (DateTime.Now.Date.AddYears(1)).AddDays(-1).ToString() + "\"}");
+                                                                    + "\"n\":\"3.3 Дата установки\","
+                                                                    + "\"v\":\"" + DateTime.Now.Date + "\"}");
+                            break;
+                        //Произвольное поле Гарантія до
+                        case string a when a.Contains("5.3 ") & vars_form.if_open_created_testing == 0:
+                            string pp211_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                            + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                            + "\"callMode\":\"update\","
+                                                                            + "\"n\":\"5.3 Гарантія до\","
+                                                                            + "\"v\":\"" + (DateTime.Now.Date.AddYears(1)).AddDays(-1).ToString() + "\"}");
+                            break;
+                    }
                 }
-
-
 
                 //Характеристики kuzov type
                 string pp10_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
@@ -1548,10 +1623,17 @@ namespace Disp_WinForm
                 if (textBox_licence_plate.Text != "")
                 {
                     //Характеристики licence plate
-                    string pp13_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
-                                                                   + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                   + "\"n\":\"registration_plate\","
-                                                                   + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+                    macros.WialonRequest("&svc=item/update_profile_field&params={"
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                               + "\"n\":\"registration_plate\","
+                                                               + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+                }
+                else
+                {//Характеристики licence plate
+                    macros.WialonRequest("&svc=item/update_profile_field&params={"
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                               + "\"n\":\"registration_plate\","
+                                                               + "\"v\":\"-\"}");
                 }
                 //Характеристики brend
                 string pp14_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
@@ -1586,77 +1668,78 @@ namespace Disp_WinForm
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                 + "\"name\":\"" + name_obj_textBox.Text.Replace("\"", "%5C%22") + "\"}");
 
-                //Произвольное поле 0 УВАГА
-                string pp1_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                //update costom feild in WL, Upatate VO in WL and DB
+                foreach (var keyvalue in test_out.item.flds)
+                {
+                    switch (keyvalue.Value.n)
+                    {
+                        //Произвольное поле  name operator
+                        case string a when a.Contains("3.1.1 Оператор, що тестував") & vars_form.if_open_created_testing == 0:
+                            string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                            + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                            + "\"callMode\":\"update\","
+                                                                            + "\"n\":\"3.1.1 Оператор, що тестував\","
+                                                                            + "\"v\":\"" + vars_form.user_login_name + "\"}");
+                            break;
+                        //Произвольное поле 0 УВАГА
+                        case string a when a.Contains("0 УВАГА"):
+                            string pp1_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"1\","
+                                                                + "\"id\":\"" + keyvalue.Value.id + "\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"0 УВАГА\","
                                                                 + "\"v\":\"" + textBox_uvaga.Text.Replace("\"", "%5C%22") + "\"}");
-
-                if (vars_form.if_open_created_testing == 0)
-                {
-                    //Произвольное поле  name operator
-                    string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                    + "\"id\":\"6\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"3.1.1 Оператор, що тестував\","
-                                                                    + "\"v\":\"" + vars_form.user_login_name + "\"}");
-
-                }
-
-
-                //Произвольное поле СТО
-
-                string pp18_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                + "\"id\":\"7\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"3.2.1 Установник: назва, адреса\","
-                                                                + "\"v\":\"" + comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
-                //Произвольное поле Установщик
-
-                string pp19_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                            + "\"id\":\"8\","
-                                                            + "\"callMode\":\"update\","
-                                                            + "\"n\":\"3.2.2 Установник - монтажник: ПІБ, №тел.\","
-                                                              + "\"v\":\"" + comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
-
-                if (vars_form.if_open_created_testing == 0)
-                {
-                    //Произвольное поле дата установки = дата тестирования
-                    string pp20_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                    + "\"id\":\"9\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"3.3 Дата установки\","
-                                                                    + "\"v\":\"" + DateTime.Now.Date + "\"}");
-                }
-
-
-                //Произвольное поле device2
-                string pp2_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Произвольное поле device2
+                        case string a when a.Contains("3.4 "):
+                            string pp2_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                              + "\"id\":\"10\","
+                                                              + "\"id\":\"" + keyvalue.Value.id + "\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.4 Місце установки\","
                                                               + "\"v\":\"" + comboBox_device2.Text.Replace("\"", "%5C%22") + "\"}");
-
-                if (vars_form.if_open_created_testing == 0)
-                {
-
-                    //Произвольное поле Гарантія до
-                    string pp211_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                            break;
+                        //Произвольное поле СТО
+                        case string a when a.Contains("3.2.1 "):
+                            string pp18_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                            + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                            + "\"callMode\":\"update\","
+                                                                            + "\"n\":\"3.2.1 Установник: назва, адреса\","
+                                                                            + "\"v\":\"" + comboBox_test_sto.GetItemText(this.comboBox_test_sto.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        //Произвольное поле Установщик
+                        case string a when a.Contains("3.2.2 "):
+                            string pp19_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                        + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                        + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                        + "\"callMode\":\"update\","
+                                                                        + "\"n\":\"3.2.2 Установник - монтажник: ПІБ, №тел.\","
+                                                                          + "\"v\":\"" + comboBox_ustanoshik_poisk.GetItemText(this.comboBox_ustanoshik_poisk.SelectedItem).ToString().Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        //Произвольное поле дата установки = дата тестированиz
+                        case string a when a.Contains("3.3 ") & vars_form.if_open_created_testing == 0:
+                            string pp20_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                     + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                    + "\"id\":\"16\","
+                                                                    + "\"id\":\"" + keyvalue.Value.id + "\","
                                                                     + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"5.3 Гарантія до\","
-                                                                    + "\"v\":\"" + (DateTime.Now.Date.AddYears(1)).AddDays(-1).ToString() + "\"}");
+                                                                    + "\"n\":\"3.3 Дата установки\","
+                                                                    + "\"v\":\"" + DateTime.Now.Date + "\"}");
+                            break;
+                        //Произвольное поле Гарантія до
+                        case string a when a.Contains("5.3 ") & vars_form.if_open_created_testing == 0:
+                            string pp211_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                            + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                            + "\"callMode\":\"update\","
+                                                                            + "\"n\":\"5.3 Гарантія до\","
+                                                                            + "\"v\":\"" + (DateTime.Now.Date.AddYears(1)).AddDays(-1).ToString() + "\"}");
+                            break;
+                    }
                 }
 
-
+                
 
                 //Характеристики kuzov type
                 string pp10_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
@@ -1673,11 +1756,21 @@ namespace Disp_WinForm
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"year\","
                                                                + "\"v\":\"" + comboBox_test_production_date.GetItemText(this.comboBox_test_production_date.SelectedItem).ToString() + "\"}");
-                //Характеристики licence plate
-                string pp13_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
+                if (textBox_licence_plate.Text != "")
+                {
+                    //Характеристики licence plate
+                    macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"registration_plate\","
                                                                + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+                }
+                else
+                {//Характеристики licence plate
+                    macros.WialonRequest("&svc=item/update_profile_field&params={"
+                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                               + "\"n\":\"registration_plate\","
+                                                               + "\"v\":\"" + textBox_licence_plate.Text + "\"}");
+                }
                 //Характеристики brend
                 string pp14_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -3561,7 +3654,7 @@ namespace Disp_WinForm
                                                             "\"timeout\":\"0\"," +
                                                             "\"flags\":\"0\"}");
             }
-            else if (get_produt_testing_device == "2" || get_produt_testing_device == "3")
+            else if (get_produt_testing_device == "2" || get_produt_testing_device == "3" || get_produt_testing_device == "6" || get_produt_testing_device == "12" || get_produt_testing_device == "17")
             {
                 string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
                                                             "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
@@ -3596,7 +3689,7 @@ namespace Disp_WinForm
                                                             "\"timeout\":\"0\"," +
                                                             "\"flags\":\"0\"}");
             }
-            else if (get_produt_testing_device == "2" || get_produt_testing_device == "3")
+            else if (get_produt_testing_device == "2" || get_produt_testing_device == "3" || get_produt_testing_device == "6" || get_produt_testing_device == "12" || get_produt_testing_device == "17")
             {
                 string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
                                                             "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +

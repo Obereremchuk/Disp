@@ -142,16 +142,25 @@
             this.account_delete_button = new System.Windows.Forms.Button();
             this.button_remove_2_account = new System.Windows.Forms.Button();
             this.tabPage_rouming = new System.Windows.Forms.TabPage();
+            this.groupBox17 = new System.Windows.Forms.GroupBox();
+            this.radioButton_KS_UA = new System.Windows.Forms.RadioButton();
+            this.radioButton_KS_Komfort = new System.Windows.Forms.RadioButton();
+            this.button_KS_Rouming_enter = new System.Windows.Forms.Button();
+            this.radioButton_KS_Prostiy = new System.Windows.Forms.RadioButton();
+            this.Rouming_KS_Start_dtp = new System.Windows.Forms.DateTimePicker();
+            this.label19 = new System.Windows.Forms.Label();
+            this.Rouming_KS_End_dtp = new System.Windows.Forms.DateTimePicker();
+            this.label21 = new System.Windows.Forms.Label();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.button1 = new System.Windows.Forms.Button();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.radioButton_VF_Europe = new System.Windows.Forms.RadioButton();
+            this.radioButton_VF_Global = new System.Windows.Forms.RadioButton();
+            this.button_VF_Rouming_enter = new System.Windows.Forms.Button();
+            this.radioButton_VF_Ukraine = new System.Windows.Forms.RadioButton();
+            this.Rouming_VF_Start_dtp = new System.Windows.Forms.DateTimePicker();
             this.label15 = new System.Windows.Forms.Label();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.Rouming_VF_End_dtp = new System.Windows.Forms.DateTimePicker();
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -178,15 +187,6 @@
             this.dateTimePicker_nachalo_dejstvia = new System.Windows.Forms.DateTimePicker();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox_otrabotka_trevogi = new System.Windows.Forms.TextBox();
-            this.groupBox17 = new System.Windows.Forms.GroupBox();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.radioButton5 = new System.Windows.Forms.RadioButton();
-            this.button2 = new System.Windows.Forms.Button();
-            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
-            this.label19 = new System.Windows.Forms.Label();
-            this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
-            this.label21 = new System.Windows.Forms.Label();
-            this.radioButton6 = new System.Windows.Forms.RadioButton();
             this.email_textBox = new Disp_WinForm.PlaceHolderTextBox();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_hronologija_trivog)).BeginInit();
@@ -211,13 +211,13 @@
             this.groupBox13.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.tabPage_rouming.SuspendLayout();
+            this.groupBox17.SuspendLayout();
             this.groupBox16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox17.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -237,7 +237,7 @@
             this.groupBox4.Controls.Add(this.dataGridView_hronologija_trivog);
             this.groupBox4.Location = new System.Drawing.Point(7, 59);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(817, 308);
+            this.groupBox4.Size = new System.Drawing.Size(811, 308);
             this.groupBox4.TabIndex = 8;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Виконані дії";
@@ -289,7 +289,7 @@
             this.dataGridView_hronologija_trivog.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView_hronologija_trivog.RowHeadersVisible = false;
             this.dataGridView_hronologija_trivog.RowHeadersWidth = 50;
-            this.dataGridView_hronologija_trivog.Size = new System.Drawing.Size(809, 283);
+            this.dataGridView_hronologija_trivog.Size = new System.Drawing.Size(803, 283);
             this.dataGridView_hronologija_trivog.TabIndex = 1;
             // 
             // Column_alarm_text
@@ -399,7 +399,7 @@
             dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView_group_alarm.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridView_group_alarm.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_group_alarm.Size = new System.Drawing.Size(809, 263);
+            this.dataGridView_group_alarm.Size = new System.Drawing.Size(803, 263);
             this.dataGridView_group_alarm.TabIndex = 11;
             this.dataGridView_group_alarm.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_group_alarm_CellFormatting);
             // 
@@ -463,7 +463,7 @@
             // button_group_alarm
             // 
             this.button_group_alarm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_group_alarm.Location = new System.Drawing.Point(630, 18);
+            this.button_group_alarm.Location = new System.Drawing.Point(624, 18);
             this.button_group_alarm.Name = "button_group_alarm";
             this.button_group_alarm.Size = new System.Drawing.Size(182, 41);
             this.button_group_alarm.TabIndex = 12;
@@ -474,7 +474,7 @@
             // button_ungroup_alarm
             // 
             this.button_ungroup_alarm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_ungroup_alarm.Location = new System.Drawing.Point(623, 239);
+            this.button_ungroup_alarm.Location = new System.Drawing.Point(617, 239);
             this.button_ungroup_alarm.Name = "button_ungroup_alarm";
             this.button_ungroup_alarm.Size = new System.Drawing.Size(189, 40);
             this.button_ungroup_alarm.TabIndex = 13;
@@ -562,7 +562,7 @@
             // textBox_Uvaga
             // 
             this.textBox_Uvaga.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_Uvaga.Location = new System.Drawing.Point(123, 4);
+            this.textBox_Uvaga.Location = new System.Drawing.Point(117, 4);
             this.textBox_Uvaga.Multiline = true;
             this.textBox_Uvaga.Name = "textBox_Uvaga";
             this.textBox_Uvaga.Size = new System.Drawing.Size(585, 49);
@@ -574,7 +574,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.label_lmst);
             this.groupBox1.Controls.Add(this.treeView_client_info);
-            this.groupBox1.Location = new System.Drawing.Point(830, 194);
+            this.groupBox1.Location = new System.Drawing.Point(824, 194);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(509, 465);
             this.groupBox1.TabIndex = 18;
@@ -616,7 +616,7 @@
             this.groupBox10.Controls.Add(this.dataGridView_group_alarm);
             this.groupBox10.Location = new System.Drawing.Point(7, 373);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(817, 286);
+            this.groupBox10.Size = new System.Drawing.Size(811, 286);
             this.groupBox10.TabIndex = 17;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Групування тривог";
@@ -624,7 +624,7 @@
             // button_izmenit_uvaga
             // 
             this.button_izmenit_uvaga.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_izmenit_uvaga.Location = new System.Drawing.Point(714, 2);
+            this.button_izmenit_uvaga.Location = new System.Drawing.Point(708, 2);
             this.button_izmenit_uvaga.Name = "button_izmenit_uvaga";
             this.button_izmenit_uvaga.Size = new System.Drawing.Size(110, 51);
             this.button_izmenit_uvaga.TabIndex = 16;
@@ -1375,12 +1375,112 @@
             this.tabPage_rouming.Text = "Роумінг";
             this.tabPage_rouming.UseVisualStyleBackColor = true;
             // 
+            // groupBox17
+            // 
+            this.groupBox17.Controls.Add(this.radioButton_KS_UA);
+            this.groupBox17.Controls.Add(this.radioButton_KS_Komfort);
+            this.groupBox17.Controls.Add(this.button_KS_Rouming_enter);
+            this.groupBox17.Controls.Add(this.radioButton_KS_Prostiy);
+            this.groupBox17.Controls.Add(this.Rouming_KS_Start_dtp);
+            this.groupBox17.Controls.Add(this.label19);
+            this.groupBox17.Controls.Add(this.Rouming_KS_End_dtp);
+            this.groupBox17.Controls.Add(this.label21);
+            this.groupBox17.Location = new System.Drawing.Point(549, 3);
+            this.groupBox17.Name = "groupBox17";
+            this.groupBox17.Size = new System.Drawing.Size(214, 219);
+            this.groupBox17.TabIndex = 25;
+            this.groupBox17.TabStop = false;
+            this.groupBox17.Text = "Керування";
+            // 
+            // radioButton_KS_UA
+            // 
+            this.radioButton_KS_UA.AutoSize = true;
+            this.radioButton_KS_UA.Location = new System.Drawing.Point(15, 87);
+            this.radioButton_KS_UA.Name = "radioButton_KS_UA";
+            this.radioButton_KS_UA.Size = new System.Drawing.Size(139, 17);
+            this.radioButton_KS_UA.TabIndex = 18;
+            this.radioButton_KS_UA.TabStop = true;
+            this.radioButton_KS_UA.Text = "Україна - вим. роумінг";
+            this.radioButton_KS_UA.UseVisualStyleBackColor = true;
+            this.radioButton_KS_UA.Click += new System.EventHandler(this.radioButton_KS_UA_Click);
+            // 
+            // radioButton_KS_Komfort
+            // 
+            this.radioButton_KS_Komfort.AutoSize = true;
+            this.radioButton_KS_Komfort.Location = new System.Drawing.Point(15, 133);
+            this.radioButton_KS_Komfort.Name = "radioButton_KS_Komfort";
+            this.radioButton_KS_Komfort.Size = new System.Drawing.Size(144, 17);
+            this.radioButton_KS_Komfort.TabIndex = 17;
+            this.radioButton_KS_Komfort.TabStop = true;
+            this.radioButton_KS_Komfort.Text = "Коморт (більше 32 днів)";
+            this.radioButton_KS_Komfort.UseVisualStyleBackColor = true;
+            this.radioButton_KS_Komfort.Click += new System.EventHandler(this.radioButton_KS_Komfort_Click);
+            // 
+            // button_KS_Rouming_enter
+            // 
+            this.button_KS_Rouming_enter.Location = new System.Drawing.Point(15, 172);
+            this.button_KS_Rouming_enter.Name = "button_KS_Rouming_enter";
+            this.button_KS_Rouming_enter.Size = new System.Drawing.Size(192, 23);
+            this.button_KS_Rouming_enter.TabIndex = 15;
+            this.button_KS_Rouming_enter.Text = "Застосувати";
+            this.button_KS_Rouming_enter.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_KS_Prostiy
+            // 
+            this.radioButton_KS_Prostiy.AutoSize = true;
+            this.radioButton_KS_Prostiy.Location = new System.Drawing.Point(15, 110);
+            this.radioButton_KS_Prostiy.Name = "radioButton_KS_Prostiy";
+            this.radioButton_KS_Prostiy.Size = new System.Drawing.Size(127, 17);
+            this.radioButton_KS_Prostiy.TabIndex = 16;
+            this.radioButton_KS_Prostiy.TabStop = true;
+            this.radioButton_KS_Prostiy.Text = "Простий (до 32 днів)";
+            this.radioButton_KS_Prostiy.UseVisualStyleBackColor = true;
+            this.radioButton_KS_Prostiy.Click += new System.EventHandler(this.radioButton_KS_Prostiy_Click);
+            // 
+            // Rouming_KS_Start_dtp
+            // 
+            this.Rouming_KS_Start_dtp.CustomFormat = "dd.MM.yy";
+            this.Rouming_KS_Start_dtp.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.Rouming_KS_Start_dtp.Location = new System.Drawing.Point(84, 32);
+            this.Rouming_KS_Start_dtp.Name = "Rouming_KS_Start_dtp";
+            this.Rouming_KS_Start_dtp.Size = new System.Drawing.Size(122, 20);
+            this.Rouming_KS_Start_dtp.TabIndex = 0;
+            this.Rouming_KS_Start_dtp.ValueChanged += new System.EventHandler(this.Rouming_KS_Start_dtp_ValueChanged);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(15, 62);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(40, 13);
+            this.label19.TabIndex = 8;
+            this.label19.Text = "Кінець";
+            // 
+            // Rouming_KS_End_dtp
+            // 
+            this.Rouming_KS_End_dtp.CustomFormat = "dd.MM.yy";
+            this.Rouming_KS_End_dtp.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.Rouming_KS_End_dtp.Location = new System.Drawing.Point(84, 58);
+            this.Rouming_KS_End_dtp.Name = "Rouming_KS_End_dtp";
+            this.Rouming_KS_End_dtp.Size = new System.Drawing.Size(122, 20);
+            this.Rouming_KS_End_dtp.TabIndex = 1;
+            this.Rouming_KS_End_dtp.ValueChanged += new System.EventHandler(this.Rouming_KS_End_dtp_ValueChanged);
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(15, 38);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(49, 13);
+            this.label21.TabIndex = 7;
+            this.label21.Text = "Початок";
+            // 
             // groupBox16
             // 
             this.groupBox16.Controls.Add(this.dataGridView1);
-            this.groupBox16.Location = new System.Drawing.Point(3, 248);
+            this.groupBox16.Location = new System.Drawing.Point(3, 228);
             this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(540, 141);
+            this.groupBox16.Size = new System.Drawing.Size(760, 150);
             this.groupBox16.TabIndex = 25;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Ретроспектива";
@@ -1391,99 +1491,106 @@
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(3, 16);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(534, 122);
+            this.dataGridView1.Size = new System.Drawing.Size(754, 131);
             this.dataGridView1.TabIndex = 0;
             // 
             // groupBox8
             // 
-            this.groupBox8.Controls.Add(this.radioButton3);
-            this.groupBox8.Controls.Add(this.radioButton2);
-            this.groupBox8.Controls.Add(this.button1);
-            this.groupBox8.Controls.Add(this.radioButton1);
-            this.groupBox8.Controls.Add(this.dateTimePicker1);
+            this.groupBox8.Controls.Add(this.radioButton_VF_Europe);
+            this.groupBox8.Controls.Add(this.radioButton_VF_Global);
+            this.groupBox8.Controls.Add(this.button_VF_Rouming_enter);
+            this.groupBox8.Controls.Add(this.radioButton_VF_Ukraine);
+            this.groupBox8.Controls.Add(this.Rouming_VF_Start_dtp);
             this.groupBox8.Controls.Add(this.label15);
-            this.groupBox8.Controls.Add(this.dateTimePicker2);
+            this.groupBox8.Controls.Add(this.Rouming_VF_End_dtp);
             this.groupBox8.Controls.Add(this.label16);
             this.groupBox8.Location = new System.Drawing.Point(327, 3);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(216, 239);
+            this.groupBox8.Size = new System.Drawing.Size(216, 219);
             this.groupBox8.TabIndex = 24;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Керування";
             // 
-            // radioButton3
+            // radioButton_VF_Europe
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(167, 107);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(40, 17);
-            this.radioButton3.TabIndex = 18;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "EU";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.radioButton_VF_Europe.AutoSize = true;
+            this.radioButton_VF_Europe.Enabled = false;
+            this.radioButton_VF_Europe.Location = new System.Drawing.Point(15, 133);
+            this.radioButton_VF_Europe.Name = "radioButton_VF_Europe";
+            this.radioButton_VF_Europe.Size = new System.Drawing.Size(40, 17);
+            this.radioButton_VF_Europe.TabIndex = 18;
+            this.radioButton_VF_Europe.TabStop = true;
+            this.radioButton_VF_Europe.Text = "EU";
+            this.radioButton_VF_Europe.UseVisualStyleBackColor = true;
+            this.radioButton_VF_Europe.Click += new System.EventHandler(this.radioButton_VF_Europe_Click);
             // 
-            // radioButton2
+            // radioButton_VF_Global
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(96, 107);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(55, 17);
-            this.radioButton2.TabIndex = 17;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Global";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton_VF_Global.AutoSize = true;
+            this.radioButton_VF_Global.Location = new System.Drawing.Point(15, 110);
+            this.radioButton_VF_Global.Name = "radioButton_VF_Global";
+            this.radioButton_VF_Global.Size = new System.Drawing.Size(61, 17);
+            this.radioButton_VF_Global.TabIndex = 17;
+            this.radioButton_VF_Global.TabStop = true;
+            this.radioButton_VF_Global.Text = "Глобал";
+            this.radioButton_VF_Global.UseVisualStyleBackColor = true;
+            this.radioButton_VF_Global.Click += new System.EventHandler(this.radioButton_VF_Global_Click);
             // 
-            // button1
+            // button_VF_Rouming_enter
             // 
-            this.button1.Location = new System.Drawing.Point(15, 130);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(192, 23);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Застосувати";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button_VF_Rouming_enter.Location = new System.Drawing.Point(18, 172);
+            this.button_VF_Rouming_enter.Name = "button_VF_Rouming_enter";
+            this.button_VF_Rouming_enter.Size = new System.Drawing.Size(192, 23);
+            this.button_VF_Rouming_enter.TabIndex = 15;
+            this.button_VF_Rouming_enter.Text = "Застосувати";
+            this.button_VF_Rouming_enter.UseVisualStyleBackColor = true;
+            this.button_VF_Rouming_enter.Click += new System.EventHandler(this.button_VF_Rouming_enter_Click);
             // 
-            // radioButton1
+            // radioButton_VF_Ukraine
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(16, 107);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(62, 17);
-            this.radioButton1.TabIndex = 16;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Ukraine";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton_VF_Ukraine.AutoSize = true;
+            this.radioButton_VF_Ukraine.Location = new System.Drawing.Point(15, 87);
+            this.radioButton_VF_Ukraine.Name = "radioButton_VF_Ukraine";
+            this.radioButton_VF_Ukraine.Size = new System.Drawing.Size(139, 17);
+            this.radioButton_VF_Ukraine.TabIndex = 16;
+            this.radioButton_VF_Ukraine.TabStop = true;
+            this.radioButton_VF_Ukraine.Text = "Україна - вим. роумінг";
+            this.radioButton_VF_Ukraine.UseVisualStyleBackColor = true;
+            this.radioButton_VF_Ukraine.Click += new System.EventHandler(this.radioButton_VF_Ukraine_Click);
             // 
-            // dateTimePicker1
+            // Rouming_VF_Start_dtp
             // 
-            this.dateTimePicker1.CustomFormat = "dd.MM.yy";
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(84, 32);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(122, 20);
-            this.dateTimePicker1.TabIndex = 0;
+            this.Rouming_VF_Start_dtp.CustomFormat = "dd.MM.yy";
+            this.Rouming_VF_Start_dtp.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.Rouming_VF_Start_dtp.Location = new System.Drawing.Point(84, 32);
+            this.Rouming_VF_Start_dtp.Name = "Rouming_VF_Start_dtp";
+            this.Rouming_VF_Start_dtp.Size = new System.Drawing.Size(122, 20);
+            this.Rouming_VF_Start_dtp.TabIndex = 0;
+            this.Rouming_VF_Start_dtp.ValueChanged += new System.EventHandler(this.Rouming_VF_Start_dtp_ValueChanged);
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(12, 62);
+            this.label15.Location = new System.Drawing.Point(15, 62);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(40, 13);
             this.label15.TabIndex = 8;
             this.label15.Text = "Кінець";
             // 
-            // dateTimePicker2
+            // Rouming_VF_End_dtp
             // 
-            this.dateTimePicker2.CustomFormat = "dd.MM.yy";
-            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker2.Location = new System.Drawing.Point(84, 58);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(122, 20);
-            this.dateTimePicker2.TabIndex = 1;
+            this.Rouming_VF_End_dtp.CustomFormat = "dd.MM.yy";
+            this.Rouming_VF_End_dtp.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.Rouming_VF_End_dtp.Location = new System.Drawing.Point(84, 58);
+            this.Rouming_VF_End_dtp.Name = "Rouming_VF_End_dtp";
+            this.Rouming_VF_End_dtp.Size = new System.Drawing.Size(122, 20);
+            this.Rouming_VF_End_dtp.TabIndex = 1;
+            this.Rouming_VF_End_dtp.ValueChanged += new System.EventHandler(this.Rouming_VF_End_dtp_ValueChanged);
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(12, 38);
+            this.label16.Location = new System.Drawing.Point(15, 38);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(49, 13);
             this.label16.TabIndex = 7;
@@ -1503,7 +1610,7 @@
             this.groupBox7.Controls.Add(this.comboBox1);
             this.groupBox7.Location = new System.Drawing.Point(3, 3);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(318, 239);
+            this.groupBox7.Size = new System.Drawing.Size(318, 219);
             this.groupBox7.TabIndex = 21;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Запит на послугу Роумінг";
@@ -1762,101 +1869,6 @@
             this.textBox_otrabotka_trevogi.TabIndex = 0;
             this.textBox_otrabotka_trevogi.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBox_otrabotka_trevogi_MouseDown);
             // 
-            // groupBox17
-            // 
-            this.groupBox17.Controls.Add(this.radioButton4);
-            this.groupBox17.Controls.Add(this.radioButton5);
-            this.groupBox17.Controls.Add(this.button2);
-            this.groupBox17.Controls.Add(this.radioButton6);
-            this.groupBox17.Controls.Add(this.dateTimePicker3);
-            this.groupBox17.Controls.Add(this.label19);
-            this.groupBox17.Controls.Add(this.dateTimePicker4);
-            this.groupBox17.Controls.Add(this.label21);
-            this.groupBox17.Location = new System.Drawing.Point(549, 3);
-            this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(216, 239);
-            this.groupBox17.TabIndex = 25;
-            this.groupBox17.TabStop = false;
-            this.groupBox17.Text = "Керування";
-            // 
-            // radioButton4
-            // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(167, 107);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(40, 17);
-            this.radioButton4.TabIndex = 18;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "EU";
-            this.radioButton4.UseVisualStyleBackColor = true;
-            // 
-            // radioButton5
-            // 
-            this.radioButton5.AutoSize = true;
-            this.radioButton5.Location = new System.Drawing.Point(96, 107);
-            this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Size = new System.Drawing.Size(55, 17);
-            this.radioButton5.TabIndex = 17;
-            this.radioButton5.TabStop = true;
-            this.radioButton5.Text = "Global";
-            this.radioButton5.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(15, 130);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(192, 23);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "Застосувати";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // dateTimePicker3
-            // 
-            this.dateTimePicker3.CustomFormat = "dd.MM.yy";
-            this.dateTimePicker3.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker3.Location = new System.Drawing.Point(84, 32);
-            this.dateTimePicker3.Name = "dateTimePicker3";
-            this.dateTimePicker3.Size = new System.Drawing.Size(122, 20);
-            this.dateTimePicker3.TabIndex = 0;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(12, 62);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(40, 13);
-            this.label19.TabIndex = 8;
-            this.label19.Text = "Кінець";
-            // 
-            // dateTimePicker4
-            // 
-            this.dateTimePicker4.CustomFormat = "dd.MM.yy";
-            this.dateTimePicker4.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker4.Location = new System.Drawing.Point(84, 58);
-            this.dateTimePicker4.Name = "dateTimePicker4";
-            this.dateTimePicker4.Size = new System.Drawing.Size(122, 20);
-            this.dateTimePicker4.TabIndex = 1;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(12, 38);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(49, 13);
-            this.label21.TabIndex = 7;
-            this.label21.Text = "Початок";
-            // 
-            // radioButton6
-            // 
-            this.radioButton6.AutoSize = true;
-            this.radioButton6.Location = new System.Drawing.Point(16, 107);
-            this.radioButton6.Name = "radioButton6";
-            this.radioButton6.Size = new System.Drawing.Size(62, 17);
-            this.radioButton6.TabIndex = 16;
-            this.radioButton6.TabStop = true;
-            this.radioButton6.Text = "Ukraine";
-            this.radioButton6.UseVisualStyleBackColor = true;
-            // 
             // email_textBox
             // 
             this.email_textBox.Location = new System.Drawing.Point(6, 19);
@@ -1910,6 +1922,8 @@
             this.groupBox14.ResumeLayout(false);
             this.groupBox14.PerformLayout();
             this.tabPage_rouming.ResumeLayout(false);
+            this.groupBox17.ResumeLayout(false);
+            this.groupBox17.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox8.ResumeLayout(false);
@@ -1920,8 +1934,6 @@
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox17.ResumeLayout(false);
-            this.groupBox17.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2045,10 +2057,9 @@
         private System.Windows.Forms.GroupBox groupBox16;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton_VF_Europe;
+        private System.Windows.Forms.RadioButton radioButton_VF_Global;
+        private System.Windows.Forms.Button button_VF_Rouming_enter;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox5;
@@ -2062,16 +2073,17 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker Rouming_VF_Start_dtp;
+        private System.Windows.Forms.DateTimePicker Rouming_VF_End_dtp;
         private System.Windows.Forms.GroupBox groupBox17;
-        private System.Windows.Forms.RadioButton radioButton4;
-        private System.Windows.Forms.RadioButton radioButton5;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.RadioButton radioButton6;
-        private System.Windows.Forms.DateTimePicker dateTimePicker3;
+        private System.Windows.Forms.RadioButton radioButton_KS_Komfort;
+        private System.Windows.Forms.Button button_KS_Rouming_enter;
+        private System.Windows.Forms.RadioButton radioButton_KS_Prostiy;
+        private System.Windows.Forms.DateTimePicker Rouming_KS_Start_dtp;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.DateTimePicker dateTimePicker4;
+        private System.Windows.Forms.DateTimePicker Rouming_KS_End_dtp;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.RadioButton radioButton_KS_UA;
+        private System.Windows.Forms.RadioButton radioButton_VF_Ukraine;
     }
 }

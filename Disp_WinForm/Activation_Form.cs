@@ -249,6 +249,8 @@ namespace Disp_WinForm
                     kodove_slovo_textBox.Text = keyvalue.Value.v;
                 }
             }
+
+            date_activation_in_db = macros.sql_command("SELECT Activation_date FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "'");
             //Открітие отработаніх активаций. ХЗ ли нужно
             ////load VO
             //DataTable VO = macros.GetData("SELECT Users_idUsers, comment, alarm_button FROM btk.Activation_object where Object_idObject = '"+_id_db_object_for_activation+"';");
@@ -795,18 +797,18 @@ namespace Disp_WinForm
                                                         "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                         "\"callMode\":\"update\"," +
                                                         "\"n\":\"" + keyvalue.Value.n + "\"," +
-                                                        "\"v\":\"" + textBox_who_chenge_pin.Text + "\"}");
+                                                        "\"v\":\"" + textBox_who_chenge_pin.Text.Replace("\"", "%5C%22") + "\"}");
                         break;
 
-                    //Chenge feild Tex-passport 
-                    case string a when a.Contains("9.1 Техпаспор") & textBox_svidoctvo_tz.Text == "":
-                        string json11 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
-                                                    "\"itemId\":\"" + _id_wl_object_for_activation + "\"," +
-                                                    "\"id\":\"" + keyvalue.Value.id + "\"," +
-                                                    "\"callMode\":\"update\"," +
-                                                    "\"n\":\"" + keyvalue.Value.n + "\"," +
-                                                    "\"v\":\"" + textBox_vlasnik.Text + "\"}");
-                        break;
+                    ////Chenge feild Tex-passport 
+                    //case string a when a.Contains("9.1 Техпаспор") & textBox_svidoctvo_tz.Text == "":
+                    //    string json11 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                    //                                "\"itemId\":\"" + _id_wl_object_for_activation + "\"," +
+                    //                                "\"id\":\"" + keyvalue.Value.id + "\"," +
+                    //                                "\"callMode\":\"update\"," +
+                    //                                "\"n\":\"" + keyvalue.Value.n + "\"," +
+                    //                                "\"v\":\"" + textBox_vlasnik.Text + "\"}");
+                    //    break;
 
                     //Chenge feild Tex-passport and svidoctvo s slov clienta esli vneseno  v pole textBox_svidoctvo_tz
                     case string a when a.Contains("9.1 Техпаспор") & textBox_svidoctvo_tz.Text != "":
@@ -815,7 +817,7 @@ namespace Disp_WinForm
                                                     "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                     "\"callMode\":\"update\"," +
                                                     "\"n\":\"" + keyvalue.Value.n + "\"," +
-                                                    "\"v\":\"" + textBox_vlasnik.Text + " (" + textBox_svidoctvo_tz.Text + ")" + "\"}");
+                                                    "\"v\":\"" + textBox_vlasnik.Text.Replace("\"", "%5C%22") + " (" + textBox_svidoctvo_tz.Text.Replace("\"", "%5C%22") + ")" + "\"}");
                         break;
                 } 
             }

@@ -2449,7 +2449,7 @@
             this.tabPage_CM.Name = "tabPage_CM";
             this.tabPage_CM.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_CM.TabIndex = 17;
-            this.tabPage_CM.Text = "Центр Моніторингу";
+            this.tabPage_CM.Text = "110";
             this.tabPage_CM.UseVisualStyleBackColor = true;
             // 
             // dataGridView_CM

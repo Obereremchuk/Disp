@@ -756,25 +756,31 @@ namespace Disp_WinForm
 
             textBox_otrabotka_trevogi.Text = "";
 
-            if (comboBox_status_trevogi.SelectedItem.ToString() == "909" & (_id_status == "Обробляется" || _id_status == "Відкрито"))//если изменяем статус с Обробляется на 909  - отправляем меил со всейхронологией обработки тревоги
+            if (comboBox_status_trevogi.SelectedItem.ToString() == "909" & _id_status != "909")//если изменяем статус с Обробляется на 909  - отправляем меил со всейхронологией обработки тревоги
             {
                 string recipient = "<" + vars_form.user_login_email + ">," + "<d.yacenko@venbest.com.ua>,<a.oberemchuk@venbest.com.ua>,<v.bogoley@venbest.com.ua>";
                 send_email(recipient);
             }
 
-            if (comboBox_status_trevogi.SelectedItem.ToString() == "808" & (_id_status == "Обробляется" || _id_status == "Відкрито" || _id_status == "Продажи" || _id_status == "Дилеры"))//если изменяем статус с Обробляется на 808  - отправляем меил со всейхронологией обработки тревоги
+            if (comboBox_status_trevogi.SelectedItem.ToString() == "808" & _id_status != "808")//если изменяем статус с Обробляется на 808  - отправляем меил со всейхронологией обработки тревоги
             {
                 string recipient = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua>";
                 send_email(recipient);
             }
-            if (comboBox_status_trevogi.SelectedItem.ToString() == "Продажи" & (_id_status == "Обробляется" || _id_status == "Відкрито" || _id_status == "808" || _id_status == "Дилеры"))//если изменяем статус с Обробляется на 808  - отправляем меил со всейхронологией обработки тревоги
+            if (comboBox_status_trevogi.SelectedItem.ToString() == "Продажи" & _id_status != "Продажи")//если изменяем статус с Обробляется на 808  - отправляем меил со всейхронологией обработки тревоги
             {
                 string recipient = "<" + vars_form.user_login_email + ">," + "<a.lozinskiy@venbest.com.ua>, <y.kravchenko@venbest.com.ua>";
                 send_email(recipient);
             }
-            if (comboBox_status_trevogi.SelectedItem.ToString() == "Дилеры" & (_id_status == "Обробляется" || _id_status == "Відкрито" || _id_status == "808" || _id_status == "Продажи"))//если изменяем статус с Обробляется на 808  - отправляем меил со всейхронологией обработки тревоги
+            if (comboBox_status_trevogi.SelectedItem.ToString() == "Дилеры" & _id_status != "Дилеры")//если изменяем статус с Обробляется на 808  - отправляем меил со всейхронологией обработки тревоги
             {
                 string recipient = "<" + vars_form.user_login_email + ">," + "<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<s.gregul@venbest.com.ua>,<n.kovalenko@venbest.com.ua>";
+                send_email(recipient);
+            }
+
+            if (comboBox_status_trevogi.SelectedItem.ToString() == "110" & _id_status != "110")//если изменяем статус с Обробляется на 110  - отправляем меил со всейхронологией обработки тревоги
+            {
+                string recipient = "<" + vars_form.user_login_email + ">," + "<v.konoval@venbest.com.ua>,<v.chykhman@venbest.com.ua>";
                 send_email(recipient);
             }
 
@@ -2127,7 +2133,7 @@ namespace Disp_WinForm
                         MessageBox.Show("Невідомий продукт, сповіщення не створені");
                     }
 
-                    string Body = "<p>Добрий день!</p><p></p><p>Дякуємо за ваш вибір!</p><p>Для вас було створено доступ в систему моніторингу ВЕНБЕСТ. </p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою мобільного додатку:</p><p>1.Завантажте мобільний додаток Wialon Local: https://venbest.ua/gps-prilozheniia/</p> <p>2.При першому вході в мобільний додаток введіть такі дані:</p><p>a. Логін: " + email_textBox.Text + "</p><p>b. Пароль: " + pass + " </p><p>Зверніть, будь ласка, увагу, що логін та пароль чутливий до регістру символів, які ви вводите.</p><p> <br></p><p>3.Якщо ви бажаєте отримувати сповіщення, увімкніть їх в налаштуваннях.</p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою браузеру:</p><p>1.Перейдіть за посиланням: https://navi.venbest.com.ua/</p> <p>2.Введіть логін: " + email_textBox.Text + "</p><p>3.Введіть пароль: " + pass + "</p><p>  <br></p><p>Змініть, будь ласка, пароль в налаштуваннях користувача при вході через браузер.</p><p>----------------------------------------------</p><p>Департамент супутникових систем охорони</p><p>Група Компаній «ВЕНБЕСТ»</p><p>Т 044 501 33 77;</p><p>auto@venbest.com.ua | https://venbest.ua/ohrana-avto-i-zashchita-ot-ugona</p>";
+                    string Body = "<p>Добрий день!</p><p></p><p>Дякуємо за ваш вибір!</p><p>Для вас було створено доступ в систему моніторингу ВЕНБЕСТ. </p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою мобільного додатку:</p><p>1.Завантажте мобільний додаток <b>Navi Venbest</b>: https://venbest.ua/gps-prilozheniia/</p> <p>2.При першому вході в мобільний додаток введіть такі дані:</p><p>a. Логін: " + email_textBox.Text + "</p><p>b. Пароль: " + pass + " </p><p>Зверніть, будь ласка, увагу, що логін та пароль чутливий до регістру символів, які ви вводите.</p><p> <br></p><p>3.Якщо ви бажаєте отримувати сповіщення, увімкніть їх в налаштуваннях.</p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою браузеру:</p><p>1.Перейдіть за посиланням: https://navi.venbest.com.ua/</p> <p>2.Введіть логін: " + email_textBox.Text + "</p><p>3.Введіть пароль: " + pass + "</p><p>  <br></p><p>Змініть, будь ласка, пароль в налаштуваннях користувача при вході через браузер.</p><p>----------------------------------------------</p><p>Департамент супутникових систем охорони</p><p>Група Компаній «ВЕНБЕСТ»</p><p>Т 044 501 33 77;</p><p>auto@venbest.com.ua | https://venbest.ua/ohrana-avto-i-zashchita-ot-ugona</p>";
                     macros.send_mail_auto(email_textBox.Text, "ВЕНБЕСТ. Вхід в систему моніторингу", Body);
                     macros.send_mail_auto("auto@venbest.com.ua", "ВЕНБЕСТ. Вхід в систему моніторингу", Body);
                     //Save in db client account
@@ -2415,7 +2421,6 @@ namespace Disp_WinForm
                 }
 
                 on_end_account_job("Дозволено перегляд для користувача : " + email_textBox.Text);
-
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -4319,6 +4324,95 @@ namespace Disp_WinForm
             get_sensor_value();
         }
 
-        
+        //Rouming KS
+
+        private void Rouming_KS_Start_dtp_ValueChanged(object sender, EventArgs e)
+        {
+            if (Rouming_KS_Start_dtp.Value.Date >= Rouming_KS_End_dtp.Value.Date)
+            {
+                MessageBox.Show("Выбран не верный период");
+                return;
+            }
+            TimeSpan t = Rouming_KS_End_dtp.Value.Date - Rouming_KS_Start_dtp.Value.Date;
+            if (t.Days <= 32)
+            { radioButton_KS_Prostiy.Checked = true; }
+            if (t.Days >= 32)
+            { radioButton_KS_Komfort.Checked = true; }
+        }
+
+        private void Rouming_KS_End_dtp_ValueChanged(object sender, EventArgs e)
+        {
+            if (Rouming_KS_Start_dtp.Value.Date >= Rouming_KS_End_dtp.Value.Date)
+            {
+                MessageBox.Show("Выбран не верный период");
+                return;
+            }
+            TimeSpan t = Rouming_KS_End_dtp.Value.Date - Rouming_KS_Start_dtp.Value.Date;
+            if (t.Days <= 32)
+            { radioButton_KS_Prostiy.Checked = true; }
+            if (t.Days >= 32)
+            { radioButton_KS_Komfort.Checked = true; }
+        }
+
+        private void radioButton_KS_UA_Click(object sender, EventArgs e)
+        {
+            radioButton_KS_Prostiy.Checked = false;
+            radioButton_KS_Komfort.Checked = false;
+        }
+
+        private void radioButton_KS_Prostiy_Click(object sender, EventArgs e)
+        {
+            radioButton_KS_UA.Checked = false;
+            radioButton_KS_Komfort.Checked = false;
+        }
+
+        private void radioButton_KS_Komfort_Click(object sender, EventArgs e)
+        {
+            radioButton_KS_UA.Checked = false;
+            radioButton_KS_Prostiy.Checked = false;
+        }
+
+
+        //Rouming KS
+        private void Rouming_VF_Start_dtp_ValueChanged(object sender, EventArgs e)
+        {
+            if (Rouming_VF_Start_dtp.Value.Date >= Rouming_VF_End_dtp.Value.Date)
+            {
+                MessageBox.Show("Выбран не верный период");
+                return;
+            }
+        }
+
+        private void Rouming_VF_End_dtp_ValueChanged(object sender, EventArgs e)
+        {
+            if (Rouming_VF_Start_dtp.Value.Date >= Rouming_VF_End_dtp.Value.Date)
+            {
+                MessageBox.Show("Выбран не верный период");
+                return;
+            }
+        }
+
+        private void radioButton_VF_Ukraine_Click(object sender, EventArgs e)
+        {
+            radioButton_VF_Global.Checked = false;
+            radioButton_VF_Europe.Checked = false;
+        }
+
+        private void radioButton_VF_Global_Click(object sender, EventArgs e)
+        {
+            radioButton_VF_Europe.Checked = false;
+            radioButton_VF_Ukraine.Checked = false;
+        }
+
+        private void radioButton_VF_Europe_Click(object sender, EventArgs e)
+        {
+            radioButton_VF_Global.Checked = false;
+            radioButton_VF_Ukraine.Checked = false;
+        }
+
+        private void button_VF_Rouming_enter_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
