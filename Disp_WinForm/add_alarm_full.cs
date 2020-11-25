@@ -293,6 +293,7 @@ namespace Disp_WinForm
 
                 string id_created_notification = macros.sql_command("SELECT max(idnotification) FROM btk.notification;");
 
+                string text_data = MySqlHelper.EscapeString( "Запит на активацію роумінгу." + "\n" + "Початок: " + dateTimePicker_start_rouming.Value.Date.ToString("yyyy-MM-dd") + "\n" + "Кінець: " + dateTimePicker_end_rouming.Value.Date.ToString("yyyy-MM-dd"));
                 macros.sql_command("insert into btk.alarm_ack(" +
                                     "alarm_text, " +
                                     "notification_idnotification, " +
@@ -300,7 +301,7 @@ namespace Disp_WinForm
                                     "current_status_alarm, " +
                                     "vizov_police, " +
                                     "vizov_gmp) " +
-                                    "values('" + textBox_email_account.Text + "', " +
+                                    "values('" + text_data + "', " +
                                     "'" + id_created_notification + "'," +
                                     "'" + vars_form.user_login_id + "', " +
                                     "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +

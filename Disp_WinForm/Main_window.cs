@@ -928,8 +928,6 @@ namespace Disp_WinForm
 
         private void UpdateGrid1_actication(DataTable table)
         {
-
-
             //save sort
             DataGridViewColumn oldColumn = dataGridView_for_activation.SortedColumn;
             ListSortDirection direction;
@@ -12074,16 +12072,6 @@ namespace Disp_WinForm
             { textBox_search_object_name_activation.Text = "Успішно"; }
             else { textBox_search_object_name_activation.Text = ""; }
         }
-
-        
-
-        class AccessToken
-        {
-            public string access_token { get; set; }
-            public string token_type { get; set; }
-            public long expires_in { get; set; }
-        }
-
 
 
         private void Request_button_Click(object sender, EventArgs e)

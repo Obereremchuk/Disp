@@ -673,19 +673,19 @@ namespace Disp_WinForm
             if (vo5_exist == 0)
             { macros.create_custom_field_wl(Convert.ToInt32(_id_wl_object_for_activation), "2.5 V Відповідальна особа", ""); }
 
-            //Загружаем заново произвольные поля объекта
-            json = macros.WialonRequest("&svc=core/search_items&params={" +
-                                                     "\"spec\":{" +
-                                                     "\"itemsType\":\"avl_unit\"," +
-                                                     "\"propName\":\"sys_id\"," +
-                                                     "\"propValueMask\":\"" + _id_wl_object_for_activation + "\", " +
-                                                     "\"sortType\":\"sys_name\"," +
-                                                     "\"or_logic\":\"1\"}," +
-                                                     "\"or_logic\":\"1\"," +
-                                                     "\"force\":\"1\"," +
-                                                     "\"flags\":\"15208907\"," +
-                                                     "\"from\":\"0\"," +
-                                                     "\"to\":\"1\"}");//15208907
+            ////Загружаем заново произвольные поля объекта
+            //json = macros.WialonRequest("&svc=core/search_items&params={" +
+            //                                         "\"spec\":{" +
+            //                                         "\"itemsType\":\"avl_unit\"," +
+            //                                         "\"propName\":\"sys_id\"," +
+            //                                         "\"propValueMask\":\"" + _id_wl_object_for_activation + "\", " +
+            //                                         "\"sortType\":\"sys_name\"," +
+            //                                         "\"or_logic\":\"1\"}," +
+            //                                         "\"or_logic\":\"1\"," +
+            //                                         "\"force\":\"1\"," +
+            //                                         "\"flags\":\"15208907\"," +
+            //                                         "\"from\":\"0\"," +
+            //                                         "\"to\":\"1\"}");//15208907
 
             object_data = JsonConvert.DeserializeObject<RootObject>(json);
 
@@ -819,25 +819,41 @@ namespace Disp_WinForm
                                                     "\"n\":\"" + keyvalue.Value.n + "\"," +
                                                     "\"v\":\"" + textBox_vlasnik.Text.Replace("\"", "%5C%22") + " (" + textBox_svidoctvo_tz.Text.Replace("\"", "%5C%22") + ")" + "\"}");
                         break;
+                    //update хто активації in WL
+                    case string a when a.Contains("4.1.1 "):
+                        string OldStatusActivation = macros.sql_command("SELECT Activation_objectcol_result FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "';");
+                        if (!OldStatusActivation.Contains("Успішно"))
+                        {
+                            string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                        + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
+                                                                        + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                        + "\"callMode\":\"update\","
+                                                                        + "\"n\":\"" + keyvalue.Value.n + "\","
+                                                                        + "\"v\":\"" + _user_login_name + "\"}");
+                        }
+                        break;
+                    //update хто активації in WL
+                    case string a when a.Contains("4.1 ") & (comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem).Contains("Успішно")):
+                        OldStatusActivation = macros.sql_command("SELECT Activation_objectcol_result FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "';");
+                        if (!OldStatusActivation.Contains("Успішно"))
+                        {
+                            //update коли активації in WL
+                            string pp7_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                            + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
+                                                                            + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                            + "\"callMode\":\"update\","
+                                                                            + "\"n\":\"" + keyvalue.Value.n + "\","
+                                                                            + "\"v\":\"" + DateTime.Now.Date + "\"}");
+                            date_activation_in_db = Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd");
+                        }
+                        break;
+
+
+
                 } 
             }
             ReadActivationChenges(_id_db_activation_for_activation);
 
-            if (comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem).Contains("Успішно"))
-            {
-                string OldStatusActivation = macros.sql_command("SELECT Activation_objectcol_result FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "';");
-                if (!OldStatusActivation.Contains("Успішно"))
-                {
-                    //update коли активації in WL
-                    string pp7_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
-                                                                    + "\"id\":\"21\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"4.1 Дата активації\","
-                                                                    + "\"v\":\"" + DateTime.Now.Date + "\"}");
-                    date_activation_in_db = Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd");
-                }
-            }
 
             // insert/update activation
 
@@ -921,13 +937,7 @@ namespace Disp_WinForm
                     macros.sql_command("update btk.TS_info set TS_infocol_vin = '" + textBox_vin_zayavka.Text + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
                 }
 
-                //update хто активації in WL
-                string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
-                                                                + "\"id\":\"22\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"4.1.1 Оператор, що активував\","
-                                                                + "\"v\":\"" + _user_login_name + "\"}");
+                
 
                 
 
@@ -1026,10 +1036,7 @@ namespace Disp_WinForm
                                                                     ");");
                 }
                 else
-                {
-                    ;
-
-                    
+                {                    
                     macros.sql_command("insert into btk.Activation_object (" +
                                                                     "Activation_date, " +
                                                                     "Users_idUsers, " +
@@ -1098,33 +1105,9 @@ namespace Disp_WinForm
                                                                    + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
                                                                    + "\"n\":\"vin\","
                                                                    + "\"v\":\"" + textBox_vin_zayavka.Text.Replace("\"", "%5C%22") + "\"}");
-
-                    //update хто активації in WL
-                    string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
-                                                                    + "\"id\":\"22\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"4.1.1 Оператор, що активував\","
-                                                                    + "\"v\":\"" + _user_login_name + "\"}");
                 }
 
                 
-
-
-                ////через запятую перебираем все аккауты из тривив и добавляем в accounts для записи в виалон
-                //string accounts = "";
-                //for (int index1 = 0; index1 < treeView_user_accounts.Nodes[0].Nodes.Count; index1++)
-                //{
-                //    accounts = accounts + treeView_user_accounts.Nodes[0].Nodes[index1].Text + ", ";
-                //}
-
-                ////update коли тестував in WL
-                //string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                //                                                + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
-                //                                                + "\"id\":\"25\","
-                //                                                + "\"callMode\":\"update\","
-                //                                                + "\"n\":\"4.4 Обліковий запис WL\","
-                //                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
 
                 //Insert chenges
                 InsertActivationChenges(
@@ -1175,8 +1158,6 @@ namespace Disp_WinForm
                     string Body = macros.ConvertDataTableToHTML(dt);
 
                     macros.send_mail(recip, Subject, Body);
-
-                    
                 }
             }
 

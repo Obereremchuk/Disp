@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textBox_button_for_PIN = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.textBox_tk_botton = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -99,8 +101,6 @@
             this.dataGridView_activation_chenges = new System.Windows.Forms.DataGridView();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.textBox_button_for_PIN = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -156,6 +156,23 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Інформація про клієнта";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 360);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(86, 13);
+            this.label14.TabIndex = 199;
+            this.label14.Text = "Кнопки для PIN";
+            // 
+            // textBox_button_for_PIN
+            // 
+            this.textBox_button_for_PIN.Location = new System.Drawing.Point(109, 356);
+            this.textBox_button_for_PIN.Name = "textBox_button_for_PIN";
+            this.textBox_button_for_PIN.ReadOnly = true;
+            this.textBox_button_for_PIN.Size = new System.Drawing.Size(408, 20);
+            this.textBox_button_for_PIN.TabIndex = 198;
             // 
             // label13
             // 
@@ -494,9 +511,8 @@
             this.comboBox_activation_result.Items.AddRange(new object[] {
             "Успішно",
             "Успішно (PIN)",
-            "Незавершено",
             "Інше"});
-            this.comboBox_activation_result.Location = new System.Drawing.Point(6, 20);
+            this.comboBox_activation_result.Location = new System.Drawing.Point(6, 17);
             this.comboBox_activation_result.Name = "comboBox_activation_result";
             this.comboBox_activation_result.Size = new System.Drawing.Size(166, 21);
             this.comboBox_activation_result.TabIndex = 19;
@@ -817,23 +833,6 @@
             this.groupBox2.Size = new System.Drawing.Size(1109, 692);
             this.groupBox2.TabIndex = 199;
             this.groupBox2.TabStop = false;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 360);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(86, 13);
-            this.label14.TabIndex = 199;
-            this.label14.Text = "Кнопки для PIN";
-            // 
-            // textBox_button_for_PIN
-            // 
-            this.textBox_button_for_PIN.Location = new System.Drawing.Point(109, 356);
-            this.textBox_button_for_PIN.Name = "textBox_button_for_PIN";
-            this.textBox_button_for_PIN.ReadOnly = true;
-            this.textBox_button_for_PIN.Size = new System.Drawing.Size(408, 20);
-            this.textBox_button_for_PIN.TabIndex = 198;
             // 
             // Activation_Form
             // 

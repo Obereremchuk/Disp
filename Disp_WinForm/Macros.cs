@@ -21,9 +21,6 @@ using System.Net;
 
 namespace Disp_WinForm
 {
-
-
-
     public class Macros
     {
         public void log_write(string data)
@@ -35,57 +32,6 @@ namespace Disp_WinForm
                 file.WriteLine("\r\n" + DateTime.Now.ToString() + " win_un: " + Environment.UserName + "\r\n" + data);
             }
         }
-        //public static bool chk_conn()
-        //{
-        //    Conn_error subwindow = new Conn_error();
-        //    bool connDB = test_DB_Conn();
-        //    while (connDB == false)
-        //    {
-        //        if (IsFormOpen(typeof(Conn_error)))
-        //        {
-        //            //Conn_error subwindow = new Conn_error();
-        //            subwindow.Show();
-        //        }
-        //        System.Threading.Thread.Sleep(2000);
-        //        connDB = test_DB_Conn();
-        //    }
-        //    subwindow.Dispose();            
-
-        //    return connDB;
-        //}// until connaction 2DB is faild show error dialog 
-        //public static bool test_DB_Conn()
-        //{
-        //    var conn_info = "server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=false; SslMode=none; Convert Zero Datetime = True";
-        //    bool isConn = false;
-        //    MySqlConnection conn = null;
-        //    try
-        //    {
-        //        conn = new MySqlConnection(conn_info);
-        //        conn.Open();
-        //        isConn = true;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        isConn = false;
-
-        //    }
-        //    finally
-        //    {
-        //        if (conn.State == ConnectionState.Open)
-        //        {
-        //            conn.Close();
-        //        }
-        //    }
-        //    return isConn;
-        //}// test 2DB connection
-        //public static bool IsFormOpen(Type formType)
-        //{
-        //    foreach (Form form in System.Windows.Forms.Application.OpenForms)
-        //        if (formType.Name == form.Name)
-        //            return false;
-        //    return true;
-        //}//check form (by name) is opened?
-
         public string WialonRequest(string request)
         {
             string json = "";

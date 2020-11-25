@@ -142,37 +142,37 @@
             this.account_delete_button = new System.Windows.Forms.Button();
             this.button_remove_2_account = new System.Windows.Forms.Button();
             this.tabPage_rouming = new System.Windows.Forms.TabPage();
-            this.groupBox17 = new System.Windows.Forms.GroupBox();
-            this.radioButton_KS_UA = new System.Windows.Forms.RadioButton();
-            this.radioButton_KS_Komfort = new System.Windows.Forms.RadioButton();
-            this.button_KS_Rouming_enter = new System.Windows.Forms.Button();
-            this.radioButton_KS_Prostiy = new System.Windows.Forms.RadioButton();
-            this.Rouming_KS_Start_dtp = new System.Windows.Forms.DateTimePicker();
+            this.groupBox_SIM2 = new System.Windows.Forms.GroupBox();
+            this.radioButton_SIM2_UA = new System.Windows.Forms.RadioButton();
+            this.radioButton_SIM2_Tarif2 = new System.Windows.Forms.RadioButton();
+            this.button_SIM2_Rouming_enter = new System.Windows.Forms.Button();
+            this.radioButton_SIM2_Tarif1 = new System.Windows.Forms.RadioButton();
+            this.Rouming_SIM2_Start_dtp = new System.Windows.Forms.DateTimePicker();
             this.label19 = new System.Windows.Forms.Label();
-            this.Rouming_KS_End_dtp = new System.Windows.Forms.DateTimePicker();
+            this.Rouming_SIM2_End_dtp = new System.Windows.Forms.DateTimePicker();
             this.label21 = new System.Windows.Forms.Label();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.radioButton_VF_Europe = new System.Windows.Forms.RadioButton();
-            this.radioButton_VF_Global = new System.Windows.Forms.RadioButton();
-            this.button_VF_Rouming_enter = new System.Windows.Forms.Button();
-            this.radioButton_VF_Ukraine = new System.Windows.Forms.RadioButton();
-            this.Rouming_VF_Start_dtp = new System.Windows.Forms.DateTimePicker();
+            this.dataGridView_history = new System.Windows.Forms.DataGridView();
+            this.groupBox_SIM1 = new System.Windows.Forms.GroupBox();
+            this.radioButton_SIM1_Tarif2 = new System.Windows.Forms.RadioButton();
+            this.radioButton_SIM1_Tarif1 = new System.Windows.Forms.RadioButton();
+            this.button_SIM1_Rouming_enter = new System.Windows.Forms.Button();
+            this.radioButton_SIM1_Rouming_off = new System.Windows.Forms.RadioButton();
+            this.Rouming_SIM1_Start_dtp = new System.Windows.Forms.DateTimePicker();
             this.label15 = new System.Windows.Forms.Label();
-            this.Rouming_VF_End_dtp = new System.Windows.Forms.DateTimePicker();
+            this.Rouming_SIM1_End_dtp = new System.Windows.Forms.DateTimePicker();
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox_IMEI = new System.Windows.Forms.TextBox();
+            this.textBox_comments = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox_vin = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox_name = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBox_Project = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.comboBox_otvetstvenniy = new System.Windows.Forms.ComboBox();
             this.remaynder_checkBox = new System.Windows.Forms.CheckBox();
@@ -187,6 +187,10 @@
             this.dateTimePicker_nachalo_dejstvia = new System.Windows.Forms.DateTimePicker();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox_otrabotka_trevogi = new System.Windows.Forms.TextBox();
+            this.textBox_SIM1 = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.textBox_SIM2 = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
             this.email_textBox = new Disp_WinForm.PlaceHolderTextBox();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_hronologija_trivog)).BeginInit();
@@ -211,10 +215,10 @@
             this.groupBox13.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.tabPage_rouming.SuspendLayout();
-            this.groupBox17.SuspendLayout();
+            this.groupBox_SIM2.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.groupBox8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_history)).BeginInit();
+            this.groupBox_SIM1.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -1364,9 +1368,9 @@
             // 
             // tabPage_rouming
             // 
-            this.tabPage_rouming.Controls.Add(this.groupBox17);
+            this.tabPage_rouming.Controls.Add(this.groupBox_SIM2);
+            this.tabPage_rouming.Controls.Add(this.groupBox_SIM1);
             this.tabPage_rouming.Controls.Add(this.groupBox16);
-            this.tabPage_rouming.Controls.Add(this.groupBox8);
             this.tabPage_rouming.Controls.Add(this.groupBox7);
             this.tabPage_rouming.Location = new System.Drawing.Point(4, 22);
             this.tabPage_rouming.Name = "tabPage_rouming";
@@ -1375,101 +1379,103 @@
             this.tabPage_rouming.Text = "Роумінг";
             this.tabPage_rouming.UseVisualStyleBackColor = true;
             // 
-            // groupBox17
+            // groupBox_SIM2
             // 
-            this.groupBox17.Controls.Add(this.radioButton_KS_UA);
-            this.groupBox17.Controls.Add(this.radioButton_KS_Komfort);
-            this.groupBox17.Controls.Add(this.button_KS_Rouming_enter);
-            this.groupBox17.Controls.Add(this.radioButton_KS_Prostiy);
-            this.groupBox17.Controls.Add(this.Rouming_KS_Start_dtp);
-            this.groupBox17.Controls.Add(this.label19);
-            this.groupBox17.Controls.Add(this.Rouming_KS_End_dtp);
-            this.groupBox17.Controls.Add(this.label21);
-            this.groupBox17.Location = new System.Drawing.Point(549, 3);
-            this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(214, 219);
-            this.groupBox17.TabIndex = 25;
-            this.groupBox17.TabStop = false;
-            this.groupBox17.Text = "Керування";
+            this.groupBox_SIM2.Controls.Add(this.label22);
+            this.groupBox_SIM2.Controls.Add(this.radioButton_SIM2_UA);
+            this.groupBox_SIM2.Controls.Add(this.textBox_SIM2);
+            this.groupBox_SIM2.Controls.Add(this.radioButton_SIM2_Tarif2);
+            this.groupBox_SIM2.Controls.Add(this.button_SIM2_Rouming_enter);
+            this.groupBox_SIM2.Controls.Add(this.radioButton_SIM2_Tarif1);
+            this.groupBox_SIM2.Controls.Add(this.Rouming_SIM2_Start_dtp);
+            this.groupBox_SIM2.Controls.Add(this.label19);
+            this.groupBox_SIM2.Controls.Add(this.Rouming_SIM2_End_dtp);
+            this.groupBox_SIM2.Controls.Add(this.label21);
+            this.groupBox_SIM2.Location = new System.Drawing.Point(560, 3);
+            this.groupBox_SIM2.Name = "groupBox_SIM2";
+            this.groupBox_SIM2.Size = new System.Drawing.Size(214, 219);
+            this.groupBox_SIM2.TabIndex = 25;
+            this.groupBox_SIM2.TabStop = false;
+            this.groupBox_SIM2.Text = "Керування SIM2";
             // 
-            // radioButton_KS_UA
+            // radioButton_SIM2_UA
             // 
-            this.radioButton_KS_UA.AutoSize = true;
-            this.radioButton_KS_UA.Location = new System.Drawing.Point(15, 87);
-            this.radioButton_KS_UA.Name = "radioButton_KS_UA";
-            this.radioButton_KS_UA.Size = new System.Drawing.Size(139, 17);
-            this.radioButton_KS_UA.TabIndex = 18;
-            this.radioButton_KS_UA.TabStop = true;
-            this.radioButton_KS_UA.Text = "Україна - вим. роумінг";
-            this.radioButton_KS_UA.UseVisualStyleBackColor = true;
-            this.radioButton_KS_UA.Click += new System.EventHandler(this.radioButton_KS_UA_Click);
+            this.radioButton_SIM2_UA.AutoSize = true;
+            this.radioButton_SIM2_UA.Location = new System.Drawing.Point(15, 114);
+            this.radioButton_SIM2_UA.Name = "radioButton_SIM2_UA";
+            this.radioButton_SIM2_UA.Size = new System.Drawing.Size(139, 17);
+            this.radioButton_SIM2_UA.TabIndex = 18;
+            this.radioButton_SIM2_UA.TabStop = true;
+            this.radioButton_SIM2_UA.Text = "Україна - вим. роумінг";
+            this.radioButton_SIM2_UA.UseVisualStyleBackColor = true;
+            this.radioButton_SIM2_UA.Click += new System.EventHandler(this.radioButton_KS_UA_Click);
             // 
-            // radioButton_KS_Komfort
+            // radioButton_SIM2_Tarif2
             // 
-            this.radioButton_KS_Komfort.AutoSize = true;
-            this.radioButton_KS_Komfort.Location = new System.Drawing.Point(15, 133);
-            this.radioButton_KS_Komfort.Name = "radioButton_KS_Komfort";
-            this.radioButton_KS_Komfort.Size = new System.Drawing.Size(144, 17);
-            this.radioButton_KS_Komfort.TabIndex = 17;
-            this.radioButton_KS_Komfort.TabStop = true;
-            this.radioButton_KS_Komfort.Text = "Коморт (більше 32 днів)";
-            this.radioButton_KS_Komfort.UseVisualStyleBackColor = true;
-            this.radioButton_KS_Komfort.Click += new System.EventHandler(this.radioButton_KS_Komfort_Click);
+            this.radioButton_SIM2_Tarif2.AutoSize = true;
+            this.radioButton_SIM2_Tarif2.Location = new System.Drawing.Point(15, 160);
+            this.radioButton_SIM2_Tarif2.Name = "radioButton_SIM2_Tarif2";
+            this.radioButton_SIM2_Tarif2.Size = new System.Drawing.Size(64, 17);
+            this.radioButton_SIM2_Tarif2.TabIndex = 17;
+            this.radioButton_SIM2_Tarif2.TabStop = true;
+            this.radioButton_SIM2_Tarif2.Text = "Тариф2";
+            this.radioButton_SIM2_Tarif2.UseVisualStyleBackColor = true;
+            this.radioButton_SIM2_Tarif2.Click += new System.EventHandler(this.radioButton_KS_Komfort_Click);
             // 
-            // button_KS_Rouming_enter
+            // button_SIM2_Rouming_enter
             // 
-            this.button_KS_Rouming_enter.Location = new System.Drawing.Point(15, 172);
-            this.button_KS_Rouming_enter.Name = "button_KS_Rouming_enter";
-            this.button_KS_Rouming_enter.Size = new System.Drawing.Size(192, 23);
-            this.button_KS_Rouming_enter.TabIndex = 15;
-            this.button_KS_Rouming_enter.Text = "Застосувати";
-            this.button_KS_Rouming_enter.UseVisualStyleBackColor = true;
+            this.button_SIM2_Rouming_enter.Location = new System.Drawing.Point(15, 183);
+            this.button_SIM2_Rouming_enter.Name = "button_SIM2_Rouming_enter";
+            this.button_SIM2_Rouming_enter.Size = new System.Drawing.Size(192, 23);
+            this.button_SIM2_Rouming_enter.TabIndex = 15;
+            this.button_SIM2_Rouming_enter.Text = "Застосувати";
+            this.button_SIM2_Rouming_enter.UseVisualStyleBackColor = true;
             // 
-            // radioButton_KS_Prostiy
+            // radioButton_SIM2_Tarif1
             // 
-            this.radioButton_KS_Prostiy.AutoSize = true;
-            this.radioButton_KS_Prostiy.Location = new System.Drawing.Point(15, 110);
-            this.radioButton_KS_Prostiy.Name = "radioButton_KS_Prostiy";
-            this.radioButton_KS_Prostiy.Size = new System.Drawing.Size(127, 17);
-            this.radioButton_KS_Prostiy.TabIndex = 16;
-            this.radioButton_KS_Prostiy.TabStop = true;
-            this.radioButton_KS_Prostiy.Text = "Простий (до 32 днів)";
-            this.radioButton_KS_Prostiy.UseVisualStyleBackColor = true;
-            this.radioButton_KS_Prostiy.Click += new System.EventHandler(this.radioButton_KS_Prostiy_Click);
+            this.radioButton_SIM2_Tarif1.AutoSize = true;
+            this.radioButton_SIM2_Tarif1.Location = new System.Drawing.Point(15, 137);
+            this.radioButton_SIM2_Tarif1.Name = "radioButton_SIM2_Tarif1";
+            this.radioButton_SIM2_Tarif1.Size = new System.Drawing.Size(64, 17);
+            this.radioButton_SIM2_Tarif1.TabIndex = 16;
+            this.radioButton_SIM2_Tarif1.TabStop = true;
+            this.radioButton_SIM2_Tarif1.Text = "Тариф1";
+            this.radioButton_SIM2_Tarif1.UseVisualStyleBackColor = true;
+            this.radioButton_SIM2_Tarif1.Click += new System.EventHandler(this.radioButton_KS_Prostiy_Click);
             // 
-            // Rouming_KS_Start_dtp
+            // Rouming_SIM2_Start_dtp
             // 
-            this.Rouming_KS_Start_dtp.CustomFormat = "dd.MM.yy";
-            this.Rouming_KS_Start_dtp.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.Rouming_KS_Start_dtp.Location = new System.Drawing.Point(84, 32);
-            this.Rouming_KS_Start_dtp.Name = "Rouming_KS_Start_dtp";
-            this.Rouming_KS_Start_dtp.Size = new System.Drawing.Size(122, 20);
-            this.Rouming_KS_Start_dtp.TabIndex = 0;
-            this.Rouming_KS_Start_dtp.ValueChanged += new System.EventHandler(this.Rouming_KS_Start_dtp_ValueChanged);
+            this.Rouming_SIM2_Start_dtp.CustomFormat = "dd.MM.yy";
+            this.Rouming_SIM2_Start_dtp.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.Rouming_SIM2_Start_dtp.Location = new System.Drawing.Point(85, 61);
+            this.Rouming_SIM2_Start_dtp.Name = "Rouming_SIM2_Start_dtp";
+            this.Rouming_SIM2_Start_dtp.Size = new System.Drawing.Size(122, 20);
+            this.Rouming_SIM2_Start_dtp.TabIndex = 0;
+            this.Rouming_SIM2_Start_dtp.ValueChanged += new System.EventHandler(this.Rouming_KS_Start_dtp_ValueChanged);
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(15, 62);
+            this.label19.Location = new System.Drawing.Point(17, 91);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(40, 13);
             this.label19.TabIndex = 8;
             this.label19.Text = "Кінець";
             // 
-            // Rouming_KS_End_dtp
+            // Rouming_SIM2_End_dtp
             // 
-            this.Rouming_KS_End_dtp.CustomFormat = "dd.MM.yy";
-            this.Rouming_KS_End_dtp.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.Rouming_KS_End_dtp.Location = new System.Drawing.Point(84, 58);
-            this.Rouming_KS_End_dtp.Name = "Rouming_KS_End_dtp";
-            this.Rouming_KS_End_dtp.Size = new System.Drawing.Size(122, 20);
-            this.Rouming_KS_End_dtp.TabIndex = 1;
-            this.Rouming_KS_End_dtp.ValueChanged += new System.EventHandler(this.Rouming_KS_End_dtp_ValueChanged);
+            this.Rouming_SIM2_End_dtp.CustomFormat = "dd.MM.yy";
+            this.Rouming_SIM2_End_dtp.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.Rouming_SIM2_End_dtp.Location = new System.Drawing.Point(85, 87);
+            this.Rouming_SIM2_End_dtp.Name = "Rouming_SIM2_End_dtp";
+            this.Rouming_SIM2_End_dtp.Size = new System.Drawing.Size(122, 20);
+            this.Rouming_SIM2_End_dtp.TabIndex = 1;
+            this.Rouming_SIM2_End_dtp.ValueChanged += new System.EventHandler(this.Rouming_KS_End_dtp_ValueChanged);
             // 
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(15, 38);
+            this.label21.Location = new System.Drawing.Point(17, 65);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(49, 13);
             this.label21.TabIndex = 7;
@@ -1477,120 +1483,121 @@
             // 
             // groupBox16
             // 
-            this.groupBox16.Controls.Add(this.dataGridView1);
-            this.groupBox16.Location = new System.Drawing.Point(3, 228);
+            this.groupBox16.Controls.Add(this.dataGridView_history);
+            this.groupBox16.Location = new System.Drawing.Point(14, 464);
             this.groupBox16.Name = "groupBox16";
             this.groupBox16.Size = new System.Drawing.Size(760, 150);
             this.groupBox16.TabIndex = 25;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Ретроспектива";
             // 
-            // dataGridView1
+            // dataGridView_history
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 16);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(754, 131);
-            this.dataGridView1.TabIndex = 0;
+            this.dataGridView_history.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_history.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView_history.Location = new System.Drawing.Point(3, 16);
+            this.dataGridView_history.Name = "dataGridView_history";
+            this.dataGridView_history.Size = new System.Drawing.Size(754, 131);
+            this.dataGridView_history.TabIndex = 0;
             // 
-            // groupBox8
+            // groupBox_SIM1
             // 
-            this.groupBox8.Controls.Add(this.radioButton_VF_Europe);
-            this.groupBox8.Controls.Add(this.radioButton_VF_Global);
-            this.groupBox8.Controls.Add(this.button_VF_Rouming_enter);
-            this.groupBox8.Controls.Add(this.radioButton_VF_Ukraine);
-            this.groupBox8.Controls.Add(this.Rouming_VF_Start_dtp);
-            this.groupBox8.Controls.Add(this.label15);
-            this.groupBox8.Controls.Add(this.Rouming_VF_End_dtp);
-            this.groupBox8.Controls.Add(this.label16);
-            this.groupBox8.Location = new System.Drawing.Point(327, 3);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(216, 219);
-            this.groupBox8.TabIndex = 24;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Керування";
+            this.groupBox_SIM1.Controls.Add(this.label23);
+            this.groupBox_SIM1.Controls.Add(this.textBox_SIM1);
+            this.groupBox_SIM1.Controls.Add(this.radioButton_SIM1_Tarif2);
+            this.groupBox_SIM1.Controls.Add(this.radioButton_SIM1_Tarif1);
+            this.groupBox_SIM1.Controls.Add(this.button_SIM1_Rouming_enter);
+            this.groupBox_SIM1.Controls.Add(this.radioButton_SIM1_Rouming_off);
+            this.groupBox_SIM1.Controls.Add(this.Rouming_SIM1_Start_dtp);
+            this.groupBox_SIM1.Controls.Add(this.label15);
+            this.groupBox_SIM1.Controls.Add(this.Rouming_SIM1_End_dtp);
+            this.groupBox_SIM1.Controls.Add(this.label16);
+            this.groupBox_SIM1.Location = new System.Drawing.Point(327, 3);
+            this.groupBox_SIM1.Name = "groupBox_SIM1";
+            this.groupBox_SIM1.Size = new System.Drawing.Size(216, 219);
+            this.groupBox_SIM1.TabIndex = 24;
+            this.groupBox_SIM1.TabStop = false;
+            this.groupBox_SIM1.Text = "Керування SIM1";
             // 
-            // radioButton_VF_Europe
+            // radioButton_SIM1_Tarif2
             // 
-            this.radioButton_VF_Europe.AutoSize = true;
-            this.radioButton_VF_Europe.Enabled = false;
-            this.radioButton_VF_Europe.Location = new System.Drawing.Point(15, 133);
-            this.radioButton_VF_Europe.Name = "radioButton_VF_Europe";
-            this.radioButton_VF_Europe.Size = new System.Drawing.Size(40, 17);
-            this.radioButton_VF_Europe.TabIndex = 18;
-            this.radioButton_VF_Europe.TabStop = true;
-            this.radioButton_VF_Europe.Text = "EU";
-            this.radioButton_VF_Europe.UseVisualStyleBackColor = true;
-            this.radioButton_VF_Europe.Click += new System.EventHandler(this.radioButton_VF_Europe_Click);
+            this.radioButton_SIM1_Tarif2.AutoSize = true;
+            this.radioButton_SIM1_Tarif2.Location = new System.Drawing.Point(19, 159);
+            this.radioButton_SIM1_Tarif2.Name = "radioButton_SIM1_Tarif2";
+            this.radioButton_SIM1_Tarif2.Size = new System.Drawing.Size(64, 17);
+            this.radioButton_SIM1_Tarif2.TabIndex = 18;
+            this.radioButton_SIM1_Tarif2.TabStop = true;
+            this.radioButton_SIM1_Tarif2.Text = "Тариф2";
+            this.radioButton_SIM1_Tarif2.UseVisualStyleBackColor = true;
+            this.radioButton_SIM1_Tarif2.Click += new System.EventHandler(this.radioButton_VF_Europe_Click);
             // 
-            // radioButton_VF_Global
+            // radioButton_SIM1_Tarif1
             // 
-            this.radioButton_VF_Global.AutoSize = true;
-            this.radioButton_VF_Global.Location = new System.Drawing.Point(15, 110);
-            this.radioButton_VF_Global.Name = "radioButton_VF_Global";
-            this.radioButton_VF_Global.Size = new System.Drawing.Size(61, 17);
-            this.radioButton_VF_Global.TabIndex = 17;
-            this.radioButton_VF_Global.TabStop = true;
-            this.radioButton_VF_Global.Text = "Глобал";
-            this.radioButton_VF_Global.UseVisualStyleBackColor = true;
-            this.radioButton_VF_Global.Click += new System.EventHandler(this.radioButton_VF_Global_Click);
+            this.radioButton_SIM1_Tarif1.AutoSize = true;
+            this.radioButton_SIM1_Tarif1.Location = new System.Drawing.Point(19, 136);
+            this.radioButton_SIM1_Tarif1.Name = "radioButton_SIM1_Tarif1";
+            this.radioButton_SIM1_Tarif1.Size = new System.Drawing.Size(64, 17);
+            this.radioButton_SIM1_Tarif1.TabIndex = 17;
+            this.radioButton_SIM1_Tarif1.TabStop = true;
+            this.radioButton_SIM1_Tarif1.Text = "Тариф1";
+            this.radioButton_SIM1_Tarif1.UseVisualStyleBackColor = true;
+            this.radioButton_SIM1_Tarif1.Click += new System.EventHandler(this.radioButton_VF_Global_Click);
             // 
-            // button_VF_Rouming_enter
+            // button_SIM1_Rouming_enter
             // 
-            this.button_VF_Rouming_enter.Location = new System.Drawing.Point(18, 172);
-            this.button_VF_Rouming_enter.Name = "button_VF_Rouming_enter";
-            this.button_VF_Rouming_enter.Size = new System.Drawing.Size(192, 23);
-            this.button_VF_Rouming_enter.TabIndex = 15;
-            this.button_VF_Rouming_enter.Text = "Застосувати";
-            this.button_VF_Rouming_enter.UseVisualStyleBackColor = true;
-            this.button_VF_Rouming_enter.Click += new System.EventHandler(this.button_VF_Rouming_enter_Click);
+            this.button_SIM1_Rouming_enter.Location = new System.Drawing.Point(19, 183);
+            this.button_SIM1_Rouming_enter.Name = "button_SIM1_Rouming_enter";
+            this.button_SIM1_Rouming_enter.Size = new System.Drawing.Size(192, 23);
+            this.button_SIM1_Rouming_enter.TabIndex = 15;
+            this.button_SIM1_Rouming_enter.Text = "Застосувати";
+            this.button_SIM1_Rouming_enter.UseVisualStyleBackColor = true;
+            this.button_SIM1_Rouming_enter.Click += new System.EventHandler(this.button_VF_Rouming_enter_Click);
             // 
-            // radioButton_VF_Ukraine
+            // radioButton_SIM1_Rouming_off
             // 
-            this.radioButton_VF_Ukraine.AutoSize = true;
-            this.radioButton_VF_Ukraine.Location = new System.Drawing.Point(15, 87);
-            this.radioButton_VF_Ukraine.Name = "radioButton_VF_Ukraine";
-            this.radioButton_VF_Ukraine.Size = new System.Drawing.Size(139, 17);
-            this.radioButton_VF_Ukraine.TabIndex = 16;
-            this.radioButton_VF_Ukraine.TabStop = true;
-            this.radioButton_VF_Ukraine.Text = "Україна - вим. роумінг";
-            this.radioButton_VF_Ukraine.UseVisualStyleBackColor = true;
-            this.radioButton_VF_Ukraine.Click += new System.EventHandler(this.radioButton_VF_Ukraine_Click);
+            this.radioButton_SIM1_Rouming_off.AutoSize = true;
+            this.radioButton_SIM1_Rouming_off.Location = new System.Drawing.Point(19, 113);
+            this.radioButton_SIM1_Rouming_off.Name = "radioButton_SIM1_Rouming_off";
+            this.radioButton_SIM1_Rouming_off.Size = new System.Drawing.Size(139, 17);
+            this.radioButton_SIM1_Rouming_off.TabIndex = 16;
+            this.radioButton_SIM1_Rouming_off.TabStop = true;
+            this.radioButton_SIM1_Rouming_off.Text = "Україна - вим. роумінг";
+            this.radioButton_SIM1_Rouming_off.UseVisualStyleBackColor = true;
+            this.radioButton_SIM1_Rouming_off.Click += new System.EventHandler(this.radioButton_VF_Ukraine_Click);
             // 
-            // Rouming_VF_Start_dtp
+            // Rouming_SIM1_Start_dtp
             // 
-            this.Rouming_VF_Start_dtp.CustomFormat = "dd.MM.yy";
-            this.Rouming_VF_Start_dtp.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.Rouming_VF_Start_dtp.Location = new System.Drawing.Point(84, 32);
-            this.Rouming_VF_Start_dtp.Name = "Rouming_VF_Start_dtp";
-            this.Rouming_VF_Start_dtp.Size = new System.Drawing.Size(122, 20);
-            this.Rouming_VF_Start_dtp.TabIndex = 0;
-            this.Rouming_VF_Start_dtp.ValueChanged += new System.EventHandler(this.Rouming_VF_Start_dtp_ValueChanged);
+            this.Rouming_SIM1_Start_dtp.CustomFormat = "dd.MM.yy";
+            this.Rouming_SIM1_Start_dtp.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.Rouming_SIM1_Start_dtp.Location = new System.Drawing.Point(88, 58);
+            this.Rouming_SIM1_Start_dtp.Name = "Rouming_SIM1_Start_dtp";
+            this.Rouming_SIM1_Start_dtp.Size = new System.Drawing.Size(122, 20);
+            this.Rouming_SIM1_Start_dtp.TabIndex = 0;
+            this.Rouming_SIM1_Start_dtp.ValueChanged += new System.EventHandler(this.Rouming_VF_Start_dtp_ValueChanged);
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(15, 62);
+            this.label15.Location = new System.Drawing.Point(19, 88);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(40, 13);
             this.label15.TabIndex = 8;
             this.label15.Text = "Кінець";
             // 
-            // Rouming_VF_End_dtp
+            // Rouming_SIM1_End_dtp
             // 
-            this.Rouming_VF_End_dtp.CustomFormat = "dd.MM.yy";
-            this.Rouming_VF_End_dtp.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.Rouming_VF_End_dtp.Location = new System.Drawing.Point(84, 58);
-            this.Rouming_VF_End_dtp.Name = "Rouming_VF_End_dtp";
-            this.Rouming_VF_End_dtp.Size = new System.Drawing.Size(122, 20);
-            this.Rouming_VF_End_dtp.TabIndex = 1;
-            this.Rouming_VF_End_dtp.ValueChanged += new System.EventHandler(this.Rouming_VF_End_dtp_ValueChanged);
+            this.Rouming_SIM1_End_dtp.CustomFormat = "dd.MM.yy";
+            this.Rouming_SIM1_End_dtp.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.Rouming_SIM1_End_dtp.Location = new System.Drawing.Point(88, 84);
+            this.Rouming_SIM1_End_dtp.Name = "Rouming_SIM1_End_dtp";
+            this.Rouming_SIM1_End_dtp.Size = new System.Drawing.Size(122, 20);
+            this.Rouming_SIM1_End_dtp.TabIndex = 1;
+            this.Rouming_SIM1_End_dtp.ValueChanged += new System.EventHandler(this.Rouming_VF_End_dtp_ValueChanged);
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(15, 38);
+            this.label16.Location = new System.Drawing.Point(19, 62);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(49, 13);
             this.label16.TabIndex = 7;
@@ -1598,16 +1605,16 @@
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.textBox2);
-            this.groupBox7.Controls.Add(this.textBox5);
+            this.groupBox7.Controls.Add(this.textBox_IMEI);
+            this.groupBox7.Controls.Add(this.textBox_comments);
             this.groupBox7.Controls.Add(this.label14);
-            this.groupBox7.Controls.Add(this.textBox1);
+            this.groupBox7.Controls.Add(this.textBox_vin);
             this.groupBox7.Controls.Add(this.label13);
             this.groupBox7.Controls.Add(this.label20);
-            this.groupBox7.Controls.Add(this.textBox3);
+            this.groupBox7.Controls.Add(this.textBox_name);
             this.groupBox7.Controls.Add(this.label18);
             this.groupBox7.Controls.Add(this.label17);
-            this.groupBox7.Controls.Add(this.comboBox1);
+            this.groupBox7.Controls.Add(this.comboBox_Project);
             this.groupBox7.Location = new System.Drawing.Point(3, 3);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(318, 219);
@@ -1615,20 +1622,20 @@
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Запит на послугу Роумінг";
             // 
-            // textBox2
+            // textBox_IMEI
             // 
-            this.textBox2.Location = new System.Drawing.Point(79, 58);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(222, 20);
-            this.textBox2.TabIndex = 5;
+            this.textBox_IMEI.Location = new System.Drawing.Point(79, 58);
+            this.textBox_IMEI.Name = "textBox_IMEI";
+            this.textBox_IMEI.Size = new System.Drawing.Size(222, 20);
+            this.textBox_IMEI.TabIndex = 5;
             // 
-            // textBox5
+            // textBox_comments
             // 
-            this.textBox5.Location = new System.Drawing.Point(79, 137);
-            this.textBox5.Multiline = true;
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(222, 58);
-            this.textBox5.TabIndex = 21;
+            this.textBox_comments.Location = new System.Drawing.Point(79, 137);
+            this.textBox_comments.Multiline = true;
+            this.textBox_comments.Name = "textBox_comments";
+            this.textBox_comments.Size = new System.Drawing.Size(222, 58);
+            this.textBox_comments.TabIndex = 21;
             // 
             // label14
             // 
@@ -1639,12 +1646,12 @@
             this.label14.TabIndex = 6;
             this.label14.Text = "ID";
             // 
-            // textBox1
+            // textBox_vin
             // 
-            this.textBox1.Location = new System.Drawing.Point(79, 84);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(222, 20);
-            this.textBox1.TabIndex = 2;
+            this.textBox_vin.Location = new System.Drawing.Point(79, 84);
+            this.textBox_vin.Name = "textBox_vin";
+            this.textBox_vin.Size = new System.Drawing.Size(222, 20);
+            this.textBox_vin.TabIndex = 2;
             // 
             // label13
             // 
@@ -1664,12 +1671,12 @@
             this.label20.TabIndex = 22;
             this.label20.Text = "Коментар";
             // 
-            // textBox3
+            // textBox_name
             // 
-            this.textBox3.Location = new System.Drawing.Point(79, 32);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(222, 20);
-            this.textBox3.TabIndex = 12;
+            this.textBox_name.Location = new System.Drawing.Point(79, 32);
+            this.textBox_name.Name = "textBox_name";
+            this.textBox_name.Size = new System.Drawing.Size(222, 20);
+            this.textBox_name.TabIndex = 12;
             // 
             // label18
             // 
@@ -1689,13 +1696,13 @@
             this.label17.TabIndex = 14;
             this.label17.Text = "Проект";
             // 
-            // comboBox1
+            // comboBox_Project
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(79, 110);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(222, 21);
-            this.comboBox1.TabIndex = 11;
+            this.comboBox_Project.FormattingEnabled = true;
+            this.comboBox_Project.Location = new System.Drawing.Point(79, 110);
+            this.comboBox_Project.Name = "comboBox_Project";
+            this.comboBox_Project.Size = new System.Drawing.Size(222, 21);
+            this.comboBox_Project.TabIndex = 11;
             // 
             // groupBox3
             // 
@@ -1869,6 +1876,40 @@
             this.textBox_otrabotka_trevogi.TabIndex = 0;
             this.textBox_otrabotka_trevogi.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBox_otrabotka_trevogi_MouseDown);
             // 
+            // textBox_SIM1
+            // 
+            this.textBox_SIM1.Location = new System.Drawing.Point(88, 32);
+            this.textBox_SIM1.Name = "textBox_SIM1";
+            this.textBox_SIM1.ReadOnly = true;
+            this.textBox_SIM1.Size = new System.Drawing.Size(122, 20);
+            this.textBox_SIM1.TabIndex = 23;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(19, 36);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(43, 13);
+            this.label23.TabIndex = 24;
+            this.label23.Text = "Тел. №";
+            // 
+            // textBox_SIM2
+            // 
+            this.textBox_SIM2.Location = new System.Drawing.Point(85, 35);
+            this.textBox_SIM2.Name = "textBox_SIM2";
+            this.textBox_SIM2.ReadOnly = true;
+            this.textBox_SIM2.Size = new System.Drawing.Size(122, 20);
+            this.textBox_SIM2.TabIndex = 23;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(17, 39);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(43, 13);
+            this.label22.TabIndex = 24;
+            this.label22.Text = "Тел. №";
+            // 
             // email_textBox
             // 
             this.email_textBox.Location = new System.Drawing.Point(6, 19);
@@ -1922,12 +1963,12 @@
             this.groupBox14.ResumeLayout(false);
             this.groupBox14.PerformLayout();
             this.tabPage_rouming.ResumeLayout(false);
-            this.groupBox17.ResumeLayout(false);
-            this.groupBox17.PerformLayout();
+            this.groupBox_SIM2.ResumeLayout(false);
+            this.groupBox_SIM2.PerformLayout();
             this.groupBox16.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_history)).EndInit();
+            this.groupBox_SIM1.ResumeLayout(false);
+            this.groupBox_SIM1.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -2055,35 +2096,39 @@
         private System.Windows.Forms.TextBox textBox_vo4;
         private System.Windows.Forms.TabPage tabPage_rouming;
         private System.Windows.Forms.GroupBox groupBox16;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.RadioButton radioButton_VF_Europe;
-        private System.Windows.Forms.RadioButton radioButton_VF_Global;
-        private System.Windows.Forms.Button button_VF_Rouming_enter;
+        private System.Windows.Forms.DataGridView dataGridView_history;
+        private System.Windows.Forms.GroupBox groupBox_SIM1;
+        private System.Windows.Forms.RadioButton radioButton_SIM1_Tarif2;
+        private System.Windows.Forms.RadioButton radioButton_SIM1_Tarif1;
+        private System.Windows.Forms.Button button_SIM1_Rouming_enter;
         private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox_IMEI;
+        private System.Windows.Forms.TextBox textBox_comments;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox_vin;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox_name;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.DateTimePicker Rouming_VF_Start_dtp;
-        private System.Windows.Forms.DateTimePicker Rouming_VF_End_dtp;
-        private System.Windows.Forms.GroupBox groupBox17;
-        private System.Windows.Forms.RadioButton radioButton_KS_Komfort;
-        private System.Windows.Forms.Button button_KS_Rouming_enter;
-        private System.Windows.Forms.RadioButton radioButton_KS_Prostiy;
-        private System.Windows.Forms.DateTimePicker Rouming_KS_Start_dtp;
+        private System.Windows.Forms.ComboBox comboBox_Project;
+        private System.Windows.Forms.DateTimePicker Rouming_SIM1_Start_dtp;
+        private System.Windows.Forms.DateTimePicker Rouming_SIM1_End_dtp;
+        private System.Windows.Forms.GroupBox groupBox_SIM2;
+        private System.Windows.Forms.RadioButton radioButton_SIM2_Tarif2;
+        private System.Windows.Forms.Button button_SIM2_Rouming_enter;
+        private System.Windows.Forms.RadioButton radioButton_SIM2_Tarif1;
+        private System.Windows.Forms.DateTimePicker Rouming_SIM2_Start_dtp;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.DateTimePicker Rouming_KS_End_dtp;
+        private System.Windows.Forms.DateTimePicker Rouming_SIM2_End_dtp;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.RadioButton radioButton_KS_UA;
-        private System.Windows.Forms.RadioButton radioButton_VF_Ukraine;
+        private System.Windows.Forms.RadioButton radioButton_SIM2_UA;
+        private System.Windows.Forms.RadioButton radioButton_SIM1_Rouming_off;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox textBox_SIM2;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox textBox_SIM1;
     }
 }

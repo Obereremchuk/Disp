@@ -32,8 +32,8 @@ namespace Disp_WinForm
         private string id_db_obj;
         private List<TreeNode> _unselectableNodes = new List<TreeNode>();
         private string id_new_user;
-
-       
+        private int sim1_operator;
+        private int sim2_operator;
 
         public detail()
         {
@@ -59,21 +59,14 @@ namespace Disp_WinForm
             wl_id = _search_id;
             id_db_obj = macros.sql_command("SELECT idObject FROM btk.Object where Object.Object_id_wl = '" + _search_id + "';");
 
-            //get_remaynder();
-            //accsses();
+
 
             dateTimePicker_close_plan_date.Value = DateTime.Now.AddDays(60);
 
-            //get_sensor_value();
-            //TreeView_zapolnyaem();
-            //TreeView_harakteristiki();
-            //mysql_get_hronologiya_trivog();
-            //mysql_get_group_alarm();
+
             comboBox_status_trevogi.Text = _id_status;
             this.Text = "ID Тривоги: " + _id_notif + ", " + vars_form.unit_name + ", " + _alarm_name + ": " + vars_form.zvernenya;
-            //SetTimer();
-            //arhiv_object();
-            //get_close_object_data();
+
 
 
             get_remaynder();
@@ -4259,10 +4252,92 @@ namespace Disp_WinForm
                 catch
                 { MessageBox.Show("tabPage_edit_client"); }
             }
-
-            if (tabControl2.SelectedTab.Name == "tabPage_locator")
+            else if (tabControl2.SelectedTab.Name == "tabPage_rouming")
             {
+                string json = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                        "\"spec\":{" +
+                                                        "\"itemsType\":\"avl_unit\"," +
+                                                        "\"propName\":\"sys_id\"," +
+                                                        "\"propValueMask\":\"" + wl_id + "\", " +
+                                                        "\"sortType\":\"sys_name\"," +
+                                                        "\"or_logic\":\"1\"}," +
+                                                        "\"force\":\"1\"," +
+                                                        "\"flags\":\"257\"," +
+                                                        "\"from\":\"0\"," +
+                                                        "\"to\":\"1\"}");
+                var m = JsonConvert.DeserializeObject<RootObject>(json);
                 
+                if (m.items[0].ph != "")
+                {
+                    groupBox_SIM1.Enabled = true;
+                    textBox_SIM1.Text = m.items[0].ph;
+                    if (m.items[0].ph.Contains("+38067"))
+                    {
+                        radioButton_SIM1_Tarif1.Text = "Простий (до 32 днів)";
+                        radioButton_SIM1_Tarif2.Text = "Коморт (більше 32 днів)";
+                        sim1_operator = 25503;
+                    }
+                    else if (m.items[0].ph.Contains("+882"))
+                    {
+                        radioButton_SIM1_Tarif1.Text = "Глобал";
+                        radioButton_SIM1_Tarif2.Name = "EU";
+                        radioButton_SIM1_Tarif2.Enabled = false;
+                        sim1_operator = 25501;
+                    }
+                    else if (m.items[0].ph.Contains("+38050"))
+                    {
+                        radioButton_SIM1_Tarif1.Text = "ХЗ тариф";
+                        radioButton_SIM1_Tarif2.Text = "ХЗ тариф";
+                        sim1_operator = 25501;
+                    }
+                    else
+                    {
+                        groupBox_SIM1.Enabled = false;
+                        radioButton_SIM1_Tarif1.Text = "Не выдома SIM";
+                        radioButton_SIM1_Tarif2.Text = "Не выдома SIM";
+                    }
+                }
+                else
+                { groupBox_SIM1.Enabled = false; textBox_SIM2.Text = "Не встановлено"; }
+
+                if (m.items[0].ph2 != "")
+                {
+                    groupBox_SIM2.Enabled = true;
+                    textBox_SIM2.Text = m.items[0].ph2;
+                    if (m.items[0].ph2.Contains("+38067"))
+                    {
+                        radioButton_SIM2_Tarif1.Text = "Простий (до 32 днів)";
+                        radioButton_SIM2_Tarif2.Text = "Коморт (більше 32 днів)";
+                        sim2_operator = 25503;
+                    }
+                    else if (m.items[0].ph2.Contains("+882"))
+                    {
+                        radioButton_SIM2_Tarif1.Text = "Глобал";
+                        radioButton_SIM2_Tarif2.Text = "EU";
+                        radioButton_SIM1_Tarif2.Enabled = false;
+                        sim2_operator = 25501;
+                    }
+                    else if (m.items[0].ph2.Contains("+38050"))
+                    {
+                        radioButton_SIM2_Tarif1.Text = "ХЗ тариф";
+                        radioButton_SIM2_Tarif2.Text = "ХЗ тариф";
+                        sim2_operator = 25501;
+                    }
+                    else 
+                    { 
+                        groupBox_SIM2.Enabled = false;
+                        radioButton_SIM2_Tarif1.Text = "Не выдома SIM";
+                        radioButton_SIM2_Tarif2.Text = "Не выдома SIM";
+                    }
+                }
+                else
+                { groupBox_SIM2.Enabled = false; textBox_SIM2.Text = "Не встановлено"; }
+
+
+            }
+            else if (tabControl2.SelectedTab.Name == "tabPage_locator")
+            {
+
                 //start mini map
                 try
                 {
@@ -4294,7 +4369,7 @@ namespace Disp_WinForm
             }
             else if (tabControl2.SelectedTab.Name == "tabPage3")
             {
-                try 
+                try
                 {
                     groupBox3.Visible = true;
                     groupBox3.BringToFront();
@@ -4302,9 +4377,9 @@ namespace Disp_WinForm
                 catch
                 { MessageBox.Show("tabPage3"); }
             }
-            else 
+            else
             {
-                try 
+                try
                 {
                     groupBox3.Visible = false;
                     groupBox3.SendToBack();
@@ -4328,55 +4403,55 @@ namespace Disp_WinForm
 
         private void Rouming_KS_Start_dtp_ValueChanged(object sender, EventArgs e)
         {
-            if (Rouming_KS_Start_dtp.Value.Date >= Rouming_KS_End_dtp.Value.Date)
+            if (Rouming_SIM2_Start_dtp.Value.Date >= Rouming_SIM2_End_dtp.Value.Date)
             {
                 MessageBox.Show("Выбран не верный период");
                 return;
             }
-            TimeSpan t = Rouming_KS_End_dtp.Value.Date - Rouming_KS_Start_dtp.Value.Date;
+            TimeSpan t = Rouming_SIM2_End_dtp.Value.Date - Rouming_SIM2_Start_dtp.Value.Date;
             if (t.Days <= 32)
-            { radioButton_KS_Prostiy.Checked = true; }
+            { radioButton_SIM2_Tarif1.Checked = true; }
             if (t.Days >= 32)
-            { radioButton_KS_Komfort.Checked = true; }
+            { radioButton_SIM2_Tarif2.Checked = true; }
         }
 
         private void Rouming_KS_End_dtp_ValueChanged(object sender, EventArgs e)
         {
-            if (Rouming_KS_Start_dtp.Value.Date >= Rouming_KS_End_dtp.Value.Date)
+            if (Rouming_SIM2_Start_dtp.Value.Date >= Rouming_SIM2_End_dtp.Value.Date)
             {
                 MessageBox.Show("Выбран не верный период");
                 return;
             }
-            TimeSpan t = Rouming_KS_End_dtp.Value.Date - Rouming_KS_Start_dtp.Value.Date;
+            TimeSpan t = Rouming_SIM2_End_dtp.Value.Date - Rouming_SIM2_Start_dtp.Value.Date;
             if (t.Days <= 32)
-            { radioButton_KS_Prostiy.Checked = true; }
+            { radioButton_SIM2_Tarif1.Checked = true; }
             if (t.Days >= 32)
-            { radioButton_KS_Komfort.Checked = true; }
+            { radioButton_SIM2_Tarif2.Checked = true; }
         }
 
         private void radioButton_KS_UA_Click(object sender, EventArgs e)
         {
-            radioButton_KS_Prostiy.Checked = false;
-            radioButton_KS_Komfort.Checked = false;
+            radioButton_SIM2_Tarif1.Checked = false;
+            radioButton_SIM2_Tarif2.Checked = false;
         }
 
         private void radioButton_KS_Prostiy_Click(object sender, EventArgs e)
         {
-            radioButton_KS_UA.Checked = false;
-            radioButton_KS_Komfort.Checked = false;
+            radioButton_SIM2_UA.Checked = false;
+            radioButton_SIM2_Tarif2.Checked = false;
         }
 
         private void radioButton_KS_Komfort_Click(object sender, EventArgs e)
         {
-            radioButton_KS_UA.Checked = false;
-            radioButton_KS_Prostiy.Checked = false;
+            radioButton_SIM2_UA.Checked = false;
+            radioButton_SIM2_Tarif1.Checked = false;
         }
 
 
-        //Rouming KS
+        //Rouming VF
         private void Rouming_VF_Start_dtp_ValueChanged(object sender, EventArgs e)
         {
-            if (Rouming_VF_Start_dtp.Value.Date >= Rouming_VF_End_dtp.Value.Date)
+            if (Rouming_SIM1_Start_dtp.Value.Date >= Rouming_SIM1_End_dtp.Value.Date)
             {
                 MessageBox.Show("Выбран не верный период");
                 return;
@@ -4385,7 +4460,7 @@ namespace Disp_WinForm
 
         private void Rouming_VF_End_dtp_ValueChanged(object sender, EventArgs e)
         {
-            if (Rouming_VF_Start_dtp.Value.Date >= Rouming_VF_End_dtp.Value.Date)
+            if (Rouming_SIM1_Start_dtp.Value.Date >= Rouming_SIM1_End_dtp.Value.Date)
             {
                 MessageBox.Show("Выбран не верный период");
                 return;
@@ -4394,25 +4469,110 @@ namespace Disp_WinForm
 
         private void radioButton_VF_Ukraine_Click(object sender, EventArgs e)
         {
-            radioButton_VF_Global.Checked = false;
-            radioButton_VF_Europe.Checked = false;
+            radioButton_SIM1_Tarif1.Checked = false;
+            radioButton_SIM1_Tarif2.Checked = false;
         }
 
         private void radioButton_VF_Global_Click(object sender, EventArgs e)
         {
-            radioButton_VF_Europe.Checked = false;
-            radioButton_VF_Ukraine.Checked = false;
+            radioButton_SIM1_Tarif2.Checked = false;
+            radioButton_SIM1_Rouming_off.Checked = false;
         }
 
         private void radioButton_VF_Europe_Click(object sender, EventArgs e)
         {
-            radioButton_VF_Global.Checked = false;
-            radioButton_VF_Ukraine.Checked = false;
+            radioButton_SIM1_Tarif1.Checked = false;
+            radioButton_SIM1_Rouming_off.Checked = false;
         }
 
         private void button_VF_Rouming_enter_Click(object sender, EventArgs e)
         {
+            //string json = macros.WialonRequest("&svc=core/search_items&params={" +
+            //                                        "\"spec\":{" +
+            //                                        "\"itemsType\":\"avl_unit\"," +
+            //                                        "\"propName\":\"sys_id\"," +
+            //                                        "\"propValueMask\":\"" + wl_id + "\", " +
+            //                                        "\"sortType\":\"sys_name\"," +
+            //                                        "\"or_logic\":\"1\"}," +
+            //                                        "\"force\":\"1\"," +
+            //                                        "\"flags\":\"257\"," +
+            //                                        "\"from\":\"0\"," +
+            //                                        "\"to\":\"1\"}");
+            //var m = JsonConvert.DeserializeObject<RootObject>(json);
 
+            if (Rouming_SIM1_Start_dtp.Value.Date >= Rouming_SIM1_End_dtp.Value.Date)
+            {
+                MessageBox.Show("Перевір дату");
+                return;
+            }
+            if (radioButton_SIM1_Tarif1.Checked is false & radioButton_SIM1_Rouming_off.Checked is false & radioButton_SIM1_Tarif2.Checked is false)
+            {
+                MessageBox.Show("Не вибрано тариф роумінгу");
+                return;
+            }
+
+            if (sim1_operator == 25501)
+            {
+                int RoumingTarif = 0;
+                if (radioButton_SIM1_Rouming_off.Checked)
+                { RoumingTarif = 1; }//Україна - вим. роумінг
+                else if (radioButton_SIM1_Tarif1.Checked)
+                { RoumingTarif = 2; }//Global
+                else if (radioButton_SIM1_Tarif2.Checked)
+                { RoumingTarif = 3; }//Europe
+
+                string idSimCard = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '"+ textBox_SIM1.Text.Remove(0, 1) + "';");
+                if (idSimCard == "")
+                {
+                    MessageBox.Show("SIM не знайдено в базі, зверніться до 117");
+                    return;
+                }
+                macros.sql_command("insert into btk.Simcard_rouming (" +
+                    "Simcard_idSimcard, " +
+                    "Simcard_roumingcol_start, " +
+                    "Simcard_roumingcol_end, " +
+                    "Simcard_roumingcol_created, " +
+                    "Rouming_tarif_idRouming_tarif" +
+                    ") values(" +
+                    "'" + idSimCard + "', " +
+                    "'" + Convert.ToDateTime(Rouming_SIM1_Start_dtp.Value).ToString("yyyy-MM-dd") + "', " +
+                    "'" + Convert.ToDateTime(Rouming_SIM1_End_dtp.Value).ToString("yyyy-MM-dd") + "', " +
+                    "now(), " +
+                    "'" + RoumingTarif + "'" +
+                    ");");
+            }
+            else if (sim1_operator == 25503)
+            {
+                int RoumingTarif = 0;
+                if (radioButton_SIM1_Rouming_off.Checked)
+                { RoumingTarif = 4; }//Україна - вим. роумінг
+                else if (radioButton_SIM1_Tarif1.Checked)
+                { RoumingTarif = 5; }//Простий (до 32 днів)
+                else if (radioButton_SIM1_Tarif2.Checked)
+                { RoumingTarif = 6; }//Коморт (більше 32 днів)
+
+                string idSimCard = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '" + textBox_SIM1.Text.Remove(0, 4) + "';");
+                if (idSimCard == "")
+                {
+                    MessageBox.Show("SIM не знайдено в базі, зверніться до 117");
+                    return;
+                }
+                
+
+                macros.sql_command("insert into btk.Simcard_rouming (" +
+                    "Simcard_idSimcard, " +
+                    "Simcard_roumingcol_start, " +
+                    "Simcard_roumingcol_end, " +
+                    "Simcard_roumingcol_created, " +
+                    "Rouming_tarif_idRouming_tarif" +
+                    ") values(" +
+                    "'" + idSimCard + "', " +
+                    "'" + Convert.ToDateTime(Rouming_SIM1_Start_dtp.Value).ToString("yyyy-MM-dd") + "', " +
+                    "'" + Convert.ToDateTime(Rouming_SIM1_End_dtp.Value).ToString("yyyy-MM-dd") + "', " +
+                    "now(), " +
+                    "'" + RoumingTarif + "'" +
+                    ");");
+            }            
         }
     }
 }

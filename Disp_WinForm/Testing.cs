@@ -377,7 +377,7 @@ namespace Disp_WinForm
                 "FROM btk.Kontakti as t1 " +
                 "inner join btk.Phonebook as t2 on t1.Phonebook_idPhonebook = t2.idPhonebook " +
                 "inner join btk.Phonebook as t3 on t1.Phonebook_idPhonebook1 = t3.idPhonebook " +
-                "where t1.Kontakti_familia like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or t1.Kontakti_imya like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or t2.Phonebookcol_phone like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or t3.Phonebookcol_phone like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%'; ");
+                "where (t1.Kontakti_familia like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or t1.Kontakti_imya like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or t2.Phonebookcol_phone like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%' or t3.Phonebookcol_phone like '%" + comboBox_ustanoshik_poisk.Text.ToString() + "%') and t1.Kontact_type_idKontact_type = '2'; ");
             comboBox_ustanoshik_poisk.DisplayMember = "familia_imya";
             comboBox_ustanoshik_poisk.ValueMember = "idKontakti";
             comboBox_ustanoshik_poisk.DataSource = macros.GetData(sql);
