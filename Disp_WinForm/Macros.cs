@@ -646,10 +646,10 @@ namespace Disp_WinForm
             FileInfo file = new FileInfo(path);
             try
             {
-                using (FileStream stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None))
-                {
-                    stream.Close();
-                }
+                //using (FileStream stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None))
+                //{
+                //    stream.Close();
+                //}
             }
             catch (IOException)
             {
