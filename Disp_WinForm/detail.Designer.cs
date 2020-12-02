@@ -127,6 +127,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.email_textBox = new Disp_WinForm.PlaceHolderTextBox();
             this.listBox_activation_list_search = new System.Windows.Forms.ListBox();
             this.account_create_button = new System.Windows.Forms.Button();
             this.button_add_2_account = new System.Windows.Forms.Button();
@@ -143,7 +144,9 @@
             this.button_remove_2_account = new System.Windows.Forms.Button();
             this.tabPage_rouming = new System.Windows.Forms.TabPage();
             this.groupBox_SIM2 = new System.Windows.Forms.GroupBox();
-            this.radioButton_SIM2_UA = new System.Windows.Forms.RadioButton();
+            this.label22 = new System.Windows.Forms.Label();
+            this.radioButton_SIM2_Rouming_off = new System.Windows.Forms.RadioButton();
+            this.textBox_SIM2 = new System.Windows.Forms.TextBox();
             this.radioButton_SIM2_Tarif2 = new System.Windows.Forms.RadioButton();
             this.button_SIM2_Rouming_enter = new System.Windows.Forms.Button();
             this.radioButton_SIM2_Tarif1 = new System.Windows.Forms.RadioButton();
@@ -151,9 +154,9 @@
             this.label19 = new System.Windows.Forms.Label();
             this.Rouming_SIM2_End_dtp = new System.Windows.Forms.DateTimePicker();
             this.label21 = new System.Windows.Forms.Label();
-            this.groupBox16 = new System.Windows.Forms.GroupBox();
-            this.dataGridView_history = new System.Windows.Forms.DataGridView();
             this.groupBox_SIM1 = new System.Windows.Forms.GroupBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.textBox_SIM1 = new System.Windows.Forms.TextBox();
             this.radioButton_SIM1_Tarif2 = new System.Windows.Forms.RadioButton();
             this.radioButton_SIM1_Tarif1 = new System.Windows.Forms.RadioButton();
             this.button_SIM1_Rouming_enter = new System.Windows.Forms.Button();
@@ -162,6 +165,8 @@
             this.label15 = new System.Windows.Forms.Label();
             this.Rouming_SIM1_End_dtp = new System.Windows.Forms.DateTimePicker();
             this.label16 = new System.Windows.Forms.Label();
+            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.dataGridView_history = new System.Windows.Forms.DataGridView();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.textBox_IMEI = new System.Windows.Forms.TextBox();
             this.textBox_comments = new System.Windows.Forms.TextBox();
@@ -187,11 +192,6 @@
             this.dateTimePicker_nachalo_dejstvia = new System.Windows.Forms.DateTimePicker();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox_otrabotka_trevogi = new System.Windows.Forms.TextBox();
-            this.textBox_SIM1 = new System.Windows.Forms.TextBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.textBox_SIM2 = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.email_textBox = new Disp_WinForm.PlaceHolderTextBox();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_hronologija_trivog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_group_alarm)).BeginInit();
@@ -216,9 +216,9 @@
             this.groupBox14.SuspendLayout();
             this.tabPage_rouming.SuspendLayout();
             this.groupBox_SIM2.SuspendLayout();
+            this.groupBox_SIM1.SuspendLayout();
             this.groupBox16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_history)).BeginInit();
-            this.groupBox_SIM1.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -1228,6 +1228,15 @@
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "Створення, привязка до авто";
             // 
+            // email_textBox
+            // 
+            this.email_textBox.Location = new System.Drawing.Point(6, 19);
+            this.email_textBox.Name = "email_textBox";
+            this.email_textBox.PlaceHolderText = "Новий користувач (електронна скринька)";
+            this.email_textBox.Size = new System.Drawing.Size(336, 20);
+            this.email_textBox.TabIndex = 128;
+            this.email_textBox.TextChanged += new System.EventHandler(this.email_textBoxTextChanged);
+            // 
             // listBox_activation_list_search
             // 
             this.listBox_activation_list_search.FormattingEnabled = true;
@@ -1382,7 +1391,7 @@
             // groupBox_SIM2
             // 
             this.groupBox_SIM2.Controls.Add(this.label22);
-            this.groupBox_SIM2.Controls.Add(this.radioButton_SIM2_UA);
+            this.groupBox_SIM2.Controls.Add(this.radioButton_SIM2_Rouming_off);
             this.groupBox_SIM2.Controls.Add(this.textBox_SIM2);
             this.groupBox_SIM2.Controls.Add(this.radioButton_SIM2_Tarif2);
             this.groupBox_SIM2.Controls.Add(this.button_SIM2_Rouming_enter);
@@ -1398,17 +1407,34 @@
             this.groupBox_SIM2.TabStop = false;
             this.groupBox_SIM2.Text = "Керування SIM2";
             // 
-            // radioButton_SIM2_UA
+            // label22
             // 
-            this.radioButton_SIM2_UA.AutoSize = true;
-            this.radioButton_SIM2_UA.Location = new System.Drawing.Point(15, 114);
-            this.radioButton_SIM2_UA.Name = "radioButton_SIM2_UA";
-            this.radioButton_SIM2_UA.Size = new System.Drawing.Size(139, 17);
-            this.radioButton_SIM2_UA.TabIndex = 18;
-            this.radioButton_SIM2_UA.TabStop = true;
-            this.radioButton_SIM2_UA.Text = "Україна - вим. роумінг";
-            this.radioButton_SIM2_UA.UseVisualStyleBackColor = true;
-            this.radioButton_SIM2_UA.Click += new System.EventHandler(this.radioButton_KS_UA_Click);
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(17, 39);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(43, 13);
+            this.label22.TabIndex = 24;
+            this.label22.Text = "Тел. №";
+            // 
+            // radioButton_SIM2_Rouming_off
+            // 
+            this.radioButton_SIM2_Rouming_off.AutoSize = true;
+            this.radioButton_SIM2_Rouming_off.Location = new System.Drawing.Point(15, 114);
+            this.radioButton_SIM2_Rouming_off.Name = "radioButton_SIM2_Rouming_off";
+            this.radioButton_SIM2_Rouming_off.Size = new System.Drawing.Size(139, 17);
+            this.radioButton_SIM2_Rouming_off.TabIndex = 18;
+            this.radioButton_SIM2_Rouming_off.TabStop = true;
+            this.radioButton_SIM2_Rouming_off.Text = "Україна - вим. роумінг";
+            this.radioButton_SIM2_Rouming_off.UseVisualStyleBackColor = true;
+            this.radioButton_SIM2_Rouming_off.Click += new System.EventHandler(this.radioButton_KS_UA_Click);
+            // 
+            // textBox_SIM2
+            // 
+            this.textBox_SIM2.Location = new System.Drawing.Point(85, 35);
+            this.textBox_SIM2.Name = "textBox_SIM2";
+            this.textBox_SIM2.ReadOnly = true;
+            this.textBox_SIM2.Size = new System.Drawing.Size(122, 20);
+            this.textBox_SIM2.TabIndex = 23;
             // 
             // radioButton_SIM2_Tarif2
             // 
@@ -1430,6 +1456,7 @@
             this.button_SIM2_Rouming_enter.TabIndex = 15;
             this.button_SIM2_Rouming_enter.Text = "Застосувати";
             this.button_SIM2_Rouming_enter.UseVisualStyleBackColor = true;
+            this.button_SIM2_Rouming_enter.Click += new System.EventHandler(this.button_SIM2_Rouming_enter_Click);
             // 
             // radioButton_SIM2_Tarif1
             // 
@@ -1481,25 +1508,6 @@
             this.label21.TabIndex = 7;
             this.label21.Text = "Початок";
             // 
-            // groupBox16
-            // 
-            this.groupBox16.Controls.Add(this.dataGridView_history);
-            this.groupBox16.Location = new System.Drawing.Point(14, 464);
-            this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(760, 150);
-            this.groupBox16.TabIndex = 25;
-            this.groupBox16.TabStop = false;
-            this.groupBox16.Text = "Ретроспектива";
-            // 
-            // dataGridView_history
-            // 
-            this.dataGridView_history.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_history.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView_history.Location = new System.Drawing.Point(3, 16);
-            this.dataGridView_history.Name = "dataGridView_history";
-            this.dataGridView_history.Size = new System.Drawing.Size(754, 131);
-            this.dataGridView_history.TabIndex = 0;
-            // 
             // groupBox_SIM1
             // 
             this.groupBox_SIM1.Controls.Add(this.label23);
@@ -1518,6 +1526,23 @@
             this.groupBox_SIM1.TabIndex = 24;
             this.groupBox_SIM1.TabStop = false;
             this.groupBox_SIM1.Text = "Керування SIM1";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(19, 36);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(43, 13);
+            this.label23.TabIndex = 24;
+            this.label23.Text = "Тел. №";
+            // 
+            // textBox_SIM1
+            // 
+            this.textBox_SIM1.Location = new System.Drawing.Point(88, 32);
+            this.textBox_SIM1.Name = "textBox_SIM1";
+            this.textBox_SIM1.ReadOnly = true;
+            this.textBox_SIM1.Size = new System.Drawing.Size(122, 20);
+            this.textBox_SIM1.TabIndex = 23;
             // 
             // radioButton_SIM1_Tarif2
             // 
@@ -1602,6 +1627,30 @@
             this.label16.Size = new System.Drawing.Size(49, 13);
             this.label16.TabIndex = 7;
             this.label16.Text = "Початок";
+            // 
+            // groupBox16
+            // 
+            this.groupBox16.Controls.Add(this.dataGridView_history);
+            this.groupBox16.Location = new System.Drawing.Point(3, 228);
+            this.groupBox16.Name = "groupBox16";
+            this.groupBox16.Size = new System.Drawing.Size(771, 150);
+            this.groupBox16.TabIndex = 25;
+            this.groupBox16.TabStop = false;
+            this.groupBox16.Text = "Історія";
+            // 
+            // dataGridView_history
+            // 
+            this.dataGridView_history.AllowUserToAddRows = false;
+            this.dataGridView_history.AllowUserToDeleteRows = false;
+            this.dataGridView_history.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_history.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView_history.Location = new System.Drawing.Point(3, 16);
+            this.dataGridView_history.Name = "dataGridView_history";
+            this.dataGridView_history.ReadOnly = true;
+            this.dataGridView_history.RowHeadersVisible = false;
+            this.dataGridView_history.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView_history.Size = new System.Drawing.Size(765, 131);
+            this.dataGridView_history.TabIndex = 0;
             // 
             // groupBox7
             // 
@@ -1876,49 +1925,6 @@
             this.textBox_otrabotka_trevogi.TabIndex = 0;
             this.textBox_otrabotka_trevogi.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBox_otrabotka_trevogi_MouseDown);
             // 
-            // textBox_SIM1
-            // 
-            this.textBox_SIM1.Location = new System.Drawing.Point(88, 32);
-            this.textBox_SIM1.Name = "textBox_SIM1";
-            this.textBox_SIM1.ReadOnly = true;
-            this.textBox_SIM1.Size = new System.Drawing.Size(122, 20);
-            this.textBox_SIM1.TabIndex = 23;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(19, 36);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(43, 13);
-            this.label23.TabIndex = 24;
-            this.label23.Text = "Тел. №";
-            // 
-            // textBox_SIM2
-            // 
-            this.textBox_SIM2.Location = new System.Drawing.Point(85, 35);
-            this.textBox_SIM2.Name = "textBox_SIM2";
-            this.textBox_SIM2.ReadOnly = true;
-            this.textBox_SIM2.Size = new System.Drawing.Size(122, 20);
-            this.textBox_SIM2.TabIndex = 23;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(17, 39);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(43, 13);
-            this.label22.TabIndex = 24;
-            this.label22.Text = "Тел. №";
-            // 
-            // email_textBox
-            // 
-            this.email_textBox.Location = new System.Drawing.Point(6, 19);
-            this.email_textBox.Name = "email_textBox";
-            this.email_textBox.PlaceHolderText = "Новий користувач (електронна скринька)";
-            this.email_textBox.Size = new System.Drawing.Size(336, 20);
-            this.email_textBox.TabIndex = 128;
-            this.email_textBox.TextChanged += new System.EventHandler(this.email_textBoxTextChanged);
-            // 
             // detail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1965,10 +1971,10 @@
             this.tabPage_rouming.ResumeLayout(false);
             this.groupBox_SIM2.ResumeLayout(false);
             this.groupBox_SIM2.PerformLayout();
-            this.groupBox16.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_history)).EndInit();
             this.groupBox_SIM1.ResumeLayout(false);
             this.groupBox_SIM1.PerformLayout();
+            this.groupBox16.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_history)).EndInit();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -2124,7 +2130,7 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.DateTimePicker Rouming_SIM2_End_dtp;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.RadioButton radioButton_SIM2_UA;
+        private System.Windows.Forms.RadioButton radioButton_SIM2_Rouming_off;
         private System.Windows.Forms.RadioButton radioButton_SIM1_Rouming_off;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox textBox_SIM2;

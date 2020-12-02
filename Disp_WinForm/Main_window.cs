@@ -3928,45 +3928,6 @@ namespace Disp_WinForm
             comboBox_sort_column.SelectedIndexChanged += checkBox_sort_order_CheckedChanged;
         }
 
-        private void button_lenik_get_rep_vidpra_Click(object sender, EventArgs e)
-        {
-            int gmr_police = 0;
-            if (checkBox_vidpra_gmr_police.Checked is true)
-            {
-                gmr_police = 1;
-            }
-            else
-            {
-                gmr_police = 0;
-            }
-
-            DataSet data = new DataSet();
-
-            data = macros.GetData_dataset("SELECT " +
-                                  "notification.idnotification, " +
-                                  "notification.unit_name, " +
-                                  "Users.username, " +
-                                  "notification.type_alarm, " +
-                                  "notification.curr_time, " +
-                                  "alarm_ack.time_start_ack, " +
-                                  "notification.time_stamp, " +
-                                  "notification.Status, " +
-                                  "alarm_ack.alarm_text, " +
-                                  "alarm_ack.vizov_gmp, " +
-                                  "alarm_ack.vizov_police " +
-                                  "FROM " +
-                                  "btk.notification, btk.Users, btk.alarm_ack " +
-                                  "where(" +
-                                  "alarm_ack.vizov_gmp = '" + gmr_police + "' or " +
-                                  "alarm_ack.vizov_police = '" + gmr_police + "') and " +
-                                  "alarm_ack.notification_idnotification = notification.idnotification and " +
-                                  "Users.idUsers = notification.Users_idUsers and " +
-                                  "notification.Status = 'Закрито' and " +
-                                  "notification.time_stamp BETWEEN '" + Convert.ToDateTime(dateTime_rep_from.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(dateTime_rep_to.Value).ToString("yyyy-MM-dd HH:mm:ss") + "';");
-
-            macros.ExportDataSet(data);
-        }
-
         private void textBox_activation_search_TextChanged(object sender, EventArgs e)
         {
             //// если все поля поиска пустыет - выводим полный перечень. Думаю это не рационально, может быть дохера записей...
@@ -4231,6 +4192,10 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     comboBox_tel_select.Enabled = false;
+
+                    comboBox_tel2_select.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Text = "";
                     break;
 
                 case "2"://CNTK
@@ -4249,6 +4214,10 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = ""; ;
                     textBox_bt_enable.Text = "";
                     comboBox_tel_select.Enabled = true;
+
+                    comboBox_tel2_select.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Text = "";
                     break;
 
                 case "3"://CNTP
@@ -4267,6 +4236,10 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     comboBox_tel_select.Enabled = true;
+
+                    comboBox_tel2_select.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Text = "";
                     break;
 
                 case "4"://CNTP-SE
@@ -4285,6 +4258,10 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     comboBox_tel_select.Enabled = true;
+
+                    comboBox_tel2_select.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Text = "";
                     break;
 
                 case "5"://SLED
@@ -4302,6 +4279,10 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     comboBox_tel_select.Enabled = true;
+
+                    comboBox_tel2_select.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Text = "";
                     break;
 
                 case "6"://C_n
@@ -4319,6 +4300,10 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     comboBox_tel_select.Enabled = true;
+
+                    comboBox_tel2_select.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Text = "";
                     break;
 
                 case "7"://K_n
@@ -4336,6 +4321,10 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     comboBox_tel_select.Enabled = true;
+
+                    comboBox_tel2_select.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Text = "";
                     break;
 
                 case "17"://KB_n
@@ -4353,6 +4342,10 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     comboBox_tel_select.Enabled = true;
+
+                    comboBox_tel2_select.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Text = "";
                     break;
 
                 case "12"://KP_n
@@ -4370,6 +4363,14 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     comboBox_tel_select.Enabled = true;
+
+                    comboBox_tel2_select.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Text = "";
+
+                    comboBox_tel2_select.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Text = "";
                     break;
 
                 case "8"://W
@@ -4387,6 +4388,10 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     comboBox_tel_select.Enabled = true;
+
+                    comboBox_tel2_select.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Text = "";
                     break;
 
                 case "9"://S
@@ -4405,6 +4410,10 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     comboBox_tel_select.Enabled = false;
+
+                    comboBox_tel2_select.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Text = "";
                     break;
 
                 case "10"://CNTK_910
@@ -4423,6 +4432,10 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     comboBox_tel_select.Enabled = true;
+
+                    comboBox_tel2_select.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Text = "";
                     break;
 
                 case "11"://CNTP_910
@@ -4441,6 +4454,10 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     comboBox_tel_select.Enabled = true;
+
+                    comboBox_tel2_select.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Text = "";
                     break;
 
                 case "13"://CNTP_910_SE_N
@@ -4459,6 +4476,11 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     comboBox_tel_select.Enabled = true;
+
+                    comboBox_tel2_select.Enabled = true;
+                    maskedTextBox_sim2_no_to_create.Enabled = true;
+                    maskedTextBox_sim2_no_to_create.Text = "";
+
                     break;
 
                 case "14"://CNTP_910_SE_P
@@ -4477,6 +4499,10 @@ namespace Disp_WinForm
                     maskedTextBox_sim_no_to_create.Text = "";
                     textBox_bt_enable.Text = "";
                     comboBox_tel_select.Enabled = true;
+
+                    comboBox_tel2_select.Enabled = true;
+                    maskedTextBox_sim2_no_to_create.Enabled = true;
+                    maskedTextBox_sim2_no_to_create.Text = "";
                     break;
             }
         }
@@ -4564,6 +4590,14 @@ namespace Disp_WinForm
 
                 case "CNTP_910":
                     CNTP_910();
+                    break;
+
+                case "CNTK_910BT":
+                    CNTK_910BT();
+                    break;
+
+                case "CNTP_910BT":
+                    CNTP_910BT();
                     break;
 
                 case "CNTP_910_SE_N":
@@ -5575,7 +5609,7 @@ namespace Disp_WinForm
             button_create_object.BackColor = Color.Green;
         }
 
-        private void CNTP_910_P()
+        private void CNTK_910BT()
         {
             /////////////////////
             //////Проверяем корректность введенных данных
@@ -5586,6 +5620,7 @@ namespace Disp_WinForm
                 textBox_id_to_create.BackColor = Color.Red;//Если IMEI короче 4х символов останавливается и подсвкечиваем красным
                 return;
             }
+
             if (maskedTextBox_sim_no_to_create.Text.Length <= 11)//Если IMEI короче 4х символов останавливается и подсвкечиваем красным
             {
                 maskedTextBox_sim_no_to_create.BackColor = Color.Red;
@@ -5605,7 +5640,6 @@ namespace Disp_WinForm
                     return;
                 maskedTextBox_PUK.BackColor = Color.White;
             }
-
             // Проверям существует ли данный номер в системе
             string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
                                                      "\"spec\":{" +
@@ -5695,6 +5729,1030 @@ namespace Disp_WinForm
             if (item_phone_out.error != 0)
             {
                 string text = macros.Get_wl_text_error(item_phone_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+                return;
+            }
+            /////////////////
+            ///Создаем датчики
+            /////////////////
+
+            //1. Автоматическая блокировка двигателя
+            string auto_block_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Автоматическая блокировка двигателя", "digital", "Вкл/Выкл", "auto_block", 1, "1", 0, "");
+
+            //2. Охрана
+            string protection_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Охрана", "digital", "Вкл/Выкл", "protection", 2, "1", 0, "");
+
+            //3. Принудительная блокировка двигателя
+            string man_block_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Принудительная блокировка двигателя", "digital", "Вкл/Выкл", "man_block", 3, "1", 0, "");
+
+            //4. Авторизация
+            string auth_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Авторизация", "digital", "Вкл/Выкл", "auth", 4, "1", 0, "");
+
+            //5. Тревожная кнопка
+            string alarm_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Тревожная кнопка_", "digital", "Вкл/Выкл", "alarm", 5, "1", 0, "");
+
+            //6. Сервисный режим
+            string valet_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сервисный режим", "digital", "Вкл/Выкл", "valet", 6, "1", 0, "");
+
+            //7. Двери статус
+            string all_door_status_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Двери статус", "digital", "Вкл/Выкл", "trunk%2Bhood%2Bpass_door%2Bdriver_door%2Bl_rear_door%2Br_rear_door", 21, "1", 0, "");
+
+            //8. Сработка открытие дверей в охране
+            string Door_in_protection_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сработка открытие дверей в охране", "digital", "Вкл/Выкл", "alarm_act", 7, "1", 7, "");
+
+            //9. Сработка сирены
+            string alarm_act_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сработка сирены", "digital", "Вкл/Выкл", "alarm_act", 8, "1", 0, "");
+
+            //10. Сработка датчика наклона
+            string tilt_trig_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сработка датчика наклона", "digital", "Вкл/Выкл", "tilt_trig", 9, "1", 0, "");
+
+            //11. Напряжение АКБ
+            string ext_voltage_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Напряжение АКБ", "voltage", "В", "ext_voltage", 10, "1", 0, "");
+
+            //12. Сработка датчика ударов
+            string sh_trig_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сработка датчика ударов", "digital", "Вкл/Выкл", "sh_trig", 11, "1", 0, "");
+
+            //13. Предупреждение датчика ударов
+            string sh_warn_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Предупреждение датчика ударов", "digital", "Вкл/Выкл", "sh_warn", 12, "1", 0, "");
+
+            //14. Сработка доп. датчика 1
+            string ext1_trig_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сработка доп. датчика 1", "digital", "Вкл/Выкл", "ext1_trig", 13, "1", 0, "");
+
+            //15. Предупреждение доп. датчика 1
+            string ext1_warn_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Предупреждение доп. датчика 1", "digital", "Вкл/Выкл", "ext1_warn", 14, "1", 0, "");
+
+            //16. Сработка доп. датчика 2
+            string ext2_trig_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сработка доп. датчика 2", "digital", "Вкл/Выкл", "ext2_trig", 15, "1", 0, "");
+
+            //17. Предупреждение доп. датчика 2
+            string ext2_warn_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Предупреждение доп. датчика 2", "digital", "Вкл/Выкл", "ext2_warn", 16, "1", 0, "");
+
+            //18. РАКБ
+            string acc_voltage_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "РАКБ", "voltage", "В", "acc_voltage", 17, "1", 0, "");
+
+            //19. Зажигание
+            string ign_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Зажигание", "engine operation", "Вкл/Выкл", "ign", 18, "1", 0, "");
+
+            //20. Центральный замок
+            string central_lock_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Центральный замок", "digital", "Открыто/Закрыто", "central_lock", 19, "1", 0, "");
+
+            //21. Двигатель заведен
+            string engine_is_on_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Двигатель заведен", "digital", "Вкл/Выкл", "engine_is_on", 20, "1", 0, "");
+
+            //22. Капот
+            string hood_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Капот", "digital", "Откр/Закр", "hood", 22, "1", 0, "");
+
+            //23. Передняя левая дверь (водителя)
+            string driver_door_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Передняя левая дверь (водителя)", "digital", "Откр/Закр", "driver_door", 23, "1", 0, "");
+
+            //24. Передняя правая дверь (пасс.)
+            string pass_door_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Передняя правая дверь (пасс.)", "digital", "Откр/Закр", "pass_door", 24, "1", 0, "");
+
+            //25. Задняя левая дверь
+            string l_rear_door_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Задняя левая дверь", "digital", "Откр/Закр", "l_rear_door", 25, "1", 0, "");
+
+            //26. Правая задняя дверь
+            string r_rear_door_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Правая задняя дверь", "digital", "Откр/Закр", "r_rear_door", 26, "1", 0, "");
+
+            //27. Багажник
+            string trunk_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Багажник", "digital", "Откр/Закр", "trunk", 27, "1", 0, "");
+
+            //28. Пробег
+            string can_odo_km_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Пробег", "mileage", "КМ", "can_odo_km", 28, "1", 0, "");
+
+            //29. Топливо
+            string fuel_lev_l_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Топливо", "fuel level", "л", "fuel_lev_l", 29, "1", 0, "");
+
+            //30. Ручной тормоз
+            string hand_break_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Ручной тормоз", "digital", "Вкл/Выкл", "hand_break", 30, "1", 0, "");
+
+            //31. Габаритные огни
+            string marker_lights_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Габаритные огни", "digital", "Вкл/Выкл", "marker_lights", 31, "1", 0, "");
+
+            //32. АКПП в P
+            string parking_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "АКПП в P", "digital", "Вкл/Выкл", "parking", 32, "1", 0, "");
+
+            //33. Ближний свет
+            string dipped_beam_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Ближний свет", "digital", "Вкл/Выкл", "dipped_beam", 33, "1", 0, "");
+
+            //34. Низкий уровень омывающей жидкости
+            string washer_alert_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Низкий уровень омывающей жидкости", "digital", "Вкл/Выкл", "washer_alert", 34, "1", 0, "");
+
+            //35. Температура двигателя
+            string eng_temp_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Температура двигателя", "temperature", "C", "eng_temp", 35, "1", 0, "");
+
+            //36. Сработка датчика глушения
+            string aux_zone_1_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сработка датчика глушения", "digital", "Вкл/Выкл", "aux_zone_1", 36, "1", 0, "");
+
+            /////////////////
+            ///Создаем произвольные поля
+            /////////////////
+
+            //Произвольное поле 1
+            string answer = macros.create_custom_field_wl(cr_obj_out.item.id, "0 УВАГА", "");
+
+            //Произвольное поле 2
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "02 Проект", "");
+
+            //Произвольное поле 3
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.1 І Відповідальна особа (основна)", "");
+
+            //Произвольное поле 4
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.2 ІІ Відповідальна особа", "");
+
+            //Произвольное поле 5
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.3 ІІІ Відповідальна особа", "");
+
+            //Произвольное поле 6
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.4 ІV Відповідальна особа", "");
+
+            //Произвольное поле 7
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.5 V Відповідальна особа", "");
+
+            //Произвольное поле 8
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.1.1 Оператор, що тестував", "");
+
+            //Произвольное поле 9
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.11 Додатково встановлені сигналізації", "");
+
+            //Произвольное поле 10
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.12 Постановка авто под охрану через багажник?", "");
+
+            //Произвольное поле 11
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.15 Додатково встановлені датчики", "");
+
+            //Произвольное поле 12
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.2.1 Установник: назва, адреса", "");
+
+            //Произвольное поле 13
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.2.2 Установник-монтажник: ПІБ, №тел.", "");
+
+            //Произвольное поле 14
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.3 Дата установки", "");
+
+            //Произвольное поле 15
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.4 Місце установки пристрою ВЕНБЕСТ", "");
+
+            //Произвольное поле 16
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.1 CAN-реле", "");
+
+            //Произвольное поле 17
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.2 Звичайне реле", "");
+
+            //Произвольное поле 18
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.7 Місце встановлення сервісної кнопки", "");
+
+            //Произвольное поле 19
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.8.1 Дротова тривожна кнопка", "");
+
+            //Произвольное поле 20
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.8.2 Бездротова тривожна кнопка", "");
+
+            //Произвольное поле 21
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.3 Блокує Prizrak по CAN", "");
+
+            //Произвольное поле 22
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.9.2 Штатні кнопки введення PIN-коду", "");
+
+            //Административное поле 1
+            answer = macros.create_admin_field_wl(cr_obj_out.item.id, "3.9.3 GSM-код", maskedTextBox_GSM_CODE.Text.ToString());
+
+            //Административное поле 2
+            answer = macros.create_admin_field_wl(cr_obj_out.item.id, "3.9.4 PUK-код", maskedTextBox_PUK.Text.ToString());
+
+            //Административное поле 3
+            answer = macros.create_admin_field_wl(cr_obj_out.item.id, "3.9.5 Bluetuth-код", maskedTextBox_BLE_CODE.Text.ToString());
+
+            //Произвольное поле 21
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "4.1 Дата активації", "");
+
+            //Произвольное поле 22
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "4.1.1 Оператор, що активував", "");
+
+            //Произвольное поле 23
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "4.2 Дата встановлення PIN-коду", "");
+
+            //Произвольное поле 24
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "4.3 PIN-код встановлено особою(клієнт/установлник)", "");
+
+            //Произвольное поле 25
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "4.4 Обліковий запис WL", "");
+
+            //Произвольное поле 26
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "5.1 Менеджер", "");
+
+            //Произвольное поле 27
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "5.2 Договір обслуговування", "");
+
+            //Произвольное поле 28
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "5.3 Гарантія до", "");
+
+            //Произвольное поле 29
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "5.4 Дата закінчення договору страхування", "");
+
+            //Произвольное поле 30
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "8.1 Паркінг 1", "");
+
+            //Произвольное поле 31
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "8.2 Паркінг 2", "");
+
+            //Произвольное поле 33
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "9.0 Примітки", "");
+
+            //Произвольное поле 33
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "9.1 Техпаспорт", "");
+
+            //Произвольное поле 34
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "9.2.1 Дата перевірки картки", "ДД.ММ.РРРР");
+
+            //Произвольное поле 35
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "9.2.2 Оператор перевірки картки", "Прізвище");
+
+            //Произвольное поле 36
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "10 Кодове слово", "");
+
+            //Админитстративное поле 40
+            answer = macros.create_admin_field_wl(cr_obj_out.item.id, "13 Prizrak 910 SN", search_tovar_comboBox.Text);
+
+            /////////////////
+            ///Добавляем в группу Объекты All
+            /////////////////
+
+            string get_units_on_group = macros.WialonRequest(
+                "&svc=core/search_item&params={"
+                + "\"id\":\"2612\","
+                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+            var list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+            list_get_units_on_group.item.u.Add(cr_obj_out.item.id);//Доповляем в список новый объект
+            string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+            string gr_answer = macros.WialonRequest(
+                "&svc=unit_group/update_units&params={"
+                + "\"itemId\":\"2612\","
+                + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+            /////////////////
+            ///Создаем команды
+            /////////////////
+            ///http://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/unit/update_command_definition
+            /// 83886080- закрыта команда  для клиента
+            /// 16777216- открыта команда для клиента
+
+            //0 - Запросить текущее состояние
+            string cmd_refresh = macros.create_commads_wl(cr_obj_out.item.id, "0 - Запросить текущее состояние", "%23refresh%23", 83886080);
+
+            //0 - Перезагрузить систему
+            string cmd_reboot = macros.create_commads_wl(cr_obj_out.item.id, "0 - Перезагрузить систему", "%23reboot%23", 83886080);
+
+            //1 - Закрыть автомобиль
+            string cmd_protection_on = macros.create_commads_wl(cr_obj_out.item.id, "1 - Закрыть автомобиль", "%23protection=1%23", 83886080);
+
+            //1 - Открыть автомобиль
+            string cmd_protection_off = macros.create_commads_wl(cr_obj_out.item.id, "1 - Открыть автомобиль", "%23protection=0%23", 83886080);
+
+            //2 - Автозапуск старт
+            string cmd_autostart_on = macros.create_commads_wl(cr_obj_out.item.id, "2 - Автозапуск старт", "%23autostart=1%23", 83886080);
+
+            //2 - Автозапуск стоп
+            string cmd_autostart_off = macros.create_commads_wl(cr_obj_out.item.id, "2 - Автозапуск стоп", "%23autostart=0%23", 83886080);
+
+            //3 - СТАРТ двигатель
+            string cmd_man_block_off = macros.create_commads_wl(cr_obj_out.item.id, "3 - СТАРТ двигатель", "%23man_block=0%23", 83886080);
+
+            //3 - СТОП двигатель
+            string cmd_man_block_on = macros.create_commads_wl(cr_obj_out.item.id, "3 - СТОП двигатель", "%23man_block=1%23", 83886080);
+
+            //4 - Включить сирену
+            string cmd_alarm_on = macros.create_commads_wl(cr_obj_out.item.id, "4 - Включить сирену", "%23alarm=1%23", 83886080);
+
+            //4 - Выключить сирену
+            string cmd_alarm_off = macros.create_commads_wl(cr_obj_out.item.id, "4 - Выключить сирену", "%23alarm=0%23", 83886080);
+
+            //5 - Включить поиск на парковке
+            string cmd_search_on = macros.create_commads_wl(cr_obj_out.item.id, "5 - Включить поиск на парковке", "%23search=1%23", 83886080);
+
+            //5 - Выключить поиск на парковке
+            string cmd_search_off = macros.create_commads_wl(cr_obj_out.item.id, "5 - Выключить поиск на парковке", "%23search=0%23", 83886080);
+
+            //6 - Включить сервисный режим
+            string cmd_valet_on = macros.create_commads_wl(cr_obj_out.item.id, "6 - Включить сервисный режим", "%23valet=1%23", 16777216);
+
+            //6 - Выключить сервисный режиме
+            string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режиме", "%23valet=0%23", 16777216);
+
+            string id_sim = "";
+
+            DataTable t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
+            if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "';");
+            }
+            else
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            }
+
+            string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card, Objectcol_puk, Objectcol_gsm_code, Objectcol_ble_code, Objectcol_bt_enable, Objectcol_sn_prizrak) "
+                + "values('" + cr_obj_out.item.id
+                + "', '" + textBox_id_to_create.Text.ToString()
+                + "', '" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem)
+                + " " + textBox_id_to_create.Text.ToString() + "','"
+                + maskedTextBox_sim_no_to_create.Text.ToString()
+                + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "'," +
+                " '" + id_sim + "'," +
+                " '1', '1', '1','1', null, '" + vars_form.user_login_id + "', '"
+                + textBox_id_to_create.Text.ToString() + "', '"
+                + maskedTextBox_PUK.Text.ToString() + "', '"
+                + maskedTextBox_GSM_CODE.Text.ToString() + "', '"
+                + maskedTextBox_BLE_CODE.Text.ToString() + "', '"
+                + textBox_bt_enable.Text.ToString() + "', '"
+                + search_tovar_comboBox.GetItemText(search_tovar_comboBox.SelectedItem) + "');");
+            macros.sql_command(sql2);
+
+            //получаем айди созданного объекта
+            string id_object = macros.sql_command("SELECT MAX(idObject) FROM btk.Object;");
+
+            // set datetime create
+            macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
+
+            //Создаем подписку для объекта
+            string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('20'," + id_object + ");");
+            macros.sql_command(sql3);
+
+            //Получаем айди созданной подписки
+            string sql4 = macros.sql_command("select max(idSubscr) from btk.Subscription;");
+
+            //привязываем айди созданного объекта с айди созданной подписки
+            string sql5 = string.Format("insert into btk.object_subscr (Object_idObject, Subscription_idSubscr) values (" + id_object + "," + sql4 + ");");
+            macros.sql_command(sql5);
+
+            ///////////////////////
+            //Если все прошло успешно - завечиваем зеленым кнопку и затирает текстбоксы
+            //////////////////////////
+
+            button_create_object.Text = "Створено: " + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text + "\n Дата та час: " + DateTime.Now.ToString();
+            maskedTextBox_BLE_CODE.Text = "";
+            maskedTextBox_GSM_CODE.Text = "";
+            textBox_id_to_create.Text = "";
+            maskedTextBox_PUK.Text = "";
+            maskedTextBox_sim_no_to_create.Text = "";
+            textBox_bt_enable.Text = "";
+            button_create_object.BackColor = Color.Green;
+            comboBox_tel_select.Text = "";
+            search_tovar_comboBox.Text = "";
+
+        }
+
+        private void CNTP_910BT()
+        {
+            /////////////////////
+            //////Проверяем корректность введенных данных
+            ///
+
+            if (textBox_id_to_create.Text.Length <= 3)
+            {
+                textBox_id_to_create.BackColor = Color.Red;//Если IMEI короче 4х символов останавливается и подсвкечиваем красным
+                return;
+            }
+            if (maskedTextBox_sim_no_to_create.Text.Length <= 11)//Если IMEI короче 4х символов останавливается и подсвкечиваем красным
+            {
+                maskedTextBox_sim_no_to_create.BackColor = Color.Red;
+                return;
+            }
+            if (maskedTextBox_PUK.Text.Length <= 3)//Если PUK короче 4х символов останавливается и подсвкечиваем желтым
+            {
+                maskedTextBox_sim_no_to_create.BackColor = Color.Yellow;
+                DialogResult result = MessageBox.Show(
+                    "Вопрос",
+                    "PUK Верный?",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2,
+                    MessageBoxOptions.DefaultDesktopOnly);
+                if (result == DialogResult.No)
+                    return;
+                maskedTextBox_PUK.BackColor = Color.White;
+            }
+
+            // Проверям существует ли данный номер в системе
+            string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_phone_number|sys_phone_number2\"," +
+                                                     "\"propValueMask\":\"" + "*" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m = JsonConvert.DeserializeObject<RootObject>(unswer);
+            if (m.items.Count > 0)
+            {
+                MessageBox.Show("Указанный телефон существует в WL");
+                return;
+            }
+
+            // Проверям существует ли указанный ИМЕЙ в системе
+            string unswer2 = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_unique_id\"," +
+                                                     "\"propValueMask\":\"" + textBox_id_to_create.Text + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m2 = JsonConvert.DeserializeObject<RootObject>(unswer2);
+            if (m2.items.Count > 0)
+            {
+                MessageBox.Show("Указанный IMEI существует в WL");
+                return;
+            }
+
+            /////////////////
+            ///Создаем объект
+            /////////////////
+            string cr_obj_in = "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
+            string json = macros.WialonRequest(cr_obj_in);
+            var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
+            if (cr_obj_out.error != 0)
+            {
+                string text = macros.Get_wl_text_error(cr_obj_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+                return;
+            }
+
+            /////////////////
+            ///Создаем пароль доступа к объекту
+            /////////////////
+
+            string accsess_pass_answer = macros.WialonRequest(
+                "&svc=unit/update_access_password&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"accessPassword\":\"" + maskedTextBox_GSM_CODE.Text.ToString() + "\"}");
+            var accsess_pass_answer_out = JsonConvert.DeserializeObject<RootObject>(accsess_pass_answer);
+            if (accsess_pass_answer_out.error != 0)
+            {
+                string text = macros.Get_wl_text_error(accsess_pass_answer_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+                return;
+            }
+
+            /////////////////
+            ///Установливаем имя объекта и ID оборудования и
+            /////////////////
+            string item_id_in =
+                "&svc=unit/update_device_type&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id
+                + "\",\"deviceTypeId\":\"" + "9"
+                + "\",\"uniqueId\":\"" + textBox_id_to_create.Text.ToString() + "\"}";
+            string json2 = macros.WialonRequest(item_id_in);
+            var item_id_out = JsonConvert.DeserializeObject<RootObject>(json2);
+            if (item_id_out.error != 0)
+            {
+                string text = macros.Get_wl_text_error(item_id_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+                return;
+            }
+            /////////////////
+            ///Устанавливаем номер СИМ
+            /////////////////
+            string item_phone_in = "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string json3 = macros.WialonRequest(item_phone_in);
+            var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
+            if (item_phone_out.error != 0)
+            {
+                string text = macros.Get_wl_text_error(item_phone_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+                return;
+            }
+            /////////////////
+            ///Создаем датчики
+            /////////////////
+
+            //1. Автоматическая блокировка двигателя
+            string auto_block_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Автоматическая блокировка двигателя", "digital", "Вкл/Выкл", "auto_block", 1, "1", 0, "");
+
+            //2. Охрана
+            string protection_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Охрана", "digital", "Вкл/Выкл", "protection", 2, "1", 0, "");
+
+            //3. Принудительная блокировка двигателя
+            string man_block_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Принудительная блокировка двигателя", "digital", "Вкл/Выкл", "man_block", 3, "1", 0, "");
+
+            //4. Авторизация
+            string auth_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Авторизация", "digital", "Вкл/Выкл", "auth", 4, "1", 0, "");
+
+            //5. Тревожная кнопка
+            string alarm_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Тревожная кнопка_", "digital", "Вкл/Выкл", "alarm", 5, "1", 0, "");
+
+            //6. Сервисный режим
+            string valet_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сервисный режим", "digital", "Вкл/Выкл", "valet", 6, "1", 0, "");
+
+            //7. Двери статус
+            string all_door_status_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Двери статус", "digital", "Вкл/Выкл", "trunk%2Bhood+%2Bpass_door%2Bdriver_door%2Bl_rear_door%2Br_rear_door", 21, "1", 0, "");
+
+            //8. Сработка открытие дверей в охране
+            string Door_in_protection_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сработка открытие дверей в охране", "digital", "Вкл/Выкл", "alarm_act", 7, "1", 7, "");
+
+            //9. Сработка сирены
+            string alarm_act_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сработка сирены", "digital", "Вкл/Выкл", "alarm_act", 8, "1", 0, "");
+
+            //10. Сработка датчика наклона
+            string tilt_trig_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сработка датчика наклона", "digital", "Вкл/Выкл", "tilt_trig", 9, "1", 0, "");
+
+            //11. Напряжение АКБ
+            string ext_voltage_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Напряжение АКБ", "voltage", "В", "ext_voltage", 10, "1", 0, "");
+
+            //12. Сработка датчика ударов
+            string sh_trig_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сработка датчика ударов", "digital", "Вкл/Выкл", "sh_trig", 11, "1", 0, "");
+
+            //13. Предупреждение датчика ударов
+            string sh_warn_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Предупреждение датчика ударов", "digital", "Вкл/Выкл", "sh_warn", 12, "1", 0, "");
+
+            //14. Сработка доп. датчика 1
+            string ext1_trig_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сработка доп. датчика 1", "digital", "Вкл/Выкл", "ext1_trig", 13, "1", 0, "");
+
+            //15. Предупреждение доп. датчика 1
+            string ext1_warn_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Предупреждение доп. датчика 1", "digital", "Вкл/Выкл", "ext1_warn", 14, "1", 0, "");
+
+            //16. Сработка доп. датчика 2
+            string ext2_trig_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сработка доп. датчика 2", "digital", "Вкл/Выкл", "ext2_trig", 15, "1", 0, "");
+
+            //17. Предупреждение доп. датчика 2
+            string ext2_warn_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Предупреждение доп. датчика 2", "digital", "Вкл/Выкл", "ext2_warn", 16, "1", 0, "");
+
+            //18. РАКБ
+            string acc_voltage_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "РАКБ", "voltage", "В", "acc_voltage", 17, "1", 0, "");
+
+            //19. Зажигание
+            string ign_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Зажигание", "engine operation", "Вкл/Выкл", "ign", 18, "1", 0, "");
+
+            //20. Центральный замок
+            string central_lock_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Центральный замок", "digital", "Открыто/Закрыто", "central_lock", 19, "1", 0, "");
+
+            //21. Двигатель заведен
+            string engine_is_on_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Двигатель заведен", "digital", "Вкл/Выкл", "engine_is_on", 20, "1", 0, "");
+
+            //22. Капот
+            string hood_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Капот", "digital", "Откр/Закр", "hood", 22, "1", 0, "");
+
+            //23. Передняя левая дверь (водителя)
+            string driver_door_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Передняя левая дверь (водителя)", "digital", "Откр/Закр", "driver_door", 23, "1", 0, "");
+
+            //24. Передняя правая дверь (пасс.)
+            string pass_door_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Передняя правая дверь (пасс.)", "digital", "Откр/Закр", "pass_door", 24, "1", 0, "");
+
+            //25. Задняя левая дверь
+            string l_rear_door_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Задняя левая дверь", "digital", "Откр/Закр", "l_rear_door", 25, "1", 0, "");
+
+            //26. Правая задняя дверь
+            string r_rear_door_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Правая задняя дверь", "digital", "Откр/Закр", "r_rear_door", 26, "1", 0, "");
+
+            //27. Багажник
+            string trunk_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Багажник", "digital", "Откр/Закр", "trunk", 27, "1", 0, "");
+
+            //28. Пробег
+            string can_odo_km_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Пробег", "mileage", "КМ", "can_odo_km", 28, "1", 0, "");
+
+            //29. Топливо
+            string fuel_lev_l_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Топливо", "fuel level", "л", "fuel_lev_l", 29, "1", 0, "");
+
+            //30. Ручной тормоз
+            string hand_break_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Ручной тормоз", "digital", "Вкл/Выкл", "hand_break", 30, "1", 0, "");
+
+            //31. Габаритные огни
+            string marker_lights_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Габаритные огни", "digital", "Вкл/Выкл", "marker_lights", 31, "1", 0, "");
+
+            //32. АКПП в P
+            string parking_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "АКПП в P", "digital", "Вкл/Выкл", "parking", 32, "1", 0, "");
+
+            //33. Ближний свет
+            string dipped_beam_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Ближний свет", "digital", "Вкл/Выкл", "dipped_beam", 33, "1", 0, "");
+
+            //34. Низкий уровень омывающей жидкости
+            string washer_alert_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Низкий уровень омывающей жидкости", "digital", "Вкл/Выкл", "washer_alert", 34, "1", 0, "");
+
+            //35. Температура двигателя
+            string eng_temp_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Температура двигателя", "temperature", "C", "eng_temp", 35, "1", 0, "");
+
+            //36. Сработка датчика глушения
+            string aux_zone_1_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Сработка датчика глушения", "digital", "Вкл/Выкл", "aux_zone_1", 36, "1", 0, "");
+
+            /////////////////
+            ///Создаем произвольные поля
+            /////////////////
+
+            //Произвольное поле 1
+            string answer = macros.create_custom_field_wl(cr_obj_out.item.id, "0 УВАГА", "");
+
+            //Произвольное поле 2
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "02 Проект", "");
+
+            //Произвольное поле 3
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.1 І Відповідальна особа (основна)", "");
+
+            //Произвольное поле 4
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.2 ІІ Відповідальна особа", "");
+
+            //Произвольное поле 5
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.3 ІІІ Відповідальна особа", "");
+
+            //Произвольное поле 6
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.4 ІV Відповідальна особа", "");
+
+            //Произвольное поле 7
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "2.5 V Відповідальна особа", "");
+
+            //Произвольное поле 8
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.1.1 Оператор, що тестував", "");
+
+            //Произвольное поле 9
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.11 Додатково встановлені сигналізації", "");
+
+            //Произвольное поле 10
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.12 Постановка авто под охрану через багажник?", "");
+
+            //Произвольное поле 11
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.15 Додатково встановлені датчики", "");
+
+            //Произвольное поле 12
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.2.1 Установник: назва, адреса", "");
+
+            //Произвольное поле 13
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.2.2 Установник-монтажник: ПІБ, №тел.", "");
+
+            //Произвольное поле 14
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.3 Дата установки", "");
+
+            //Произвольное поле 15
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.4 Місце установки пристрою ВЕНБЕСТ", "");
+
+            //Произвольное поле 16
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.1 CAN-реле", "");
+
+            //Произвольное поле 17
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.2 Звичайне реле", "");
+
+            //Произвольное поле 18
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.7 Місце встановлення сервісної кнопки", "");
+
+            //Произвольное поле 19
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.8.1 Дротова тривожна кнопка", "");
+
+            //Произвольное поле 20
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.8.2 Бездротова тривожна кнопка", "");
+
+            //Произвольное поле 21
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.6.3 Блокує Prizrak по CAN", "");
+
+            //Произвольное поле 22
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "3.9.2 Штатні кнопки введення PIN-коду", "");
+
+            //Административное поле 1
+            answer = macros.create_admin_field_wl(cr_obj_out.item.id, "3.9.3 GSM-код", maskedTextBox_GSM_CODE.Text.ToString());
+
+            //Административное поле 2
+            answer = macros.create_admin_field_wl(cr_obj_out.item.id, "3.9.4 PUK-код", maskedTextBox_PUK.Text.ToString());
+
+            //Административное поле 3
+            answer = macros.create_admin_field_wl(cr_obj_out.item.id, "3.9.5 Bluetuth-код", maskedTextBox_BLE_CODE.Text.ToString());
+
+            //Произвольное поле 24
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "4.1 Дата активації", "");
+
+            //Произвольное поле 25
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "4.1.1 Оператор, що активував", "");
+
+            //Произвольное поле 26
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "4.2 Дата встановлення PIN-коду", "");
+
+            //Произвольное поле 27
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "4.3 PIN-код встановлено особою(клієнт/установлник)", "");
+
+            //Произвольное поле 28
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "4.4 Обліковий запис WL", "");
+
+            //Произвольное поле 29
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "5.1 Менеджер", "");
+
+            //Произвольное поле 30
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "5.2 Договір обслуговування", "");
+
+            //Произвольное поле 31
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "5.3 Гарантія до", "");
+
+            //Произвольное поле 32
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "5.4 Дата закінчення договору страхування", "");
+
+            //Произвольное поле 33
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "8.1 Паркінг 1", "");
+
+            //Произвольное поле 34
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "8.2 Паркінг 2", "");
+
+            //Произвольное поле 35
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "9.0 Примітки", "");
+
+            //Произвольное поле 36
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "9.1 Техпаспорт", "");
+
+            //Произвольное поле 37
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "9.2.1 Дата перевірки картки", "ДД.ММ.РРРР");
+
+            //Произвольное поле 38
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "9.2.2 Оператор перевірки картки", "Прізвище");
+
+            //Произвольное поле 39
+            answer = macros.create_custom_field_wl(cr_obj_out.item.id, "10 Кодове слово", "");
+
+            //Админитстративное поле 40
+            answer = macros.create_admin_field_wl(cr_obj_out.item.id, "13 Prizrak 910 SN", search_tovar_comboBox.Text);
+
+            /////////////////
+            ///Добавляем в группу Объекты All
+            /////////////////
+
+            string get_units_on_group = macros.WialonRequest(
+                "&svc=core/search_item&params={"
+                + "\"id\":\"2612\","
+                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+            var list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+            list_get_units_on_group.item.u.Add(cr_obj_out.item.id);//Доповляем в список новый объект
+            string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+            string gr_answer = macros.WialonRequest(
+                "&svc=unit_group/update_units&params={"
+                + "\"itemId\":\"2612\","
+                + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+            /////////////////
+            ///Создаем команды
+            /////////////////
+            ///http://sdk.wialon.com/wiki/ru/local/remoteapi1904/apiref/unit/update_command_definition
+            /// 83886080- закрыта команда  для клиента
+            /// 16777216- открыта команда для клиента
+
+            //0 - Запросить текущее состояние
+            string cmd_refresh = macros.create_commads_wl(cr_obj_out.item.id, "0 - Запросить текущее состояние", "%23refresh%23", 83886080);
+
+            //0 - Перезагрузить систему
+            string cmd_reboot = macros.create_commads_wl(cr_obj_out.item.id, "0 - Перезагрузить систему", "%23reboot%23", 83886080);
+
+            //1 - Закрыть автомобиль
+            string cmd_protection_on = macros.create_commads_wl(cr_obj_out.item.id, "1 - Закрыть автомобиль", "%23protection=1%23", 16777216);
+
+            //1 - Открыть автомобиль
+            string cmd_protection_off = macros.create_commads_wl(cr_obj_out.item.id, "1 - Открыть автомобиль", "%23protection=0%23", 16777216);
+
+            //2 - Автозапуск старт
+            string cmd_autostart_on = macros.create_commads_wl(cr_obj_out.item.id, "2 - Автозапуск старт", "%23autostart=1%23", 83886080);
+
+            //2 - Автозапуск стоп
+            string cmd_autostart_off = macros.create_commads_wl(cr_obj_out.item.id, "2 - Автозапуск стоп", "%23autostart=0%23", 83886080);
+
+            //3 - СТАРТ двигатель
+            string cmd_man_block_off = macros.create_commads_wl(cr_obj_out.item.id, "3 - СТАРТ двигатель", "%23man_block=0%23", 83886080);
+
+            //3 - СТОП двигатель
+            string cmd_man_block_on = macros.create_commads_wl(cr_obj_out.item.id, "3 - СТОП двигатель", "%23man_block=1%23", 83886080);
+
+            //4 - Включить сирену
+            string cmd_alarm_on = macros.create_commads_wl(cr_obj_out.item.id, "4 - Включить сирену", "%23alarm=1%23", 16777216);
+
+            //4 - Выключить сирену
+            string cmd_alarm_off = macros.create_commads_wl(cr_obj_out.item.id, "4 - Выключить сирену", "%23alarm=0%23", 16777216);
+
+            //5 - Включить поиск на парковке
+            string cmd_search_on = macros.create_commads_wl(cr_obj_out.item.id, "5 - Включить поиск на парковке", "%23search=1%23", 16777216);
+
+            //5 - Выключить поиск на парковке
+            string cmd_search_off = macros.create_commads_wl(cr_obj_out.item.id, "5 - Выключить поиск на парковке", "%23search=0%23", 16777216);
+
+            //6 - Включить сервисный режим
+            string cmd_valet_on = macros.create_commads_wl(cr_obj_out.item.id, "6 - Включить сервисный режим", "%23valet=1%23", 16777216);
+
+            //6 - Выключить сервисный режиме
+            string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режиме", "%23valet=0%23", 16777216);
+
+            string id_sim = "";
+
+            DataTable t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
+            if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "';");
+            }
+            else
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            }
+
+
+            string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card, Objectcol_puk, Objectcol_gsm_code, Objectcol_ble_code, Objectcol_bt_enable, Objectcol_sn_prizrak) "
+                                        + "values('" + cr_obj_out.item.id
+                                        + "', '" + textBox_id_to_create.Text.ToString()
+                                        + "', '" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem)
+                                        + " " + textBox_id_to_create.Text.ToString() + "','"
+                                        + maskedTextBox_sim_no_to_create.Text.ToString()
+                                        + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', " +
+                                        "'" + id_sim + "'," +
+                                        " '1', '1', '1','1', null, '" + vars_form.user_login_id + "', '"
+                                        + textBox_id_to_create.Text.ToString() + "', '"
+                                        + maskedTextBox_PUK.Text.ToString() + "', '"
+                                        + maskedTextBox_GSM_CODE.Text.ToString() + "', '"
+                                        + maskedTextBox_BLE_CODE.Text.ToString() + "', '"
+                                        + textBox_bt_enable.Text.ToString() + "', '"
+                                        + search_tovar_comboBox.GetItemText(search_tovar_comboBox.SelectedItem) + "');");
+            macros.sql_command(sql2);
+
+            //получаем айди созданного объекта
+            string id_object = macros.sql_command("SELECT MAX(idObject) FROM btk.Object;");
+
+            // set datetime create
+            macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
+
+            //Создаем подписку для объекта
+            string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('11'," + id_object + ");");
+            macros.sql_command(sql3);
+
+            //Получаем айди созданной подписки
+            string sql4 = macros.sql_command("select max(idSubscr) from btk.Subscription;");
+
+            //привязываем айди созданного объекта с айди созданной подписки
+            string sql5 = string.Format("insert into btk.object_subscr (Object_idObject, Subscription_idSubscr) values (" + id_object + "," + sql4 + ");");
+            macros.sql_command(sql5);
+
+            ///////////////////////
+            //Если все прошло успешно - завечиваем зеленым кнопку и затирает текстбоксы
+            //////////////////////////
+            button_create_object.Text = "Створено: " + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text + "\n Дата та час: " + DateTime.Now.ToString();
+            maskedTextBox_BLE_CODE.Text = "";
+            maskedTextBox_GSM_CODE.Text = "";
+            textBox_id_to_create.Text = "";
+            maskedTextBox_PUK.Text = "";
+            maskedTextBox_sim_no_to_create.Text = "";
+            textBox_bt_enable.Text = "";
+            comboBox_tel_select.Text = "";
+            search_tovar_comboBox.Text = "";
+            button_create_object.BackColor = Color.Green;
+        }
+
+        private void CNTP_910_P()
+        {
+            /////////////////////
+            //////Проверяем корректность введенных данных
+            ///
+
+            if (textBox_id_to_create.Text.Length <= 3)
+            {
+                textBox_id_to_create.BackColor = Color.Red;//Если IMEI короче 4х символов останавливается и подсвкечиваем красным
+                return;
+            }
+            if (maskedTextBox_sim_no_to_create.Text.Length <= 11)//Если IMEI короче 4х символов останавливается и подсвкечиваем красным
+            {
+                maskedTextBox_sim_no_to_create.BackColor = Color.Red;
+                return;
+            }
+            if (maskedTextBox_PUK.Text.Length <= 3)//Если PUK короче 4х символов останавливается и подсвкечиваем желтым
+            {
+                maskedTextBox_sim_no_to_create.BackColor = Color.Yellow;
+                DialogResult result = MessageBox.Show(
+                    "Вопрос",
+                    "PUK Верный?",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2,
+                    MessageBoxOptions.DefaultDesktopOnly);
+                if (result == DialogResult.No)
+                    return;
+                maskedTextBox_PUK.BackColor = Color.White;
+            }
+
+            // Проверям существует ли данный номер в системе
+            string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_phone_number|sys_phone_number2\"," +
+                                                     "\"propValueMask\":\"" + "*" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m = JsonConvert.DeserializeObject<RootObject>(unswer);
+            if (m.items.Count > 0)
+            {
+                MessageBox.Show("Указанный телефон существует в WL");
+                return;
+            }
+
+            // Проверям существует ли данный номер в системе
+            unswer = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_phone_number|sys_phone_number2\"," +
+                                                     "\"propValueMask\":\"" + "*" + maskedTextBox_sim2_no_to_create.Text.Substring(1) + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            m = JsonConvert.DeserializeObject<RootObject>(unswer);
+            if (m.items.Count > 0)
+            {
+                MessageBox.Show("Указанный телефон существует в WL");
+                return;
+            }
+
+            // Проверям существует ли указанный ИМЕЙ в системе
+            string unswer2 = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_unique_id\"," +
+                                                     "\"propValueMask\":\"" + textBox_id_to_create.Text + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m2 = JsonConvert.DeserializeObject<RootObject>(unswer2);
+            if (m2.items.Count > 0)
+            {
+                MessageBox.Show("Указанный IMEI существует в WL");
+                return;
+            }
+
+            /////////////////
+            ///Создаем объект
+            /////////////////
+            string cr_obj_in = "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"9\",\"dataFlags\":\"1\"}";
+            string json = macros.WialonRequest(cr_obj_in);
+            var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
+            if (cr_obj_out.error != 0)
+            {
+                string text = macros.Get_wl_text_error(cr_obj_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+                return;
+            }
+
+            /////////////////
+            ///Создаем пароль доступа к объекту
+            /////////////////
+
+            string accsess_pass_answer = macros.WialonRequest(
+                "&svc=unit/update_access_password&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"accessPassword\":\"" + maskedTextBox_GSM_CODE.Text.ToString() + "\"}");
+            var accsess_pass_answer_out = JsonConvert.DeserializeObject<RootObject>(json);
+            if (accsess_pass_answer_out.error != 0)
+            {
+                string text = macros.Get_wl_text_error(accsess_pass_answer_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+                return;
+            }
+
+            /////////////////
+            ///Установливаем имя объекта и ID оборудования и
+            /////////////////
+            string item_id_in =
+                "&svc=unit/update_device_type&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id
+                + "\",\"deviceTypeId\":\"" + "9"
+                + "\",\"uniqueId\":\"" + textBox_id_to_create.Text.ToString() + "\"}";
+            string json2 = macros.WialonRequest(item_id_in);
+            var item_id_out = JsonConvert.DeserializeObject<RootObject>(json2);
+            if (item_id_out.error != 0)
+            {
+                string text = macros.Get_wl_text_error(item_id_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+                return;
+            }
+            /////////////////
+            ///Устанавливаем номер СИМ
+            /////////////////
+            string item_phone_in = "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string json3 = macros.WialonRequest(item_phone_in);
+            var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
+            if (item_phone_out.error != 0)
+            {
+                string text = macros.Get_wl_text_error(item_phone_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+                return;
+            }
+
+            /////////////////
+            ///Устанавливаем номер СИМ2
+            /////////////////
+            string item_phone2_in = "&svc=unit/update_phone2&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim2_no_to_create.Text) + "\"}";
+            string json32 = macros.WialonRequest(item_phone2_in);
+            var item_phone_out2 = JsonConvert.DeserializeObject<RootObject>(json32);
+            if (item_phone_out2.error != 0)
+            {
+                string text = macros.Get_wl_text_error(item_phone_out2.error);//Показіваем диалог бокс с ошибкой, преріваем создание
                 return;
             }
             /////////////////
@@ -6008,6 +7066,7 @@ namespace Disp_WinForm
             string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режиме", "%23valet=0%23", 16777216);
 
             string id_sim = "";
+            
 
             DataTable t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
             if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
@@ -6021,14 +7080,29 @@ namespace Disp_WinForm
                 id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
             }
 
-            string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card, Objectcol_puk, Objectcol_gsm_code, Objectcol_ble_code, Objectcol_bt_enable, Objectcol_sn_prizrak) "
+            string id_sim2 = "";
+            DataTable t1 = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel2_select.Text + "';");
+            if (t1.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+            {
+                //получаем айди SIM-card
+                id_sim2 = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim2_no_to_create.Text.Substring(1) + "';");
+            }
+            else
+            {
+                //получаем айди SIM-card
+                id_sim2 = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim2_no_to_create.Text.Substring(4) + "';");
+            }
+
+            string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, Object_sim2_no, products_idproducts, Simcard_idSimcard, Simcard_idSimcard1, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card, Objectcol_puk, Objectcol_gsm_code, Objectcol_ble_code, Objectcol_bt_enable, Objectcol_sn_prizrak) "
                                         + "values('" + cr_obj_out.item.id
                                         + "', '" + textBox_id_to_create.Text.ToString()
                                         + "', '" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem)
                                         + " " + textBox_id_to_create.Text.ToString() + "','"
-                                        + maskedTextBox_sim_no_to_create.Text.ToString()
-                                        + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', " +
-                                        "'" + id_sim + "'," +
+                                        + maskedTextBox_sim_no_to_create.Text.ToString() + "','"    
+                                        + maskedTextBox_sim2_no_to_create.Text.ToString()
+                                        + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', "
+                                        + "'" + id_sim + "'," 
+                                        +"'" + id_sim2 + "'," +
                                         "'1', '1', '1','1', null, '" + vars_form.user_login_id + "', '"
                                         + textBox_id_to_create.Text.ToString() + "', '"
                                         + maskedTextBox_PUK.Text.ToString() + "', '"
@@ -6120,6 +7194,25 @@ namespace Disp_WinForm
                 return;
             }
 
+            // Проверям существует ли данный номер в системе
+            unswer = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_phone_number|sys_phone_number2\"," +
+                                                     "\"propValueMask\":\"" + "*" + maskedTextBox_sim2_no_to_create.Text.Substring(1) + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            m = JsonConvert.DeserializeObject<RootObject>(unswer);
+            if (m.items.Count > 0)
+            {
+                MessageBox.Show("Указанный телефон существует в WL");
+                return;
+            }
+
             // Проверям существует ли указанный ИМЕЙ в системе
             string unswer2 = macros.WialonRequest("&svc=core/search_items&params={" +
                                                      "\"spec\":{" +
@@ -6138,7 +7231,7 @@ namespace Disp_WinForm
                 MessageBox.Show("Указанный IMEI существует в WL");
                 return;
             }
-
+            
             /////////////////
             ///Создаем объект
             /////////////////
@@ -6192,6 +7285,20 @@ namespace Disp_WinForm
                 string text = macros.Get_wl_text_error(item_phone_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
                 return;
             }
+
+
+            /////////////////
+            ///Устанавливаем номер СИМ2
+            /////////////////
+            string item_phone2_in = "&svc=unit/update_phone2&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim2_no_to_create.Text) + "\"}";
+            string json32 = macros.WialonRequest(item_phone2_in);
+            var item_phone_out2 = JsonConvert.DeserializeObject<RootObject>(json32);
+            if (item_phone_out2.error != 0)
+            {
+                string text = macros.Get_wl_text_error(item_phone_out2.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+                return;
+            }
+
             /////////////////
             ///Создаем датчики
             /////////////////
@@ -6504,6 +7611,7 @@ namespace Disp_WinForm
 
             string id_sim = "";
 
+
             DataTable t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
             if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
             {
@@ -6516,14 +7624,29 @@ namespace Disp_WinForm
                 id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
             }
 
-            string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card, Objectcol_puk, Objectcol_gsm_code, Objectcol_ble_code, Objectcol_bt_enable, Objectcol_sn_prizrak) "
+            string id_sim2 = "";
+            DataTable t1 = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel2_select.Text + "';");
+            if (t1.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+            {
+                //получаем айди SIM-card
+                id_sim2 = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim2_no_to_create.Text.Substring(1) + "';");
+            }
+            else
+            {
+                //получаем айди SIM-card
+                id_sim2 = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim2_no_to_create.Text.Substring(4) + "';");
+            }
+
+            string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, Object_sim2_no, products_idproducts, Simcard_idSimcard, Simcard_idSimcard1, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers, Objectcol_sn_puk_card, Objectcol_puk, Objectcol_gsm_code, Objectcol_ble_code, Objectcol_bt_enable, Objectcol_sn_prizrak) "
                                         + "values('" + cr_obj_out.item.id
                                         + "', '" + textBox_id_to_create.Text.ToString()
                                         + "', '" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem)
                                         + " " + textBox_id_to_create.Text.ToString() + "','"
-                                        + maskedTextBox_sim_no_to_create.Text.ToString()
-                                        + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', " +
-                                        "'" + id_sim + "'," +
+                                        + maskedTextBox_sim_no_to_create.Text.ToString() + "','"
+                                        + maskedTextBox_sim2_no_to_create.Text.ToString()
+                                        + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', "
+                                        + "'" + id_sim + "',"
+                                        + "'" + id_sim2 + "'," +
                                         "'1', '1', '1','1', null, '" + vars_form.user_login_id + "', '"
                                         + textBox_id_to_create.Text.ToString() + "', '"
                                         + maskedTextBox_PUK.Text.ToString() + "', '"
@@ -12095,6 +13218,171 @@ namespace Disp_WinForm
         private void button3_Click(object sender, EventArgs e)
         {
             macros.Vodafone_TokenRefresh();
+        }
+
+        private void comboBox_tel2_select_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            button_create_object.Text = "Створити";
+            button_create_object.BackColor = Color.Empty;
+            maskedTextBox_sim2_no_to_create.Text = "";
+            comboBox_tel2_select.BackColor = Color.Empty;
+            maskedTextBox_sim2_no_to_create.BackColor = Color.Empty;
+            if (e.KeyChar == (char)13)
+            {
+                if (comboBox_tel2_select.Text.Contains("F") || comboBox_tel2_select.Text.Contains("А"))
+                { comboBox_tel2_select.Text = comboBox_tel2_select.Text.Remove(comboBox_tel2_select.Text.Length - 1); }
+                DataTable t = new DataTable();
+                t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel2_select.Text + "';");
+                if (t != null & t.Rows.Count > 0)
+                {
+                    if (t.Rows[0][4].ToString() != "1")// if deactivated retorn error
+                    {
+                        if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+                        {
+                            maskedTextBox_sim2_no_to_create.Mask = "";
+                            maskedTextBox_sim2_no_to_create.Text = "+" + t.Rows[0][1].ToString();
+                            Clipboard.SetText(maskedTextBox_sim2_no_to_create.Text);
+                        }
+                        else
+                        {
+                            maskedTextBox_sim2_no_to_create.Mask = "+38\\0000000000";
+                            maskedTextBox_sim2_no_to_create.Text = t.Rows[0][1].ToString();
+                            Clipboard.SetText(maskedTextBox_sim2_no_to_create.Text);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Картка деактивована");
+                        maskedTextBox_sim2_no_to_create.BackColor = Color.Red;
+                        maskedTextBox_sim2_no_to_create.Text = t.Rows[0][1].ToString();
+                        Clipboard.SetText(maskedTextBox_sim2_no_to_create.Text);
+                    }
+
+                }
+                else
+                {
+                    comboBox_tel2_select.Text = "Не знайдено";
+                    comboBox_tel2_select.Focus();
+                    comboBox_tel2_select.BackColor = Color.Red;
+                }
+            }
+        }
+
+        private void maskedTextBox_sim2_no_to_create_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            button_create_object.Text = "Створити";
+            //maskedTextBox_sim_no_to_create.Text = "";
+            comboBox_tel2_select.Text = "";
+            button_create_object.BackColor = Color.Empty;
+            maskedTextBox_sim2_no_to_create.BackColor = Color.Empty;
+
+            if (e.KeyChar == (char)13)
+            {
+                string t = "SELECT Simcardcol_imsi FROM btk.Simcard where Simcardcol_number ='" + maskedTextBox_sim2_no_to_create.Text.Substring(4) + "';";
+                if (t != "")
+                {
+                    comboBox_tel2_select.Text = macros.sql_command(t);
+                }
+            }
+        }
+
+        private void linkLabel_zvit_vidpracuvannya_Click(object sender, EventArgs e)
+        {
+            int gmr_police = 0;
+            if (checkBox_vidpra_gmr_police.Checked is true)
+            {
+                gmr_police = 1;
+            }
+            else
+            {
+                gmr_police = 0;
+            }
+
+            DataSet data = new DataSet();
+
+            data = macros.GetData_dataset("SELECT " +
+                                  "notification.idnotification, " +
+                                  "notification.unit_name, " +
+                                  "Users.username, " +
+                                  "notification.type_alarm, " +
+                                  "notification.curr_time, " +
+                                  "alarm_ack.time_start_ack, " +
+                                  "notification.time_stamp, " +
+                                  "notification.Status, " +
+                                  "alarm_ack.alarm_text, " +
+                                  "alarm_ack.vizov_gmp, " +
+                                  "alarm_ack.vizov_police " +
+                                  "FROM " +
+                                  "btk.notification, btk.Users, btk.alarm_ack " +
+                                  "where(" +
+                                  "alarm_ack.vizov_gmp = '" + gmr_police + "' or " +
+                                  "alarm_ack.vizov_police = '" + gmr_police + "') and " +
+                                  "alarm_ack.notification_idnotification = notification.idnotification and " +
+                                  "Users.idUsers = notification.Users_idUsers and " +
+                                  "notification.Status = 'Закрито' and " +
+                                  "notification.time_stamp BETWEEN '" + Convert.ToDateTime(dateTime_rep_from.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(dateTime_rep_to.Value).ToString("yyyy-MM-dd HH:mm:ss") + "';");
+
+            macros.ExportDataSet(data);
+        }
+
+        private void linkLabel_zvit_activation_Click(object sender, EventArgs e)
+        {
+            DataSet table = macros.GetData_dataset(
+                    "SELECT " +
+                    "Zayavki.idZayavki as 'Заявка №', " +
+                    "Activation_object.new_name_obj as 'Назва обєкту', " +
+                    "Zayavki.Zayavkicol_VIN as 'VIN', " +
+                    "Users.username as 'ПІБ співробітника, що активував', " +
+                    "Activation_object.Activation_objectcol_result as 'Результат', " +
+                    "Activation_object.comment as 'Коментар', " +
+                    "Activation_object.Activation_date as 'Дата активації' " +
+                    "FROM " +
+                    "btk.Users," +
+                    "btk.products," +
+                    "btk.Activation_object," +
+                    "btk.Zayavki," +
+                    "btk.TS_brand," +
+                    "btk.TS_model " +
+                    "where " +
+                    "Activation_object.Object_idObject != '10' " +
+                    "and Activation_object.Activation_date between '" + Convert.ToDateTime(dateTime_rep_from.Value).Date.ToString("yyyy-MM-dd") + "' and '" + Convert.ToDateTime(dateTime_rep_to.Value).Date.ToString("yyyy-MM-dd") + "' " +
+                    "and(idZayavki like '%" + textBox_search_object_name_activation.Text + "%' " +
+                    "or Activation_object.new_name_obj like '%" + textBox_search_object_name_activation.Text + "%' " +
+                    "or Zayavkicol_name like '%" + textBox_search_object_name_activation.Text + "%' " +
+                    "or Activation_objectcol_result like '" + textBox_search_object_name_activation.Text + "' " +
+                    "or Zayavkicol_VIN like '%" + textBox_search_object_name_activation.Text + "%') " +
+                    "and TS_brand.idTS_brand = Zayavki.TS_brand_idTS_brand " +
+                    "and TS_model.idTS_model = Zayavki.TS_model_idTS_model " +
+                    "and products.idproducts = Zayavki.products_idproducts " +
+                    "and Activation_object.Users_idUsers=Users.idUsers " +
+                    "and Zayavki.Activation_object_idActivation_object = Activation_object.idActivation_object " +
+                    "order by idZayavki desc" +
+                    "; ");
+            macros.ExportDataSet(table);
+        }
+
+        private void linkLabel_zvit_testing_Click(object sender, EventArgs e)
+        {
+            DataSet table = macros.GetData_dataset("SELECT " +
+                                   "testing_object.idtesting_object as '№ тестування', " +
+                                   "Object.Object_name as 'Назва обекту', " +
+                                   "TS_info.TS_infocol_vin as 'VIN', " +
+                                   "Users.username as 'ПІБ співробітника, що тестував', " +
+                                   "testing_object.testing_objectcol_result as 'Результат', " +
+                                   "testing_object.testing_objectcol_edit_timestamp as 'Дата тестування', " +
+                                   "testing_object.testing_objectcol_comments as 'Коментар' " +
+                                   "FROM " +
+                                   "btk.TS_info, " +
+                                   "btk.testing_object, " +
+                                   "btk.Object, " +
+                                   "btk.Users " +
+                                   "where " +
+                                   "TS_info.idTS_info=Object.TS_info_idTS_info and " +
+                                   "testing_object.Object_idObject=Object.idObject and " +
+                                   "testing_object.Users_idUsers=Users.idUsers and " +
+                                   "(testing_object.testing_objectcol_edit_timestamp  between '" + Convert.ToDateTime(dateTime_rep_from.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(dateTime_rep_to.Value).ToString("yyyy-MM-dd HH:mm:ss") + "') " +
+                                   ";");
+            macros.ExportDataSet(table);
         }
     }
 

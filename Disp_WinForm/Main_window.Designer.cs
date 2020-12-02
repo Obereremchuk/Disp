@@ -137,11 +137,14 @@
             this.checkBox_search_close_fact = new System.Windows.Forms.CheckBox();
             this.checkBox_search_close_plan = new System.Windows.Forms.CheckBox();
             this.tabPage_zvit = new System.Windows.Forms.TabPage();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.button_lenik_get_rep_vidpra = new System.Windows.Forms.Button();
-            this.checkBox_vidpra_gmr_police = new System.Windows.Forms.CheckBox();
             this.dateTime_rep_from = new System.Windows.Forms.DateTimePicker();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.linkLabel_zvit_testing = new System.Windows.Forms.LinkLabel();
+            this.linkLabel_zvit_activation = new System.Windows.Forms.LinkLabel();
+            this.linkLabel_zvit_vidpracuvannya = new System.Windows.Forms.LinkLabel();
+            this.checkBox_vidpra_gmr_police = new System.Windows.Forms.CheckBox();
             this.dateTime_rep_to = new System.Windows.Forms.DateTimePicker();
             this.tab_create_object = new System.Windows.Forms.TabPage();
             this.tabControl_in_object_create = new System.Windows.Forms.TabControl();
@@ -150,14 +153,18 @@
             this.button_add_910 = new System.Windows.Forms.Button();
             this.comboBox_printers = new System.Windows.Forms.ComboBox();
             this.PrintBarCode = new System.Windows.Forms.Button();
+            this.label26 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.comboBox_tel2_select = new System.Windows.Forms.ComboBox();
             this.comboBox_tel_select = new System.Windows.Forms.ComboBox();
             this.comboBox_list_poructs = new System.Windows.Forms.ComboBox();
+            this.maskedTextBox_sim2_no_to_create = new System.Windows.Forms.MaskedTextBox();
             this.button_copy_tel = new System.Windows.Forms.Button();
             this.maskedTextBox_sim_no_to_create = new System.Windows.Forms.MaskedTextBox();
             this.button_create_object = new System.Windows.Forms.Button();
             this.textBox_id_to_create = new System.Windows.Forms.TextBox();
             this.button_copy_sms = new System.Windows.Forms.Button();
+            this.label25 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.search_tovar_comboBox = new System.Windows.Forms.ComboBox();
@@ -232,6 +239,8 @@
             this.dataGridView_CM = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.label27 = new System.Windows.Forms.Label();
+            this.groupBox17 = new System.Windows.Forms.GroupBox();
             this.tabControl_testing.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_open_alarm)).BeginInit();
@@ -268,6 +277,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_close_object)).BeginInit();
             this.groupBox8.SuspendLayout();
             this.tabPage_zvit.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tab_create_object.SuspendLayout();
             this.tabControl_in_object_create.SuspendLayout();
@@ -288,6 +298,7 @@
             this.tabPage_CM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_CM)).BeginInit();
             this.panel1.SuspendLayout();
+            this.groupBox17.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl_testing
@@ -1474,9 +1485,8 @@
             // 
             // tabPage_zvit
             // 
-            this.tabPage_zvit.Controls.Add(this.panel2);
-            this.tabPage_zvit.Controls.Add(this.dateTime_rep_from);
-            this.tabPage_zvit.Controls.Add(this.dateTime_rep_to);
+            this.tabPage_zvit.Controls.Add(this.groupBox17);
+            this.tabPage_zvit.Controls.Add(this.groupBox10);
             this.tabPage_zvit.Location = new System.Drawing.Point(4, 22);
             this.tabPage_zvit.Name = "tabPage_zvit";
             this.tabPage_zvit.Padding = new System.Windows.Forms.Padding(3);
@@ -1485,61 +1495,97 @@
             this.tabPage_zvit.Text = "Звіти";
             this.tabPage_zvit.UseVisualStyleBackColor = true;
             // 
-            // panel2
+            // groupBox10
             // 
-            this.panel2.BackColor = System.Drawing.Color.LightCyan;
-            this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.button_lenik_get_rep_vidpra);
-            this.panel2.Controls.Add(this.checkBox_vidpra_gmr_police);
-            this.panel2.Location = new System.Drawing.Point(8, 57);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(205, 104);
-            this.panel2.TabIndex = 4;
+            this.groupBox10.Controls.Add(this.label27);
+            this.groupBox10.Controls.Add(this.dateTime_rep_from);
+            this.groupBox10.Controls.Add(this.label6);
+            this.groupBox10.Controls.Add(this.dateTime_rep_to);
+            this.groupBox10.Location = new System.Drawing.Point(6, 6);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(409, 78);
+            this.groupBox10.TabIndex = 5;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Фільтр";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.label6.Location = new System.Drawing.Point(11, 9);
+            this.label6.Location = new System.Drawing.Point(3, 25);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(141, 13);
+            this.label6.Size = new System.Drawing.Size(49, 13);
             this.label6.TabIndex = 5;
-            this.label6.Text = "1. Звіт по відпрацюванням";
+            this.label6.Text = "Початок";
             // 
-            // button_lenik_get_rep_vidpra
+            // dateTime_rep_from
             // 
-            this.button_lenik_get_rep_vidpra.Location = new System.Drawing.Point(12, 40);
-            this.button_lenik_get_rep_vidpra.Name = "button_lenik_get_rep_vidpra";
-            this.button_lenik_get_rep_vidpra.Size = new System.Drawing.Size(166, 23);
-            this.button_lenik_get_rep_vidpra.TabIndex = 3;
-            this.button_lenik_get_rep_vidpra.Text = "Отримати звіт";
-            this.button_lenik_get_rep_vidpra.UseVisualStyleBackColor = true;
-            this.button_lenik_get_rep_vidpra.Click += new System.EventHandler(this.button_lenik_get_rep_vidpra_Click);
+            this.dateTime_rep_from.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.dateTime_rep_from.Location = new System.Drawing.Point(82, 19);
+            this.dateTime_rep_from.Name = "dateTime_rep_from";
+            this.dateTime_rep_from.Size = new System.Drawing.Size(175, 20);
+            this.dateTime_rep_from.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.LightCyan;
+            this.panel2.Controls.Add(this.linkLabel_zvit_testing);
+            this.panel2.Controls.Add(this.linkLabel_zvit_activation);
+            this.panel2.Controls.Add(this.linkLabel_zvit_vidpracuvannya);
+            this.panel2.Controls.Add(this.checkBox_vidpra_gmr_police);
+            this.panel2.Location = new System.Drawing.Point(6, 19);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(397, 104);
+            this.panel2.TabIndex = 4;
+            // 
+            // linkLabel_zvit_testing
+            // 
+            this.linkLabel_zvit_testing.AutoSize = true;
+            this.linkLabel_zvit_testing.Location = new System.Drawing.Point(11, 71);
+            this.linkLabel_zvit_testing.Name = "linkLabel_zvit_testing";
+            this.linkLabel_zvit_testing.Size = new System.Drawing.Size(181, 13);
+            this.linkLabel_zvit_testing.TabIndex = 9;
+            this.linkLabel_zvit_testing.TabStop = true;
+            this.linkLabel_zvit_testing.Text = "3. Звіт по виконаним тестуванням";
+            this.linkLabel_zvit_testing.Click += new System.EventHandler(this.linkLabel_zvit_testing_Click);
+            // 
+            // linkLabel_zvit_activation
+            // 
+            this.linkLabel_zvit_activation.AutoSize = true;
+            this.linkLabel_zvit_activation.Location = new System.Drawing.Point(11, 41);
+            this.linkLabel_zvit_activation.Name = "linkLabel_zvit_activation";
+            this.linkLabel_zvit_activation.Size = new System.Drawing.Size(173, 13);
+            this.linkLabel_zvit_activation.TabIndex = 8;
+            this.linkLabel_zvit_activation.TabStop = true;
+            this.linkLabel_zvit_activation.Text = "2. Звіт по виконаним активаціям";
+            this.linkLabel_zvit_activation.Click += new System.EventHandler(this.linkLabel_zvit_activation_Click);
+            // 
+            // linkLabel_zvit_vidpracuvannya
+            // 
+            this.linkLabel_zvit_vidpracuvannya.AutoSize = true;
+            this.linkLabel_zvit_vidpracuvannya.Location = new System.Drawing.Point(11, 5);
+            this.linkLabel_zvit_vidpracuvannya.Name = "linkLabel_zvit_vidpracuvannya";
+            this.linkLabel_zvit_vidpracuvannya.Size = new System.Drawing.Size(141, 13);
+            this.linkLabel_zvit_vidpracuvannya.TabIndex = 7;
+            this.linkLabel_zvit_vidpracuvannya.TabStop = true;
+            this.linkLabel_zvit_vidpracuvannya.Text = "1. Звіт по відпрацюванням";
+            this.linkLabel_zvit_vidpracuvannya.Click += new System.EventHandler(this.linkLabel_zvit_vidpracuvannya_Click);
             // 
             // checkBox_vidpra_gmr_police
             // 
             this.checkBox_vidpra_gmr_police.AutoSize = true;
-            this.checkBox_vidpra_gmr_police.Location = new System.Drawing.Point(12, 69);
+            this.checkBox_vidpra_gmr_police.Location = new System.Drawing.Point(36, 21);
             this.checkBox_vidpra_gmr_police.Name = "checkBox_vidpra_gmr_police";
             this.checkBox_vidpra_gmr_police.Size = new System.Drawing.Size(166, 17);
             this.checkBox_vidpra_gmr_police.TabIndex = 2;
             this.checkBox_vidpra_gmr_police.Text = "Тільки з визом ГМР/Поліції";
             this.checkBox_vidpra_gmr_police.UseVisualStyleBackColor = true;
             // 
-            // dateTime_rep_from
-            // 
-            this.dateTime_rep_from.CustomFormat = "yyyy-MM-dd HH:mm:ss";
-            this.dateTime_rep_from.Location = new System.Drawing.Point(11, 15);
-            this.dateTime_rep_from.Name = "dateTime_rep_from";
-            this.dateTime_rep_from.Size = new System.Drawing.Size(175, 20);
-            this.dateTime_rep_from.TabIndex = 0;
-            // 
             // dateTime_rep_to
             // 
             this.dateTime_rep_to.CustomFormat = "yyyy-MM-dd HH:mm:ss";
-            this.dateTime_rep_to.Location = new System.Drawing.Point(196, 15);
+            this.dateTime_rep_to.Location = new System.Drawing.Point(82, 45);
             this.dateTime_rep_to.Name = "dateTime_rep_to";
-            this.dateTime_rep_to.Size = new System.Drawing.Size(192, 20);
+            this.dateTime_rep_to.Size = new System.Drawing.Size(175, 20);
             this.dateTime_rep_to.TabIndex = 1;
             // 
             // tab_create_object
@@ -1561,7 +1607,7 @@
             this.tabControl_in_object_create.Location = new System.Drawing.Point(8, 6);
             this.tabControl_in_object_create.Name = "tabControl_in_object_create";
             this.tabControl_in_object_create.SelectedIndex = 0;
-            this.tabControl_in_object_create.Size = new System.Drawing.Size(406, 644);
+            this.tabControl_in_object_create.Size = new System.Drawing.Size(441, 644);
             this.tabControl_in_object_create.TabIndex = 63;
             // 
             // tabPage_create_in_ctreate_obj
@@ -1571,7 +1617,7 @@
             this.tabPage_create_in_ctreate_obj.Location = new System.Drawing.Point(4, 22);
             this.tabPage_create_in_ctreate_obj.Name = "tabPage_create_in_ctreate_obj";
             this.tabPage_create_in_ctreate_obj.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_create_in_ctreate_obj.Size = new System.Drawing.Size(398, 618);
+            this.tabPage_create_in_ctreate_obj.Size = new System.Drawing.Size(433, 618);
             this.tabPage_create_in_ctreate_obj.TabIndex = 0;
             this.tabPage_create_in_ctreate_obj.Text = "Створення";
             this.tabPage_create_in_ctreate_obj.UseVisualStyleBackColor = true;
@@ -1581,14 +1627,18 @@
             this.groupBox4.Controls.Add(this.button_add_910);
             this.groupBox4.Controls.Add(this.comboBox_printers);
             this.groupBox4.Controls.Add(this.PrintBarCode);
+            this.groupBox4.Controls.Add(this.label26);
             this.groupBox4.Controls.Add(this.label8);
+            this.groupBox4.Controls.Add(this.comboBox_tel2_select);
             this.groupBox4.Controls.Add(this.comboBox_tel_select);
             this.groupBox4.Controls.Add(this.comboBox_list_poructs);
+            this.groupBox4.Controls.Add(this.maskedTextBox_sim2_no_to_create);
             this.groupBox4.Controls.Add(this.button_copy_tel);
             this.groupBox4.Controls.Add(this.maskedTextBox_sim_no_to_create);
             this.groupBox4.Controls.Add(this.button_create_object);
             this.groupBox4.Controls.Add(this.textBox_id_to_create);
             this.groupBox4.Controls.Add(this.button_copy_sms);
+            this.groupBox4.Controls.Add(this.label25);
             this.groupBox4.Controls.Add(this.label16);
             this.groupBox4.Controls.Add(this.label15);
             this.groupBox4.Controls.Add(this.search_tovar_comboBox);
@@ -1604,13 +1654,13 @@
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Location = new System.Drawing.Point(6, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(387, 350);
+            this.groupBox4.Size = new System.Drawing.Size(418, 355);
             this.groupBox4.TabIndex = 60;
             this.groupBox4.TabStop = false;
             // 
             // button_add_910
             // 
-            this.button_add_910.Location = new System.Drawing.Point(9, 254);
+            this.button_add_910.Location = new System.Drawing.Point(8, 257);
             this.button_add_910.Name = "button_add_910";
             this.button_add_910.Size = new System.Drawing.Size(59, 25);
             this.button_add_910.TabIndex = 62;
@@ -1623,14 +1673,14 @@
             // 
             this.comboBox_printers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_printers.FormattingEnabled = true;
-            this.comboBox_printers.Location = new System.Drawing.Point(70, 256);
+            this.comboBox_printers.Location = new System.Drawing.Point(69, 259);
             this.comboBox_printers.Name = "comboBox_printers";
-            this.comboBox_printers.Size = new System.Drawing.Size(306, 21);
+            this.comboBox_printers.Size = new System.Drawing.Size(335, 21);
             this.comboBox_printers.TabIndex = 4;
             // 
             // PrintBarCode
             // 
-            this.PrintBarCode.Location = new System.Drawing.Point(335, 126);
+            this.PrintBarCode.Location = new System.Drawing.Point(363, 129);
             this.PrintBarCode.Name = "PrintBarCode";
             this.PrintBarCode.Size = new System.Drawing.Size(41, 20);
             this.PrintBarCode.TabIndex = 6;
@@ -1638,14 +1688,35 @@
             this.PrintBarCode.UseVisualStyleBackColor = true;
             this.PrintBarCode.Click += new System.EventHandler(this.PrintBarCode_Click);
             // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(219, 79);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(30, 13);
+            this.label26.TabIndex = 63;
+            this.label26.Text = "ICC2";
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(6, 79);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(24, 13);
+            this.label8.Size = new System.Drawing.Size(30, 13);
             this.label8.TabIndex = 63;
-            this.label8.Text = "ICC";
+            this.label8.Text = "ICC1";
+            // 
+            // comboBox_tel2_select
+            // 
+            this.comboBox_tel2_select.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.comboBox_tel2_select.Enabled = false;
+            this.comboBox_tel2_select.FormattingEnabled = true;
+            this.comboBox_tel2_select.Location = new System.Drawing.Point(261, 75);
+            this.comboBox_tel2_select.Name = "comboBox_tel2_select";
+            this.comboBox_tel2_select.Size = new System.Drawing.Size(143, 21);
+            this.comboBox_tel2_select.TabIndex = 3;
+            this.comboBox_tel2_select.DropDownClosed += new System.EventHandler(this.comboBox_tel_select_DropDownClosed);
+            this.comboBox_tel2_select.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.comboBox_tel2_select_KeyPress);
             // 
             // comboBox_tel_select
             // 
@@ -1653,7 +1724,7 @@
             this.comboBox_tel_select.FormattingEnabled = true;
             this.comboBox_tel_select.Location = new System.Drawing.Point(70, 75);
             this.comboBox_tel_select.Name = "comboBox_tel_select";
-            this.comboBox_tel_select.Size = new System.Drawing.Size(306, 21);
+            this.comboBox_tel_select.Size = new System.Drawing.Size(143, 21);
             this.comboBox_tel_select.TabIndex = 3;
             this.comboBox_tel_select.DropDownClosed += new System.EventHandler(this.comboBox_tel_select_DropDownClosed);
             this.comboBox_tel_select.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.comboBox_tel_select_KeyPress);
@@ -1664,14 +1735,24 @@
             this.comboBox_list_poructs.FormattingEnabled = true;
             this.comboBox_list_poructs.Location = new System.Drawing.Point(70, 21);
             this.comboBox_list_poructs.Name = "comboBox_list_poructs";
-            this.comboBox_list_poructs.Size = new System.Drawing.Size(306, 21);
+            this.comboBox_list_poructs.Size = new System.Drawing.Size(335, 21);
             this.comboBox_list_poructs.TabIndex = 1;
             this.comboBox_list_poructs.SelectedIndexChanged += new System.EventHandler(this.comboBox_list_poructs_SelectedIndexChanged);
             this.comboBox_list_poructs.DropDownClosed += new System.EventHandler(this.comboBox_list_poructs_DropDownClosed);
             // 
+            // maskedTextBox_sim2_no_to_create
+            // 
+            this.maskedTextBox_sim2_no_to_create.Enabled = false;
+            this.maskedTextBox_sim2_no_to_create.Location = new System.Drawing.Point(261, 102);
+            this.maskedTextBox_sim2_no_to_create.Mask = "+38\\0000000000";
+            this.maskedTextBox_sim2_no_to_create.Name = "maskedTextBox_sim2_no_to_create";
+            this.maskedTextBox_sim2_no_to_create.Size = new System.Drawing.Size(143, 20);
+            this.maskedTextBox_sim2_no_to_create.TabIndex = 37;
+            this.maskedTextBox_sim2_no_to_create.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.maskedTextBox_sim2_no_to_create_KeyPress);
+            // 
             // button_copy_tel
             // 
-            this.button_copy_tel.Location = new System.Drawing.Point(335, 102);
+            this.button_copy_tel.Location = new System.Drawing.Point(172, 102);
             this.button_copy_tel.Name = "button_copy_tel";
             this.button_copy_tel.Size = new System.Drawing.Size(41, 21);
             this.button_copy_tel.TabIndex = 5;
@@ -1684,15 +1765,15 @@
             this.maskedTextBox_sim_no_to_create.Location = new System.Drawing.Point(70, 102);
             this.maskedTextBox_sim_no_to_create.Mask = "+38\\0000000000";
             this.maskedTextBox_sim_no_to_create.Name = "maskedTextBox_sim_no_to_create";
-            this.maskedTextBox_sim_no_to_create.Size = new System.Drawing.Size(305, 20);
+            this.maskedTextBox_sim_no_to_create.Size = new System.Drawing.Size(143, 20);
             this.maskedTextBox_sim_no_to_create.TabIndex = 37;
             this.maskedTextBox_sim_no_to_create.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.maskedTextBox_sim_no_to_create_KeyPress);
             // 
             // button_create_object
             // 
-            this.button_create_object.Location = new System.Drawing.Point(9, 283);
+            this.button_create_object.Location = new System.Drawing.Point(8, 286);
             this.button_create_object.Name = "button_create_object";
-            this.button_create_object.Size = new System.Drawing.Size(368, 58);
+            this.button_create_object.Size = new System.Drawing.Size(397, 58);
             this.button_create_object.TabIndex = 8;
             this.button_create_object.Text = "Створити";
             this.button_create_object.UseVisualStyleBackColor = true;
@@ -1700,15 +1781,15 @@
             // 
             // textBox_id_to_create
             // 
-            this.textBox_id_to_create.Location = new System.Drawing.Point(70, 126);
+            this.textBox_id_to_create.Location = new System.Drawing.Point(69, 129);
             this.textBox_id_to_create.Name = "textBox_id_to_create";
-            this.textBox_id_to_create.Size = new System.Drawing.Size(305, 20);
+            this.textBox_id_to_create.Size = new System.Drawing.Size(335, 20);
             this.textBox_id_to_create.TabIndex = 36;
             this.textBox_id_to_create.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_id_to_create_KeyPress);
             // 
             // button_copy_sms
             // 
-            this.button_copy_sms.Location = new System.Drawing.Point(335, 152);
+            this.button_copy_sms.Location = new System.Drawing.Point(363, 155);
             this.button_copy_sms.Name = "button_copy_sms";
             this.button_copy_sms.Size = new System.Drawing.Size(41, 20);
             this.button_copy_sms.TabIndex = 7;
@@ -1716,10 +1797,19 @@
             this.button_copy_sms.UseVisualStyleBackColor = true;
             this.button_copy_sms.Click += new System.EventHandler(this.button_copy_sms_Click);
             // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(219, 102);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(32, 13);
+            this.label25.TabIndex = 44;
+            this.label25.Text = "SIM2";
+            // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 130);
+            this.label16.Location = new System.Drawing.Point(5, 133);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(21, 13);
             this.label16.TabIndex = 41;
@@ -1730,9 +1820,9 @@
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(6, 102);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(46, 13);
+            this.label15.Size = new System.Drawing.Size(32, 13);
             this.label15.TabIndex = 44;
-            this.label15.Text = "SIM No:";
+            this.label15.Text = "SIM1";
             // 
             // search_tovar_comboBox
             // 
@@ -1740,7 +1830,7 @@
             this.search_tovar_comboBox.FormattingEnabled = true;
             this.search_tovar_comboBox.Location = new System.Drawing.Point(70, 48);
             this.search_tovar_comboBox.Name = "search_tovar_comboBox";
-            this.search_tovar_comboBox.Size = new System.Drawing.Size(306, 21);
+            this.search_tovar_comboBox.Size = new System.Drawing.Size(335, 21);
             this.search_tovar_comboBox.TabIndex = 2;
             this.search_tovar_comboBox.DropDownClosed += new System.EventHandler(this.search_tovar_comboBox_DropDownClosed);
             this.search_tovar_comboBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.search_tovar_comboBox_KeyPress);
@@ -1748,33 +1838,33 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 234);
+            this.label14.Location = new System.Drawing.Point(5, 237);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(58, 13);
+            this.label14.Size = new System.Drawing.Size(55, 13);
             this.label14.TabIndex = 45;
-            this.label14.Text = "BLE Code:";
+            this.label14.Text = "BLE Code";
             // 
             // maskedTextBox_BLE_CODE
             // 
-            this.maskedTextBox_BLE_CODE.Location = new System.Drawing.Point(70, 230);
+            this.maskedTextBox_BLE_CODE.Location = new System.Drawing.Point(69, 233);
             this.maskedTextBox_BLE_CODE.Mask = "000000";
             this.maskedTextBox_BLE_CODE.Name = "maskedTextBox_BLE_CODE";
             this.maskedTextBox_BLE_CODE.ReadOnly = true;
-            this.maskedTextBox_BLE_CODE.Size = new System.Drawing.Size(306, 20);
+            this.maskedTextBox_BLE_CODE.Size = new System.Drawing.Size(335, 20);
             this.maskedTextBox_BLE_CODE.TabIndex = 42;
             // 
             // maskedTextBox_PUK
             // 
-            this.maskedTextBox_PUK.Location = new System.Drawing.Point(70, 204);
+            this.maskedTextBox_PUK.Location = new System.Drawing.Point(69, 207);
             this.maskedTextBox_PUK.Mask = "0000";
             this.maskedTextBox_PUK.Name = "maskedTextBox_PUK";
-            this.maskedTextBox_PUK.Size = new System.Drawing.Size(306, 20);
+            this.maskedTextBox_PUK.Size = new System.Drawing.Size(335, 20);
             this.maskedTextBox_PUK.TabIndex = 40;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 156);
+            this.label12.Location = new System.Drawing.Point(5, 159);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(53, 13);
             this.label12.TabIndex = 49;
@@ -1782,11 +1872,11 @@
             // 
             // maskedTextBox_GSM_CODE
             // 
-            this.maskedTextBox_GSM_CODE.Location = new System.Drawing.Point(70, 178);
+            this.maskedTextBox_GSM_CODE.Location = new System.Drawing.Point(69, 181);
             this.maskedTextBox_GSM_CODE.Mask = "0000";
             this.maskedTextBox_GSM_CODE.Name = "maskedTextBox_GSM_CODE";
             this.maskedTextBox_GSM_CODE.ReadOnly = true;
-            this.maskedTextBox_GSM_CODE.Size = new System.Drawing.Size(306, 20);
+            this.maskedTextBox_GSM_CODE.Size = new System.Drawing.Size(335, 20);
             this.maskedTextBox_GSM_CODE.TabIndex = 39;
             // 
             // label10
@@ -1809,29 +1899,29 @@
             // 
             // textBox_bt_enable
             // 
-            this.textBox_bt_enable.Location = new System.Drawing.Point(70, 152);
+            this.textBox_bt_enable.Location = new System.Drawing.Point(69, 155);
             this.textBox_bt_enable.Name = "textBox_bt_enable";
             this.textBox_bt_enable.ReadOnly = true;
-            this.textBox_bt_enable.Size = new System.Drawing.Size(305, 20);
+            this.textBox_bt_enable.Size = new System.Drawing.Size(335, 20);
             this.textBox_bt_enable.TabIndex = 46;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 208);
+            this.label5.Location = new System.Drawing.Point(5, 211);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(32, 13);
+            this.label5.Size = new System.Drawing.Size(29, 13);
             this.label5.TabIndex = 51;
-            this.label5.Text = "PUK:";
+            this.label5.Text = "PUK";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 182);
+            this.label4.Location = new System.Drawing.Point(5, 185);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 13);
+            this.label4.Size = new System.Drawing.Size(59, 13);
             this.label4.TabIndex = 52;
-            this.label4.Text = "GSM Code:";
+            this.label4.Text = "GSM Code";
             // 
             // groupBox12
             // 
@@ -1840,9 +1930,9 @@
             this.groupBox12.Controls.Add(this.comboBox_user_to_crate_obj);
             this.groupBox12.Controls.Add(this.dateTimePicker_date_created_by_user);
             this.groupBox12.Controls.Add(this.dataGridView_CreatedObjects);
-            this.groupBox12.Location = new System.Drawing.Point(6, 361);
+            this.groupBox12.Location = new System.Drawing.Point(6, 367);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(387, 251);
+            this.groupBox12.Size = new System.Drawing.Size(418, 245);
             this.groupBox12.TabIndex = 66;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Створені обє\'кти користувачем";
@@ -1877,7 +1967,7 @@
             this.dataGridView_CreatedObjects.Name = "dataGridView_CreatedObjects";
             this.dataGridView_CreatedObjects.ReadOnly = true;
             this.dataGridView_CreatedObjects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_CreatedObjects.Size = new System.Drawing.Size(367, 200);
+            this.dataGridView_CreatedObjects.Size = new System.Drawing.Size(398, 194);
             this.dataGridView_CreatedObjects.TabIndex = 64;
             this.dataGridView_CreatedObjects.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CreatedObjects_CellDoubleClick);
             // 
@@ -1910,7 +2000,7 @@
             this.tabPage_add_in_ctreate_obj.Location = new System.Drawing.Point(4, 22);
             this.tabPage_add_in_ctreate_obj.Name = "tabPage_add_in_ctreate_obj";
             this.tabPage_add_in_ctreate_obj.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_add_in_ctreate_obj.Size = new System.Drawing.Size(398, 618);
+            this.tabPage_add_in_ctreate_obj.Size = new System.Drawing.Size(433, 618);
             this.tabPage_add_in_ctreate_obj.TabIndex = 1;
             this.tabPage_add_in_ctreate_obj.Text = "Додати існуючий";
             this.tabPage_add_in_ctreate_obj.UseVisualStyleBackColor = true;
@@ -2130,9 +2220,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox11.Controls.Add(this.label11);
             this.groupBox11.Controls.Add(this.geckoWebBrowser_GoogleMaseges);
-            this.groupBox11.Location = new System.Drawing.Point(416, 6);
+            this.groupBox11.Location = new System.Drawing.Point(451, 6);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(938, 644);
+            this.groupBox11.Size = new System.Drawing.Size(903, 644);
             this.groupBox11.TabIndex = 62;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "CMC";
@@ -2141,7 +2231,7 @@
             // 
             this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(891, 622);
+            this.label11.Location = new System.Drawing.Point(856, 622);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(39, 13);
             this.label11.TabIndex = 62;
@@ -2156,7 +2246,7 @@
             this.geckoWebBrowser_GoogleMaseges.FrameEventsPropagateToMainWindow = false;
             this.geckoWebBrowser_GoogleMaseges.Location = new System.Drawing.Point(6, 17);
             this.geckoWebBrowser_GoogleMaseges.Name = "geckoWebBrowser_GoogleMaseges";
-            this.geckoWebBrowser_GoogleMaseges.Size = new System.Drawing.Size(924, 621);
+            this.geckoWebBrowser_GoogleMaseges.Size = new System.Drawing.Size(889, 621);
             this.geckoWebBrowser_GoogleMaseges.TabIndex = 61;
             this.geckoWebBrowser_GoogleMaseges.UseHttpActivityObserver = false;
             // 
@@ -2503,6 +2593,27 @@
             this.panel1.Size = new System.Drawing.Size(1370, 684);
             this.panel1.TabIndex = 1;
             // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(3, 51);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(40, 13);
+            this.label27.TabIndex = 6;
+            this.label27.Text = "Кінець";
+            // 
+            // groupBox17
+            // 
+            this.groupBox17.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox17.Controls.Add(this.panel2);
+            this.groupBox17.Location = new System.Drawing.Point(6, 90);
+            this.groupBox17.Name = "groupBox17";
+            this.groupBox17.Size = new System.Drawing.Size(409, 562);
+            this.groupBox17.TabIndex = 7;
+            this.groupBox17.TabStop = false;
+            this.groupBox17.Text = "Звіти";
+            // 
             // Main_window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2560,6 +2671,8 @@
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             this.tabPage_zvit.ResumeLayout(false);
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.tab_create_object.ResumeLayout(false);
@@ -2587,6 +2700,7 @@
             this.tabPage_CM.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_CM)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.groupBox17.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2646,9 +2760,7 @@
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.TabPage tabPage_zvit;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DateTimePicker dateTime_rep_from;
-        private System.Windows.Forms.Button button_lenik_get_rep_vidpra;
         private System.Windows.Forms.DateTimePicker dateTime_rep_to;
         private System.Windows.Forms.CheckBox checkBox_vidpra_gmr_police;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
@@ -2776,6 +2888,17 @@
         private System.Windows.Forms.DataGridView dataGridView_Rouming;
         private System.Windows.Forms.TabPage tabPage_CM;
         private System.Windows.Forms.DataGridView dataGridView_CM;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.ComboBox comboBox_tel2_select;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox_sim2_no_to_create;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.LinkLabel linkLabel_zvit_testing;
+        private System.Windows.Forms.LinkLabel linkLabel_zvit_activation;
+        private System.Windows.Forms.LinkLabel linkLabel_zvit_vidpracuvannya;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.GroupBox groupBox17;
+        private System.Windows.Forms.Label label27;
     }
 }
 

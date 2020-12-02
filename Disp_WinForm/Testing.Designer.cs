@@ -41,10 +41,12 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.comboBox_device2 = new System.Windows.Forms.ComboBox();
-            this.button3 = new System.Windows.Forms.Button();
             this.checkBox_sensor_autostart = new System.Windows.Forms.CheckBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.textBox_gps_place = new System.Windows.Forms.TextBox();
+            this.textBox_jammer_place = new System.Windows.Forms.TextBox();
             this.textBox_other_alarm = new System.Windows.Forms.TextBox();
             this.checkBox_lock_hood = new System.Windows.Forms.CheckBox();
             this.checkBox_sensor_objema = new System.Windows.Forms.CheckBox();
@@ -155,8 +157,6 @@
             this.tabPage_anketa = new System.Windows.Forms.TabPage();
             this.tabPage_map = new System.Windows.Forms.TabPage();
             this.geckoWebBrowser_testing = new Gecko.GeckoWebBrowser();
-            this.textBox_jammer_place = new System.Windows.Forms.TextBox();
-            this.textBox_gps_place = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -322,16 +322,6 @@
             this.comboBox_device2.Size = new System.Drawing.Size(366, 21);
             this.comboBox_device2.TabIndex = 97;
             // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(105, 16);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(21, 20);
-            this.button3.TabIndex = 12;
-            this.button3.Text = "+";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
             // checkBox_sensor_autostart
             // 
             this.checkBox_sensor_autostart.AutoSize = true;
@@ -342,6 +332,16 @@
             this.checkBox_sensor_autostart.Text = "Автозапуск";
             this.checkBox_sensor_autostart.UseVisualStyleBackColor = true;
             this.checkBox_sensor_autostart.CheckedChanged += new System.EventHandler(this.checkBox_sensor_autostart_CheckedChanged);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(105, 16);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(21, 20);
+            this.button3.TabIndex = 12;
+            this.button3.Text = "+";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label3
             // 
@@ -360,6 +360,22 @@
             this.label4.Size = new System.Drawing.Size(91, 13);
             this.label4.TabIndex = 84;
             this.label4.Text = "Місце установки";
+            // 
+            // textBox_gps_place
+            // 
+            this.textBox_gps_place.Enabled = false;
+            this.textBox_gps_place.Location = new System.Drawing.Point(182, 97);
+            this.textBox_gps_place.Name = "textBox_gps_place";
+            this.textBox_gps_place.Size = new System.Drawing.Size(161, 20);
+            this.textBox_gps_place.TabIndex = 22;
+            // 
+            // textBox_jammer_place
+            // 
+            this.textBox_jammer_place.Enabled = false;
+            this.textBox_jammer_place.Location = new System.Drawing.Point(182, 122);
+            this.textBox_jammer_place.Name = "textBox_jammer_place";
+            this.textBox_jammer_place.Size = new System.Drawing.Size(161, 20);
+            this.textBox_jammer_place.TabIndex = 22;
             // 
             // textBox_other_alarm
             // 
@@ -1573,7 +1589,7 @@
             this.tabPage_map.Location = new System.Drawing.Point(4, 22);
             this.tabPage_map.Name = "tabPage_map";
             this.tabPage_map.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_map.Size = new System.Drawing.Size(1015, 753);
+            this.tabPage_map.Size = new System.Drawing.Size(1015, 786);
             this.tabPage_map.TabIndex = 1;
             this.tabPage_map.Text = "Карта";
             this.tabPage_map.UseVisualStyleBackColor = true;
@@ -1590,27 +1606,12 @@
             this.geckoWebBrowser_testing.TabIndex = 0;
             this.geckoWebBrowser_testing.UseHttpActivityObserver = false;
             // 
-            // textBox_jammer_place
-            // 
-            this.textBox_jammer_place.Enabled = false;
-            this.textBox_jammer_place.Location = new System.Drawing.Point(182, 122);
-            this.textBox_jammer_place.Name = "textBox_jammer_place";
-            this.textBox_jammer_place.Size = new System.Drawing.Size(161, 20);
-            this.textBox_jammer_place.TabIndex = 22;
-            // 
-            // textBox_gps_place
-            // 
-            this.textBox_gps_place.Enabled = false;
-            this.textBox_gps_place.Location = new System.Drawing.Point(182, 97);
-            this.textBox_gps_place.Name = "textBox_gps_place";
-            this.textBox_gps_place.Size = new System.Drawing.Size(161, 20);
-            this.textBox_gps_place.TabIndex = 22;
-            // 
             // Testing
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1024, 815);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(1024, 749);
             this.Controls.Add(this.tabControl_testing);
             this.MaximumSize = new System.Drawing.Size(1300, 1000);
             this.Name = "Testing";

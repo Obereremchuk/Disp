@@ -34,6 +34,8 @@ namespace Disp_WinForm
         private string id_new_user;
         private int sim1_operator;
         private int sim2_operator;
+        private string idSimCard;
+        private string idSim2Card;
 
         public detail()
         {
@@ -2101,7 +2103,7 @@ namespace Disp_WinForm
 
                     //create notif depends product id
 
-                    if (product_id == "10" || product_id == "11" || product_id == "13" || product_id == "14")//CNTP_910, CNTK_910
+                    if (product_id == "10" || product_id == "11" || product_id == "13" || product_id == "14" || product_id == "18" || product_id == "19")//CNTP_910, CNTK_910
                     {
                         create_notif_910(email_textBox.Text, created_user_data.item.id, wl_id, created_resource_data.item.id, created_resource_user_data.item.id);
                     }
@@ -2156,7 +2158,7 @@ namespace Disp_WinForm
                                                                     + "\"n\":\"4.4 Обліковий запис WL\","
                                                                     + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
                     }
-                    else if (product_id == "14" || product_id == "13")//CNTP_910_SE_N, CNTP_910_SE_P
+                    else if (product_id == "14" || product_id == "13" || product_id == "18" || product_id == "19")//CNTP_910_SE_N, CNTP_910_SE_P
                     {
                         //update Обліковий запис WL
                         string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
@@ -2338,7 +2340,7 @@ namespace Disp_WinForm
                                                                 + "\"n\":\"4.4 Обліковий запис WL\","
                                                                 + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
                 }
-                else if (product_id == "14" || product_id == "13")//CNTP_910_SE_N, CNTP_910_SE_P
+                else if (product_id == "14" || product_id == "13" || product_id == "18" || product_id == "19")//CNTP_910_SE_N, CNTP_910_SE_P
                 {
                     //update Обліковий запис WL
                     string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
@@ -4254,6 +4256,14 @@ namespace Disp_WinForm
             }
             else if (tabControl2.SelectedTab.Name == "tabPage_rouming")
             {
+                try
+                {
+                    groupBox3.Visible = false;
+                    groupBox3.SendToBack();
+                }
+                catch
+                { MessageBox.Show("tabPage_rouming"); }
+
                 string json = macros.WialonRequest("&svc=core/search_items&params={" +
                                                         "\"spec\":{" +
                                                         "\"itemsType\":\"avl_unit\"," +
@@ -4266,19 +4276,53 @@ namespace Disp_WinForm
                                                         "\"from\":\"0\"," +
                                                         "\"to\":\"1\"}");
                 var m = JsonConvert.DeserializeObject<RootObject>(json);
-                
+                //Заполняем SIM1
                 if (m.items[0].ph != "")
                 {
                     groupBox_SIM1.Enabled = true;
                     textBox_SIM1.Text = m.items[0].ph;
                     if (m.items[0].ph.Contains("+38067"))
                     {
+                        idSimCard = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '" + m.items[0].ph.Remove(0, 4) + "';");
+                        if (idSimCard != "")
+                        {
+                            string tarif = macros.sql_command("SELECT Rouming_tarif_idRouming_tarif FROM btk.Simcard_rouming where Simcard_idSimcard = '" + idSimCard + "';");
+                            switch (tarif)
+                            {
+                                case "4":
+                                    radioButton_SIM1_Rouming_off.Checked = true;
+                                    break;
+                                case "5":
+                                    radioButton_SIM1_Tarif1.Checked = true;
+                                    break;
+                                case "6":
+                                    radioButton_SIM1_Tarif2.Checked = true;
+                                    break;
+                            }
+                        }
                         radioButton_SIM1_Tarif1.Text = "Простий (до 32 днів)";
                         radioButton_SIM1_Tarif2.Text = "Коморт (більше 32 днів)";
                         sim1_operator = 25503;
                     }
                     else if (m.items[0].ph.Contains("+882"))
                     {
+                        idSimCard = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '" + m.items[0].ph.Remove(0, 1) + "';");
+                        if (idSimCard != "")
+                        {
+                            string tarif = macros.sql_command("SELECT Rouming_tarif_idRouming_tarif FROM btk.Simcard_rouming where Simcard_idSimcard = '" + idSimCard + "';");
+                            switch (tarif)
+                            {
+                                case "1":
+                                    radioButton_SIM1_Rouming_off.Checked = true;
+                                    break;
+                                case "2":
+                                    radioButton_SIM1_Tarif1.Checked = true;
+                                    break;
+                                case "3":
+                                    radioButton_SIM1_Tarif2.Checked = true;
+                                    break;
+                            }
+                        }
                         radioButton_SIM1_Tarif1.Text = "Глобал";
                         radioButton_SIM1_Tarif2.Name = "EU";
                         radioButton_SIM1_Tarif2.Enabled = false;
@@ -4298,7 +4342,7 @@ namespace Disp_WinForm
                     }
                 }
                 else
-                { groupBox_SIM1.Enabled = false; textBox_SIM2.Text = "Не встановлено"; }
+                { groupBox_SIM1.Enabled = false; textBox_SIM1.Text = "Не встановлено"; }
 
                 if (m.items[0].ph2 != "")
                 {
@@ -4306,12 +4350,48 @@ namespace Disp_WinForm
                     textBox_SIM2.Text = m.items[0].ph2;
                     if (m.items[0].ph2.Contains("+38067"))
                     {
+                        string rf = m.items[0].ph2.Remove(0, 4);
+                        rf = m.items[0].ph2.Remove(0, 4);
+                        idSim2Card = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '" + m.items[0].ph2.Remove(0, 4) + "';");
+                            if (idSim2Card != "")
+                        {
+                            string tarif = macros.sql_command("SELECT Rouming_tarif_idRouming_tarif FROM btk.Simcard_rouming where Simcard_idSimcard = '" + idSim2Card + "';");
+                            switch (tarif)
+                            {
+                                case "4":
+                                    radioButton_SIM2_Rouming_off.Checked = true;
+                                    break;
+                                case "5":
+                                    radioButton_SIM2_Tarif1.Checked = true;
+                                    break;
+                                case "6":
+                                    radioButton_SIM2_Tarif2.Checked = true;
+                                    break;
+                            }
+                        }
                         radioButton_SIM2_Tarif1.Text = "Простий (до 32 днів)";
                         radioButton_SIM2_Tarif2.Text = "Коморт (більше 32 днів)";
                         sim2_operator = 25503;
                     }
                     else if (m.items[0].ph2.Contains("+882"))
                     {
+                        idSim2Card = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '" + m.items[0].ph2.Remove(0, 1) + "';");
+                        if (idSim2Card != "")
+                        {
+                            string tarif = macros.sql_command("SELECT Rouming_tarif_idRouming_tarif FROM btk.Simcard_rouming where Simcard_idSimcard = '" + idSim2Card + "';");
+                            switch (tarif)
+                            {
+                                case "1":
+                                    radioButton_SIM2_Rouming_off.Checked = true;
+                                    break;
+                                case "2":
+                                    radioButton_SIM2_Tarif1.Checked = true;
+                                    break;
+                                case "3":
+                                    radioButton_SIM2_Tarif2.Checked = true;
+                                    break;
+                            }
+                        }
                         radioButton_SIM2_Tarif1.Text = "Глобал";
                         radioButton_SIM2_Tarif2.Text = "EU";
                         radioButton_SIM1_Tarif2.Enabled = false;
@@ -4332,8 +4412,7 @@ namespace Disp_WinForm
                 }
                 else
                 { groupBox_SIM2.Enabled = false; textBox_SIM2.Text = "Не встановлено"; }
-
-
+                ReadRoumingHistory();
             }
             else if (tabControl2.SelectedTab.Name == "tabPage_locator")
             {
@@ -4437,13 +4516,13 @@ namespace Disp_WinForm
 
         private void radioButton_KS_Prostiy_Click(object sender, EventArgs e)
         {
-            radioButton_SIM2_UA.Checked = false;
+            radioButton_SIM2_Rouming_off.Checked = false;
             radioButton_SIM2_Tarif2.Checked = false;
         }
 
         private void radioButton_KS_Komfort_Click(object sender, EventArgs e)
         {
-            radioButton_SIM2_UA.Checked = false;
+            radioButton_SIM2_Rouming_off.Checked = false;
             radioButton_SIM2_Tarif1.Checked = false;
         }
 
@@ -4521,7 +4600,7 @@ namespace Disp_WinForm
                 else if (radioButton_SIM1_Tarif2.Checked)
                 { RoumingTarif = 3; }//Europe
 
-                string idSimCard = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '"+ textBox_SIM1.Text.Remove(0, 1) + "';");
+                //idSimCard = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '"+ textBox_SIM1.Text.Remove(0, 1) + "';");
                 if (idSimCard == "")
                 {
                     MessageBox.Show("SIM не знайдено в базі, зверніться до 117");
@@ -4551,14 +4630,12 @@ namespace Disp_WinForm
                 else if (radioButton_SIM1_Tarif2.Checked)
                 { RoumingTarif = 6; }//Коморт (більше 32 днів)
 
-                string idSimCard = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '" + textBox_SIM1.Text.Remove(0, 4) + "';");
+                // idSimCard = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '" + textBox_SIM1.Text.Remove(0, 4) + "';");
                 if (idSimCard == "")
                 {
                     MessageBox.Show("SIM не знайдено в базі, зверніться до 117");
                     return;
                 }
-                
-
                 macros.sql_command("insert into btk.Simcard_rouming (" +
                     "Simcard_idSimcard, " +
                     "Simcard_roumingcol_start, " +
@@ -4572,7 +4649,120 @@ namespace Disp_WinForm
                     "now(), " +
                     "'" + RoumingTarif + "'" +
                     ");");
-            }            
+            }
+            ReadRoumingHistory();
+        }
+        private void ReadRoumingHistory()
+        {
+            dataGridView_history.DataSource = macros.GetData("SELECT " +
+                                                            "Simcardcol_number AS 'Номер'," +
+                                                            "Simcard_roumingcol_start AS 'Початок'," +
+                                                            "Simcard_roumingcol_end AS 'Кінець'," +
+                                                            "TarifName as 'Тариф'," +
+                                                            "OperatorName as 'Оператор', " +
+                                                            "Simcard_roumingcol_created as 'Дата запису' " +
+                                                            "FROM " +
+                                                            "btk.Simcard_rouming, " +
+                                                            "btk.Simcard, " +
+                                                            "btk.Rouming_tarif " +
+                                                            //"btk.Object " +
+                                                            "where " +
+                                                            "(Simcard_rouming.Simcard_idSimcard = '"+ idSimCard +"' " +
+                                                            "or Simcard_rouming.Simcard_idSimcard = '"+ idSim2Card + "') " +
+                                                            "and Simcard.idSimcard = Simcard_rouming.Simcard_idSimcard " +
+                                                            "and Rouming_tarif.idRouming_tarif = Simcard_rouming.Rouming_tarif_idRouming_tarif " +
+                                                            //"and Simcard_rouming.Simcard_idSimcard = Object.Simcard_idSimcard " +
+                                                            //"and(Object.Objectcol_deleted != '1' OR Object.Objectcol_deleted IS NULL" +
+                                                            ";");
+        }
+
+        private void button_SIM2_Rouming_enter_Click(object sender, EventArgs e)
+        {
+            //string json = macros.WialonRequest("&svc=core/search_items&params={" +
+            //                                        "\"spec\":{" +
+            //                                        "\"itemsType\":\"avl_unit\"," +
+            //                                        "\"propName\":\"sys_id\"," +
+            //                                        "\"propValueMask\":\"" + wl_id + "\", " +
+            //                                        "\"sortType\":\"sys_name\"," +
+            //                                        "\"or_logic\":\"1\"}," +
+            //                                        "\"force\":\"1\"," +
+            //                                        "\"flags\":\"257\"," +
+            //                                        "\"from\":\"0\"," +
+            //                                        "\"to\":\"1\"}");
+            //var m = JsonConvert.DeserializeObject<RootObject>(json);
+
+            if (Rouming_SIM2_Start_dtp.Value.Date >= Rouming_SIM2_End_dtp.Value.Date)
+            {
+                MessageBox.Show("Перевір дату");
+                return;
+            }
+            if (radioButton_SIM2_Tarif1.Checked is false & radioButton_SIM2_Rouming_off.Checked is false & radioButton_SIM2_Tarif2.Checked is false)
+            {
+                MessageBox.Show("Не вибрано тариф роумінгу");
+                return;
+            }
+
+            if (sim2_operator == 25501)
+            {
+                int RoumingTarif = 0;
+                if (radioButton_SIM2_Rouming_off.Checked)
+                { RoumingTarif = 1; }//Україна - вим. роумінг
+                else if (radioButton_SIM2_Tarif1.Checked)
+                { RoumingTarif = 2; }//Global
+                else if (radioButton_SIM2_Tarif2.Checked)
+                { RoumingTarif = 3; }//Europe
+
+                // idSim2Card = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '" + textBox_SIM2.Text.Remove(0, 1) + "';");
+                if (idSim2Card == "")
+                {
+                    MessageBox.Show("SIM не знайдено в базі, зверніться до 117");
+                    return;
+                }
+                macros.sql_command("insert into btk.Simcard_rouming (" +
+                    "Simcard_idSimcard, " +
+                    "Simcard_roumingcol_start, " +
+                    "Simcard_roumingcol_end, " +
+                    "Simcard_roumingcol_created, " +
+                    "Rouming_tarif_idRouming_tarif" +
+                    ") values(" +
+                    "'" + idSim2Card + "', " +
+                    "'" + Convert.ToDateTime(Rouming_SIM2_Start_dtp.Value).ToString("yyyy-MM-dd") + "', " +
+                    "'" + Convert.ToDateTime(Rouming_SIM2_End_dtp.Value).ToString("yyyy-MM-dd") + "', " +
+                    "now(), " +
+                    "'" + RoumingTarif + "'" +
+                    ");");
+            }
+            else if (sim2_operator == 25503)
+            {
+                int RoumingTarif = 0;
+                if (radioButton_SIM2_Rouming_off.Checked)
+                { RoumingTarif = 4; }//Україна - вим. роумінг
+                else if (radioButton_SIM2_Tarif1.Checked)
+                { RoumingTarif = 5; }//Простий (до 32 днів)
+                else if (radioButton_SIM2_Tarif2.Checked)
+                { RoumingTarif = 6; }//Коморт (більше 32 днів)
+
+                // idSim2Card = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '" + textBox_SIM2.Text.Remove(0, 4) + "';");
+                if (idSim2Card == "")
+                {
+                    MessageBox.Show("SIM не знайдено в базі, зверніться до 117");
+                    return;
+                }
+                macros.sql_command("insert into btk.Simcard_rouming (" +
+                    "Simcard_idSimcard, " +
+                    "Simcard_roumingcol_start, " +
+                    "Simcard_roumingcol_end, " +
+                    "Simcard_roumingcol_created, " +
+                    "Rouming_tarif_idRouming_tarif" +
+                    ") values(" +
+                    "'" + idSim2Card + "', " +
+                    "'" + Convert.ToDateTime(Rouming_SIM2_Start_dtp.Value).ToString("yyyy-MM-dd") + "', " +
+                    "'" + Convert.ToDateTime(Rouming_SIM2_End_dtp.Value).ToString("yyyy-MM-dd") + "', " +
+                    "now(), " +
+                    "'" + RoumingTarif + "'" +
+                    ");");
+            }
+            ReadRoumingHistory();
         }
     }
 }

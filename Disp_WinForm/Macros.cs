@@ -640,9 +640,34 @@ namespace Disp_WinForm
             }
         }
 
+        //Is there a way to check if a file is in use?
+        protected virtual bool IsFileLocked(string path)
+        {
+            FileInfo file = new FileInfo(path);
+            try
+            {
+                using (FileStream stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None))
+                {
+                    stream.Close();
+                }
+            }
+            catch (IOException)
+            {
+                //the file is unavailable because it is:
+                //still being written to
+                //or being processed by another thread
+                //or does not exist (has already been processed)
+                return true;
+            }
+
+            //file is not locked
+            return false;
+        }
+
         //other
         public void ExportDataSet(DataSet ds)
         {
+            string folderPath = "";
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.InitialDirectory = @"C:\";      
             saveFileDialog1.Title = "Save text Files";
@@ -654,8 +679,12 @@ namespace Disp_WinForm
             saveFileDialog1.RestoreDirectory = true;
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                //textBox1.Text = saveFileDialog1.FileName;
-                string folderPath = saveFileDialog1.FileName;
+                folderPath = saveFileDialog1.FileName;
+
+                if (IsFileLocked(folderPath))
+                { MessageBox.Show("Вказанний файл вже відкритий? Закрийте!"); return; }
+
+                
 
                 using (var workbook = SpreadsheetDocument.Create(folderPath, DocumentFormat.OpenXml.SpreadsheetDocumentType.Workbook))
                 {
@@ -717,6 +746,10 @@ namespace Disp_WinForm
 
                     }
                 }
+            }
+            if (folderPath != "")
+            {
+                System.Diagnostics.Process.Start(folderPath);
             }
         } //export to xlsx
 

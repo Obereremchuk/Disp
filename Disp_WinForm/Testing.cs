@@ -719,7 +719,7 @@ namespace Disp_WinForm
 
 
 
-            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")
+            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19")
             {
 
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
@@ -1915,7 +1915,7 @@ namespace Disp_WinForm
 
                         //Установка Групп в зависимсти от продукта
 
-                        if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14") //Добавляем в группы для CNTP_910, CNTP_730
+                        if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19") //Добавляем в группы для CNTP_910, CNTP_730
                         {
                             //Запрашиваем объекты из группы srv_prizrak_910
                             string get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
@@ -2162,7 +2162,7 @@ namespace Disp_WinForm
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
                         }
-                        else if (get_produt_testing_device == "4" || get_produt_testing_device == "13" || get_produt_testing_device == "14")//Добавляем в группы для CNTP_910_SE_N, CNTP_910_SE_P, CNTP_SE
+                        else if (get_produt_testing_device == "4" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19")//Добавляем в группы для CNTP_910_SE_N, CNTP_910_SE_P, CNTP_SE
                         {
 
                             // ADD to groupe: ^ CONNECT - KEYLESS - PLUS - КОНДОР+: активные
@@ -2465,7 +2465,7 @@ namespace Disp_WinForm
                                                                 + "\"to\":\"0\"}");//получаем текущее местоположение объекта
 
 
-                        if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14") //Добавляем в группы для CNTP_910, CNTP_730
+                        if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19") //Добавляем в группы для CNTP_910, CNTP_730
                         {
                             //Запрашиваем объекты из группы srv_prizrak_910
                             string get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
@@ -2775,7 +2775,7 @@ namespace Disp_WinForm
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
                         }
-                        else if (get_produt_testing_device == "4" || get_produt_testing_device == "13" || get_produt_testing_device == "14")//Добавляем в группы для CNTP_910_SE_N, CNTP_910_SE_P, CNTP_SE
+                        else if (get_produt_testing_device == "4" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19")//Добавляем в группы для CNTP_910_SE_N, CNTP_910_SE_P, CNTP_SE
                         {
 
                             // ADD to groupe: ^ CONNECT - KEYLESS - PLUS - КОНДОР+: активные
@@ -3265,7 +3265,7 @@ namespace Disp_WinForm
                     label__test_vzlom.BackColor = Color.Empty;
                 }
             }
-            else if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")
+            else if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19")
             {
                 string json2 = macros.WialonRequest("&svc=core/search_items&params={" +
                                                           "\"spec\":{"
@@ -3614,7 +3614,7 @@ namespace Disp_WinForm
             //                                                       "Subscription_idSubscr=idSubscr and " +
             //                                                       "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
 
-            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")
+            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19")
             {
                 string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
                                                         "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
@@ -3644,7 +3644,7 @@ namespace Disp_WinForm
             //                                                       "Subscription_idSubscr=idSubscr and " +
             //                                                       "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
 
-            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")
+            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19")
             {
                 string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
                                                             "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
@@ -3679,7 +3679,7 @@ namespace Disp_WinForm
             //                                                       "Subscription_idSubscr=idSubscr and " +
             //                                                       "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
 
-            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")
+            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19")
             {
                 string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
                                                             "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
@@ -3747,7 +3747,7 @@ namespace Disp_WinForm
             //                                                       "Subscription_idSubscr=idSubscr and " +
             //                                                       "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
 
-            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14")
+            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19")
             {
                 string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
                                                         "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
