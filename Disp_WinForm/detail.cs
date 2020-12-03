@@ -72,28 +72,27 @@ namespace Disp_WinForm
 
 
             get_remaynder();
-            label10.Text = "1";
+
 
             accsses();
-            label10.Text = "2";
+
 
             TreeView_zapolnyaem();
-            label10.Text = "3";
+
 
             mysql_get_hronologiya_trivog();
-            label10.Text = "4";
+
 
             mysql_get_group_alarm();
-            label10.Text = "5";
+
 
             get_close_object_data();
-            label10.Text = "6";
+
 
             get_sensor_value();
-            label10.Text = "7";
+
 
             GetUserOtvetstvenyi();
-            label10.Text = "8";
 
             //await Task.Run(() => arhiv_object());
             ////arhiv_object();
@@ -1401,7 +1400,7 @@ namespace Disp_WinForm
 
             await Task.Run(() => arhiv_object());
             //arhiv_object();
-            label10.Text = "9";
+
 
 
             ////start mini map
@@ -4250,6 +4249,8 @@ namespace Disp_WinForm
                 {
                     load_vo();
                     build_list_account();
+                    groupBox3.Visible = false;
+                    groupBox3.SendToBack();
                 }
                 catch
                 { MessageBox.Show("tabPage_edit_client"); }

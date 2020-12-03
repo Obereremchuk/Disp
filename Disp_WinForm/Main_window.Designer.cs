@@ -1291,7 +1291,7 @@
             // checkBox_inshe
             // 
             this.checkBox_inshe.AutoSize = true;
-            this.checkBox_inshe.Location = new System.Drawing.Point(260, 60);
+            this.checkBox_inshe.Location = new System.Drawing.Point(222, 60);
             this.checkBox_inshe.Name = "checkBox_inshe";
             this.checkBox_inshe.Size = new System.Drawing.Size(49, 17);
             this.checkBox_inshe.TabIndex = 23;
@@ -1314,7 +1314,7 @@
             // checkBox_activation_uspishno
             // 
             this.checkBox_activation_uspishno.AutoSize = true;
-            this.checkBox_activation_uspishno.Location = new System.Drawing.Point(260, 83);
+            this.checkBox_activation_uspishno.Location = new System.Drawing.Point(222, 83);
             this.checkBox_activation_uspishno.Name = "checkBox_activation_uspishno";
             this.checkBox_activation_uspishno.Size = new System.Drawing.Size(68, 17);
             this.checkBox_activation_uspishno.TabIndex = 22;
@@ -1335,7 +1335,7 @@
             // checkBox_activation_neuspishno
             // 
             this.checkBox_activation_neuspishno.AutoSize = true;
-            this.checkBox_activation_neuspishno.Location = new System.Drawing.Point(260, 37);
+            this.checkBox_activation_neuspishno.Location = new System.Drawing.Point(222, 37);
             this.checkBox_activation_neuspishno.Name = "checkBox_activation_neuspishno";
             this.checkBox_activation_neuspishno.Size = new System.Drawing.Size(109, 17);
             this.checkBox_activation_neuspishno.TabIndex = 21;
@@ -1346,7 +1346,7 @@
             // checkBox_activation_uspishno_pin
             // 
             this.checkBox_activation_uspishno_pin.AutoSize = true;
-            this.checkBox_activation_uspishno_pin.Location = new System.Drawing.Point(260, 14);
+            this.checkBox_activation_uspishno_pin.Location = new System.Drawing.Point(222, 14);
             this.checkBox_activation_uspishno_pin.Name = "checkBox_activation_uspishno_pin";
             this.checkBox_activation_uspishno_pin.Size = new System.Drawing.Size(89, 17);
             this.checkBox_activation_uspishno_pin.TabIndex = 20;

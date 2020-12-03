@@ -67,7 +67,6 @@
             this.listBox_commads_wl = new System.Windows.Forms.ListBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.label10 = new System.Windows.Forms.Label();
             this.textBox_Uvaga = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label_lmst = new System.Windows.Forms.Label();
@@ -539,7 +538,6 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.label10);
             this.tabPage3.Controls.Add(this.textBox_Uvaga);
             this.tabPage3.Controls.Add(this.groupBox1);
             this.tabPage3.Controls.Add(this.groupBox10);
@@ -553,15 +551,6 @@
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Обробка";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(10, 43);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(41, 13);
-            this.label10.TabIndex = 13;
-            this.label10.Text = "label10";
             // 
             // textBox_Uvaga
             // 
@@ -2093,7 +2082,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox checkBox_geozone_all;
         private System.Windows.Forms.ComboBox comboBox_otvetstvenniy;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button button_add_vo5;
         private System.Windows.Forms.Button button_add_vo4;
         private System.Windows.Forms.Label label11;

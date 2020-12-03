@@ -956,6 +956,15 @@ namespace Disp_WinForm
                                                                 + "\"n\":\"4.3 PIN-код встановлено особою(клієнт / установлник)\","
                                                                 + "\"v\":\"" + textBox_current_pin.Text.Replace("\"", "%5C%22") + "\"}");
                             break;
+                        //Произвольное поле date set new ПИН
+                        case string a when a.Contains("4.2 ") & textBox_current_pin.Text != "":
+                            string pp210_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                                + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                + "\"callMode\":\"update\","
+                                                                + "\"n\":\"4.2 Дата встановлення PIN-коду\","
+                                                                + "\"v\":\"" + DateTime.Now.Date.ToString() + "\"}");
+                            break;
                         //Произвольное поле Гарантія до
                         case string a when a.Contains("5.3 "):
                             string pp211_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
@@ -2375,7 +2384,10 @@ namespace Disp_WinForm
 
                     string previose_result = macros.sql_command("select testing_objectcol_result from btk.testing_object where idtesting_object = '" + vars_form.id_db_openning_testing + "'");
                     if (previose_result != "Успішно" & comboBox_result.Text == "Успішно")
-                    { AddZayavku(); }
+                    { 
+                        IdNewTesting = vars_form.id_db_object_for_test;
+                        AddZayavku(); 
+                    }
                     
                     macros.sql_command("update btk.testing_object set " +
                         "testing_objectcol_edit_timestamp = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
