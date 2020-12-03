@@ -665,15 +665,15 @@ namespace Disp_WinForm
                                                                 "new_name_obj " +
                                                                 ") " +
                                                                 "values (" +
-                                                                "'" + vars_form.user_login_id + "'," +
-                                                                "'" + id_object_from_testing + "'," +
+                                                                "'8'," +
+                                                                "'" + vars_form.id_db_object_for_test + "'," +
                                                                 "'Протестовано'," +
                                                                 "'1'," +
                                                                 "'1'," +
                                                                 "'1'," +
                                                                 "'1'," +
                                                                 "'1'," +
-                                                                "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "' " +
+                                                                "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "', " +
                                                                 "'" + name_obj_textBox.Text +"' " +
                                                                 ");");//Добавляем активацию для объекта и прикрепляем ее к заявке
 
@@ -705,7 +705,7 @@ namespace Disp_WinForm
                                                                     "'" + comboBox_test_production_date.GetItemText(comboBox_test_production_date.SelectedItem) + "'," +
                                                                     "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                                                     "'" + IdNewTesting + "'," +
-                                                                    "'" + vars_form.user_login_id + "'," +
+                                                                    "'8'," +
                                                                     "'Тестування'," +
                                                                     "'" + id_created_activation + "'" +
                                                                     ");");
