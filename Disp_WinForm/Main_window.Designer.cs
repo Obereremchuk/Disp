@@ -137,14 +137,16 @@
             this.checkBox_search_close_fact = new System.Windows.Forms.CheckBox();
             this.checkBox_search_close_plan = new System.Windows.Forms.CheckBox();
             this.tabPage_zvit = new System.Windows.Forms.TabPage();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.dateTime_rep_from = new System.Windows.Forms.DateTimePicker();
+            this.groupBox17 = new System.Windows.Forms.GroupBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.linkLabel_zvit_testing = new System.Windows.Forms.LinkLabel();
             this.linkLabel_zvit_activation = new System.Windows.Forms.LinkLabel();
             this.linkLabel_zvit_vidpracuvannya = new System.Windows.Forms.LinkLabel();
             this.checkBox_vidpra_gmr_police = new System.Windows.Forms.CheckBox();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.dateTime_rep_from = new System.Windows.Forms.DateTimePicker();
+            this.label6 = new System.Windows.Forms.Label();
             this.dateTime_rep_to = new System.Windows.Forms.DateTimePicker();
             this.tab_create_object = new System.Windows.Forms.TabPage();
             this.tabControl_in_object_create = new System.Windows.Forms.TabControl();
@@ -239,8 +241,6 @@
             this.dataGridView_CM = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.label27 = new System.Windows.Forms.Label();
-            this.groupBox17 = new System.Windows.Forms.GroupBox();
             this.tabControl_testing.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_open_alarm)).BeginInit();
@@ -277,8 +277,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_close_object)).BeginInit();
             this.groupBox8.SuspendLayout();
             this.tabPage_zvit.SuspendLayout();
-            this.groupBox10.SuspendLayout();
+            this.groupBox17.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.tab_create_object.SuspendLayout();
             this.tabControl_in_object_create.SuspendLayout();
             this.tabPage_create_in_ctreate_obj.SuspendLayout();
@@ -298,7 +299,6 @@
             this.tabPage_CM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_CM)).BeginInit();
             this.panel1.SuspendLayout();
-            this.groupBox17.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl_testing
@@ -1281,7 +1281,7 @@
             this.groupBox3.Controls.Add(this.checkBox_activation_uspishno_pin);
             this.groupBox3.Controls.Add(this.textBox_search_object_name_activation);
             this.groupBox3.Controls.Add(this.dateTimePicker_activation_filter_start);
-            this.groupBox3.Location = new System.Drawing.Point(361, 6);
+            this.groupBox3.Location = new System.Drawing.Point(6, 6);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(369, 102);
             this.groupBox3.TabIndex = 15;
@@ -1379,12 +1379,13 @@
             this.groupBox5.Controls.Add(this.button_start_activation);
             this.groupBox5.Controls.Add(this.textBox_activation_search);
             this.groupBox5.Controls.Add(this.listBox_activation_result_search);
-            this.groupBox5.Location = new System.Drawing.Point(3, 6);
+            this.groupBox5.Location = new System.Drawing.Point(381, 6);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(352, 102);
             this.groupBox5.TabIndex = 0;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Незапланована активація";
+            this.groupBox5.Visible = false;
             // 
             // button_start_activation
             // 
@@ -1495,35 +1496,17 @@
             this.tabPage_zvit.Text = "Звіти";
             this.tabPage_zvit.UseVisualStyleBackColor = true;
             // 
-            // groupBox10
+            // groupBox17
             // 
-            this.groupBox10.Controls.Add(this.label27);
-            this.groupBox10.Controls.Add(this.dateTime_rep_from);
-            this.groupBox10.Controls.Add(this.label6);
-            this.groupBox10.Controls.Add(this.dateTime_rep_to);
-            this.groupBox10.Location = new System.Drawing.Point(6, 6);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(409, 78);
-            this.groupBox10.TabIndex = 5;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Фільтр";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 25);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(49, 13);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Початок";
-            // 
-            // dateTime_rep_from
-            // 
-            this.dateTime_rep_from.CustomFormat = "yyyy-MM-dd HH:mm:ss";
-            this.dateTime_rep_from.Location = new System.Drawing.Point(82, 19);
-            this.dateTime_rep_from.Name = "dateTime_rep_from";
-            this.dateTime_rep_from.Size = new System.Drawing.Size(175, 20);
-            this.dateTime_rep_from.TabIndex = 0;
+            this.groupBox17.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox17.Controls.Add(this.panel2);
+            this.groupBox17.Location = new System.Drawing.Point(6, 90);
+            this.groupBox17.Name = "groupBox17";
+            this.groupBox17.Size = new System.Drawing.Size(409, 562);
+            this.groupBox17.TabIndex = 7;
+            this.groupBox17.TabStop = false;
+            this.groupBox17.Text = "Звіти";
             // 
             // panel2
             // 
@@ -1579,6 +1562,45 @@
             this.checkBox_vidpra_gmr_police.TabIndex = 2;
             this.checkBox_vidpra_gmr_police.Text = "Тільки з визом ГМР/Поліції";
             this.checkBox_vidpra_gmr_police.UseVisualStyleBackColor = true;
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.label27);
+            this.groupBox10.Controls.Add(this.dateTime_rep_from);
+            this.groupBox10.Controls.Add(this.label6);
+            this.groupBox10.Controls.Add(this.dateTime_rep_to);
+            this.groupBox10.Location = new System.Drawing.Point(6, 6);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(409, 78);
+            this.groupBox10.TabIndex = 5;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Фільтр";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(3, 51);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(40, 13);
+            this.label27.TabIndex = 6;
+            this.label27.Text = "Кінець";
+            // 
+            // dateTime_rep_from
+            // 
+            this.dateTime_rep_from.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.dateTime_rep_from.Location = new System.Drawing.Point(82, 19);
+            this.dateTime_rep_from.Name = "dateTime_rep_from";
+            this.dateTime_rep_from.Size = new System.Drawing.Size(175, 20);
+            this.dateTime_rep_from.TabIndex = 0;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 25);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(49, 13);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Початок";
             // 
             // dateTime_rep_to
             // 
@@ -2593,27 +2615,6 @@
             this.panel1.Size = new System.Drawing.Size(1370, 684);
             this.panel1.TabIndex = 1;
             // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(3, 51);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(40, 13);
-            this.label27.TabIndex = 6;
-            this.label27.Text = "Кінець";
-            // 
-            // groupBox17
-            // 
-            this.groupBox17.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox17.Controls.Add(this.panel2);
-            this.groupBox17.Location = new System.Drawing.Point(6, 90);
-            this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(409, 562);
-            this.groupBox17.TabIndex = 7;
-            this.groupBox17.TabStop = false;
-            this.groupBox17.Text = "Звіти";
-            // 
             // Main_window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2671,10 +2672,11 @@
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             this.tabPage_zvit.ResumeLayout(false);
-            this.groupBox10.ResumeLayout(false);
-            this.groupBox10.PerformLayout();
+            this.groupBox17.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
             this.tab_create_object.ResumeLayout(false);
             this.tabControl_in_object_create.ResumeLayout(false);
             this.tabPage_create_in_ctreate_obj.ResumeLayout(false);
@@ -2700,7 +2702,6 @@
             this.tabPage_CM.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_CM)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.groupBox17.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

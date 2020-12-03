@@ -2103,7 +2103,7 @@ namespace Disp_WinForm
 
                     //create notif depends product id
 
-                    if (product_id == "10" || product_id == "11" || product_id == "13" || product_id == "14" || product_id == "18" || product_id == "19")//CNTP_910, CNTK_910
+                    if (product_id == "10" || product_id == "11" || product_id == "13" || product_id == "14" || product_id == "18" || product_id == "19" || product_id == "20" || product_id == "21")//CNTP_910, CNTK_910
                     {
                         create_notif_910(email_textBox.Text, created_user_data.item.id, wl_id, created_resource_data.item.id, created_resource_user_data.item.id);
                     }
@@ -2158,7 +2158,7 @@ namespace Disp_WinForm
                                                                     + "\"n\":\"4.4 Обліковий запис WL\","
                                                                     + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
                     }
-                    else if (product_id == "14" || product_id == "13" || product_id == "18" || product_id == "19")//CNTP_910_SE_N, CNTP_910_SE_P
+                    else if (product_id == "14" || product_id == "13" || product_id == "18" || product_id == "19" || product_id == "20" || product_id == "21")//CNTP_910_SE_N, CNTP_910_SE_P
                     {
                         //update Обліковий запис WL
                         string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
@@ -2340,7 +2340,7 @@ namespace Disp_WinForm
                                                                 + "\"n\":\"4.4 Обліковий запис WL\","
                                                                 + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
                 }
-                else if (product_id == "14" || product_id == "13" || product_id == "18" || product_id == "19")//CNTP_910_SE_N, CNTP_910_SE_P
+                else if (product_id == "14" || product_id == "13" || product_id == "18" || product_id == "19" || product_id == "20" || product_id == "21")//CNTP_910_SE_N, CNTP_910_SE_P
                 {
                     //update Обліковий запис WL
                     string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"

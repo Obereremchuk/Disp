@@ -69,7 +69,10 @@ namespace Disp_WinForm
                                             "where idZayavki = '" + vars_form.id_db_zayavki_for_activation + "';");
 
                 textBox_name_zayavka.Text = table.Rows[0][1].ToString();
-                dateTimePicker_plan_date_zayavki.Value = Convert.ToDateTime(table.Rows[0][2].ToString());
+                if (table.Rows[0][2].ToString() != "")
+                {
+                    dateTimePicker_plan_date_zayavki.Value = Convert.ToDateTime(table.Rows[0][2].ToString());
+                }
                 if (table.Rows[0][3].ToString() == "Монтаж")
                 {
                     comboBox_reason_zayavki.SelectedIndex = 0;
@@ -433,7 +436,7 @@ namespace Disp_WinForm
                                                         "Zayavkicol_name = '" + MySqlHelper.EscapeString(textBox_name_zayavka.Text) + "'," +
                                                         "Zayavkicol_plan_date = '" + Convert.ToDateTime(dateTimePicker_plan_date_zayavki.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                                         "Zayavkicol_reason = '" + comboBox_reason_zayavki.GetItemText(comboBox_reason_zayavki.SelectedItem) + "'," +
-                                                        "Zayavkicol_VIN = '" + textBox_vin_zayavki.Text + "'," +
+                                                        "Zayavkicol_VIN = '" + MySqlHelper.EscapeString(textBox_vin_zayavki.Text) + "'," +
                                                         "TS_model_idTS_model = '" + comboBox_model_zayavki.SelectedValue + "'," +
                                                         "TS_brand_idTS_brand = '" + comboBox_brand_zayavki.SelectedValue + "'," +
                                                         "products_idproducts = '" + comboBox_product_zayavki.SelectedValue + "'," +
@@ -444,7 +447,7 @@ namespace Disp_WinForm
                                                         "Zayavkicol_comment = '" + MySqlHelper.EscapeString(textBox_Coments.Text) + "'," +
                                                         "Zayavkicol_edit_timestamp = '" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                                         "testing_object_idtesting_object = '" + idtesting_object + "'," +
-                                                        "Sobstvennik_avto_neme = '" + textBox_sobstvennik_avto.Text + "'," +
+                                                        "Sobstvennik_avto_neme = '" + MySqlHelper.EscapeString(textBox_sobstvennik_avto.Text) + "'," +
                                                         "Kontakt_name_avto_1 = '" + MySqlHelper.EscapeString(textBox_kont_osoba1.Text) + "'," +
                                                         "Kontakt_phone_avto_1 = '" + phone1 + "'," +
                                                         "Kontakt_name_avto_2 = '" + MySqlHelper.EscapeString(textBox_kont_osoba2.Text) + "'," +
@@ -457,7 +460,20 @@ namespace Disp_WinForm
                 string idActivation_object = macros.sql_command("SELECT Activation_object_idActivation_object FROM btk.Zayavki_has_Activation_object where Zayavki_idZayavki = '" + idZayavki + "';");
 
                 string idObject = macros.sql_command("select Object_idObject from btk.testing_object where idtesting_object = '" + idtesting_object + "';");
-                macros.sql_command("update btk.Activation_object set Object_idObject = " + idObject + " where idActivation_object = '" + idActivation_object + "';");
+
+
+                string ResultActivation = macros.sql_command("select Activation_objectcol_result from btk.Activation_object where idActivation_object = '" + idActivation_object + "';");
+                if (ResultActivation == "Протестовано")
+                { 
+                    macros.sql_command("update btk.Activation_object set Object_idObject = " + idObject + " , Activation_objectcol_result = 'Не проводилось' where idActivation_object = '" + idActivation_object + "';"); 
+                }
+                else
+                {
+                    macros.sql_command("update btk.Activation_object set Object_idObject = " + idObject + " where idActivation_object = '" + idActivation_object + "';");
+                }
+                
+                
+                
 
 
             }

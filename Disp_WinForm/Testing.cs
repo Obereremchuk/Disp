@@ -20,6 +20,7 @@ namespace Disp_WinForm
         private static System.Timers.Timer aTimer3;
         Macros macros = new Macros();
         string get_produt_testing_device = "";
+        string IdNewTesting;
 
         public Testing()
         {
@@ -639,6 +640,86 @@ namespace Disp_WinForm
 
             commands_fill_anketa();
             commands_add_testing();
+            
+
+            MessageBox.Show("Збережено!");
+            this.Close();
+        }
+
+        private void AddZayavku()
+        {
+            if (comboBox_result.Text != "Успішно")
+            { return; }
+            string id_object_from_testing = macros.sql_command("select Object_idObject from btk.testing_object where idtesting_object = '" + vars_form.id_db_object_for_test + "';");
+
+            macros.sql_command("insert into btk.Activation_object (" +
+                                                                "Users_idUsers, " +
+                                                                "Object_idObject," +
+                                                                "Activation_objectcol_result," +
+                                                                "vo1," +
+                                                                "vo2," +
+                                                                "vo3," +
+                                                                "vo4," +
+                                                                "vo5, " +
+                                                                "Activation_date, " +
+                                                                "new_name_obj " +
+                                                                ") " +
+                                                                "values (" +
+                                                                "'" + vars_form.user_login_id + "'," +
+                                                                "'" + id_object_from_testing + "'," +
+                                                                "'Протестовано'," +
+                                                                "'1'," +
+                                                                "'1'," +
+                                                                "'1'," +
+                                                                "'1'," +
+                                                                "'1'," +
+                                                                "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "' " +
+                                                                "'" + name_obj_textBox.Text +"' " +
+                                                                ");");//Добавляем активацию для объекта и прикрепляем ее к заявке
+
+            string id_created_activation = macros.sql_command("SELECT max(idActivation_object) FROM btk.Activation_object;");
+
+            macros.sql_command("insert into btk.Zayavki (" +
+                                                                    "Zayavkicol_VIN," +
+                                                                    "TS_model_idTS_model," +
+                                                                    "TS_brand_idTS_brand," +
+                                                                    "products_idproducts," +
+                                                                    "Kontragenti_idKontragenti_sto," +
+                                                                    "Zayavkicol_license_plate," +
+                                                                    "Kontragenti_idKontragenti_zakazchik," +
+                                                                    "Zayavkicol_data_vipuska, " +
+                                                                    "Zayavkicol_edit_timestamp," +
+                                                                    "testing_object_idtesting_object," +
+                                                                    "Users_idUsers," +
+                                                                    "Zayavkicol_reason," +
+                                                                    "Activation_object_idActivation_object" +
+                                                                    ") " +
+                                                                    "values (" +
+                                                                    "'" + textBox_vin.Text + "'," +
+                                                                    "'" + comboBox_test_model.SelectedValue + "'," +
+                                                                    "'" + comboBox_test_brand.SelectedValue + "'," +
+                                                                    "'" + get_produt_testing_device + "'," +
+                                                                    "'" + comboBox_test_sto.SelectedValue.ToString() + "'," +
+                                                                    "'" + textBox_licence_plate.Text + "'," +
+                                                                    "'1'," +
+                                                                    "'" + comboBox_test_production_date.GetItemText(comboBox_test_production_date.SelectedItem) + "'," +
+                                                                    "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                                                    "'" + IdNewTesting + "'," +
+                                                                    "'" + vars_form.user_login_id + "'," +
+                                                                    "'Тестування'," +
+                                                                    "'" + id_created_activation + "'" +
+                                                                    ");");
+
+            string id_created_zayavka = macros.sql_command("SELECT max(idZayavki) FROM btk.Zayavki;");
+
+            macros.sql_command("insert into btk.Zayavki_has_Activation_object (" +
+                                                                    "Zayavki_idZayavki, " +
+                                                                    "Activation_object_idActivation_object" +
+                                                                    ") " +
+                                                                    "values (" +
+                                                                    "'" + id_created_zayavka + "'," +
+                                                                    "'" + id_created_activation + "'" +
+                                                                    ");");
         }
 
         private void commands_fill_anketa()
@@ -719,7 +800,7 @@ namespace Disp_WinForm
 
 
 
-            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19")
+            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19" || get_produt_testing_device == "20" || get_produt_testing_device == "21")
             {
 
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
@@ -1915,7 +1996,7 @@ namespace Disp_WinForm
 
                         //Установка Групп в зависимсти от продукта
 
-                        if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19") //Добавляем в группы для CNTP_910, CNTP_730
+                        if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19" || get_produt_testing_device == "20" || get_produt_testing_device == "21") //Добавляем в группы для CNTP_910, CNTP_730
                         {
                             //Запрашиваем объекты из группы srv_prizrak_910
                             string get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
@@ -2162,7 +2243,7 @@ namespace Disp_WinForm
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
                         }
-                        else if (get_produt_testing_device == "4" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19")//Добавляем в группы для CNTP_910_SE_N, CNTP_910_SE_P, CNTP_SE
+                        else if (get_produt_testing_device == "4" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19" || get_produt_testing_device == "20" || get_produt_testing_device == "21")//Добавляем в группы для CNTP_910_SE_N, CNTP_910_SE_P, CNTP_SE
                         {
 
                             // ADD to groupe: ^ CONNECT - KEYLESS - PLUS - КОНДОР+: активные
@@ -2291,6 +2372,11 @@ namespace Disp_WinForm
                         }
                     }
 
+
+                    string previose_result = macros.sql_command("select testing_objectcol_result from btk.testing_object where idtesting_object = '" + vars_form.id_db_openning_testing + "'");
+                    if (previose_result != "Успішно" & comboBox_result.Text == "Успішно")
+                    { AddZayavku(); }
+                    
                     macros.sql_command("update btk.testing_object set " +
                         "testing_objectcol_edit_timestamp = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
                         "testing_objectcol_block = '" + (checkBox_test_zablocovano.Checked ? "1" : "0") + "', " +
@@ -2307,6 +2393,8 @@ namespace Disp_WinForm
                         "where " +
                         "idtesting_object = '" + vars_form.id_db_openning_testing + "' " +
                         ";");
+
+
 
 
                     string other_sensor = (checkBox_sensor_gps.Checked ? "GPS, " : "")
@@ -2423,7 +2511,8 @@ namespace Disp_WinForm
                 }
                 else
                 {
-
+                    
+                    
 
                     if (wl_group_activ_checkBox.Checked is true)
                     {
@@ -2465,7 +2554,7 @@ namespace Disp_WinForm
                                                                 + "\"to\":\"0\"}");//получаем текущее местоположение объекта
 
 
-                        if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19") //Добавляем в группы для CNTP_910, CNTP_730
+                        if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19" || get_produt_testing_device == "20" || get_produt_testing_device == "21") //Добавляем в группы для CNTP_910, CNTP_730
                         {
                             //Запрашиваем объекты из группы srv_prizrak_910
                             string get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
@@ -2775,7 +2864,7 @@ namespace Disp_WinForm
                                                                                                              + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
                         }
-                        else if (get_produt_testing_device == "4" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19")//Добавляем в группы для CNTP_910_SE_N, CNTP_910_SE_P, CNTP_SE
+                        else if (get_produt_testing_device == "4" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19" || get_produt_testing_device == "20" || get_produt_testing_device == "21")//Добавляем в группы для CNTP_910_SE_N, CNTP_910_SE_P, CNTP_SE
                         {
 
                             // ADD to groupe: ^ CONNECT - KEYLESS - PLUS - КОНДОР+: активные
@@ -2870,6 +2959,12 @@ namespace Disp_WinForm
                                            "'Успішно'" +
                                            ");");
 
+
+                    IdNewTesting = macros.sql_command("SELECT max(idtesting_object) FROM btk.testing_object;");
+
+                    if (comboBox_result.Text == "Успішно")
+                    { AddZayavku(); }
+
                     string other_sensor = (checkBox_sensor_gps.Checked ? "GPS, " : "")
                         + (checkBox_sensor_glushenia.Checked ? "Глушіння, " : "")
                         + (checkBox_sensor_autostart.Checked ? "Автозапуск, " : "")
@@ -2924,8 +3019,6 @@ namespace Disp_WinForm
                     macros.send_mail(recip, Subject, Body);
                 }
             }
-            MessageBox.Show("Збережено!");
-            this.Close();
         }
 
         //Запрос параметров с виалоноа и отображение статусов в тестировании
@@ -3265,7 +3358,7 @@ namespace Disp_WinForm
                     label__test_vzlom.BackColor = Color.Empty;
                 }
             }
-            else if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19")
+            else if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19" || get_produt_testing_device == "20" || get_produt_testing_device == "21")
             {
                 string json2 = macros.WialonRequest("&svc=core/search_items&params={" +
                                                           "\"spec\":{"
@@ -3614,7 +3707,7 @@ namespace Disp_WinForm
             //                                                       "Subscription_idSubscr=idSubscr and " +
             //                                                       "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
 
-            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19")
+            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19" || get_produt_testing_device == "20" || get_produt_testing_device == "21")
             {
                 string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
                                                         "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
@@ -3644,7 +3737,7 @@ namespace Disp_WinForm
             //                                                       "Subscription_idSubscr=idSubscr and " +
             //                                                       "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
 
-            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19")
+            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19" || get_produt_testing_device == "20" || get_produt_testing_device == "21")
             {
                 string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
                                                             "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
@@ -3679,7 +3772,7 @@ namespace Disp_WinForm
             //                                                       "Subscription_idSubscr=idSubscr and " +
             //                                                       "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
 
-            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19")
+            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19" || get_produt_testing_device == "20" || get_produt_testing_device == "21")
             {
                 string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
                                                             "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
@@ -3747,7 +3840,7 @@ namespace Disp_WinForm
             //                                                       "Subscription_idSubscr=idSubscr and " +
             //                                                       "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
 
-            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19")
+            if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19" || get_produt_testing_device == "20" || get_produt_testing_device == "21")
             {
                 string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
                                                         "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +

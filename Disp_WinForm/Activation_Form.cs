@@ -1419,7 +1419,7 @@ namespace Disp_WinForm
                     checkBox_tk_tested.BackColor = Color.YellowGreen;
                 }
             }
-            else if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19")
+            else if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19" || get_produt_testing_device == "20" || get_produt_testing_device == "21")
             {
 
                 string json = macros.WialonRequest("&svc=unit/calc_last_message&params={"
