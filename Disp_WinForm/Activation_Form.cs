@@ -90,6 +90,8 @@ namespace Disp_WinForm
 
         private void load_form_for_sengl_activation()
         {
+
+            date_activation_in_db = Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd");
             var ts_info = macros.GetData("SELECT TS_infocol_place_service_button, TS_infocol_place_tk, TS_infocol_button_for_pin FROM btk.Object, btk.TS_info where Object_id_wl = '" + _id_wl_object_for_activation + "' and TS_info.idTS_info = Object.TS_info_idTS_info;");
             textBox_service_botton.Text = ts_info.Rows[0][0].ToString();
             textBox_tk_botton.Text = ts_info.Rows[0][1].ToString();
@@ -250,7 +252,9 @@ namespace Disp_WinForm
                 }
             }
 
-            date_activation_in_db = macros.sql_command("SELECT Activation_date FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "'");
+            date_activation_in_db = Convert.ToDateTime( macros.sql_command("SELECT Activation_date FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "'")).ToString("yyyy-MM-dd");
+
+            //date_activation_in_db = macros.sql_command("SELECT Activation_date FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "'");
             //Открітие отработаніх активаций. ХЗ ли нужно
             ////load VO
             //DataTable VO = macros.GetData("SELECT Users_idUsers, comment, alarm_button FROM btk.Activation_object where Object_idObject = '"+_id_db_object_for_activation+"';");
@@ -272,6 +276,7 @@ namespace Disp_WinForm
             else
             {
                 textBox_vo1.Text = VO_falilia.ToUpper() + " " + VO_imya_phone + ", " + VO_phone2;
+                _transfer_vo1_vo_form = VO1;
             }
 
             //load VO2
@@ -288,6 +293,7 @@ namespace Disp_WinForm
             else
             {
                 textBox_vo2.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                _transfer_vo2_vo_form = VO2;
             }
 
 
@@ -305,6 +311,7 @@ namespace Disp_WinForm
             else
             {
                 textBox_vo3.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                _transfer_vo3_vo_form = VO3;
             }
 
             //load VO4
@@ -321,6 +328,7 @@ namespace Disp_WinForm
             else
             {
                 textBox_vo4.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                _transfer_vo4_vo_form = VO4;
             }
 
             //load VO5
@@ -337,6 +345,7 @@ namespace Disp_WinForm
             else
             {
                 textBox_vo5.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                _transfer_vo5_vo_form = VO5;
             }
 
             //Load data from opened activation

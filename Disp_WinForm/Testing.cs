@@ -2386,7 +2386,7 @@ namespace Disp_WinForm
                     string previose_result = macros.sql_command("select testing_objectcol_result from btk.testing_object where idtesting_object = '" + vars_form.id_db_openning_testing + "'");
                     if (previose_result != "Успішно" & comboBox_result.Text == "Успішно")
                     { 
-                        IdNewTesting = vars_form.id_db_object_for_test;
+                        IdNewTesting = vars_form.id_db_openning_testing;//id_db_openning_testing
                         AddZayavku(); 
                     }
                     

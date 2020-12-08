@@ -140,7 +140,7 @@
             "Новий клієнт",
             "Зміна СК",
             "Зміна власника",
-            "Перехыдний клієнт",
+            "Перехідний клієнт",
             "Інше"});
             this.comboBox_reason_zayavki.Location = new System.Drawing.Point(84, 19);
             this.comboBox_reason_zayavki.Name = "comboBox_reason_zayavki";

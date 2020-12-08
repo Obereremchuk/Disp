@@ -629,6 +629,7 @@ namespace Disp_WinForm
                                             "AND testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
                                             "AND Zayavki.Kontragenti_idKontragenti_sto=Kontragenti.idKontragenti " +
                                             "AND Zayavki.Users_idUsers=Users.idUsers " +
+                                            "AND Zayavkicol_reason like '%" + comboBox_reason_zayavki.Text + "%' " +
                                             "AND (Zayavkicol_name like '%" + textBox_search_zayavki.Text + "%' " +
                                             "OR idZayavki like '%" + textBox_search_zayavki.Text + "%' " +
                                             "OR Zayavkicol_VIN like '%" + textBox_search_zayavki.Text + "%' " +
@@ -656,6 +657,7 @@ namespace Disp_WinForm
                                             "AND testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
                                             "AND Zayavki.Kontragenti_idKontragenti_sto=Kontragenti.idKontragenti " +
                                             "AND Zayavki.Users_idUsers=Users.idUsers " +
+                                            "AND Zayavkicol_reason like '%" + comboBox_reason_zayavki.Text + "%' " +
                                             "AND (Zayavkicol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_from_for_zayavki_na_activation_W2.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(dateTimePicker_for_zayavki_na_activation_W2.Value).ToString("yyyy-MM-dd HH:mm:ss") + "')" +
                                             "AND (Zayavkicol_name like '%" + textBox_search_zayavki.Text + "%' " +
                                             "OR idZayavki like '%" + textBox_search_zayavki.Text + "%' " +
@@ -3796,7 +3798,7 @@ namespace Disp_WinForm
         }
 
         private void dataGridView_testing_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
+            {
             if (e.RowIndex <= -1 || e.ColumnIndex <= -1)
             {
                 return;
@@ -14349,7 +14351,7 @@ namespace Disp_WinForm
 
         private void textBox_search_zayavki_TextChanged(object sender, EventArgs e)
         {
-            if (textBox_search_zayavki.Text == "")
+            if (textBox_search_zayavki.Text == "" & comboBox_reason_zayavki.Text=="")
             {
                 checkBox_zayavki_za_ves_chas.Enabled = false;
                 checkBox_zayavki_za_ves_chas.Checked = false;
@@ -14566,6 +14568,18 @@ namespace Disp_WinForm
                                    "(testing_object.testing_objectcol_edit_timestamp  between '" + Convert.ToDateTime(dateTime_rep_from.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(dateTime_rep_to.Value).ToString("yyyy-MM-dd HH:mm:ss") + "') " +
                                    ";");
             macros.ExportDataSet(table);
+        }
+
+        private void comboBox_reason_zayavki_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (textBox_search_zayavki.Text == "" & comboBox_reason_zayavki.Text == "")
+            {
+                checkBox_zayavki_za_ves_chas.Enabled = false;
+                checkBox_zayavki_za_ves_chas.Checked = false;
+            }
+            else { checkBox_zayavki_za_ves_chas.Enabled = true; }
+            
+            update_zayavki_na_aktivation_2W();
         }
     }
 
