@@ -12983,7 +12983,7 @@ namespace Disp_WinForm
             macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
 
             //Создаем подписку для объекта
-            string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('17'," + id_object + ");");
+            string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('38'," + id_object + ");");
             macros.sql_command(sql3);
 
             //Получаем айди созданной подписки

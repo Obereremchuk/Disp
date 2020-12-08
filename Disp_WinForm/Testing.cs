@@ -267,6 +267,7 @@ namespace Disp_WinForm
                 checkBox_dop_1.Enabled = false;
                 checkBox_test_dop_2.Enabled = false;
                 checkBox_test_autostart.Enabled = false;
+
             }
             //KP_n
             else if (get_produt_testing_device == "12")
@@ -3271,18 +3272,6 @@ namespace Disp_WinForm
                 {
                     label_netconn.Text = ":(";
                     label_netconn.BackColor = Color.Red;
-                }
-
-                //Статус Блокування
-                if (test_out.item.lmsg.p.AIN1 >= 4)
-                {
-                    label_test_zablocovano.Text = "Розблоковано";
-                    label_test_zablocovano.BackColor = Color.Empty;
-                }
-                else
-                {
-                    label_test_zablocovano.Text = "Заблоковано";
-                    label_test_zablocovano.BackColor = Color.YellowGreen;
                 }
                 //Статус Запалення
                 if (test_out.item.lmsg.p.par5 >= 1)
