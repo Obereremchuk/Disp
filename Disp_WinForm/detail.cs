@@ -2289,7 +2289,7 @@ namespace Disp_WinForm
 
                 //create notif depends product id
 
-                if (product_id == "10" || product_id == "11")//CNTP_910, CNTK_910
+                if (product_id == "10" || product_id == "11" || product_id == "13" || product_id == "14" || product_id == "18" || product_id == "19" || product_id == "20" || product_id == "21")//CNTP_910, CNTK_910
                 {
                     create_notif_910(email_textBox.Text, user_data.items[0].id, wl_id, get_resource_user.items[0].id, get_resource_user_user.items[0].id);
                 }

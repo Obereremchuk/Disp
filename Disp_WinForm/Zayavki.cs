@@ -588,6 +588,18 @@ namespace Disp_WinForm
 
 
             }
+
+            //if (textBox_vin_zayavka.Text != "")
+            //{
+            //    //update VIN plate in WL
+            //    string pp28_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
+            //                                                   + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
+            //                                                   + "\"n\":\"vin\","
+            //                                                   + "\"v\":\"" + textBox_vin_zayavka.Text.Replace("\"", "%5C%22") + "\"}");
+            //    //update VIN plate in db
+            //    macros.sql_command("update btk.TS_info set TS_infocol_vin = '" + textBox_vin_zayavka.Text + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
+            //}
+
             this.Close();
         }
 

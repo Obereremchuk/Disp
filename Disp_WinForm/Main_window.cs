@@ -6178,7 +6178,7 @@ namespace Disp_WinForm
             macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
 
             //Создаем подписку для объекта
-            string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('20'," + id_object + ");");
+            string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('40'," + id_object + ");");
             macros.sql_command(sql3);
 
             //Получаем айди созданной подписки
@@ -6676,7 +6676,7 @@ namespace Disp_WinForm
             macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
 
             //Создаем подписку для объекта
-            string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('11'," + id_object + ");");
+            string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('39'," + id_object + ");");
             macros.sql_command(sql3);
 
             //Получаем айди созданной подписки
@@ -8304,7 +8304,7 @@ namespace Disp_WinForm
             macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
 
             //Создаем подписку для объекта
-            string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('35','" + id_object + "');");
+            string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('42','" + id_object + "');");
             macros.sql_command(sql3);
 
             //Получаем айди созданной подписки
@@ -8845,7 +8845,7 @@ namespace Disp_WinForm
             string id_object = macros.sql_command("SELECT MAX(idObject) FROM btk.Object;");
 
             //Создаем подписку для объекта
-            string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('34','" + id_object + "');");
+            string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('41','" + id_object + "');");
             macros.sql_command(sql3);
 
             // set datetime create
