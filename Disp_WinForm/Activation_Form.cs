@@ -955,7 +955,7 @@ namespace Disp_WinForm
                 InsertActivationChenges(
                     _id_db_activation_for_activation, 
                     _user_login_id,
-                    date_activation_in_db,
+                    DateTime.Now.Date,
                     comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem), 
                     name_obj_new_textBox.Text,
                     MySqlHelper.EscapeString(uvaga_textBox.Text),
@@ -967,8 +967,7 @@ namespace Disp_WinForm
                     checkBox_tk_tested.Checked ? 1 : 0,
                     checkBox_pin_chenged.Checked ? 1 : 0,
                     MySqlHelper.EscapeString(textBox_comments.Text),
-                    textBox_who_chenge_pin.Text,
-                    DateTime.Now.Date
+                    textBox_who_chenge_pin.Text
                     );
 
                 if (comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem).Contains("Успішно"))
@@ -1122,7 +1121,7 @@ namespace Disp_WinForm
                 InsertActivationChenges(
                     _id_db_activation_for_activation,
                     _user_login_id,
-                    date_activation_in_db,
+                    DateTime.Now.Date,
                     comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem),
                     name_obj_new_textBox.Text,
                     MySqlHelper.EscapeString(uvaga_textBox.Text),
@@ -1134,8 +1133,7 @@ namespace Disp_WinForm
                     checkBox_tk_tested.Checked ? 1 : 0,
                     checkBox_pin_chenged.Checked ? 1 : 0,
                     MySqlHelper.EscapeString(textBox_comments.Text),
-                    textBox_who_chenge_pin.Text,
-                    DateTime.Now.Date
+                    textBox_who_chenge_pin.Text
                     );
 
                 
@@ -1184,12 +1182,13 @@ namespace Disp_WinForm
             this.Close();
         }
 
-        private void InsertActivationChenges(string idActivation_object, string idUsers, string date, string Activation_objectcol_result, string new_name_obj, string new_pole_uvaga, string vo1, string vo2, string vo3, string vo4, string kodove_slovo, int alarm_button, int pin_chenged, string comment, string _Who_chenge_pin, DateTime _Date_chenge_pin)
+        private void InsertActivationChenges(string idActivation_object, string idUsers, DateTime date, string Activation_objectcol_result, string new_name_obj, string new_pole_uvaga, string vo1, string vo2, string vo3, string vo4, string kodove_slovo, int alarm_button, int pin_chenged, string comment, string _Who_chenge_pin)
         {
             DataTable chenges = macros.GetData("insert into btk.Activation_chenges (" +
                 "Activation_object_idActivation_object," +
                 "Users_idUsers, " +
-                "Date,Activation_objectcol_result, " +
+                "Date, " +
+                "Activation_objectcol_result, " +
                 "new_name_obj, " +
                 "new_pole_uvaga, " +
                 "vo1," +
@@ -1200,11 +1199,11 @@ namespace Disp_WinForm
                 "alarm_button," +
                 "pin_chenged, " +
                 "Who_chenge_pin, " +
-                "Date_chenge_pin, " +
                 "comment) " +
                 "values('"+ 
                 idActivation_object + "', '"+ 
-                idUsers + "', '" + date + "', '" + 
+                idUsers + "', '" +
+                Convert.ToDateTime(date).ToString("yyyy-MM-dd") + "', '" + 
                 Activation_objectcol_result + "', '"+ 
                 new_name_obj + "', '"+
                 MySqlHelper.EscapeString(new_pole_uvaga) + "', '"+ 
@@ -1216,18 +1215,16 @@ namespace Disp_WinForm
                 alarm_button + "', '"+ 
                 pin_chenged + "', '" +
                 _Who_chenge_pin + "', '" +
-                Convert.ToDateTime(_Date_chenge_pin).ToString("yyyy-MM-dd") + "', '" +
                 comment + "'); ");
         }//insert chenges activation
 
         private void ReadActivationChenges(string idActivation_object)
         {
-            DataTable RreadChenges = macros.GetData("SELECT Users.username as 'Змінив', Date as 'Дата', Activation_objectcol_result as 'Результат', comment as 'Коментар', new_name_obj as 'Назва', new_pole_uvaga as 'Увага', vo1 as 'ВО1', vo2 as 'ВО2', vo3 as 'ВО3', kodove_slovo as 'Кодове слово', alarm_button as 'ТК', pin_chenged as 'PIN' FROM btk.Activation_chenges, btk.Users where Users.idUsers=Activation_chenges.Users_idUsers and Activation_object_idActivation_object = '" + idActivation_object + "';");
+            DataTable RreadChenges = macros.GetData("SELECT Users.username as 'Змінив', Date as 'Дата', Activation_objectcol_result as 'Результат', comment as 'Коментар', new_name_obj as 'Назва', new_pole_uvaga as 'Увага', vo1 as 'ВО1', vo2 as 'ВО2', vo3 as 'ВО3', kodove_slovo as 'Кодове слово', alarm_button as 'ТК' FROM btk.Activation_chenges, btk.Users where Users.idUsers=Activation_chenges.Users_idUsers and Activation_object_idActivation_object = '" + idActivation_object + "';");
             dataGridView_activation_chenges.DataSource = null;
             dataGridView_activation_chenges.DataSource = RreadChenges;
 
             //dataGridView_activation_chenges.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
-            dataGridView_activation_chenges.Columns["PIN"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView_activation_chenges.Columns["ТК"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView_activation_chenges.Columns["Кодове слово"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView_activation_chenges.Columns["ВО3"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
