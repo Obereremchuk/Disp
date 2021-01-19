@@ -190,6 +190,8 @@ namespace Disp_WinForm
                         dataGridView_tested_objects_zayavki.ClearSelection();
                         dataGridView_tested_objects_zayavki.Columns["Id"].Visible = false;
                         dataGridView_tested_objects_zayavki.Columns["idWl"].Visible = false;
+
+                        IMEI_textBox.Text = table2.Rows[0][5].ToString();
                     }
                     catch { }
 

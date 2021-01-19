@@ -16,6 +16,8 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using ZXing;
+using CefSharp;
+using CefSharp.WinForms;
 
 namespace Disp_WinForm
 {
@@ -57,6 +59,16 @@ namespace Disp_WinForm
             dateTimePicker_To_close_alarm.Value = DateTime.Now.Date + ts2;
 
 
+            this.dateTimePicker_testig_filter_start.ValueChanged -= new System.EventHandler(this.dateTimePicker_testig_filter_start_ValueChanged);
+            this.dateTimePicker_testing_filter_end.ValueChanged -= new System.EventHandler(this.dateTimePicker_testing_filter_end_ValueChanged);
+
+            dateTimePicker_testig_filter_start.Value = DateTime.Now.Date + ts1;
+            dateTimePicker_testing_filter_end.Value = DateTime.Now.Date + ts2;
+
+            this.dateTimePicker_testig_filter_start.ValueChanged += new System.EventHandler(this.dateTimePicker_testig_filter_start_ValueChanged);
+            this.dateTimePicker_testing_filter_end.ValueChanged += new System.EventHandler(this.dateTimePicker_testing_filter_end_ValueChanged);
+
+
 
             dateTime_rep_from.Value = DateTime.Now.Date + ts1;
             dateTime_rep_to.Value = DateTime.Now.Date + ts2;
@@ -79,7 +91,11 @@ namespace Disp_WinForm
             catch
             { }
 
+            
+
         }
+
+        
 
         private void init()
         {
@@ -181,6 +197,7 @@ namespace Disp_WinForm
                     {
                         tabControl_testing.TabPages.Remove(tabPage3);
                         tabControl_testing.TabPages.Remove(tab_create_object);
+                        Delet_Testing_button.Visible = false;
                     }
                     else
                     {
@@ -192,6 +209,7 @@ namespace Disp_WinForm
                         tabControl_testing.TabPages.Remove(tabPage6);
                         tabControl_testing.TabPages.Remove(tabPage_work_whith_obj);
                         tabControl_testing.TabPages.Remove(tabPage4);
+                        Delet_Testing_button.Visible = false;
 
 
                     }
@@ -623,17 +641,20 @@ namespace Disp_WinForm
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
                                             "Activation_object.Activation_date as 'Дата активації'," +
+                                            "Object.Object_imei as 'IMEI'," +
                                             "idZayavki " +
-                                            "FROM btk.Zayavki, btk.Kontragenti, btk.Users, btk.Activation_object, btk.testing_object " +
+                                            "FROM btk.Zayavki, btk.Kontragenti, btk.Users, btk.Activation_object, btk.testing_object, btk.Object " +
                                             "where Zayavki.Activation_object_idActivation_object=Activation_object.idActivation_object " +
                                             "AND testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
                                             "AND Zayavki.Kontragenti_idKontragenti_sto=Kontragenti.idKontragenti " +
                                             "AND Zayavki.Users_idUsers=Users.idUsers " +
+                                            "AND testing_object.Object_idObject=Object.idObject " +
                                             "AND Zayavkicol_reason like '%" + comboBox_reason_zayavki.Text + "%' " +
                                             "AND (Zayavkicol_name like '%" + textBox_search_zayavki.Text + "%' " +
                                             "OR idZayavki like '%" + textBox_search_zayavki.Text + "%' " +
                                             "OR Zayavkicol_VIN like '%" + textBox_search_zayavki.Text + "%' " +
                                             "OR username like '%" + textBox_search_zayavki.Text + "%' " +
+                                            "OR Object.Object_imei like '%" + textBox_search_zayavki.Text + "%' " +
                                             "OR Activation_objectcol_result like '%" + textBox_search_zayavki.Text + "%') " +
                                             ";");
             }
@@ -651,18 +672,21 @@ namespace Disp_WinForm
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
                                             "Activation_object.Activation_date as 'Дата активації'," +
+                                            "Object.Object_imei as 'IMEI'," +
                                             "idZayavki " +
-                                            "FROM btk.Zayavki, btk.Kontragenti, btk.Users, btk.Activation_object, btk.testing_object " +
+                                            "FROM btk.Zayavki, btk.Kontragenti, btk.Users, btk.Activation_object, btk.testing_object, btk.Object " +
                                             "where Zayavki.Activation_object_idActivation_object=Activation_object.idActivation_object " +
                                             "AND testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
                                             "AND Zayavki.Kontragenti_idKontragenti_sto=Kontragenti.idKontragenti " +
                                             "AND Zayavki.Users_idUsers=Users.idUsers " +
+                                            "AND testing_object.Object_idObject=Object.idObject " +
                                             "AND Zayavkicol_reason like '%" + comboBox_reason_zayavki.Text + "%' " +
                                             "AND (Zayavkicol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_from_for_zayavki_na_activation_W2.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(dateTimePicker_for_zayavki_na_activation_W2.Value).ToString("yyyy-MM-dd HH:mm:ss") + "')" +
                                             "AND (Zayavkicol_name like '%" + textBox_search_zayavki.Text + "%' " +
                                             "OR idZayavki like '%" + textBox_search_zayavki.Text + "%' " +
                                             "OR Zayavkicol_VIN like '%" + textBox_search_zayavki.Text + "%' " +
                                             "OR username like '%" + textBox_search_zayavki.Text + "%' " +
+                                            "OR Object.Object_imei like '%" + textBox_search_zayavki.Text + "%' " +
                                             "OR Activation_objectcol_result like '%" + textBox_search_zayavki.Text + "%') " +
                                             ";");
             }
@@ -682,6 +706,7 @@ namespace Disp_WinForm
             dataGridView_zayavki_na_activation.Columns["Створив"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView_zayavki_na_activation.Columns["Привязаний до тестування"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView_zayavki_na_activation.Columns["Статус активації"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_zayavki_na_activation.Columns["IMEI"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView_zayavki_na_activation.Columns["Дата активації"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView_zayavki_na_activation.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
@@ -736,23 +761,27 @@ namespace Disp_WinForm
                     "Activation_object.comment as 'Коментар', " +
                     "remaynder_activate as 'Нагадати', " +
                     "remayder_date as 'Дата нагадування', " +
+                    "Object.Object_imei as 'IMEI'," +
                     "Activation_object.Locked_user as 'Обробляє' " +
                     "FROM " +
                     "btk.products," +
                     "btk.Activation_object," +
                     "btk.Zayavki," +
                     "btk.TS_brand," +
-                    "btk.TS_model " +
+                    "btk.TS_model, " +
+                    "btk.Object " +
                     "where " +
                     "Activation_object.Object_idObject != '10' " +
                     "and(idZayavki like '%" + textBox_search_object_name_activation.Text + "%' " +
                     "or Activation_object.new_name_obj like '%" + textBox_search_object_name_activation.Text + "%' " +
                     "or Zayavkicol_name like '%" + textBox_search_object_name_activation.Text + "%' " +
+                    "OR Object.Object_imei like '%" + textBox_search_object_name_activation.Text + "%' " +
                     uspishno +
                     "or Zayavkicol_VIN like '%" + textBox_search_object_name_activation.Text + "%') " +
                     "and TS_brand.idTS_brand = Zayavki.TS_brand_idTS_brand " +
                     "and TS_model.idTS_model = Zayavki.TS_model_idTS_model " +
                     "and products.idproducts = Zayavki.products_idproducts " +
+                    "AND Activation_object.Object_idObject=Object.idObject " +
                     "and Zayavki.Activation_object_idActivation_object = Activation_object.idActivation_object " +
                     "order by idZayavki desc" +
                     "; ");
@@ -776,24 +805,28 @@ namespace Disp_WinForm
                     "Activation_object.comment as 'Коментар', " +
                     "remaynder_activate as 'Нагадати', " +
                     "remayder_date as 'Дата нагадування', " +
+                    "Object.Object_imei as 'IMEI'," +
                     "Activation_object.Locked_user as 'Обробляє' " +
                     "FROM " +
                     "btk.products," +
                     "btk.Activation_object," +
                     "btk.Zayavki," +
                     "btk.TS_brand," +
-                    "btk.TS_model " +
+                    "btk.TS_model, " +
+                    "btk.Object " +
                     "where " +
                     "Activation_object.Object_idObject != '10' " +
                     "and Activation_object.Activation_date between '" + Convert.ToDateTime(dateTimePicker_activation_filter_start.Value).Date.ToString("yyyy-MM-dd") + "' and '" + Convert.ToDateTime(dateTimePicker_activation_filter_end.Value).Date.ToString("yyyy-MM-dd") + "' " +
                     "and(idZayavki like '%" + textBox_search_object_name_activation.Text + "%' " +
                     "or Activation_object.new_name_obj like '%" + textBox_search_object_name_activation.Text + "%' " +
+                    "OR Object.Object_imei like '%" + textBox_search_object_name_activation.Text + "%' " +
                     "or Zayavkicol_name like '%" + textBox_search_object_name_activation.Text + "%' " +
                     uspishno +
                     "or Zayavkicol_VIN like '%" + textBox_search_object_name_activation.Text + "%') " +
                     "and TS_brand.idTS_brand = Zayavki.TS_brand_idTS_brand " +
                     "and TS_model.idTS_model = Zayavki.TS_model_idTS_model " +
                     "and products.idproducts = Zayavki.products_idproducts " +
+                    "AND Activation_object.Object_idObject=Object.idObject " +
                     "and Zayavki.Activation_object_idActivation_object = Activation_object.idActivation_object " +
                     "order by idZayavki desc" +
                     "; ");
@@ -816,6 +849,7 @@ namespace Disp_WinForm
             dataGridView_for_activation.Columns["VIN"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView_for_activation.Columns["Результат"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView_for_activation.Columns["Назва обєкту"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView_for_activation.Columns["IMEI"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView_for_activation.Columns["Обробляє"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView_for_activation.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
@@ -857,6 +891,7 @@ namespace Disp_WinForm
                     //"(SELECT coments FROM btk.activation_comments where Activation_object_idActivation_object = Activation_object.idActivation_object order by date_insert desc limit 1) as 'Коментар', " +
                     "Activation_object.comment as 'Коментар', " +
                     "remaynder_activate as 'Нагадати', " +
+                    "Object.Object_imei as 'IMEI'," +
                     "remayder_date as 'Дата нагадування', " +
                     "Activation_object.Locked_user as 'Обробляє' " +
                     "FROM " +
@@ -864,17 +899,20 @@ namespace Disp_WinForm
                     "btk.Activation_object," +
                     "btk.Zayavki," +
                     "btk.TS_brand," +
-                    "btk.TS_model " +
+                    "btk.TS_model, " +
+                    "btk.Object " +
                     "where " +
                     "Activation_object.Object_idObject != '10' " +
                     "and(idZayavki like '%" + textBox_search_object_name_activation.Text + "%' " +
                     "or Activation_object.new_name_obj like '%" + textBox_search_object_name_activation.Text + "%' " +
                     "or Zayavkicol_name like '%" + textBox_search_object_name_activation.Text + "%' " +
+                    "OR Object.Object_imei like '%" + textBox_search_object_name_activation.Text + "%' " +
                     " or Activation_objectcol_result like '" + textBox_search_object_name_activation.Text + "' " +
                     "or Zayavkicol_VIN like '%" + textBox_search_object_name_activation.Text + "%') " +
                     "and TS_brand.idTS_brand = Zayavki.TS_brand_idTS_brand " +
                     "and TS_model.idTS_model = Zayavki.TS_model_idTS_model " +
                     "and products.idproducts = Zayavki.products_idproducts " +
+                    "AND Activation_object.Object_idObject=Object.idObject " +
                     "and Zayavki.Activation_object_idActivation_object = Activation_object.idActivation_object " +
                     "order by idZayavki desc" +
                     "; ");
@@ -897,13 +935,15 @@ namespace Disp_WinForm
                     "Activation_object.comment as 'Коментар', " +
                     "remaynder_activate as 'Нагадати', " +
                     "remayder_date as 'Дата нагадування', " +
+                     "Object.Object_imei as 'IMEI'," +
                     "Activation_object.Locked_user as 'Обробляє' " +
                     "FROM " +
                     "btk.products," +
                     "btk.Activation_object," +
                     "btk.Zayavki," +
                     "btk.TS_brand," +
-                    "btk.TS_model " +
+                    "btk.TS_model, " +
+                    "btk.Object " +
                     "where " +
                     "Activation_object.Object_idObject != '10' " +
                     "and Activation_object.Activation_date between '" + Convert.ToDateTime(dateTimePicker_activation_filter_start.Value).Date.ToString("yyyy-MM-dd") + "' and '" + Convert.ToDateTime(dateTimePicker_activation_filter_end.Value).Date.ToString("yyyy-MM-dd") + "' " +
@@ -911,10 +951,12 @@ namespace Disp_WinForm
                     "or Activation_object.new_name_obj like '%" + textBox_search_object_name_activation.Text + "%' " +
                     "or Zayavkicol_name like '%" + textBox_search_object_name_activation.Text + "%' " +
                     "or Activation_objectcol_result like '" + textBox_search_object_name_activation.Text + "' " +
+                    "OR Object.Object_imei like '%" + textBox_search_object_name_activation.Text + "%' " +
                     "or Zayavkicol_VIN like '%" + textBox_search_object_name_activation.Text + "%') " +
                     "and TS_brand.idTS_brand = Zayavki.TS_brand_idTS_brand " +
                     "and TS_model.idTS_model = Zayavki.TS_model_idTS_model " +
                     "and products.idproducts = Zayavki.products_idproducts " +
+                    "AND Activation_object.Object_idObject=Object.idObject " +
                     "and Zayavki.Activation_object_idActivation_object = Activation_object.idActivation_object " +
                     "order by idZayavki desc" +
                     "; ");
@@ -1104,68 +1146,131 @@ namespace Disp_WinForm
         {
             DataTable table = new DataTable();
 
-            if (comboBox_testing_filter.SelectedIndex == 1)
+
+            if (checkBox_testing_za_ves_chas_search.Checked)
             {
-                table = macros.GetData("SELECT " +
-                                   "testing_object.idtesting_object as '№ тестування', " +
-                                   "Object.Object_name as 'Назва обекту', " +
-                                   "Object.Object_imei as 'IMEI', " +
-                                   "Users.username as 'Змінив', " +
-                                   "testing_object.testing_objectcol_result as 'Результат', " +
-                                   "testing_object.testing_objectcol_edit_timestamp as 'Змінено', " +
-                                   "testing_object.testing_objectcol_comments as 'Коментар' " +
-                                   "FROM " +
-                                   "btk.testing_object, " +
-                                   "btk.Object, " +
-                                   "btk.Users " +
-                                   "where " +
-                                   "testing_object.testing_objectcol_result='Успішно' and " +
-                                   "testing_object.Object_idObject=Object.idObject and " +
-                                   "testing_object.Users_idUsers=Users.idUsers and " +
-                                   "(testing_object.testing_objectcol_edit_timestamp  between '" + Convert.ToDateTime(dateTimePicker_testing_date.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "') and " +
-                                   "Object.Object_imei like '%" + textBox_search_testing.Text + "%' ;");
+
+                table = macros.GetData(
+                    "SELECT " +
+                    "testing_object.idtesting_object as '№ тестування', " +
+                    "Object.Object_name as 'Назва обекту', " +
+                    "Object.Object_imei as 'IMEI', " +
+                    "Users.username as 'Змінив', " +
+                    "testing_object.testing_objectcol_result as 'Результат', " +
+                    "testing_object.testing_objectcol_edit_timestamp as 'Змінено', " +
+                    "testing_object.testing_objectcol_comments as 'Коментар' " +
+                    "FROM " +
+                    "btk.testing_object, " +
+                    "btk.Object, " +
+                    "btk.Users " +
+                    "where " +
+                    "testing_object.Object_idObject=Object.idObject " +
+                    "and testing_object.Users_idUsers=Users.idUsers " +
+                    "and (Object.Object_imei like '%" + textBox_search_object_name_testing.Text + "%' " +
+                    "OR testing_object.idtesting_object like '%" + textBox_search_object_name_testing.Text + "%' " +
+                    "OR Object.Object_name like '%" + textBox_search_object_name_testing.Text + "%' " +
+                    "OR Users.username like '%" + textBox_search_object_name_testing.Text + "%' " +
+                    "OR testing_object.testing_objectcol_result like '%" + textBox_search_object_name_testing.Text + "%') " +
+                    "order by idtesting_object desc" +
+                    "; ");
+
             }
-            else if (comboBox_testing_filter.SelectedIndex == 0)
+            else
             {
-                table = macros.GetData("SELECT " +
-                                   "testing_object.idtesting_object as '№ тестування', " +
-                                   "Object.Object_name as 'Назва обекту', " +
-                                   "Object.Object_imei as 'IMEI', " +
-                                   "Users.username as 'Змінив', " +
-                                   "testing_object.testing_objectcol_result as 'Результат', " +
-                                   "testing_object.testing_objectcol_edit_timestamp as 'Змінено', " +
-                                   "testing_object.testing_objectcol_comments as 'Коментар' " +
-                                   "FROM " +
-                                   "btk.testing_object, " +
-                                   "btk.Object, " +
-                                   "btk.Users " +
-                                   "where " +
-                                   "testing_object.testing_objectcol_result ='Не завершено' and " +
-                                   "testing_object.Object_idObject=Object.idObject and " +
-                                   "testing_object.Users_idUsers=Users.idUsers and " +
-                                   "(testing_object.testing_objectcol_edit_timestamp  between '" + Convert.ToDateTime(dateTimePicker_testing_date.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "') and " +
-                                   "Object.Object_imei like '%" + textBox_search_testing.Text + "%' ;");
+                table = macros.GetData(
+                    "SELECT " +
+                    "testing_object.idtesting_object as '№ тестування', " +
+                    "Object.Object_name as 'Назва обекту', " +
+                    "Object.Object_imei as 'IMEI', " +
+                    "Users.username as 'Змінив', " +
+                    "testing_object.testing_objectcol_result as 'Результат', " +
+                    "testing_object.testing_objectcol_edit_timestamp as 'Змінено', " +
+                    "testing_object.testing_objectcol_comments as 'Коментар' " +
+                    "FROM " +
+                    "btk.testing_object, " +
+                    "btk.Object, " +
+                    "btk.Users " +
+                    "where " +
+                    "testing_object.Object_idObject=Object.idObject " +
+                    "and testing_object.Users_idUsers=Users.idUsers " +
+                    "and testing_object.testing_objectcol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_testig_filter_start.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(dateTimePicker_testing_filter_end.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' " +
+                    "and (Object.Object_imei like '%" + textBox_search_object_name_testing.Text + "%' " +
+                    "OR testing_object.idtesting_object like '%" + textBox_search_object_name_testing.Text + "%' " +
+                    "OR Object.Object_name like '%" + textBox_search_object_name_testing.Text + "%' " +
+                    "OR Users.username like '%" + textBox_search_object_name_testing.Text + "%' " +
+                    "OR testing_object.testing_objectcol_result like '%" + textBox_search_object_name_testing.Text + "%') " +
+                    "order by idtesting_object desc" +
+                    "; ");
             }
-            else if (comboBox_testing_filter.SelectedIndex == 2)
-            {
-                table = macros.GetData("SELECT " +
-                                   "testing_object.idtesting_object as '№ тестування', " +
-                                   "Object.Object_name as 'Назва обекту', " +
-                                   "Object.Object_imei as 'IMEI', " +
-                                   "Users.username as 'Змінив', " +
-                                   "testing_object.testing_objectcol_result as 'Результат', " +
-                                   "testing_object.testing_objectcol_edit_timestamp as 'Змінено', " +
-                                   "testing_object.testing_objectcol_comments as 'Коментар' " +
-                                   "FROM " +
-                                   "btk.testing_object, " +
-                                   "btk.Object, " +
-                                   "btk.Users " +
-                                   "where " +
-                                   "testing_object.Object_idObject=Object.idObject and " +
-                                   "testing_object.Users_idUsers=Users.idUsers and " +
-                                   "(testing_object.testing_objectcol_edit_timestamp  between '" + Convert.ToDateTime(dateTimePicker_testing_date.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "') and " +
-                                   "Object.Object_imei like '%" + textBox_search_testing.Text + "%' ;");
-            }
+
+
+
+
+
+
+
+            //if (comboBox_testing_filter.SelectedIndex == 1)
+            //{
+            //    table = macros.GetData("SELECT " +
+            //                       "testing_object.idtesting_object as '№ тестування', " +
+            //                       "Object.Object_name as 'Назва обекту', " +
+            //                       "Object.Object_imei as 'IMEI', " +
+            //                       "Users.username as 'Змінив', " +
+            //                       "testing_object.testing_objectcol_result as 'Результат', " +
+            //                       "testing_object.testing_objectcol_edit_timestamp as 'Змінено', " +
+            //                       "testing_object.testing_objectcol_comments as 'Коментар' " +
+            //                       "FROM " +
+            //                       "btk.testing_object, " +
+            //                       "btk.Object, " +
+            //                       "btk.Users " +
+            //                       "where " +
+            //                       "testing_object.testing_objectcol_result='Успішно' and " +
+            //                       "testing_object.Object_idObject=Object.idObject and " +
+            //                       "testing_object.Users_idUsers=Users.idUsers and " +
+            //                       "(testing_object.testing_objectcol_edit_timestamp  between '" + Convert.ToDateTime(dateTimePicker_testing_date.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "') and " +
+            //                       "Object.Object_imei like '%" + textBox_search_testing.Text + "%' ;");
+            //}
+            //else if (comboBox_testing_filter.SelectedIndex == 0)
+            //{
+            //    table = macros.GetData("SELECT " +
+            //                       "testing_object.idtesting_object as '№ тестування', " +
+            //                       "Object.Object_name as 'Назва обекту', " +
+            //                       "Object.Object_imei as 'IMEI', " +
+            //                       "Users.username as 'Змінив', " +
+            //                       "testing_object.testing_objectcol_result as 'Результат', " +
+            //                       "testing_object.testing_objectcol_edit_timestamp as 'Змінено', " +
+            //                       "testing_object.testing_objectcol_comments as 'Коментар' " +
+            //                       "FROM " +
+            //                       "btk.testing_object, " +
+            //                       "btk.Object, " +
+            //                       "btk.Users " +
+            //                       "where " +
+            //                       "testing_object.testing_objectcol_result ='Не завершено' and " +
+            //                       "testing_object.Object_idObject=Object.idObject and " +
+            //                       "testing_object.Users_idUsers=Users.idUsers and " +
+            //                       "(testing_object.testing_objectcol_edit_timestamp  between '" + Convert.ToDateTime(dateTimePicker_testing_date.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "') and " +
+            //                       "Object.Object_imei like '%" + textBox_search_testing.Text + "%' ;");
+            //}
+            //else if (comboBox_testing_filter.SelectedIndex == 2)
+            //{
+            //    table = macros.GetData("SELECT " +
+            //                       "testing_object.idtesting_object as '№ тестування', " +
+            //                       "Object.Object_name as 'Назва обекту', " +
+            //                       "Object.Object_imei as 'IMEI', " +
+            //                       "Users.username as 'Змінив', " +
+            //                       "testing_object.testing_objectcol_result as 'Результат', " +
+            //                       "testing_object.testing_objectcol_edit_timestamp as 'Змінено', " +
+            //                       "testing_object.testing_objectcol_comments as 'Коментар' " +
+            //                       "FROM " +
+            //                       "btk.testing_object, " +
+            //                       "btk.Object, " +
+            //                       "btk.Users " +
+            //                       "where " +
+            //                       "testing_object.Object_idObject=Object.idObject and " +
+            //                       "testing_object.Users_idUsers=Users.idUsers and " +
+            //                       "(testing_object.testing_objectcol_edit_timestamp  between '" + Convert.ToDateTime(dateTimePicker_testing_date.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "') and " +
+            //                       "Object.Object_imei like '%" + textBox_search_testing.Text + "%' ;");
+            //}
 
             int scrollPosition = dataGridView_testing.FirstDisplayedScrollingRowIndex;//сохраняем позицию скрола перед обновлением таблицы
             dataGridView_testing.DataSource = table;
@@ -4156,6 +4261,7 @@ namespace Disp_WinForm
                 //GeckoPreferences.User["browser.xul.error_pages.enabled"] = true;
                 geckoWebBrowser_GoogleMaseges.Navigate("https://messages.google.com/web/authentication");
             }
+
         }
 
         private void build_list_products()
@@ -14581,7 +14687,157 @@ namespace Disp_WinForm
             
             update_zayavki_na_aktivation_2W();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (listBox_test_search_result.SelectedItems.Count <= 0)
+            {
+                return;
+            }
+
+            vars_form.id_wl_object_for_test = listBox_test_search_result.SelectedValue.ToString();
+
+            string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_id\"," +
+                                                     "\"propValueMask\":\"" + Convert.ToInt32(listBox_test_search_result.SelectedValue) + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"513\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+
+            var m = JsonConvert.DeserializeObject<RootObject>(unswer);
+            int id_cmd_ = 0;
+            foreach (var keyvalue in m.items[0].cmds) //Get user account where name like email, contains @
+            {
+                id_cmd_ ++;
+                if (keyvalue.n.Contains("2 - Автозапуск стоп"))
+                    create_commads_wl_(Convert.ToInt32(listBox_test_search_result.SelectedValue), id_cmd_, "2 - Автозапуск стоп", "%23autostart=0%23", 16777216);
+                if (keyvalue.n.Contains("2 - Автозапуск старт"))
+                    create_commads_wl_(Convert.ToInt32(listBox_test_search_result.SelectedValue), id_cmd_, "2 - Автозапуск старт", "%23autostart=1%23", 16777216);
+
+                
+            }
+            //MessageBox.Show("Ok");
+        }
+        private string create_commads_wl_(int id_object, int id_cmd, string name_command, string command, int acl_flag)
+        {
+            string answer = macros.WialonRequest("&svc=unit/update_command_definition&params={"
+                                                                                                    + "\"itemId\":\"" + id_object + "\","
+                                                                                                    + "\"id\":\""+ id_cmd + "\","
+                                                                                                    + "\"callMode\":\"update\","
+                                                                                                    + "\"n\":\"" + name_command + "\","
+                                                                                                    + "\"c\":\"custom_msg\","
+                                                                                                    + "\"l\":\"tcp\","
+                                                                                                    + "\"p\":\"" + command + "\","
+                                                                                                    + "\"a\":\"" + acl_flag + "\"}");
+
+
+            return answer;
+        }
+
+        private void checkBox_map_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_map.Checked is true)
+            {
+                Map map = new Map();
+                map.Show();
+            }
+            else 
+            {
+                Map f = new Map();
+                f.Close();
+            }
+        }
+
+        private void Delet_Testing_button_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Видалити?", "Видалити", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                int rowindex = dataGridView_testing.CurrentCell.RowIndex;
+                string testing = dataGridView_testing.Rows[rowindex].Cells[0].Value.ToString();
+                string activation = macros.sql_command("Select Activation_object_idActivation_object FROM btk.Zayavki where testing_object_idtesting_object = '" + testing + "';");
+                string zayavka = macros.sql_command("Select idZayavki FROM btk.Zayavki where testing_object_idtesting_object = '" + testing + "';");
+
+                macros.sql_command("Delete FROM btk.Zayavki_has_Activation_object where Activation_object_idActivation_object = '" + activation + "' and Zayavki_idZayavki = '" + zayavka + "';");
+                macros.sql_command("Delete FROM btk.Zayavki where testing_object_idtesting_object = '" + zayavka + "';");
+                macros.sql_command("Delete FROM btk.testing_object where idtesting_object = '" + testing + "';");
+                macros.sql_command("Delete FROM btk.Activation_object where idActivation_object = '" + activation + "';");
+                MessageBox.Show("Тестирование: " + testing + ", " + "Активація: " + activation + ", " + "Заявка: " + zayavka + " - Удалены!");
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                
+                return;
+            }  
+        }
+
+        private void checkBox_testing_za_ves_chas_search_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_testing_za_ves_chas_search.Checked == true)
+            {
+                dateTimePicker_testig_filter_start.Enabled = false;
+                dateTimePicker_testing_filter_end.Enabled = false;
+            }
+            else
+            {
+                dateTimePicker_testig_filter_start.Enabled = true;
+                dateTimePicker_testing_filter_end.Enabled = true;
+            }
+            update_testing_dgv();
+        }
+
+        private void textBox_search_object_name_testing_TextChanged(object sender, EventArgs e)
+        {
+            if (textBox_search_object_name_testing.Text == "")
+            {
+                checkBox_testing_za_ves_chas_search.Enabled = false;
+                checkBox_testing_za_ves_chas_search.Checked = false;
+            }
+            else { checkBox_testing_za_ves_chas_search.Enabled = true; }
+            update_testing_dgv();
+        }
+
+        private void dateTimePicker_testig_filter_start_ValueChanged(object sender, EventArgs e)
+        {
+            update_testing_dgv();
+        }
+
+        private void dateTimePicker_testing_filter_end_ValueChanged(object sender, EventArgs e)
+        {
+            update_testing_dgv();
+        }
+
+        private void dateTimePicker_testing_filter_end_DropDown(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void dateTimePicker_testig_filter_start_DropDown(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox_testing_nezaversheno_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_testing_nezaversheno.Checked is true)
+            { textBox_search_object_name_testing.Text = "Не заверше"; }
+            else { textBox_search_object_name_testing.Text = ""; }
+        }
+
+        private void checkBox_testing_uspishno_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_testing_uspishno.Checked is true)
+            { textBox_search_object_name_testing.Text = "Успішно"; }
+            else { textBox_search_object_name_testing.Text = ""; }
+        }
     }
+
+
 
     internal class List_add_alarm
     {
@@ -14658,6 +14914,7 @@ namespace Disp_WinForm
         public static string Vodafone_RefreshToken { get; set; }
         public static int Vodafone_RefreshTokenExpiresInMilliseconds { get; set; }
         public static DateTime Vodafone_DateTimeTokenCreate { get; set; }
-
+        public static string MapFormIdObject { get; set; }
+        public static string MapFormName { get; set; }
     }
 }

@@ -67,6 +67,8 @@
             this.maskedTextBox_tel2 = new System.Windows.Forms.MaskedTextBox();
             this.maskedTextBox_tel1 = new System.Windows.Forms.MaskedTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.IMEI_textBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button_vidkripyty = new System.Windows.Forms.Button();
@@ -92,7 +94,7 @@
             // 
             // textBox_vin_zayavki
             // 
-            this.textBox_vin_zayavki.Location = new System.Drawing.Point(94, 126);
+            this.textBox_vin_zayavki.Location = new System.Drawing.Point(94, 152);
             this.textBox_vin_zayavki.Name = "textBox_vin_zayavki";
             this.textBox_vin_zayavki.Size = new System.Drawing.Size(411, 20);
             this.textBox_vin_zayavki.TabIndex = 14;
@@ -100,7 +102,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 129);
+            this.label1.Location = new System.Drawing.Point(12, 155);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(25, 13);
             this.label1.TabIndex = 5;
@@ -109,7 +111,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 49);
+            this.label2.Location = new System.Drawing.Point(12, 75);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 13);
             this.label2.TabIndex = 6;
@@ -118,7 +120,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 76);
+            this.label5.Location = new System.Drawing.Point(12, 102);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(31, 13);
             this.label5.TabIndex = 9;
@@ -127,7 +129,7 @@
             // dateTimePicker_plan_date_zayavki
             // 
             this.dateTimePicker_plan_date_zayavki.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker_plan_date_zayavki.Location = new System.Drawing.Point(94, 152);
+            this.dateTimePicker_plan_date_zayavki.Location = new System.Drawing.Point(94, 178);
             this.dateTimePicker_plan_date_zayavki.Name = "dateTimePicker_plan_date_zayavki";
             this.dateTimePicker_plan_date_zayavki.Size = new System.Drawing.Size(411, 20);
             this.dateTimePicker_plan_date_zayavki.TabIndex = 2;
@@ -159,7 +161,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 103);
+            this.label6.Location = new System.Drawing.Point(12, 129);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(76, 13);
             this.label6.TabIndex = 16;
@@ -176,7 +178,7 @@
             // 
             // textBox_license_plate_zayavki
             // 
-            this.textBox_license_plate_zayavki.Location = new System.Drawing.Point(94, 100);
+            this.textBox_license_plate_zayavki.Location = new System.Drawing.Point(94, 126);
             this.textBox_license_plate_zayavki.Name = "textBox_license_plate_zayavki";
             this.textBox_license_plate_zayavki.Size = new System.Drawing.Size(411, 20);
             this.textBox_license_plate_zayavki.TabIndex = 13;
@@ -195,7 +197,7 @@
             // 
             this.comboBox_product_zayavki.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_product_zayavki.FormattingEnabled = true;
-            this.comboBox_product_zayavki.Location = new System.Drawing.Point(94, 46);
+            this.comboBox_product_zayavki.Location = new System.Drawing.Point(94, 72);
             this.comboBox_product_zayavki.Name = "comboBox_product_zayavki";
             this.comboBox_product_zayavki.Size = new System.Drawing.Size(411, 21);
             this.comboBox_product_zayavki.TabIndex = 9;
@@ -204,7 +206,7 @@
             // 
             this.comboBox_model_zayavki.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_model_zayavki.FormattingEnabled = true;
-            this.comboBox_model_zayavki.Location = new System.Drawing.Point(276, 73);
+            this.comboBox_model_zayavki.Location = new System.Drawing.Point(276, 98);
             this.comboBox_model_zayavki.Name = "comboBox_model_zayavki";
             this.comboBox_model_zayavki.Size = new System.Drawing.Size(166, 21);
             this.comboBox_model_zayavki.TabIndex = 11;
@@ -213,7 +215,7 @@
             // 
             this.comboBox_brand_zayavki.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_brand_zayavki.FormattingEnabled = true;
-            this.comboBox_brand_zayavki.Location = new System.Drawing.Point(94, 72);
+            this.comboBox_brand_zayavki.Location = new System.Drawing.Point(94, 98);
             this.comboBox_brand_zayavki.Name = "comboBox_brand_zayavki";
             this.comboBox_brand_zayavki.Size = new System.Drawing.Size(176, 21);
             this.comboBox_brand_zayavki.TabIndex = 10;
@@ -251,7 +253,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(13, 156);
+            this.label10.Location = new System.Drawing.Point(13, 182);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(59, 13);
             this.label10.TabIndex = 151;
@@ -286,7 +288,7 @@
             // 
             this.comboBox_date_vipuska_zayavki.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_date_vipuska_zayavki.FormattingEnabled = true;
-            this.comboBox_date_vipuska_zayavki.Location = new System.Drawing.Point(448, 73);
+            this.comboBox_date_vipuska_zayavki.Location = new System.Drawing.Point(448, 98);
             this.comboBox_date_vipuska_zayavki.Name = "comboBox_date_vipuska_zayavki";
             this.comboBox_date_vipuska_zayavki.Size = new System.Drawing.Size(57, 21);
             this.comboBox_date_vipuska_zayavki.TabIndex = 12;
@@ -448,6 +450,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.IMEI_textBox);
+            this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.textBox_vin_zayavki);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.dateTimePicker_plan_date_zayavki);
@@ -469,6 +473,22 @@
             this.groupBox2.TabIndex = 179;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Інформація про обєкт";
+            // 
+            // IMEI_textBox
+            // 
+            this.IMEI_textBox.Location = new System.Drawing.Point(94, 46);
+            this.IMEI_textBox.Name = "IMEI_textBox";
+            this.IMEI_textBox.Size = new System.Drawing.Size(411, 20);
+            this.IMEI_textBox.TabIndex = 152;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 49);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 13);
+            this.label3.TabIndex = 153;
+            this.label3.Text = "IMEI";
             // 
             // groupBox3
             // 
@@ -608,5 +628,7 @@
         private System.Windows.Forms.TextBox textBox_search_by_vin_testing;
         private System.Windows.Forms.CheckBox checkBox_for_all_time;
         private System.Windows.Forms.TextBox textBox_sobstvennik_avto;
+        private System.Windows.Forms.TextBox IMEI_textBox;
+        private System.Windows.Forms.Label label3;
     }
 }

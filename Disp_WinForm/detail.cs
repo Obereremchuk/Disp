@@ -36,6 +36,9 @@ namespace Disp_WinForm
         private int sim2_operator;
         private string idSimCard;
         private string idSim2Card;
+        private bool StateBlockButton;
+        private bool StateServiceButton;
+        private bool StateAutostartButton;
 
         public detail()
         {
@@ -197,8 +200,9 @@ namespace Disp_WinForm
             string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '1' ORDER BY idVO DESC limit 1;");
 
             string VO_falilia = macros.sql_command("SELECT Kontakti_familia FROM btk.Kontakti where idKontakti = '" + VO1.ToString() + "';");
-            string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO1.ToString() + "';");
+            string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO1.ToString() + "';");
             string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO1.ToString() + "';");
+            string VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO1.ToString() + "';");
             if (VO_phone2 == "   -   -")
             { VO_phone2 = ""; }
             if (VO_falilia == "" & VO_imya_phone == "" || VO_imya_phone.Contains("Пусто"))
@@ -208,13 +212,14 @@ namespace Disp_WinForm
             }
             else
             {
-                textBox_vo1.Text = VO_falilia.ToUpper() + " " + VO_imya_phone + ", " + VO_phone2;
+                textBox_vo1.Text = VO_falilia.ToUpper() + " " + VO_imya_phone + ", " + VO_phone2 + " (" + VO_phone2_Coment + ")"; ;
             }
 
             //load VO2
             string VO2 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '2' ORDER BY idVO DESC limit 1;");
-            string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO2.ToString() + "';");
+            string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO2.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO2.ToString() + "';");
+            VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO2.ToString() + "';");
             if (VO_phone2 == "   -   -")
             { VO_phone2 = ""; }
             if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
@@ -224,14 +229,15 @@ namespace Disp_WinForm
             }
             else
             {
-                textBox_vo2.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                textBox_vo2.Text = VO_familia_imya_phone + ", " + VO_phone2 + " (" + VO_phone2_Coment + ")"; ;
             }
 
 
             //load VO3
             string VO3 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '3' ORDER BY idVO DESC limit 1;");
-            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO3.ToString() + "';");
+            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO3.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO3.ToString() + "';");
+            VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO3.ToString() + "';");
             if (VO_phone2 == "   -   -")
             { VO_phone2 = ""; }
             if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
@@ -241,13 +247,14 @@ namespace Disp_WinForm
             }
             else
             {
-                textBox_vo3.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                textBox_vo3.Text = VO_familia_imya_phone + ", " + VO_phone2 + " (" + VO_phone2_Coment + ")"; ;
             }
 
             //load VO4
             string VO4 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '4' ORDER BY idVO DESC limit 1;");
-            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO4.ToString() + "';");
+            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO4.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO4.ToString() + "';");
+            VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO4.ToString() + "';");
             if (VO_phone2 == "   -   -")
             { VO_phone2 = ""; }
             if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
@@ -257,13 +264,14 @@ namespace Disp_WinForm
             }
             else
             {
-                textBox_vo4.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                textBox_vo4.Text = VO_familia_imya_phone + ", " + VO_phone2 + " (" + VO_phone2_Coment + ")"; ;
             }
 
             //load VO5
             string VO5 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '5' ORDER BY idVO DESC limit 1;");
-            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO5.ToString() + "';");
+            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO5.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO5.ToString() + "';");
+            VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO5.ToString() + "';");
             if (VO_phone2 == "   -   -")
             { VO_phone2 = ""; }
             if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
@@ -273,7 +281,7 @@ namespace Disp_WinForm
             }
             else
             {
-                textBox_vo5.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                textBox_vo5.Text = VO_familia_imya_phone + ", " + VO_phone2 + " (" + VO_phone2_Coment + ")"; ;
             }
 
 
@@ -981,6 +989,12 @@ namespace Disp_WinForm
 
             var m = JsonConvert.DeserializeObject<RootObject>(json2);
 
+            if (m.items.Count <= 0)
+            {
+                MessageBox.Show("Для справки: Объект удален, информация не полная");
+                return;
+            }
+
             if (m.items[0].lmsg != null)
             {
                 label_lmst.Text = macros.UnixTimeStampToDateTime(m.items[0].lmsg.t).ToString();
@@ -1238,7 +1252,11 @@ namespace Disp_WinForm
 
         private void arhiv_object()
         {
-                dataGridView_trivogi_objecta.AutoGenerateColumns = false;
+            dataGridView_trivogi_objecta.AutoGenerateColumns = false;
+            //dataGridView_trivogi_objecta.DataSource = macros.GetData("SELECT idnotification, type_alarm, msg_time, Status, last_location FROM btk.notification where unit_id = " + _search_id + " and group_alarm is null");
+            if (dataGridView_trivogi_objecta.InvokeRequired)
+                dataGridView_trivogi_objecta.Invoke(new Action(() => dataGridView_trivogi_objecta.DataSource = macros.GetData("SELECT idnotification, type_alarm, msg_time, Status, last_location FROM btk.notification where unit_id = " + _search_id + " and group_alarm is null")));
+            else
                 dataGridView_trivogi_objecta.DataSource = macros.GetData("SELECT idnotification, type_alarm, msg_time, Status, last_location FROM btk.notification where unit_id = " + _search_id + " and group_alarm is null");
         }
 
@@ -1488,11 +1506,12 @@ namespace Disp_WinForm
 
         private void form_vo_add_deactivated(object sender, FormClosedEventArgs e)
         {
-            if (vars_form.num_vo == 1)//VO1 1 familia make upper case
+            if (vars_form.kontakts_opened_from == 1)//VO1 1 familia make upper case
             {
                 string VO_falilia = macros.sql_command("SELECT Kontakti_familia FROM btk.Kontakti where idKontakti = '" + vars_form.transfer_vo1_vo_form + "';");
-                string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo1_vo_form + "';");
+                string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo1_vo_form + "';");
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo1_vo_form + "';");
+                string VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo1_vo_form + "';");
                 if (VO_phone2 == "   -   -")
                 { VO_phone2 = ""; }
                 if (VO_falilia == "" & VO_imya_phone =="" || VO_imya_phone.Contains("Пусто"))
@@ -1502,14 +1521,15 @@ namespace Disp_WinForm
                 }
                 else
                 {
-                    textBox_vo1.Text = VO_falilia.ToUpper() + " " + VO_imya_phone + ", " + VO_phone2;
+                    textBox_vo1.Text = VO_falilia.ToUpper() + " " + VO_imya_phone + ", " + VO_phone2 + " (" + VO_phone2_Coment + ")";
                 }
 
             }
-            if (vars_form.num_vo == 2)
+            if (vars_form.kontakts_opened_from == 2)
             {
-                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo2_vo_form + "';");
+                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo2_vo_form + "';");
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo2_vo_form + "';");
+                string VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo2_vo_form + "';");
                 if (VO_phone2 == "   -   -")
                 { VO_phone2 = ""; }
                 if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
@@ -1519,14 +1539,15 @@ namespace Disp_WinForm
                 }
                 else
                 {
-                    textBox_vo2.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                    textBox_vo2.Text = VO_familia_imya_phone + ", " + VO_phone2 + " (" + VO_phone2_Coment + ")";
                 }
 
             }
-            if (vars_form.num_vo == 3)
+            if (vars_form.kontakts_opened_from == 3)
             {
-                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo3_vo_form + "';");
+                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo3_vo_form + "';");
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo3_vo_form + "';");
+                string VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo3_vo_form + "';");
                 if (VO_phone2 == "   -   -")
                 { VO_phone2 = ""; }
                 if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
@@ -1536,13 +1557,14 @@ namespace Disp_WinForm
                 }
                 else
                 {
-                    textBox_vo3.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                    textBox_vo3.Text = VO_familia_imya_phone + ", " + VO_phone2 + " (" + VO_phone2_Coment + ")";
                 }
             }
-            if (vars_form.num_vo == 4)
+            if (vars_form.kontakts_opened_from == 4)
             {
-                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo4_vo_form + "';");
+                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo4_vo_form + "';");
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo4_vo_form + "';");
+                string VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo4_vo_form + "';");
                 if (VO_phone2 == "   -   -")
                 { VO_phone2 = ""; }
                 if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
@@ -1552,13 +1574,14 @@ namespace Disp_WinForm
                 }
                 else
                 {
-                    textBox_vo4.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                    textBox_vo4.Text = VO_familia_imya_phone + ", " + VO_phone2 + " (" + VO_phone2_Coment + ")";
                 }
             }
-            if (vars_form.num_vo == 5)
+            if (vars_form.kontakts_opened_from == 5)
             {
-                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,'')) FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo5_vo_form + "';");
+                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo5_vo_form + "';");
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo5_vo_form + "';");
+                string VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo5_vo_form + "';");
                 if (VO_phone2 == "   -   -")
                 { VO_phone2 = ""; }
                 if (VO_familia_imya_phone == "" || VO_familia_imya_phone == "Пусто Пусто , ")
@@ -1568,11 +1591,11 @@ namespace Disp_WinForm
                 }
                 else
                 {
-                    textBox_vo5.Text = VO_familia_imya_phone + ", " + VO_phone2;
+                    textBox_vo5.Text = VO_familia_imya_phone + ", " + VO_phone2 + " (" + VO_phone2_Coment + ")";
                 }
             }
             this.Visible = true;// разблокируем окно контрагентов кактолько закрыто окно добавления контрагента
-            vars_form.num_vo = 0;
+            vars_form.kontakts_opened_from = 0;
         }
 
         private void textBox_vo1_DoubleClick(object sender, EventArgs e)
@@ -1977,7 +2000,7 @@ namespace Disp_WinForm
                                     "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                     " 'Учетки', '" +
                                     "" + police + "', " +
-                                    "'" + gmr + "'); UPDATE btk.notification SET Status = 'Учетки', time_stamp = now(), Users_idUsers='" + _user_login_id + "' WHERE idnotification = '" + _id_notif + "'OR group_alarm = '" + _id_notif + "'; ");
+                                    "'" + gmr + "'); UPDATE btk.notification SET Status = '"+ comboBox_status_trevogi.SelectedItem.ToString() + "', time_stamp = now(), Users_idUsers='" + _user_login_id + "' WHERE idnotification = '" + _id_notif + "'OR group_alarm = '" + _id_notif + "'; ");
                 mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
             }
         }// Диалог закрываем заявку или нет при завершении работы с учетными записями
@@ -3950,7 +3973,7 @@ namespace Disp_WinForm
                                                              "\"newPassword\":\"" + pass + "\"}");
                     var m1 = JsonConvert.DeserializeObject<RootObject>(json1);
 
-                    string Body = "<p>Добрий день!</p><p>;</p><p>Відповідно до Вашого запиту,</p><p>Для Вас було відновлено пароль для доступу в систему моніторингу ВЕНБЕСТ. </p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою мобільного додатку:</p><p>1.Завантажте мобільний додаток Wialon Local: https://venbest.ua/gps-prilozheniia/</p> <p>2.При першому вході в мобільний додаток введіть такі дані:</p><p>a. Логін: " + treeView_user_accounts.SelectedNode.Text + "</p><p>b.Пароль: " + pass + " </p><p>Зверніть, будь ласка, увагу, що логін та пароль чутливий до регістру символів, які ви вводите.</p><p> <br></p><p>3.Якщо ви бажаєте отримувати сповіщення, увімкніть їх в налаштуваннях.</p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою браузеру:</p><p>1.Перейдіть за посиланням: https://navi.venbest.com.ua/</p> <p>2.Введіть логін: " + treeView_user_accounts.SelectedNode.Text + "</p><p>3.Введіть пароль: " + pass + "</p><p>  <br></p><p>Змініть, будь ласка, пароль в налаштуваннях користувача при вході через браузер.</p><p>----------------------------------------------</p><p>Департамент супутникових систем охорони</p><p>Група Компаній «ВЕНБЕСТ»</p><p>Т 044 501 33 77;</p><p>auto@venbest.com.ua | https://venbest.ua/ohrana-avto-i-zashchita-ot-ugona</p>";
+                    string Body = "<p>Добрий день!</p><p>Відповідно до Вашого запиту, для Вас було відновлено пароль для доступу в систему моніторингу ВЕНБЕСТ. </p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою мобільного додатку:</p><p>1.Завантажте мобільний додаток: https://venbest.ua/gps-prilozheniia/</p> <p>2.При першому вході в мобільний додаток введіть такі дані:</p><p>a. Логін: " + treeView_user_accounts.SelectedNode.Text + "</p><p>b.Пароль: " + pass + " </p><p>Зверніть, будь ласка, увагу, що логін та пароль чутливий до регістру символів, які ви вводите.</p><p> <br></p><p>3.Якщо ви бажаєте отримувати сповіщення, увімкніть їх в налаштуваннях.</p><p>----------------------------------------------</p><p>Для входу в систему моніторингу за допомогою браузеру:</p><p>1.Перейдіть за посиланням: https://navi.venbest.com.ua/</p> <p>2.Введіть логін: " + treeView_user_accounts.SelectedNode.Text + "</p><p>3.Введіть пароль: " + pass + "</p><p>  <br></p><p>Змініть, будь ласка, пароль в налаштуваннях користувача при вході через браузер.</p><p>----------------------------------------------</p><p>Департамент супутникових систем охорони</p><p>Група Компаній «ВЕНБЕСТ»</p><p>Т 044 501 33 77;</p><p>auto@venbest.com.ua | https://venbest.ua/ohrana-avto-i-zashchita-ot-ugona</p>";
                     macros.send_mail_auto(treeView_user_accounts.SelectedNode.Text, "ВЕНБЕСТ. Вхід в систему моніторингу", Body);
                     macros.send_mail_auto("auto@venbest.com.ua", "ВЕНБЕСТ. Вхід в систему моніторингу", Body);
 
@@ -4764,6 +4787,603 @@ namespace Disp_WinForm
                     ");");
             }
             ReadRoumingHistory();
+        }
+
+        private void button_block_man_Click(object sender, EventArgs e)
+        {
+            if (StateBlockButton is true)
+            {
+                block_groupBox.Visible = false;
+                StateBlockButton = false;
+            }
+            else
+            {
+                block_groupBox.Visible = true;
+                StateBlockButton = true;
+            }
+        }
+
+        private void service_button_Click(object sender, EventArgs e)
+        {
+            if (StateServiceButton is true)
+            {
+                Service_groupBox.Visible = false;
+                StateServiceButton = false;
+            }
+            else
+            {
+                Service_groupBox.Visible = true;
+                StateServiceButton = true;
+            }
+        }
+
+        private void Autostart_button_Click(object sender, EventArgs e)
+        {
+            if (StateAutostartButton is true)
+            {
+                Autostart_groupBox.Visible = false;
+                StateAutostartButton = false;
+            }
+            else
+            {
+                Autostart_groupBox.Visible = true;
+                StateAutostartButton = true;
+            }
+        }
+
+
+        private void block_eng_button_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Розблокувати?", "Блокування двигуна", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                string json = macros.WialonRequest("&svc=core/search_item&params={"
+                                                         + "\"id\":\"" + wl_id + "\","
+                                                         + "\"flags\":\"2098177\"}");
+                var test_out = JsonConvert.DeserializeObject<RootObject>(json);
+
+                if (test_out != null)
+                {
+                    if (test_out.item.netconn == 0)
+                    {
+                        MessageBox.Show("Немає звязку, зачекай та спробуй ще");
+                        return;
+                    }
+                    //get product of testing device
+                    string get_produt_testing_device = macros.sql_command("select " +
+                                                                           "products_has_Tarif.products_idproducts " +
+                                                                           "from " +
+                                                                           "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
+                                                                           "where " +
+                                                                           "Object.Object_id_wl = " + wl_id + " and " +
+                                                                           "Object.idObject=Object_idObject and " +
+                                                                           "Subscription_idSubscr=idSubscr and " +
+                                                                           "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
+
+                    if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19" || get_produt_testing_device == "20" || get_produt_testing_device == "21")
+                    {
+                        string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
+                                                                    "\"itemId\":\"" + wl_id + "\"," +
+                                                                    "\"commandName\":\"3 - СТОП двигатель\"," +
+                                                                    "\"linkType\":\"tcp\"," +
+                                                                    "\"param\":\"\"," +
+                                                                    "\"timeout\":\"0\"," +
+                                                                    "\"flags\":\"0\"}");
+                        if (cmd.Contains("rror"))
+                        { MessageBox.Show("Помилка, зачекай та спробуй ще"); return; }
+                    }
+                    else if (get_produt_testing_device == "2" || get_produt_testing_device == "3" || get_produt_testing_device == "6" || get_produt_testing_device == "12" || get_produt_testing_device == "17")
+                    {
+                        string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
+                                                                    "\"itemId\":\"" + wl_id + "\"," +
+                                                                    "\"commandName\":\"2. СТОП Двигатель\"," +
+                                                                    "\"linkType\":\"tcp\"," +
+                                                                    "\"param\":\"\"," +
+                                                                    "\"timeout\":\"0\"," +
+                                                                    "\"flags\":\"0\"}");
+                        if (cmd.Contains("rror"))
+                        { MessageBox.Show("Помилка, зачекай та спробуй ще"); return; }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Упс, ошибка, сообщить 117");
+                    }
+                    string _text = "Команду заблокувати відправлено. Оператор: "+ vars_form.user_login_name + "";
+                    int gmr = checkBox_vizov_gmr.Checked ? 1 : 0;
+                    int police = checkBox_vizov_police.Checked ? 1 : 0;
+                    macros.sql_command("insert into btk.alarm_ack(" +
+                                        "alarm_text, " +
+                                        "notification_idnotification, " +
+                                        "Users_chenge, time_start_ack, " +
+                                        "current_status_alarm, " +
+                                        "vizov_police, " +
+                                        "vizov_gmp) " +
+                                        "values('" + _text + "', " +
+                                        "'" + _id_notif + "'," +
+                                        "'" + _user_login_id + "', " +
+                                        "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                        " 'Учетки', '" +
+                                        "" + police + "', " +
+                                        "'" + gmr + "');");
+
+                    mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
+
+                    MessageBox.Show("Команду заблокувати відправлено!");
+                }
+                else 
+                {
+                    MessageBox.Show("Немає звязку, зачекай та спробуй ще");
+                    return;
+                }
+
+                
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                
+            }
+            
+        }
+
+        private void unblock_eng_button_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Розблокувати?", "Блокування двигуна", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                string json = macros.WialonRequest("&svc=core/search_item&params={"
+                                                         + "\"id\":\"" + wl_id.ToString() + "\","
+                                                         + "\"flags\":\"2098177\"}"); //
+                var test_out = JsonConvert.DeserializeObject<RootObject>(json);
+
+                if (test_out != null)
+                {
+                    if (test_out.item.netconn == 0)
+                    {
+                        MessageBox.Show("Немає звязку, зачекай та спробуй ще");
+                        return;
+                    }
+
+                    //get product of testing device
+                    string get_produt_testing_device = macros.sql_command("select " +
+                                                                           "products_has_Tarif.products_idproducts " +
+                                                                           "from " +
+                                                                           "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
+                                                                           "where " +
+                                                                           "Object.Object_id_wl = " + wl_id + " and " +
+                                                                           "Object.idObject=Object_idObject and " +
+                                                                           "Subscription_idSubscr=idSubscr and " +
+                                                                           "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
+
+                    if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19" || get_produt_testing_device == "20" || get_produt_testing_device == "21")
+                    {
+                        string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
+                                                                    "\"itemId\":\"" + wl_id + "\"," +
+                                                                    "\"commandName\":\"3 - СТАРТ двигатель\"," +
+                                                                    "\"linkType\":\"tcp\"," +
+                                                                    "\"param\":\"\"," +
+                                                                    "\"timeout\":\"0\"," +
+                                                                    "\"flags\":\"0\"}");
+                        if (cmd.Contains("rror"))
+                        { MessageBox.Show("Помилка, зачекай та спробуй ще"); return; }
+                    }
+                    else if (get_produt_testing_device == "2" || get_produt_testing_device == "3" || get_produt_testing_device == "6" || get_produt_testing_device == "12" || get_produt_testing_device == "17")
+                    {
+                        string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
+                                                                    "\"itemId\":\"" + wl_id + "\"," +
+                                                                    "\"commandName\":\"1. СТАРТ Двигатель\"," +
+                                                                    "\"linkType\":\"tcp\"," +
+                                                                    "\"param\":\"\"," +
+                                                                    "\"timeout\":\"0\"," +
+                                                                    "\"flags\":\"0\"}");
+                        if (cmd.Contains("rror"))
+                        { MessageBox.Show("Помилка, зачекай та спробуй ще"); return; }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Упс, ошибка, сообщить 117");
+                    }
+                    string _text = "Команду розблокувати відправлено. Оператор: " + vars_form.user_login_name + "";
+                    int gmr = checkBox_vizov_gmr.Checked ? 1 : 0;
+                    int police = checkBox_vizov_police.Checked ? 1 : 0;
+                    macros.sql_command("insert into btk.alarm_ack(" +
+                                        "alarm_text, " +
+                                        "notification_idnotification, " +
+                                        "Users_chenge, time_start_ack, " +
+                                        "current_status_alarm, " +
+                                        "vizov_police, " +
+                                        "vizov_gmp) " +
+                                        "values('" + _text + "', " +
+                                        "'" + _id_notif + "'," +
+                                        "'" + _user_login_id + "', " +
+                                        "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                        " 'Учетки', '" +
+                                        "" + police + "', " +
+                                        "'" + gmr + "');");
+
+                    mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
+                    MessageBox.Show("Команду розблокувати відправлено!");
+                }
+                else
+                {
+                    MessageBox.Show("Немає звязку, зачекай та спробуй ще");
+                    return;
+                }
+
+
+                
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+
+            
+        }
+
+        private void ServiceOn_button_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Увімкнути?", "Сервісний режим", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                string json = macros.WialonRequest("&svc=core/search_item&params={"
+                                                         + "\"id\":\"" + wl_id.ToString() + "\","
+                                                         + "\"flags\":\"2098177\"}"); //
+                var test_out = JsonConvert.DeserializeObject<RootObject>(json);
+
+                if (test_out != null)
+                {
+                    if (test_out.item.netconn == 0)
+                    {
+                        MessageBox.Show("Немає звязку, зачекай та спробуй ще");
+                        return;
+                    }
+
+                    //get product of testing device
+                    string get_produt_testing_device = macros.sql_command("select " +
+                                                                           "products_has_Tarif.products_idproducts " +
+                                                                           "from " +
+                                                                           "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
+                                                                           "where " +
+                                                                           "Object.Object_id_wl = " + wl_id + " and " +
+                                                                           "Object.idObject=Object_idObject and " +
+                                                                           "Subscription_idSubscr=idSubscr and " +
+                                                                           "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
+
+                    if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19" || get_produt_testing_device == "20" || get_produt_testing_device == "21")
+                    {
+                        string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
+                                                                    "\"itemId\":\"" + wl_id + "\"," +
+                                                                    "\"commandName\":\"6 - Включить сервисный режим\"," +
+                                                                    "\"linkType\":\"tcp\"," +
+                                                                    "\"param\":\"\"," +
+                                                                    "\"timeout\":\"0\"," +
+                                                                    "\"flags\":\"0\"}");
+                        if (cmd.Contains("rror"))
+                        { MessageBox.Show("Помилка, зачекай та спробуй ще"); return; }
+                    }
+                    else if (get_produt_testing_device == "2" || get_produt_testing_device == "3" || get_produt_testing_device == "6" || get_produt_testing_device == "12" || get_produt_testing_device == "17")
+                    {
+                        MessageBox.Show("Обладнення не підтримує команду сервісний");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Упс, ошибка, сообщить 117");
+                    }
+
+                    string _text = "Команду увімкнення сервісного режиму відправлено. Оператор: " + vars_form.user_login_name + "";
+                    int gmr = checkBox_vizov_gmr.Checked ? 1 : 0;
+                    int police = checkBox_vizov_police.Checked ? 1 : 0;
+                    macros.sql_command("insert into btk.alarm_ack(" +
+                                        "alarm_text, " +
+                                        "notification_idnotification, " +
+                                        "Users_chenge, time_start_ack, " +
+                                        "current_status_alarm, " +
+                                        "vizov_police, " +
+                                        "vizov_gmp) " +
+                                        "values('" + _text + "', " +
+                                        "'" + _id_notif + "'," +
+                                        "'" + _user_login_id + "', " +
+                                        "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                        " 'Учетки', '" +
+                                        "" + police + "', " +
+                                        "'" + gmr + "');");
+
+                    mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
+                    MessageBox.Show("Команду увімкнення сервісного режиму відправлено!");
+                }
+                else
+                {
+                    MessageBox.Show("Немає звязку, зачекай та спробуй ще");
+                    return;
+                }
+
+
+
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+        }
+
+        private void ServiceOff_button_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Вимкнути?", "Сервісний режим", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                string json = macros.WialonRequest("&svc=core/search_item&params={"
+                                                         + "\"id\":\"" + wl_id.ToString() + "\","
+                                                         + "\"flags\":\"2098177\"}"); //
+                var test_out = JsonConvert.DeserializeObject<RootObject>(json);
+
+                if (test_out != null)
+                {
+                    if (test_out.item.netconn == 0)
+                    {
+                        MessageBox.Show("Немає звязку, зачекай та спробуй ще");
+                        return;
+                    }
+
+                    //get product of testing device
+                    string get_produt_testing_device = macros.sql_command("select " +
+                                                                           "products_has_Tarif.products_idproducts " +
+                                                                           "from " +
+                                                                           "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
+                                                                           "where " +
+                                                                           "Object.Object_id_wl = " + wl_id + " and " +
+                                                                           "Object.idObject=Object_idObject and " +
+                                                                           "Subscription_idSubscr=idSubscr and " +
+                                                                           "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
+
+                    if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19" || get_produt_testing_device == "20" || get_produt_testing_device == "21")
+                    {
+                        string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
+                                                                    "\"itemId\":\"" + wl_id + "\"," +
+                                                                    "\"commandName\":\"6 - Выключить сервисный режиме\"," +
+                                                                    "\"linkType\":\"tcp\"," +
+                                                                    "\"param\":\"\"," +
+                                                                    "\"timeout\":\"0\"," +
+                                                                    "\"flags\":\"0\"}");
+                        if (cmd.Contains("rror"))
+                        { MessageBox.Show("Помилка, зачекай та спробуй ще"); return; }
+                    }
+                    else if (get_produt_testing_device == "2" || get_produt_testing_device == "3" || get_produt_testing_device == "6" || get_produt_testing_device == "12" || get_produt_testing_device == "17")
+                    {
+                        MessageBox.Show("Обладнення не підтримує команду сервісний");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Упс, ошибка, сообщить 117");
+                    }
+
+                    string _text = "Команду вимкнення сервісного режиму відправлено. Оператор: " + vars_form.user_login_name + "";
+                    int gmr = checkBox_vizov_gmr.Checked ? 1 : 0;
+                    int police = checkBox_vizov_police.Checked ? 1 : 0;
+                    macros.sql_command("insert into btk.alarm_ack(" +
+                                        "alarm_text, " +
+                                        "notification_idnotification, " +
+                                        "Users_chenge, time_start_ack, " +
+                                        "current_status_alarm, " +
+                                        "vizov_police, " +
+                                        "vizov_gmp) " +
+                                        "values('" + _text + "', " +
+                                        "'" + _id_notif + "'," +
+                                        "'" + _user_login_id + "', " +
+                                        "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                        " 'Учетки', '" +
+                                        "" + police + "', " +
+                                        "'" + gmr + "');");
+
+                    mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
+                    MessageBox.Show("Команду вимкнення сервісного режиму відправлено!");
+                }
+                else
+                {
+                    MessageBox.Show("Немає звязку, зачекай та спробуй ще");
+                    return;
+                }
+
+
+
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+        }
+
+        private void AutostartOn_button_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Увімкнути?", "Автозапуск", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                string json = macros.WialonRequest("&svc=core/search_item&params={"
+                                                         + "\"id\":\"" + wl_id.ToString() + "\","
+                                                         + "\"flags\":\"2098177\"}"); //
+                var test_out = JsonConvert.DeserializeObject<RootObject>(json);
+
+                if (test_out != null)
+                {
+                    if (test_out.item.netconn == 0)
+                    {
+                        MessageBox.Show("Немає звязку, зачекай та спробуй ще");
+                        return;
+                    }
+
+                    //get product of testing device
+                    string get_produt_testing_device = macros.sql_command("select " +
+                                                                           "products_has_Tarif.products_idproducts " +
+                                                                           "from " +
+                                                                           "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
+                                                                           "where " +
+                                                                           "Object.Object_id_wl = " + wl_id + " and " +
+                                                                           "Object.idObject=Object_idObject and " +
+                                                                           "Subscription_idSubscr=idSubscr and " +
+                                                                           "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
+
+                    if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19" || get_produt_testing_device == "20" || get_produt_testing_device == "21")
+                    {
+                        string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
+                                                                    "\"itemId\":\"" + wl_id + "\"," +
+                                                                    "\"commandName\":\"2 - Автозапуск старт\"," +
+                                                                    "\"linkType\":\"tcp\"," +
+                                                                    "\"param\":\"\"," +
+                                                                    "\"timeout\":\"0\"," +
+                                                                    "\"flags\":\"0\"}");
+                        if (cmd.Contains("rror"))
+                        { MessageBox.Show("Помилка, зачекай та спробуй ще"); return; }
+                    }
+                    else if (get_produt_testing_device == "2" || get_produt_testing_device == "3" || get_produt_testing_device == "6" || get_produt_testing_device == "12" || get_produt_testing_device == "17")
+                    {
+                        MessageBox.Show("Обладнення не підтримує команду Автозапуск");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Упс, ошибка, сообщить 117");
+                    }
+
+                    string _text = "Команду увімкнення автозапуску відправлено. Оператор: " + vars_form.user_login_name + "";
+                    int gmr = checkBox_vizov_gmr.Checked ? 1 : 0;
+                    int police = checkBox_vizov_police.Checked ? 1 : 0;
+                    macros.sql_command("insert into btk.alarm_ack(" +
+                                        "alarm_text, " +
+                                        "notification_idnotification, " +
+                                        "Users_chenge, time_start_ack, " +
+                                        "current_status_alarm, " +
+                                        "vizov_police, " +
+                                        "vizov_gmp) " +
+                                        "values('" + _text + "', " +
+                                        "'" + _id_notif + "'," +
+                                        "'" + _user_login_id + "', " +
+                                        "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                        " 'Учетки', '" +
+                                        "" + police + "', " +
+                                        "'" + gmr + "');");
+
+                    mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
+                    MessageBox.Show("Команду увімкнення автозапуску відправлено!");
+                }
+                else
+                {
+                    MessageBox.Show("Немає звязку, зачекай та спробуй ще");
+                    return;
+                }
+
+
+
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+        }
+
+        private void AutostartOff_button_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Вимкнути?", "Автозапуск", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                string json = macros.WialonRequest("&svc=core/search_item&params={"
+                                                         + "\"id\":\"" + wl_id.ToString() + "\","
+                                                         + "\"flags\":\"2098177\"}"); //
+                var test_out = JsonConvert.DeserializeObject<RootObject>(json);
+
+                if (test_out != null)
+                {
+                    if (test_out.item.netconn == 0)
+                    {
+                        MessageBox.Show("Немає звязку, зачекай та спробуй ще");
+                        return;
+                    }
+
+                    //get product of testing device
+                    string get_produt_testing_device = macros.sql_command("select " +
+                                                                           "products_has_Tarif.products_idproducts " +
+                                                                           "from " +
+                                                                           "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
+                                                                           "where " +
+                                                                           "Object.Object_id_wl = " + wl_id + " and " +
+                                                                           "Object.idObject=Object_idObject and " +
+                                                                           "Subscription_idSubscr=idSubscr and " +
+                                                                           "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
+
+                    if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19" || get_produt_testing_device == "20" || get_produt_testing_device == "21")
+                    {
+                        string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
+                                                                    "\"itemId\":\"" + wl_id + "\"," +
+                                                                    "\"commandName\":\"2 - Автозапуск стоп\"," +
+                                                                    "\"linkType\":\"tcp\"," +
+                                                                    "\"param\":\"\"," +
+                                                                    "\"timeout\":\"0\"," +
+                                                                    "\"flags\":\"0\"}");
+                        if (cmd.Contains("rror"))
+                        { MessageBox.Show("Помилка, зачекай та спробуй ще"); return; }
+                    }
+                    else if (get_produt_testing_device == "2" || get_produt_testing_device == "3" || get_produt_testing_device == "6" || get_produt_testing_device == "12" || get_produt_testing_device == "17")
+                    {
+                        MessageBox.Show("Обладнення не підтримує команду Автозапуск");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Упс, ошибка, сообщить 117");
+                    }
+
+                    string _text = "Команду вимкнення автозапуску відправлено. Оператор: " + vars_form.user_login_name + "";
+                    int gmr = checkBox_vizov_gmr.Checked ? 1 : 0;
+                    int police = checkBox_vizov_police.Checked ? 1 : 0;
+                    macros.sql_command("insert into btk.alarm_ack(" +
+                                        "alarm_text, " +
+                                        "notification_idnotification, " +
+                                        "Users_chenge, time_start_ack, " +
+                                        "current_status_alarm, " +
+                                        "vizov_police, " +
+                                        "vizov_gmp) " +
+                                        "values('" + _text + "', " +
+                                        "'" + _id_notif + "'," +
+                                        "'" + _user_login_id + "', " +
+                                        "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                        " 'Учетки', '" +
+                                        "" + police + "', " +
+                                        "'" + gmr + "');");
+
+                    mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
+                    MessageBox.Show("Команду вимкнення автозапуску відправлено!");
+                }
+                else
+                {
+                    MessageBox.Show("Немає звязку, зачекай та спробуй ще");
+                    return;
+                }
+
+
+
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+        }
+
+        private void detail_Activated(object sender, EventArgs e)
+        {
+            vars_form.MapFormIdObject = _search_id;
+            vars_form.MapFormName = _unit_name;
+        }
+
+        private void Map_checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Map_checkBox.Checked is true)
+            {
+                Map map = new Map();
+                map.Show();
+                vars_form.MapFormIdObject = _search_id;
+                vars_form.MapFormName = _unit_name;
+            }
+            else
+            {
+                Map f = new Map();
+                f.Close();
+            }
         }
     }
 }

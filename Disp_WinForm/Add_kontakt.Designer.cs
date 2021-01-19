@@ -51,6 +51,8 @@
             this.comboBox_work_in = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.ComentTel1_textBox = new System.Windows.Forms.TextBox();
+            this.ComentTel2_textBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -196,6 +198,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.ComentTel2_textBox);
+            this.groupBox3.Controls.Add(this.ComentTel1_textBox);
             this.groupBox3.Controls.Add(this.maskedTextBox_tel1);
             this.groupBox3.Controls.Add(this.maskedTextBox_mail2);
             this.groupBox3.Controls.Add(this.label3);
@@ -206,7 +210,7 @@
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Location = new System.Drawing.Point(442, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(297, 162);
+            this.groupBox3.Size = new System.Drawing.Size(395, 162);
             this.groupBox3.TabIndex = 34;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Контактна інформація";
@@ -272,11 +276,25 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // ComentTel1_textBox
+            // 
+            this.ComentTel1_textBox.Location = new System.Drawing.Point(290, 16);
+            this.ComentTel1_textBox.Name = "ComentTel1_textBox";
+            this.ComentTel1_textBox.Size = new System.Drawing.Size(99, 20);
+            this.ComentTel1_textBox.TabIndex = 6;
+            // 
+            // ComentTel2_textBox
+            // 
+            this.ComentTel2_textBox.Location = new System.Drawing.Point(290, 42);
+            this.ComentTel2_textBox.Name = "ComentTel2_textBox";
+            this.ComentTel2_textBox.Size = new System.Drawing.Size(99, 20);
+            this.ComentTel2_textBox.TabIndex = 42;
+            // 
             // Add_kontakt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(752, 312);
+            this.ClientSize = new System.Drawing.Size(885, 312);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -321,5 +339,7 @@
         private System.Windows.Forms.MaskedTextBox maskedTextBox_tel1;
         private System.Windows.Forms.TextBox textBox_otchestvo;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox ComentTel2_textBox;
+        private System.Windows.Forms.TextBox ComentTel1_textBox;
     }
 }
