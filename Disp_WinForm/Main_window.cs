@@ -16,8 +16,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using ZXing;
-using CefSharp;
-using CefSharp.WinForms;
+
 
 namespace Disp_WinForm
 {
@@ -25,6 +24,7 @@ namespace Disp_WinForm
     {
         private Macros macros = new Macros();
         private static System.Timers.Timer aTimer;
+
 
         private delegate void UpdateGridHandler(DataTable table);
 
@@ -641,8 +641,8 @@ namespace Disp_WinForm
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
                                             "Activation_object.Activation_date as 'Дата активації'," +
-                                            "Object.Object_imei as 'IMEI'," +
-                                            "idZayavki " +
+                                            "idZayavki, " +
+                                            "Object.Object_imei as 'IMEI' " +
                                             "FROM btk.Zayavki, btk.Kontragenti, btk.Users, btk.Activation_object, btk.testing_object, btk.Object " +
                                             "where Zayavki.Activation_object_idActivation_object=Activation_object.idActivation_object " +
                                             "AND testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
@@ -672,8 +672,8 @@ namespace Disp_WinForm
                                             "Zayavki.testing_object_idtesting_object as 'Привязаний до тестування'," +
                                             "Activation_object.Activation_objectcol_result as 'Статус активації'," +
                                             "Activation_object.Activation_date as 'Дата активації'," +
-                                            "Object.Object_imei as 'IMEI'," +
-                                            "idZayavki " +
+                                            "idZayavki, " +
+                                            "Object.Object_imei as 'IMEI' " +
                                             "FROM btk.Zayavki, btk.Kontragenti, btk.Users, btk.Activation_object, btk.testing_object, btk.Object " +
                                             "where Zayavki.Activation_object_idActivation_object=Activation_object.idActivation_object " +
                                             "AND testing_object.idtesting_object=Zayavki.testing_object_idtesting_object " +
@@ -891,9 +891,9 @@ namespace Disp_WinForm
                     //"(SELECT coments FROM btk.activation_comments where Activation_object_idActivation_object = Activation_object.idActivation_object order by date_insert desc limit 1) as 'Коментар', " +
                     "Activation_object.comment as 'Коментар', " +
                     "remaynder_activate as 'Нагадати', " +
-                    "Object.Object_imei as 'IMEI'," +
                     "remayder_date as 'Дата нагадування', " +
-                    "Activation_object.Locked_user as 'Обробляє' " +
+                    "Activation_object.Locked_user as 'Обробляє', " +
+                    "Object.Object_imei as 'IMEI' " +
                     "FROM " +
                     "btk.products," +
                     "btk.Activation_object," +
@@ -935,8 +935,8 @@ namespace Disp_WinForm
                     "Activation_object.comment as 'Коментар', " +
                     "remaynder_activate as 'Нагадати', " +
                     "remayder_date as 'Дата нагадування', " +
-                     "Object.Object_imei as 'IMEI'," +
-                    "Activation_object.Locked_user as 'Обробляє' " +
+                    "Activation_object.Locked_user as 'Обробляє', " +
+                    "Object.Object_imei as 'IMEI' " +
                     "FROM " +
                     "btk.products," +
                     "btk.Activation_object," +
@@ -3940,22 +3940,28 @@ namespace Disp_WinForm
 
         private void textBox_test_search_TextChanged(object sender, EventArgs e)
         {
-            try
+            if (textBox_test_search.Text.Length > 4)
             {
-                //// если все поля поиска пустыет - выводим полный перечень. Думаю это не рационально, может быть дохера записей...
-                string sql = string.Format("SELECT Object_id_wl, concat(Object_name, ' (',Object_imei, ')') as name_id  FROM btk.Object where Object_name like '%" + textBox_test_search.Text.ToString() + "%'  or Object_imei like '%" + textBox_test_search.Text.ToString() + "%';");
-                listBox_test_search_result.DataSource = macros.GetData(sql);
-                listBox_test_search_result.DisplayMember = "name_id";
-                listBox_test_search_result.ValueMember = "Object_id_wl";
-
-                if (textBox_test_search.Text == "")
+                try
                 {
-                    listBox_test_search_result.DataSource = null;
+                    //// если все поля поиска пустыет - выводим полный перечень. Думаю это не рационально, может быть дохера записей...
+                    string sql = string.Format("SELECT Object_id_wl, concat(Object_name, ' (',Object_imei, ')') as name_id  FROM btk.Object where Object_name like '%" + textBox_test_search.Text.ToString() + "%'  or Object_imei like '%" + textBox_test_search.Text.ToString() + "%';");
+                    listBox_test_search_result.DataSource = macros.GetData(sql);
+                    listBox_test_search_result.DisplayMember = "name_id";
+                    listBox_test_search_result.ValueMember = "Object_id_wl";
+                    //
+                    textBox_search_object_name_testing.Text = textBox_test_search.Text;
+                    checkBox_testing_za_ves_chas_search.Checked = true;
+
+                    if (textBox_test_search.Text == "")
+                    {
+                        listBox_test_search_result.DataSource = null;
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString() + "textBox_filter_object_ohrani_TextChanged");
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString() + "textBox_filter_object_ohrani_TextChanged");
+                }
             }
         }
 
@@ -14764,9 +14770,10 @@ namespace Disp_WinForm
                 string zayavka = macros.sql_command("Select idZayavki FROM btk.Zayavki where testing_object_idtesting_object = '" + testing + "';");
 
                 macros.sql_command("Delete FROM btk.Zayavki_has_Activation_object where Activation_object_idActivation_object = '" + activation + "' and Zayavki_idZayavki = '" + zayavka + "';");
-                macros.sql_command("Delete FROM btk.Zayavki where testing_object_idtesting_object = '" + zayavka + "';");
+                macros.sql_command("Delete FROM btk.Zayavki where idZayavki = '" + zayavka + "';");
                 macros.sql_command("Delete FROM btk.testing_object where idtesting_object = '" + testing + "';");
                 macros.sql_command("Delete FROM btk.Activation_object where idActivation_object = '" + activation + "';");
+
                 MessageBox.Show("Тестирование: " + testing + ", " + "Активація: " + activation + ", " + "Заявка: " + zayavka + " - Удалены!");
             }
             else if (dialogResult == DialogResult.No)
@@ -14793,13 +14800,16 @@ namespace Disp_WinForm
 
         private void textBox_search_object_name_testing_TextChanged(object sender, EventArgs e)
         {
-            if (textBox_search_object_name_testing.Text == "")
+            if (textBox_search_object_name_testing.Text.Length > 3)
             {
-                checkBox_testing_za_ves_chas_search.Enabled = false;
-                checkBox_testing_za_ves_chas_search.Checked = false;
+                if (textBox_search_object_name_testing.Text == "")
+                {
+                    checkBox_testing_za_ves_chas_search.Enabled = false;
+                    checkBox_testing_za_ves_chas_search.Checked = false;
+                }
+                else { checkBox_testing_za_ves_chas_search.Enabled = true; }
+                update_testing_dgv();
             }
-            else { checkBox_testing_za_ves_chas_search.Enabled = true; }
-            update_testing_dgv();
         }
 
         private void dateTimePicker_testig_filter_start_ValueChanged(object sender, EventArgs e)
@@ -14834,6 +14844,116 @@ namespace Disp_WinForm
             if (checkBox_testing_uspishno.Checked is true)
             { textBox_search_object_name_testing.Text = "Успішно"; }
             else { textBox_search_object_name_testing.Text = ""; }
+        }
+
+        private void textBox_filter_object_ohrani_TextChanged(object sender, EventArgs e)
+        {
+            if(textBox_filter_object_ohrani.Text== "")
+            {
+                listBox_object_ohrani.Visible = false;
+            }
+            else { listBox_object_ohrani.Visible = true; }
+
+            try
+            {
+                string json = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                        "\"spec\":{" +
+                                                        "\"itemsType\":\"avl_unit\"," +
+                                                        "\"propName\":\"sys_unique_id|sys_name|rel_customfield_value|rel_profilefield_value\"," +
+                                                        "\"propValueMask\":\"" + "*" + textBox_filter_object_ohrani.Text + "*" + "\", " +
+                                                        "\"sortType\":\"sys_name\"," +
+                                                        "\"or_logic\":\"1\"}," +
+                                                        "\"force\":\"1\"," +
+                                                        "\"flags\":\"1\"," +
+                                                        "\"from\":\"0\"," +
+                                                        "\"to\":\"10\"}");
+                var m = JsonConvert.DeserializeObject<RootObject>(json);
+
+                List<object> list_add_alarm = new List<object>();
+                foreach (var keyvalue in m.items)
+                {
+                    list_add_alarm.Add(new List_add_alarm() { Id = keyvalue.id, Name = keyvalue.nm });
+                }
+                listBox_object_ohrani.DataSource = list_add_alarm;
+                listBox_object_ohrani.DisplayMember = "Name";
+                listBox_object_ohrani.ValueMember = "Id";
+
+                if (textBox_filter_object_ohrani.Text == "")
+                {
+                    listBox_object_ohrani.DataSource = null;
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void button_add_new_alarm_Click(object sender, EventArgs e)
+        {
+            if (listBox_object_ohrani.SelectedIndex <= -1)
+            {
+                MessageBox.Show("Необхідно вибрати об'єкт");
+                return;
+            }
+
+            macros.sql_command("INSERT INTO btk.notification(" +
+                               "unit_name, " +
+                               "unit_id, " +
+                               "curr_time, " +
+                               "msg_time, " +
+                               "product, " +
+                               "type_alarm, " +
+                               "Users_idUsers, status) " +
+                               "VALUES('" + listBox_object_ohrani.GetItemText(listBox_object_ohrani.SelectedItem).ToString() + "'," +
+                               "'" + listBox_object_ohrani.SelectedValue.ToString() + "'," +
+                               "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                               "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                               "''," +
+                               "'Звернення від кліента'," +
+                               "'" + vars_form.user_login_id + "','Відкрито')");
+
+
+            vars_form.id_notif = macros.sql_command("SELECT MAX(idnotification) FROM btk.notification;");//ID Тривоги (0)
+
+            macros.GetData("UPDATE btk.notification " +
+                           "SET " +
+                           "alarm_locked = '1', " +
+                           "alarm_locked_user = '" + vars_form.user_login_name + "' " +
+                           "WHERE " +
+                           "idnotification = '" + vars_form.id_notif + "';");
+
+            vars_form.search_id = listBox_object_ohrani.SelectedValue.ToString(); //ID об"єкту(8)
+            vars_form.id_status = "Відкрито";//Статус(7)
+            vars_form.unit_name = listBox_object_ohrani.GetItemText(listBox_object_ohrani.SelectedItem).ToString(); //Назва об"єкту(2)
+            vars_form.alarm_name = "Звернення від кліента";//Тип тривоги(3)
+            vars_form.restrict_un_group = false;
+
+            textBox_filter_object_ohrani.Text = "";
+
+
+            
+
+            detail subwindow = new detail();
+            subwindow.Show();
+        }
+
+        private void listBox_object_ohrani_Leave(object sender, EventArgs e)
+        {
+            if (textBox_filter_object_ohrani.Focused is false & button_add_new_alarm.Focused is false)
+            {
+                listBox_object_ohrani.Visible = false;
+                textBox_filter_object_ohrani.Text = "";
+            }
+        }
+
+        private void textBox_filter_object_ohrani_Leave(object sender, EventArgs e)
+        {
+            if (listBox_object_ohrani.Focused is false & button_add_new_alarm.Focused is false)
+            {
+                listBox_object_ohrani.Visible = false;
+                textBox_filter_object_ohrani.Text = "";
+            }
         }
     }
 

@@ -216,10 +216,11 @@ namespace Disp_WinForm
         //init command on load form
         private void load_form_for_zayavka()
         {
-            var ts_info = macros.GetData("SELECT TS_infocol_place_service_button, TS_infocol_place_tk, TS_infocol_button_for_pin FROM btk.Object, btk.TS_info where Object_id_wl = '" + _id_wl_object_for_activation + "' and TS_info.idTS_info = Object.TS_info_idTS_info;");
+            var ts_info = macros.GetData("SELECT TS_infocol_place_service_button, TS_infocol_place_tk, TS_infocol_button_for_pin, TS_infocol_new_pin FROM btk.Object, btk.TS_info where Object_id_wl = '" + _id_wl_object_for_activation + "' and TS_info.idTS_info = Object.TS_info_idTS_info;");
             textBox_service_botton.Text = ts_info.Rows[0][0].ToString();
             textBox_tk_botton.Text = ts_info.Rows[0][1].ToString();
             textBox_button_for_PIN.Text = ts_info.Rows[0][2].ToString();
+            new_pin_textBox.Text = ts_info.Rows[0][3].ToString();
 
             string json = macros.WialonRequest("&svc=core/search_items&params={" +
                                                     "\"spec\":{" +
@@ -264,7 +265,7 @@ namespace Disp_WinForm
             string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + _id_db_object_for_activation + "' and VOcol_num_vo = '1' ORDER BY idVO DESC limit 1;");
 
             string VO_falilia = macros.sql_command("SELECT Kontakti_familia FROM btk.Kontakti where idKontakti = '" + VO1.ToString() + "';");
-            string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO1.ToString() + "';");
+            string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')')  FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO1.ToString() + "';");
             string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO1.ToString() + "';");
             string VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO1.ToString() + "';");
             if (VO_phone2 == "   -   -")
@@ -282,7 +283,7 @@ namespace Disp_WinForm
 
             //load VO2
             string VO2 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + _id_db_object_for_activation + "' and VOcol_num_vo = '2' ORDER BY idVO DESC limit 1;");
-            string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO2.ToString() + "';");
+            string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO2.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO2.ToString() + "';");
             VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO2.ToString() + "';");
             if (VO_phone2 == "   -   -")
@@ -301,7 +302,7 @@ namespace Disp_WinForm
 
             //load VO3
             string VO3 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + _id_db_object_for_activation + "' and VOcol_num_vo = '3' ORDER BY idVO DESC limit 1;");
-            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO3.ToString() + "';");
+            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO3.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO3.ToString() + "';");
             VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO3.ToString() + "';");
             if (VO_phone2 == "   -   -")
@@ -337,7 +338,7 @@ namespace Disp_WinForm
 
             //load VO5
             string VO5 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + _id_db_object_for_activation + "' and VOcol_num_vo = '5' ORDER BY idVO DESC limit 1;");
-            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO5.ToString() + "';");
+            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO5.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO5.ToString() + "';");
             VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO5.ToString() + "';");
             if (VO_phone2 == "   -   -")
@@ -392,11 +393,13 @@ namespace Disp_WinForm
                 "Zayavki.Zayavkicol_license_plate, " +
                 "TS_info.TS_infocol_vin, " +
                 "Kontragenti.kontragent_type_idkontragent_type, " +
-                "Zayavki.Zayavkicol_comment " +
+                "Zayavki.Zayavkicol_comment, " +
+                "Users.username " +
                 "from " +
-                "btk.Zayavki, btk.products, btk.Kontragenti, btk.TS_info, btk.testing_object, btk.Object " +
+                "btk.Zayavki, btk.products, btk.Kontragenti, btk.TS_info, btk.testing_object, btk.Object, btk.Users " +
                 "where " +
                 "Zayavki.products_idproducts = products.idproducts " +
+                "and Zayavki.Users_idUsers = Users.idUsers " +
                 "and Kontragenti.idKontragenti = Zayavki.Kontragenti_idKontragenti_zakazchik " +
                 "and Zayavki.idZayavki = '" + _id_db_zayavki_for_activation + "' " +
                 "and Zayavki.testing_object_idtesting_object = testing_object.idtesting_object " +
@@ -412,6 +415,7 @@ namespace Disp_WinForm
             textBox_email.Text = table2.Rows[0][5].ToString();
             textBox_product.Text = table2.Rows[0][6].ToString();
             textBox_zayavka_comments.Text = table2.Rows[0][13].ToString();
+            manager_textBox.Text = table2.Rows[0][14].ToString();
             textBox_svidoctvo_tz.Text= macros.sql_command("SELECT svidoctvo_tz FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "'");
             // Формируем название проекта в зависимости от типа контрагента и названии контрагента
             if (table2.Rows[0][12].ToString() == "1")
@@ -517,7 +521,7 @@ namespace Disp_WinForm
             if (vars_form.kontakts_opened_from == 1)//VO1 1 familia make upper case
             {
                 string VO_falilia = macros.sql_command("SELECT Kontakti_familia FROM btk.Kontakti where idKontakti = '" + _transfer_vo1_vo_form + "';");
-                string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + _transfer_vo1_vo_form + "';");
+                string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + _transfer_vo1_vo_form + "';");
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + _transfer_vo1_vo_form + "';");
                 string VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + _transfer_vo1_vo_form + "';");
                 if (VO_phone2 == "   -   -")
@@ -533,7 +537,7 @@ namespace Disp_WinForm
             }
             if (vars_form.kontakts_opened_from == 2)
             {
-                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + _transfer_vo2_vo_form + "';");
+                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + _transfer_vo2_vo_form + "';");
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + _transfer_vo2_vo_form + "';");
                 string VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + _transfer_vo2_vo_form + "';");
                 if (VO_phone2 == "   -   -")
@@ -549,7 +553,7 @@ namespace Disp_WinForm
             }
             if (vars_form.kontakts_opened_from == 3)
             {
-                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + _transfer_vo3_vo_form + "';");
+                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + _transfer_vo3_vo_form + "';");
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + _transfer_vo3_vo_form + "';");
                 string VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + _transfer_vo3_vo_form + "';");
                 if (VO_phone2 == "   -   -")
@@ -565,7 +569,7 @@ namespace Disp_WinForm
             }
             if (vars_form.kontakts_opened_from == 4)
             {
-                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + _transfer_vo4_vo_form + "';");
+                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + _transfer_vo4_vo_form + "';");
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + _transfer_vo4_vo_form + "';");
                 string VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + _transfer_vo4_vo_form + "';");
                 if (VO_phone2 == "   -   -")
@@ -574,7 +578,7 @@ namespace Disp_WinForm
             }
             if (vars_form.kontakts_opened_from == 5)
             {
-                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + _transfer_vo5_vo_form + "';");
+                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + _transfer_vo5_vo_form + "';");
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + _transfer_vo5_vo_form + "';");
                 string VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + _transfer_vo5_vo_form + "';");
                 if (VO_phone2 == "   -   -")
@@ -1396,7 +1400,7 @@ namespace Disp_WinForm
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + _id_wl_object_for_activation + "\","
-                                                         + "\"flags\":\"‭‭‭‭2098177‬‬‬‬\"}"); //
+                                                         + "\"flags\":\"2098177\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
                 if (test_out.item.lmsg is null)
@@ -1417,7 +1421,7 @@ namespace Disp_WinForm
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + _id_wl_object_for_activation + "\","
-                                                         + "\"flags\":\"‭‭‭‭2098177‬‬‬‬\"}"); //
+                                                         + "\"flags\":\"2098177\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
                 if (test_out.item.lmsg is null)

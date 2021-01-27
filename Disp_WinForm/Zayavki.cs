@@ -463,6 +463,9 @@ namespace Disp_WinForm
 
                 string idObject = macros.sql_command("select Object_idObject from btk.testing_object where idtesting_object = '" + idtesting_object + "';");
 
+                string id_wl_Object = macros.sql_command("select Object_id_wl from btk.Object where idObject = '" + idObject + "';");
+
+                string id_ts_info = macros.sql_command("select TS_info_idTS_info from btk.Object where idObject = '" + idObject + "';");
 
                 string ResultActivation = macros.sql_command("select Activation_objectcol_result from btk.Activation_object where idActivation_object = '" + idActivation_object + "';");
                 if (ResultActivation == "Протестовано")
@@ -473,10 +476,17 @@ namespace Disp_WinForm
                 {
                     macros.sql_command("update btk.Activation_object set Object_idObject = " + idObject + " where idActivation_object = '" + idActivation_object + "';");
                 }
-                
-                
-                
 
+                if (textBox_vin_zayavki.Text != "")
+                {
+                    //update VIN plate in WL
+                    string pp28_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
+                                                                   + "\"itemId\":\"" + id_wl_Object + "\","
+                                                                   + "\"n\":\"vin\","
+                                                                   + "\"v\":\"" + textBox_vin_zayavki.Text.Replace("\"", "%5C%22") + "\"}");
+                    //update VIN plate in db
+                    macros.sql_command("update btk.TS_info set TS_infocol_vin = '" + textBox_vin_zayavki.Text + "' where idTS_info = '" + id_ts_info + "';");
+                }
 
             }
             //если если создается новая заявка выполняем этот сценалий
@@ -591,16 +601,7 @@ namespace Disp_WinForm
 
             }
 
-            //if (textBox_vin_zayavka.Text != "")
-            //{
-            //    //update VIN plate in WL
-            //    string pp28_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
-            //                                                   + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
-            //                                                   + "\"n\":\"vin\","
-            //                                                   + "\"v\":\"" + textBox_vin_zayavka.Text.Replace("\"", "%5C%22") + "\"}");
-            //    //update VIN plate in db
-            //    macros.sql_command("update btk.TS_info set TS_infocol_vin = '" + textBox_vin_zayavka.Text + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
-            //}
+            
 
             this.Close();
         }

@@ -311,7 +311,7 @@ namespace Disp_WinForm
 
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.add_alarm_unit_id + "\","
-                                                         + "\"flags\":\"‭‭‭‭8388873\"}"); //
+                                                         + "\"flags\":\"8388873\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
                 string project = "";

@@ -1599,6 +1599,7 @@
             this.geckoWebBrowser_testing.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.geckoWebBrowser_testing.ConsoleMessageEventReceivesConsoleLogCalls = true;
             this.geckoWebBrowser_testing.FrameEventsPropagateToMainWindow = false;
             this.geckoWebBrowser_testing.Location = new System.Drawing.Point(0, 0);
             this.geckoWebBrowser_testing.Name = "geckoWebBrowser_testing";
@@ -1611,7 +1612,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1024, 749);
+            this.ClientSize = new System.Drawing.Size(1035, 824);
             this.Controls.Add(this.tabControl_testing);
             this.MaximumSize = new System.Drawing.Size(1300, 1000);
             this.Name = "Testing";

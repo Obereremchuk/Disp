@@ -488,10 +488,11 @@ namespace Disp_WinForm
             if (id_db_TS_info == "1")
             {
                 macros.sql_command("insert into btk.TS_info(Kuzov_type_idKuzov_type, Color_idColor, Production_date_idProduction_date, TS_brand_idTS_brand, TS_model_idTS_model, Kontakti_idKontakti, Kontragenti_idKontragenti)values('1', '1', '1', '1', '1', '1', '1');");
-                string TS_infoID = macros.sql_command("SELECT MAX(idTS_info) FROM btk.TS_info;");
+                id_db_TS_info = macros.sql_command("SELECT MAX(idTS_info) FROM btk.TS_info;");
 
-                macros.sql_command("update btk.Object set TS_info_idTS_info=" + TS_infoID + " where Object_id_wl=" + vars_form.id_wl_object_for_test + "");
+                macros.sql_command("update btk.Object set TS_info_idTS_info=" + id_db_TS_info + " where Object_id_wl=" + vars_form.id_wl_object_for_test + "");
             }//Если не установленно значения в информации об автомобиле - устанавливаем дефоллтніе значения
+
 
             DataTable db_TS_info = macros.GetData("SELECT * FROM btk.TS_info where idTS_info = " + id_db_TS_info + "; ");
 
@@ -609,9 +610,10 @@ namespace Disp_WinForm
         }
         private void button_write_Click(object sender, EventArgs e)
         {
+            
             string jsonq = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                         + "\"flags\":\"‭‭‭‭8388873\"}"); //
+                                                         + "\"flags\":\"8388873\"}"); //
 
             if (comboBox_kuzov_type.SelectedIndex == -1
                 || comboBox_color.SelectedIndex == -1
@@ -806,7 +808,7 @@ namespace Disp_WinForm
 
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                         + "\"flags\":\"‭‭‭‭5257‬‬‬‬\"}"); //
+                                                         + "\"flags\":\"5257\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
 
@@ -1051,7 +1053,7 @@ namespace Disp_WinForm
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                         + "\"flags\":\"‭‭‭‭5257‬‬‬‬\"}"); //
+                                                         + "\"flags\":\"5257\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
                 //Меняем имя об"екта
@@ -1272,7 +1274,7 @@ namespace Disp_WinForm
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                         + "\"flags\":\"‭‭‭‭5257‬‬‬‬\"}"); //
+                                                         + "\"flags\":\"5257\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
                 //Меняем имя об"екта
@@ -1422,7 +1424,7 @@ namespace Disp_WinForm
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                         + "\"flags\":\"‭‭‭‭5257‬‬‬‬\"}"); //
+                                                         + "\"flags\":\"5257\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
                 //Меняем имя об"екта
@@ -1598,7 +1600,7 @@ namespace Disp_WinForm
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                         + "\"flags\":\"‭‭‭‭5257‬‬‬‬\"}"); //
+                                                         + "\"flags\":\"5257\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
                 //Меняем имя об"екта
@@ -1751,7 +1753,7 @@ namespace Disp_WinForm
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                         + "\"flags\":\"‭‭‭‭5257‬‬‬‬\"}"); //
+                                                         + "\"flags\":\"5257\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
                 //Меняем имя об"екта
@@ -3052,7 +3054,7 @@ namespace Disp_WinForm
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                         + "\"flags\":\"‭‭‭‭2098177‬‬‬‬\"}"); //
+                                                         + "\"flags\":\"2098177\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
                 if (test_out.item.pos != null)
@@ -3189,7 +3191,7 @@ namespace Disp_WinForm
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                         + "\"flags\":\"‭‭‭‭2098177‬‬‬‬\"}"); //
+                                                         + "\"flags\":\"2098177\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
                 if (test_out.item.pos != null)
@@ -3239,7 +3241,7 @@ namespace Disp_WinForm
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                         + "\"flags\":\"‭‭‭‭2098177‬‬‬‬\"}"); //
+                                                         + "\"flags\":\"2098177\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
                 if (test_out.item.pos != null)
@@ -3289,7 +3291,7 @@ namespace Disp_WinForm
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                         + "\"flags\":\"‭‭‭‭2098177‬‬‬‬\"}"); //
+                                                         + "\"flags\":\"2098177\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
                 if (test_out.item.pos != null)
@@ -3397,7 +3399,7 @@ namespace Disp_WinForm
                     //Запрашиваем по координатам фактический адрес
                     string get_adress = "http://navi.venbest.com.ua/gis_geocode?coords="
                                         + "[{\"lon\":\"" + test_out.item.pos["x"] + "\""
-                                        + ",\"lat\":\"" + test_out.item.pos["y"] + "\"}]&flags=	‭‭‭‭1254096896‬‬‬‬&uid=" +
+                                        + ",\"lat\":\"" + test_out.item.pos["y"] + "\"}]&flags=	1254096896‬‬‬‬&uid=" +
                                         vars_form.wl_user_id + "";
 
                     //string json3 = macros.WialonRequestSimple(get_adress);

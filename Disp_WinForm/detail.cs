@@ -39,6 +39,7 @@ namespace Disp_WinForm
         private bool StateBlockButton;
         private bool StateServiceButton;
         private bool StateAutostartButton;
+        private bool StateArmtButton;
 
         public detail()
         {
@@ -1250,14 +1251,21 @@ namespace Disp_WinForm
             }
         }
 
-        private void arhiv_object()
+
+        
+
+
+        private async void arhiv_object()
         {
+            DataSet dt = new DataSet();
             dataGridView_trivogi_objecta.AutoGenerateColumns = false;
             //dataGridView_trivogi_objecta.DataSource = macros.GetData("SELECT idnotification, type_alarm, msg_time, Status, last_location FROM btk.notification where unit_id = " + _search_id + " and group_alarm is null");
             if (dataGridView_trivogi_objecta.InvokeRequired)
                 dataGridView_trivogi_objecta.Invoke(new Action(() => dataGridView_trivogi_objecta.DataSource = macros.GetData("SELECT idnotification, type_alarm, msg_time, Status, last_location FROM btk.notification where unit_id = " + _search_id + " and group_alarm is null")));
             else
                 dataGridView_trivogi_objecta.DataSource = macros.GetData("SELECT idnotification, type_alarm, msg_time, Status, last_location FROM btk.notification where unit_id = " + _search_id + " and group_alarm is null");
+
+            //dataGridView_trivogi_objecta.DataSource = await macros.GetData("SELECT idnotification, type_alarm, msg_time, Status, last_location FROM btk.notification where unit_id = " + _search_id + " and group_alarm is null");
         }
 
         private void dataGridView_trivogi_objecta_RowEnter(object sender, DataGridViewCellEventArgs e)
@@ -1418,6 +1426,7 @@ namespace Disp_WinForm
 
             await Task.Run(() => arhiv_object());
             //arhiv_object();
+            //new Task(arhiv_object).Start();
 
 
 
@@ -2066,7 +2075,7 @@ namespace Disp_WinForm
                     string set_right_object_answer = macros.WialonRequest("&svc=user/update_item_access&params={" +
                                                             "\"userId\":\"" + created_user_data.item.id + "\"," +
                                                             "\"itemId\":\"" + wl_id + "\"," +
-                                                            "\"accessMask\":\"550611455877‬\"}");
+                                                            "\"accessMask\":\"550611455877\"}");
                     var set_right_object = JsonConvert.DeserializeObject<RootObject>(set_right_object_answer);
 
                     DataTable users = macros.GetData("SELECT idUsers, user_id_wl FROM btk.Users where (accsess_lvl = '1' or accsess_lvl = '5' or accsess_lvl = '8' or accsess_lvl = '9') and State != '0';");
@@ -4834,7 +4843,7 @@ namespace Disp_WinForm
 
         private void block_eng_button_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Розблокувати?", "Блокування двигуна", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Заблокувати?", "Блокування двигуна", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
@@ -5362,6 +5371,179 @@ namespace Disp_WinForm
             {
                 return;
             }
+
+
+        }
+        private void ArmOn_button_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Закрити?", "Охорона", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                string json = macros.WialonRequest("&svc=core/search_item&params={"
+                                                         + "\"id\":\"" + wl_id.ToString() + "\","
+                                                         + "\"flags\":\"2098177\"}"); //
+                var test_out = JsonConvert.DeserializeObject<RootObject>(json);
+
+                if (test_out != null)
+                {
+                    if (test_out.item.netconn == 0)
+                    {
+                        MessageBox.Show("Немає звязку, зачекай та спробуй ще");
+                        return;
+                    }
+
+                    //get product of testing device
+                    string get_produt_testing_device = macros.sql_command("select " +
+                                                                           "products_has_Tarif.products_idproducts " +
+                                                                           "from " +
+                                                                           "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
+                                                                           "where " +
+                                                                           "Object.Object_id_wl = " + wl_id + " and " +
+                                                                           "Object.idObject=Object_idObject and " +
+                                                                           "Subscription_idSubscr=idSubscr and " +
+                                                                           "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
+
+                    if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19" || get_produt_testing_device == "20" || get_produt_testing_device == "21")
+                    {
+                        string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
+                                                                    "\"itemId\":\"" + wl_id + "\"," +
+                                                                    "\"commandName\":\"1 - Закрыть автомобиль\"," +
+                                                                    "\"linkType\":\"tcp\"," +
+                                                                    "\"param\":\"\"," +
+                                                                    "\"timeout\":\"0\"," +
+                                                                    "\"flags\":\"0\"}");
+                        if (cmd.Contains("rror"))
+                        { MessageBox.Show("Помилка, зачекай та спробуй ще"); return; }
+                    }
+                    else if (get_produt_testing_device == "2" || get_produt_testing_device == "3" || get_produt_testing_device == "6" || get_produt_testing_device == "12" || get_produt_testing_device == "17")
+                    {
+                        MessageBox.Show("Обладнення не підтримує команду Автозапуск");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Упс, ошибка, сообщить 117");
+                    }
+
+                    string _text = "Команду закриття автомобіля відправлено. Оператор: " + vars_form.user_login_name + "";
+                    int gmr = checkBox_vizov_gmr.Checked ? 1 : 0;
+                    int police = checkBox_vizov_police.Checked ? 1 : 0;
+                    macros.sql_command("insert into btk.alarm_ack(" +
+                                        "alarm_text, " +
+                                        "notification_idnotification, " +
+                                        "Users_chenge, time_start_ack, " +
+                                        "current_status_alarm, " +
+                                        "vizov_police, " +
+                                        "vizov_gmp) " +
+                                        "values('" + _text + "', " +
+                                        "'" + _id_notif + "'," +
+                                        "'" + _user_login_id + "', " +
+                                        "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                        " 'Учетки', '" +
+                                        "" + police + "', " +
+                                        "'" + gmr + "');");
+
+                    mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
+                    MessageBox.Show("Команду закриття автомобіля відправлено!");
+                }
+                else
+                {
+                    MessageBox.Show("Немає звязку, зачекай та спробуй ще");
+                    return;
+                }
+
+
+
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+        }
+
+        private void ArmOff_button_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Відкрити?", "Охорона", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                string json = macros.WialonRequest("&svc=core/search_item&params={"
+                                                         + "\"id\":\"" + wl_id.ToString() + "\","
+                                                         + "\"flags\":\"2098177\"}"); //
+                var test_out = JsonConvert.DeserializeObject<RootObject>(json);
+
+                if (test_out != null)
+                {
+                    if (test_out.item.netconn == 0)
+                    {
+                        MessageBox.Show("Немає звязку, зачекай та спробуй ще");
+                        return;
+                    }
+
+                    //get product of testing device
+                    string get_produt_testing_device = macros.sql_command("select " +
+                                                                           "products_has_Tarif.products_idproducts " +
+                                                                           "from " +
+                                                                           "btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.Object " +
+                                                                           "where " +
+                                                                           "Object.Object_id_wl = " + wl_id + " and " +
+                                                                           "Object.idObject=Object_idObject and " +
+                                                                           "Subscription_idSubscr=idSubscr and " +
+                                                                           "products_has_Tarif_idproducts_has_Tarif=idproducts_has_Tarif;");
+
+                    if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19" || get_produt_testing_device == "20" || get_produt_testing_device == "21")
+                    {
+                        string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
+                                                                    "\"itemId\":\"" + wl_id + "\"," +
+                                                                    "\"commandName\":\"1 - Открыть автомобиль\"," +
+                                                                    "\"linkType\":\"tcp\"," +
+                                                                    "\"param\":\"\"," +
+                                                                    "\"timeout\":\"0\"," +
+                                                                    "\"flags\":\"0\"}");
+                        if (cmd.Contains("rror"))
+                        { MessageBox.Show("Помилка, зачекай та спробуй ще"); return; }
+                    }
+                    else if (get_produt_testing_device == "2" || get_produt_testing_device == "3" || get_produt_testing_device == "6" || get_produt_testing_device == "12" || get_produt_testing_device == "17")
+                    {
+                        MessageBox.Show("Обладнення не підтримує команду Автозапуск");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Упс, ошибка, сообщить 117");
+                    }
+
+                    string _text = "Команду відкриття автомобіля відправлено. Оператор: " + vars_form.user_login_name + "";
+                    int gmr = checkBox_vizov_gmr.Checked ? 1 : 0;
+                    int police = checkBox_vizov_police.Checked ? 1 : 0;
+                    macros.sql_command("insert into btk.alarm_ack(" +
+                                        "alarm_text, " +
+                                        "notification_idnotification, " +
+                                        "Users_chenge, time_start_ack, " +
+                                        "current_status_alarm, " +
+                                        "vizov_police, " +
+                                        "vizov_gmp) " +
+                                        "values('" + _text + "', " +
+                                        "'" + _id_notif + "'," +
+                                        "'" + _user_login_id + "', " +
+                                        "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                        " 'Учетки', '" +
+                                        "" + police + "', " +
+                                        "'" + gmr + "');");
+
+                    mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
+                    MessageBox.Show("Команду відкриття автомобіля відправлено!");
+                }
+                else
+                {
+                    MessageBox.Show("Немає звязку, зачекай та спробуй ще");
+                    return;
+                }
+
+
+
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
         }
 
         private void detail_Activated(object sender, EventArgs e)
@@ -5383,6 +5565,20 @@ namespace Disp_WinForm
             {
                 Map f = new Map();
                 f.Close();
+            }
+        }
+
+        private void arm_button_Click(object sender, EventArgs e)
+        {
+            if (StateArmtButton is true)
+            {
+                Arm_groupBox.Visible = false;
+                StateArmtButton = false;
+            }
+            else
+            {
+                Arm_groupBox.Visible = true;
+                StateArmtButton = true;
             }
         }
     }
