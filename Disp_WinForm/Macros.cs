@@ -32,7 +32,7 @@ namespace Disp_WinForm
                 file.WriteLine("\r\n" + DateTime.Now.ToString() + " win_un: " + Environment.UserName + "\r\n" + data);
             }
         }
-        public string WialonRequest(string request)
+        public string WialonRequest_(string request)
         {
             string json = "";
             try
@@ -117,39 +117,67 @@ namespace Disp_WinForm
 
         //    return json;
         //}
-        public string WialonRequest_(string Request)
+        public string WialonRequest(string Request)
         {
-            string contents="";
+            string json = "";
             try
             {
+
                 var client = new HttpClient();
                 var content = new StringContent(Request, Encoding.UTF8, "application/x-www-form-urlencoded");
                 var address = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid;
                 var result = client.PostAsync(address, content).Result;
-                contents = result.Content.ReadAsStringAsync().Result;
-                var answer = JsonConvert.DeserializeObject<TestConnection>(contents);
-                if (answer.error != 0)
-                {
-                    log_write("Error " + "WialonRequest(): " + answer.ToString());
-                    GetEidFromToken();
+                json = result.Content.ReadAsStringAsync().Result;
+                
 
-                    client = new HttpClient();
-                    content = new StringContent(Request, Encoding.UTF8, "application/x-www-form-urlencoded");
-                    address = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid;
-                    result = client.PostAsync(address, content).Result;
-                    contents = result.Content.ReadAsStringAsync().Result;
-                    answer = JsonConvert.DeserializeObject<TestConnection>(contents);
-                    if (answer.error != 0)
+                if (json.Contains("error"))
+                {
+                    var test_out = JsonConvert.DeserializeObject<TestConnection>(json);
+                    if (test_out.error == 1)
                     {
-                        return "";
+                        GetEidFromToken();
+                        client = new HttpClient();
+                        content = new StringContent(Request, Encoding.UTF8, "application/x-www-form-urlencoded");
+                        address = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid;
+                        result = client.PostAsync(address, content).Result;
+                        json = result.Content.ReadAsStringAsync().Result;
+
+                        if (json.Contains("error"))
+                        {
+                            test_out = JsonConvert.DeserializeObject<TestConnection>(json);
+                        }
+                        else { test_out.error = 0; }
+                    }
+
+                    else if (test_out.error > 1)
+                    {
+
+                        vars_form.error = Get_wl_text_error(test_out.error); //Показіваем диалог бокс с ошибкой, преріваем создание
+
+                        if (!System.Windows.Forms.Application.OpenForms.OfType<Conn_error>().Any())
+                        {
+                            Conn_error error_box = new Conn_error();
+                            error_box.Show();
+                        }
+                        return json;
+                    }
+                    if (test_out.error == 0)
+                    {
+                        if (System.Windows.Forms.Application.OpenForms.OfType<Conn_error>().Any())
+                        {
+                            Conn_error obj = (Conn_error)System.Windows.Forms.Application.OpenForms["Conn_error"];
+                            obj.Close();
+                            vars_form.error = "";
+                            return json;
+                        }
                     }
                 }
-                return contents;
+                return json;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                log_write(e.StackTrace.ToString());
-                return "";
+                GetEidFromToken();
+                return json;
             }
         }
 

@@ -3569,8 +3569,23 @@ namespace Disp_WinForm
             {
                 if (results1.Rows[0][0].ToString() == "1")
                 {
-                    MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
-                    return;
+                    if (vars_form.user_login_name == "service")
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Взе опрацьовуэться", "Выдкрити?", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
+                        return;
+                    }
                 }
             }
 
@@ -6212,6 +6227,18 @@ namespace Disp_WinForm
 
             //0 - Запросить текущее состояние
             string cmd_refresh = macros.create_commads_wl(cr_obj_out.item.id, "0 - Запросить текущее состояние", "%23refresh%23", 83886080);
+
+            
+
+            string gr_answer2 = macros.WialonRequest(
+                "&svc=unit_group/update_units&params={"
+                + "\"itemId\":\"2612\","
+                + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+            string gr_answer1 = macros.WialonRequestSimple(
+                "&svc=unit_group/update_units&params={"
+                + "\"itemId\":\"2612\","
+                + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
 
             //0 - Перезагрузить систему
             string cmd_reboot = macros.create_commads_wl(cr_obj_out.item.id, "0 - Перезагрузить систему", "%23reboot%23", 83886080);

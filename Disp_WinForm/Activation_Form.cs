@@ -636,7 +636,7 @@ namespace Disp_WinForm
 
             if (comboBox_activation_result.SelectedIndex == -1)
             {
-                MessageBox.Show("Оберіть результат тестування");
+                MessageBox.Show("Оберіть результат активації");
                 return;
             }
             else if ((comboBox_activation_result.SelectedIndex == 1 | comboBox_activation_result.SelectedIndex == 2) & textBox_comments.Text == "")
@@ -651,7 +651,7 @@ namespace Disp_WinForm
                 //Меняем имя об"екта in WL
                 string name_answer = macros.WialonRequest("&svc=item/update_name&params={"
                                                                 + "\"itemId\":\"" + _id_wl_object_for_activation + "\","
-                                                                + "\"name\":\"" + name_obj_new_textBox.Text + "\"}");
+                                                                + "\"name\":\"" + name_obj_new_textBox.Text.Replace("\"", "%5C%22") + "\"}");
                 //Меняем имя об"екта in DB
                 macros.sql_command("UPDATE btk.Object " +
                                "SET " +

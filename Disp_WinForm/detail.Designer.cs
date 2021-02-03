@@ -261,7 +261,7 @@
             this.groupBox4.Controls.Add(this.dataGridView_hronologija_trivog);
             this.groupBox4.Location = new System.Drawing.Point(7, 59);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(811, 308);
+            this.groupBox4.Size = new System.Drawing.Size(733, 184);
             this.groupBox4.TabIndex = 8;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Виконані дії";
@@ -313,7 +313,7 @@
             this.dataGridView_hronologija_trivog.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView_hronologija_trivog.RowHeadersVisible = false;
             this.dataGridView_hronologija_trivog.RowHeadersWidth = 50;
-            this.dataGridView_hronologija_trivog.Size = new System.Drawing.Size(803, 283);
+            this.dataGridView_hronologija_trivog.Size = new System.Drawing.Size(725, 159);
             this.dataGridView_hronologija_trivog.TabIndex = 1;
             // 
             // Column_alarm_text
@@ -423,7 +423,7 @@
             dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView_group_alarm.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridView_group_alarm.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_group_alarm.Size = new System.Drawing.Size(803, 263);
+            this.dataGridView_group_alarm.Size = new System.Drawing.Size(725, 263);
             this.dataGridView_group_alarm.TabIndex = 11;
             this.dataGridView_group_alarm.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_group_alarm_CellFormatting);
             // 
@@ -487,7 +487,7 @@
             // button_group_alarm
             // 
             this.button_group_alarm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_group_alarm.Location = new System.Drawing.Point(624, 18);
+            this.button_group_alarm.Location = new System.Drawing.Point(546, 18);
             this.button_group_alarm.Name = "button_group_alarm";
             this.button_group_alarm.Size = new System.Drawing.Size(182, 41);
             this.button_group_alarm.TabIndex = 12;
@@ -498,7 +498,7 @@
             // button_ungroup_alarm
             // 
             this.button_ungroup_alarm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_ungroup_alarm.Location = new System.Drawing.Point(617, 239);
+            this.button_ungroup_alarm.Location = new System.Drawing.Point(539, 239);
             this.button_ungroup_alarm.Name = "button_ungroup_alarm";
             this.button_ungroup_alarm.Size = new System.Drawing.Size(189, 40);
             this.button_ungroup_alarm.TabIndex = 13;
@@ -553,7 +553,7 @@
             this.tabControl2.Location = new System.Drawing.Point(5, 5);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(1356, 696);
+            this.tabControl2.Size = new System.Drawing.Size(1278, 572);
             this.tabControl2.TabIndex = 22;
             this.tabControl2.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl2_Selecting);
             // 
@@ -568,7 +568,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1348, 670);
+            this.tabPage3.Size = new System.Drawing.Size(1270, 546);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Обробка";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -576,7 +576,7 @@
             // textBox_Uvaga
             // 
             this.textBox_Uvaga.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_Uvaga.Location = new System.Drawing.Point(117, 4);
+            this.textBox_Uvaga.Location = new System.Drawing.Point(39, 4);
             this.textBox_Uvaga.Multiline = true;
             this.textBox_Uvaga.Name = "textBox_Uvaga";
             this.textBox_Uvaga.Size = new System.Drawing.Size(585, 49);
@@ -588,9 +588,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.label_lmst);
             this.groupBox1.Controls.Add(this.treeView_client_info);
-            this.groupBox1.Location = new System.Drawing.Point(824, 194);
+            this.groupBox1.Location = new System.Drawing.Point(746, 194);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(509, 465);
+            this.groupBox1.Size = new System.Drawing.Size(509, 341);
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Информація про кліента";
@@ -615,7 +615,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeView_client_info.Location = new System.Drawing.Point(6, 16);
             this.treeView_client_info.Name = "treeView_client_info";
-            this.treeView_client_info.Size = new System.Drawing.Size(497, 443);
+            this.treeView_client_info.Size = new System.Drawing.Size(497, 319);
             this.treeView_client_info.TabIndex = 21;
             this.treeView_client_info.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView_client_info_NodeMouseDoubleClick);
             this.treeView_client_info.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.treeView_client_info_MouseDoubleClick);
@@ -628,9 +628,9 @@
             this.groupBox10.Controls.Add(this.button_ungroup_alarm);
             this.groupBox10.Controls.Add(this.button_group_alarm);
             this.groupBox10.Controls.Add(this.dataGridView_group_alarm);
-            this.groupBox10.Location = new System.Drawing.Point(7, 373);
+            this.groupBox10.Location = new System.Drawing.Point(7, 249);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(811, 286);
+            this.groupBox10.Size = new System.Drawing.Size(733, 286);
             this.groupBox10.TabIndex = 17;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Групування тривог";
@@ -638,7 +638,7 @@
             // button_izmenit_uvaga
             // 
             this.button_izmenit_uvaga.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_izmenit_uvaga.Location = new System.Drawing.Point(708, 2);
+            this.button_izmenit_uvaga.Location = new System.Drawing.Point(630, 2);
             this.button_izmenit_uvaga.Name = "button_izmenit_uvaga";
             this.button_izmenit_uvaga.Size = new System.Drawing.Size(110, 51);
             this.button_izmenit_uvaga.TabIndex = 16;
@@ -673,7 +673,7 @@
             this.tabPage_locator.Location = new System.Drawing.Point(4, 22);
             this.tabPage_locator.Name = "tabPage_locator";
             this.tabPage_locator.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_locator.Size = new System.Drawing.Size(1348, 670);
+            this.tabPage_locator.Size = new System.Drawing.Size(1270, 546);
             this.tabPage_locator.TabIndex = 6;
             this.tabPage_locator.Text = "Карта";
             this.tabPage_locator.UseVisualStyleBackColor = true;
@@ -883,7 +883,7 @@
             this.geckoWebBrowser2.FrameEventsPropagateToMainWindow = false;
             this.geckoWebBrowser2.Location = new System.Drawing.Point(0, 0);
             this.geckoWebBrowser2.Name = "geckoWebBrowser2";
-            this.geckoWebBrowser2.Size = new System.Drawing.Size(1349, 670);
+            this.geckoWebBrowser2.Size = new System.Drawing.Size(1271, 546);
             this.geckoWebBrowser2.TabIndex = 1;
             this.geckoWebBrowser2.UseHttpActivityObserver = false;
             // 
@@ -1964,7 +1964,7 @@
             this.groupBox3.Controls.Add(this.button_vnesti_zapis);
             this.groupBox3.Controls.Add(this.dateTimePicker_nachalo_dejstvia);
             this.groupBox3.Controls.Add(this.groupBox2);
-            this.groupBox3.Location = new System.Drawing.Point(839, 26);
+            this.groupBox3.Location = new System.Drawing.Point(761, 26);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(519, 189);
             this.groupBox3.TabIndex = 23;
@@ -2124,7 +2124,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1370, 705);
+            this.ClientSize = new System.Drawing.Size(1292, 581);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.tabControl2);
             this.DoubleBuffered = true;
