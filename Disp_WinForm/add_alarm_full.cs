@@ -309,6 +309,17 @@ namespace Disp_WinForm
                                     "'0', " +
                                     "'0'); ");
 
+                macros.sql_command("insert into btk.RoumingZayavka(" +
+                                    "StartDate, " +
+                                    "EndDate, " +
+                                    "notification_idnotification)" +
+                                    "values('" + Convert.ToDateTime(dateTimePicker_start_rouming.Value).Date.ToString("yyyy-MM-dd") + "', " +
+                                    "'" + Convert.ToDateTime(dateTimePicker_end_rouming.Value).Date.ToString("yyyy-MM-dd") + "'," +
+                                    "'" + id_created_notification + "' " +
+                                    "); ");
+
+
+
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.add_alarm_unit_id + "\","
                                                          + "\"flags\":\"8388873\"}"); //
@@ -326,7 +337,7 @@ namespace Disp_WinForm
 
 
 
-                string Subject = "Запит на активацію послуги Роумінг."+ "      Проект: " + project + ", VIN: " + test_out.item.pflds[7].v + ", Держ. Номер: " + test_out.item.pflds[4].v ;
+                string Subject = "Запит на активацію послуги Роумінг."+ "      Проект: " + project + ", VIN: " + test_out.item.pflds[5].v + ", Держ. Номер: " + test_out.item.pflds[4].v ;
                 
                 DataTable users_send_mail = macros.GetData("SELECT user_mail FROM btk.Users where (dept_user = '115' or dept_user = '113') and State != '0';");
 
@@ -344,7 +355,7 @@ namespace Disp_WinForm
                 dt.Columns.Add("<b>Значення</b>");
                 object[] row = { "Проект", project };
                 dt.Rows.Add(row);
-                object[] row0 = { "VIN", test_out.item.pflds[7].v };
+                object[] row0 = { "VIN", test_out.item.pflds[5].v };
                 dt.Rows.Add(row0);
                 object[] row1 = { "Держ. Номер", test_out.item.pflds[4].v };
                 dt.Rows.Add(row1);

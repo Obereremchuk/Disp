@@ -277,6 +277,28 @@ namespace Disp_WinForm
             return contents;
         }
 
+        //public string VodafoneSendSMSAsync(string EndPoint, object subminSMS, string ICCID)
+        //{
+            
+
+        //    string BaseURI = "https://api.m2m.vodafone.com/m2m/v1/devices/";
+        //    //string BaseURI = "https://dev-prd.api.m2m.vodafone.com";
+
+        //    string url = BaseURI + "/" + ICCID + "?action=submitsms";
+        //    string json = JsonConvert.SerializeObject(subminSMS);
+        //    var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+        //    using var client = new HttpClient();
+        //    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + vars_form.Vodafone_AccessToken);
+        //    var response = await client.PostAsync(url, data);
+        //    string result = response.Content.ReadAsStringAsync().Result;
+   
+
+
+
+        //    return result;
+        //}
+
 
 
 
@@ -1260,6 +1282,8 @@ namespace Disp_WinForm
         /// </summary>
         public bool IsActive { get; private set; }
     }
+
+    
 
 
     //public class PlaceHolderTextBox : TextBox

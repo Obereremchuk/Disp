@@ -2035,13 +2035,34 @@ namespace Disp_WinForm
                                                                                                                 + "\"flags\":\"1\"}");//получаем все объекты группы
                                     list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
 
-                                    //Доповляем в группу srv_prizrak_910_3 тестируемый объект
-                                    list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));
-                                    string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
-                                    //обновляем в Виалоне группу все объекты + новый
-                                    string gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
+
+                                    // Проверяем если в группе srv_prizrak_910_3 количество объектов более 1000, то используем группу srv_prizrak_910_4. Если меньше тысящи добовляем тестируемый объект в группе srv_prizrak_910_2.
+                                    if (list_get_units_on_group.item.u.Count > 1000)
+                                    {
+                                        //Запрашиваем объекты из группы srv_prizrak_910_4
+                                        get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
+                                                                                                                    + "\"id\":\"29557\","
+                                                                                                                    + "\"flags\":\"1\"}");//получаем все объекты группы
+                                        list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+                                        //Доповляем в группу srv_prizrak_910_4 тестируемый объект
+                                        list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));
+                                        string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+                                        //обновляем в Виалоне группу все объекты + новый
+                                        string gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
+                                                                                                                         + "\"itemId\":\"29557\","
+                                                                                                                         + "\"units\":" + units_in_group + "}");
+                                    }
+                                    else
+                                    {
+                                        //Доповляем в группу srv_prizrak_910_3 тестируемый объект
+                                        list_get_units_on_group.item.u.Add(Convert.ToInt32(vars_form.id_wl_object_for_test));
+                                        string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+                                        //обновляем в Виалоне группу все объекты + новый
+                                        string gr_answer = macros.WialonRequest("&svc=unit_group/update_units&params={"
                                                                                                                      + "\"itemId\":\"23147\","
                                                                                                                      + "\"units\":" + units_in_group + "}");
+                                    }
                                 }
                                 else
                                 {

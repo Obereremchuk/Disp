@@ -159,6 +159,24 @@
             this.account_delete_button = new System.Windows.Forms.Button();
             this.button_remove_2_account = new System.Windows.Forms.Button();
             this.tabPage_rouming = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.RoumingZapitStart_dateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.label10 = new System.Windows.Forms.Label();
+            this.ChengeProject_button = new System.Windows.Forms.Button();
+            this.RoumingZapitEnd_dateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.SendMailKontrageent = new System.Windows.Forms.Button();
+            this.label24 = new System.Windows.Forms.Label();
+            this.AcceptRouming_button = new System.Windows.Forms.Button();
+            this.textBox_IMEI = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textBox_vin = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.textBox_name = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.comboBox_Project = new System.Windows.Forms.ComboBox();
+            this.textBox_comments = new System.Windows.Forms.TextBox();
             this.groupBox_SIM2 = new System.Windows.Forms.GroupBox();
             this.label22 = new System.Windows.Forms.Label();
             this.radioButton_SIM2_Rouming_off = new System.Windows.Forms.RadioButton();
@@ -170,6 +188,7 @@
             this.label19 = new System.Windows.Forms.Label();
             this.Rouming_SIM2_End_dtp = new System.Windows.Forms.DateTimePicker();
             this.label21 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
             this.groupBox_SIM1 = new System.Windows.Forms.GroupBox();
             this.label23 = new System.Windows.Forms.Label();
             this.textBox_SIM1 = new System.Windows.Forms.TextBox();
@@ -183,17 +202,6 @@
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.dataGridView_history = new System.Windows.Forms.DataGridView();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.textBox_IMEI = new System.Windows.Forms.TextBox();
-            this.textBox_comments = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.textBox_vin = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.textBox_name = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.comboBox_Project = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.comboBox_otvetstvenniy = new System.Windows.Forms.ComboBox();
             this.remaynder_checkBox = new System.Windows.Forms.CheckBox();
@@ -235,11 +243,12 @@
             this.groupBox13.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.tabPage_rouming.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.groupBox_SIM2.SuspendLayout();
             this.groupBox_SIM1.SuspendLayout();
             this.groupBox16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_history)).BeginInit();
-            this.groupBox7.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -893,7 +902,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1348, 670);
+            this.tabPage4.Size = new System.Drawing.Size(1270, 546);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Інформація про об\"єкт";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -905,7 +914,7 @@
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(1348, 670);
+            this.tabPage6.Size = new System.Drawing.Size(1270, 546);
             this.tabPage6.TabIndex = 3;
             this.tabPage6.Text = "Архів тривог об\"єкта";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -1103,7 +1112,7 @@
             this.tabPage_dii_z_obectom.Location = new System.Drawing.Point(4, 22);
             this.tabPage_dii_z_obectom.Name = "tabPage_dii_z_obectom";
             this.tabPage_dii_z_obectom.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_dii_z_obectom.Size = new System.Drawing.Size(1348, 670);
+            this.tabPage_dii_z_obectom.Size = new System.Drawing.Size(1270, 546);
             this.tabPage_dii_z_obectom.TabIndex = 4;
             this.tabPage_dii_z_obectom.Text = "Дії з об\"єктом";
             this.tabPage_dii_z_obectom.UseVisualStyleBackColor = true;
@@ -1200,7 +1209,7 @@
             this.tabPage_edit_client.Location = new System.Drawing.Point(4, 22);
             this.tabPage_edit_client.Name = "tabPage_edit_client";
             this.tabPage_edit_client.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_edit_client.Size = new System.Drawing.Size(1348, 670);
+            this.tabPage_edit_client.Size = new System.Drawing.Size(1270, 546);
             this.tabPage_edit_client.TabIndex = 5;
             this.tabPage_edit_client.Text = "Редагування картки кліета";
             this.tabPage_edit_client.UseVisualStyleBackColor = true;
@@ -1572,16 +1581,192 @@
             // 
             // tabPage_rouming
             // 
-            this.tabPage_rouming.Controls.Add(this.groupBox_SIM2);
-            this.tabPage_rouming.Controls.Add(this.groupBox_SIM1);
+            this.tabPage_rouming.Controls.Add(this.panel1);
             this.tabPage_rouming.Controls.Add(this.groupBox16);
-            this.tabPage_rouming.Controls.Add(this.groupBox7);
             this.tabPage_rouming.Location = new System.Drawing.Point(4, 22);
             this.tabPage_rouming.Name = "tabPage_rouming";
-            this.tabPage_rouming.Size = new System.Drawing.Size(1348, 670);
+            this.tabPage_rouming.Size = new System.Drawing.Size(1270, 546);
             this.tabPage_rouming.TabIndex = 7;
             this.tabPage_rouming.Text = "Роумінг";
             this.tabPage_rouming.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.groupBox7);
+            this.panel1.Controls.Add(this.textBox_comments);
+            this.panel1.Controls.Add(this.groupBox_SIM2);
+            this.panel1.Controls.Add(this.label20);
+            this.panel1.Controls.Add(this.groupBox_SIM1);
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1261, 336);
+            this.panel1.TabIndex = 26;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.RoumingZapitStart_dateTimePicker);
+            this.groupBox7.Controls.Add(this.label10);
+            this.groupBox7.Controls.Add(this.ChengeProject_button);
+            this.groupBox7.Controls.Add(this.RoumingZapitEnd_dateTimePicker);
+            this.groupBox7.Controls.Add(this.SendMailKontrageent);
+            this.groupBox7.Controls.Add(this.label24);
+            this.groupBox7.Controls.Add(this.AcceptRouming_button);
+            this.groupBox7.Controls.Add(this.textBox_IMEI);
+            this.groupBox7.Controls.Add(this.label14);
+            this.groupBox7.Controls.Add(this.textBox_vin);
+            this.groupBox7.Controls.Add(this.label13);
+            this.groupBox7.Controls.Add(this.textBox_name);
+            this.groupBox7.Controls.Add(this.label18);
+            this.groupBox7.Controls.Add(this.label17);
+            this.groupBox7.Controls.Add(this.comboBox_Project);
+            this.groupBox7.Location = new System.Drawing.Point(3, 3);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(410, 257);
+            this.groupBox7.TabIndex = 21;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Запит на послугу Роумінг";
+            // 
+            // RoumingZapitStart_dateTimePicker
+            // 
+            this.RoumingZapitStart_dateTimePicker.CustomFormat = "dd.MM.yy";
+            this.RoumingZapitStart_dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.RoumingZapitStart_dateTimePicker.Location = new System.Drawing.Point(63, 137);
+            this.RoumingZapitStart_dateTimePicker.Name = "RoumingZapitStart_dateTimePicker";
+            this.RoumingZapitStart_dateTimePicker.Size = new System.Drawing.Size(338, 20);
+            this.RoumingZapitStart_dateTimePicker.TabIndex = 25;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(8, 164);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(40, 13);
+            this.label10.TabIndex = 28;
+            this.label10.Text = "Кінець";
+            // 
+            // ChengeProject_button
+            // 
+            this.ChengeProject_button.Enabled = false;
+            this.ChengeProject_button.Location = new System.Drawing.Point(341, 110);
+            this.ChengeProject_button.Name = "ChengeProject_button";
+            this.ChengeProject_button.Size = new System.Drawing.Size(60, 23);
+            this.ChengeProject_button.TabIndex = 18;
+            this.ChengeProject_button.Text = "Змінити";
+            this.ChengeProject_button.UseVisualStyleBackColor = true;
+            // 
+            // RoumingZapitEnd_dateTimePicker
+            // 
+            this.RoumingZapitEnd_dateTimePicker.CustomFormat = "dd.MM.yy";
+            this.RoumingZapitEnd_dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.RoumingZapitEnd_dateTimePicker.Location = new System.Drawing.Point(63, 163);
+            this.RoumingZapitEnd_dateTimePicker.Name = "RoumingZapitEnd_dateTimePicker";
+            this.RoumingZapitEnd_dateTimePicker.Size = new System.Drawing.Size(338, 20);
+            this.RoumingZapitEnd_dateTimePicker.TabIndex = 26;
+            // 
+            // SendMailKontrageent
+            // 
+            this.SendMailKontrageent.Enabled = false;
+            this.SendMailKontrageent.Location = new System.Drawing.Point(287, 189);
+            this.SendMailKontrageent.Name = "SendMailKontrageent";
+            this.SendMailKontrageent.Size = new System.Drawing.Size(114, 23);
+            this.SendMailKontrageent.TabIndex = 17;
+            this.SendMailKontrageent.Text = "Надіслати запит";
+            this.SendMailKontrageent.UseVisualStyleBackColor = true;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(8, 141);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(49, 13);
+            this.label24.TabIndex = 27;
+            this.label24.Text = "Початок";
+            // 
+            // AcceptRouming_button
+            // 
+            this.AcceptRouming_button.Location = new System.Drawing.Point(63, 227);
+            this.AcceptRouming_button.Name = "AcceptRouming_button";
+            this.AcceptRouming_button.Size = new System.Drawing.Size(338, 23);
+            this.AcceptRouming_button.TabIndex = 15;
+            this.AcceptRouming_button.Text = "Погодити";
+            this.AcceptRouming_button.UseVisualStyleBackColor = true;
+            this.AcceptRouming_button.Click += new System.EventHandler(this.AcceptRouming_button_Click);
+            // 
+            // textBox_IMEI
+            // 
+            this.textBox_IMEI.Enabled = false;
+            this.textBox_IMEI.Location = new System.Drawing.Point(63, 58);
+            this.textBox_IMEI.Name = "textBox_IMEI";
+            this.textBox_IMEI.Size = new System.Drawing.Size(338, 20);
+            this.textBox_IMEI.TabIndex = 5;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(8, 61);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(18, 13);
+            this.label14.TabIndex = 6;
+            this.label14.Text = "ID";
+            // 
+            // textBox_vin
+            // 
+            this.textBox_vin.Enabled = false;
+            this.textBox_vin.Location = new System.Drawing.Point(63, 84);
+            this.textBox_vin.Name = "textBox_vin";
+            this.textBox_vin.Size = new System.Drawing.Size(338, 20);
+            this.textBox_vin.TabIndex = 2;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(8, 87);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(25, 13);
+            this.label13.TabIndex = 4;
+            this.label13.Text = "VIN";
+            // 
+            // textBox_name
+            // 
+            this.textBox_name.Enabled = false;
+            this.textBox_name.Location = new System.Drawing.Point(63, 32);
+            this.textBox_name.Name = "textBox_name";
+            this.textBox_name.Size = new System.Drawing.Size(338, 20);
+            this.textBox_name.TabIndex = 12;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(8, 35);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(39, 13);
+            this.label18.TabIndex = 13;
+            this.label18.Text = "Назва";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(8, 113);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(44, 13);
+            this.label17.TabIndex = 14;
+            this.label17.Text = "Проект";
+            // 
+            // comboBox_Project
+            // 
+            this.comboBox_Project.FormattingEnabled = true;
+            this.comboBox_Project.Location = new System.Drawing.Point(63, 110);
+            this.comboBox_Project.Name = "comboBox_Project";
+            this.comboBox_Project.Size = new System.Drawing.Size(272, 21);
+            this.comboBox_Project.TabIndex = 11;
+            // 
+            // textBox_comments
+            // 
+            this.textBox_comments.Location = new System.Drawing.Point(66, 266);
+            this.textBox_comments.Multiline = true;
+            this.textBox_comments.Name = "textBox_comments";
+            this.textBox_comments.Size = new System.Drawing.Size(789, 58);
+            this.textBox_comments.TabIndex = 21;
             // 
             // groupBox_SIM2
             // 
@@ -1595,12 +1780,12 @@
             this.groupBox_SIM2.Controls.Add(this.label19);
             this.groupBox_SIM2.Controls.Add(this.Rouming_SIM2_End_dtp);
             this.groupBox_SIM2.Controls.Add(this.label21);
-            this.groupBox_SIM2.Location = new System.Drawing.Point(560, 3);
+            this.groupBox_SIM2.Location = new System.Drawing.Point(641, 3);
             this.groupBox_SIM2.Name = "groupBox_SIM2";
-            this.groupBox_SIM2.Size = new System.Drawing.Size(214, 219);
+            this.groupBox_SIM2.Size = new System.Drawing.Size(214, 257);
             this.groupBox_SIM2.TabIndex = 25;
             this.groupBox_SIM2.TabStop = false;
-            this.groupBox_SIM2.Text = "Керування SIM2";
+            this.groupBox_SIM2.Text = "SIM2";
             // 
             // label22
             // 
@@ -1645,7 +1830,7 @@
             // 
             // button_SIM2_Rouming_enter
             // 
-            this.button_SIM2_Rouming_enter.Location = new System.Drawing.Point(15, 183);
+            this.button_SIM2_Rouming_enter.Location = new System.Drawing.Point(16, 227);
             this.button_SIM2_Rouming_enter.Name = "button_SIM2_Rouming_enter";
             this.button_SIM2_Rouming_enter.Size = new System.Drawing.Size(192, 23);
             this.button_SIM2_Rouming_enter.TabIndex = 15;
@@ -1703,6 +1888,15 @@
             this.label21.TabIndex = 7;
             this.label21.Text = "Початок";
             // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(3, 263);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(57, 13);
+            this.label20.TabIndex = 22;
+            this.label20.Text = "Коментар";
+            // 
             // groupBox_SIM1
             // 
             this.groupBox_SIM1.Controls.Add(this.label23);
@@ -1715,12 +1909,12 @@
             this.groupBox_SIM1.Controls.Add(this.label15);
             this.groupBox_SIM1.Controls.Add(this.Rouming_SIM1_End_dtp);
             this.groupBox_SIM1.Controls.Add(this.label16);
-            this.groupBox_SIM1.Location = new System.Drawing.Point(327, 3);
+            this.groupBox_SIM1.Location = new System.Drawing.Point(419, 3);
             this.groupBox_SIM1.Name = "groupBox_SIM1";
-            this.groupBox_SIM1.Size = new System.Drawing.Size(216, 219);
+            this.groupBox_SIM1.Size = new System.Drawing.Size(216, 257);
             this.groupBox_SIM1.TabIndex = 24;
             this.groupBox_SIM1.TabStop = false;
-            this.groupBox_SIM1.Text = "Керування SIM1";
+            this.groupBox_SIM1.Text = "SIM1";
             // 
             // label23
             // 
@@ -1765,7 +1959,7 @@
             // 
             // button_SIM1_Rouming_enter
             // 
-            this.button_SIM1_Rouming_enter.Location = new System.Drawing.Point(19, 183);
+            this.button_SIM1_Rouming_enter.Location = new System.Drawing.Point(18, 227);
             this.button_SIM1_Rouming_enter.Name = "button_SIM1_Rouming_enter";
             this.button_SIM1_Rouming_enter.Size = new System.Drawing.Size(192, 23);
             this.button_SIM1_Rouming_enter.TabIndex = 15;
@@ -1825,10 +2019,13 @@
             // 
             // groupBox16
             // 
+            this.groupBox16.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox16.Controls.Add(this.dataGridView_history);
-            this.groupBox16.Location = new System.Drawing.Point(3, 228);
+            this.groupBox16.Location = new System.Drawing.Point(3, 345);
             this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(771, 150);
+            this.groupBox16.Size = new System.Drawing.Size(1261, 197);
             this.groupBox16.TabIndex = 25;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Історія";
@@ -1844,109 +2041,8 @@
             this.dataGridView_history.ReadOnly = true;
             this.dataGridView_history.RowHeadersVisible = false;
             this.dataGridView_history.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_history.Size = new System.Drawing.Size(765, 131);
+            this.dataGridView_history.Size = new System.Drawing.Size(1255, 178);
             this.dataGridView_history.TabIndex = 0;
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.textBox_IMEI);
-            this.groupBox7.Controls.Add(this.textBox_comments);
-            this.groupBox7.Controls.Add(this.label14);
-            this.groupBox7.Controls.Add(this.textBox_vin);
-            this.groupBox7.Controls.Add(this.label13);
-            this.groupBox7.Controls.Add(this.label20);
-            this.groupBox7.Controls.Add(this.textBox_name);
-            this.groupBox7.Controls.Add(this.label18);
-            this.groupBox7.Controls.Add(this.label17);
-            this.groupBox7.Controls.Add(this.comboBox_Project);
-            this.groupBox7.Location = new System.Drawing.Point(3, 3);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(318, 219);
-            this.groupBox7.TabIndex = 21;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Запит на послугу Роумінг";
-            // 
-            // textBox_IMEI
-            // 
-            this.textBox_IMEI.Location = new System.Drawing.Point(79, 58);
-            this.textBox_IMEI.Name = "textBox_IMEI";
-            this.textBox_IMEI.Size = new System.Drawing.Size(222, 20);
-            this.textBox_IMEI.TabIndex = 5;
-            // 
-            // textBox_comments
-            // 
-            this.textBox_comments.Location = new System.Drawing.Point(79, 137);
-            this.textBox_comments.Multiline = true;
-            this.textBox_comments.Name = "textBox_comments";
-            this.textBox_comments.Size = new System.Drawing.Size(222, 58);
-            this.textBox_comments.TabIndex = 21;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(8, 61);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(18, 13);
-            this.label14.TabIndex = 6;
-            this.label14.Text = "ID";
-            // 
-            // textBox_vin
-            // 
-            this.textBox_vin.Location = new System.Drawing.Point(79, 84);
-            this.textBox_vin.Name = "textBox_vin";
-            this.textBox_vin.Size = new System.Drawing.Size(222, 20);
-            this.textBox_vin.TabIndex = 2;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(8, 87);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(25, 13);
-            this.label13.TabIndex = 4;
-            this.label13.Text = "VIN";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(8, 140);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(57, 13);
-            this.label20.TabIndex = 22;
-            this.label20.Text = "Коментар";
-            // 
-            // textBox_name
-            // 
-            this.textBox_name.Location = new System.Drawing.Point(79, 32);
-            this.textBox_name.Name = "textBox_name";
-            this.textBox_name.Size = new System.Drawing.Size(222, 20);
-            this.textBox_name.TabIndex = 12;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(8, 35);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(39, 13);
-            this.label18.TabIndex = 13;
-            this.label18.Text = "Назва";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(8, 113);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(44, 13);
-            this.label17.TabIndex = 14;
-            this.label17.Text = "Проект";
-            // 
-            // comboBox_Project
-            // 
-            this.comboBox_Project.FormattingEnabled = true;
-            this.comboBox_Project.Location = new System.Drawing.Point(79, 110);
-            this.comboBox_Project.Name = "comboBox_Project";
-            this.comboBox_Project.Size = new System.Drawing.Size(222, 21);
-            this.comboBox_Project.TabIndex = 11;
             // 
             // groupBox3
             // 
@@ -2169,14 +2265,16 @@
             this.groupBox14.ResumeLayout(false);
             this.groupBox14.PerformLayout();
             this.tabPage_rouming.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.groupBox_SIM2.ResumeLayout(false);
             this.groupBox_SIM2.PerformLayout();
             this.groupBox_SIM1.ResumeLayout(false);
             this.groupBox_SIM1.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_history)).EndInit();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -2353,5 +2451,13 @@
         private System.Windows.Forms.Button ArmOff_button;
         private System.Windows.Forms.Button ArmOn_button;
         private System.Windows.Forms.Button arm_button;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button ChengeProject_button;
+        private System.Windows.Forms.Button SendMailKontrageent;
+        private System.Windows.Forms.Button AcceptRouming_button;
+        private System.Windows.Forms.DateTimePicker RoumingZapitStart_dateTimePicker;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.DateTimePicker RoumingZapitEnd_dateTimePicker;
+        private System.Windows.Forms.Label label24;
     }
 }

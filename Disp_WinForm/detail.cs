@@ -40,6 +40,9 @@ namespace Disp_WinForm
         private bool StateServiceButton;
         private bool StateAutostartButton;
         private bool StateArmtButton;
+        private string VIN_object;
+        private string RoumingAccept;
+        private string IMEI_object;
 
         public detail()
         {
@@ -201,7 +204,7 @@ namespace Disp_WinForm
             string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '1' ORDER BY idVO DESC limit 1;");
 
             string VO_falilia = macros.sql_command("SELECT Kontakti_familia FROM btk.Kontakti where idKontakti = '" + VO1.ToString() + "';");
-            string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO1.ToString() + "';");
+            string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO1.ToString() + "';");
             string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO1.ToString() + "';");
             string VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO1.ToString() + "';");
             if (VO_phone2 == "   -   -")
@@ -218,7 +221,7 @@ namespace Disp_WinForm
 
             //load VO2
             string VO2 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '2' ORDER BY idVO DESC limit 1;");
-            string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO2.ToString() + "';");
+            string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO2.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO2.ToString() + "';");
             VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO2.ToString() + "';");
             if (VO_phone2 == "   -   -")
@@ -236,7 +239,7 @@ namespace Disp_WinForm
 
             //load VO3
             string VO3 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '3' ORDER BY idVO DESC limit 1;");
-            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO3.ToString() + "';");
+            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO3.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO3.ToString() + "';");
             VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO3.ToString() + "';");
             if (VO_phone2 == "   -   -")
@@ -253,7 +256,7 @@ namespace Disp_WinForm
 
             //load VO4
             string VO4 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '4' ORDER BY idVO DESC limit 1;");
-            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO4.ToString() + "';");
+            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO4.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO4.ToString() + "';");
             VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO4.ToString() + "';");
             if (VO_phone2 == "   -   -")
@@ -270,7 +273,7 @@ namespace Disp_WinForm
 
             //load VO5
             string VO5 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '5' ORDER BY idVO DESC limit 1;");
-            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO5.ToString() + "';");
+            VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO5.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO5.ToString() + "';");
             VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO5.ToString() + "';");
             if (VO_phone2 == "   -   -")
@@ -611,6 +614,7 @@ namespace Disp_WinForm
                         try
                         {
                             treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("IMEI: " + m.items[0].uid.ToString()));
+                            IMEI_object = m.items[0].uid.ToString();
                             treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("SIM: " + m.items[0].ph.ToString()));
                         }
                         catch
@@ -643,6 +647,7 @@ namespace Disp_WinForm
                             else if (keyvalue.Value.n.Contains("vin"))
                             {
                                 treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("VIN: " + keyvalue.Value.v.ToString()));
+                                VIN_object = keyvalue.Value.v.ToString();
                             }
                             else if (keyvalue.Value.n.Contains("registration_plate"))
                             {
@@ -1187,6 +1192,7 @@ namespace Disp_WinForm
 
         private void button_izmenit_uvaga_Click(object sender, EventArgs e)
         {
+            
             string json = macros.WialonRequest("&svc=core/search_items&params={" +
                                                      "\"spec\":{" + 
                                                      "\"itemsType\":\"avl_unit\"," + 
@@ -1210,7 +1216,28 @@ namespace Disp_WinForm
                                                      "\"n\":\"" + m.items[0].flds[1].n + "\"," +
                                                      "\"v\":\"" + textBox_Uvaga.Text.Replace("\"", "%5C%22") + "\"}");//получаем датчики объекта
 
+            string _text = "Поле Увага змінено: "+ textBox_Uvaga.Text.Replace("\"", "%5C%22") + ".\n" + "Змінив оператор: " + vars_form.user_login_name + "";
+            int gmr = checkBox_vizov_gmr.Checked ? 1 : 0;
+            int police = checkBox_vizov_police.Checked ? 1 : 0;
+            macros.sql_command("insert into btk.alarm_ack(" +
+                                "alarm_text, " +
+                                "notification_idnotification, " +
+                                "Users_chenge, time_start_ack, " +
+                                "current_status_alarm, " +
+                                "vizov_police, " +
+                                "vizov_gmp) " +
+                                "values('" + _text + "', " +
+                                "'" + _id_notif + "'," +
+                                "'" + _user_login_id + "', " +
+                                "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                " 'Учетки', '" +
+                                "" + police + "', " +
+                                "'" + gmr + "');");
+
+            mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
+
             MessageBox.Show("Поле Увага змінено!", "Повідомлення");
+
 
         }
 
@@ -1518,7 +1545,7 @@ namespace Disp_WinForm
             if (vars_form.kontakts_opened_from == 1)//VO1 1 familia make upper case
             {
                 string VO_falilia = macros.sql_command("SELECT Kontakti_familia FROM btk.Kontakti where idKontakti = '" + vars_form.transfer_vo1_vo_form + "';");
-                string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo1_vo_form + "';");
+                string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo1_vo_form + "';");
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo1_vo_form + "';");
                 string VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo1_vo_form + "';");
                 if (VO_phone2 == "   -   -")
@@ -1536,7 +1563,7 @@ namespace Disp_WinForm
             }
             if (vars_form.kontakts_opened_from == 2)
             {
-                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo2_vo_form + "';");
+                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo2_vo_form + "';");
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo2_vo_form + "';");
                 string VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo2_vo_form + "';");
                 if (VO_phone2 == "   -   -")
@@ -1554,7 +1581,7 @@ namespace Disp_WinForm
             }
             if (vars_form.kontakts_opened_from == 3)
             {
-                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo3_vo_form + "';");
+                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo3_vo_form + "';");
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo3_vo_form + "';");
                 string VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo3_vo_form + "';");
                 if (VO_phone2 == "   -   -")
@@ -1571,7 +1598,7 @@ namespace Disp_WinForm
             }
             if (vars_form.kontakts_opened_from == 4)
             {
-                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo4_vo_form + "';");
+                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo4_vo_form + "';");
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo4_vo_form + "';");
                 string VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo4_vo_form + "';");
                 if (VO_phone2 == "   -   -")
@@ -1588,7 +1615,7 @@ namespace Disp_WinForm
             }
             if (vars_form.kontakts_opened_from == 5)
             {
-                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', Phonebookcol_messanger, ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo5_vo_form + "';");
+                string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + vars_form.transfer_vo5_vo_form + "';");
                 string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo5_vo_form + "';");
                 string VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + vars_form.transfer_vo5_vo_form + "';");
                 if (VO_phone2 == "   -   -")
@@ -2479,7 +2506,7 @@ namespace Disp_WinForm
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
                                                             "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
                                                             "\"n\":\"Cработка: Датчик удара/наклона\"," +                            /* название */
-                                                            "\"txt\":\"%UNIT%: сработал датчик удара/наклона. Время сработки: %MSG_TIME%. В %POS_TIME% автомобиль находился около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"txt\":\"%25UNIT%25: сработал датчик удара/наклона. Время сработки: %25MSG_TIME%25. В %25POS_TIME%25 автомобиль находился около '%25LOCATION%25'.\"," +     /* текст уведомления */
                                                             "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
                                                             "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
                                                             "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
@@ -2563,7 +2590,7 @@ namespace Disp_WinForm
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
                                                             "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
                                                             "\"n\":\"Блокировка двигателя\"," +                                 /* название */
-                                                            "\"txt\":\"%UNIT%: Произошла блокировка двигателя. Время сработки: %MSG_TIME%  В %POS_TIME% автомобиль двигался со скоростью %SPEED% около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"txt\":\"%25UNIT%25: Произошла блокировка двигателя. Время сработки: %25MSG_TIME%25  В %25POS_TIME%25 автомобиль двигался со скоростью %25SPEED%25 около '%25LOCATION%25'.\"," +     /* текст уведомления */
                                                             "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
                                                             "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
                                                             "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
@@ -2647,7 +2674,7 @@ namespace Disp_WinForm
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
                                                             "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
                                                             "\"n\":\"Низкое напряжения АКБ\"," +                                 /* название */
-                                                            "\"txt\":\"%UNIT%: низкое напряжение АКБ. Автомобиль находился около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"txt\":\"%25UNIT%25: низкое напряжение АКБ. Автомобиль находился около '%25LOCATION%25'.\"," +     /* текст уведомления */
                                                             "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
                                                             "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
                                                             "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
@@ -2731,7 +2758,7 @@ namespace Disp_WinForm
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
                                                             "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
                                                             "\"n\":\"Сработка: Датчики взлома\"," +                                 /* название */
-                                                            "\"txt\":\"%UNIT%: Несанкционированное открытие дверей, капота или багажника. Время сработки: %MSG_TIME%. Автомобиль находился около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"txt\":\"%25UNIT%25: Несанкционированное открытие дверей, капота или багажника. Время сработки: %25MSG_TIME%25. Автомобиль находился около '%25LOCATION%25'.\"," +     /* текст уведомления */
                                                             "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
                                                             "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
                                                             "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
@@ -2817,7 +2844,7 @@ namespace Disp_WinForm
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
                                                             "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
                                                             "\"n\":\"ТРЕВОЖНАЯ КНОПКА\"," +                                 /* название */
-                                                            "\"txt\":\"%UNIT%: НАЖАТА ТРЕВОЖНАЯ КНОПКА!!!!! Время сработки: %MSG_TIME%. В %POS_TIME% объект двигался со скоростью %SPEED% около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"txt\":\"%25UNIT%25: НАЖАТА ТРЕВОЖНАЯ КНОПКА!!!!! Время сработки: %25MSG_TIME%25. В %25POS_TIME%25 объект двигался со скоростью %25SPEED%25 около '%25LOCATION%25'.\"," +     /* текст уведомления */
                                                             "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
                                                             "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
                                                             "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
@@ -2901,7 +2928,7 @@ namespace Disp_WinForm
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
                                                             "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
                                                             "\"n\":\"Сработка: датчика глушения\"," +                                 /* название */
-                                                            "\"txt\":\"%UNIT%: Сработка датчика глушения. Время сработки: %MSG_TIME%. В %POS_TIME% объект двигался со скоростью %SPEED% около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"txt\":\"%25UNIT%25: Сработка датчика глушения. Время сработки: %25MSG_TIME%25. В %25POS_TIME%25 объект двигался со скоростью %25SPEED%25 около '%25LOCATION%25'.\"," +     /* текст уведомления */
                                                             "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
                                                             "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
                                                             "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
@@ -2990,7 +3017,7 @@ namespace Disp_WinForm
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
                                                             "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
                                                             "\"n\":\"Напряжение АКБ\"," +                                 /* название */
-                                                            "\"txt\":\"%UNIT%: низкое напряжение АКБ. Автомобиль находился около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"txt\":\"%25UNIT25%: низкое напряжение АКБ. Автомобиль находился около '%25LOCATION%25'.\"," +     /* текст уведомления */
                                                             "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
                                                             "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
                                                             "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
@@ -3081,7 +3108,7 @@ namespace Disp_WinForm
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
                                                             "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
                                                             "\"n\":\"Блокировка двигателя\"," +                                 /* название */
-                                                            "\"txt\":\"%UNIT%: Произошла блокировка двигателя. Время сработки: %MSG_TIME%  В %POS_TIME% автомобиль двигался со скоростью %SPEED% около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"txt\":\"%25UNIT%25: Произошла блокировка двигателя. Время сработки: %25MSG_TIME%25  В %25POS_TIME%25 автомобиль двигался со скоростью %25SPEED%25 около '%25LOCATION%25'.\"," +     /* текст уведомления */
                                                             "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
                                                             "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
                                                             "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
@@ -3165,7 +3192,7 @@ namespace Disp_WinForm
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
                                                             "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
                                                             "\"n\":\"Напряжение АКБ\"," +                                 /* название */
-                                                            "\"txt\":\"%UNIT%: низкое напряжение АКБ. Автомобиль находился около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"txt\":\"%25UNIT%25: низкое напряжение АКБ. Автомобиль находился около '%25LOCATION%25'.\"," +     /* текст уведомления */
                                                             "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
                                                             "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
                                                             "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
@@ -3255,7 +3282,7 @@ namespace Disp_WinForm
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
                                                             "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
                                                             "\"n\":\"Блокировка двигателя\"," +                                 /* название */
-                                                            "\"txt\":\"%UNIT%: Произошла блокировка двигателя. Время сработки: %MSG_TIME%  В %POS_TIME% автомобиль двигался со скоростью %SPEED% около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"txt\":\"%25UNIT%25: Произошла блокировка двигателя. Время сработки: %25MSG_TIME%25  В %25POS_TIME%25 автомобиль двигался со скоростью %25SPEED%25 около '%25LOCATION%25'.\"," +     /* текст уведомления */
                                                             "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
                                                             "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
                                                             "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
@@ -3339,7 +3366,7 @@ namespace Disp_WinForm
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
                                                             "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
                                                             "\"n\":\"Напряжение АКБ\"," +                                 /* название */
-                                                            "\"txt\":\"%UNIT%: низкое напряжение АКБ. Автомобиль находился около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"txt\":\"%25UNIT%25: низкое напряжение АКБ. Автомобиль находился около '%25LOCATION%25'.\"," +     /* текст уведомления */
                                                             "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
                                                             "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
                                                             "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
@@ -3424,7 +3451,7 @@ namespace Disp_WinForm
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
                                                             "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
                                                             "\"n\":\"ТРЕВОЖНАЯ КНОПКА\"," +                                 /* название */
-                                                            "\"txt\":\"%UNIT%: НАЖАТА ТРЕВОЖНАЯ КНОПКА!!!!! Время сработки: %MSG_TIME%. В %POS_TIME% объект двигался со скоростью %SPEED% около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"txt\":\"%25UNIT%25: НАЖАТА ТРЕВОЖНАЯ КНОПКА!!!!! Время сработки: %25MSG_TIME%25. В %25POS_TIME%25 объект двигался со скоростью %25SPEED%25 около '%25LOCATION%25'.\"," +     /* текст уведомления */
                                                             "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
                                                             "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
                                                             "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
@@ -3513,7 +3540,7 @@ namespace Disp_WinForm
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
                                                             "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
                                                             "\"n\":\"Cработка: Датчик удара/наклона\"," +                            /* название */
-                                                            "\"txt\":\"%UNIT%: сработал датчик удара/наклона/буксировки. Время сработки: %MSG_TIME%. В %POS_TIME% автомобиль находился около '%LOCATION%'.'.\"," +     /* текст уведомления */
+                                                            "\"txt\":\"%25UNIT%25: сработал датчик удара/наклона/буксировки. Время сработки: %25MSG_TIME%25. В %25POS_TIME%25 автомобиль находился около '%25LOCATION%25'.'.\"," +     /* текст уведомления */
                                                             "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
                                                             "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
                                                             "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
@@ -3597,7 +3624,7 @@ namespace Disp_WinForm
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
                                                             "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
                                                             "\"n\":\"Блокировка двигателя\"," +                                 /* название */
-                                                            "\"txt\":\"%UNIT%: Произошла блокировка двигателя. Время сработки: %MSG_TIME%  В %POS_TIME% автомобиль двигался со скоростью %SPEED% около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"txt\":\"%25UNIT%25: Произошла блокировка двигателя. Время сработки: %25MSG_TIME%25  В %25POS_TIME%25 автомобиль двигался со скоростью %25SPEED%25 около '%25LOCATION%25'.\"," +     /* текст уведомления */
                                                             "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
                                                             "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
                                                             "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
@@ -3681,7 +3708,7 @@ namespace Disp_WinForm
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
                                                             "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
                                                             "\"n\":\"Напряжение АКБ\"," +                                 /* название */
-                                                            "\"txt\":\"%UNIT%: низкое напряжение АКБ. Автомобиль находился около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"txt\":\"%25UNIT%25: низкое напряжение АКБ. Автомобиль находился около '%25LOCATION%25'.\"," +     /* текст уведомления */
                                                             "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
                                                             "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
                                                             "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
@@ -3765,7 +3792,7 @@ namespace Disp_WinForm
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
                                                             "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
                                                             "\"n\":\"Сработка: Датчики взлома\"," +                                 /* название */
-                                                            "\"txt\":\"%UNIT%: Несанкционированное открытие дверей, капота или багажника. Время сработки: %MSG_TIME%. Автомобиль находился около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"txt\":\"%25UNIT%25: Несанкционированное открытие дверей, капота или багажника. Время сработки: %25MSG_TIME%25. Автомобиль находился около '%25LOCATION%25'.\"," +     /* текст уведомления */
                                                             "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
                                                             "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
                                                             "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
@@ -3849,7 +3876,7 @@ namespace Disp_WinForm
                                                             "\"callMode\":\"create\"," +                                        /* режим: создание, редактирование, включение/выключение, удаление (create, update, enable, delete) */
                                                             "\"e\":\"1\"," +                                                    /* только для режима включения/выключения: 1 - включить, 0 выключить */
                                                             "\"n\":\"ТРЕВОЖНАЯ КНОПКА\"," +                                 /* название */
-                                                            "\"txt\":\"%UNIT%: НАЖАТА ТРЕВОЖНАЯ КНОПКА!!!!! Время сработки: %MSG_TIME%. В %POS_TIME% объект двигался со скоростью %SPEED% около '%LOCATION%'.\"," +     /* текст уведомления */
+                                                            "\"txt\":\"%25UNIT%25: НАЖАТА ТРЕВОЖНАЯ КНОПКА!!!!! Время сработки: %25MSG_TIME%25. В %25POS_TIME%25 объект двигался со скоростью %25SPEED%25 около '%25LOCATION%25'.\"," +     /* текст уведомления */
                                                             "\"ta\":\"0\"," +                                                   /* время активации (UNIX формат) */
                                                             "\"td\":\"0\"," +                                                   /* время деактивации (UNIX формат) */
                                                             "\"ma\":\"0\"," +                                                   /* максимальное количество срабатываний (0 - не ограничено) */
@@ -4297,6 +4324,59 @@ namespace Disp_WinForm
                 catch
                 { MessageBox.Show("tabPage_rouming"); }
 
+                textBox_name.Text = _unit_name;
+                textBox_IMEI.Text = IMEI_object;
+                textBox_vin.Text = VIN_object;
+
+                string sql = string.Format("SELECT Kontragenti_full_name, idKontragenti FROM btk.Kontragenti  where kontragent_type_idkontragent_type = 2;");
+                var temp = macros.GetData(sql);
+                comboBox_Project.DataSource = null;
+                comboBox_Project.DisplayMember = "Kontragenti_full_name";
+                comboBox_Project.ValueMember = "idKontragenti";
+                comboBox_Project.DataSource = temp;
+
+                //RoumingAccept = macros.sql_command("select RoumingAccept from btk.notification where idnotification = '" + _id_notif + "'");
+                DataTable dt = macros.GetData("select StartDate, EndDate, RoumingAccepted from btk.RoumingZayavka where notification_idnotification = '" + _id_notif + "'");
+                if(dt.Rows.Count == 0)
+                {
+                    macros.sql_command("insert into btk.RoumingZayavka(" +
+                                    "StartDate, " +
+                                    "EndDate, " +
+                                    "notification_idnotification)" +
+                                    "values('" + Convert.ToDateTime(DateTime.Now).Date.ToString("yyyy-MM-dd") + "', " +
+                                    "'" + Convert.ToDateTime(DateTime.Now.AddDays(1)).Date.ToString("yyyy-MM-dd") + "'," +
+                                    "'" + _id_notif + "' " +
+                                    "); ");
+                    dt = macros.GetData("select StartDate, EndDate, RoumingAccepted from btk.RoumingZayavka where notification_idnotification = '" + _id_notif + "'");
+                    RoumingAccept = dt.Rows[0][2].ToString();
+                    RoumingZapitStart_dateTimePicker.Value = Convert.ToDateTime(dt.Rows[0][0]).Date;
+                    RoumingZapitEnd_dateTimePicker.Value = Convert.ToDateTime(dt.Rows[0][1]).Date;
+
+                    Rouming_SIM1_End_dtp.Value = RoumingZapitEnd_dateTimePicker.Value;
+                    Rouming_SIM1_Start_dtp.Value = RoumingZapitStart_dateTimePicker.Value;
+
+                    Rouming_SIM2_End_dtp.Value = RoumingZapitEnd_dateTimePicker.Value;
+                    Rouming_SIM2_Start_dtp.Value = RoumingZapitStart_dateTimePicker.Value;
+                }
+                else
+                {
+                    RoumingAccept = dt.Rows[0][2].ToString();
+                    RoumingZapitStart_dateTimePicker.Value = Convert.ToDateTime(dt.Rows[0][0]).Date;
+                    RoumingZapitEnd_dateTimePicker.Value = Convert.ToDateTime(dt.Rows[0][1]).Date;
+
+                    Rouming_SIM1_End_dtp.Value = RoumingZapitEnd_dateTimePicker.Value;
+                    Rouming_SIM1_Start_dtp.Value = RoumingZapitStart_dateTimePicker.Value;
+
+                    Rouming_SIM2_End_dtp.Value = RoumingZapitEnd_dateTimePicker.Value;
+                    Rouming_SIM2_Start_dtp.Value = RoumingZapitStart_dateTimePicker.Value;
+                }
+                if (RoumingAccept == "True")
+                {
+                    AcceptRouming_button.Text = "Погоджено";
+                    AcceptRouming_button.BackColor = Color.Green;
+                }
+
+
                 string json = macros.WialonRequest("&svc=core/search_items&params={" +
                                                         "\"spec\":{" +
                                                         "\"itemsType\":\"avl_unit\"," +
@@ -4644,12 +4724,16 @@ namespace Disp_WinForm
                     "Simcard_roumingcol_start, " +
                     "Simcard_roumingcol_end, " +
                     "Simcard_roumingcol_created, " +
+                    "Users_idUsers, " +
+                    "Comments, " +
                     "Rouming_tarif_idRouming_tarif" +
                     ") values(" +
                     "'" + idSimCard + "', " +
                     "'" + Convert.ToDateTime(Rouming_SIM1_Start_dtp.Value).ToString("yyyy-MM-dd") + "', " +
                     "'" + Convert.ToDateTime(Rouming_SIM1_End_dtp.Value).ToString("yyyy-MM-dd") + "', " +
                     "now(), " +
+                    "'" + vars_form.user_login_id + "', " +
+                    "'" + textBox_comments.Text + "', " +
                     "'" + RoumingTarif + "'" +
                     ");");
             }
@@ -4685,29 +4769,29 @@ namespace Disp_WinForm
             }
             ReadRoumingHistory();
         }
-        private void ReadRoumingHistory()
-        {
-            dataGridView_history.DataSource = macros.GetData("SELECT " +
+        private void ReadRoumingHistory() => dataGridView_history.DataSource = macros.GetData("SELECT " +
                                                             "Simcardcol_number AS 'Номер'," +
                                                             "Simcard_roumingcol_start AS 'Початок'," +
                                                             "Simcard_roumingcol_end AS 'Кінець'," +
                                                             "TarifName as 'Тариф'," +
                                                             "OperatorName as 'Оператор', " +
+                                                            "Users.username as 'Користувач', " +
                                                             "Simcard_roumingcol_created as 'Дата запису' " +
                                                             "FROM " +
                                                             "btk.Simcard_rouming, " +
                                                             "btk.Simcard, " +
+                                                            "btk.Users, " +
                                                             "btk.Rouming_tarif " +
                                                             //"btk.Object " +
                                                             "where " +
-                                                            "(Simcard_rouming.Simcard_idSimcard = '"+ idSimCard +"' " +
-                                                            "or Simcard_rouming.Simcard_idSimcard = '"+ idSim2Card + "') " +
+                                                            "(Simcard_rouming.Simcard_idSimcard = '" + idSimCard + "' " +
+                                                            "or Simcard_rouming.Simcard_idSimcard = '" + idSim2Card + "') " +
                                                             "and Simcard.idSimcard = Simcard_rouming.Simcard_idSimcard " +
+                                                            "and Users.idUsers = Simcard_rouming.Users_idUsers " +
                                                             "and Rouming_tarif.idRouming_tarif = Simcard_rouming.Rouming_tarif_idRouming_tarif " +
                                                             //"and Simcard_rouming.Simcard_idSimcard = Object.Simcard_idSimcard " +
                                                             //"and(Object.Objectcol_deleted != '1' OR Object.Objectcol_deleted IS NULL" +
                                                             ";");
-        }
 
         private void button_SIM2_Rouming_enter_Click(object sender, EventArgs e)
         {
@@ -4756,12 +4840,16 @@ namespace Disp_WinForm
                     "Simcard_roumingcol_start, " +
                     "Simcard_roumingcol_end, " +
                     "Simcard_roumingcol_created, " +
+                    "Users_idUsers, " +
+                    "Comments, " +
                     "Rouming_tarif_idRouming_tarif" +
                     ") values(" +
                     "'" + idSim2Card + "', " +
                     "'" + Convert.ToDateTime(Rouming_SIM2_Start_dtp.Value).ToString("yyyy-MM-dd") + "', " +
                     "'" + Convert.ToDateTime(Rouming_SIM2_End_dtp.Value).ToString("yyyy-MM-dd") + "', " +
                     "now(), " +
+                    "'" + vars_form.user_login_id + "', " +
+                    "'" + textBox_comments.Text + "', " +
                     "'" + RoumingTarif + "'" +
                     ");");
             }
@@ -5580,6 +5668,55 @@ namespace Disp_WinForm
                 Arm_groupBox.Visible = true;
                 StateArmtButton = true;
             }
+        }
+
+        private void AcceptRouming_button_Click(object sender, EventArgs e)
+        {
+            if (RoumingAccept == "True")
+            {
+                macros.sql_command("update btk.RoumingZayavka set RoumingAccepted = 'Fasle' where idnotification = '" + _id_notif + "'");
+                AcceptRouming_button.Text = "Погодити";
+                AcceptRouming_button.BackColor = Color.Empty;
+                RoumingAccept = "False";
+                macros.sql_command("insert into btk.alarm_ack(" +
+                                    "alarm_text, " +
+                                    "notification_idnotification, " +
+                                    "Users_chenge, time_start_ack, " +
+                                    "current_status_alarm, " +
+                                    "vizov_police, " +
+                                    "vizov_gmp) " +
+                                    "values('Роумінг скасовано', " +
+                                    "'" + _id_notif + "'," +
+                                    "'" + vars_form.user_login_id + "', " +
+                                    "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                    " '" + "Роумінг" + "', " +
+                                    "'0', " +
+                                    "'0'); ");
+            }
+            else
+            {
+                macros.sql_command("update btk.RoumingZayavka set RoumingAccepted = 'True' where idnotification = '" + _id_notif + "'");
+                AcceptRouming_button.Text = "Погоджено";
+                AcceptRouming_button.BackColor = Color.Green;
+                RoumingAccept = "True";
+                macros.sql_command("insert into btk.alarm_ack(" +
+                                    "alarm_text, " +
+                                    "notification_idnotification, " +
+                                    "Users_chenge, time_start_ack, " +
+                                    "current_status_alarm, " +
+                                    "vizov_police, " +
+                                    "vizov_gmp) " +
+                                    "values('Роумінг погоджено', " +
+                                    "'" + _id_notif + "'," +
+                                    "'" + vars_form.user_login_id + "', " +
+                                    "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                    " '" + "Роумінг" + "', " +
+                                    "'0', " +
+                                    "'0'); ");
+            }
+            mysql_get_hronologiya_trivog();
+
+
         }
     }
 }

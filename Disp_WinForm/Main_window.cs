@@ -1522,8 +1522,23 @@ namespace Disp_WinForm
             {
                 if (results1.Rows[0][0].ToString() == "1")
                 {
-                    MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
-                    return;
+                    if (vars_form.user_login_name == "service")
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Взе опрацьовуэться", "Выдкрити?", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
+                        return;
+                    }
                 }
             }
 
@@ -1775,8 +1790,23 @@ namespace Disp_WinForm
             {
                 if (results1.Rows[0][0].ToString() == "1")
                 {
-                    MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
-                    return;
+                    if (vars_form.user_login_name == "service")
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Взе опрацьовуэться", "Выдкрити?", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
+                        return;
+                    }
                 }
             }
 
@@ -2032,8 +2062,23 @@ namespace Disp_WinForm
             {
                 if (results1.Rows[0][0].ToString() == "1")
                 {
-                    MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
-                    return;
+                    if (vars_form.user_login_name == "service")
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Взе опрацьовуэться", "Выдкрити?", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
+                        return;
+                    }
                 }
             }
 
@@ -2303,8 +2348,23 @@ namespace Disp_WinForm
             {
                 if (results1.Rows[0][0].ToString() == "1")
                 {
-                    MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
-                    return;
+                    if (vars_form.user_login_name == "service")
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Взе опрацьовуэться", "Выдкрити?", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
+                        return;
+                    }
                 }
             }
 
@@ -2581,12 +2641,27 @@ namespace Disp_WinForm
                                                 "WHERE " +
                                                 "idnotification = '" + vars_form.id_notif + "';");
 
-            if (vars_form.user_login_name != "admin" & vars_form.user_login_name != results1.Rows[0][1].ToString())
+            if(vars_form.user_login_name != "admin" & vars_form.user_login_name != results1.Rows[0][1].ToString())
             {
                 if (results1.Rows[0][0].ToString() == "1")
                 {
-                    MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
-                    return;
+                    if (vars_form.user_login_name == "service")
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Взе опрацьовуэться", "Выдкрити?", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
+                        return;
+                    }
                 }
             }
 
@@ -2834,8 +2909,23 @@ namespace Disp_WinForm
             {
                 if (results1.Rows[0][0].ToString() == "1")
                 {
-                    MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
-                    return;
+                    if (vars_form.user_login_name == "service")
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Взе опрацьовуэться", "Выдкрити?", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
+                        return;
+                    }
                 }
             }
 
@@ -3069,12 +3159,27 @@ namespace Disp_WinForm
                                          "WHERE " +
                                          "idnotification = '" + vars_form.id_notif + "';");
 
-            if (vars_form.user_login_name != "admin" & vars_form.user_login_name != results1.Rows[0][1].ToString())
+            if(vars_form.user_login_name != "admin" & vars_form.user_login_name != results1.Rows[0][1].ToString())
             {
                 if (results1.Rows[0][0].ToString() == "1")
                 {
-                    MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
-                    return;
+                    if (vars_form.user_login_name == "service")
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Взе опрацьовуэться", "Выдкрити?", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
+                        return;
+                    }
                 }
             }
 
@@ -3356,8 +3461,23 @@ namespace Disp_WinForm
             {
                 if (results1.Rows[0][0].ToString() == "1")
                 {
-                    MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
-                    return;
+                    if (vars_form.user_login_name == "service")
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Взе опрацьовуэться", "Выдкрити?", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
+                        return;
+                    }
                 }
             }
 
@@ -4158,8 +4278,23 @@ namespace Disp_WinForm
             {
                 if (results1.Rows[0][0].ToString() == "1")
                 {
-                    MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
-                    return;
+                    if (vars_form.user_login_name == "service")
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Взе опрацьовуэться", "Выдкрити?", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Користувач: " + results1.Rows[0][0] + " вже опрацовуе тривогу.");
+                        return;
+                    }
                 }
             }
 
@@ -13612,21 +13747,25 @@ namespace Disp_WinForm
 
             //2. Статус Заряд батареи
             string door_answer = macros.WialonRequest(
-                "&svc=unit/update_sensor&params={"
-                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
-                + "\"id\":\"0\","
-                + "\"callMode\":\"create\","
-                + "\"unlink\":\"1\","
-                + "\"n\":\"Заряд батареи\","
-                + "\"t\":\"custom\","
-                + "\"d\":\"\","
-                + "\"m\":\"%\","
-                + "\"p\":\"sens103\","
-                + "\"f\":\"0\","
-                + "\"c\":\"{%5c\"act%5c\":true,%5c\"appear_in_popup%5c\":true}\","
-                + "\"vt\":\"1\","
-                + "\"vs\":\"0\","
-                + "\"tbl\":[{\"x\":1,\"a\":-0.07142857,\"b\":100}]}");
+            "&svc=unit/update_sensor&params={"
+            + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+            + "\"id\":\"0\","
+            + "\"callMode\":\"create\","
+            + "\"unlink\":\"1\","
+            + "\"n\":\"Заряд батареи\","
+            + "\"t\":\"custom\","
+            + "\"d\":\"\","
+            + "\"m\":\"%25\","
+            + "\"p\":\"sens103\","
+            + "\"f\":\"0\","
+            + "\"c\":\"{%5c\"act%5c\":true,%5c\"appear_in_popup%5c\":true}\","
+            + "\"vt\":\"1\","
+            + "\"vs\":\"0\","
+            + "\"tbl\":[{\"x\":1,\"a\":-0.07142857,\"b\":100}]}");
+
+
+
+
 
             //3. Всего сеансов
             string akb_answer = macros.WialonRequest(
@@ -13645,6 +13784,7 @@ namespace Disp_WinForm
                 + "\"vt\":\"1\","
                 + "\"vs\":\"0\","
                 + "\"tbl\":[]}");
+
 
             //4. Причина последнего сна
             string siren_answer = macros.WialonRequest(
@@ -14521,11 +14661,78 @@ namespace Disp_WinForm
         }
 
 
+
+
+
+
+
+
+
+
+
+
         private void Request_button_Click(object sender, EventArgs e)
         {
-            macros.Vodafone_request(request_textBox.Text,"");
+                SubmitSMS submitSMS = new SubmitSMS();
+            submitSMS.deviceId = request_textBox.Text;
+            submitSMS.sourceId = "";
+            submitSMS.messageData = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes("test")); ;
+            submitSMS.messageType = "Text";
+            submitSMS.validityPeriod = "";
+            submitSMS.replacePresent = "";
+            Task.Run(() => VodafoneSendSMSAsync("device", submitSMS, request_textBox.Text));
+            
             //var t = GetToken().Result;
         }
+
+        static async Task VodafoneSendSMSAsync(string EndPoint, object subminSMS, string ICCID)
+        {
+            //string BaseURI = "https://api.m2m.vodafone.com";
+            string BaseURI = "https://dev-prd.api.m2m.vodafone.com";
+
+            string url = "/m2m/v1/devices/" + ICCID + "?action=submitsms";
+            string json = JsonConvert.SerializeObject(subminSMS);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            //var data = new FormUrlEncodedContent(new[]
+            //{
+            //    new KeyValuePair<string, string>("deviceId", "89882390000160504109"),
+            //    new KeyValuePair<string, string>("sourceId", "+380676168786"),
+            //    new KeyValuePair<string, string>("messageData", "dGVzdA=="),
+            //    new KeyValuePair<string, string>("messageType", "Text")
+            //});
+
+            using (var client = new HttpClient{ BaseAddress = new Uri(BaseURI) })
+            {
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + vars_form.Vodafone_AccessToken);
+                var response = await client.PostAsync(url, data);
+                //var response = await client.GetAsync(BaseURI + url);
+                string result = response.Content.ReadAsStringAsync().Result;
+            }
+        }
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private void checkBox_inshe_CheckedChanged(object sender, EventArgs e)
         {
@@ -15063,5 +15270,15 @@ namespace Disp_WinForm
         public static DateTime Vodafone_DateTimeTokenCreate { get; set; }
         public static string MapFormIdObject { get; set; }
         public static string MapFormName { get; set; }
+    }
+
+    public class SubmitSMS
+    {
+        public string deviceId { get; set; }
+        public string sourceId { get; set; }
+        public string messageData { get; set; }
+        public string messageType { get; set; }
+        public string validityPeriod { get; set; }
+        public string replacePresent { get; set; }
     }
 }
