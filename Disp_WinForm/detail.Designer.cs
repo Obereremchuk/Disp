@@ -178,6 +178,8 @@
             this.comboBox_Project = new System.Windows.Forms.ComboBox();
             this.textBox_comments = new System.Windows.Forms.TextBox();
             this.groupBox_SIM2 = new System.Windows.Forms.GroupBox();
+            this.SIM2Vikonano_dateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.label26 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.radioButton_SIM2_Rouming_off = new System.Windows.Forms.RadioButton();
             this.textBox_SIM2 = new System.Windows.Forms.TextBox();
@@ -190,6 +192,7 @@
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.groupBox_SIM1 = new System.Windows.Forms.GroupBox();
+            this.SIM1Vikonano_dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.label23 = new System.Windows.Forms.Label();
             this.textBox_SIM1 = new System.Windows.Forms.TextBox();
             this.radioButton_SIM1_Tarif2 = new System.Windows.Forms.RadioButton();
@@ -197,6 +200,7 @@
             this.button_SIM1_Rouming_enter = new System.Windows.Forms.Button();
             this.radioButton_SIM1_Rouming_off = new System.Windows.Forms.RadioButton();
             this.Rouming_SIM1_Start_dtp = new System.Windows.Forms.DateTimePicker();
+            this.label25 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.Rouming_SIM1_End_dtp = new System.Windows.Forms.DateTimePicker();
             this.label16 = new System.Windows.Forms.Label();
@@ -562,7 +566,7 @@
             this.tabControl2.Location = new System.Drawing.Point(5, 5);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(1278, 572);
+            this.tabControl2.Size = new System.Drawing.Size(1278, 626);
             this.tabControl2.TabIndex = 22;
             this.tabControl2.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl2_Selecting);
             // 
@@ -1209,7 +1213,7 @@
             this.tabPage_edit_client.Location = new System.Drawing.Point(4, 22);
             this.tabPage_edit_client.Name = "tabPage_edit_client";
             this.tabPage_edit_client.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_edit_client.Size = new System.Drawing.Size(1270, 546);
+            this.tabPage_edit_client.Size = new System.Drawing.Size(1270, 600);
             this.tabPage_edit_client.TabIndex = 5;
             this.tabPage_edit_client.Text = "Редагування картки кліета";
             this.tabPage_edit_client.UseVisualStyleBackColor = true;
@@ -1599,7 +1603,7 @@
             this.panel1.Controls.Add(this.groupBox_SIM1);
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1261, 336);
+            this.panel1.Size = new System.Drawing.Size(862, 336);
             this.panel1.TabIndex = 26;
             // 
             // groupBox7
@@ -1694,9 +1698,9 @@
             // 
             // textBox_IMEI
             // 
-            this.textBox_IMEI.Enabled = false;
             this.textBox_IMEI.Location = new System.Drawing.Point(63, 58);
             this.textBox_IMEI.Name = "textBox_IMEI";
+            this.textBox_IMEI.ReadOnly = true;
             this.textBox_IMEI.Size = new System.Drawing.Size(338, 20);
             this.textBox_IMEI.TabIndex = 5;
             // 
@@ -1711,9 +1715,9 @@
             // 
             // textBox_vin
             // 
-            this.textBox_vin.Enabled = false;
             this.textBox_vin.Location = new System.Drawing.Point(63, 84);
             this.textBox_vin.Name = "textBox_vin";
+            this.textBox_vin.ReadOnly = true;
             this.textBox_vin.Size = new System.Drawing.Size(338, 20);
             this.textBox_vin.TabIndex = 2;
             // 
@@ -1728,9 +1732,9 @@
             // 
             // textBox_name
             // 
-            this.textBox_name.Enabled = false;
             this.textBox_name.Location = new System.Drawing.Point(63, 32);
             this.textBox_name.Name = "textBox_name";
+            this.textBox_name.ReadOnly = true;
             this.textBox_name.Size = new System.Drawing.Size(338, 20);
             this.textBox_name.TabIndex = 12;
             // 
@@ -1770,6 +1774,8 @@
             // 
             // groupBox_SIM2
             // 
+            this.groupBox_SIM2.Controls.Add(this.SIM2Vikonano_dateTimePicker);
+            this.groupBox_SIM2.Controls.Add(this.label26);
             this.groupBox_SIM2.Controls.Add(this.label22);
             this.groupBox_SIM2.Controls.Add(this.radioButton_SIM2_Rouming_off);
             this.groupBox_SIM2.Controls.Add(this.textBox_SIM2);
@@ -1786,6 +1792,24 @@
             this.groupBox_SIM2.TabIndex = 25;
             this.groupBox_SIM2.TabStop = false;
             this.groupBox_SIM2.Text = "SIM2";
+            // 
+            // SIM2Vikonano_dateTimePicker
+            // 
+            this.SIM2Vikonano_dateTimePicker.CustomFormat = "dd.MM.yy";
+            this.SIM2Vikonano_dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.SIM2Vikonano_dateTimePicker.Location = new System.Drawing.Point(85, 192);
+            this.SIM2Vikonano_dateTimePicker.Name = "SIM2Vikonano_dateTimePicker";
+            this.SIM2Vikonano_dateTimePicker.Size = new System.Drawing.Size(122, 20);
+            this.SIM2Vikonano_dateTimePicker.TabIndex = 27;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(16, 195);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(56, 13);
+            this.label26.TabIndex = 26;
+            this.label26.Text = "Виконано";
             // 
             // label22
             // 
@@ -1899,6 +1923,7 @@
             // 
             // groupBox_SIM1
             // 
+            this.groupBox_SIM1.Controls.Add(this.SIM1Vikonano_dateTimePicker);
             this.groupBox_SIM1.Controls.Add(this.label23);
             this.groupBox_SIM1.Controls.Add(this.textBox_SIM1);
             this.groupBox_SIM1.Controls.Add(this.radioButton_SIM1_Tarif2);
@@ -1906,6 +1931,7 @@
             this.groupBox_SIM1.Controls.Add(this.button_SIM1_Rouming_enter);
             this.groupBox_SIM1.Controls.Add(this.radioButton_SIM1_Rouming_off);
             this.groupBox_SIM1.Controls.Add(this.Rouming_SIM1_Start_dtp);
+            this.groupBox_SIM1.Controls.Add(this.label25);
             this.groupBox_SIM1.Controls.Add(this.label15);
             this.groupBox_SIM1.Controls.Add(this.Rouming_SIM1_End_dtp);
             this.groupBox_SIM1.Controls.Add(this.label16);
@@ -1915,6 +1941,15 @@
             this.groupBox_SIM1.TabIndex = 24;
             this.groupBox_SIM1.TabStop = false;
             this.groupBox_SIM1.Text = "SIM1";
+            // 
+            // SIM1Vikonano_dateTimePicker
+            // 
+            this.SIM1Vikonano_dateTimePicker.CustomFormat = "dd.MM.yy";
+            this.SIM1Vikonano_dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.SIM1Vikonano_dateTimePicker.Location = new System.Drawing.Point(88, 192);
+            this.SIM1Vikonano_dateTimePicker.Name = "SIM1Vikonano_dateTimePicker";
+            this.SIM1Vikonano_dateTimePicker.Size = new System.Drawing.Size(122, 20);
+            this.SIM1Vikonano_dateTimePicker.TabIndex = 25;
             // 
             // label23
             // 
@@ -1989,6 +2024,15 @@
             this.Rouming_SIM1_Start_dtp.TabIndex = 0;
             this.Rouming_SIM1_Start_dtp.ValueChanged += new System.EventHandler(this.Rouming_VF_Start_dtp_ValueChanged);
             // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(19, 195);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(56, 13);
+            this.label25.TabIndex = 8;
+            this.label25.Text = "Виконано";
+            // 
             // label15
             // 
             this.label15.AutoSize = true;
@@ -2025,7 +2069,7 @@
             this.groupBox16.Controls.Add(this.dataGridView_history);
             this.groupBox16.Location = new System.Drawing.Point(3, 345);
             this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(1261, 197);
+            this.groupBox16.Size = new System.Drawing.Size(862, 197);
             this.groupBox16.TabIndex = 25;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Історія";
@@ -2040,8 +2084,9 @@
             this.dataGridView_history.Name = "dataGridView_history";
             this.dataGridView_history.ReadOnly = true;
             this.dataGridView_history.RowHeadersVisible = false;
+            this.dataGridView_history.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dataGridView_history.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_history.Size = new System.Drawing.Size(1255, 178);
+            this.dataGridView_history.Size = new System.Drawing.Size(856, 178);
             this.dataGridView_history.TabIndex = 0;
             // 
             // groupBox3
@@ -2220,7 +2265,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1292, 581);
+            this.ClientSize = new System.Drawing.Size(1292, 635);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.tabControl2);
             this.DoubleBuffered = true;
@@ -2459,5 +2504,9 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.DateTimePicker RoumingZapitEnd_dateTimePicker;
         private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.DateTimePicker SIM2Vikonano_dateTimePicker;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.DateTimePicker SIM1Vikonano_dateTimePicker;
+        private System.Windows.Forms.Label label25;
     }
 }

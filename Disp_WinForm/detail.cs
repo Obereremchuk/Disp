@@ -196,12 +196,14 @@ namespace Disp_WinForm
                 {
                     //Chenge feild Кодове слово
                     kodove_slovo_textBox.Text = keyvalue.Value.v;
+                    break;
                 }
 
             }
 
             //load VO1
             string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '1' ORDER BY idVO DESC limit 1;");
+            vars_form.transfer_vo1_vo_form = VO1;
 
             string VO_falilia = macros.sql_command("SELECT Kontakti_familia FROM btk.Kontakti where idKontakti = '" + VO1.ToString() + "';");
             string VO_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO1.ToString() + "';");
@@ -221,6 +223,7 @@ namespace Disp_WinForm
 
             //load VO2
             string VO2 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '2' ORDER BY idVO DESC limit 1;");
+            vars_form.transfer_vo2_vo_form = VO2;
             string VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO2.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO2.ToString() + "';");
             VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO2.ToString() + "';");
@@ -239,6 +242,7 @@ namespace Disp_WinForm
 
             //load VO3
             string VO3 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '3' ORDER BY idVO DESC limit 1;");
+            vars_form.transfer_vo3_vo_form = VO3;
             VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO3.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO3.ToString() + "';");
             VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO3.ToString() + "';");
@@ -256,6 +260,7 @@ namespace Disp_WinForm
 
             //load VO4
             string VO4 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '4' ORDER BY idVO DESC limit 1;");
+            vars_form.transfer_vo4_vo_form = VO4;
             VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO4.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO4.ToString() + "';");
             VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO4.ToString() + "';");
@@ -273,6 +278,7 @@ namespace Disp_WinForm
 
             //load VO5
             string VO5 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '5' ORDER BY idVO DESC limit 1;");
+            vars_form.transfer_vo5_vo_form = VO5;
             VO_familia_imya_phone = macros.sql_command("SELECT concat(COALESCE (Kontakti_familia,'') ,' ', COALESCE (Kontakti_imya,'') ,' ', COALESCE (Kontakti_otchestvo,'') ,', ',  COALESCE (Phonebook.Phonebookcol_phone,''), ' (', COALESCE (Phonebookcol_messanger, ''), ')') FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO5.ToString() + "';");
             VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO5.ToString() + "';");
             VO_phone2_Coment = macros.sql_command("SELECT Phonebook.Phonebookcol_messanger FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO5.ToString() + "';");
@@ -3963,6 +3969,7 @@ namespace Disp_WinForm
             }
             else
             {
+                string saving_selected_account = treeView_user_accounts.SelectedNode.Text;
                 DialogResult dialogResult = MessageBox.Show("Встановити та відправити новий пароль?", "Відправити?", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
@@ -4018,7 +4025,7 @@ namespace Disp_WinForm
                     Clipboard.SetText(textBox_account_pss.Text);
 
                     // Диалог закрываем заявку или нет при завершении работы с учетными записями
-                    on_end_account_job("Відновлено пароль: " + textBox_account_pss.Text);
+                    on_end_account_job("Відновлено пароль: " + saving_selected_account);
                 }
                 else if (dialogResult == DialogResult.No)
                 {
@@ -4035,6 +4042,7 @@ namespace Disp_WinForm
             }
             else
             {
+                string saving_selected_account = treeView_user_accounts.SelectedNode.Text;
                 DialogResult dialogResult = MessageBox.Show("Відключити користувача", "Відключити?", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
@@ -4061,7 +4069,7 @@ namespace Disp_WinForm
                     macros.LogUserAction(vars_form.user_login_id, "Відключити користувача", treeView_user_accounts.SelectedNode.Text, "", Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
 
                     // Диалог закрываем заявку или нет при завершении работы с учетными записями
-                    on_end_account_job("Вимкнено доступ в систему для користувача : " + email_textBox.Text);
+                    on_end_account_job("Вимкнено доступ в систему для користувача : " + saving_selected_account);
 
                 }
                 else if (dialogResult == DialogResult.No)
@@ -4079,6 +4087,7 @@ namespace Disp_WinForm
             }
             else
             {
+                string saving_selected_account = treeView_user_accounts.SelectedNode.Text;
                 DialogResult dialogResult = MessageBox.Show("Включити користувача", "Включити?", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
@@ -4105,7 +4114,7 @@ namespace Disp_WinForm
                     macros.LogUserAction(vars_form.user_login_id, "Відключити користувача", treeView_user_accounts.SelectedNode.Text, "", Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
 
                     // Диалог закрываем заявку или нет при завершении работы с учетными записями
-                    on_end_account_job("Ввімкнено доступ в систему для користувача : " + email_textBox.Text);
+                    on_end_account_job("Ввімкнено доступ в систему для користувача : " + saving_selected_account);
 
                 }
                 else if (dialogResult == DialogResult.No)
@@ -4195,7 +4204,7 @@ namespace Disp_WinForm
                         build_list_account();
 
                         // Диалог закрываем заявку или нет при завершении работы с учетными записями
-                        on_end_account_job("Заборонено перегляд авто для користувача : " + email_textBox.Text);
+                        on_end_account_job("Заборонено перегляд авто для користувача : " + saving_selected_account);
 
 
                     }
@@ -4220,6 +4229,8 @@ namespace Disp_WinForm
                 }
                 else
                 {
+                    string saving_selected_account = treeView_user_accounts.SelectedNode.Text;
+
                     DialogResult dialogResult = MessageBox.Show("Видалити кабінет: " + treeView_user_accounts.SelectedNode.Text + "", "Видалити?", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
@@ -4266,7 +4277,7 @@ namespace Disp_WinForm
 
                         build_list_account();//обновляем тривив
 
-                        on_end_account_job("Видалено користувача : " + email_textBox.Text);
+                        on_end_account_job("Видалено користувача : " + saving_selected_account);
                     }
                     else if (dialogResult == DialogResult.No)
                     {
@@ -4399,7 +4410,7 @@ namespace Disp_WinForm
                         idSimCard = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '" + m.items[0].ph.Remove(0, 4) + "';");
                         if (idSimCard != "")
                         {
-                            string tarif = macros.sql_command("SELECT Rouming_tarif_idRouming_tarif FROM btk.Simcard_rouming where Simcard_idSimcard = '" + idSimCard + "';");
+                            string tarif = macros.sql_command("SELECT Rouming_tarif_idRouming_tarif FROM btk.Simcard_rouming where Simcard_idSimcard = '" + idSimCard + "' order by idSimcard_rouming desc limit 1;");
                             switch (tarif)
                             {
                                 case "4":
@@ -4422,7 +4433,7 @@ namespace Disp_WinForm
                         idSimCard = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '" + m.items[0].ph.Remove(0, 1) + "';");
                         if (idSimCard != "")
                         {
-                            string tarif = macros.sql_command("SELECT Rouming_tarif_idRouming_tarif FROM btk.Simcard_rouming where Simcard_idSimcard = '" + idSimCard + "';");
+                            string tarif = macros.sql_command("SELECT Rouming_tarif_idRouming_tarif FROM btk.Simcard_rouming where Simcard_idSimcard = '" + idSimCard + "' order by idSimcard_rouming desc limit 1;");
                             switch (tarif)
                             {
                                 case "1":
@@ -4719,11 +4730,79 @@ namespace Disp_WinForm
                     MessageBox.Show("SIM не знайдено в базі, зверніться до 117");
                     return;
                 }
-                macros.sql_command("insert into btk.Simcard_rouming (" +
+
+                if (RoumingTarif == 1)
+                {
+                    macros.sql_command("insert into btk.Simcard_rouming (" +
+                   "Simcard_idSimcard, " +
+                   "DateVikonano, " +
+                   "Simcard_roumingcol_created, " +
+                   "Users_idUsers, " +
+                   "Comments, " +
+                   "Rouming_tarif_idRouming_tarif" +
+                   ") values(" +
+                   "'" + idSimCard + "', " +
+                   "'" + Convert.ToDateTime(SIM1Vikonano_dateTimePicker.Value.Date).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                   "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                   "'" + vars_form.user_login_id + "', " +
+                   "'" + textBox_comments.Text + "', " +
+                   "'" + RoumingTarif + "'" +
+                   ");");
+
+                    macros.sql_command(string.Format("UPDATE btk.notification SET remayder_date ='null', remaynder_activate= 0 where idnotification=" + _id_notif + ";"));
+
+                    DialogResult dialogResult = MessageBox.Show("Закрити заявку?", "Закрити?", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                       
+
+                        int gmr = checkBox_vizov_gmr.Checked ? 1 : 0;
+                        int police = checkBox_vizov_police.Checked ? 1 : 0;
+                        macros.sql_command("insert into btk.alarm_ack(" +
+                                            "alarm_text, " +
+                                            "notification_idnotification, " +
+                                            "Users_chenge, time_start_ack, " +
+                                            "current_status_alarm, " +
+                                            "vizov_police, " +
+                                            "vizov_gmp) " +
+                                            "values('Роумінг відключено', " +
+                                            "'" + _id_notif + "'," +
+                                            "'" + _user_login_id + "', " +
+                                            "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                            " 'Закрито', '" +
+                                            "" + police + "', " +
+                                            "'" + gmr + "'); UPDATE btk.notification SET Status = 'Закрито', time_stamp = now(), Users_idUsers='" + _user_login_id + "' WHERE idnotification = '" + _id_notif + "'OR group_alarm = '" + _id_notif + "'; ");
+                        this.Close();
+                    }
+                    else
+                    {
+                        int gmr = checkBox_vizov_gmr.Checked ? 1 : 0;
+                        int police = checkBox_vizov_police.Checked ? 1 : 0;
+                        macros.sql_command("insert into btk.alarm_ack(" +
+                                            "alarm_text, " +
+                                            "notification_idnotification, " +
+                                            "Users_chenge, time_start_ack, " +
+                                            "current_status_alarm, " +
+                                            "vizov_police, " +
+                                            "vizov_gmp) " +
+                                            "values('Роумінг відключено', " +
+                                            "'" + _id_notif + "'," +
+                                            "'" + _user_login_id + "', " +
+                                            "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                            " 'Учетки', '" +
+                                            "" + police + "', " +
+                                            "'" + gmr + "'); UPDATE btk.notification SET Status = '" + comboBox_status_trevogi.SelectedItem.ToString() + "', time_stamp = now(), Users_idUsers='" + _user_login_id + "' WHERE idnotification = '" + _id_notif + "'OR group_alarm = '" + _id_notif + "'; ");
+                        mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
+                    }
+                }
+                else
+                {
+                    macros.sql_command("insert into btk.Simcard_rouming (" +
                     "Simcard_idSimcard, " +
                     "Simcard_roumingcol_start, " +
                     "Simcard_roumingcol_end, " +
                     "Simcard_roumingcol_created, " +
+                    "DateVikonano, " +
                     "Users_idUsers, " +
                     "Comments, " +
                     "Rouming_tarif_idRouming_tarif" +
@@ -4731,11 +4810,35 @@ namespace Disp_WinForm
                     "'" + idSimCard + "', " +
                     "'" + Convert.ToDateTime(Rouming_SIM1_Start_dtp.Value).ToString("yyyy-MM-dd") + "', " +
                     "'" + Convert.ToDateTime(Rouming_SIM1_End_dtp.Value).ToString("yyyy-MM-dd") + "', " +
-                    "now(), " +
+                    "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                    "'" + Convert.ToDateTime(SIM1Vikonano_dateTimePicker.Value.Date).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
                     "'" + vars_form.user_login_id + "', " +
                     "'" + textBox_comments.Text + "', " +
                     "'" + RoumingTarif + "'" +
                     ");");
+
+                    macros.sql_command(string.Format("UPDATE btk.notification SET remayder_date ='" + Convert.ToDateTime(Rouming_SIM1_End_dtp.Value).ToString("yyyy-MM-dd") + "', remaynder_activate= 1 where idnotification=" + _id_notif + ";"));
+
+                    int gmr = checkBox_vizov_gmr.Checked ? 1 : 0;
+                    int police = checkBox_vizov_police.Checked ? 1 : 0;
+                    macros.sql_command("insert into btk.alarm_ack(" +
+                                        "alarm_text, " +
+                                        "notification_idnotification, " +
+                                        "Users_chenge, time_start_ack, " +
+                                        "current_status_alarm, " +
+                                        "vizov_police, " +
+                                        "vizov_gmp) " +
+                                        "values('Роумінг підключено', " +
+                                        "'" + _id_notif + "'," +
+                                        "'" + _user_login_id + "', " +
+                                        "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                        " 'Учетки', '" +
+                                        "" + police + "', " +
+                                        "'" + gmr + "'); UPDATE btk.notification SET Status = '" + comboBox_status_trevogi.SelectedItem.ToString() + "', time_stamp = now(), Users_idUsers='" + _user_login_id + "' WHERE idnotification = '" + _id_notif + "'OR group_alarm = '" + _id_notif + "'; ");
+                    mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
+                }
+
+                
             }
             else if (sim1_operator == 25503)
             {
@@ -4753,20 +4856,117 @@ namespace Disp_WinForm
                     MessageBox.Show("SIM не знайдено в базі, зверніться до 117");
                     return;
                 }
-                macros.sql_command("insert into btk.Simcard_rouming (" +
+
+                if (RoumingTarif == 4)
+                {
+                    macros.sql_command(string.Format("UPDATE btk.notification SET remayder_date ='null', remaynder_activate= 0 where idnotification=" + _id_notif + ";"));
+
+                    macros.sql_command("insert into btk.Simcard_rouming (" +
+                    "Simcard_idSimcard, " +
+                    "Simcard_roumingcol_created, " +
+                    "DateVikonano, " +
+                    "Users_idUsers, " +
+                    "Comments, " +
+                    "Rouming_tarif_idRouming_tarif" +
+                    ") values(" +
+                    "'" + idSimCard + "', " +
+                    "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                    "'" + Convert.ToDateTime(SIM2Vikonano_dateTimePicker.Value.Date).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                    "'" + vars_form.user_login_id + "', " +
+                    "'" + textBox_comments.Text + "', " +
+                    "'" + RoumingTarif + "'" +
+                    ");");
+
+                    DialogResult dialogResult = MessageBox.Show("Закрити заявку?", "Закрити?", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        int gmr = checkBox_vizov_gmr.Checked ? 1 : 0;
+                        int police = checkBox_vizov_police.Checked ? 1 : 0;
+                        macros.sql_command("insert into btk.alarm_ack(" +
+                                            "alarm_text, " +
+                                            "notification_idnotification, " +
+                                            "Users_chenge, time_start_ack, " +
+                                            "current_status_alarm, " +
+                                            "vizov_police, " +
+                                            "vizov_gmp) " +
+                                            "values('Роумінг відключено', " +
+                                            "'" + _id_notif + "'," +
+                                            "'" + _user_login_id + "', " +
+                                            "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                            " 'Закрито', '" +
+                                            "" + police + "', " +
+                                            "'" + gmr + "'); UPDATE btk.notification SET Status = 'Закрито', time_stamp = now(), Users_idUsers='" + _user_login_id + "' WHERE idnotification = '" + _id_notif + "'OR group_alarm = '" + _id_notif + "'; ");
+                        this.Close();
+                    }
+                    else
+                    {
+                        int gmr = checkBox_vizov_gmr.Checked ? 1 : 0;
+                        int police = checkBox_vizov_police.Checked ? 1 : 0;
+                        macros.sql_command("insert into btk.alarm_ack(" +
+                                            "alarm_text, " +
+                                            "notification_idnotification, " +
+                                            "Users_chenge, time_start_ack, " +
+                                            "current_status_alarm, " +
+                                            "vizov_police, " +
+                                            "vizov_gmp) " +
+                                            "values('Роумінг відключено', " +
+                                            "'" + _id_notif + "'," +
+                                            "'" + _user_login_id + "', " +
+                                            "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                            " 'Учетки', '" +
+                                            "" + police + "', " +
+                                            "'" + gmr + "'); UPDATE btk.notification SET Status = '" + comboBox_status_trevogi.SelectedItem.ToString() + "', time_stamp = now(), Users_idUsers='" + _user_login_id + "' WHERE idnotification = '" + _id_notif + "'OR group_alarm = '" + _id_notif + "'; ");
+                        mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
+                    }
+
+                }
+                else
+                {
+                    macros.sql_command("insert into btk.Simcard_rouming (" +
                     "Simcard_idSimcard, " +
                     "Simcard_roumingcol_start, " +
                     "Simcard_roumingcol_end, " +
                     "Simcard_roumingcol_created, " +
+                    "DateVikonano, " +
+                    "Users_idUsers, " +
+                    "Comments, " +
                     "Rouming_tarif_idRouming_tarif" +
                     ") values(" +
                     "'" + idSimCard + "', " +
                     "'" + Convert.ToDateTime(Rouming_SIM1_Start_dtp.Value).ToString("yyyy-MM-dd") + "', " +
                     "'" + Convert.ToDateTime(Rouming_SIM1_End_dtp.Value).ToString("yyyy-MM-dd") + "', " +
-                    "now(), " +
+                    "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                    "'" + Convert.ToDateTime(SIM1Vikonano_dateTimePicker.Value).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                    "'" + vars_form.user_login_id + "', " +
+                    "'" + textBox_comments.Text + "', " +
                     "'" + RoumingTarif + "'" +
                     ");");
+
+                    macros.sql_command(string.Format("UPDATE btk.notification SET remayder_date ='" + Convert.ToDateTime(Rouming_SIM1_End_dtp.Value).ToString("yyyy-MM-dd") + "', remaynder_activate= 1 where idnotification=" + _id_notif + ";"));
+
+                    int gmr = checkBox_vizov_gmr.Checked ? 1 : 0;
+                    int police = checkBox_vizov_police.Checked ? 1 : 0;
+                    macros.sql_command("insert into btk.alarm_ack(" +
+                                        "alarm_text, " +
+                                        "notification_idnotification, " +
+                                        "Users_chenge, time_start_ack, " +
+                                        "current_status_alarm, " +
+                                        "vizov_police, " +
+                                        "vizov_gmp) " +
+                                        "values('Роумінг підключено', " +
+                                        "'" + _id_notif + "'," +
+                                        "'" + _user_login_id + "', " +
+                                        "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                        " 'Учетки', '" +
+                                        "" + police + "', " +
+                                        "'" + gmr + "'); UPDATE btk.notification SET Status = '" + comboBox_status_trevogi.SelectedItem.ToString() + "', time_stamp = now(), Users_idUsers='" + _user_login_id + "' WHERE idnotification = '" + _id_notif + "'OR group_alarm = '" + _id_notif + "'; ");
+                    mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
+                }
+
+
+                
             }
+
             ReadRoumingHistory();
         }
         private void ReadRoumingHistory() => dataGridView_history.DataSource = macros.GetData("SELECT " +
@@ -4776,7 +4976,8 @@ namespace Disp_WinForm
                                                             "TarifName as 'Тариф'," +
                                                             "OperatorName as 'Оператор', " +
                                                             "Users.username as 'Користувач', " +
-                                                            "Simcard_roumingcol_created as 'Дата запису' " +
+                                                            "DateVikonano as 'Виконано', " +
+                                                            "Simcard_roumingcol_created as 'Дата внесення' " +
                                                             "FROM " +
                                                             "btk.Simcard_rouming, " +
                                                             "btk.Simcard, " +
@@ -4792,6 +4993,7 @@ namespace Disp_WinForm
                                                             //"and Simcard_rouming.Simcard_idSimcard = Object.Simcard_idSimcard " +
                                                             //"and(Object.Objectcol_deleted != '1' OR Object.Objectcol_deleted IS NULL" +
                                                             ";");
+
 
         private void button_SIM2_Rouming_enter_Click(object sender, EventArgs e)
         {
@@ -4874,12 +5076,16 @@ namespace Disp_WinForm
                     "Simcard_roumingcol_start, " +
                     "Simcard_roumingcol_end, " +
                     "Simcard_roumingcol_created, " +
+                    "Users_idUsers, " +
+                    "Comments, " +
                     "Rouming_tarif_idRouming_tarif" +
                     ") values(" +
                     "'" + idSim2Card + "', " +
                     "'" + Convert.ToDateTime(Rouming_SIM2_Start_dtp.Value).ToString("yyyy-MM-dd") + "', " +
                     "'" + Convert.ToDateTime(Rouming_SIM2_End_dtp.Value).ToString("yyyy-MM-dd") + "', " +
                     "now(), " +
+                    "'" + vars_form.user_login_id + "', " +
+                    "'" + textBox_comments.Text + "', " +
                     "'" + RoumingTarif + "'" +
                     ");");
             }
@@ -5674,7 +5880,14 @@ namespace Disp_WinForm
         {
             if (RoumingAccept == "True")
             {
-                macros.sql_command("update btk.RoumingZayavka set RoumingAccepted = 'Fasle' where idnotification = '" + _id_notif + "'");
+                macros.sql_command("update " +
+                    "btk.RoumingZayavka " +
+                    "set " +
+                    "RoumingZayavka.RoumingAccepted = 0 " +
+                    " where " +
+                    "notification_idnotification = '" + _id_notif + "'");
+
+                macros.sql_command("update btk.notification set notification.RoumingAccept = 0 where idnotification = '" + _id_notif + "'");
                 AcceptRouming_button.Text = "Погодити";
                 AcceptRouming_button.BackColor = Color.Empty;
                 RoumingAccept = "False";
@@ -5695,7 +5908,17 @@ namespace Disp_WinForm
             }
             else
             {
-                macros.sql_command("update btk.RoumingZayavka set RoumingAccepted = 'True' where idnotification = '" + _id_notif + "'");
+                macros.sql_command("update " +
+                    "btk.RoumingZayavka " +
+                    "set " +
+                    "RoumingZayavka.RoumingAccepted = 1, " +
+                    "StartDate = '" + Convert.ToDateTime(RoumingZapitStart_dateTimePicker.Value.Date).ToString("yyyy-MM-dd") + "'," +
+                    "EndDate = '" + Convert.ToDateTime(RoumingZapitEnd_dateTimePicker.Value.Date).ToString("yyyy-MM-dd") + "'" +
+                    " where " +
+                    "notification_idnotification = '" + _id_notif + "'");
+
+                //macros.sql_command("update btk.RoumingZayavka set RoumingZayavka.RoumingAccepted = 1 where notification_idnotification = '" + _id_notif + "'");
+                macros.sql_command("update btk.notification set notification.RoumingAccept = 1 where idnotification = '" + _id_notif + "'");
                 AcceptRouming_button.Text = "Погоджено";
                 AcceptRouming_button.BackColor = Color.Green;
                 RoumingAccept = "True";

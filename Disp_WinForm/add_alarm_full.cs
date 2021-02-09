@@ -334,10 +334,33 @@ namespace Disp_WinForm
                         break;
                     }
                 }
+                string vin = "";
+                string registration_plate = "";
+                string brand = "";
+                string model = "";
+                foreach (var keyvalue in test_out.item.pflds)
+                {
+                    if (keyvalue.Value.n.Contains("vin"))
+                    {
+                        vin = keyvalue.Value.v.ToString();
+                    }
+                    if (keyvalue.Value.n.Contains("registration_plate"))
+                    {
+                        registration_plate = keyvalue.Value.v.ToString();
+                    }
+                    if (keyvalue.Value.n.Contains("brand"))
+                    {
+                        brand = keyvalue.Value.v.ToString();
+                    }
+                    if (keyvalue.Value.n.Contains("model"))
+                    {
+                        model = keyvalue.Value.v.ToString();
+                    }
+                }
 
 
 
-                string Subject = "Запит на активацію послуги Роумінг."+ "      Проект: " + project + ", VIN: " + test_out.item.pflds[5].v + ", Держ. Номер: " + test_out.item.pflds[4].v ;
+                string Subject = "Запит на активацію послуги Роумінг."+ " Проект: " + project + ", VIN: " + vin + ", Держ. Номер: " + registration_plate;
                 
                 DataTable users_send_mail = macros.GetData("SELECT user_mail FROM btk.Users where (dept_user = '115' or dept_user = '113') and State != '0';");
 
@@ -355,24 +378,28 @@ namespace Disp_WinForm
                 dt.Columns.Add("<b>Значення</b>");
                 object[] row = { "Проект", project };
                 dt.Rows.Add(row);
-                object[] row0 = { "VIN", test_out.item.pflds[5].v };
+                object[] row0 = { "VIN", vin };
                 dt.Rows.Add(row0);
-                object[] row1 = { "Держ. Номер", test_out.item.pflds[4].v };
+                object[] row1 = { "Держ. Номер", registration_plate };
                 dt.Rows.Add(row1);
-                object[] row2 = { "Початок", dateTimePicker_start_rouming.Value.ToString("d") };
+                object[] row2 = { "Марка", brand };
                 dt.Rows.Add(row2);
-                object[] row3 = { "Кінець", dateTimePicker_end_rouming.Value.ToString("d") };
+                object[] row3 = { "Модель", model };
                 dt.Rows.Add(row3);
-                object[] row5 = { "Договір", "" };
+                object[] row4 = { "Початок", dateTimePicker_start_rouming.Value.ToString("d") };
+                dt.Rows.Add(row4);
+                object[] row5 = { "Кінець", dateTimePicker_end_rouming.Value.ToString("d") };
                 dt.Rows.Add(row5);
-                object[] row6 = { "<br />", "" };
+                object[] row6 = { "Договір", "" };
                 dt.Rows.Add(row6);
                 object[] row7 = { "<br />", "" };
                 dt.Rows.Add(row7);
-                object[] row8 = { "Назва обєкту", test_out.item.nm };
+                object[] row8 = { "<br />", "" };
                 dt.Rows.Add(row8);
-                object[] row9 = { "IMEI", test_out.item.uid };
+                object[] row9 = { "Назва обєкту", test_out.item.nm };
                 dt.Rows.Add(row9);
+                object[] row10 = { "IMEI", test_out.item.uid };
+                dt.Rows.Add(row10);
                 
 
 

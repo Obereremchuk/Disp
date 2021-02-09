@@ -2140,7 +2140,8 @@ namespace Disp_WinForm
                                    "Users.username as 'Створив'," +
                                    "notification.speed, " +
                                    "notification.remaynder_activate as 'Нагадати', " +
-                                   "notification.remayder_date as 'Дата нагадування'  " +
+                                   "notification.RoumingAccept as 'Роумінг погоджено',  " +
+                                   "notification.remayder_date as 'Дата кінця'  " +
                                    "FROM btk.notification, btk.Users " +
                                    "WHERE Users.idUsers=notification.Users_idUsers " +
                                    "and notification.Status = 'Роумінг' " + vars_form.hide_group_alarm + "  ;");//order by btk.notification." + vars_form.sort.ToString() + " " + vars_form.order_sort + "
@@ -2185,6 +2186,15 @@ namespace Disp_WinForm
             DataTable sortedDT = dv.ToTable();
 
             dataGridView_Rouming.DataSource = table;
+
+            dataGridView_Rouming.Columns[1].Visible = false;
+            dataGridView_Rouming.Columns[3].Visible = false;
+            dataGridView_Rouming.Columns[5].Visible = false;
+            dataGridView_Rouming.Columns[8].Visible = false;
+            dataGridView_Rouming.Columns[9].Visible = false;
+            dataGridView_Rouming.Columns[10].Visible = false;
+            dataGridView_Rouming.Columns[11].Visible = false;
+
             ////------------------------------------------
             //if (dataGridView_909_n.DataSource == null)
             //{
@@ -2264,6 +2274,14 @@ namespace Disp_WinForm
                 DataTable sortedDT = dv.ToTable();
 
                 dataGridView_Rouming.DataSource = table;
+
+                dataGridView_Rouming.Columns[1].Visible = false;
+                dataGridView_Rouming.Columns[3].Visible = false;
+                dataGridView_Rouming.Columns[5].Visible = false;
+                dataGridView_Rouming.Columns[8].Visible = false;
+                dataGridView_Rouming.Columns[9].Visible = false;
+                dataGridView_Rouming.Columns[10].Visible = false;
+                dataGridView_Rouming.Columns[11].Visible = false;
                 ////------------------------------------------
                 //if (dataGridView_909_n.DataSource == null)
                 //{
@@ -2383,27 +2401,27 @@ namespace Disp_WinForm
         {
             dataGridView_Rouming.SuspendLayout();
 
+            if (dataGridView_Rouming.Rows[e.RowIndex].Cells[12].Value is true)
+            {
+                e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#dbd80b");
+            }
+
             if (dataGridView_Rouming.Rows[e.RowIndex].Cells[11].Value is true)
             {
-                //if (Convert.ToDateTime(dataGridView_Rouming.Rows[e.RowIndex].Cells[12].Value) == DateTime.Now.Date)
-                //{
-                //    e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#bcccf2");
-                //}
-                //else if (Convert.ToDateTime(dataGridView_Rouming.Rows[e.RowIndex].Cells[12].Value) <= DateTime.Now.Date)
-                //{
-                //    e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#F9A780");
-                //}
-                //else if (Convert.ToDateTime(dataGridView_Rouming.Rows[e.RowIndex].Cells[12].Value) >= DateTime.Now.Date)
-                //{
-                //    e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#C8FAB7");
-                //}
+                if (Convert.ToDateTime(dataGridView_Rouming.Rows[e.RowIndex].Cells[13].Value) >= DateTime.Now.Date)
+                {
+                    e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#C8FAB7");
+                }
+                else if (Convert.ToDateTime(dataGridView_Rouming.Rows[e.RowIndex].Cells[13].Value) < DateTime.Now.Date)
+                {
+                    e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#F9A780");
+                }
             }
-            else
+            else if (dataGridView_Rouming.Rows[e.RowIndex].Cells[12].Value is false)
             {
                 e.CellStyle.BackColor = Color.White;
             }
 
-            
             dataGridView_Rouming.ResumeLayout();
         }
 
@@ -4394,13 +4412,25 @@ namespace Disp_WinForm
 
         private void textBox_search_object_name_activation_TextChanged(object sender, EventArgs e)
         {
-            if (textBox_search_object_name_activation.Text == "")
+            if (textBox_search_object_name_activation.Text.Length >= 3)
+            {
+                if (textBox_search_object_name_activation.Text == "")
+                {
+                    checkBox_activation_za_ves_chas_search.Enabled = false;
+                    checkBox_activation_za_ves_chas_search.Checked = false;
+                    update_actication_dgv();
+                }
+                else { checkBox_activation_za_ves_chas_search.Enabled = true; update_actication_dgv(); }
+            }
+            else if (textBox_search_object_name_activation.Text == "")
             {
                 checkBox_activation_za_ves_chas_search.Enabled = false;
-                checkBox_activation_za_ves_chas_search.Checked = false; 
+                checkBox_activation_za_ves_chas_search.Checked = false;
+                update_actication_dgv();
             }
-            else { checkBox_activation_za_ves_chas_search.Enabled = true;  }
-            update_actication_dgv();
+            
+
+            
         }
 
         /// <Вкладка add_object>
@@ -15087,39 +15117,41 @@ namespace Disp_WinForm
                 listBox_object_ohrani.Visible = false;
             }
             else { listBox_object_ohrani.Visible = true; }
-
-            try
+            if (textBox_filter_object_ohrani.Text.Length >= 3)
             {
-                string json = macros.WialonRequest("&svc=core/search_items&params={" +
-                                                        "\"spec\":{" +
-                                                        "\"itemsType\":\"avl_unit\"," +
-                                                        "\"propName\":\"sys_unique_id|sys_name|rel_customfield_value|rel_profilefield_value\"," +
-                                                        "\"propValueMask\":\"" + "*" + textBox_filter_object_ohrani.Text + "*" + "\", " +
-                                                        "\"sortType\":\"sys_name\"," +
-                                                        "\"or_logic\":\"1\"}," +
-                                                        "\"force\":\"1\"," +
-                                                        "\"flags\":\"1\"," +
-                                                        "\"from\":\"0\"," +
-                                                        "\"to\":\"10\"}");
-                var m = JsonConvert.DeserializeObject<RootObject>(json);
-
-                List<object> list_add_alarm = new List<object>();
-                foreach (var keyvalue in m.items)
+                try
                 {
-                    list_add_alarm.Add(new List_add_alarm() { Id = keyvalue.id, Name = keyvalue.nm });
-                }
-                listBox_object_ohrani.DataSource = list_add_alarm;
-                listBox_object_ohrani.DisplayMember = "Name";
-                listBox_object_ohrani.ValueMember = "Id";
+                    string json = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                            "\"spec\":{" +
+                                                            "\"itemsType\":\"avl_unit\"," +
+                                                            "\"propName\":\"sys_unique_id|sys_name|rel_customfield_value|rel_profilefield_value\"," +
+                                                            "\"propValueMask\":\"" + "*" + textBox_filter_object_ohrani.Text + "*" + "\", " +
+                                                            "\"sortType\":\"sys_name\"," +
+                                                            "\"or_logic\":\"1\"}," +
+                                                            "\"force\":\"1\"," +
+                                                            "\"flags\":\"1\"," +
+                                                            "\"from\":\"0\"," +
+                                                            "\"to\":\"10\"}");
+                    var m = JsonConvert.DeserializeObject<RootObject>(json);
 
-                if (textBox_filter_object_ohrani.Text == "")
+                    List<object> list_add_alarm = new List<object>();
+                    foreach (var keyvalue in m.items)
+                    {
+                        list_add_alarm.Add(new List_add_alarm() { Id = keyvalue.id, Name = keyvalue.nm });
+                    }
+                    listBox_object_ohrani.DataSource = list_add_alarm;
+                    listBox_object_ohrani.DisplayMember = "Name";
+                    listBox_object_ohrani.ValueMember = "Id";
+
+                    if (textBox_filter_object_ohrani.Text == "")
+                    {
+                        listBox_object_ohrani.DataSource = null;
+                    }
+                }
+                catch
                 {
-                    listBox_object_ohrani.DataSource = null;
-                }
-            }
-            catch
-            {
 
+                }
             }
         }
 
