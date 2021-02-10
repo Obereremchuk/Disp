@@ -274,7 +274,7 @@
             this.groupBox4.Controls.Add(this.dataGridView_hronologija_trivog);
             this.groupBox4.Location = new System.Drawing.Point(7, 59);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(733, 184);
+            this.groupBox4.Size = new System.Drawing.Size(733, 238);
             this.groupBox4.TabIndex = 8;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Виконані дії";
@@ -326,7 +326,7 @@
             this.dataGridView_hronologija_trivog.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView_hronologija_trivog.RowHeadersVisible = false;
             this.dataGridView_hronologija_trivog.RowHeadersWidth = 50;
-            this.dataGridView_hronologija_trivog.Size = new System.Drawing.Size(725, 159);
+            this.dataGridView_hronologija_trivog.Size = new System.Drawing.Size(725, 213);
             this.dataGridView_hronologija_trivog.TabIndex = 1;
             // 
             // Column_alarm_text
@@ -581,7 +581,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1270, 546);
+            this.tabPage3.Size = new System.Drawing.Size(1270, 600);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Обробка";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -603,7 +603,7 @@
             this.groupBox1.Controls.Add(this.treeView_client_info);
             this.groupBox1.Location = new System.Drawing.Point(746, 194);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(509, 341);
+            this.groupBox1.Size = new System.Drawing.Size(509, 395);
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Информація про кліента";
@@ -628,7 +628,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeView_client_info.Location = new System.Drawing.Point(6, 16);
             this.treeView_client_info.Name = "treeView_client_info";
-            this.treeView_client_info.Size = new System.Drawing.Size(497, 319);
+            this.treeView_client_info.Size = new System.Drawing.Size(497, 373);
             this.treeView_client_info.TabIndex = 21;
             this.treeView_client_info.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView_client_info_NodeMouseDoubleClick);
             this.treeView_client_info.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.treeView_client_info_MouseDoubleClick);
@@ -641,7 +641,7 @@
             this.groupBox10.Controls.Add(this.button_ungroup_alarm);
             this.groupBox10.Controls.Add(this.button_group_alarm);
             this.groupBox10.Controls.Add(this.dataGridView_group_alarm);
-            this.groupBox10.Location = new System.Drawing.Point(7, 249);
+            this.groupBox10.Location = new System.Drawing.Point(7, 303);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(733, 286);
             this.groupBox10.TabIndex = 17;
@@ -918,7 +918,7 @@
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(1270, 546);
+            this.tabPage6.Size = new System.Drawing.Size(1270, 600);
             this.tabPage6.TabIndex = 3;
             this.tabPage6.Text = "Архів тривог об\"єкта";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -1116,7 +1116,7 @@
             this.tabPage_dii_z_obectom.Location = new System.Drawing.Point(4, 22);
             this.tabPage_dii_z_obectom.Name = "tabPage_dii_z_obectom";
             this.tabPage_dii_z_obectom.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_dii_z_obectom.Size = new System.Drawing.Size(1270, 546);
+            this.tabPage_dii_z_obectom.Size = new System.Drawing.Size(1270, 600);
             this.tabPage_dii_z_obectom.TabIndex = 4;
             this.tabPage_dii_z_obectom.Text = "Дії з об\"єктом";
             this.tabPage_dii_z_obectom.UseVisualStyleBackColor = true;
@@ -1589,7 +1589,7 @@
             this.tabPage_rouming.Controls.Add(this.groupBox16);
             this.tabPage_rouming.Location = new System.Drawing.Point(4, 22);
             this.tabPage_rouming.Name = "tabPage_rouming";
-            this.tabPage_rouming.Size = new System.Drawing.Size(1270, 546);
+            this.tabPage_rouming.Size = new System.Drawing.Size(1270, 600);
             this.tabPage_rouming.TabIndex = 7;
             this.tabPage_rouming.Text = "Роумінг";
             this.tabPage_rouming.UseVisualStyleBackColor = true;
@@ -2069,7 +2069,7 @@
             this.groupBox16.Controls.Add(this.dataGridView_history);
             this.groupBox16.Location = new System.Drawing.Point(3, 345);
             this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(862, 197);
+            this.groupBox16.Size = new System.Drawing.Size(862, 251);
             this.groupBox16.TabIndex = 25;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Історія";
@@ -2086,7 +2086,7 @@
             this.dataGridView_history.RowHeadersVisible = false;
             this.dataGridView_history.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dataGridView_history.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_history.Size = new System.Drawing.Size(856, 178);
+            this.dataGridView_history.Size = new System.Drawing.Size(856, 232);
             this.dataGridView_history.TabIndex = 0;
             // 
             // groupBox3

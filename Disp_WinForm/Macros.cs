@@ -210,7 +210,7 @@ namespace Disp_WinForm
             string myClientSecret = "pzSjfcZbZSf6Ke1w";
 
             //string Request_v2 = "grant_type=password&scope=M2M_DEVICES_ALL&username=vb_api&password=!!034VBNhgTR62";
-            string Request_v2 = "grant_type=password&scope=M2M_CUSTOMERS_ALL&username=vb_api&password=!!034VBNhgTR62";
+            string Request_v2 = "grant_type=password&scope=M2M_DEVICE_MESSAGING_ALL&username=vb_api&password=!!034VBNhgTR62";
             string address = "https://api.m2m.vodafone.com/m2m/v2/oauth2/access-token";
             string base64String = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes($"{myClientID}:{myClientSecret}"));
 
@@ -257,6 +257,40 @@ namespace Disp_WinForm
             string EndPoint_ = "";
             if (EndPoint == "devices")
             { EndPoint_ = "/m2m/v1/devices"; }
+            else if (EndPoint == "serviceprofiles")
+            { EndPoint_ = "/m2m/v1/customers/serviceprofiles/list"; }
+            else if (EndPoint == "deviceId")
+            { EndPoint_ = "/m2m/v1/devices/"; }
+
+
+
+            string BaseURI = "https://api.m2m.vodafone.com";
+            //string BaseURI = "https://dev-prd.api.m2m.vodafone.com";
+
+            EndPoint_ = "/m2m/v1/devices/";
+
+            string url = BaseURI + EndPoint_ + ICCID + "?action=submitsms";
+            string SMS = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes("Test"));
+
+            SubmitSMS submitSMS = new SubmitSMS { deviceId = ICCID, sourceId = "+380676168786", messageData = SMS, messageType="Text" };
+            string json = JsonConvert.SerializeObject(submitSMS);
+
+
+            var client = new HttpClient();
+            var content = new StringContent(json, Encoding.UTF8, "application/x-www-form-urlencoded");
+            client.DefaultRequestHeaders.Add("Authorization", "Basic " + vars_form.Vodafone_AccessToken);
+            var result = client.PostAsync(url, content).Result;
+            string contents = result.Content.ReadAsStringAsync().Result;
+            var res = JsonConvert.DeserializeObject<BearerToken>(contents);
+
+            return contents;
+        }
+
+        public string Vodafone_request1(string EndPoint, string ICCID)
+        {
+            string EndPoint_ = "";
+            if (EndPoint == "devices")
+            { EndPoint_ = "/m2m/v1/devices"; }
             else if(EndPoint == "serviceprofiles")
             { EndPoint_ = "/m2m/v1/customers/serviceprofiles/list"; }
             else if (EndPoint == "deviceId")
@@ -268,6 +302,7 @@ namespace Disp_WinForm
             //string BaseURI = "https://dev-prd.api.m2m.vodafone.com";
 
             string t = BaseURI + EndPoint_ + ICCID;
+            
 
             var client = new HttpClient();
 
@@ -675,6 +710,9 @@ namespace Disp_WinForm
             }
 
         }
+
+
+
 
         public string GetProcessPath(string name)
         {

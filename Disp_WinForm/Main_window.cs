@@ -14703,16 +14703,36 @@ namespace Disp_WinForm
 
         private void Request_button_Click(object sender, EventArgs e)
         {
-                SubmitSMS submitSMS = new SubmitSMS();
-            submitSMS.deviceId = request_textBox.Text;
-            submitSMS.sourceId = "";
-            submitSMS.messageData = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes("test")); ;
-            submitSMS.messageType = "Text";
-            submitSMS.validityPeriod = "";
-            submitSMS.replacePresent = "";
-            Task.Run(() => VodafoneSendSMSAsync("device", submitSMS, request_textBox.Text));
-            
-            //var t = GetToken().Result;
+            //string BaseURI = "https://api.m2m.vodafone.com";
+            string BaseURI = "https://dev-prd.api.m2m.vodafone.com";
+
+            string EndPoint_ = "/m2m/v1/devices/";
+            string ICCID = "89882390000160504109";
+            string url = BaseURI + EndPoint_ + ICCID + "?action=submitsms";
+            string SMS = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes("Test"));
+
+            SubmitSMS submitSMS = new SubmitSMS { deviceId = ICCID, sourceId = "+380676168786", messageData = SMS, messageType = "Text" };
+            string json = JsonConvert.SerializeObject(submitSMS);
+
+            var client = new HttpClient();
+            var content = new StringContent(json, Encoding.UTF8, "application/x-www-form-urlencoded");
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + vars_form.Vodafone_AccessToken);
+            var result = client.PostAsync(url, content).Result;
+            string contents = result.Content.ReadAsStringAsync().Result;
+            var res = JsonConvert.DeserializeObject<BearerToken>(contents);
+
+
+
+            //    SubmitSMS submitSMS = new SubmitSMS();
+            //submitSMS.deviceId = request_textBox.Text;
+            //submitSMS.sourceId = "";
+            //submitSMS.messageData = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes("test")); ;
+            //submitSMS.messageType = "Text";
+            //submitSMS.validityPeriod = "";
+            //submitSMS.replacePresent = "";
+            //Task.Run(() => VodafoneSendSMSAsync("device", submitSMS, request_textBox.Text));
+
+            ////var t = GetToken().Result;
         }
 
         static async Task VodafoneSendSMSAsync(string EndPoint, object subminSMS, string ICCID)
@@ -15304,7 +15324,7 @@ namespace Disp_WinForm
         public static string MapFormName { get; set; }
     }
 
-    public class SubmitSMS
+    class SubmitSMS
     {
         public string deviceId { get; set; }
         public string sourceId { get; set; }
