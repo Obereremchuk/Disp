@@ -4329,13 +4329,25 @@ namespace Disp_WinForm
             {
                 try
                 {
-                    load_vo();
+                    
+
                     build_list_account();
                     groupBox3.Visible = false;
                     groupBox3.SendToBack();
                 }
                 catch
                 { MessageBox.Show("tabPage_edit_client"); }
+            }
+            else if (tabControl2.SelectedTab.Name == "tabPage_Edit_VO")
+            {
+                try
+                {
+                    load_vo();
+                    groupBox3.Visible = true;
+                    groupBox3.BringToFront();
+                }
+                catch
+                { MessageBox.Show("tabPage_Edit_VO"); }
             }
             else if (tabControl2.SelectedTab.Name == "tabPage6")
             {

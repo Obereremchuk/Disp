@@ -520,7 +520,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage2.Size = new System.Drawing.Size(1362, 646);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Пошук по тривогам";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -531,7 +531,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 82);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1356, 573);
+            this.groupBox2.Size = new System.Drawing.Size(1356, 561);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Архів відпрацьованих тривог";
@@ -856,7 +856,7 @@
             dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            this.dataGridView2.Size = new System.Drawing.Size(1356, 652);
+            this.dataGridView2.Size = new System.Drawing.Size(1356, 640);
             this.dataGridView2.TabIndex = 0;
             // 
             // tabPage_909_n
@@ -865,7 +865,7 @@
             this.tabPage_909_n.Location = new System.Drawing.Point(4, 22);
             this.tabPage_909_n.Name = "tabPage_909_n";
             this.tabPage_909_n.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_909_n.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_909_n.Size = new System.Drawing.Size(1362, 646);
             this.tabPage_909_n.TabIndex = 8;
             this.tabPage_909_n.Text = "909";
             this.tabPage_909_n.UseVisualStyleBackColor = true;
@@ -882,7 +882,7 @@
             this.dataGridView_909_n.ReadOnly = true;
             this.dataGridView_909_n.RowHeadersVisible = false;
             this.dataGridView_909_n.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_909_n.Size = new System.Drawing.Size(1356, 652);
+            this.dataGridView_909_n.Size = new System.Drawing.Size(1356, 640);
             this.dataGridView_909_n.TabIndex = 0;
             this.dataGridView_909_n.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_909_n_CellDoubleClick);
             this.dataGridView_909_n.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_909_n_CellFormatting);
@@ -893,7 +893,7 @@
             this.tabPage_808.Location = new System.Drawing.Point(4, 22);
             this.tabPage_808.Name = "tabPage_808";
             this.tabPage_808.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_808.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_808.Size = new System.Drawing.Size(1362, 646);
             this.tabPage_808.TabIndex = 5;
             this.tabPage_808.Text = "808";
             this.tabPage_808.UseVisualStyleBackColor = true;
@@ -911,7 +911,7 @@
             this.dataGridView_808_n.ReadOnly = true;
             this.dataGridView_808_n.RowHeadersVisible = false;
             this.dataGridView_808_n.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_808_n.Size = new System.Drawing.Size(1356, 652);
+            this.dataGridView_808_n.Size = new System.Drawing.Size(1356, 640);
             this.dataGridView_808_n.TabIndex = 1;
             this.dataGridView_808_n.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_808_n_CellDoubleClick);
             this.dataGridView_808_n.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_808_n_CellFormatting);
@@ -922,7 +922,7 @@
             this.tabPage_lost.Location = new System.Drawing.Point(4, 22);
             this.tabPage_lost.Name = "tabPage_lost";
             this.tabPage_lost.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_lost.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_lost.Size = new System.Drawing.Size(1362, 646);
             this.tabPage_lost.TabIndex = 12;
             this.tabPage_lost.Text = "808_звязок";
             this.tabPage_lost.UseVisualStyleBackColor = true;
@@ -940,7 +940,7 @@
             this.dataGridView_lost.ReadOnly = true;
             this.dataGridView_lost.RowHeadersVisible = false;
             this.dataGridView_lost.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_lost.Size = new System.Drawing.Size(1356, 652);
+            this.dataGridView_lost.Size = new System.Drawing.Size(1356, 640);
             this.dataGridView_lost.TabIndex = 2;
             this.dataGridView_lost.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_lost_CellDoubleClick);
             this.dataGridView_lost.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_lost_CellFormatting);
@@ -951,7 +951,7 @@
             this.tabPage_p.Location = new System.Drawing.Point(4, 22);
             this.tabPage_p.Name = "tabPage_p";
             this.tabPage_p.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_p.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_p.Size = new System.Drawing.Size(1362, 646);
             this.tabPage_p.TabIndex = 6;
             this.tabPage_p.Text = "Дилеры";
             this.tabPage_p.UseVisualStyleBackColor = true;
@@ -1004,7 +1004,7 @@
             this.tabPage_sales.Location = new System.Drawing.Point(4, 22);
             this.tabPage_sales.Name = "tabPage_sales";
             this.tabPage_sales.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_sales.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_sales.Size = new System.Drawing.Size(1362, 646);
             this.tabPage_sales.TabIndex = 7;
             this.tabPage_sales.Text = "Продажи";
             this.tabPage_sales.UseVisualStyleBackColor = true;
@@ -1057,7 +1057,7 @@
             this.tabPage_accounts.Location = new System.Drawing.Point(4, 22);
             this.tabPage_accounts.Name = "tabPage_accounts";
             this.tabPage_accounts.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_accounts.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_accounts.Size = new System.Drawing.Size(1362, 646);
             this.tabPage_accounts.TabIndex = 15;
             this.tabPage_accounts.Text = "Кабінет користувача";
             this.tabPage_accounts.UseVisualStyleBackColor = true;
@@ -1075,7 +1075,7 @@
             this.dataGridView_accounts.ReadOnly = true;
             this.dataGridView_accounts.RowHeadersVisible = false;
             this.dataGridView_accounts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_accounts.Size = new System.Drawing.Size(1356, 652);
+            this.dataGridView_accounts.Size = new System.Drawing.Size(1356, 640);
             this.dataGridView_accounts.TabIndex = 3;
             this.dataGridView_accounts.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_accounts_CellDoubleClick);
             this.dataGridView_accounts.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_accounts_CellFormatting);
@@ -1088,7 +1088,7 @@
             this.tabPage_zayavki_activation.Location = new System.Drawing.Point(4, 22);
             this.tabPage_zayavki_activation.Name = "tabPage_zayavki_activation";
             this.tabPage_zayavki_activation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_zayavki_activation.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_zayavki_activation.Size = new System.Drawing.Size(1362, 646);
             this.tabPage_zayavki_activation.TabIndex = 11;
             this.tabPage_zayavki_activation.Text = "Заявки на установку";
             this.tabPage_zayavki_activation.UseVisualStyleBackColor = true;
@@ -1211,7 +1211,7 @@
             this.tabPage_testing.Location = new System.Drawing.Point(4, 22);
             this.tabPage_testing.Name = "tabPage_testing";
             this.tabPage_testing.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_testing.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_testing.Size = new System.Drawing.Size(1362, 646);
             this.tabPage_testing.TabIndex = 3;
             this.tabPage_testing.Text = "Тестування";
             this.tabPage_testing.UseVisualStyleBackColor = true;
@@ -1431,7 +1431,7 @@
             this.tabPage_activation.Location = new System.Drawing.Point(4, 22);
             this.tabPage_activation.Name = "tabPage_activation";
             this.tabPage_activation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_activation.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_activation.Size = new System.Drawing.Size(1362, 646);
             this.tabPage_activation.TabIndex = 4;
             this.tabPage_activation.Text = "Активація";
             this.tabPage_activation.UseVisualStyleBackColor = true;
@@ -1607,7 +1607,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage3.Size = new System.Drawing.Size(1362, 646);
             this.tabPage3.TabIndex = 9;
             this.tabPage3.Text = "Зупення обслуговування";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1677,7 +1677,7 @@
             this.tabPage_zvit.Location = new System.Drawing.Point(4, 22);
             this.tabPage_zvit.Name = "tabPage_zvit";
             this.tabPage_zvit.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_zvit.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_zvit.Size = new System.Drawing.Size(1362, 646);
             this.tabPage_zvit.TabIndex = 10;
             this.tabPage_zvit.Text = "Звіти";
             this.tabPage_zvit.UseVisualStyleBackColor = true;
@@ -1803,7 +1803,7 @@
             this.tab_create_object.Location = new System.Drawing.Point(4, 22);
             this.tab_create_object.Name = "tab_create_object";
             this.tab_create_object.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_create_object.Size = new System.Drawing.Size(1362, 658);
+            this.tab_create_object.Size = new System.Drawing.Size(1362, 646);
             this.tab_create_object.TabIndex = 13;
             this.tab_create_object.Text = "Створення об’єкту";
             this.tab_create_object.UseVisualStyleBackColor = true;
@@ -2429,7 +2429,7 @@
             this.tabPage_work_whith_obj.Location = new System.Drawing.Point(4, 22);
             this.tabPage_work_whith_obj.Name = "tabPage_work_whith_obj";
             this.tabPage_work_whith_obj.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_work_whith_obj.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_work_whith_obj.Size = new System.Drawing.Size(1362, 646);
             this.tabPage_work_whith_obj.TabIndex = 14;
             this.tabPage_work_whith_obj.Text = "Робота з об\'єктом";
             this.tabPage_work_whith_obj.UseVisualStyleBackColor = true;
@@ -2658,7 +2658,7 @@
             this.tabPage_Rouming.Controls.Add(this.dataGridView_Rouming);
             this.tabPage_Rouming.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Rouming.Name = "tabPage_Rouming";
-            this.tabPage_Rouming.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_Rouming.Size = new System.Drawing.Size(1362, 646);
             this.tabPage_Rouming.TabIndex = 16;
             this.tabPage_Rouming.Text = "Роумінг";
             this.tabPage_Rouming.UseVisualStyleBackColor = true;
