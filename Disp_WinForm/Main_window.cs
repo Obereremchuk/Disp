@@ -31,7 +31,7 @@ namespace Disp_WinForm
         private delegate void UpdateGridThreadHandler(DataTable table);
 
         private string streamToPrint = Directory.GetCurrentDirectory() + "\\barcode.png";
-        private int LoadedGoogleMessage = 0;
+
 
         public Main_window()
         {
@@ -500,7 +500,6 @@ namespace Disp_WinForm
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_Rouming);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_CM);
                 build_list_products();
-                Google_masseges();
                 GetPrinters();
                 UpdateCreatedObjectsByUser(DateTime.Now.Date);
                 search_tovar_comboBox.Enabled = false;
@@ -4439,16 +4438,7 @@ namespace Disp_WinForm
 
         ///
 
-        private void Google_masseges()
-        {
-            if (LoadedGoogleMessage == 0)
-            {
-                LoadedGoogleMessage = 1;
-                //GeckoPreferences.User["browser.xul.error_pages.enabled"] = true;
-                geckoWebBrowser_GoogleMaseges.Navigate("https://messages.google.com/web/authentication");
-            }
-
-        }
+      
 
         private void build_list_products()
         {
@@ -4912,12 +4902,35 @@ namespace Disp_WinForm
 
         private void button_copy_sms_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(maskedTextBox_GSM_CODE.Text + "*27183#" + textBox_bt_enable.Text);
+            if (maskedTextBox_GSM_CODE.Text == "" || comboBox_tel_select.Text == "")
+            {
+                MessageBox.Show("Не заповнені необхідні поля!");
+                return;
+            }
+            button_create_object.Text = "Sendins SMS...";
+            string TextSMS = maskedTextBox_GSM_CODE.Text + "*27183#" + textBox_bt_enable.Text;
+            string ICCID = comboBox_tel_select.Text;
+
+            Task<string> Test = Task<string>.Run(() =>
+            {
+                return macros.VodafoneSendSMS(ICCID, TextSMS);
+            });
+
+            var answ = JsonConvert.DeserializeObject<RootObject>(Test.Result);
+            if (answ.submitTransactionalSMSResponse.@return.returnCode.majorReturnCode == "000")
+            {
+                button_create_object.Text = "SMS Sent!";
+                button_create_object.BackColor = Color.Green;
+            }
+            else
+            {
+                button_create_object.Text = "Error Sent SMS! Reason: " + answ.submitTransactionalSMSResponse.@return.failureReason;
+                button_create_object.BackColor = Color.Red;
+            }
         }
 
         private void button_create_object_Click(object sender, EventArgs e)
         {
-
             ///////
             ///В зависимости от выбранного продукта в комбоксе запускаем необходимый
             ///
@@ -6006,7 +6019,7 @@ namespace Disp_WinForm
                 else
                 {
                     button_create_object.Text = "Error Sent SMS! Reason: " + answ.submitTransactionalSMSResponse.@return.failureReason;
-                    button_create_object.BackColor = Color.Purple;
+                    button_create_object.BackColor = Color.Red;
                 }
             }
             else { button_create_object.BackColor = Color.Green; }
@@ -7036,7 +7049,7 @@ namespace Disp_WinForm
                 else
                 {
                     button_create_object.Text = "Error Sent SMS! Reason: " + answ.submitTransactionalSMSResponse.@return.failureReason;
-                    button_create_object.BackColor = Color.Purple;
+                    button_create_object.BackColor = Color.Red;
                 }
             }
             else { button_create_object.BackColor = Color.Green; }
@@ -7603,7 +7616,7 @@ namespace Disp_WinForm
                 else
                 {
                     button_create_object.Text = "Error Sent SMS! Reason: " + answ.submitTransactionalSMSResponse.@return.failureReason;
-                    button_create_object.BackColor = Color.Purple;
+                    button_create_object.BackColor = Color.Red;
                 }
             }
             else { button_create_object.BackColor = Color.Green; }
@@ -8172,7 +8185,7 @@ namespace Disp_WinForm
                 else
                 {
                     button_create_object.Text = "Error Sent SMS! Reason: " + answ.submitTransactionalSMSResponse.@return.failureReason;
-                    button_create_object.BackColor = Color.Purple;
+                    button_create_object.BackColor = Color.Red;
                 }
             }
             else { button_create_object.BackColor = Color.Green; }
@@ -8736,7 +8749,7 @@ namespace Disp_WinForm
                 else
                 {
                     button_create_object.Text = "Error Sent SMS! Reason: " + answ.submitTransactionalSMSResponse.@return.failureReason;
-                    button_create_object.BackColor = Color.Purple;
+                    button_create_object.BackColor = Color.Red;
                 }
             }
             else { button_create_object.BackColor = Color.Green; }
@@ -8761,7 +8774,7 @@ namespace Disp_WinForm
                 else
                 {
                     button_create_object.Text = "Error Sent SMS! Reason: " + answ.submitTransactionalSMSResponse.@return.failureReason;
-                    button_create_object.BackColor = Color.Purple;
+                    button_create_object.BackColor = Color.Red;
                 }
             }
             else { button_create_object.BackColor = Color.Green; }
@@ -9330,7 +9343,7 @@ namespace Disp_WinForm
                 else
                 {
                     button_create_object.Text = "Error Sent SMS! Reason: " + answ.submitTransactionalSMSResponse.@return.failureReason;
-                    button_create_object.BackColor = Color.Purple;
+                    button_create_object.BackColor = Color.Red;
                 }
             }
             else { button_create_object.BackColor = Color.Green; }
@@ -14612,7 +14625,7 @@ namespace Disp_WinForm
             if (e.KeyChar == (char)13)
             {
                 DataTable t = new DataTable();
-                t = macros.GetData("SELECT CN, IMEI, BtKey, Puk, gsm_code, tag_access_code, SN FROM btk.Invice_Tovar where CN='" + textBox_id_to_create.Text + "';");
+                t = macros.GetData("SELECT CN, IMEI, BtKey, Puk, gsm_code, tag_access_code, SN, Simcardcol_imsi, Simcardcol_number, Simcardcol_international FROM btk.Object, btk.Simcard, btk.Invice_Tovar where Invice_Tovar.CN = Object.Object_imei and Object.Simcard_idSimcard = Simcard.idSimcard and Object_imei = '" + textBox_id_to_create.Text + "';");
                 if (t != null & t.Rows.Count > 0)
                 {
                     textBox_id_to_create.Text = t.Rows[0][0].ToString();
@@ -14621,8 +14634,15 @@ namespace Disp_WinForm
                     maskedTextBox_BLE_CODE.Text = t.Rows[0][2].ToString();
                     textBox_bt_enable.Text = t.Rows[0][5].ToString();
                     search_tovar_comboBox.Text = t.Rows[0][6].ToString();
+                    comboBox_tel_select.Text = t.Rows[0][7].ToString();
+                    if (t.Rows[0][9].ToString() == "1")
+                    {
+                        maskedTextBox_sim_no_to_create.Mask = "";
+                        maskedTextBox_sim_no_to_create.Text = t.Rows[0][8].ToString();
+                    }
                     comboBox_tel_select.Focus();
                 }
+                
             }
         }
 
@@ -14865,9 +14885,12 @@ namespace Disp_WinForm
 
         private void Request_button_Click(object sender, EventArgs e)
         {
+            string TextSMS = maskedTextBox_GSM_CODE.Text + "*27183#" + textBox_bt_enable.Text;
+            string ICCID = comboBox_tel_select.Text;
+
             Task<string> Test = Task<string>.Run(() =>
             {
-                return macros.VodafoneSendSMS("89882390000160505239", "1439*27183#5507524");
+                return macros.VodafoneSendSMS(ICCID, TextSMS);
             });
 
             var answ = JsonConvert.DeserializeObject<RootObject>(Test.Result);
@@ -14879,7 +14902,7 @@ namespace Disp_WinForm
             else
             {
                 button_create_object.Text = "Error Sent SMS! Reason: " + answ.submitTransactionalSMSResponse.@return.failureReason;
-                button_create_object.BackColor = Color.Purple;
+                button_create_object.BackColor = Color.Red;
             }
         }
 
