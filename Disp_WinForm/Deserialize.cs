@@ -198,7 +198,38 @@ namespace Disp_WinForm
         public string p { get; set; }
         public string au { get; set; }
         public string reason { get; set; }
-        
+        public SubmitTransactionalSMSResponse submitTransactionalSMSResponse { get; set; }
+        public Fault fault { get; set; }
+
+    }
+
+    public class Detail
+    {
+        public string errorcode { get; set; }
+    }
+
+    public class Fault
+    {
+        public string faultstring { get; set; }
+        public Detail detail { get; set; }
+    }
+
+    public class ReturnCode
+    {
+        public string majorReturnCode { get; set; }
+        public string minorReturnCode { get; set; }
+    }
+
+    public class Return
+    {
+        public string deviceId { get; set; }
+        public string failureReason { get; set; }
+        public ReturnCode returnCode { get; set; }
+    }
+
+    public class SubmitTransactionalSMSResponse
+    {
+        public Return @return { get; set; }
     }
 
     public class accounts

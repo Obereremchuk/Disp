@@ -91,11 +91,11 @@ namespace Disp_WinForm
             catch
             { }
 
-            
+
 
         }
 
-        
+
 
         private void init()
         {
@@ -286,7 +286,7 @@ namespace Disp_WinForm
             update_CM_dgv();
         }
 
-        
+
 
 
 
@@ -334,7 +334,7 @@ namespace Disp_WinForm
                 aTimer.Enabled = true;
             }
             else if (tabControl_testing.SelectedTab.Name == "tabPage_909_n")
-            { 
+            {
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_808);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_open);
                 aTimer.Elapsed -= new ElapsedEventHandler(OnTimedEvent_sale);
@@ -733,7 +733,7 @@ namespace Disp_WinForm
         {
             //ПОлучим последний созданный айди тестирование, и возмем из него дату для верного отображения которую покладем в даттаймпикер
             DataTable table = new DataTable();
-            
+
             string uspishno = "";
             if (checkBox_activation_uspishno.Checked is true)
             { uspishno = checkBox_activation_uspishno.Checked ? "or Activation_objectcol_result like 'Успішно' " : "or Activation_objectcol_result like '%" + textBox_search_object_name_activation.Text + "%' "; }
@@ -788,7 +788,7 @@ namespace Disp_WinForm
             }
             else
             {
-                
+
                 table = macros.GetData(
                     "SELECT " +
                     "Zayavki.idZayavki as 'Заявка №', " +
@@ -2659,7 +2659,7 @@ namespace Disp_WinForm
                                                 "WHERE " +
                                                 "idnotification = '" + vars_form.id_notif + "';");
 
-            if(vars_form.user_login_name != "admin" & vars_form.user_login_name != results1.Rows[0][1].ToString())
+            if (vars_form.user_login_name != "admin" & vars_form.user_login_name != results1.Rows[0][1].ToString())
             {
                 if (results1.Rows[0][0].ToString() == "1")
                 {
@@ -3177,7 +3177,7 @@ namespace Disp_WinForm
                                          "WHERE " +
                                          "idnotification = '" + vars_form.id_notif + "';");
 
-            if(vars_form.user_login_name != "admin" & vars_form.user_login_name != results1.Rows[0][1].ToString())
+            if (vars_form.user_login_name != "admin" & vars_form.user_login_name != results1.Rows[0][1].ToString())
             {
                 if (results1.Rows[0][0].ToString() == "1")
                 {
@@ -4056,7 +4056,7 @@ namespace Disp_WinForm
         }
 
         private void dataGridView_testing_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-            {
+        {
             if (e.RowIndex <= -1 || e.ColumnIndex <= -1)
             {
                 return;
@@ -4275,7 +4275,7 @@ namespace Disp_WinForm
                 return;
             }
 
-            
+
 
 
             vars_form.id_db_zayavki_for_activation = dataGridView_for_activation.Rows[e.RowIndex].Cells[0].Value.ToString();
@@ -4428,9 +4428,9 @@ namespace Disp_WinForm
                 checkBox_activation_za_ves_chas_search.Checked = false;
                 update_actication_dgv();
             }
-            
 
-            
+
+
         }
 
         /// <Вкладка add_object>
@@ -4984,19 +4984,19 @@ namespace Disp_WinForm
                     break;
 
                 case "CNTP_910_SE_N":
-                    CNTP_910_N();
+                    CNTP_910_SE_N();
                     break;
 
                 case "CNTP_910_SE_P":
-                    CNTP_910_P();
+                    CNTP_SE_910_SE_P();
                     break;
 
                 case "CNTP_910BT_SE_N":
-                    CNTP_910BT_N();
+                    CNTP_910BT_SE_N();
                     break;
 
                 case "CNTP_910BT_SE_P":
-                    CNTP_910BT_P();
+                    CNTP_910BT_SE_P();
                     break;
             }
             UpdateCreatedObjectsByUser(DateTime.Now.Date);
@@ -5487,21 +5487,22 @@ namespace Disp_WinForm
             string sql5 = string.Format("insert into btk.object_subscr (Object_idObject, Subscription_idSubscr) values (" + id_object + "," + sql4 + ");");
             macros.sql_command(sql5);
 
+            
+
             ///////////////////////
             //Если все прошло успешно - завечиваем зеленым кнопку и затирает текстбоксы
             //////////////////////////
 
-            button_create_object.Text = "Створено: " + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text + "\n Дата та час: " + DateTime.Now.ToString();
+            button_create_object.Text += "\n Створено: " + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text + "\n Дата та час: " + DateTime.Now.ToString();
             maskedTextBox_BLE_CODE.Text = "";
             maskedTextBox_GSM_CODE.Text = "";
             textBox_id_to_create.Text = "";
             maskedTextBox_PUK.Text = "";
             maskedTextBox_sim_no_to_create.Text = "";
             textBox_bt_enable.Text = "";
-            button_create_object.BackColor = Color.Green;
             comboBox_tel_select.Text = "";
             search_tovar_comboBox.Text = "";
-
+            button_create_object.BackColor = Color.Green;
         }
 
         private void CNTP_910()
@@ -5985,10 +5986,36 @@ namespace Disp_WinForm
             string sql5 = string.Format("insert into btk.object_subscr (Object_idObject, Subscription_idSubscr) values (" + id_object + "," + sql4 + ");");
             macros.sql_command(sql5);
 
+            if (maskedTextBox_sim_no_to_create.Text.Contains("+882"))
+            {
+                button_create_object.Text = "Sendins SMS...";
+                string TextSMS = maskedTextBox_GSM_CODE.Text + "*27183#" + textBox_bt_enable.Text;
+                string ICCID = comboBox_tel_select.Text;
+
+                Task<string> Test = Task<string>.Run(() =>
+                {
+                    return macros.VodafoneSendSMS(ICCID, TextSMS);
+                });
+
+                var answ = JsonConvert.DeserializeObject<RootObject>(Test.Result);
+                if (answ.submitTransactionalSMSResponse.@return.returnCode.majorReturnCode == "000")
+                {
+                    button_create_object.Text = "SMS Sent!";
+                    button_create_object.BackColor = Color.Green;
+                }
+                else
+                {
+                    button_create_object.Text = "Error Sent SMS! Reason: " + answ.submitTransactionalSMSResponse.@return.failureReason;
+                    button_create_object.BackColor = Color.Purple;
+                }
+            }
+            else { button_create_object.BackColor = Color.Green; }
+
             ///////////////////////
             //Если все прошло успешно - завечиваем зеленым кнопку и затирает текстбоксы
             //////////////////////////
-            button_create_object.Text = "Створено: " + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text + "\n Дата та час: " + DateTime.Now.ToString();
+
+            button_create_object.Text += "\n Створено: " + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text + "\n Дата та час: " + DateTime.Now.ToString();
             maskedTextBox_BLE_CODE.Text = "";
             maskedTextBox_GSM_CODE.Text = "";
             textBox_id_to_create.Text = "";
@@ -5997,7 +6024,6 @@ namespace Disp_WinForm
             textBox_bt_enable.Text = "";
             comboBox_tel_select.Text = "";
             search_tovar_comboBox.Text = "";
-            button_create_object.BackColor = Color.Green;
         }
 
         private void CNTK_910BT()
@@ -6393,7 +6419,7 @@ namespace Disp_WinForm
             //0 - Запросить текущее состояние
             string cmd_refresh = macros.create_commads_wl(cr_obj_out.item.id, "0 - Запросить текущее состояние", "%23refresh%23", 83886080);
 
-            
+
 
             string gr_answer2 = macros.WialonRequest(
                 "&svc=unit_group/update_units&params={"
@@ -6990,10 +7016,36 @@ namespace Disp_WinForm
             string sql5 = string.Format("insert into btk.object_subscr (Object_idObject, Subscription_idSubscr) values (" + id_object + "," + sql4 + ");");
             macros.sql_command(sql5);
 
+            if (maskedTextBox_sim_no_to_create.Text.Contains("+882"))
+            {
+                button_create_object.Text = "Sendins SMS...";
+                string TextSMS = maskedTextBox_GSM_CODE.Text + "*27183#" + textBox_bt_enable.Text;
+                string ICCID = comboBox_tel_select.Text;
+
+                Task<string> Test = Task<string>.Run(() =>
+                {
+                    return macros.VodafoneSendSMS(ICCID, TextSMS);
+                });
+
+                var answ = JsonConvert.DeserializeObject<RootObject>(Test.Result);
+                if (answ.submitTransactionalSMSResponse.@return.returnCode.majorReturnCode == "000")
+                {
+                    button_create_object.Text = "SMS Sent!";
+                    button_create_object.BackColor = Color.Green;
+                }
+                else
+                {
+                    button_create_object.Text = "Error Sent SMS! Reason: " + answ.submitTransactionalSMSResponse.@return.failureReason;
+                    button_create_object.BackColor = Color.Purple;
+                }
+            }
+            else { button_create_object.BackColor = Color.Green; }
+
             ///////////////////////
             //Если все прошло успешно - завечиваем зеленым кнопку и затирает текстбоксы
             //////////////////////////
-            button_create_object.Text = "Створено: " + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text + "\n Дата та час: " + DateTime.Now.ToString();
+
+            button_create_object.Text += "\n Створено: " + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text + "\n Дата та час: " + DateTime.Now.ToString();
             maskedTextBox_BLE_CODE.Text = "";
             maskedTextBox_GSM_CODE.Text = "";
             textBox_id_to_create.Text = "";
@@ -7002,10 +7054,9 @@ namespace Disp_WinForm
             textBox_bt_enable.Text = "";
             comboBox_tel_select.Text = "";
             search_tovar_comboBox.Text = "";
-            button_create_object.BackColor = Color.Green;
         }
 
-        private void CNTP_910_P()
+        private void CNTP_SE_910_SE_P()
         {
             /////////////////////
             //////Проверяем корректность введенных данных
@@ -7469,7 +7520,7 @@ namespace Disp_WinForm
             string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режиме", "%23valet=0%23", 16777216);
 
             string id_sim = "";
-            
+
 
             DataTable t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
             if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
@@ -7501,11 +7552,11 @@ namespace Disp_WinForm
                                         + "', '" + textBox_id_to_create.Text.ToString()
                                         + "', '" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem)
                                         + " " + textBox_id_to_create.Text.ToString() + "','"
-                                        + maskedTextBox_sim_no_to_create.Text.ToString() + "','"    
+                                        + maskedTextBox_sim_no_to_create.Text.ToString() + "','"
                                         + maskedTextBox_sim2_no_to_create.Text.ToString()
                                         + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', "
-                                        + "'" + id_sim + "'," 
-                                        +"'" + id_sim2 + "'," +
+                                        + "'" + id_sim + "',"
+                                        + "'" + id_sim2 + "'," +
                                         "'1', '1', '1','1', null, '" + vars_form.user_login_id + "', '"
                                         + textBox_id_to_create.Text.ToString() + "', '"
                                         + maskedTextBox_PUK.Text.ToString() + "', '"
@@ -7532,10 +7583,36 @@ namespace Disp_WinForm
             string sql5 = string.Format("insert into btk.object_subscr (Object_idObject, Subscription_idSubscr) values (" + id_object + "," + sql4 + ");");
             macros.sql_command(sql5);
 
+            if (maskedTextBox_sim_no_to_create.Text.Contains("+882"))
+            {
+                button_create_object.Text = "Sendins SMS...";
+                string TextSMS = maskedTextBox_GSM_CODE.Text + "*27183#" + textBox_bt_enable.Text;
+                string ICCID = comboBox_tel_select.Text;
+
+                Task<string> Test = Task<string>.Run(() =>
+                {
+                    return macros.VodafoneSendSMS(ICCID, TextSMS);
+                });
+
+                var answ = JsonConvert.DeserializeObject<RootObject>(Test.Result);
+                if (answ.submitTransactionalSMSResponse.@return.returnCode.majorReturnCode == "000")
+                {
+                    button_create_object.Text = "SMS Sent!";
+                    button_create_object.BackColor = Color.Green;
+                }
+                else
+                {
+                    button_create_object.Text = "Error Sent SMS! Reason: " + answ.submitTransactionalSMSResponse.@return.failureReason;
+                    button_create_object.BackColor = Color.Purple;
+                }
+            }
+            else { button_create_object.BackColor = Color.Green; }
+
             ///////////////////////
             //Если все прошло успешно - завечиваем зеленым кнопку и затирает текстбоксы
             //////////////////////////
-            button_create_object.Text = "Створено: " + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text + "\n Дата та час: " + DateTime.Now.ToString();
+
+            button_create_object.Text += "\n Створено: " + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text + "\n Дата та час: " + DateTime.Now.ToString();
             maskedTextBox_BLE_CODE.Text = "";
             maskedTextBox_GSM_CODE.Text = "";
             textBox_id_to_create.Text = "";
@@ -7544,10 +7621,9 @@ namespace Disp_WinForm
             textBox_bt_enable.Text = "";
             comboBox_tel_select.Text = "";
             search_tovar_comboBox.Text = "";
-            button_create_object.BackColor = Color.Green;
         }
 
-        private void CNTP_910_N()
+        private void CNTP_910_SE_N()
         {
             /////////////////////
             //////Проверяем корректность введенных данных
@@ -7634,7 +7710,7 @@ namespace Disp_WinForm
                 MessageBox.Show("Указанный IMEI существует в WL");
                 return;
             }
-            
+
             /////////////////
             ///Создаем объект
             /////////////////
@@ -8076,10 +8152,36 @@ namespace Disp_WinForm
             string sql5 = string.Format("insert into btk.object_subscr (Object_idObject, Subscription_idSubscr) values (" + id_object + "," + sql4 + ");");
             macros.sql_command(sql5);
 
+            if (maskedTextBox_sim_no_to_create.Text.Contains("+882"))
+            {
+                button_create_object.Text = "Sendins SMS...";
+                string TextSMS = maskedTextBox_GSM_CODE.Text + "*27183#" + textBox_bt_enable.Text;
+                string ICCID = comboBox_tel_select.Text;
+
+                Task<string> Test = Task<string>.Run(() =>
+                {
+                    return macros.VodafoneSendSMS(ICCID, TextSMS);
+                });
+
+                var answ = JsonConvert.DeserializeObject<RootObject>(Test.Result);
+                if (answ.submitTransactionalSMSResponse.@return.returnCode.majorReturnCode == "000")
+                {
+                    button_create_object.Text = "SMS Sent!";
+                    button_create_object.BackColor = Color.Green;
+                }
+                else
+                {
+                    button_create_object.Text = "Error Sent SMS! Reason: " + answ.submitTransactionalSMSResponse.@return.failureReason;
+                    button_create_object.BackColor = Color.Purple;
+                }
+            }
+            else { button_create_object.BackColor = Color.Green; }
+
             ///////////////////////
             //Если все прошло успешно - завечиваем зеленым кнопку и затирает текстбоксы
             //////////////////////////
-            button_create_object.Text = "Створено: " + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text + "\n Дата та час: " + DateTime.Now.ToString();
+
+            button_create_object.Text += "\n Створено: " + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text + "\n Дата та час: " + DateTime.Now.ToString();
             maskedTextBox_BLE_CODE.Text = "";
             maskedTextBox_GSM_CODE.Text = "";
             textBox_id_to_create.Text = "";
@@ -8088,10 +8190,9 @@ namespace Disp_WinForm
             textBox_bt_enable.Text = "";
             comboBox_tel_select.Text = "";
             search_tovar_comboBox.Text = "";
-            button_create_object.BackColor = Color.Green;
         }
 
-        private void CNTP_910BT_P()
+        private void CNTP_910BT_SE_P()
         {
             /////////////////////
             //////Проверяем корректность введенных данных
@@ -8618,10 +8719,58 @@ namespace Disp_WinForm
             string sql5 = string.Format("insert into btk.object_subscr (Object_idObject, Subscription_idSubscr) values (" + id_object + "," + sql4 + ");");
             macros.sql_command(sql5);
 
+            if (maskedTextBox_sim_no_to_create.Text.Contains("+882"))
+            {
+                Task<string> Test = Task<string>.Run(() =>
+                {
+                    button_create_object.Text = "Sendins SMS...";
+                    return macros.VodafoneSendSMS("", "");
+                });
+
+                var answ = JsonConvert.DeserializeObject<RootObject>(Test.Result);
+                if (answ.submitTransactionalSMSResponse.@return.returnCode.majorReturnCode == "0")
+                {
+                    button_create_object.Text = "SMS Sent!";
+                    button_create_object.BackColor = Color.Green;
+                }
+                else
+                {
+                    button_create_object.Text = "Error Sent SMS! Reason: " + answ.submitTransactionalSMSResponse.@return.failureReason;
+                    button_create_object.BackColor = Color.Purple;
+                }
+            }
+            else { button_create_object.BackColor = Color.Green; }
+
+            if (maskedTextBox_sim_no_to_create.Text.Contains("+882"))
+            {
+                button_create_object.Text = "Sendins SMS...";
+                string TextSMS = maskedTextBox_GSM_CODE.Text + "*27183#" + textBox_bt_enable.Text;
+                string ICCID = comboBox_tel_select.Text;
+
+                Task<string> Test = Task<string>.Run(() =>
+                {
+                    return macros.VodafoneSendSMS(ICCID, TextSMS);
+                });
+
+                var answ = JsonConvert.DeserializeObject<RootObject>(Test.Result);
+                if (answ.submitTransactionalSMSResponse.@return.returnCode.majorReturnCode == "000")
+                {
+                    button_create_object.Text = "SMS Sent!";
+                    button_create_object.BackColor = Color.Green;
+                }
+                else
+                {
+                    button_create_object.Text = "Error Sent SMS! Reason: " + answ.submitTransactionalSMSResponse.@return.failureReason;
+                    button_create_object.BackColor = Color.Purple;
+                }
+            }
+            else { button_create_object.BackColor = Color.Green; }
+
             ///////////////////////
             //Если все прошло успешно - завечиваем зеленым кнопку и затирает текстбоксы
             //////////////////////////
-            button_create_object.Text = "Створено: " + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text + "\n Дата та час: " + DateTime.Now.ToString();
+
+            button_create_object.Text += "\n Створено: " + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text + "\n Дата та час: " + DateTime.Now.ToString();
             maskedTextBox_BLE_CODE.Text = "";
             maskedTextBox_GSM_CODE.Text = "";
             textBox_id_to_create.Text = "";
@@ -8630,10 +8779,9 @@ namespace Disp_WinForm
             textBox_bt_enable.Text = "";
             comboBox_tel_select.Text = "";
             search_tovar_comboBox.Text = "";
-            button_create_object.BackColor = Color.Green;
         }
 
-        private void CNTP_910BT_N()
+        private void CNTP_910BT_SE_N()
         {
             /////////////////////
             //////Проверяем корректность введенных данных
@@ -9162,10 +9310,36 @@ namespace Disp_WinForm
             string sql5 = string.Format("insert into btk.object_subscr (Object_idObject, Subscription_idSubscr) values (" + id_object + "," + sql4 + ");");
             macros.sql_command(sql5);
 
+            if (maskedTextBox_sim_no_to_create.Text.Contains("+882"))
+            {
+                button_create_object.Text = "Sendins SMS...";
+                string TextSMS = maskedTextBox_GSM_CODE.Text + "*27183#" + textBox_bt_enable.Text;
+                string ICCID = comboBox_tel_select.Text;
+
+                Task<string> Test = Task<string>.Run(() =>
+                {
+                    return macros.VodafoneSendSMS(ICCID, TextSMS);
+                });
+
+                var answ = JsonConvert.DeserializeObject<RootObject>(Test.Result);
+                if (answ.submitTransactionalSMSResponse.@return.returnCode.majorReturnCode == "000")
+                {
+                    button_create_object.Text = "SMS Sent!";
+                    button_create_object.BackColor = Color.Green;
+                }
+                else
+                {
+                    button_create_object.Text = "Error Sent SMS! Reason: " + answ.submitTransactionalSMSResponse.@return.failureReason;
+                    button_create_object.BackColor = Color.Purple;
+                }
+            }
+            else { button_create_object.BackColor = Color.Green; }
+
             ///////////////////////
             //Если все прошло успешно - завечиваем зеленым кнопку и затирает текстбоксы
             //////////////////////////
-            button_create_object.Text = "Створено: " + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text + "\n Дата та час: " + DateTime.Now.ToString();
+
+            button_create_object.Text += "\n Створено: " + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text + "\n Дата та час: " + DateTime.Now.ToString();
             maskedTextBox_BLE_CODE.Text = "";
             maskedTextBox_GSM_CODE.Text = "";
             textBox_id_to_create.Text = "";
@@ -9174,7 +9348,6 @@ namespace Disp_WinForm
             textBox_bt_enable.Text = "";
             comboBox_tel_select.Text = "";
             search_tovar_comboBox.Text = "";
-            button_create_object.BackColor = Color.Green;
         }
 
         private void CNTP()
@@ -14626,41 +14799,41 @@ namespace Disp_WinForm
             //dataGridView_zayavki_na_activation.DataSource;
             string g = dataGridView_zayavki_na_activation.Rows[e.RowIndex].Cells[8].Value.ToString();
 
-                if (dataGridView_zayavki_na_activation.Rows[e.RowIndex].Cells[8].Value.ToString() != "1")
-                {
-                    e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#FBFFAF");
-                }
-                else
-                {
-                    e.CellStyle.BackColor = Color.White;
-                }
+            if (dataGridView_zayavki_na_activation.Rows[e.RowIndex].Cells[8].Value.ToString() != "1")
+            {
+                e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#FBFFAF");
+            }
+            else
+            {
+                e.CellStyle.BackColor = Color.White;
+            }
             if (dataGridView_zayavki_na_activation.Rows[e.RowIndex].Cells[9].Value.ToString().Contains("Успішно"))
-                {
-                    e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#C6FFB2");
-                }
-                
+            {
+                e.CellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#C6FFB2");
+            }
+
 
             dataGridView_zayavki_na_activation.ResumeLayout();
         }
 
         private void checkBox_activation_za_ves_chas_search_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox_activation_za_ves_chas_search.Checked == true )
-            { 
-                dateTimePicker_activation_filter_start.Enabled = false; 
-                dateTimePicker_activation_filter_end.Enabled = false; 
+            if (checkBox_activation_za_ves_chas_search.Checked == true)
+            {
+                dateTimePicker_activation_filter_start.Enabled = false;
+                dateTimePicker_activation_filter_end.Enabled = false;
             }
-            else 
-            { 
-                dateTimePicker_activation_filter_start.Enabled = true; 
-                dateTimePicker_activation_filter_end.Enabled = true; 
+            else
+            {
+                dateTimePicker_activation_filter_start.Enabled = true;
+                dateTimePicker_activation_filter_end.Enabled = true;
             }
             update_actication_dgv();
         }
 
         private void textBox_search_zayavki_TextChanged(object sender, EventArgs e)
         {
-            if (textBox_search_zayavki.Text == "" & comboBox_reason_zayavki.Text=="")
+            if (textBox_search_zayavki.Text == "" & comboBox_reason_zayavki.Text == "")
             {
                 checkBox_zayavki_za_ves_chas.Enabled = false;
                 checkBox_zayavki_za_ves_chas.Checked = false;
@@ -14690,98 +14863,25 @@ namespace Disp_WinForm
             else { textBox_search_object_name_activation.Text = ""; }
         }
 
-
-
-
-
-
-
-
-
-
-
-
         private void Request_button_Click(object sender, EventArgs e)
         {
-            //string BaseURI = "https://api.m2m.vodafone.com";
-            string BaseURI = "https://dev-prd.api.m2m.vodafone.com";
-
-            string EndPoint_ = "/m2m/v1/devices/";
-            string ICCID = "89882390000160504109";
-            string url = BaseURI + EndPoint_ + ICCID + "?action=submitsms";
-            string SMS = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes("Test"));
-
-            SubmitSMS submitSMS = new SubmitSMS { deviceId = ICCID, sourceId = "+380676168786", messageData = SMS, messageType = "Text" };
-            string json = JsonConvert.SerializeObject(submitSMS);
-
-            var client = new HttpClient();
-            var content = new StringContent(json, Encoding.UTF8, "application/x-www-form-urlencoded");
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + vars_form.Vodafone_AccessToken);
-            var result = client.PostAsync(url, content).Result;
-            string contents = result.Content.ReadAsStringAsync().Result;
-            var res = JsonConvert.DeserializeObject<BearerToken>(contents);
-
-
-
-            //    SubmitSMS submitSMS = new SubmitSMS();
-            //submitSMS.deviceId = request_textBox.Text;
-            //submitSMS.sourceId = "";
-            //submitSMS.messageData = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes("test")); ;
-            //submitSMS.messageType = "Text";
-            //submitSMS.validityPeriod = "";
-            //submitSMS.replacePresent = "";
-            //Task.Run(() => VodafoneSendSMSAsync("device", submitSMS, request_textBox.Text));
-
-            ////var t = GetToken().Result;
-        }
-
-        static async Task VodafoneSendSMSAsync(string EndPoint, object subminSMS, string ICCID)
-        {
-            //string BaseURI = "https://api.m2m.vodafone.com";
-            string BaseURI = "https://dev-prd.api.m2m.vodafone.com";
-
-            string url = "/m2m/v1/devices/" + ICCID + "?action=submitsms";
-            string json = JsonConvert.SerializeObject(subminSMS);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-
-            //var data = new FormUrlEncodedContent(new[]
-            //{
-            //    new KeyValuePair<string, string>("deviceId", "89882390000160504109"),
-            //    new KeyValuePair<string, string>("sourceId", "+380676168786"),
-            //    new KeyValuePair<string, string>("messageData", "dGVzdA=="),
-            //    new KeyValuePair<string, string>("messageType", "Text")
-            //});
-
-            using (var client = new HttpClient{ BaseAddress = new Uri(BaseURI) })
+            Task<string> Test = Task<string>.Run(() =>
             {
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + vars_form.Vodafone_AccessToken);
-                var response = await client.PostAsync(url, data);
-                //var response = await client.GetAsync(BaseURI + url);
-                string result = response.Content.ReadAsStringAsync().Result;
+                return macros.VodafoneSendSMS("89882390000160505239", "1439*27183#5507524");
+            });
+
+            var answ = JsonConvert.DeserializeObject<RootObject>(Test.Result);
+            if (answ.submitTransactionalSMSResponse.@return.returnCode.majorReturnCode == "000")
+            {
+                button_create_object.Text = "SMS Sent!";
+                button_create_object.BackColor = Color.Green;
+            }
+            else
+            {
+                button_create_object.Text = "Error Sent SMS! Reason: " + answ.submitTransactionalSMSResponse.@return.failureReason;
+                button_create_object.BackColor = Color.Purple;
             }
         }
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         private void checkBox_inshe_CheckedChanged(object sender, EventArgs e)
