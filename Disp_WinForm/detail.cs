@@ -399,289 +399,286 @@ namespace Disp_WinForm
 
         private void TreeView_zapolnyaem()//Получаем произвольные поля из Виалона и заполняем дерево
         {
-            Task.Run(() =>
+
+            TreeNode node1 = new TreeNode("Об'єкт охорони:");
+            treeView_client_info.Nodes.Add(node1);
+            treeView_client_info.Nodes[0].Expand();
+            TreeNode node2 = new TreeNode("Підземні паркінги:");
+            treeView_client_info.Nodes.Add(node2);
+            treeView_client_info.Nodes[1].Expand();
+            TreeNode node3 = new TreeNode("Знаходження в геозонах:");
+            treeView_client_info.Nodes.Add(node3);
+            treeView_client_info.Nodes[2].Expand();
+            TreeNode node4 = new TreeNode("Загальна інформація:");
+            treeView_client_info.Nodes.Add(node4);
+            treeView_client_info.Nodes[3].Expand();
+            TreeNode node5 = new TreeNode("Адміністративні поля:");
+            treeView_client_info.Nodes.Add(node5);
+            treeView_client_info.Nodes[4].Expand();
+            TreeNode node6 = new TreeNode("Про автомобіль:");
+            treeView_client_info.Nodes.Add(node6);
+            treeView_client_info.Nodes[5].Expand();
+            TreeNode node7 = new TreeNode("Знаходится в групах:");
+            treeView_client_info.Nodes.Add(node7);
+
+            string json = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                    "\"spec\":{" +
+                                                    "\"itemsType\":\"avl_unit\"," +
+                                                    "\"propName\":\"sys_id\"," +
+                                                    "\"propValueMask\":\"" + _search_id + "\", " +
+                                                    "\"sortType\":\"sys_name\"," +
+                                                    "\"or_logic\":\"1\"}," +
+                                                    "\"or_logic\":\"1\"," +
+                                                    "\"force\":\"1\"," +
+                                                    "\"flags\":\"15208907\"," +
+                                                    "\"from\":\"0\"," +
+                                                    "\"to\":\"5\"}");
+
+            string json5 = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                    "\"spec\":{" +
+                                                    "\"itemsType\":\"avl_unit_group\"," +
+                                                    "\"propName\":\"sys_id\"," +
+                                                    "\"propValueMask\":\"6409,1759,46,7669,7669,1759,7668\", " +
+                                                    "\"sortType\":\"sys_name\"," +
+                                                    "\"or_logic\":\"1\"}," +
+                                                    "\"or_logic\":\"1\"," +
+                                                    "\"force\":\"1\"," +
+                                                    "\"flags\":\"1\"," +
+                                                    "\"from\":\"0\"," +
+                                                    "\"to\":\"0\"}");
+            var m1 = JsonConvert.DeserializeObject<RootObject>(json5);
+            foreach (var items in m1.items)
             {
-
-                TreeNode node1 = new TreeNode("Об'єкт охорони:");
-                treeView_client_info.Nodes.Add(node1);
-                treeView_client_info.Nodes[0].Expand();
-                TreeNode node2 = new TreeNode("Підземні паркінги:");
-                treeView_client_info.Nodes.Add(node2);
-                treeView_client_info.Nodes[1].Expand();
-                TreeNode node3 = new TreeNode("Знаходження в геозонах:");
-                treeView_client_info.Nodes.Add(node3);
-                treeView_client_info.Nodes[2].Expand();
-                TreeNode node4 = new TreeNode("Загальна інформація:");
-                treeView_client_info.Nodes.Add(node4);
-                treeView_client_info.Nodes[3].Expand();
-                TreeNode node5 = new TreeNode("Адміністративні поля:");
-                treeView_client_info.Nodes.Add(node5);
-                treeView_client_info.Nodes[4].Expand();
-                TreeNode node6 = new TreeNode("Про автомобіль:");
-                treeView_client_info.Nodes.Add(node6);
-                treeView_client_info.Nodes[5].Expand();
-                TreeNode node7 = new TreeNode("Знаходится в групах:");
-                treeView_client_info.Nodes.Add(node7);
-
-                string json = macros.WialonRequest("&svc=core/search_items&params={" +
-                                                        "\"spec\":{" +
-                                                        "\"itemsType\":\"avl_unit\"," +
-                                                        "\"propName\":\"sys_id\"," +
-                                                        "\"propValueMask\":\"" + _search_id + "\", " +
-                                                        "\"sortType\":\"sys_name\"," +
-                                                        "\"or_logic\":\"1\"}," +
-                                                        "\"or_logic\":\"1\"," +
-                                                        "\"force\":\"1\"," +
-                                                        "\"flags\":\"15208907\"," +
-                                                        "\"from\":\"0\"," +
-                                                        "\"to\":\"5\"}");
-
-                string json5 = macros.WialonRequest("&svc=core/search_items&params={" +
-                                                        "\"spec\":{" +
-                                                        "\"itemsType\":\"avl_unit_group\"," +
-                                                        "\"propName\":\"sys_id\"," +
-                                                        "\"propValueMask\":\"6409,1759,46,7669,7669,1759,7668\", " +
-                                                        "\"sortType\":\"sys_name\"," +
-                                                        "\"or_logic\":\"1\"}," +
-                                                        "\"or_logic\":\"1\"," +
-                                                        "\"force\":\"1\"," +
-                                                        "\"flags\":\"1\"," +
-                                                        "\"from\":\"0\"," +
-                                                        "\"to\":\"0\"}");
-                var m1 = JsonConvert.DeserializeObject<RootObject>(json5);
-                foreach (var items in m1.items)
+                foreach (int units in items.u)
                 {
-                    foreach (int units in items.u)
+                    if (units.ToString() == _search_id)
                     {
-                        if (units.ToString() == _search_id)
-                        {
 
-                            treeView_client_info.Nodes[6].Nodes.Add(new TreeNode(items.nm));
-                        }
+                        treeView_client_info.Nodes[6].Nodes.Add(new TreeNode(items.nm));
                     }
                 }
+            }
 
 
 
 
-                if (json == "")
+            if (json == "")
+            {
+                this.BackColor = Color.Red;
+                return;
+            }
+            else
+            {
+                this.BackColor = Color.Empty;
+                var m = JsonConvert.DeserializeObject<RootObject>(json);
+
+                if (m.error != 1)
                 {
-                    this.BackColor = Color.Red;
-                    return;
-                }
-                else
-                {
-                    this.BackColor = Color.Empty;
-                    var m = JsonConvert.DeserializeObject<RootObject>(json);
-
-                    if (m.error != 1)
+                    if (m.items.Count == 0)
                     {
-                        if (m.items.Count == 0)
-                        {
 
-                        }
-                        else
+                    }
+                    else
+                    {
+                        if (m.items[0].flds.Count == 0
+                        ) //Если поля Увага не существует блокируем кнопку изменения этого поля
                         {
-                            if (m.items[0].flds.Count == 0
-                            ) //Если поля Увага не существует блокируем кнопку изменения этого поля
-                            {
-                                button_izmenit_uvaga.Enabled = false;
-                                textBox_Uvaga.Text = "Поля увага не існує!";
-                            }
-
-                            if (m.items[0].flds.Count != 0
-                            ) //Если первое поле не содержит Увага блокируем кнопку изменения этого поля
-                            {
-                                try
-                                {
-                                    if (!m.items[0].flds[1].n.Contains("УВАГА"))
-                                    {
-                                        button_izmenit_uvaga.Enabled = false;
-                                        textBox_Uvaga.Text = "Поля увага не існує!";
-                                    }
-                                }
-                                catch
-                                {
-                                    textBox_Uvaga.Text = "Неможливо відобразити поле Увага";
-                                    button_izmenit_uvaga.Enabled = false;
-                                }
-                            }
+                            button_izmenit_uvaga.Enabled = false;
+                            textBox_Uvaga.Text = "Поля увага не існує!";
                         }
 
-
-
-                        if (m.items.Count != 0)
+                        if (m.items[0].flds.Count != 0
+                        ) //Если первое поле не содержит Увага блокируем кнопку изменения этого поля
                         {
-                            foreach (var keyvalue in m.items[0].flds)
-                            {
-
-                                if (keyvalue.Value.n.Contains("0 УВАГА") & !keyvalue.Value.n.Contains("алгоритм"))
-                                {
-
-                                    textBox_Uvaga.Text = keyvalue.Value.v.ToString();
-                                }
-
-                                if (keyvalue.Value.n.Contains("Кодов"))
-                                {
-
-                                    treeView_client_info.Nodes[0].Nodes.Insert(0, (new TreeNode("Кодове слово" + ": " + keyvalue.Value.v.ToString())));
-
-                                }
-
-                                if (keyvalue.Value.n.Contains(" І Відп"))
-                                {
-                                    if (keyvalue.Value.v != "")
-                                    {
-
-                                        treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("ВО1" + ": " + keyvalue.Value.v.ToString()));
-                                    }
-                                }
-                                if (keyvalue.Value.n.Contains(" ІІ Відп"))
-                                {
-                                    if (keyvalue.Value.v != "")
-                                    {
-
-                                        treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("ВО2" + ": " + keyvalue.Value.v.ToString()));
-
-                                    }
-                                }
-                                if (keyvalue.Value.n.Contains(" ІІІ Відп"))
-                                {
-                                    if (keyvalue.Value.v != "")
-                                    {
-
-                                        treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("ВО3" + ": " + keyvalue.Value.v.ToString()));
-                                        
-                                    }
-                                }
-                                if (keyvalue.Value.n.Contains(" IV Відп"))
-                                {
-                                    if (keyvalue.Value.v != "")
-                                    {
-                                        treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("ВО4" + ": " + keyvalue.Value.v.ToString()));
-
-                                    }
-                                    //Групируем ВО4 рядом со всеми ВО
-                                    foreach (TreeNode TreeViewNode in treeView_client_info.Nodes[0].Nodes)
-                                    {
-                                        if (TreeViewNode.Text.Contains("ВО4"))
-                                        {
-                                            var lastNode = TreeViewNode;
-                                            treeView_client_info.Nodes[0].Nodes.Remove(lastNode);
-                                            treeView_client_info.Nodes[0].Nodes.Insert(4, lastNode);
-                                        }
-                                    }
-                                }
-                                if (keyvalue.Value.n.Contains(" V Відп"))
-                                {
-                                    if (keyvalue.Value.v != "")
-                                    {
-
-                                        treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("ВО5" + ": " + keyvalue.Value.v.ToString()));
-                                    }
-                                    //Групируем ВО5 рядом со всеми ВО
-                                    foreach (TreeNode TreeViewNode in treeView_client_info.Nodes[0].Nodes)
-                                    {
-                                        if (TreeViewNode.Text.Contains("ВО5"))
-                                        {
-                                            var lastNode = TreeViewNode;
-                                            treeView_client_info.Nodes[0].Nodes.Remove(lastNode);
-                                            treeView_client_info.Nodes[0].Nodes.Insert(5, lastNode);
-                                        }
-                                    }
-                                }
-                                if (keyvalue.Value.n.Contains("ня сервісної"))
-                                {
-
-                                    treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("Сервісна кнопка" + ": " + keyvalue.Value.v.ToString()));
-                                }
-                                if (keyvalue.Value.n.Contains("Штатні кн"))
-                                {
-                                    treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("Кнопки PIN" + ": " + keyvalue.Value.v.ToString()));
-                                }
-                                if (keyvalue.Value.n.Contains("активації"))
-                                {
-                                    treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("Дата активації" + ": " + keyvalue.Value.v.ToString()));
-                                }
-                                if (keyvalue.Value.n.Contains("овки тривожної"))
-                                {
-                                    treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("Тривожна кнопка" + ": " + keyvalue.Value.v.ToString()));
-                                }
-
-                                treeView_client_info.Nodes[3].Nodes.Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
-
-                                if (keyvalue.Value.n.Contains("Парк"))
-                                {
-                                    if (keyvalue.Value.v != "")
-                                    {
-                                        treeView_client_info.Nodes[1].Nodes.Add(new TreeNode("Паркінг" + ": " + keyvalue.Value.v.ToString()));
-                                    }
-                                }
-                            }
-                            treeView_client_info.Nodes[0].Nodes.Insert(0, (new TreeNode("Назва об'єкту: " + m.items[0].nm.ToString())));
                             try
                             {
-                                IMEI_object = m.items[0].uid.ToString();
-                                treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("IMEI: " + m.items[0].uid.ToString()));
-                                IMEI_object = m.items[0].uid.ToString();
-                                treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("SIM: " + m.items[0].ph.ToString()));
+                                if (!m.items[0].flds[1].n.Contains("УВАГА"))
+                                {
+                                    button_izmenit_uvaga.Enabled = false;
+                                    textBox_Uvaga.Text = "Поля увага не існує!";
+                                }
                             }
                             catch
-                            { }
-
-
-                            try
                             {
-                                foreach (var keyvalue in m.items[0].aflds)
-                                {
-                                    treeView_client_info.Nodes[4].Nodes.Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
-                                    if (keyvalue.Value.n.Contains("PUK"))
-                                    {
-                                        treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("PUK код" + ": " + keyvalue.Value.v.ToString()));
-                                    }
-
-                                }
-                            }
-                            catch { }
-
-                            foreach (var keyvalue in m.items[0].pflds)
-                            {
-                                if (keyvalue.Value.n.Contains("vehicle_type"))
-                                {
-                                    treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Тип Т/З: " + keyvalue.Value.v.ToString()));
-                                }
-                                else if (keyvalue.Value.n.Contains("vin"))
-                                {
-                                    treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("VIN: " + keyvalue.Value.v.ToString()));
-                                    VIN_object = keyvalue.Value.v.ToString();
-                                }
-                                else if (keyvalue.Value.n.Contains("registration_plate"))
-                                {
-                                    treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Державний номер: " + keyvalue.Value.v.ToString()));
-                                }
-                                else if (keyvalue.Value.n.Contains("brand"))
-                                {
-                                    treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Марка: " + keyvalue.Value.v.ToString()));
-                                }
-                                else if (keyvalue.Value.n.Contains("model"))
-                                {
-                                    treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Модель: " + keyvalue.Value.v.ToString()));
-                                }
-                                else if (keyvalue.Value.n.Contains("year"))
-                                {
-                                    treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Рік випуску: " + keyvalue.Value.v.ToString()));
-                                }
-                                else if (keyvalue.Value.n.Contains("color"))
-                                {
-                                    treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Колір: " + keyvalue.Value.v.ToString()));
-                                }
+                                textBox_Uvaga.Text = "Неможливо відобразити поле Увага";
+                                button_izmenit_uvaga.Enabled = false;
                             }
                         }
                     }
-                    treeView_client_info.Nodes[0].Expand();
-                    treeView_client_info.Nodes[1].Expand();
+
+
+
+                    if (m.items.Count != 0)
+                    {
+                        foreach (var keyvalue in m.items[0].flds)
+                        {
+
+                            if (keyvalue.Value.n.Contains("0 УВАГА") & !keyvalue.Value.n.Contains("алгоритм"))
+                            {
+
+                                textBox_Uvaga.Text = keyvalue.Value.v.ToString();
+                            }
+
+                            if (keyvalue.Value.n.Contains("Кодов"))
+                            {
+
+                                treeView_client_info.Nodes[0].Nodes.Insert(0, (new TreeNode("Кодове слово" + ": " + keyvalue.Value.v.ToString())));
+
+                            }
+
+                            if (keyvalue.Value.n.Contains(" І Відп"))
+                            {
+                                if (keyvalue.Value.v != "")
+                                {
+
+                                    treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("ВО1" + ": " + keyvalue.Value.v.ToString()));
+                                }
+                            }
+                            if (keyvalue.Value.n.Contains(" ІІ Відп"))
+                            {
+                                if (keyvalue.Value.v != "")
+                                {
+
+                                    treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("ВО2" + ": " + keyvalue.Value.v.ToString()));
+
+                                }
+                            }
+                            if (keyvalue.Value.n.Contains(" ІІІ Відп"))
+                            {
+                                if (keyvalue.Value.v != "")
+                                {
+
+                                    treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("ВО3" + ": " + keyvalue.Value.v.ToString()));
+                                        
+                                }
+                            }
+                            if (keyvalue.Value.n.Contains(" IV Відп"))
+                            {
+                                if (keyvalue.Value.v != "")
+                                {
+                                    treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("ВО4" + ": " + keyvalue.Value.v.ToString()));
+
+                                }
+                                //Групируем ВО4 рядом со всеми ВО
+                                foreach (TreeNode TreeViewNode in treeView_client_info.Nodes[0].Nodes)
+                                {
+                                    if (TreeViewNode.Text.Contains("ВО4"))
+                                    {
+                                        var lastNode = TreeViewNode;
+                                        treeView_client_info.Nodes[0].Nodes.Remove(lastNode);
+                                        treeView_client_info.Nodes[0].Nodes.Insert(4, lastNode);
+                                    }
+                                }
+                            }
+                            if (keyvalue.Value.n.Contains(" V Відп"))
+                            {
+                                if (keyvalue.Value.v != "")
+                                {
+
+                                    treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("ВО5" + ": " + keyvalue.Value.v.ToString()));
+                                }
+                                //Групируем ВО5 рядом со всеми ВО
+                                foreach (TreeNode TreeViewNode in treeView_client_info.Nodes[0].Nodes)
+                                {
+                                    if (TreeViewNode.Text.Contains("ВО5"))
+                                    {
+                                        var lastNode = TreeViewNode;
+                                        treeView_client_info.Nodes[0].Nodes.Remove(lastNode);
+                                        treeView_client_info.Nodes[0].Nodes.Insert(5, lastNode);
+                                    }
+                                }
+                            }
+                            if (keyvalue.Value.n.Contains("ня сервісної"))
+                            {
+
+                                treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("Сервісна кнопка" + ": " + keyvalue.Value.v.ToString()));
+                            }
+                            if (keyvalue.Value.n.Contains("Штатні кн"))
+                            {
+                                treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("Кнопки PIN" + ": " + keyvalue.Value.v.ToString()));
+                            }
+                            if (keyvalue.Value.n.Contains("активації"))
+                            {
+                                treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("Дата активації" + ": " + keyvalue.Value.v.ToString()));
+                            }
+                            if (keyvalue.Value.n.Contains("овки тривожної"))
+                            {
+                                treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("Тривожна кнопка" + ": " + keyvalue.Value.v.ToString()));
+                            }
+
+                            treeView_client_info.Nodes[3].Nodes.Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
+
+                            if (keyvalue.Value.n.Contains("Парк"))
+                            {
+                                if (keyvalue.Value.v != "")
+                                {
+                                    treeView_client_info.Nodes[1].Nodes.Add(new TreeNode("Паркінг" + ": " + keyvalue.Value.v.ToString()));
+                                }
+                            }
+                        }
+                        treeView_client_info.Nodes[0].Nodes.Insert(0, (new TreeNode("Назва об'єкту: " + m.items[0].nm.ToString())));
+                        try
+                        {
+                            IMEI_object = m.items[0].uid.ToString();
+                            treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("IMEI: " + m.items[0].uid.ToString()));
+                            IMEI_object = m.items[0].uid.ToString();
+                            treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("SIM: " + m.items[0].ph.ToString()));
+                        }
+                        catch
+                        { }
+
+
+                        try
+                        {
+                            foreach (var keyvalue in m.items[0].aflds)
+                            {
+                                treeView_client_info.Nodes[4].Nodes.Add(new TreeNode(keyvalue.Value.n.ToString() + ": " + keyvalue.Value.v.ToString()));
+                                if (keyvalue.Value.n.Contains("PUK"))
+                                {
+                                    treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("PUK код" + ": " + keyvalue.Value.v.ToString()));
+                                }
+
+                            }
+                        }
+                        catch { }
+
+                        foreach (var keyvalue in m.items[0].pflds)
+                        {
+                            if (keyvalue.Value.n.Contains("vehicle_type"))
+                            {
+                                treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Тип Т/З: " + keyvalue.Value.v.ToString()));
+                            }
+                            else if (keyvalue.Value.n.Contains("vin"))
+                            {
+                                treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("VIN: " + keyvalue.Value.v.ToString()));
+                                VIN_object = keyvalue.Value.v.ToString();
+                            }
+                            else if (keyvalue.Value.n.Contains("registration_plate"))
+                            {
+                                treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Державний номер: " + keyvalue.Value.v.ToString()));
+                            }
+                            else if (keyvalue.Value.n.Contains("brand"))
+                            {
+                                treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Марка: " + keyvalue.Value.v.ToString()));
+                            }
+                            else if (keyvalue.Value.n.Contains("model"))
+                            {
+                                treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Модель: " + keyvalue.Value.v.ToString()));
+                            }
+                            else if (keyvalue.Value.n.Contains("year"))
+                            {
+                                treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Рік випуску: " + keyvalue.Value.v.ToString()));
+                            }
+                            else if (keyvalue.Value.n.Contains("color"))
+                            {
+                                treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Колір: " + keyvalue.Value.v.ToString()));
+                            }
+                        }
+                    }
                 }
-            });
+                treeView_client_info.Nodes[0].Expand();
+                treeView_client_info.Nodes[1].Expand();
+            }
         }
 
         private void mysql_get_group_alarm()//Получаем групированые тривоги для заполнения таблицы
