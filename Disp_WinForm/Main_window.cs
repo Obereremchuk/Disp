@@ -4877,6 +4877,73 @@ namespace Disp_WinForm
                     maskedTextBox_sim2_no_to_create.Enabled = true;
                     maskedTextBox_sim2_no_to_create.Text = "";
                     break;
+
+                case "22"://K_t
+                    //selectet_product = "9";
+                    maskedTextBox_GSM_CODE.Enabled = false;
+                    maskedTextBox_BLE_CODE.Enabled = false;
+                    textBox_id_to_create.Enabled = true;
+                    maskedTextBox_PUK.Enabled = false;
+                    maskedTextBox_sim_no_to_create.Enabled = true;
+                    search_tovar_comboBox.Enabled = false;
+                    maskedTextBox_BLE_CODE.Text = "";
+                    maskedTextBox_GSM_CODE.Text = "";
+                    textBox_id_to_create.Text = "";
+                    maskedTextBox_PUK.Text = "";
+                    maskedTextBox_sim_no_to_create.Text = "";
+                    textBox_bt_enable.Text = "";
+                    comboBox_tel_select.Enabled = true;
+
+                    comboBox_tel2_select.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Text = "";
+                    break;
+
+                case "23"://KB_t
+                    //selectet_product = "9";
+                    maskedTextBox_GSM_CODE.Enabled = false;
+                    maskedTextBox_BLE_CODE.Enabled = false;
+                    textBox_id_to_create.Enabled = true;
+                    maskedTextBox_PUK.Enabled = false;
+                    maskedTextBox_sim_no_to_create.Enabled = true;
+                    search_tovar_comboBox.Enabled = false;
+                    maskedTextBox_BLE_CODE.Text = "";
+                    maskedTextBox_GSM_CODE.Text = "";
+                    textBox_id_to_create.Text = "";
+                    maskedTextBox_PUK.Text = "";
+                    maskedTextBox_sim_no_to_create.Text = "";
+                    textBox_bt_enable.Text = "";
+                    comboBox_tel_select.Enabled = true;
+
+                    comboBox_tel2_select.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Text = "";
+                    break;
+
+                case "24"://KP_t
+                    //selectet_product = "9";
+                    maskedTextBox_GSM_CODE.Enabled = false;
+                    maskedTextBox_BLE_CODE.Enabled = false;
+                    textBox_id_to_create.Enabled = true;
+                    maskedTextBox_PUK.Enabled = false;
+                    maskedTextBox_sim_no_to_create.Enabled = true;
+                    search_tovar_comboBox.Enabled = false;
+                    maskedTextBox_BLE_CODE.Text = "";
+                    maskedTextBox_GSM_CODE.Text = "";
+                    textBox_id_to_create.Text = "";
+                    maskedTextBox_PUK.Text = "";
+                    maskedTextBox_sim_no_to_create.Text = "";
+                    textBox_bt_enable.Text = "";
+                    comboBox_tel_select.Enabled = true;
+
+                    comboBox_tel2_select.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Text = "";
+
+                    comboBox_tel2_select.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Enabled = false;
+                    maskedTextBox_sim2_no_to_create.Text = "";
+                    break;
             }
         }
 
@@ -5010,6 +5077,18 @@ namespace Disp_WinForm
 
                 case "CNTP_910BT_SE_P":
                     CNTP_910BT_SE_P();
+                    break;
+
+                case "K_t":
+                    K_t();
+                    break;
+
+                case "KB_t":
+                    KB_t();
+                    break;
+
+                case "KP_t":
+                    KP_t();
                     break;
             }
             UpdateCreatedObjectsByUser(DateTime.Now.Date);
@@ -5449,8 +5528,8 @@ namespace Disp_WinForm
             //6 - Включить сервисный режим
             string cmd_valet_on = macros.create_commads_wl(cr_obj_out.item.id, "6 - Включить сервисный режим", "%23valet=1%23", 16777216);
 
-            //6 - Выключить сервисный режиме
-            string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режиме", "%23valet=0%23", 16777216);
+            //6 - Выключить сервисный режим
+            string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режим", "%23valet=0%23", 16777216);
 
             string id_sim = "";
 
@@ -5947,8 +6026,8 @@ namespace Disp_WinForm
             //6 - Включить сервисный режим
             string cmd_valet_on = macros.create_commads_wl(cr_obj_out.item.id, "6 - Включить сервисный режим", "%23valet=1%23", 16777216);
 
-            //6 - Выключить сервисный режиме
-            string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режиме", "%23valet=0%23", 16777216);
+            //6 - Выключить сервисный режим
+            string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режим", "%23valet=0%23", 16777216);
 
             string id_sim = "";
 
@@ -6480,8 +6559,8 @@ namespace Disp_WinForm
             //6 - Включить сервисный режим
             string cmd_valet_on = macros.create_commads_wl(cr_obj_out.item.id, "6 - Включить сервисный режим", "%23valet=1%23", 16777216);
 
-            //6 - Выключить сервисный режиме
-            string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режиме", "%23valet=0%23", 16777216);
+            //6 - Выключить сервисный режим
+            string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режим", "%23valet=0%23", 16777216);
 
             string id_sim = "";
 
@@ -6977,8 +7056,8 @@ namespace Disp_WinForm
             //6 - Включить сервисный режим
             string cmd_valet_on = macros.create_commads_wl(cr_obj_out.item.id, "6 - Включить сервисный режим", "%23valet=1%23", 16777216);
 
-            //6 - Выключить сервисный режиме
-            string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режиме", "%23valet=0%23", 16777216);
+            //6 - Выключить сервисный режим
+            string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режим", "%23valet=0%23", 16777216);
 
             string id_sim = "";
 
@@ -7529,8 +7608,8 @@ namespace Disp_WinForm
             //6 - Включить сервисный режим
             string cmd_valet_on = macros.create_commads_wl(cr_obj_out.item.id, "6 - Включить сервисный режим", "%23valet=1%23", 16777216);
 
-            //6 - Выключить сервисный режиме
-            string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режиме", "%23valet=0%23", 16777216);
+            //6 - Выключить сервисный режим
+            string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режим", "%23valet=0%23", 16777216);
 
             string id_sim = "";
 
@@ -8098,8 +8177,8 @@ namespace Disp_WinForm
             //6 - Включить сервисный режим
             string cmd_valet_on = macros.create_commads_wl(cr_obj_out.item.id, "6 - Включить сервисный режим", "%23valet=1%23", 16777216);
 
-            //6 - Выключить сервисный режиме
-            string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режиме", "%23valet=0%23", 16777216);
+            //6 - Выключить сервисный режим
+            string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режим", "%23valet=0%23", 16777216);
 
             string id_sim = "";
 
@@ -8665,8 +8744,8 @@ namespace Disp_WinForm
             //6 - Включить сервисный режим
             string cmd_valet_on = macros.create_commads_wl(cr_obj_out.item.id, "6 - Включить сервисный режим", "%23valet=1%23", 16777216);
 
-            //6 - Выключить сервисный режиме
-            string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режиме", "%23valet=0%23", 16777216);
+            //6 - Выключить сервисный режим
+            string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режим", "%23valet=0%23", 16777216);
 
             string id_sim = "";
 
@@ -9256,8 +9335,8 @@ namespace Disp_WinForm
             //6 - Включить сервисный режим
             string cmd_valet_on = macros.create_commads_wl(cr_obj_out.item.id, "6 - Включить сервисный режим", "%23valet=1%23", 16777216);
 
-            //6 - Выключить сервисный режиме
-            string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режиме", "%23valet=0%23", 16777216);
+            //6 - Выключить сервисный режим
+            string cmd_valet_off = macros.create_commads_wl(cr_obj_out.item.id, "6 - Выключить сервисный режим", "%23valet=0%23", 16777216);
 
             string id_sim = "";
 
@@ -14400,6 +14479,1519 @@ namespace Disp_WinForm
 
             //Создаем подписку для объекта
             string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('5'," + id_object + ");");
+            macros.sql_command(sql3);
+
+            //Получаем айди созданной подписки
+            string sql4 = macros.sql_command("select max(idSubscr) from btk.Subscription;");
+
+            //привязываем айди созданного объекта с айди созданной подписки
+            string sql5 = string.Format("insert into btk.object_subscr (Object_idObject, Subscription_idSubscr) values (" + id_object + "," + sql4 + ");");
+            macros.sql_command(sql5);
+
+            ///////////////////////
+            //Если все прошло успешно - завечиваем зеленым кнопку и затирает текстбоксы
+            //////////////////////////
+            button_create_object.Text = "Створено: " + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text + "\n Дата та час: " + DateTime.Now.ToString();
+            maskedTextBox_BLE_CODE.Text = "";
+            maskedTextBox_GSM_CODE.Text = "";
+            textBox_id_to_create.Text = "";
+            maskedTextBox_PUK.Text = "";
+            maskedTextBox_sim_no_to_create.Text = "";
+            comboBox_tel_select.Text = "";
+            search_tovar_comboBox.Text = "";
+            button_create_object.BackColor = Color.Green;
+        }
+
+        private void KP_t()
+        {
+            //string ee = macros.WialonRequest("&svc=core/get_hw_types&params={" +
+            //                                         "\"filterType\":\"id\"," +
+            //                                         "\"filterValue\":\"*fmb130\"," +
+            //                                         "\"includeType\":\"true\"," +
+            //                                         "\"ignoreRename\":\"true\"}");// Проверям существует ли данный номер в системе
+            /////////////////////
+            //////Проверяем корректность введенных данных
+            ///
+
+            if (textBox_id_to_create.Text.Length <= 3)
+            {
+                textBox_id_to_create.BackColor = Color.Red;//Если IMEI короче 4х символов останавливается и подсвкечиваем красным
+                return;
+            }
+           
+            if (maskedTextBox_sim_no_to_create.Text.Length <= 11)//Если IMEI короче 4х символов останавливается и подсвкечиваем красным
+            {
+                maskedTextBox_sim_no_to_create.BackColor = Color.Red;
+                return;
+            }
+
+            // Проверям существует ли данный номер в системе
+            string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_phone_number|sys_phone_number2\"," +
+                                                     "\"propValueMask\":\"" + "*" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m = JsonConvert.DeserializeObject<RootObject>(unswer);
+            if (m.items.Count > 0)
+            {
+                MessageBox.Show("Указанный телефон существует в WL");
+                return;
+            }
+
+            // Проверям существует ли указанный ИМЕЙ в системе
+            string unswer2 = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_unique_id\"," +
+                                                     "\"propValueMask\":\"" + textBox_id_to_create.Text + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m2 = JsonConvert.DeserializeObject<RootObject>(unswer2);
+            if (m2.items.Count > 0)
+            {
+                MessageBox.Show("Указанный IMEI существует в WL");
+                return;
+            }
+
+            /////////////////
+            ///Создаем объект
+            /////////////////
+            string cr_obj_in = "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"16527\",\"dataFlags\":\"1\"}";
+            string json = macros.WialonRequest(cr_obj_in);
+            var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
+            if (cr_obj_out.error != 0)
+            {
+                string text = macros.Get_wl_text_error(cr_obj_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+                return;
+            }
+
+            ///////////////////
+            /////Создаем пароль доступа к объекту
+            ///////////////////
+
+            //string accsess_pass_answer = macros.WialonRequest("&svc=unit/update_access_password&params={"
+            //    + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+            //    + "\"accessPassword\":\"11111\"}");
+            //var accsess_pass_answer_out = JsonConvert.DeserializeObject<RootObject>(json);
+            //if (accsess_pass_answer_out.error != 0)
+            //{
+            //    string text = macros.Get_wl_text_error(accsess_pass_answer_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+            //    return;
+            //}
+
+            /////////////////
+            ///Установливаем имя объекта и ID оборудования и
+            /////////////////
+            string item_id_in = "&svc=unit/update_device_type&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id
+                + "\",\"deviceTypeId\":\"" + "16527"
+                + "\",\"uniqueId\":\"" + textBox_id_to_create.Text.ToString() + "\"}";
+            string json2 = macros.WialonRequest(item_id_in);
+            var item_id_out = JsonConvert.DeserializeObject<RootObject>(json2);
+            if (item_id_out.error != 0)
+            {
+                string text = macros.Get_wl_text_error(item_id_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+                return;
+            }
+            /////////////////
+            ///Устанавливаем номер СИМ
+            /////////////////
+            string item_phone_in = "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string json3 = macros.WialonRequest(item_phone_in);
+            var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
+            if (item_phone_out.error != 0)
+            {
+                string text = macros.Get_wl_text_error(item_phone_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+                return;
+            }
+            /////////////////
+            ///Создаем датчики
+            /////////////////
+
+            //3. Напряжение АКБ
+            string akb_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"unlink\":\"1\","
+                + "\"n\":\"Напряжение АКБ\","
+                + "\"t\":\"voltage\","
+                + "\"d\":\"\","
+                + "\"m\":\"В\","
+                + "\"p\":\"pwr_ext\","
+                + "\"f\":\"0\","
+                + "\"c\":\"{%5c\"act%5c\":true,%5c\"appear_in_popup%5c\":true}\","
+                + "\"vt\":\"1\","
+                + "\"vs\":\"0\","
+                + "\"tbl\":[]}");
+
+            //6. Напряжение внутреннего АКБ
+            string v_akb__answer = macros.WialonRequest("&svc=unit/update_sensor&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"unlink\":\"1\","
+                + "\"n\":\"Напряжение внутреннего АКБ\","
+                + "\"t\":\"voltage\","
+                + "\"d\":\"\","
+                + "\"m\":\"В\","
+                + "\"p\":\"pwr_int\","
+                + "\"f\":\"0\","
+                + "\"c\":\"{%5c\"act%5c\":true,%5c\"appear_in_popup%5c\":true}\","
+                + "\"vt\":\"1\","
+                + "\"vs\":\"0\","
+                + "\"tbl\":[]}");
+
+
+            //9. Тревожная кнопка
+            string tk_answer = macros.WialonRequest("&svc=unit/update_sensor&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"unlink\":\"1\","
+                + "\"n\":\"Тревожная кнопка\","
+                + "\"t\":\"digital\","
+                + "\"d\":\"\","
+                + "\"m\":\"Вкл/Выкл\","
+                + "\"p\":\"io_381\","
+                + "\"f\":\"0\","
+                + "\"c\":\"{%5c\"act%5c\":true,%5c\"appear_in_popup%5c\":true}\","
+                + "\"vt\":\"1\","
+                + "\"vs\":\"0\","
+                + "\"tbl\":[]}");
+
+            //11. Зажигание
+            string ign_answer = macros.WialonRequest(
+                 "&svc=unit/update_sensor&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"unlink\":\"1\","
+                + "\"n\":\"Зажигание\","
+                + "\"t\":\"engine operation\","
+                + "\"d\":\"\","
+                + "\"m\":\"Вкл/Выкл\","
+                + "\"p\":\"io_239\","
+                + "\"f\":\"0\","
+                + "\"c\":\"{%5c\"act%5c\":true,%5c\"appear_in_popup%5c\":true}\","
+                + "\"vt\":\"1\","
+                + "\"vs\":\"0\","
+                + "\"tbl\":[]}");
+
+
+            /////////////////
+            ///Создаем произвольные поля
+            /////////////////
+
+            //Произвольное поле 1
+            string pp1_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"0 УВАГА\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 2
+            string pp2_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"02 Проект\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 3
+            string pp3_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"2.1 І Відповідальна особа (основна)\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 4
+            string pp4_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"2.2 ІІ Відповідальна особа\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 5
+            string pp5_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"2.3 ІІІ Відповідальна особа\","
+                + "\"v\":\"\"}");
+
+
+            //Произвольное поле 6
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.4 ІV Відповідальна особа", "");
+
+            //Произвольное поле 7
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.5 V Відповідальна особа", "");
+
+            //Произвольное поле 6
+            string pp7_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3.1.1 Оператор, що тестував\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 7
+            string pp11_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3.2.1 Установник: назва, адреса\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 8
+            string pp12_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3.2.2 Установник-монтажник: ПІБ, №тел.\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 9
+            string pp13_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3.3 Дата установки\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 10
+            string pp14_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3.4 Місце установки пристрою ВЕНБЕСТ\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 11
+            string pp16_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3.6.1  Реле блокування: місце встановлення\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 12
+            string pp17_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3.6.2 Реле блокування: елемент блокування\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 13
+            string pp19_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3.8.1 Тривожна кнопка: провідна, безпровідна\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 14
+            string pp20_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3.8.2 Місце установки тривожної кнопки\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 15
+            string pp24_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"4.1 Дата активації\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 16
+            string pp25_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"4.1.1 Оператор, що активував\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 17
+            string pp28_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"4.4 Обліковий запис WL\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 18
+            string pp29_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"5.1 Менеджер\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 19
+            string pp30_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"5.2 Договір обслуговування\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 20
+            string pp31_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"5.3 Гарантія до\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 21
+            string pp32_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"8.1 Паркінг 1\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 22
+            string pp33_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"8.2 Паркінг 2\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 23
+            string pp34_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"9.0 Примітки\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 24
+            string pp35_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"9.1 Техпаспорт\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 25
+            string pp36_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"9.2.1 Дата перевірки картки\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 26
+            string pp37_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"9.2.2 Оператор перевірки картки\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 27
+            string pp38_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"10 Кодове слово\","
+                + "\"v\":\"\"}");
+
+            /////////////////
+            ///Добавляем в группу Объекты All
+            /////////////////
+
+            string get_units_on_group = macros.WialonRequest(
+                "&svc=core/search_item&params={"
+                + "\"id\":\"2612\","
+                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+            var list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+            list_get_units_on_group.item.u.Add(cr_obj_out.item.id);//Доповляем в список новый объект
+            string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+            string gr_answer = macros.WialonRequest(
+                "&svc=unit_group/update_units&params={"
+                + "\"itemId\":\"2612\","
+                + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+            /////////////////
+            ///Создаем команды
+            /////////////////
+            ///
+
+            //Start engine
+            string cmd_start_answer = macros.WialonRequest(
+                "&svc=unit/update_command_definition&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"1. СТАРТ Двигатель\","
+                + "\"c\":\"output_off\","
+                + "\"l\":\"tcp\","
+                + "\"p\":\"2\","
+                + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
+
+            //Stop engine
+            string cmd_stop_answer = macros.WialonRequest(
+                "&svc=unit/update_command_definition&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"2. СТОП Двигатель\","
+                + "\"c\":\"output_on\","
+                + "\"l\":\"tcp\","
+                + "\"p\":\"2\","
+                + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
+
+            
+            string id_sim = "";
+
+            DataTable t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
+            if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "';");
+            }
+            else
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            }
+
+            string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers) "
+                + "values('" + cr_obj_out.item.id
+                + "', '" + textBox_id_to_create.Text.ToString()
+                + "', '" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "','"
+                + maskedTextBox_sim_no_to_create.Text.ToString()
+                + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', " +
+                "'" + id_sim + "'," +
+                "'1', '1', '1','1', null, '" + vars_form.user_login_id + "');");
+            macros.sql_command(sql2);
+
+            //получаем айди созданного объекта
+            string id_object = macros.sql_command("SELECT MAX(idObject) FROM btk.Object;");
+
+            // set datetime create
+            macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
+
+            //Создаем подписку для объекта
+            string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('45'," + id_object + ");");
+            macros.sql_command(sql3);
+
+            //Получаем айди созданной подписки
+            string sql4 = macros.sql_command("select max(idSubscr) from btk.Subscription;");
+
+            //привязываем айди созданного объекта с айди созданной подписки
+            string sql5 = string.Format("insert into btk.object_subscr (Object_idObject, Subscription_idSubscr) values (" + id_object + "," + sql4 + ");");
+            macros.sql_command(sql5);
+
+            ///////////////////////
+            //Если все прошло успешно - завечиваем зеленым кнопку и затирает текстбоксы
+            //////////////////////////
+            button_create_object.Text = "Створено: " + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text + "\n Дата та час: " + DateTime.Now.ToString();
+            maskedTextBox_BLE_CODE.Text = "";
+            maskedTextBox_GSM_CODE.Text = "";
+            textBox_id_to_create.Text = "";
+            maskedTextBox_PUK.Text = "";
+            maskedTextBox_sim_no_to_create.Text = "";
+            comboBox_tel_select.Text = "";
+            search_tovar_comboBox.Text = "";
+            button_create_object.BackColor = Color.Green;
+        }
+
+        private void KB_t()
+        {
+
+            
+
+            /////////////////////
+            //////Проверяем корректность введенных данных
+            ///
+
+            if (textBox_id_to_create.Text.Length <= 3)
+            {
+                textBox_id_to_create.BackColor = Color.Red;//Если IMEI короче 4х символов останавливается и подсвкечиваем красным
+                return;
+            }
+            if (maskedTextBox_sim_no_to_create.Text.Length <= 11)//Если IMEI короче 4х символов останавливается и подсвкечиваем красным
+            {
+                maskedTextBox_sim_no_to_create.BackColor = Color.Red;
+                return;
+            }
+
+            // Проверям существует ли данный номер в системе
+            string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_phone_number|sys_phone_number2\"," +
+                                                     "\"propValueMask\":\"" + "*" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m = JsonConvert.DeserializeObject<RootObject>(unswer);
+            if (m.items.Count > 0)
+            {
+                MessageBox.Show("Указанный телефон существует в WL");
+                return;
+            }
+
+            // Проверям существует ли указанный ИМЕЙ в системе
+            string unswer2 = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_unique_id\"," +
+                                                     "\"propValueMask\":\"" + textBox_id_to_create.Text + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m2 = JsonConvert.DeserializeObject<RootObject>(unswer2);
+            if (m2.items.Count > 0)
+            {
+                MessageBox.Show("Указанный IMEI существует в WL");
+                return;
+            }
+
+            /////////////////
+            ///Создаем объект
+            /////////////////
+            string cr_obj_in = "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"16527\",\"dataFlags\":\"1\"}";
+            string json = macros.WialonRequest(cr_obj_in);
+            var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
+            if (cr_obj_out.error != 0)
+            {
+                string text = macros.Get_wl_text_error(cr_obj_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+                return;
+            }
+
+            ///////////////////
+            /////Создаем пароль доступа к объекту
+            ///////////////////
+
+            //string accsess_pass_answer = macros.WialonRequest("&svc=unit/update_access_password&params={"
+            //    + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+            //    + "\"accessPassword\":\"11111\"}");
+            //var accsess_pass_answer_out = JsonConvert.DeserializeObject<RootObject>(json);
+            //if (accsess_pass_answer_out.error != 0)
+            //{
+            //    string text = macros.Get_wl_text_error(accsess_pass_answer_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+            //    return;
+            //}
+
+            /////////////////
+            ///Установливаем имя объекта и ID оборудования и
+            /////////////////
+            string item_id_in = "&svc=unit/update_device_type&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id
+                + "\",\"deviceTypeId\":\"" + "16527"
+                + "\",\"uniqueId\":\"" + textBox_id_to_create.Text.ToString() + "\"}";
+            string json2 = macros.WialonRequest(item_id_in);
+            var item_id_out = JsonConvert.DeserializeObject<RootObject>(json2);
+            if (item_id_out.error != 0)
+            {
+                string text = macros.Get_wl_text_error(item_id_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+                return;
+            }
+            /////////////////
+            ///Устанавливаем номер СИМ
+            /////////////////
+            string item_phone_in = "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string json3 = macros.WialonRequest(item_phone_in);
+            var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
+            if (item_phone_out.error != 0)
+            {
+                string text = macros.Get_wl_text_error(item_phone_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+                return;
+            }
+            /////////////////
+            ///Создаем датчики
+            /////////////////
+
+            //3. Напряжение АКБ
+            string akb_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"unlink\":\"1\","
+                + "\"n\":\"Напряжение АКБ\","
+                + "\"t\":\"voltage\","
+                + "\"d\":\"\","
+                + "\"m\":\"В\","
+                + "\"p\":\"pwr_ext\","
+                + "\"f\":\"0\","
+                + "\"c\":\"{%5c\"act%5c\":true,%5c\"appear_in_popup%5c\":true}\","
+                + "\"vt\":\"1\","
+                + "\"vs\":\"0\","
+                + "\"tbl\":[]}");
+
+            //6. Напряжение внутреннего АКБ
+            string v_akb__answer = macros.WialonRequest("&svc=unit/update_sensor&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"unlink\":\"1\","
+                + "\"n\":\"Напряжение внутреннего АКБ\","
+                + "\"t\":\"voltage\","
+                + "\"d\":\"\","
+                + "\"m\":\"В\","
+                + "\"p\":\"pwr_int\","
+                + "\"f\":\"0\","
+                + "\"c\":\"{%5c\"act%5c\":true,%5c\"appear_in_popup%5c\":true}\","
+                + "\"vt\":\"1\","
+                + "\"vs\":\"0\","
+                + "\"tbl\":[]}");
+
+
+            //11. Зажигание
+            string ign_answer = macros.WialonRequest(
+                 "&svc=unit/update_sensor&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"unlink\":\"1\","
+                + "\"n\":\"Зажигание\","
+                + "\"t\":\"engine operation\","
+                + "\"d\":\"\","
+                + "\"m\":\"Вкл/Выкл\","
+                + "\"p\":\"io_239\","
+                + "\"f\":\"0\","
+                + "\"c\":\"{%5c\"act%5c\":true,%5c\"appear_in_popup%5c\":true}\","
+                + "\"vt\":\"1\","
+                + "\"vs\":\"0\","
+                + "\"tbl\":[]}");
+
+
+            /////////////////
+            ///Создаем произвольные поля
+            /////////////////
+
+            //Произвольное поле 1
+            string pp1_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"0 УВАГА\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 2
+            string pp2_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"02 Проект\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 3
+            string pp3_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"2.1 І Відповідальна особа (основна)\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 4
+            string pp4_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"2.2 ІІ Відповідальна особа\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 5
+            string pp5_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"2.3 ІІІ Відповідальна особа\","
+                + "\"v\":\"\"}");
+
+
+            //Произвольное поле 6
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.4 ІV Відповідальна особа", "");
+
+            //Произвольное поле 7
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.5 V Відповідальна особа", "");
+
+            //Произвольное поле 6
+            string pp7_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3.1.1 Оператор, що тестував\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 7
+            string pp11_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3.2.1 Установник: назва, адреса\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 8
+            string pp12_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3.2.2 Установник-монтажник: ПІБ, №тел.\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 9
+            string pp13_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3.3 Дата установки\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 10
+            string pp14_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3.4 Місце установки пристрою ВЕНБЕСТ\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 11
+            string pp16_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3.6.1  Реле блокування: місце встановлення\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 12
+            string pp17_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3.6.2 Реле блокування: елемент блокування\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 15
+            string pp24_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"4.1 Дата активації\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 16
+            string pp25_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"4.1.1 Оператор, що активував\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 17
+            string pp28_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"4.4 Обліковий запис WL\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 18
+            string pp29_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"5.1 Менеджер\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 19
+            string pp30_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"5.2 Договір обслуговування\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 20
+            string pp31_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"5.3 Гарантія до\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 21
+            string pp32_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"8.1 Паркінг 1\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 22
+            string pp33_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"8.2 Паркінг 2\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 23
+            string pp34_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"9.0 Примітки\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 24
+            string pp35_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"9.1 Техпаспорт\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 25
+            string pp36_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"9.2.1 Дата перевірки картки\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 26
+            string pp37_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"9.2.2 Оператор перевірки картки\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 27
+            string pp38_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"10 Кодове слово\","
+                + "\"v\":\"\"}");
+
+            /////////////////
+            ///Добавляем в группу Объекты All
+            /////////////////
+
+            string get_units_on_group = macros.WialonRequest(
+                "&svc=core/search_item&params={"
+                + "\"id\":\"2612\","
+                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+            var list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+            list_get_units_on_group.item.u.Add(cr_obj_out.item.id);//Доповляем в список новый объект
+            string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+            string gr_answer = macros.WialonRequest(
+                "&svc=unit_group/update_units&params={"
+                + "\"itemId\":\"2612\","
+                + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+            /////////////////
+            ///Создаем команды
+            /////////////////
+            ///
+
+            //Start engine
+            string cmd_start_answer = macros.WialonRequest(
+                "&svc=unit/update_command_definition&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"1. СТАРТ Двигатель\","
+                + "\"c\":\"output_off\","
+                + "\"l\":\"tcp\","
+                + "\"p\":\"2\","
+                + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
+
+            //Stop engine
+            string cmd_stop_answer = macros.WialonRequest(
+                "&svc=unit/update_command_definition&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"2. СТОП Двигатель\","
+                + "\"c\":\"output_on\","
+                + "\"l\":\"tcp\","
+                + "\"p\":\"2\","
+                + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
+
+
+            string id_sim = "";
+
+            DataTable t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
+            if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "';");
+            }
+            else
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            }
+
+            string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers) "
+                + "values('" + cr_obj_out.item.id
+                + "', '" + textBox_id_to_create.Text.ToString()
+                + "', '" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "','"
+                + maskedTextBox_sim_no_to_create.Text.ToString()
+                + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', " +
+                "'" + id_sim + "'," +
+                "'1', '1', '1','1', null, '" + vars_form.user_login_id + "');");
+            macros.sql_command(sql2);
+
+            //получаем айди созданного объекта
+            string id_object = macros.sql_command("SELECT MAX(idObject) FROM btk.Object;");
+
+            // set datetime create
+            macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
+
+            //Создаем подписку для объекта
+            string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('45'," + id_object + ");");
+            macros.sql_command(sql3);
+
+            //Получаем айди созданной подписки
+            string sql4 = macros.sql_command("select max(idSubscr) from btk.Subscription;");
+
+            //привязываем айди созданного объекта с айди созданной подписки
+            string sql5 = string.Format("insert into btk.object_subscr (Object_idObject, Subscription_idSubscr) values (" + id_object + "," + sql4 + ");");
+            macros.sql_command(sql5);
+
+            ///////////////////////
+            //Если все прошло успешно - завечиваем зеленым кнопку и затирает текстбоксы
+            //////////////////////////
+            button_create_object.Text = "Створено: " + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text + "\n Дата та час: " + DateTime.Now.ToString();
+            maskedTextBox_BLE_CODE.Text = "";
+            maskedTextBox_GSM_CODE.Text = "";
+            textBox_id_to_create.Text = "";
+            maskedTextBox_PUK.Text = "";
+            maskedTextBox_sim_no_to_create.Text = "";
+            comboBox_tel_select.Text = "";
+            search_tovar_comboBox.Text = "";
+            button_create_object.BackColor = Color.Green;
+        }
+
+        private void K_t()
+        {
+            /////////////////////
+            //////Проверяем корректность введенных данных
+            ///
+
+            if (textBox_id_to_create.Text.Length <= 3)
+            {
+                textBox_id_to_create.BackColor = Color.Red;//Если IMEI короче 4х символов останавливается и подсвкечиваем красным
+                return;
+            }
+            if (maskedTextBox_sim_no_to_create.Text.Length <= 11)//Если IMEI короче 4х символов останавливается и подсвкечиваем красным
+            {
+                maskedTextBox_sim_no_to_create.BackColor = Color.Red;
+                return;
+            }
+
+            // Проверям существует ли данный номер в системе
+            string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_phone_number|sys_phone_number2\"," +
+                                                     "\"propValueMask\":\"" + "*" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m = JsonConvert.DeserializeObject<RootObject>(unswer);
+            if (m.items.Count > 0)
+            {
+                MessageBox.Show("Указанный телефон существует в WL");
+                return;
+            }
+
+            // Проверям существует ли указанный ИМЕЙ в системе
+            string unswer2 = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_unit\"," +
+                                                     "\"propName\":\"sys_unique_id\"," +
+                                                     "\"propValueMask\":\"" + textBox_id_to_create.Text + "\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"0\"}");// Проверям существует ли данный номер в системе
+            var m2 = JsonConvert.DeserializeObject<RootObject>(unswer2);
+            if (m2.items.Count > 0)
+            {
+                MessageBox.Show("Указанный IMEI существует в WL");
+                return;
+            }
+
+            /////////////////
+            ///Создаем объект
+            /////////////////
+            string cr_obj_in = "&svc=core/create_unit&params={\"creatorId\":\"" + vars_form.wl_user_id + "\",\"name\":\"" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "\",\"hwTypeId\":\"16527\",\"dataFlags\":\"1\"}";
+            string json = macros.WialonRequest(cr_obj_in);
+            var cr_obj_out = JsonConvert.DeserializeObject<RootObject>(json);
+            if (cr_obj_out.error != 0)
+            {
+                string text = macros.Get_wl_text_error(cr_obj_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+                return;
+            }
+
+            ///////////////////
+            /////Создаем пароль доступа к объекту
+            ///////////////////
+
+            //string accsess_pass_answer = macros.WialonRequest("&svc=unit/update_access_password&params={"
+            //    + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+            //    + "\"accessPassword\":\"11111\"}");
+            //var accsess_pass_answer_out = JsonConvert.DeserializeObject<RootObject>(json);
+            //if (accsess_pass_answer_out.error != 0)
+            //{
+            //    string text = macros.Get_wl_text_error(accsess_pass_answer_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+            //    return;
+            //}
+
+            /////////////////
+            ///Установливаем имя объекта и ID оборудования и
+            /////////////////
+            string item_id_in = "&svc=unit/update_device_type&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id
+                + "\",\"deviceTypeId\":\"" + "16527"
+                + "\",\"uniqueId\":\"" + textBox_id_to_create.Text.ToString() + "\"}";
+            string json2 = macros.WialonRequest(item_id_in);
+            var item_id_out = JsonConvert.DeserializeObject<RootObject>(json2);
+            if (item_id_out.error != 0)
+            {
+                string text = macros.Get_wl_text_error(item_id_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+                return;
+            }
+            /////////////////
+            ///Устанавливаем номер СИМ
+            /////////////////
+            string item_phone_in = "&svc=unit/update_phone&params={\"itemId\":\"" + cr_obj_out.item.id + "\",\"phoneNumber\":\"" + WebUtility.UrlEncode(maskedTextBox_sim_no_to_create.Text) + "\"}";
+            string json3 = macros.WialonRequest(item_phone_in);
+            var item_phone_out = JsonConvert.DeserializeObject<RootObject>(json3);
+            if (item_phone_out.error != 0)
+            {
+                string text = macros.Get_wl_text_error(item_phone_out.error);//Показіваем диалог бокс с ошибкой, преріваем создание
+                return;
+            }
+            /////////////////
+            ///Создаем датчики
+            /////////////////
+
+            //3. Напряжение АКБ
+            string akb_answer = macros.WialonRequest(
+                "&svc=unit/update_sensor&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"unlink\":\"1\","
+                + "\"n\":\"Напряжение АКБ\","
+                + "\"t\":\"voltage\","
+                + "\"d\":\"\","
+                + "\"m\":\"В\","
+                + "\"p\":\"pwr_ext\","
+                + "\"f\":\"0\","
+                + "\"c\":\"{%5c\"act%5c\":true,%5c\"appear_in_popup%5c\":true}\","
+                + "\"vt\":\"1\","
+                + "\"vs\":\"0\","
+                + "\"tbl\":[]}");
+
+            //6. Напряжение внутреннего АКБ
+            string v_akb__answer = macros.WialonRequest("&svc=unit/update_sensor&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"unlink\":\"1\","
+                + "\"n\":\"Напряжение внутреннего АКБ\","
+                + "\"t\":\"voltage\","
+                + "\"d\":\"\","
+                + "\"m\":\"В\","
+                + "\"p\":\"pwr_int\","
+                + "\"f\":\"0\","
+                + "\"c\":\"{%5c\"act%5c\":true,%5c\"appear_in_popup%5c\":true}\","
+                + "\"vt\":\"1\","
+                + "\"vs\":\"0\","
+                + "\"tbl\":[]}");
+
+            //11. Зажигание
+            string ign_answer = macros.WialonRequest(
+                 "&svc=unit/update_sensor&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"unlink\":\"1\","
+                + "\"n\":\"Зажигание\","
+                + "\"t\":\"engine operation\","
+                + "\"d\":\"\","
+                + "\"m\":\"Вкл/Выкл\","
+                + "\"p\":\"io_239\","
+                + "\"f\":\"0\","
+                + "\"c\":\"{%5c\"act%5c\":true,%5c\"appear_in_popup%5c\":true}\","
+                + "\"vt\":\"1\","
+                + "\"vs\":\"0\","
+                + "\"tbl\":[]}");
+
+
+            /////////////////
+            ///Создаем произвольные поля
+            /////////////////
+
+            //Произвольное поле 1
+            string pp1_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"0 УВАГА\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 2
+            string pp2_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"02 Проект\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 3
+            string pp3_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"2.1 І Відповідальна особа (основна)\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 4
+            string pp4_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"2.2 ІІ Відповідальна особа\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 5
+            string pp5_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"2.3 ІІІ Відповідальна особа\","
+                + "\"v\":\"\"}");
+
+
+            //Произвольное поле 6
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.4 ІV Відповідальна особа", "");
+
+            //Произвольное поле 7
+            macros.create_custom_field_wl(cr_obj_out.item.id, "2.5 V Відповідальна особа", "");
+
+            //Произвольное поле 6
+            string pp7_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3.1.1 Оператор, що тестував\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 7
+            string pp11_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3.2.1 Установник: назва, адреса\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 8
+            string pp12_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3.2.2 Установник-монтажник: ПІБ, №тел.\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 9
+            string pp13_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3.3 Дата установки\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 10
+            string pp14_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3.4 Місце установки пристрою ВЕНБЕСТ\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 15
+            string pp24_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"4.1 Дата активації\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 16
+            string pp25_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"4.1.1 Оператор, що активував\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 17
+            string pp28_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"4.4 Обліковий запис WL\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 18
+            string pp29_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"5.1 Менеджер\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 19
+            string pp30_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"5.2 Договір обслуговування\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 20
+            string pp31_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"5.3 Гарантія до\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 21
+            string pp32_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"8.1 Паркінг 1\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 22
+            string pp33_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"8.2 Паркінг 2\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 23
+            string pp34_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"9.0 Примітки\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 24
+            string pp35_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"9.1 Техпаспорт\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 25
+            string pp36_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"9.2.1 Дата перевірки картки\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 26
+            string pp37_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"9.2.2 Оператор перевірки картки\","
+                + "\"v\":\"\"}");
+
+            //Произвольное поле 27
+            string pp38_answer = macros.WialonRequest(
+                "&svc=item/update_custom_field&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"10 Кодове слово\","
+                + "\"v\":\"\"}");
+
+            /////////////////
+            ///Добавляем в группу Объекты All
+            /////////////////
+
+            string get_units_on_group = macros.WialonRequest(
+                "&svc=core/search_item&params={"
+                + "\"id\":\"2612\","
+                + "\"flags\":\"1\"}");//получаем все объекты группы
+
+            var list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
+
+            list_get_units_on_group.item.u.Add(cr_obj_out.item.id);//Доповляем в список новый объект
+            string units_in_group = JsonConvert.SerializeObject(list_get_units_on_group.item.u);
+
+            string gr_answer = macros.WialonRequest(
+                "&svc=unit_group/update_units&params={"
+                + "\"itemId\":\"2612\","
+                + "\"units\":" + units_in_group + "}");//обновляем в Виалоне группу все объекты + новый
+
+
+
+
+            string id_sim = "";
+
+            DataTable t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
+            if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "';");
+            }
+            else
+            {
+                //получаем айди SIM-card
+                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+            }
+
+            string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers) "
+                + "values('" + cr_obj_out.item.id
+                + "', '" + textBox_id_to_create.Text.ToString()
+                + "', '" + comboBox_list_poructs.GetItemText(this.comboBox_list_poructs.SelectedItem) + " " + textBox_id_to_create.Text.ToString() + "','"
+                + maskedTextBox_sim_no_to_create.Text.ToString()
+                + "', '" + comboBox_list_poructs.SelectedValue.ToString() + "', " +
+                "'" + id_sim + "'," +
+                "'1', '1', '1','1', null, '" + vars_form.user_login_id + "');");
+            macros.sql_command(sql2);
+
+            //получаем айди созданного объекта
+            string id_object = macros.sql_command("SELECT MAX(idObject) FROM btk.Object;");
+
+            // set datetime create
+            macros.sql_command("update btk.Object set date_cteate = now() where idobject = '" + id_object + "';");
+
+            //Создаем подписку для объекта
+            string sql3 = string.Format("INSERT INTO btk.Subscription(products_has_Tarif_idproducts_has_Tarif, idobject) values('43'," + id_object + ");");
             macros.sql_command(sql3);
 
             //Получаем айди созданной подписки
