@@ -478,6 +478,7 @@
             // 
             this.IMEI_textBox.Location = new System.Drawing.Point(94, 46);
             this.IMEI_textBox.Name = "IMEI_textBox";
+            this.IMEI_textBox.ReadOnly = true;
             this.IMEI_textBox.Size = new System.Drawing.Size(411, 20);
             this.IMEI_textBox.TabIndex = 152;
             // 

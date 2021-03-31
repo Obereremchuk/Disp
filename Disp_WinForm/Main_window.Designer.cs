@@ -114,20 +114,16 @@
             this.button4 = new System.Windows.Forms.Button();
             this.groupBox18 = new System.Windows.Forms.GroupBox();
             this.checkBox_testing_za_ves_chas_search = new System.Windows.Forms.CheckBox();
+            this.textBox_test_search = new System.Windows.Forms.TextBox();
             this.checkBox_testing_nezaversheno = new System.Windows.Forms.CheckBox();
             this.dateTimePicker_testing_filter_end = new System.Windows.Forms.DateTimePicker();
             this.checkBox_testing_uspishno = new System.Windows.Forms.CheckBox();
-            this.textBox_search_object_name_testing = new System.Windows.Forms.TextBox();
             this.dateTimePicker_testig_filter_start = new System.Windows.Forms.DateTimePicker();
             this.dataGridView_testing = new System.Windows.Forms.DataGridView();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.comboBox_testing_filter = new System.Windows.Forms.ComboBox();
-            this.textBox_search_testing = new System.Windows.Forms.TextBox();
-            this.dateTimePicker_testing_date = new System.Windows.Forms.DateTimePicker();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.button_test_sel_obj_yes = new System.Windows.Forms.Button();
-            this.textBox_test_search = new System.Windows.Forms.TextBox();
             this.listBox_test_search_result = new System.Windows.Forms.ListBox();
+            this.textBox_search_object_name_testing = new System.Windows.Forms.TextBox();
             this.tabPage_activation = new System.Windows.Forms.TabPage();
             this.dataGridView_for_activation = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -179,6 +175,7 @@
             this.maskedTextBox_sim_no_to_create = new System.Windows.Forms.MaskedTextBox();
             this.button_create_object = new System.Windows.Forms.Button();
             this.textBox_id_to_create = new System.Windows.Forms.TextBox();
+            this.SendSMS_button = new System.Windows.Forms.Button();
             this.button_copy_sms = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -252,7 +249,6 @@
             this.dataGridView_CM = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.SendSMS_button = new System.Windows.Forms.Button();
             this.tabControl_testing.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_open_alarm)).BeginInit();
@@ -279,7 +275,6 @@
             this.tabPage_testing.SuspendLayout();
             this.groupBox18.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_testing)).BeginInit();
-            this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.tabPage_activation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_for_activation)).BeginInit();
@@ -520,7 +515,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1362, 646);
+            this.tabPage2.Size = new System.Drawing.Size(1362, 658);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Пошук по тривогам";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -531,7 +526,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 82);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1356, 561);
+            this.groupBox2.Size = new System.Drawing.Size(1356, 573);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Архів відпрацьованих тривог";
@@ -590,7 +585,7 @@
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView_close_alarm.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView_close_alarm.RowHeadersVisible = false;
-            this.dataGridView_close_alarm.Size = new System.Drawing.Size(1350, 552);
+            this.dataGridView_close_alarm.Size = new System.Drawing.Size(1350, 564);
             this.dataGridView_close_alarm.TabIndex = 1;
             this.dataGridView_close_alarm.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
             this.dataGridView_close_alarm.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView3_CellFormatting);
@@ -811,6 +806,7 @@
             "Сработка: двери, капот, багажник",
             "Разряжен основной аккумулятор",
             "Потеря связи более 100 мин.",
+            "Объект без связи более 100 мин.",
             "ОТКЛЮЧЕНИЕ СИСТЕМЫ ОТ АКБ"});
             this.comboBox_close_alarm_type.Location = new System.Drawing.Point(195, 53);
             this.comboBox_close_alarm_type.Name = "comboBox_close_alarm_type";
@@ -856,7 +852,7 @@
             dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            this.dataGridView2.Size = new System.Drawing.Size(1356, 640);
+            this.dataGridView2.Size = new System.Drawing.Size(1356, 652);
             this.dataGridView2.TabIndex = 0;
             // 
             // tabPage_909_n
@@ -865,7 +861,7 @@
             this.tabPage_909_n.Location = new System.Drawing.Point(4, 22);
             this.tabPage_909_n.Name = "tabPage_909_n";
             this.tabPage_909_n.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_909_n.Size = new System.Drawing.Size(1362, 646);
+            this.tabPage_909_n.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_909_n.TabIndex = 8;
             this.tabPage_909_n.Text = "909";
             this.tabPage_909_n.UseVisualStyleBackColor = true;
@@ -882,7 +878,7 @@
             this.dataGridView_909_n.ReadOnly = true;
             this.dataGridView_909_n.RowHeadersVisible = false;
             this.dataGridView_909_n.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_909_n.Size = new System.Drawing.Size(1356, 640);
+            this.dataGridView_909_n.Size = new System.Drawing.Size(1356, 652);
             this.dataGridView_909_n.TabIndex = 0;
             this.dataGridView_909_n.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_909_n_CellDoubleClick);
             this.dataGridView_909_n.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_909_n_CellFormatting);
@@ -893,7 +889,7 @@
             this.tabPage_808.Location = new System.Drawing.Point(4, 22);
             this.tabPage_808.Name = "tabPage_808";
             this.tabPage_808.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_808.Size = new System.Drawing.Size(1362, 646);
+            this.tabPage_808.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_808.TabIndex = 5;
             this.tabPage_808.Text = "808";
             this.tabPage_808.UseVisualStyleBackColor = true;
@@ -911,7 +907,7 @@
             this.dataGridView_808_n.ReadOnly = true;
             this.dataGridView_808_n.RowHeadersVisible = false;
             this.dataGridView_808_n.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_808_n.Size = new System.Drawing.Size(1356, 640);
+            this.dataGridView_808_n.Size = new System.Drawing.Size(1356, 652);
             this.dataGridView_808_n.TabIndex = 1;
             this.dataGridView_808_n.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_808_n_CellDoubleClick);
             this.dataGridView_808_n.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_808_n_CellFormatting);
@@ -922,7 +918,7 @@
             this.tabPage_lost.Location = new System.Drawing.Point(4, 22);
             this.tabPage_lost.Name = "tabPage_lost";
             this.tabPage_lost.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_lost.Size = new System.Drawing.Size(1362, 646);
+            this.tabPage_lost.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_lost.TabIndex = 12;
             this.tabPage_lost.Text = "808_звязок";
             this.tabPage_lost.UseVisualStyleBackColor = true;
@@ -940,7 +936,7 @@
             this.dataGridView_lost.ReadOnly = true;
             this.dataGridView_lost.RowHeadersVisible = false;
             this.dataGridView_lost.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_lost.Size = new System.Drawing.Size(1356, 640);
+            this.dataGridView_lost.Size = new System.Drawing.Size(1356, 652);
             this.dataGridView_lost.TabIndex = 2;
             this.dataGridView_lost.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_lost_CellDoubleClick);
             this.dataGridView_lost.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_lost_CellFormatting);
@@ -951,7 +947,7 @@
             this.tabPage_p.Location = new System.Drawing.Point(4, 22);
             this.tabPage_p.Name = "tabPage_p";
             this.tabPage_p.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_p.Size = new System.Drawing.Size(1362, 646);
+            this.tabPage_p.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_p.TabIndex = 6;
             this.tabPage_p.Text = "Дилеры";
             this.tabPage_p.UseVisualStyleBackColor = true;
@@ -1004,7 +1000,7 @@
             this.tabPage_sales.Location = new System.Drawing.Point(4, 22);
             this.tabPage_sales.Name = "tabPage_sales";
             this.tabPage_sales.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_sales.Size = new System.Drawing.Size(1362, 646);
+            this.tabPage_sales.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_sales.TabIndex = 7;
             this.tabPage_sales.Text = "Продажи";
             this.tabPage_sales.UseVisualStyleBackColor = true;
@@ -1057,7 +1053,7 @@
             this.tabPage_accounts.Location = new System.Drawing.Point(4, 22);
             this.tabPage_accounts.Name = "tabPage_accounts";
             this.tabPage_accounts.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_accounts.Size = new System.Drawing.Size(1362, 646);
+            this.tabPage_accounts.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_accounts.TabIndex = 15;
             this.tabPage_accounts.Text = "Кабінет користувача";
             this.tabPage_accounts.UseVisualStyleBackColor = true;
@@ -1075,7 +1071,7 @@
             this.dataGridView_accounts.ReadOnly = true;
             this.dataGridView_accounts.RowHeadersVisible = false;
             this.dataGridView_accounts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_accounts.Size = new System.Drawing.Size(1356, 640);
+            this.dataGridView_accounts.Size = new System.Drawing.Size(1356, 652);
             this.dataGridView_accounts.TabIndex = 3;
             this.dataGridView_accounts.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_accounts_CellDoubleClick);
             this.dataGridView_accounts.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_accounts_CellFormatting);
@@ -1088,7 +1084,7 @@
             this.tabPage_zayavki_activation.Location = new System.Drawing.Point(4, 22);
             this.tabPage_zayavki_activation.Name = "tabPage_zayavki_activation";
             this.tabPage_zayavki_activation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_zayavki_activation.Size = new System.Drawing.Size(1362, 646);
+            this.tabPage_zayavki_activation.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_zayavki_activation.TabIndex = 11;
             this.tabPage_zayavki_activation.Text = "Заявки на установку";
             this.tabPage_zayavki_activation.UseVisualStyleBackColor = true;
@@ -1206,12 +1202,11 @@
             this.tabPage_testing.Controls.Add(this.button4);
             this.tabPage_testing.Controls.Add(this.groupBox18);
             this.tabPage_testing.Controls.Add(this.dataGridView_testing);
-            this.tabPage_testing.Controls.Add(this.groupBox7);
             this.tabPage_testing.Controls.Add(this.groupBox6);
             this.tabPage_testing.Location = new System.Drawing.Point(4, 22);
             this.tabPage_testing.Name = "tabPage_testing";
             this.tabPage_testing.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_testing.Size = new System.Drawing.Size(1362, 646);
+            this.tabPage_testing.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_testing.TabIndex = 3;
             this.tabPage_testing.Text = "Тестування";
             this.tabPage_testing.UseVisualStyleBackColor = true;
@@ -1234,7 +1229,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 77);
             this.button4.TabIndex = 17;
-            this.button4.Text = "Автозап";
+            this.button4.Text = "пакетное изменение комманд в ВЛ";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Visible = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
@@ -1242,38 +1237,45 @@
             // groupBox18
             // 
             this.groupBox18.Controls.Add(this.checkBox_testing_za_ves_chas_search);
+            this.groupBox18.Controls.Add(this.textBox_test_search);
             this.groupBox18.Controls.Add(this.checkBox_testing_nezaversheno);
             this.groupBox18.Controls.Add(this.dateTimePicker_testing_filter_end);
             this.groupBox18.Controls.Add(this.checkBox_testing_uspishno);
-            this.groupBox18.Controls.Add(this.textBox_search_object_name_testing);
             this.groupBox18.Controls.Add(this.dateTimePicker_testig_filter_start);
-            this.groupBox18.Location = new System.Drawing.Point(361, 6);
+            this.groupBox18.Location = new System.Drawing.Point(3, 4);
             this.groupBox18.Name = "groupBox18";
-            this.groupBox18.Size = new System.Drawing.Size(369, 102);
+            this.groupBox18.Size = new System.Drawing.Size(217, 102);
             this.groupBox18.TabIndex = 16;
             this.groupBox18.TabStop = false;
-            this.groupBox18.Text = "Фільтр";
+            this.groupBox18.Text = "Пошук";
             // 
             // checkBox_testing_za_ves_chas_search
             // 
             this.checkBox_testing_za_ves_chas_search.AutoSize = true;
             this.checkBox_testing_za_ves_chas_search.Enabled = false;
-            this.checkBox_testing_za_ves_chas_search.Location = new System.Drawing.Point(6, 70);
+            this.checkBox_testing_za_ves_chas_search.Location = new System.Drawing.Point(6, 47);
             this.checkBox_testing_za_ves_chas_search.Name = "checkBox_testing_za_ves_chas_search";
-            this.checkBox_testing_za_ves_chas_search.Size = new System.Drawing.Size(86, 17);
+            this.checkBox_testing_za_ves_chas_search.Size = new System.Drawing.Size(15, 14);
             this.checkBox_testing_za_ves_chas_search.TabIndex = 19;
-            this.checkBox_testing_za_ves_chas_search.Text = "За весь час";
             this.checkBox_testing_za_ves_chas_search.UseVisualStyleBackColor = true;
             this.checkBox_testing_za_ves_chas_search.CheckedChanged += new System.EventHandler(this.checkBox_testing_za_ves_chas_search_CheckedChanged);
+            // 
+            // textBox_test_search
+            // 
+            this.textBox_test_search.Location = new System.Drawing.Point(6, 19);
+            this.textBox_test_search.Name = "textBox_test_search";
+            this.textBox_test_search.Size = new System.Drawing.Size(193, 20);
+            this.textBox_test_search.TabIndex = 7;
+            this.textBox_test_search.TextChanged += new System.EventHandler(this.textBox_test_search_TextChanged);
             // 
             // checkBox_testing_nezaversheno
             // 
             this.checkBox_testing_nezaversheno.AutoSize = true;
-            this.checkBox_testing_nezaversheno.Location = new System.Drawing.Point(222, 37);
+            this.checkBox_testing_nezaversheno.Location = new System.Drawing.Point(6, 70);
             this.checkBox_testing_nezaversheno.Name = "checkBox_testing_nezaversheno";
-            this.checkBox_testing_nezaversheno.Size = new System.Drawing.Size(96, 17);
+            this.checkBox_testing_nezaversheno.Size = new System.Drawing.Size(92, 17);
             this.checkBox_testing_nezaversheno.TabIndex = 22;
-            this.checkBox_testing_nezaversheno.Text = "Незавершено";
+            this.checkBox_testing_nezaversheno.Text = "Незавершені";
             this.checkBox_testing_nezaversheno.UseVisualStyleBackColor = true;
             this.checkBox_testing_nezaversheno.CheckedChanged += new System.EventHandler(this.checkBox_testing_nezaversheno_CheckedChanged);
             // 
@@ -1281,7 +1283,7 @@
             // 
             this.dateTimePicker_testing_filter_end.CustomFormat = "dd-MM-yyyy";
             this.dateTimePicker_testing_filter_end.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker_testing_filter_end.Location = new System.Drawing.Point(97, 44);
+            this.dateTimePicker_testing_filter_end.Location = new System.Drawing.Point(114, 44);
             this.dateTimePicker_testing_filter_end.Name = "dateTimePicker_testing_filter_end";
             this.dateTimePicker_testing_filter_end.Size = new System.Drawing.Size(85, 20);
             this.dateTimePicker_testing_filter_end.TabIndex = 18;
@@ -1291,27 +1293,19 @@
             // checkBox_testing_uspishno
             // 
             this.checkBox_testing_uspishno.AutoSize = true;
-            this.checkBox_testing_uspishno.Location = new System.Drawing.Point(222, 14);
+            this.checkBox_testing_uspishno.Location = new System.Drawing.Point(131, 70);
             this.checkBox_testing_uspishno.Name = "checkBox_testing_uspishno";
-            this.checkBox_testing_uspishno.Size = new System.Drawing.Size(68, 17);
+            this.checkBox_testing_uspishno.Size = new System.Drawing.Size(64, 17);
             this.checkBox_testing_uspishno.TabIndex = 20;
-            this.checkBox_testing_uspishno.Text = "Успішно";
+            this.checkBox_testing_uspishno.Text = "Успішні";
             this.checkBox_testing_uspishno.UseVisualStyleBackColor = true;
             this.checkBox_testing_uspishno.CheckedChanged += new System.EventHandler(this.checkBox_testing_uspishno_CheckedChanged);
-            // 
-            // textBox_search_object_name_testing
-            // 
-            this.textBox_search_object_name_testing.Location = new System.Drawing.Point(6, 18);
-            this.textBox_search_object_name_testing.Name = "textBox_search_object_name_testing";
-            this.textBox_search_object_name_testing.Size = new System.Drawing.Size(176, 20);
-            this.textBox_search_object_name_testing.TabIndex = 14;
-            this.textBox_search_object_name_testing.TextChanged += new System.EventHandler(this.textBox_search_object_name_testing_TextChanged);
             // 
             // dateTimePicker_testig_filter_start
             // 
             this.dateTimePicker_testig_filter_start.CustomFormat = "dd-MM-yyyy";
             this.dateTimePicker_testig_filter_start.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker_testig_filter_start.Location = new System.Drawing.Point(6, 44);
+            this.dateTimePicker_testig_filter_start.Location = new System.Drawing.Point(23, 44);
             this.dateTimePicker_testig_filter_start.Name = "dateTimePicker_testig_filter_start";
             this.dateTimePicker_testig_filter_start.Size = new System.Drawing.Size(85, 20);
             this.dateTimePicker_testig_filter_start.TabIndex = 13;
@@ -1339,89 +1333,45 @@
             this.dataGridView_testing.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_testing_CellDoubleClick);
             this.dataGridView_testing.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_testing_CellFormatting);
             // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.comboBox_testing_filter);
-            this.groupBox7.Controls.Add(this.textBox_search_testing);
-            this.groupBox7.Controls.Add(this.dateTimePicker_testing_date);
-            this.groupBox7.Enabled = false;
-            this.groupBox7.Location = new System.Drawing.Point(736, 6);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(346, 102);
-            this.groupBox7.TabIndex = 12;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Налаштування";
-            this.groupBox7.Visible = false;
-            // 
-            // comboBox_testing_filter
-            // 
-            this.comboBox_testing_filter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_testing_filter.FormattingEnabled = true;
-            this.comboBox_testing_filter.Items.AddRange(new object[] {
-            "Незавершені тестування",
-            "Успішні тестування",
-            "Всі"});
-            this.comboBox_testing_filter.Location = new System.Drawing.Point(6, 72);
-            this.comboBox_testing_filter.Name = "comboBox_testing_filter";
-            this.comboBox_testing_filter.Size = new System.Drawing.Size(161, 21);
-            this.comboBox_testing_filter.TabIndex = 18;
-            this.comboBox_testing_filter.DropDownClosed += new System.EventHandler(this.comboBox_testing_filter_DropDownClosed);
-            // 
-            // textBox_search_testing
-            // 
-            this.textBox_search_testing.Location = new System.Drawing.Point(6, 19);
-            this.textBox_search_testing.Name = "textBox_search_testing";
-            this.textBox_search_testing.Size = new System.Drawing.Size(161, 20);
-            this.textBox_search_testing.TabIndex = 11;
-            this.textBox_search_testing.TextChanged += new System.EventHandler(this.textBox_search_testing_TextChanged);
-            // 
-            // dateTimePicker_testing_date
-            // 
-            this.dateTimePicker_testing_date.CustomFormat = "yyyy-MM-dd HH:mm:ss";
-            this.dateTimePicker_testing_date.Location = new System.Drawing.Point(173, 19);
-            this.dateTimePicker_testing_date.Name = "dateTimePicker_testing_date";
-            this.dateTimePicker_testing_date.Size = new System.Drawing.Size(157, 20);
-            this.dateTimePicker_testing_date.TabIndex = 10;
-            this.dateTimePicker_testing_date.CloseUp += new System.EventHandler(this.dateTimePicker_testing_date_CloseUp);
-            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.button_test_sel_obj_yes);
-            this.groupBox6.Controls.Add(this.textBox_test_search);
             this.groupBox6.Controls.Add(this.listBox_test_search_result);
-            this.groupBox6.Location = new System.Drawing.Point(3, 6);
+            this.groupBox6.Controls.Add(this.textBox_search_object_name_testing);
+            this.groupBox6.Location = new System.Drawing.Point(226, 4);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(352, 100);
+            this.groupBox6.Size = new System.Drawing.Size(439, 102);
             this.groupBox6.TabIndex = 9;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Початок тестування";
+            this.groupBox6.Text = "Розпочати нове тестування";
             // 
             // button_test_sel_obj_yes
             // 
-            this.button_test_sel_obj_yes.Location = new System.Drawing.Point(265, 17);
+            this.button_test_sel_obj_yes.Location = new System.Drawing.Point(302, 19);
             this.button_test_sel_obj_yes.Name = "button_test_sel_obj_yes";
-            this.button_test_sel_obj_yes.Size = new System.Drawing.Size(75, 77);
+            this.button_test_sel_obj_yes.Size = new System.Drawing.Size(112, 42);
             this.button_test_sel_obj_yes.TabIndex = 1;
-            this.button_test_sel_obj_yes.Text = "Розпочати";
+            this.button_test_sel_obj_yes.Text = "Розпочати нове тестування";
             this.button_test_sel_obj_yes.UseVisualStyleBackColor = true;
             this.button_test_sel_obj_yes.Click += new System.EventHandler(this.button_test_sel_obj_yes_Click);
-            // 
-            // textBox_test_search
-            // 
-            this.textBox_test_search.Location = new System.Drawing.Point(6, 18);
-            this.textBox_test_search.Name = "textBox_test_search";
-            this.textBox_test_search.Size = new System.Drawing.Size(260, 20);
-            this.textBox_test_search.TabIndex = 7;
-            this.textBox_test_search.TextChanged += new System.EventHandler(this.textBox_test_search_TextChanged);
             // 
             // listBox_test_search_result
             // 
             this.listBox_test_search_result.FormattingEnabled = true;
-            this.listBox_test_search_result.Location = new System.Drawing.Point(6, 37);
+            this.listBox_test_search_result.Location = new System.Drawing.Point(6, 19);
             this.listBox_test_search_result.Name = "listBox_test_search_result";
-            this.listBox_test_search_result.Size = new System.Drawing.Size(260, 56);
+            this.listBox_test_search_result.Size = new System.Drawing.Size(290, 69);
             this.listBox_test_search_result.TabIndex = 6;
             this.listBox_test_search_result.DoubleClick += new System.EventHandler(this.listBox_test_search_result_DoubleClick);
+            // 
+            // textBox_search_object_name_testing
+            // 
+            this.textBox_search_object_name_testing.Location = new System.Drawing.Point(6, 76);
+            this.textBox_search_object_name_testing.Name = "textBox_search_object_name_testing";
+            this.textBox_search_object_name_testing.Size = new System.Drawing.Size(290, 20);
+            this.textBox_search_object_name_testing.TabIndex = 14;
+            this.textBox_search_object_name_testing.Visible = false;
+            this.textBox_search_object_name_testing.TextChanged += new System.EventHandler(this.textBox_search_object_name_testing_TextChanged);
             // 
             // tabPage_activation
             // 
@@ -1431,7 +1381,7 @@
             this.tabPage_activation.Location = new System.Drawing.Point(4, 22);
             this.tabPage_activation.Name = "tabPage_activation";
             this.tabPage_activation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_activation.Size = new System.Drawing.Size(1362, 646);
+            this.tabPage_activation.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_activation.TabIndex = 4;
             this.tabPage_activation.Text = "Активація";
             this.tabPage_activation.UseVisualStyleBackColor = true;
@@ -1607,7 +1557,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1362, 646);
+            this.tabPage3.Size = new System.Drawing.Size(1362, 658);
             this.tabPage3.TabIndex = 9;
             this.tabPage3.Text = "Зупення обслуговування";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1677,7 +1627,7 @@
             this.tabPage_zvit.Location = new System.Drawing.Point(4, 22);
             this.tabPage_zvit.Name = "tabPage_zvit";
             this.tabPage_zvit.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_zvit.Size = new System.Drawing.Size(1362, 646);
+            this.tabPage_zvit.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_zvit.TabIndex = 10;
             this.tabPage_zvit.Text = "Звіти";
             this.tabPage_zvit.UseVisualStyleBackColor = true;
@@ -1803,7 +1753,7 @@
             this.tab_create_object.Location = new System.Drawing.Point(4, 22);
             this.tab_create_object.Name = "tab_create_object";
             this.tab_create_object.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_create_object.Size = new System.Drawing.Size(1362, 646);
+            this.tab_create_object.Size = new System.Drawing.Size(1362, 658);
             this.tab_create_object.TabIndex = 13;
             this.tab_create_object.Text = "Створення об’єкту";
             this.tab_create_object.UseVisualStyleBackColor = true;
@@ -1995,6 +1945,16 @@
             this.textBox_id_to_create.Size = new System.Drawing.Size(335, 20);
             this.textBox_id_to_create.TabIndex = 36;
             this.textBox_id_to_create.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_id_to_create_KeyPress);
+            // 
+            // SendSMS_button
+            // 
+            this.SendSMS_button.Location = new System.Drawing.Point(325, 155);
+            this.SendSMS_button.Name = "SendSMS_button";
+            this.SendSMS_button.Size = new System.Drawing.Size(41, 20);
+            this.SendSMS_button.TabIndex = 7;
+            this.SendSMS_button.Text = "Send";
+            this.SendSMS_button.UseVisualStyleBackColor = true;
+            this.SendSMS_button.Click += new System.EventHandler(this.SendSMS_button_Click);
             // 
             // button_copy_sms
             // 
@@ -2429,7 +2389,7 @@
             this.tabPage_work_whith_obj.Location = new System.Drawing.Point(4, 22);
             this.tabPage_work_whith_obj.Name = "tabPage_work_whith_obj";
             this.tabPage_work_whith_obj.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_work_whith_obj.Size = new System.Drawing.Size(1362, 646);
+            this.tabPage_work_whith_obj.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_work_whith_obj.TabIndex = 14;
             this.tabPage_work_whith_obj.Text = "Робота з об\'єктом";
             this.tabPage_work_whith_obj.UseVisualStyleBackColor = true;
@@ -2658,7 +2618,7 @@
             this.tabPage_Rouming.Controls.Add(this.dataGridView_Rouming);
             this.tabPage_Rouming.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Rouming.Name = "tabPage_Rouming";
-            this.tabPage_Rouming.Size = new System.Drawing.Size(1362, 646);
+            this.tabPage_Rouming.Size = new System.Drawing.Size(1362, 658);
             this.tabPage_Rouming.TabIndex = 16;
             this.tabPage_Rouming.Text = "Роумінг";
             this.tabPage_Rouming.UseVisualStyleBackColor = true;
@@ -2766,16 +2726,6 @@
             this.panel1.Size = new System.Drawing.Size(1370, 684);
             this.panel1.TabIndex = 1;
             // 
-            // SendSMS_button
-            // 
-            this.SendSMS_button.Location = new System.Drawing.Point(325, 155);
-            this.SendSMS_button.Name = "SendSMS_button";
-            this.SendSMS_button.Size = new System.Drawing.Size(41, 20);
-            this.SendSMS_button.TabIndex = 7;
-            this.SendSMS_button.Text = "Send";
-            this.SendSMS_button.UseVisualStyleBackColor = true;
-            this.SendSMS_button.Click += new System.EventHandler(this.button_copy_sms_Click);
-            // 
             // Main_window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2819,8 +2769,6 @@
             this.groupBox18.ResumeLayout(false);
             this.groupBox18.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_testing)).EndInit();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.tabPage_activation.ResumeLayout(false);
@@ -2895,9 +2843,6 @@
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.TabPage tabPage_808;
         private System.Windows.Forms.CheckBox checkBox_hide_groupe_alarm;
-        private System.Windows.Forms.TextBox textBox_search_testing;
-        private System.Windows.Forms.DateTimePicker dateTimePicker_testing_date;
-        private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.TabPage tabPage_activation;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.TabPage tabPage_p;
@@ -2946,7 +2891,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column_locked_user_;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.ComboBox comboBox_testing_filter;
         private System.Windows.Forms.DateTimePicker dateTimePicker_activation_filter_end;
         private System.Windows.Forms.TabPage tabPage_lost;
         private System.Windows.Forms.DataGridView dataGridView_lost;

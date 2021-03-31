@@ -1612,7 +1612,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1035, 824);
+            this.ClientSize = new System.Drawing.Size(1035, 822);
             this.Controls.Add(this.tabControl_testing);
             this.MaximumSize = new System.Drawing.Size(1300, 1000);
             this.Name = "Testing";

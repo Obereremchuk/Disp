@@ -467,14 +467,14 @@ namespace Disp_WinForm
         {
             string json = macros.WialonRequest("&svc=item/update_name&params={" +
                                                     "\"itemId\":\"" + _id_wl_object_for_activation + "\"," +
-                                                    "\"name\":\"" + name_obj_new_textBox.Text.ToString() + "\"}");
+                                                    "\"name\":\"" + name_obj_new_textBox.Text.ToString().Replace("\"", "%5C%22") + "\"}");
             var m = JsonConvert.DeserializeObject<RootObject>(json);
 
             if (m.error == 0)
             {
                 string st = macros.sql_command("UPDATE btk.Object " +
                                "SET " +
-                               "Object_name = '" + name_obj_new_textBox.Text + "' " +
+                               "Object_name = '" + MySqlHelper.EscapeString(name_obj_new_textBox.Text) + "' " +
                                "WHERE " +
                                "idObject = '" + _id_db_object_for_activation + "';");
                 if (st == "")
@@ -655,7 +655,7 @@ namespace Disp_WinForm
                 //Меняем имя об"екта in DB
                 macros.sql_command("UPDATE btk.Object " +
                                "SET " +
-                               "Object_name = '" + name_obj_new_textBox.Text + "' " +
+                               "Object_name = '" + MySqlHelper.EscapeString(name_obj_new_textBox.Text) + "' " +
                                "WHERE " +
                                "idObject = '" + _id_db_object_for_activation + "';");
             }
@@ -735,7 +735,7 @@ namespace Disp_WinForm
                                                                 "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                                 "\"callMode\":\"update\"," +
                                                                 "\"n\":\"" + keyvalue.Value.n + "\"," +
-                                                                "\"v\":\"" + kodove_slovo_textBox.Text + "\"}");
+                                                                "\"v\":\"" + kodove_slovo_textBox.Text.Replace("\"", "%5C%22") + "\"}");
                         break;
 
                     //Chenge feild ВО1
@@ -901,7 +901,7 @@ namespace Disp_WinForm
                         "alarm_button = '" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
                         "pin_chenged = '" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'," +
                         "comment = '" + MySqlHelper.EscapeString(textBox_comments.Text) + "', " +
-                        "svidoctvo_tz = '" + textBox_svidoctvo_tz.Text + "' " +
+                        "svidoctvo_tz = '" + MySqlHelper.EscapeString(textBox_svidoctvo_tz.Text) + "' " +
                         "where " +
                         "idActivation_object = '" + _id_db_activation_for_activation + "'" +
                         ";");
@@ -924,10 +924,10 @@ namespace Disp_WinForm
                         "kodove_slovo = '" + MySqlHelper.EscapeString(kodove_slovo_textBox.Text) + "'," +
                         "alarm_button = '" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
                         "pin_chenged = '" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'," +
-                        "Who_chenge_pin = '" + textBox_who_chenge_pin.Text + "'," +
+                        "Who_chenge_pin = '" + MySqlHelper.EscapeString(textBox_who_chenge_pin.Text) + "'," +
                         "Date_chenge_pin = '" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "'," +
                         "comment = '" + MySqlHelper.EscapeString(textBox_comments.Text) + "', " +
-                        "svidoctvo_tz = '" + textBox_svidoctvo_tz.Text + "' " +
+                        "svidoctvo_tz = '" + MySqlHelper.EscapeString(textBox_svidoctvo_tz.Text) + "' " +
                         "where " +
                         "idActivation_object = '" + _id_db_activation_for_activation + "'" +
                         ";");
@@ -938,7 +938,7 @@ namespace Disp_WinForm
                 if (textBox_licence_plate.Text != "")
                 {
                     //update lic plate in db
-                    macros.sql_command("update btk.TS_info set TS_infocol_licence_plate = '" + textBox_licence_plate.Text + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
+                    macros.sql_command("update btk.TS_info set TS_infocol_licence_plate = '" + MySqlHelper.EscapeString(textBox_licence_plate.Text) + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
 
                     //update lic plate in WL
                     string pp25_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
@@ -957,7 +957,7 @@ namespace Disp_WinForm
                                                                    + "\"n\":\"vin\","
                                                                    + "\"v\":\"" + textBox_vin_zayavka.Text.Replace("\"", "%5C%22") + "\"}");
                     //update VIN plate in db
-                    macros.sql_command("update btk.TS_info set TS_infocol_vin = '" + textBox_vin_zayavka.Text + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
+                    macros.sql_command("update btk.TS_info set TS_infocol_vin = '" + MySqlHelper.EscapeString(textBox_vin_zayavka.Text) + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
                 }
 
                 
@@ -970,8 +970,8 @@ namespace Disp_WinForm
                     _id_db_activation_for_activation, 
                     _user_login_id,
                     DateTime.Now.Date,
-                    comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem), 
-                    name_obj_new_textBox.Text,
+                    comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem),
+                    MySqlHelper.EscapeString(name_obj_new_textBox.Text),
                     MySqlHelper.EscapeString(uvaga_textBox.Text),
                     textBox_vo1.Text,
                     textBox_vo2.Text,
@@ -981,7 +981,7 @@ namespace Disp_WinForm
                     checkBox_tk_tested.Checked ? 1 : 0,
                     checkBox_pin_chenged.Checked ? 1 : 0,
                     MySqlHelper.EscapeString(textBox_comments.Text),
-                    textBox_who_chenge_pin.Text
+                    MySqlHelper.EscapeString(textBox_who_chenge_pin.Text)
                     );
 
                 if (comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem).Contains("Успішно"))
@@ -1054,7 +1054,7 @@ namespace Disp_WinForm
                                                                     "'" + MySqlHelper.EscapeString(kodove_slovo_textBox.Text) + "'," +
                                                                     "'" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
                                                                     "'" + MySqlHelper.EscapeString(textBox_comments.Text) + "', " +
-                                                                    "'" + textBox_svidoctvo_tz.Text + "' " +
+                                                                    "'" + MySqlHelper.EscapeString(textBox_svidoctvo_tz.Text) + "' " +
                                                                     ");");
                 }
                 else
@@ -1094,10 +1094,10 @@ namespace Disp_WinForm
                                                                     "'" + MySqlHelper.EscapeString(kodove_slovo_textBox.Text) + "'," +
                                                                     "'" + (checkBox_tk_tested.Checked ? "1" : "0") + "'," +
                                                                     "'" + (checkBox_pin_chenged.Checked ? "1" : "0") + "'," +
-                                                                    "'" + textBox_who_chenge_pin.Text + "'," +
+                                                                    "'" + MySqlHelper.EscapeString(textBox_who_chenge_pin.Text) + "'," +
                                                                     "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "'," +
                                                                     "'" + MySqlHelper.EscapeString(textBox_comments.Text) + "', " +
-                                                                    "'" + textBox_svidoctvo_tz.Text + "' "+
+                                                                    "'" + MySqlHelper.EscapeString(textBox_svidoctvo_tz.Text) + "' "+
                                                                     ");");
                 }
 
@@ -1107,7 +1107,7 @@ namespace Disp_WinForm
                 if (textBox_licence_plate.Text != "")
                 {
                     //update lic plate in db
-                    macros.sql_command("update btk.TS_info set TS_infocol_licence_plate = '" + textBox_licence_plate.Text + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
+                    macros.sql_command("update btk.TS_info set TS_infocol_licence_plate = '" + MySqlHelper.EscapeString(textBox_licence_plate.Text) + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
 
                     //update lic plate in WL
                     //Характеристики licence plate
@@ -1120,7 +1120,7 @@ namespace Disp_WinForm
                 if (textBox_vin_zayavka.Text != "")
                 {
                     //update VIN in db
-                    macros.sql_command("update btk.TS_info set TS_infocol_vin = '" + textBox_vin_zayavka.Text + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
+                    macros.sql_command("update btk.TS_info set TS_infocol_vin = '" + MySqlHelper.EscapeString(textBox_vin_zayavka.Text) + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
 
                     //update VIN in WL
                     string pp28_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
@@ -1137,7 +1137,7 @@ namespace Disp_WinForm
                     _user_login_id,
                     DateTime.Now.Date,
                     comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem),
-                    name_obj_new_textBox.Text,
+                    MySqlHelper.EscapeString(name_obj_new_textBox.Text),
                     MySqlHelper.EscapeString(uvaga_textBox.Text),
                     textBox_vo1.Text,
                     textBox_vo2.Text,
@@ -1147,7 +1147,7 @@ namespace Disp_WinForm
                     checkBox_tk_tested.Checked ? 1 : 0,
                     checkBox_pin_chenged.Checked ? 1 : 0,
                     MySqlHelper.EscapeString(textBox_comments.Text),
-                    textBox_who_chenge_pin.Text
+                    MySqlHelper.EscapeString(textBox_who_chenge_pin.Text)
                     );
 
                 
@@ -1448,7 +1448,7 @@ namespace Disp_WinForm
                                                          + "\"flags\":\"1\"}"); //
 
                 Dictionary<string, string> sens_910 = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
-                
+
                 //Статус TK
                 if (sens_910["5"] == "1")
                 {
@@ -1457,6 +1457,28 @@ namespace Disp_WinForm
                 else
                 {
                     checkBox_tk_tested.BackColor = Color.Empty;
+                }
+            }
+            else if (get_produt_testing_device == "24" || get_produt_testing_device == "23" || get_produt_testing_device == "22")
+            {
+                string json = macros.WialonRequest("&svc=core/search_item&params={"
+                                                         + "\"id\":\"" + _id_wl_object_for_activation + "\","
+                                                         + "\"flags\":\"2098177\"}"); //
+                var test_out = JsonConvert.DeserializeObject<RootObject>(json);
+
+                if (test_out.item.lmsg is null)
+                {
+                    return;
+                }
+
+                //Статус TK
+                if (test_out.item.lmsg.p.io_381 == 0)
+                {
+                    checkBox_tk_tested.BackColor = Color.Empty;
+                }
+                else
+                {
+                    checkBox_tk_tested.BackColor = Color.YellowGreen;
                 }
             }
         }

@@ -32,8 +32,6 @@ namespace Disp_WinForm
         private string id_db_obj;
         private List<TreeNode> _unselectableNodes = new List<TreeNode>();
         private string id_new_user;
-        private int sim1_operator;
-        private int sim2_operator;
         private string idSimCard;
         private string idSim2Card;
         private bool StateBlockButton;
@@ -43,6 +41,11 @@ namespace Disp_WinForm
         private string VIN_object;
         private string RoumingAccept;
         private string IMEI_object;
+        private int Parking1ExistInWL = 0;
+        private int Parking2ExistInWL = 0;
+        private int Parking3ExistInWL = 0;
+        private int Parking4ExistInWL = 0;
+        private int Parking5ExistInWL = 0;
 
         public detail()
         {
@@ -118,44 +121,36 @@ namespace Disp_WinForm
                     if (Convert.ToInt32(user["accsess_lvl"]) <= 4)// wialon
                     {
                         tabControl2.TabPages.Remove(tabPage_dii_z_obectom);
-                        tabControl2.TabPages.Remove(tabPage4);
                     }
                     else if (Convert.ToInt32(user["accsess_lvl"]) == 5)//service
                     {
                         if (Convert.ToInt32(user["idUsers"]) != 5)// if not service
                         {
                             tabControl2.TabPages.Remove(tabPage_dii_z_obectom);
-                            tabControl2.TabPages.Remove(tabPage4);
                         }
-                        tabControl2.TabPages.Remove(tabPage4);
                     }
                     else if (Convert.ToInt32(user["accsess_lvl"]) == 6)//Lozinskiy
                     {
                         tabControl2.TabPages.Remove(tabPage_dii_z_obectom);
-                        tabControl2.TabPages.Remove(tabPage4);
                         comboBox_otvetstvenniy.Enabled = false;
                     }
                     else if (Convert.ToInt32(user["accsess_lvl"]) <= 7)//danilchenko
                     {
                         tabControl2.TabPages.Remove(tabPage_dii_z_obectom);
-                        tabControl2.TabPages.Remove(tabPage4);
                         comboBox_otvetstvenniy.Enabled = false;
                     }
                     else if (Convert.ToInt32(user["accsess_lvl"]) == 8)//Pustovit
                     {
                         tabControl2.TabPages.Remove(tabPage_dii_z_obectom);
-                        tabControl2.TabPages.Remove(tabPage4);
                     }
                     else if (Convert.ToInt32(user["accsess_lvl"]) == 9)//operators
                     {
                         if (Convert.ToInt32(user["idUsers"]) != 35 || Convert.ToInt32(user["idUsers"]) != 36 || Convert.ToInt32(user["idUsers"]) != 37 || Convert.ToInt32(user["idUsers"]) != 16)//elit
                         {
                             tabControl2.TabPages.Remove(tabPage_dii_z_obectom);
-                            tabControl2.TabPages.Remove(tabPage4);
                         }
                         tabControl2.TabPages.Remove(tabPage_dii_z_obectom);
                         tabControl2.TabPages.Remove(tabPage_edit_client);
-                        tabControl2.TabPages.Remove(tabPage4);
                         tabControl2.TabPages.Remove(tabPage_rouming);
                         comboBox_otvetstvenniy.Enabled = false;
                     }
@@ -163,7 +158,6 @@ namespace Disp_WinForm
                     {
                         tabControl2.TabPages.Remove(tabPage_edit_client);
                         tabControl2.TabPages.Remove(tabPage_dii_z_obectom);
-                        tabControl2.TabPages.Remove(tabPage4);
                         tabControl2.TabPages.Remove(tabPage_rouming);
                     }
                 }
@@ -438,7 +432,7 @@ namespace Disp_WinForm
                                                     "\"spec\":{" +
                                                     "\"itemsType\":\"avl_unit_group\"," +
                                                     "\"propName\":\"sys_id\"," +
-                                                    "\"propValueMask\":\"6409,1759,46,7669,7669,1759,7668\", " +
+                                                    "\"propValueMask\":\"*\", " +
                                                     "\"sortType\":\"sys_name\"," +
                                                     "\"or_logic\":\"1\"}," +
                                                     "\"or_logic\":\"1\"," +
@@ -480,6 +474,43 @@ namespace Disp_WinForm
                     }
                     else
                     {
+                        //Проверяем по WLID если объект в нашей базе, если нет - содаем запись
+                        string ImeiDB = macros.sql_command("SELECT Object_imei FROM btk.Object where Object_id_wl = " + wl_id + ";");
+                        if (ImeiDB == "")
+                        {
+                            macros.sql_command("" +
+                              "insert into btk.Object ( " +
+                              "Object_id_wl," +
+                              "Object_imei, " +
+                              "Object_name, " +
+                              "Object_sim_no, " +
+                              "products_idproducts, " +
+                              "Simcard_idSimcard," +
+                              "TS_info_idTS_info, " +
+                              "TS_info_TS_brend_model_idTS_brend_model, " +
+                              "Kontakti_idKontakti_serviceman, " +
+                              "Dogovora_idDogovora, " +
+                              "Users_idUsers, " +
+                              "Objectcol_puk, " +
+                              "Simcard_idSimcard1" +
+                              ") values (" +
+                              "'"+wl_id+"', " +
+                              "'"+m.items[0].uid+"', " +
+                              "'"+m.items[0].nm+"', " +
+                              "'"+m.items[0].ph+"', " +
+                              "'1'," +
+                              "'1'," +
+                              "'1'," +
+                              "'1'," +
+                              "'1'," +
+                              "'1'," +
+                              "'34'," +
+                              "'1', " +
+                              "'1');");
+                        }
+
+
+
                         if (m.items[0].flds.Count == 0
                         ) //Если поля Увага не существует блокируем кнопку изменения этого поля
                         {
@@ -512,26 +543,62 @@ namespace Disp_WinForm
                     {
                         foreach (var keyvalue in m.items[0].flds)
                         {
+                            if (keyvalue.Value.n.Contains("Паркінг 1"))
+                            {
+                                Parking1_textBox.Text = keyvalue.Value.v.ToString();
+                                Parking1ExistInWL = keyvalue.Key;
+                            }
+                            if (keyvalue.Value.n.Contains("Паркінг 2"))
+                            {
+                                Parking2_textBox.Text = keyvalue.Value.v.ToString();
+                                Parking2ExistInWL = keyvalue.Key;
+                            }
+                            if (keyvalue.Value.n.Contains("Паркінг 3"))
+                            {
+                                Parking3_textBox.Text = keyvalue.Value.v.ToString();
+                                Parking3ExistInWL = keyvalue.Key;
+                            }
+                            if (keyvalue.Value.n.Contains("Паркінг 4"))
+                            {
+                                Parking4_textBox.Text = keyvalue.Value.v.ToString();
+                                Parking4ExistInWL = keyvalue.Key;
+                            }
+                            if (keyvalue.Value.n.Contains("Паркінг 5"))
+                            {
+                                Parking5_textBox.Text = keyvalue.Value.v.ToString();
+                                Parking5ExistInWL = keyvalue.Key;
+                            }
+
 
                             if (keyvalue.Value.n.Contains("0 УВАГА") & !keyvalue.Value.n.Contains("алгоритм"))
                             {
-
                                 textBox_Uvaga.Text = keyvalue.Value.v.ToString();
                             }
 
                             if (keyvalue.Value.n.Contains("Кодов"))
                             {
-
                                 treeView_client_info.Nodes[0].Nodes.Insert(0, (new TreeNode("Кодове слово" + ": " + keyvalue.Value.v.ToString())));
-
                             }
 
                             if (keyvalue.Value.n.Contains(" І Відп"))
                             {
                                 if (keyvalue.Value.v != "")
                                 {
-
                                     treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("ВО1" + ": " + keyvalue.Value.v.ToString()));
+
+                                    //load VO1
+                                    string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '1' ORDER BY idVO DESC limit 1;");
+                                    if (VO1 != "")
+                                    {
+                                        foreach (TreeNode child in treeView_client_info.Nodes[0].Nodes)
+                                        {
+                                            if (child.Text == "ВО1" + ": " + keyvalue.Value.v.ToString())
+                                            {
+                                                child.BackColor = Color.LightGreen;
+                                            }
+                                        }
+                                    }
+
                                 }
                             }
                             if (keyvalue.Value.n.Contains(" ІІ Відп"))
@@ -541,6 +608,19 @@ namespace Disp_WinForm
 
                                     treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("ВО2" + ": " + keyvalue.Value.v.ToString()));
 
+
+                                    //load VO1
+                                    string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '2' ORDER BY idVO DESC limit 1;");
+                                    if (VO1 != "")
+                                    {
+                                        foreach (TreeNode child in treeView_client_info.Nodes[0].Nodes)
+                                        {
+                                            if (child.Text == "ВО2" + ": " + keyvalue.Value.v.ToString())
+                                            {
+                                                child.BackColor = Color.LightGreen;
+                                            }
+                                        }
+                                    }
                                 }
                             }
                             if (keyvalue.Value.n.Contains(" ІІІ Відп"))
@@ -549,7 +629,19 @@ namespace Disp_WinForm
                                 {
 
                                     treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("ВО3" + ": " + keyvalue.Value.v.ToString()));
-                                        
+
+                                    //load VO1
+                                    string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '3' ORDER BY idVO DESC limit 1;");
+                                    if (VO1 != "")
+                                    {
+                                        foreach (TreeNode child in treeView_client_info.Nodes[0].Nodes)
+                                        {
+                                            if (child.Text == "ВО3" + ": " + keyvalue.Value.v.ToString())
+                                            {
+                                                child.BackColor = Color.LightGreen;
+                                            }
+                                        }
+                                    }
                                 }
                             }
                             if (keyvalue.Value.n.Contains(" IV Відп"))
@@ -558,6 +650,18 @@ namespace Disp_WinForm
                                 {
                                     treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("ВО4" + ": " + keyvalue.Value.v.ToString()));
 
+                                    //load VO1
+                                    string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '4' ORDER BY idVO DESC limit 1;");
+                                    if (VO1 != "")
+                                    {
+                                        foreach (TreeNode child in treeView_client_info.Nodes[0].Nodes)
+                                        {
+                                            if (child.Text == "ВО4" + ": " + keyvalue.Value.v.ToString())
+                                            {
+                                                child.BackColor = Color.LightGreen;
+                                            }
+                                        }
+                                    }
                                 }
                                 //Групируем ВО4 рядом со всеми ВО
                                 foreach (TreeNode TreeViewNode in treeView_client_info.Nodes[0].Nodes)
@@ -576,6 +680,19 @@ namespace Disp_WinForm
                                 {
 
                                     treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("ВО5" + ": " + keyvalue.Value.v.ToString()));
+
+                                    //load VO1
+                                    string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '5' ORDER BY idVO DESC limit 1;");
+                                    if (VO1 != "")
+                                    {
+                                        foreach (TreeNode child in treeView_client_info.Nodes[0].Nodes)
+                                        {
+                                            if (child.Text == "ВО5" + ": " + keyvalue.Value.v.ToString())
+                                            {
+                                                child.BackColor = Color.LightGreen;
+                                            }
+                                        }
+                                    }
                                 }
                                 //Групируем ВО5 рядом со всеми ВО
                                 foreach (TreeNode TreeViewNode in treeView_client_info.Nodes[0].Nodes)
@@ -786,7 +903,7 @@ namespace Disp_WinForm
             }
             if (comboBox_status_trevogi.SelectedItem.ToString() == "Дилеры" & _id_status != "Дилеры")//если изменяем статус с Обробляется на 808  - отправляем меил со всейхронологией обработки тревоги
             {
-                string recipient = "<" + vars_form.user_login_email + ">," + "<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<s.gregul@venbest.com.ua>,<n.kovalenko@venbest.com.ua>";
+                string recipient = "<" + vars_form.user_login_email + ">," + "<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<s.gregul@venbest.com.ua>,<o.mychka@venbest.com.ua>";
                 send_email(recipient);
             }
 
@@ -1020,19 +1137,6 @@ namespace Disp_WinForm
                     lon = m.items[0].pos["x"];
                 }
 
-                //listBox_commads_wl.Items.Clear();
-                //if (m.items[0].cmds != null)
-                //{
-                //    foreach (var cmd in m.items[0].cmds)
-                //    {
-                //        if (cmd.n.ToString() == "__app__chatterbox_coords_vrt")// в месте с командами выгружаются какието __app__chatterbox_coords_vrt . если попадается, отсекаем!
-                //        {
-                //            break;
-                //        }
-                //        listBox_commads_wl.Items.Add(cmd.n.ToString());
-                //    }
-                //}
-
                 if (m.items[0].pos != null)
                 {
                     string json3;
@@ -1090,45 +1194,7 @@ namespace Disp_WinForm
             }
         }
 
-        private void button_send_cmd_wl_Click(object sender, EventArgs e)
-        {
-            if (listBox_commads_wl.SelectedItem == null)
-            {
-                MessageBox.Show("Виберіть команду");
-                return;
-            }
-            DialogResult result = MessageBox.Show("Відправляється команда: " + listBox_commads_wl.SelectedItem.ToString(), "Підтвердіть", MessageBoxButtons.YesNo);
-            if (result == DialogResult.Yes)
-            {
-
-                string json2 = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
-                                          "\"itemId\":\"" + _search_id + "\"," + 
-                                          "\"commandName\":\"" + listBox_commads_wl.SelectedItem.ToString() + "\"," + 
-                                          "\"linkType\":\"tcp\"," + 
-                                          "\"param\":\"\"," + 
-                                          "\"timeout\":\"0\"," + 
-                                          "\"flags\":\"0\"}");
-
-                macros.sql_command("insert into btk.alarm_ack(" +
-                                   "alarm_text, " +
-                                   "notification_idnotification, " +
-                                   "Users_chenge, " +
-                                   "time_start_ack, " +
-                                   "time_end_ack) " +
-                                   "values('Відправлено команду: " + listBox_commads_wl.SelectedItem.ToString() + "', " +
-                                   "'" + _id_notif + "', " +
-                                   "'" + _user_login_id + "', " +
-                                   "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd hh:mm:ss") + "', " +
-                                   "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd hh:mm:ss") + "')");
-
-
-                mysql_get_hronologiya_trivog();
-            }
-            else if (result == DialogResult.No)
-            {
-                return;
-            }
-        }//Говорим виалону отправить выбранную комманду на объект
+        
 
 
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
@@ -2184,15 +2250,15 @@ namespace Disp_WinForm
                     {
                         create_notif_730(email_textBox.Text, created_user_data.item.id, wl_id, created_resource_data.item.id, created_resource_user_data.item.id);
                     }
-                    else if (product_id == "12")//Kp_n
+                    else if (product_id == "12" || product_id == "24")//Kp_n
                     {
                         create_notif_Kp_n(email_textBox.Text, created_user_data.item.id, wl_id, created_resource_data.item.id, created_resource_user_data.item.id);
                     }
-                    else if (product_id == "17")//Kb_n
+                    else if (product_id == "17" || product_id == "23")//Kb_n
                     {
                         create_notif_Kp_n(email_textBox.Text, created_user_data.item.id, wl_id, created_resource_data.item.id, created_resource_user_data.item.id);
                     }
-                    else if (product_id == "7")//K_n
+                    else if (product_id == "7" || product_id == "22")//K_n
                     {
                         create_notif_K_n(email_textBox.Text, created_user_data.item.id, wl_id, created_resource_data.item.id, created_resource_user_data.item.id);
                     }
@@ -2303,6 +2369,7 @@ namespace Disp_WinForm
                     }
                     else
                     {
+
                         MessageBox.Show("Невідомий продукт, інформацію про обліковий запис в картку WL не внесено");
                     }
                     Clipboard.SetText(textBox_account_pss.Text);
@@ -4398,6 +4465,7 @@ namespace Disp_WinForm
 
                     Rouming_SIM2_End_dtp.Value = RoumingZapitEnd_dateTimePicker.Value;
                     Rouming_SIM2_Start_dtp.Value = RoumingZapitStart_dateTimePicker.Value;
+
                 }
                 else
                 {
@@ -4440,59 +4508,48 @@ namespace Disp_WinForm
                         idSimCard = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '" + m.items[0].ph.Remove(0, 4) + "';");
                         if (idSimCard != "")
                         {
+                            DataTable RoumingTarifList = macros.GetData("SELECT idRouming_tarif, TarifName FROM btk.Rouming_tarif where OperatorName = 'KS';");
+                            RoumingTarifSIM1_comboBox.DataSource = RoumingTarifList;
+                            RoumingTarifSIM1_comboBox.ValueMember = "idRouming_tarif";
+                            RoumingTarifSIM1_comboBox.DisplayMember = "TarifName";
+
+                            
+
                             string tarif = macros.sql_command("SELECT Rouming_tarif_idRouming_tarif FROM btk.Simcard_rouming where Simcard_idSimcard = '" + idSimCard + "' order by idSimcard_rouming desc limit 1;");
-                            switch (tarif)
-                            {
-                                case "4":
-                                    radioButton_SIM1_Rouming_off.Checked = true;
-                                    break;
-                                case "5":
-                                    radioButton_SIM1_Tarif1.Checked = true;
-                                    break;
-                                case "6":
-                                    radioButton_SIM1_Tarif2.Checked = true;
-                                    break;
+                            if (tarif != "") 
+                            { 
+                                RoumingTarifSIM1_comboBox.SelectedValue = tarif; 
+
                             }
                         }
-                        radioButton_SIM1_Tarif1.Text = "Простий (до 32 днів)";
-                        radioButton_SIM1_Tarif2.Text = "Коморт (більше 32 днів)";
-                        sim1_operator = 25503;
                     }
                     else if (m.items[0].ph.Contains("+882"))
                     {
                         idSimCard = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '" + m.items[0].ph.Remove(0, 1) + "';");
                         if (idSimCard != "")
                         {
-                            string tarif = macros.sql_command("SELECT Rouming_tarif_idRouming_tarif FROM btk.Simcard_rouming where Simcard_idSimcard = '" + idSimCard + "' order by idSimcard_rouming desc limit 1;");
-                            switch (tarif)
+                            DataTable RoumingTarifList = macros.GetData("SELECT idRouming_tarif, TarifName FROM btk.Rouming_tarif where OperatorName = 'VF';");
+                            RoumingTarifSIM1_comboBox.DataSource = RoumingTarifList;
+                            RoumingTarifSIM1_comboBox.ValueMember = "idRouming_tarif";
+                            RoumingTarifSIM1_comboBox.DisplayMember = "TarifName";
+
+                            string ICCID = macros.sql_command("SELECT Simcardcol_imsi FROM btk.Simcard where Simcardcol_number like '" + m.items[0].ph.Remove(0, 1) + "';");
+                            if (ICCID != "")
                             {
-                                case "1":
-                                    radioButton_SIM1_Rouming_off.Checked = true;
-                                    break;
-                                case "2":
-                                    radioButton_SIM1_Tarif1.Checked = true;
-                                    break;
-                                case "3":
-                                    radioButton_SIM1_Tarif2.Checked = true;
-                                    break;
+                                string t = macros.VodafoneGetServiceProfile(ICCID);
+                                var ServiceProfileData = JsonConvert.DeserializeObject<RootObject>(t);
+                                RoumingTarifSIM1_comboBox.Text = ServiceProfileData.getDeviceDetailsv2Response.@return.customerServiceProfile;
+
                             }
                         }
-                        radioButton_SIM1_Tarif1.Text = "Глобал";
-                        radioButton_SIM1_Tarif2.Name = "EU";
-                        radioButton_SIM1_Tarif2.Enabled = false;
-                        sim1_operator = 25501;
                     }
                     else if (m.items[0].ph.Contains("+38050"))
                     {
-                        radioButton_SIM1_Tarif1.Text = "ХЗ тариф";
-                        radioButton_SIM1_Tarif2.Text = "ХЗ тариф";
-                        sim1_operator = 25501;
+
                     }
                     else
                     {
                         groupBox_SIM1.Enabled = false;
-                        radioButton_SIM1_Tarif1.Text = "Не выдома SIM";
-                        radioButton_SIM1_Tarif2.Text = "Не выдома SIM";
                     }
                 }
                 else
@@ -4505,63 +4562,48 @@ namespace Disp_WinForm
                     if (m.items[0].ph2.Contains("+38067"))
                     {
                         string rf = m.items[0].ph2.Remove(0, 4);
-                        rf = m.items[0].ph2.Remove(0, 4);
                         idSim2Card = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '" + m.items[0].ph2.Remove(0, 4) + "';");
-                            if (idSim2Card != "")
+                        if (idSim2Card != "")
                         {
-                            string tarif = macros.sql_command("SELECT Rouming_tarif_idRouming_tarif FROM btk.Simcard_rouming where Simcard_idSimcard = '" + idSim2Card + "';");
-                            switch (tarif)
+                            DataTable RoumingTarifList = macros.GetData("SELECT idRouming_tarif, TarifName FROM btk.Rouming_tarif where OperatorName = 'KS';");
+                            RoumingTarifSIM2_comboBox.DataSource = RoumingTarifList;
+                            RoumingTarifSIM2_comboBox.ValueMember = "idRouming_tarif";
+                            RoumingTarifSIM2_comboBox.DisplayMember = "TarifName";
+
+                            string tarif = macros.sql_command("SELECT Rouming_tarif_idRouming_tarif FROM btk.Simcard_rouming where Simcard_idSimcard = '" + idSimCard + "' order by idSimcard_rouming desc limit 1;");
+                            if (tarif != "")
                             {
-                                case "4":
-                                    radioButton_SIM2_Rouming_off.Checked = true;
-                                    break;
-                                case "5":
-                                    radioButton_SIM2_Tarif1.Checked = true;
-                                    break;
-                                case "6":
-                                    radioButton_SIM2_Tarif2.Checked = true;
-                                    break;
+                                RoumingTarifSIM2_comboBox.SelectedValue = tarif;
+
                             }
                         }
-                        radioButton_SIM2_Tarif1.Text = "Простий (до 32 днів)";
-                        radioButton_SIM2_Tarif2.Text = "Коморт (більше 32 днів)";
-                        sim2_operator = 25503;
                     }
                     else if (m.items[0].ph2.Contains("+882"))
                     {
                         idSim2Card = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '" + m.items[0].ph2.Remove(0, 1) + "';");
                         if (idSim2Card != "")
                         {
-                            string tarif = macros.sql_command("SELECT Rouming_tarif_idRouming_tarif FROM btk.Simcard_rouming where Simcard_idSimcard = '" + idSim2Card + "';");
-                            switch (tarif)
+                            DataTable RoumingTarifList = macros.GetData("SELECT idRouming_tarif, TarifName FROM btk.Rouming_tarif where OperatorName = 'VF';");
+                            RoumingTarifSIM2_comboBox.DataSource = RoumingTarifList;
+                            RoumingTarifSIM2_comboBox.ValueMember = "idRouming_tarif";
+                            RoumingTarifSIM2_comboBox.DisplayMember = "TarifName";
+
+                            string ICCID = macros.sql_command("SELECT Simcardcol_imsi FROM btk.Simcard where Simcardcol_number like '" + m.items[0].ph2.Remove(0, 1) + "';");
+                            if (ICCID != "")
                             {
-                                case "1":
-                                    radioButton_SIM2_Rouming_off.Checked = true;
-                                    break;
-                                case "2":
-                                    radioButton_SIM2_Tarif1.Checked = true;
-                                    break;
-                                case "3":
-                                    radioButton_SIM2_Tarif2.Checked = true;
-                                    break;
+                                string t = macros.VodafoneGetServiceProfile(ICCID);
+                                var ServiceProfileData = JsonConvert.DeserializeObject<RootObject>(t);
+                                RoumingTarifSIM2_comboBox.Text = ServiceProfileData.getDeviceDetailsv2Response.@return.customerServiceProfile;
+
                             }
                         }
-                        radioButton_SIM2_Tarif1.Text = "Глобал";
-                        radioButton_SIM2_Tarif2.Text = "EU";
-                        radioButton_SIM1_Tarif2.Enabled = false;
-                        sim2_operator = 25501;
                     }
                     else if (m.items[0].ph2.Contains("+38050"))
                     {
-                        radioButton_SIM2_Tarif1.Text = "ХЗ тариф";
-                        radioButton_SIM2_Tarif2.Text = "ХЗ тариф";
-                        sim2_operator = 25501;
                     }
                     else 
                     { 
                         groupBox_SIM2.Enabled = false;
-                        radioButton_SIM2_Tarif1.Text = "Не выдома SIM";
-                        radioButton_SIM2_Tarif2.Text = "Не выдома SIM";
                     }
                 }
                 else
@@ -4624,7 +4666,116 @@ namespace Disp_WinForm
 
         private void treeView_client_info_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
+            if (e.Node.Text.Contains("ВО1") )
+            {
+                //load VO1
+                string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '1' ORDER BY idVO DESC limit 1;");
+                if (VO1 != "")
+                {
+                    string VO_phone1 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO1.ToString() + "';");
+                    string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO1.ToString() + "';");
 
+
+                    string path = macros.GetProcessPath("microsip");
+                    if (path == "")
+                    { MessageBox.Show("Для виклику необхідно запустити Microsip!"); return; }
+                    System.Diagnostics.Process process = new System.Diagnostics.Process();
+                    System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                    startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                    startInfo.FileName = "cmd.exe";
+                    startInfo.Arguments = "/C " + path + " " + new String(VO_phone1.Where(Char.IsDigit).ToArray());
+                    process.StartInfo = startInfo;
+                    process.Start();
+                }
+            }
+            if (e.Node.Text.Contains("ВО2"))
+            {
+                //load VO1
+                string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '2' ORDER BY idVO DESC limit 1;");
+                if (VO1 != "")
+                {
+                    string VO_phone1 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO1.ToString() + "';");
+                    string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO1.ToString() + "';");
+
+
+                    string path = macros.GetProcessPath("microsip");
+                    if (path == "")
+                    { MessageBox.Show("Для виклику необхідно запустити Microsip!"); return; }
+                    System.Diagnostics.Process process = new System.Diagnostics.Process();
+                    System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                    startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                    startInfo.FileName = "cmd.exe";
+                    startInfo.Arguments = "/C " + path + " " + new String(VO_phone1.Where(Char.IsDigit).ToArray());
+                    process.StartInfo = startInfo;
+                    process.Start();
+                }
+            }
+            if (e.Node.Text.Contains("ВО3"))
+            {
+                //load VO1
+                string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '3' ORDER BY idVO DESC limit 1;");
+                if (VO1 != "")
+                {
+                    string VO_phone1 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO1.ToString() + "';");
+                    string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO1.ToString() + "';");
+
+
+                    string path = macros.GetProcessPath("microsip");
+                    if (path == "")
+                    { MessageBox.Show("Для виклику необхідно запустити Microsip!"); return; }
+                    System.Diagnostics.Process process = new System.Diagnostics.Process();
+                    System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                    startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                    startInfo.FileName = "cmd.exe";
+                    startInfo.Arguments = "/C " + path + " " + new String(VO_phone1.Where(Char.IsDigit).ToArray());
+                    process.StartInfo = startInfo;
+                    process.Start();
+                }
+            }
+            if (e.Node.Text.Contains("ВО4"))
+            {
+                //load VO1
+                string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '4' ORDER BY idVO DESC limit 1;");
+                if (VO1 != "")
+                {
+                    string VO_phone1 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO1.ToString() + "';");
+                    string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO1.ToString() + "';");
+
+
+                    string path = macros.GetProcessPath("microsip");
+                    if (path == "")
+                    { MessageBox.Show("Для виклику необхідно запустити Microsip!"); return; }
+                    System.Diagnostics.Process process = new System.Diagnostics.Process();
+                    System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                    startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                    startInfo.FileName = "cmd.exe";
+                    startInfo.Arguments = "/C " + path + " " + new String(VO_phone1.Where(Char.IsDigit).ToArray());
+                    process.StartInfo = startInfo;
+                    process.Start();
+                }
+            }
+            if (e.Node.Text.Contains("ВО5"))
+            {
+                //load VO1
+                string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '5' ORDER BY idVO DESC limit 1;");
+                if (VO1 != "")
+                {
+                    string VO_phone1 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO1.ToString() + "';");
+                    string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO1.ToString() + "';");
+
+
+                    string path = macros.GetProcessPath("microsip");
+                    if (path == "")
+                    { MessageBox.Show("Для виклику необхідно запустити Microsip!"); return; }
+                    System.Diagnostics.Process process = new System.Diagnostics.Process();
+                    System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                    startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                    startInfo.FileName = "cmd.exe";
+                    startInfo.Arguments = "/C " + path + " " + new String(VO_phone1.Where(Char.IsDigit).ToArray());
+                    process.StartInfo = startInfo;
+                    process.Start();
+                }
+            }
         }
 
         private void checkBox_geozone_all_CheckedChanged(object sender, EventArgs e)
@@ -4643,9 +4794,9 @@ namespace Disp_WinForm
             }
             TimeSpan t = Rouming_SIM2_End_dtp.Value.Date - Rouming_SIM2_Start_dtp.Value.Date;
             if (t.Days <= 32)
-            { radioButton_SIM2_Tarif1.Checked = true; }
+            {  }
             if (t.Days >= 32)
-            { radioButton_SIM2_Tarif2.Checked = true; }
+            {  }
         }
 
         private void Rouming_KS_End_dtp_ValueChanged(object sender, EventArgs e)
@@ -4657,28 +4808,12 @@ namespace Disp_WinForm
             }
             TimeSpan t = Rouming_SIM2_End_dtp.Value.Date - Rouming_SIM2_Start_dtp.Value.Date;
             if (t.Days <= 32)
-            { radioButton_SIM2_Tarif1.Checked = true; }
+            { }
             if (t.Days >= 32)
-            { radioButton_SIM2_Tarif2.Checked = true; }
+            { }
         }
 
-        private void radioButton_KS_UA_Click(object sender, EventArgs e)
-        {
-            radioButton_SIM2_Tarif1.Checked = false;
-            radioButton_SIM2_Tarif2.Checked = false;
-        }
-
-        private void radioButton_KS_Prostiy_Click(object sender, EventArgs e)
-        {
-            radioButton_SIM2_Rouming_off.Checked = false;
-            radioButton_SIM2_Tarif2.Checked = false;
-        }
-
-        private void radioButton_KS_Komfort_Click(object sender, EventArgs e)
-        {
-            radioButton_SIM2_Rouming_off.Checked = false;
-            radioButton_SIM2_Tarif1.Checked = false;
-        }
+       
 
 
         //Rouming VF
@@ -4700,23 +4835,7 @@ namespace Disp_WinForm
             }
         }
 
-        private void radioButton_VF_Ukraine_Click(object sender, EventArgs e)
-        {
-            radioButton_SIM1_Tarif1.Checked = false;
-            radioButton_SIM1_Tarif2.Checked = false;
-        }
-
-        private void radioButton_VF_Global_Click(object sender, EventArgs e)
-        {
-            radioButton_SIM1_Tarif2.Checked = false;
-            radioButton_SIM1_Rouming_off.Checked = false;
-        }
-
-        private void radioButton_VF_Europe_Click(object sender, EventArgs e)
-        {
-            radioButton_SIM1_Tarif1.Checked = false;
-            radioButton_SIM1_Rouming_off.Checked = false;
-        }
+        
 
         private void button_VF_Rouming_enter_Click(object sender, EventArgs e)
         {
@@ -4733,35 +4852,29 @@ namespace Disp_WinForm
             //                                        "\"to\":\"1\"}");
             //var m = JsonConvert.DeserializeObject<RootObject>(json);
 
-            if (Rouming_SIM1_Start_dtp.Value.Date >= Rouming_SIM1_End_dtp.Value.Date)
+            //idSimCard = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '"+ textBox_SIM1.Text.Remove(0, 1) + "';");
+            if (idSimCard == "")
             {
-                MessageBox.Show("Перевір дату");
+                MessageBox.Show("SIM не знайдено в базі, зверніться до 117");
                 return;
             }
-            if (radioButton_SIM1_Tarif1.Checked is false & radioButton_SIM1_Rouming_off.Checked is false & radioButton_SIM1_Tarif2.Checked is false)
+
+            if (RoumingTarifSIM1_comboBox.Text == "")
             {
                 MessageBox.Show("Не вибрано тариф роумінгу");
                 return;
             }
 
-            if (sim1_operator == 25501)
+            if (Rouming_SIM1_Start_dtp.Value.Date >= Rouming_SIM1_End_dtp.Value.Date)
             {
-                int RoumingTarif = 0;
-                if (radioButton_SIM1_Rouming_off.Checked)
-                { RoumingTarif = 1; }//Україна - вим. роумінг
-                else if (radioButton_SIM1_Tarif1.Checked)
-                { RoumingTarif = 2; }//Global
-                else if (radioButton_SIM1_Tarif2.Checked)
-                { RoumingTarif = 3; }//Europe
+                MessageBox.Show("Перевір дату");
+                return;
+            }
+            
 
-                //idSimCard = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '"+ textBox_SIM1.Text.Remove(0, 1) + "';");
-                if (idSimCard == "")
-                {
-                    MessageBox.Show("SIM не знайдено в базі, зверніться до 117");
-                    return;
-                }
-
-                if (RoumingTarif == 1)
+            if (textBox_SIM1.Text.Contains("+38067"))
+            {
+                if (RoumingTarifSIM1_comboBox.Text == "Украина (вимк.)")
                 {
                     macros.sql_command("insert into btk.Simcard_rouming (" +
                    "Simcard_idSimcard, " +
@@ -4776,7 +4889,7 @@ namespace Disp_WinForm
                    "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
                    "'" + vars_form.user_login_id + "', " +
                    "'" + textBox_comments.Text + "', " +
-                   "'" + RoumingTarif + "'" +
+                   "'" + RoumingTarifSIM1_comboBox.SelectedValue.ToString() + "'" +
                    ");");
 
                     macros.sql_command(string.Format("UPDATE btk.notification SET remayder_date ='null', remaynder_activate= 0 where idnotification=" + _id_notif + ";"));
@@ -4844,7 +4957,7 @@ namespace Disp_WinForm
                     "'" + Convert.ToDateTime(SIM1Vikonano_dateTimePicker.Value.Date).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
                     "'" + vars_form.user_login_id + "', " +
                     "'" + textBox_comments.Text + "', " +
-                    "'" + RoumingTarif + "'" +
+                    "'" + RoumingTarifSIM1_comboBox.SelectedValue.ToString() + "'" +
                     ");");
 
                     macros.sql_command(string.Format("UPDATE btk.notification SET remayder_date ='" + Convert.ToDateTime(Rouming_SIM1_End_dtp.Value).ToString("yyyy-MM-dd") + "', remaynder_activate= 1 where idnotification=" + _id_notif + ";"));
@@ -4867,19 +4980,9 @@ namespace Disp_WinForm
                                         "'" + gmr + "'); UPDATE btk.notification SET Status = '" + comboBox_status_trevogi.SelectedItem.ToString() + "', time_stamp = now(), Users_idUsers='" + _user_login_id + "' WHERE idnotification = '" + _id_notif + "'OR group_alarm = '" + _id_notif + "'; ");
                     mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
                 }
-
-                
             }
-            else if (sim1_operator == 25503)
+            else if (textBox_SIM1.Text.Contains("+882"))
             {
-                int RoumingTarif = 0;
-                if (radioButton_SIM1_Rouming_off.Checked)
-                { RoumingTarif = 4; }//Україна - вим. роумінг
-                else if (radioButton_SIM1_Tarif1.Checked)
-                { RoumingTarif = 5; }//Простий (до 32 днів)
-                else if (radioButton_SIM1_Tarif2.Checked)
-                { RoumingTarif = 6; }//Коморт (більше 32 днів)
-
                 // idSimCard = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '" + textBox_SIM1.Text.Remove(0, 4) + "';");
                 if (idSimCard == "")
                 {
@@ -4887,8 +4990,21 @@ namespace Disp_WinForm
                     return;
                 }
 
-                if (RoumingTarif == 4)
+                if (RoumingTarifSIM1_comboBox.Text == "VENBEST_UKRAINE_Basic_Kit") 
                 {
+                    string ICCID = macros.sql_command("SELECT Simcardcol_imsi FROM btk.Simcard where Simcardcol_number like '" + textBox_SIM1.Text.Remove(0, 1) + "';");
+                    if (ICCID != "")
+                    {
+                        string t = macros.VodafoneSetServiceProfile(ICCID, "customerServiceProfile", RoumingTarifSIM1_comboBox.Text);
+                        var respone = JsonConvert.DeserializeObject<RootObject>(t);
+                        if (respone.setDeviceDetailsv4Response.@return.returnCode.majorReturnCode != "000")
+                        {
+                            MessageBox.Show("Error set: majorReturnCode: "+ respone.setDeviceDetailsv4Response.@return.returnCode.majorReturnCode + 
+                                ", majorReturnCode: "+ respone.setDeviceDetailsv4Response.@return.returnCode.minorReturnCode + ".");
+                            return;
+                        }
+                    }
+
                     macros.sql_command(string.Format("UPDATE btk.notification SET remayder_date ='null', remaynder_activate= 0 where idnotification=" + _id_notif + ";"));
 
                     macros.sql_command("insert into btk.Simcard_rouming (" +
@@ -4901,10 +5017,10 @@ namespace Disp_WinForm
                     ") values(" +
                     "'" + idSimCard + "', " +
                     "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
-                    "'" + Convert.ToDateTime(SIM2Vikonano_dateTimePicker.Value.Date).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                    "'" + Convert.ToDateTime(SIM1Vikonano_dateTimePicker.Value.Date).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
                     "'" + vars_form.user_login_id + "', " +
                     "'" + textBox_comments.Text + "', " +
-                    "'" + RoumingTarif + "'" +
+                    "'" + RoumingTarifSIM1_comboBox.SelectedValue.ToString() + "'" +
                     ");");
 
                     DialogResult dialogResult = MessageBox.Show("Закрити заявку?", "Закрити?", MessageBoxButtons.YesNo);
@@ -4952,6 +5068,18 @@ namespace Disp_WinForm
                 }
                 else
                 {
+                    string ICCID = macros.sql_command("SELECT Simcardcol_imsi FROM btk.Simcard where Simcardcol_number like '" + textBox_SIM1.Text.Remove(0, 1) + "';");
+                    if (ICCID != "")
+                    {
+                        string t = macros.VodafoneSetServiceProfile(ICCID, "customerServiceProfile", RoumingTarifSIM1_comboBox.Text);
+                        var respone = JsonConvert.DeserializeObject<RootObject>(t);
+                        if (respone.setDeviceDetailsv4Response.@return.returnCode.majorReturnCode != "000")
+                        {
+                            MessageBox.Show("Error set: majorReturnCode: " + respone.setDeviceDetailsv4Response.@return.returnCode.majorReturnCode +
+                                ", majorReturnCode: " + respone.setDeviceDetailsv4Response.@return.returnCode.minorReturnCode + ".");
+                            return;
+                        }
+                    }
                     macros.sql_command("insert into btk.Simcard_rouming (" +
                     "Simcard_idSimcard, " +
                     "Simcard_roumingcol_start, " +
@@ -4969,7 +5097,7 @@ namespace Disp_WinForm
                     "'" + Convert.ToDateTime(SIM1Vikonano_dateTimePicker.Value).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
                     "'" + vars_form.user_login_id + "', " +
                     "'" + textBox_comments.Text + "', " +
-                    "'" + RoumingTarif + "'" +
+                    "'" + RoumingTarifSIM1_comboBox.SelectedValue.ToString() + "'" +
                     ");");
 
                     macros.sql_command(string.Format("UPDATE btk.notification SET remayder_date ='" + Convert.ToDateTime(Rouming_SIM1_End_dtp.Value).ToString("yyyy-MM-dd") + "', remaynder_activate= 1 where idnotification=" + _id_notif + ";"));
@@ -4991,10 +5119,7 @@ namespace Disp_WinForm
                                         "" + police + "', " +
                                         "'" + gmr + "'); UPDATE btk.notification SET Status = '" + comboBox_status_trevogi.SelectedItem.ToString() + "', time_stamp = now(), Users_idUsers='" + _user_login_id + "' WHERE idnotification = '" + _id_notif + "'OR group_alarm = '" + _id_notif + "'; ");
                     mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
-                }
-
-
-                
+                } 
             }
 
             ReadRoumingHistory();
@@ -5040,84 +5165,265 @@ namespace Disp_WinForm
             //                                        "\"to\":\"1\"}");
             //var m = JsonConvert.DeserializeObject<RootObject>(json);
 
-            if (Rouming_SIM2_Start_dtp.Value.Date >= Rouming_SIM2_End_dtp.Value.Date)
+            // idSim2Card = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '" + textBox_SIM2.Text.Remove(0, 1) + "';");
+            if (idSim2Card == "")
             {
-                MessageBox.Show("Перевір дату");
+                MessageBox.Show("SIM не знайдено в базі, зверніться до 117");
                 return;
             }
-            if (radioButton_SIM2_Tarif1.Checked is false & radioButton_SIM2_Rouming_off.Checked is false & radioButton_SIM2_Tarif2.Checked is false)
+
+            if (RoumingTarifSIM2_comboBox.Text == "")
             {
                 MessageBox.Show("Не вибрано тариф роумінгу");
                 return;
             }
 
-            if (sim2_operator == 25501)
+            if (Rouming_SIM2_Start_dtp.Value.Date >= Rouming_SIM2_End_dtp.Value.Date)
             {
-                int RoumingTarif = 0;
-                if (radioButton_SIM2_Rouming_off.Checked)
-                { RoumingTarif = 1; }//Україна - вим. роумінг
-                else if (radioButton_SIM2_Tarif1.Checked)
-                { RoumingTarif = 2; }//Global
-                else if (radioButton_SIM2_Tarif2.Checked)
-                { RoumingTarif = 3; }//Europe
-
-                // idSim2Card = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '" + textBox_SIM2.Text.Remove(0, 1) + "';");
-                if (idSim2Card == "")
-                {
-                    MessageBox.Show("SIM не знайдено в базі, зверніться до 117");
-                    return;
-                }
-                macros.sql_command("insert into btk.Simcard_rouming (" +
-                    "Simcard_idSimcard, " +
-                    "Simcard_roumingcol_start, " +
-                    "Simcard_roumingcol_end, " +
-                    "Simcard_roumingcol_created, " +
-                    "Users_idUsers, " +
-                    "Comments, " +
-                    "Rouming_tarif_idRouming_tarif" +
-                    ") values(" +
-                    "'" + idSim2Card + "', " +
-                    "'" + Convert.ToDateTime(Rouming_SIM2_Start_dtp.Value).ToString("yyyy-MM-dd") + "', " +
-                    "'" + Convert.ToDateTime(Rouming_SIM2_End_dtp.Value).ToString("yyyy-MM-dd") + "', " +
-                    "now(), " +
-                    "'" + vars_form.user_login_id + "', " +
-                    "'" + textBox_comments.Text + "', " +
-                    "'" + RoumingTarif + "'" +
-                    ");");
+                MessageBox.Show("Перевір дату");
+                return;
             }
-            else if (sim2_operator == 25503)
-            {
-                int RoumingTarif = 0;
-                if (radioButton_SIM2_Rouming_off.Checked)
-                { RoumingTarif = 4; }//Україна - вим. роумінг
-                else if (radioButton_SIM2_Tarif1.Checked)
-                { RoumingTarif = 5; }//Простий (до 32 днів)
-                else if (radioButton_SIM2_Tarif2.Checked)
-                { RoumingTarif = 6; }//Коморт (більше 32 днів)
 
-                // idSim2Card = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number like '" + textBox_SIM2.Text.Remove(0, 4) + "';");
-                if (idSim2Card == "")
+            if (textBox_SIM2.Text.Contains("+38067"))
+            {
+                if (RoumingTarifSIM2_comboBox.Text == "Украина (вимк.)")
                 {
-                    MessageBox.Show("SIM не знайдено в базі, зверніться до 117");
-                    return;
+                    macros.sql_command("insert into btk.Simcard_rouming (" +
+                   "Simcard_idSimcard, " +
+                   "DateVikonano, " +
+                   "Simcard_roumingcol_created, " +
+                   "Users_idUsers, " +
+                   "Comments, " +
+                   "Rouming_tarif_idRouming_tarif" +
+                   ") values(" +
+                   "'" + idSimCard + "', " +
+                   "'" + Convert.ToDateTime(SIM2Vikonano_dateTimePicker.Value.Date).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                   "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                   "'" + vars_form.user_login_id + "', " +
+                   "'" + textBox_comments.Text + "', " +
+                   "'" + RoumingTarifSIM2_comboBox.SelectedValue.ToString() + "'" +
+                   ");");
+
+                    macros.sql_command(string.Format("UPDATE btk.notification SET remayder_date ='null', remaynder_activate= 0 where idnotification=" + _id_notif + ";"));
+
+                    DialogResult dialogResult = MessageBox.Show("Закрити заявку?", "Закрити?", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+
+
+                        int gmr = checkBox_vizov_gmr.Checked ? 1 : 0;
+                        int police = checkBox_vizov_police.Checked ? 1 : 0;
+                        macros.sql_command("insert into btk.alarm_ack(" +
+                                            "alarm_text, " +
+                                            "notification_idnotification, " +
+                                            "Users_chenge, time_start_ack, " +
+                                            "current_status_alarm, " +
+                                            "vizov_police, " +
+                                            "vizov_gmp) " +
+                                            "values('Роумінг відключено', " +
+                                            "'" + _id_notif + "'," +
+                                            "'" + _user_login_id + "', " +
+                                            "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                            " 'Закрито', '" +
+                                            "" + police + "', " +
+                                            "'" + gmr + "'); UPDATE btk.notification SET Status = 'Закрито', time_stamp = now(), Users_idUsers='" + _user_login_id + "' WHERE idnotification = '" + _id_notif + "'OR group_alarm = '" + _id_notif + "'; ");
+                        this.Close();
+                    }
+                    else
+                    {
+                        int gmr = checkBox_vizov_gmr.Checked ? 1 : 0;
+                        int police = checkBox_vizov_police.Checked ? 1 : 0;
+                        macros.sql_command("insert into btk.alarm_ack(" +
+                                            "alarm_text, " +
+                                            "notification_idnotification, " +
+                                            "Users_chenge, time_start_ack, " +
+                                            "current_status_alarm, " +
+                                            "vizov_police, " +
+                                            "vizov_gmp) " +
+                                            "values('Роумінг відключено', " +
+                                            "'" + _id_notif + "'," +
+                                            "'" + _user_login_id + "', " +
+                                            "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                            " 'Учетки', '" +
+                                            "" + police + "', " +
+                                            "'" + gmr + "'); UPDATE btk.notification SET Status = '" + comboBox_status_trevogi.SelectedItem.ToString() + "', time_stamp = now(), Users_idUsers='" + _user_login_id + "' WHERE idnotification = '" + _id_notif + "'OR group_alarm = '" + _id_notif + "'; ");
+                        mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
+                    }
                 }
-                macros.sql_command("insert into btk.Simcard_rouming (" +
+                else
+                {
+                    macros.sql_command("insert into btk.Simcard_rouming (" +
                     "Simcard_idSimcard, " +
                     "Simcard_roumingcol_start, " +
                     "Simcard_roumingcol_end, " +
                     "Simcard_roumingcol_created, " +
+                    "DateVikonano, " +
                     "Users_idUsers, " +
                     "Comments, " +
                     "Rouming_tarif_idRouming_tarif" +
                     ") values(" +
-                    "'" + idSim2Card + "', " +
+                    "'" + idSimCard + "', " +
                     "'" + Convert.ToDateTime(Rouming_SIM2_Start_dtp.Value).ToString("yyyy-MM-dd") + "', " +
                     "'" + Convert.ToDateTime(Rouming_SIM2_End_dtp.Value).ToString("yyyy-MM-dd") + "', " +
-                    "now(), " +
+                    "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                    "'" + Convert.ToDateTime(SIM2Vikonano_dateTimePicker.Value.Date).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
                     "'" + vars_form.user_login_id + "', " +
                     "'" + textBox_comments.Text + "', " +
-                    "'" + RoumingTarif + "'" +
+                    "'" + RoumingTarifSIM2_comboBox.SelectedValue.ToString() + "'" +
                     ");");
+
+                    macros.sql_command(string.Format("UPDATE btk.notification SET remayder_date ='" + Convert.ToDateTime(Rouming_SIM2_End_dtp.Value).ToString("yyyy-MM-dd") + "', remaynder_activate= 1 where idnotification=" + _id_notif + ";"));
+
+                    int gmr = checkBox_vizov_gmr.Checked ? 1 : 0;
+                    int police = checkBox_vizov_police.Checked ? 1 : 0;
+                    macros.sql_command("insert into btk.alarm_ack(" +
+                                        "alarm_text, " +
+                                        "notification_idnotification, " +
+                                        "Users_chenge, time_start_ack, " +
+                                        "current_status_alarm, " +
+                                        "vizov_police, " +
+                                        "vizov_gmp) " +
+                                        "values('Роумінг підключено', " +
+                                        "'" + _id_notif + "'," +
+                                        "'" + _user_login_id + "', " +
+                                        "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                        " 'Учетки', '" +
+                                        "" + police + "', " +
+                                        "'" + gmr + "'); UPDATE btk.notification SET Status = '" + comboBox_status_trevogi.SelectedItem.ToString() + "', time_stamp = now(), Users_idUsers='" + _user_login_id + "' WHERE idnotification = '" + _id_notif + "'OR group_alarm = '" + _id_notif + "'; ");
+                    mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
+                }
+            }
+            else if (textBox_SIM2.Text.Contains("+882"))
+            {
+                if (RoumingTarifSIM2_comboBox.Text == "VENBEST_UKRAINE_Basic_Kit")
+                {
+                    string ICCID = macros.sql_command("SELECT Simcardcol_imsi FROM btk.Simcard where Simcardcol_number like '" + textBox_SIM2.Text.Remove(0, 1) + "';");
+                    if (ICCID != "")
+                    {
+                        string t = macros.VodafoneSetServiceProfile(ICCID, "customerServiceProfile", RoumingTarifSIM2_comboBox.Text);
+                        var respone = JsonConvert.DeserializeObject<RootObject>(t);
+                        if (respone.setDeviceDetailsv4Response.@return.returnCode.majorReturnCode != "000")
+                        {
+                            MessageBox.Show("Error set: majorReturnCode: " + respone.setDeviceDetailsv4Response.@return.returnCode.majorReturnCode +
+                                ", majorReturnCode: " + respone.setDeviceDetailsv4Response.@return.returnCode.minorReturnCode + ".");
+                            return;
+                        }
+                    }
+                    
+                    macros.sql_command(string.Format("UPDATE btk.notification SET remayder_date ='null', remaynder_activate= 0 where idnotification=" + _id_notif + ";"));
+
+                    macros.sql_command("insert into btk.Simcard_rouming (" +
+                    "Simcard_idSimcard, " +
+                    "Simcard_roumingcol_created, " +
+                    "DateVikonano, " +
+                    "Users_idUsers, " +
+                    "Comments, " +
+                    "Rouming_tarif_idRouming_tarif" +
+                    ") values(" +
+                    "'" + idSimCard + "', " +
+                    "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                    "'" + Convert.ToDateTime(SIM2Vikonano_dateTimePicker.Value.Date).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                    "'" + vars_form.user_login_id + "', " +
+                    "'" + textBox_comments.Text + "', " +
+                    "'" + RoumingTarifSIM2_comboBox.SelectedValue.ToString() + "'" +
+                    ");");
+
+                    DialogResult dialogResult = MessageBox.Show("Закрити заявку?", "Закрити?", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        int gmr = checkBox_vizov_gmr.Checked ? 1 : 0;
+                        int police = checkBox_vizov_police.Checked ? 1 : 0;
+                        macros.sql_command("insert into btk.alarm_ack(" +
+                                            "alarm_text, " +
+                                            "notification_idnotification, " +
+                                            "Users_chenge, time_start_ack, " +
+                                            "current_status_alarm, " +
+                                            "vizov_police, " +
+                                            "vizov_gmp) " +
+                                            "values('Роумінг відключено', " +
+                                            "'" + _id_notif + "'," +
+                                            "'" + _user_login_id + "', " +
+                                            "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                            " 'Закрито', '" +
+                                            "" + police + "', " +
+                                            "'" + gmr + "'); UPDATE btk.notification SET Status = 'Закрито', time_stamp = now(), Users_idUsers='" + _user_login_id + "' WHERE idnotification = '" + _id_notif + "'OR group_alarm = '" + _id_notif + "'; ");
+                        this.Close();
+                    }
+                    else
+                    {
+                        int gmr = checkBox_vizov_gmr.Checked ? 1 : 0;
+                        int police = checkBox_vizov_police.Checked ? 1 : 0;
+                        macros.sql_command("insert into btk.alarm_ack(" +
+                                            "alarm_text, " +
+                                            "notification_idnotification, " +
+                                            "Users_chenge, time_start_ack, " +
+                                            "current_status_alarm, " +
+                                            "vizov_police, " +
+                                            "vizov_gmp) " +
+                                            "values('Роумінг відключено', " +
+                                            "'" + _id_notif + "'," +
+                                            "'" + _user_login_id + "', " +
+                                            "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                            " 'Учетки', '" +
+                                            "" + police + "', " +
+                                            "'" + gmr + "'); UPDATE btk.notification SET Status = '" + comboBox_status_trevogi.SelectedItem.ToString() + "', time_stamp = now(), Users_idUsers='" + _user_login_id + "' WHERE idnotification = '" + _id_notif + "'OR group_alarm = '" + _id_notif + "'; ");
+                        mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
+                    }
+                }
+                else
+                {
+                    string ICCID = macros.sql_command("SELECT Simcardcol_imsi FROM btk.Simcard where Simcardcol_number like '" + textBox_SIM2.Text.Remove(0, 1) + "';");
+                    if (ICCID != "")
+                    {
+                        string t = macros.VodafoneSetServiceProfile(ICCID, "customerServiceProfile", RoumingTarifSIM2_comboBox.Text);
+                        var respone = JsonConvert.DeserializeObject<RootObject>(t);
+                        if (respone.setDeviceDetailsv4Response.@return.returnCode.majorReturnCode != "000")
+                        {
+                            MessageBox.Show("Error set: majorReturnCode: " + respone.setDeviceDetailsv4Response.@return.returnCode.majorReturnCode +
+                                ", majorReturnCode: " + respone.setDeviceDetailsv4Response.@return.returnCode.minorReturnCode + ".");
+                            return;
+                        }
+                    }
+                    macros.sql_command("insert into btk.Simcard_rouming (" +
+                    "Simcard_idSimcard, " +
+                    "Simcard_roumingcol_start, " +
+                    "Simcard_roumingcol_end, " +
+                    "Simcard_roumingcol_created, " +
+                    "DateVikonano, " +
+                    "Users_idUsers, " +
+                    "Comments, " +
+                    "Rouming_tarif_idRouming_tarif" +
+                    ") values(" +
+                    "'" + idSimCard + "', " +
+                    "'" + Convert.ToDateTime(Rouming_SIM2_Start_dtp.Value).ToString("yyyy-MM-dd") + "', " +
+                    "'" + Convert.ToDateTime(Rouming_SIM2_End_dtp.Value).ToString("yyyy-MM-dd") + "', " +
+                    "'" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                    "'" + Convert.ToDateTime(SIM2Vikonano_dateTimePicker.Value).ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                    "'" + vars_form.user_login_id + "', " +
+                    "'" + textBox_comments.Text + "', " +
+                    "'" + RoumingTarifSIM2_comboBox.SelectedValue.ToString() + "'" +
+                    ");");
+
+                    macros.sql_command(string.Format("UPDATE btk.notification SET remayder_date ='" + Convert.ToDateTime(Rouming_SIM2_End_dtp.Value).ToString("yyyy-MM-dd") + "', remaynder_activate= 1 where idnotification=" + _id_notif + ";"));
+
+                    int gmr = checkBox_vizov_gmr.Checked ? 1 : 0;
+                    int police = checkBox_vizov_police.Checked ? 1 : 0;
+                    macros.sql_command("insert into btk.alarm_ack(" +
+                                        "alarm_text, " +
+                                        "notification_idnotification, " +
+                                        "Users_chenge, time_start_ack, " +
+                                        "current_status_alarm, " +
+                                        "vizov_police, " +
+                                        "vizov_gmp) " +
+                                        "values('Роумінг підключено', " +
+                                        "'" + _id_notif + "'," +
+                                        "'" + _user_login_id + "', " +
+                                        "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                        " 'Учетки', '" +
+                                        "" + police + "', " +
+                                        "'" + gmr + "'); UPDATE btk.notification SET Status = '" + comboBox_status_trevogi.SelectedItem.ToString() + "', time_stamp = now(), Users_idUsers='" + _user_login_id + "' WHERE idnotification = '" + _id_notif + "'OR group_alarm = '" + _id_notif + "'; ");
+                    mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
+                }
             }
             ReadRoumingHistory();
         }
@@ -5235,7 +5541,7 @@ namespace Disp_WinForm
                                         "'" + _id_notif + "'," +
                                         "'" + _user_login_id + "', " +
                                         "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
-                                        " 'Учетки', '" +
+                                        " '" + comboBox_status_trevogi.Text + "', '" +
                                         "" + police + "', " +
                                         "'" + gmr + "');");
 
@@ -5329,7 +5635,7 @@ namespace Disp_WinForm
                                         "'" + _id_notif + "'," +
                                         "'" + _user_login_id + "', " +
                                         "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
-                                        " 'Учетки', '" +
+                                        " '" + comboBox_status_trevogi.Text + "', '" +
                                         "" + police + "', " +
                                         "'" + gmr + "');");
 
@@ -5417,7 +5723,7 @@ namespace Disp_WinForm
                                         "'" + _id_notif + "'," +
                                         "'" + _user_login_id + "', " +
                                         "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
-                                        " 'Учетки', '" +
+                                        " '" + comboBox_status_trevogi.Text + "', '" +
                                         "" + police + "', " +
                                         "'" + gmr + "');");
 
@@ -5503,7 +5809,7 @@ namespace Disp_WinForm
                                         "'" + _id_notif + "'," +
                                         "'" + _user_login_id + "', " +
                                         "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
-                                        " 'Учетки', '" +
+                                        " '" + comboBox_status_trevogi.Text + "', '" +
                                         "" + police + "', " +
                                         "'" + gmr + "');");
 
@@ -5589,7 +5895,7 @@ namespace Disp_WinForm
                                         "'" + _id_notif + "'," +
                                         "'" + _user_login_id + "', " +
                                         "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
-                                        " 'Учетки', '" +
+                                        " '" + comboBox_status_trevogi.Text + "', '" +
                                         "" + police + "', " +
                                         "'" + gmr + "');");
 
@@ -5675,7 +5981,7 @@ namespace Disp_WinForm
                                         "'" + _id_notif + "'," +
                                         "'" + _user_login_id + "', " +
                                         "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
-                                        " 'Учетки', '" +
+                                        " '" + comboBox_status_trevogi.Text + "', '" +
                                         "" + police + "', " +
                                         "'" + gmr + "');");
 
@@ -5762,7 +6068,7 @@ namespace Disp_WinForm
                                         "'" + _id_notif + "'," +
                                         "'" + _user_login_id + "', " +
                                         "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
-                                        " 'Учетки', '" +
+                                        " '" + comboBox_status_trevogi.Text + "', '" +
                                         "" + police + "', " +
                                         "'" + gmr + "');");
 
@@ -5848,7 +6154,7 @@ namespace Disp_WinForm
                                         "'" + _id_notif + "'," +
                                         "'" + _user_login_id + "', " +
                                         "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
-                                        " 'Учетки', '" +
+                                        " '" + comboBox_status_trevogi.Text + "', '" +
                                         "" + police + "', " +
                                         "'" + gmr + "');");
 
@@ -5966,10 +6272,218 @@ namespace Disp_WinForm
                                     " '" + "Роумінг" + "', " +
                                     "'0', " +
                                     "'0'); ");
+
+                string json = macros.WialonRequest("&svc=core/search_item&params={"
+                                                         + "\"id\":\"" + vars_form.add_alarm_unit_id + "\","
+                                                         + "\"flags\":\"8388873\"}"); //
+                var test_out = JsonConvert.DeserializeObject<RootObject>(json);
+
+                string project = "";
+                foreach (var keyvalue in test_out.item.flds)
+                {
+                    if (keyvalue.Value.n.Contains("Проект"))
+                    {
+                        project = keyvalue.Value.v.ToString();
+                        break;
+                    }
+                }
+
+                string Body = 
+                    "<p>Добрий день!</p>" +
+                    "<p>Роумінг погоджено!</p>" +
+                    "<p>Project: " + project + "</p>" +
+                    "<p>Name: " + _unit_name + "</p>" +
+                    "<p>ID: " + textBox_IMEI.Text + "</p>" +
+                    "<p>SIM1: " + textBox_SIM1.Text + "</p>" +
+                    "<p>SIM2: " + textBox_SIM1.Text + "</p>" +
+                    "<p>FROM: " + RoumingZapitStart_dateTimePicker.Value + "</p>" +
+                    "<p>TO: " + RoumingZapitEnd_dateTimePicker.Value + "</p>";
+
+                //Stroim spisok Komu otpravlayem
+                DataTable GroupRecipient = macros.GetData("SELECT user_mail FROM btk.Users where dept_user = 113;");
+                string Recipient = "";
+                int Count = GroupRecipient.Rows.Count;
+                foreach (DataRow row in GroupRecipient.Rows)
+                {
+                    if (Count == 1)
+                    {
+                        Recipient += "<" + row["user_mail"].ToString() + ">";
+                    }
+                    else if (Count > 1)
+                    {
+                        Recipient += "<" + row["user_mail"].ToString() + ">,";
+                        Count--;
+                    }
+                    else if (Count == 0)
+                    {
+                        MessageBox.Show("Ups, Net Adresatov, naberi 117");
+                    }
+                }
+
+                if (Recipient != "")
+                { macros.send_mail_auto(email_textBox.Text, "Disp. Активацыя роумінгу. Обєкт: "+ _unit_name + " ID: " + textBox_IMEI.Text, Body); }
+
             }
             mysql_get_hronologiya_trivog();
 
+        }
 
+        private void Test_button_Click(object sender, EventArgs e)
+        {
+            string Body = "<p>Добрий день!</p>" +
+                    "<p>Роумінг погоджено!</p>" +
+                    "<p>Project: " + _unit_name + "</p>" +
+                    "<p>Name: " + _unit_name + "</p>" +
+                    "<p>ID: " + textBox_IMEI.Text + "</p>" +
+                    "<p>SIM1: " + textBox_SIM1.Text + "</p>" +
+                    "<p>SIM2: " + textBox_SIM1.Text + "</p>" +
+                    "<p>FROM: " + textBox_SIM1.Text + "</p>" +
+                    "<p>TO: " + textBox_SIM1.Text + "</p>";
+
+            //Stroim spisok Komu otpravlayem
+            DataTable GroupRecipient = macros.GetData("SELECT user_mail FROM btk.Users where dept_user = 113;");
+            string Recipient = "";
+            int Count = GroupRecipient.Rows.Count;
+            foreach (DataRow row in GroupRecipient.Rows)
+            {
+                if (Count == 1)
+                {
+                    Recipient += "<" + row["user_mail"].ToString() + ">";
+                }
+                else if (Count > 1)
+                {
+                    Recipient += "<" + row["user_mail"].ToString() + ">,";
+                    Count--;
+                }
+                else if (Count == 0)
+                {
+                    MessageBox.Show("Ups, Net Adresatov, naberi 117");
+                }
+            }
+            return;
+            if (Recipient != "")
+            { macros.send_mail_auto(email_textBox.Text, "Disp. Активацыя роумінгу. Обєкт: " + _unit_name + " ", Body); }
+        }
+
+        private void ParkingSave_button_Click(object sender, EventArgs e)
+        {
+            if (Parking1ExistInWL == 0)
+            {
+                //Создание Произвольного поля Паркинг 1
+                string answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                + "\"itemId\":\"" + _search_id + "\","
+                                + "\"id\":\"0\","
+                                + "\"callMode\":\"create\","
+                                + "\"n\":\"8.1 Паркінг 1\","
+                                + "\"v\":\"" + Parking1_textBox.Text.Replace("\"", "%5C%22") + "\"}");
+            }
+            else
+            {
+                //Обновление Произвольного поля Паркинг 1
+                string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                                                         "\"itemId\":\"" + _search_id + "\"," +
+                                                         "\"id\":\"" + Parking1ExistInWL + "\"," +
+                                                         "\"callMode\":\"update\"," +
+                                                         "\"n\":\"8.1 Паркінг 1\"," +
+                                                         "\"v\":\"" + Parking1_textBox.Text.Replace("\"", "%5C%22") + "\"}");//получаем датчики объекта
+            }
+
+            if (Parking2ExistInWL == 0)
+            {
+                //Создание Произвольного поля Паркинг 2
+                string answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                + "\"itemId\":\"" + _search_id + "\","
+                                + "\"id\":\"0\","
+                                + "\"callMode\":\"create\","
+                                + "\"n\":\"8.2 Паркінг 2\","
+                                + "\"v\":\"" + Parking2_textBox.Text.Replace("\"", "%5C%22") + "\"}");
+            }
+            else
+            {
+                //Обновление Произвольного поля Паркинг 2
+                string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                                                         "\"itemId\":\"" + _search_id + "\"," +
+                                                         "\"id\":\"" + Parking2ExistInWL + "\"," +
+                                                         "\"callMode\":\"update\"," +
+                                                         "\"n\":\"8.2 Паркінг 2\"," +
+                                                         "\"v\":\"" + Parking2_textBox.Text.Replace("\"", "%5C%22") + "\"}");//получаем датчики объекта
+            }
+
+            if (Parking3ExistInWL == 0)
+            {
+                //Создание Произвольного поля Паркинг 3
+                string answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                + "\"itemId\":\"" + _search_id + "\","
+                                + "\"id\":\"0\","
+                                + "\"callMode\":\"create\","
+                                + "\"n\":\"8.3 Паркінг 3\","
+                                + "\"v\":\"" + Parking3_textBox.Text.Replace("\"", "%5C%22") + "\"}");
+            }
+            else
+            {
+                //Обновление Произвольного поля Паркинг 3
+                string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                                                         "\"itemId\":\"" + _search_id + "\"," +
+                                                         "\"id\":\"" + Parking3ExistInWL + "\"," +
+                                                         "\"callMode\":\"update\"," +
+                                                         "\"n\":\"8.3 Паркінг 3\"," +
+                                                         "\"v\":\"" + Parking3_textBox.Text.Replace("\"", "%5C%22") + "\"}");//получаем датчики объекта
+            }
+
+            if (Parking4ExistInWL == 0)
+            {
+                //Создание Произвольного поля Паркинг 4
+                string answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                + "\"itemId\":\"" + _search_id + "\","
+                                + "\"id\":\"0\","
+                                + "\"callMode\":\"create\","
+                                + "\"n\":\"8.4 Паркінг 4\","
+                                + "\"v\":\"" + Parking4_textBox.Text.Replace("\"", "%5C%22") + "\"}");
+            }
+            else
+            {
+                //Обновление Произвольного поля Паркинг 4
+                string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                                                         "\"itemId\":\"" + _search_id + "\"," +
+                                                         "\"id\":\"" + Parking4ExistInWL + "\"," +
+                                                         "\"callMode\":\"update\"," +
+                                                         "\"n\":\"8.4 Паркінг 4\"," +
+                                                         "\"v\":\"" + Parking4_textBox.Text.Replace("\"", "%5C%22") + "\"}");//получаем датчики объекта
+            }
+
+            if (Parking5ExistInWL == 0)
+            {
+                //Создание Произвольного поля Паркинг 5
+                string answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                + "\"itemId\":\"" + _search_id + "\","
+                                + "\"id\":\"0\","
+                                + "\"callMode\":\"create\","
+                                + "\"n\":\"8.5 Паркінг 5\","
+                                + "\"v\":\"" + Parking5_textBox.Text.Replace("\"", "%5C%22") + "\"}");
+            }
+            else
+            {
+                //Обновление Произвольного поля Паркинг 5
+                string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                                                         "\"itemId\":\"" + _search_id + "\"," +
+                                                         "\"id\":\"" + Parking5ExistInWL + "\"," +
+                                                         "\"callMode\":\"update\"," +
+                                                         "\"n\":\"8.4 Паркінг 5\"," +
+                                                         "\"v\":\"" + Parking5_textBox.Text.Replace("\"", "%5C%22") + "\"}");//получаем датчики объекта
+            }
+
+
+
+        }
+    }
+    public class ComboboxItem
+    {
+        public string Text { get; set; }
+        public object Value { get; set; }
+
+        public override string ToString()
+        {
+            return Text;
         }
     }
 }

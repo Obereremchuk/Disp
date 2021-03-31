@@ -256,8 +256,59 @@ namespace Disp_WinForm
             }
         }
 
+        //VENBEST_UKRAINE_Basic_Kit
+        //VENBEST_EUROPE_EURO_KIT
+        //VENBEST_GLOBAL
+        public string VodafoneSetServiceProfile(string ICCID, string Parametr, string Value)
+        {
+            string URL_API = "https://api.m2m.vodafone.com/m2m/v1/devices/" + ICCID;
+            string json = "{\"DeviceDetailsv4\":{\"deviceId\":\"" + ICCID + "\",\"" + Parametr + "\":\"" + Value + "\"}}";
 
+            using var client = new HttpClient();
+            {
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + vars_form.Vodafone_AccessToken);
+                var result = client.PutAsync(URL_API, content).Result;
+                string contents = result.Content.ReadAsStringAsync().Result;
+                var answ = JsonConvert.DeserializeObject<RootObject>(contents);
+                answ = JsonConvert.DeserializeObject<RootObject>(contents);
+                if (contents.Contains("MissingAuthorizationHeader") || contents.Contains("Invalid Access Token"))
+                {
+                    Vodafone_GetToken_v2();
+                    content = new StringContent(json, Encoding.UTF8, "application/json");
+                    client.DefaultRequestHeaders.Remove("Authorization");
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + vars_form.Vodafone_AccessToken);
+                    result = client.PutAsync(URL_API, content).Result;
+                    contents = result.Content.ReadAsStringAsync().Result;
+                }
+                return contents;
+            }
+        }
 
+        public string VodafoneGetServiceProfile(string ICCID)
+        {
+            string URL_API = "https://api.m2m.vodafone.com/m2m/v1/devices/" + ICCID;
+
+            using var client = new HttpClient();
+            {
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + vars_form.Vodafone_AccessToken);
+                var result = client.GetAsync(URL_API).Result;
+                string contents = result.Content.ReadAsStringAsync().Result;
+                var answ = JsonConvert.DeserializeObject<RootObject>(contents);
+                answ = JsonConvert.DeserializeObject<RootObject>(contents);
+                //var myDeserializedClass = JsonConvert.DeserializeObject<RootObject>(contents);
+                if (contents.Contains("MissingAuthorizationHeader") || contents.Contains("Invalid Access Token"))
+                {
+                    Vodafone_GetToken_v2();
+                    client.DefaultRequestHeaders.Remove("Authorization");
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + vars_form.Vodafone_AccessToken);
+                    result = client.GetAsync(URL_API).Result;
+                    contents = result.Content.ReadAsStringAsync().Result;
+                    //myDeserializedClass = JsonConvert.DeserializeObject<RootObject>(contents);
+                }
+                return contents;
+            }
+        }
 
 
 

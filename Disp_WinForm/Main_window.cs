@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
@@ -40,7 +42,6 @@ namespace Disp_WinForm
             InitializeComponent();
 
             this.Text = "Disp v." + vars_form.version;
-            comboBox_testing_filter.SelectedIndex = 0;
 
             aTimer = new System.Timers.Timer();
 
@@ -49,7 +50,7 @@ namespace Disp_WinForm
             TimeSpan ts1 = new TimeSpan(00, 00, 0);
             TimeSpan ts2 = new TimeSpan(23, 59, 59);
 
-            dateTimePicker_testing_date.Value = DateTime.Now.Date + ts1;
+
             dateTimePicker_for_zayavki_na_activation_W2.Value = DateTime.Now.Date + ts2;
             dateTimePicker_from_for_zayavki_na_activation_W2.Value = DateTime.Now.Date + ts1;
             dateTimePicker_activation_filter_start.Value = DateTime.Now.Date;
@@ -4092,27 +4093,43 @@ namespace Disp_WinForm
 
         private void textBox_test_search_TextChanged(object sender, EventArgs e)
         {
+            textBox_search_object_name_testing.Text = textBox_test_search.Text;
             if (textBox_test_search.Text.Length > 4)
             {
                 try
                 {
                     //// если все поля поиска пустыет - выводим полный перечень. Думаю это не рационально, может быть дохера записей...
-                    string sql = string.Format("SELECT Object_id_wl, concat(Object_name, ' (',Object_imei, ')') as name_id  FROM btk.Object where Object_name like '%" + textBox_test_search.Text.ToString() + "%'  or Object_imei like '%" + textBox_test_search.Text.ToString() + "%';");
+                    string sql = string.Format("SELECT Object_id_wl, concat(Object_name, ' (',Object_imei, ')') as name_id  FROM btk.Object where (Object_name like '%" + textBox_test_search.Text.ToString() + "%'  or Object_imei like '%" + textBox_test_search.Text.ToString() + "%') and (Objectcol_deleted = 0 or Objectcol_deleted IS null) ;");
                     listBox_test_search_result.DataSource = macros.GetData(sql);
                     listBox_test_search_result.DisplayMember = "name_id";
                     listBox_test_search_result.ValueMember = "Object_id_wl";
                     //
-                    textBox_search_object_name_testing.Text = textBox_test_search.Text;
+                    
                     checkBox_testing_za_ves_chas_search.Checked = true;
-
-                    if (textBox_test_search.Text == "")
-                    {
-                        listBox_test_search_result.DataSource = null;
-                    }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message.ToString() + "textBox_filter_object_ohrani_TextChanged");
+                }
+            }
+            else
+            {
+
+                if ( textBox_test_search.Text.Length < 4 && textBox_test_search.Text.Length > 2)
+                {
+                    checkBox_testing_za_ves_chas_search.Checked = true;
+                    listBox_test_search_result.DataSource = null;
+                    dataGridView_testing.DataSource = null;
+                }
+                else if (textBox_test_search.Text.Length < 2 && textBox_test_search.Text.Length > 1)
+                {
+                    checkBox_testing_za_ves_chas_search.Checked = false;
+                }
+                else if(textBox_test_search.Text.Length == 0)
+                {
+                    listBox_test_search_result.DataSource = null;
+                    textBox_search_object_name_testing.Text = "";
+                    checkBox_testing_za_ves_chas_search.Checked = false;
                 }
             }
         }
@@ -4344,15 +4361,6 @@ namespace Disp_WinForm
         //    update_actication_dgv();
         //}
 
-        private void comboBox_testing_filter_DropDownClosed(object sender, EventArgs e)
-        {
-            update_testing_dgv();
-        }
-
-        private void dateTimePicker_testing_date_CloseUp(object sender, EventArgs e)
-        {
-            update_testing_dgv();
-        }
 
         private void comboBox_activovani_select_DropDownClosed(object sender, EventArgs e)
         {
@@ -4969,31 +4977,7 @@ namespace Disp_WinForm
 
         private void button_copy_sms_Click(object sender, EventArgs e)
         {
-            if (maskedTextBox_GSM_CODE.Text == "" || comboBox_tel_select.Text == "")
-            {
-                MessageBox.Show("Не заповнені необхідні поля!");
-                return;
-            }
-            button_create_object.Text = "Sendins SMS...";
-            string TextSMS = maskedTextBox_GSM_CODE.Text + "*27183#" + textBox_bt_enable.Text;
-            string ICCID = comboBox_tel_select.Text;
-
-            Task<string> Test = Task<string>.Run(() =>
-            {
-                return macros.VodafoneSendSMS(ICCID, TextSMS);
-            });
-
-            var answ = JsonConvert.DeserializeObject<RootObject>(Test.Result);
-            if (answ.submitTransactionalSMSResponse.@return.returnCode.majorReturnCode == "000")
-            {
-                button_create_object.Text = "SMS Sent!";
-                button_create_object.BackColor = Color.Green;
-            }
-            else
-            {
-                button_create_object.Text = "Error Sent SMS! Reason: " + answ.submitTransactionalSMSResponse.@return.failureReason;
-                button_create_object.BackColor = Color.Red;
-            }
+            Clipboard.SetText(maskedTextBox_GSM_CODE.Text + "*27183#" + textBox_bt_enable.Text);
         }
 
         private void button_create_object_Click(object sender, EventArgs e)
@@ -14689,6 +14673,23 @@ namespace Disp_WinForm
                 + "\"vs\":\"0\","
                 + "\"tbl\":[]}");
 
+            //9. Blocking sensor
+            string block_answer = macros.WialonRequest("&svc=unit/update_sensor&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"unlink\":\"1\","
+                + "\"n\":\"Блокировка двигателя\","
+                + "\"t\":\"digital\","
+                + "\"d\":\"\","
+                + "\"m\":\"Вкл/Выкл\","
+                + "\"p\":\"io_180\","
+                + "\"f\":\"0\","
+                + "\"c\":\"{%5c\"act%5c\":true,%5c\"appear_in_popup%5c\":true}\","
+                + "\"vt\":\"1\","
+                + "\"vs\":\"0\","
+                + "\"tbl\":[]}");
+
 
             /////////////////
             ///Создаем произвольные поля
@@ -15209,6 +15210,23 @@ namespace Disp_WinForm
                 + "\"d\":\"\","
                 + "\"m\":\"Вкл/Выкл\","
                 + "\"p\":\"io_239\","
+                + "\"f\":\"0\","
+                + "\"c\":\"{%5c\"act%5c\":true,%5c\"appear_in_popup%5c\":true}\","
+                + "\"vt\":\"1\","
+                + "\"vs\":\"0\","
+                + "\"tbl\":[]}");
+
+            //9. Blocking sensor
+            string block_answer = macros.WialonRequest("&svc=unit/update_sensor&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"unlink\":\"1\","
+                + "\"n\":\"Блокировка двигателя\","
+                + "\"t\":\"digital\","
+                + "\"d\":\"\","
+                + "\"m\":\"Вкл/Выкл\","
+                + "\"p\":\"io_180\","
                 + "\"f\":\"0\","
                 + "\"c\":\"{%5c\"act%5c\":true,%5c\"appear_in_popup%5c\":true}\","
                 + "\"vt\":\"1\","
@@ -16032,43 +16050,73 @@ namespace Disp_WinForm
         {
             var writer = new BarcodeWriter
             {
-                Format = BarcodeFormat.CODE_39,
+                Format = BarcodeFormat.CODE_128,
                 Options = new ZXing.Common.EncodingOptions
                 {
                     Height = 60,
-                    Width = 40,
+                    Width = 1,
                     PureBarcode = false,
-                    Margin = 0
+                    Margin = 50
                 },
             };
 
-            writer
-                .Write(textBox_id_to_create.Text)
-                .Save(streamToPrint);
-        }
-
-        private void edit_img()
-        {
-            string firstText = "Hello";
-            string secondText = "World";
-
-            PointF firstLocation = new PointF(10f, 10f);
-            PointF secondLocation = new PointF(10f, 50f);
-
-            string imageFilePath = @"C:\Temp\barcode.png";
-            Bitmap bitmap = (Bitmap)Image.FromFile(imageFilePath);//load the image file
-
-            using (Graphics graphics = Graphics.FromImage(bitmap))
+            try
             {
-                using (Font arialFont = new Font("Arial", 10))
-                {
-                    graphics.DrawString(firstText, arialFont, Brushes.Blue, firstLocation);
-                    graphics.DrawString(secondText, arialFont, Brushes.Red, secondLocation);
-                }
+                writer
+                    .Write(textBox_id_to_create.Text)
+                    .Save(streamToPrint);
             }
-
-            bitmap.Save(@"C:\Temp\barcode1.png");//save the image file
+            catch (IOException e)  { MessageBox.Show(e.ToString()); }
+            edit_img("CNTP_N", true);
         }
+
+
+
+        private void edit_img(string ProductName, bool IcMark)
+        {
+            //Bitmap bmp = (Bitmap)Image.FromFile(streamToPrint);//load the image file
+
+            //Bitmap NewBmp = new Bitmap(267, 151);
+            //NewBmp.MakeTransparent(Color.White);
+            //using (Graphics gr = Graphics.FromImage(NewBmp))
+            //{
+            //    gr.DrawImageUnscaled(bmp, new Point(0, 35));
+            //    using (Font arialFont = new Font("Calibri", 10, FontStyle.Bold))
+            //    {
+            //        gr.DrawString(ProductName, arialFont, Brushes.Black, new PointF(185f, 30f));
+            //    }
+            //    if (IcMark is true)
+            //    {
+            //        using (Font arialFont = new Font("Calibri", 50))
+            //        {
+            //            gr.DrawString("IC", arialFont, Brushes.Black, new PointF(170f, 50f));
+            //        }
+            //    }
+            //}
+            //bmp.Dispose();
+
+            //NewBmp.Save(streamToPrint);//save the image file
+
+
+
+            using (var pd = new System.Drawing.Printing.PrintDocument())
+            {
+                Bitmap bmp2 = (Bitmap)Image.FromFile(streamToPrint);
+
+                
+                pd.PrinterSettings.PrinterName = comboBox_printers.GetItemText(comboBox_printers.SelectedItem);
+                pd.DefaultPageSettings.PaperSize = new PaperSize("70 x 40 mm", 267, 151);
+                pd.PrintPage += (_, e) =>
+                {
+                    //e.Graphics.DrawImage(bmp2, e.MarginBounds);
+                    Point loc = new Point(30, 40 );
+                    e.Graphics.DrawImage(bmp2, loc);
+                };
+                pd.Print();
+                bmp2.Dispose();
+            }
+        }
+
 
         private void PrintBarCode_Click(object sender, EventArgs e)
         {
@@ -16077,7 +16125,26 @@ namespace Disp_WinForm
                 MessageBox.Show("Вибери прінтер");
                 return;
             }
-            print();
+
+            BarCode();
+            //return;
+            //using (var pd = new System.Drawing.Printing.PrintDocument())
+            //{
+            //    pd.PrinterSettings.PrinterName = comboBox_printers.GetItemText(comboBox_printers.SelectedItem);
+            //    pd.DefaultPageSettings.PaperSize = new PaperSize("70 x 40 mm", 270, 150);
+            //    pd.PrintPage += (_, e) =>
+            //    {
+            //        Image img;
+            //        using (var bmpTemp = new Bitmap(streamToPrint))
+            //        {
+            //            img = new Bitmap(bmpTemp);
+            //        }
+
+            //        e.Graphics.DrawImage(img, 50, 50);
+            //    };
+            //    pd.Print();
+            //    pd.Dispose();
+            //}
         }
 
         private void GetPrinters()
@@ -16086,37 +16153,14 @@ namespace Disp_WinForm
             foreach (string printer in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
             {
                 comboBox_printers.Items.Add(printer);
-                for (int i = 0; i < comboBox_printers.Items.Count; i++)
-                {
-                    if (comboBox_printers.GetItemText(comboBox_printers.Items[i]).Contains("Xprinter"))
-                    {
-                        comboBox_printers.SelectedItem = comboBox_printers.Items[i];
-                        return;
-                    }
-                }
-            }
-        }
-
-        private void print()
-        {
-            BarCode();
-
-            using (var pd = new System.Drawing.Printing.PrintDocument())
-            {
-                pd.PrinterSettings.PrinterName = comboBox_printers.GetItemText(comboBox_printers.SelectedItem);
-                pd.DefaultPageSettings.PaperSize = new PaperSize("70 x 40 mm", 270, 150);
-                pd.PrintPage += (_, e) =>
-                {
-                    Image img;
-                    using (var bmpTemp = new Bitmap(streamToPrint))
-                    {
-                        img = new Bitmap(bmpTemp);
-                    }
-
-                    e.Graphics.DrawImage(img, 50, 50);
-                };
-                pd.Print();
-                pd.Dispose();
+                //for (int i = 0; i < comboBox_printers.Items.Count; i++)
+                //{
+                //    if (comboBox_printers.GetItemText(comboBox_printers.Items[i]).Contains("Xprinter"))
+                //    {
+                //        comboBox_printers.SelectedItem = comboBox_printers.Items[i];
+                //        return;
+                //    }
+                //}
             }
         }
 
@@ -16372,10 +16416,6 @@ namespace Disp_WinForm
             { MessageBox.Show("Блок с таким SN или IMEI существует в системе, проверь данные"); }
         }
 
-        private void textBox_search_testing_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void search_close_alarm_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -16799,16 +16839,13 @@ namespace Disp_WinForm
 
         private void textBox_search_object_name_testing_TextChanged(object sender, EventArgs e)
         {
-            if (textBox_search_object_name_testing.Text.Length > 3)
+            if (textBox_search_object_name_testing.Text.Length <= 2)
             {
-                if (textBox_search_object_name_testing.Text == "")
-                {
-                    checkBox_testing_za_ves_chas_search.Enabled = false;
-                    checkBox_testing_za_ves_chas_search.Checked = false;
-                }
-                else { checkBox_testing_za_ves_chas_search.Enabled = true; }
-                update_testing_dgv();
+                checkBox_testing_za_ves_chas_search.Enabled = false;
+                checkBox_testing_za_ves_chas_search.Checked = false;
             }
+            else { checkBox_testing_za_ves_chas_search.Enabled = true; }
+            update_testing_dgv();
         }
 
         private void dateTimePicker_testig_filter_start_ValueChanged(object sender, EventArgs e)
@@ -16954,6 +16991,35 @@ namespace Disp_WinForm
             {
                 listBox_object_ohrani.Visible = false;
                 textBox_filter_object_ohrani.Text = "";
+            }
+        }
+
+        private void SendSMS_button_Click(object sender, EventArgs e)
+        {
+            if (maskedTextBox_GSM_CODE.Text == "" || comboBox_tel_select.Text == "")
+            {
+                MessageBox.Show("Не заповнені необхідні поля!");
+                return;
+            }
+            button_create_object.Text = "Sendins SMS...";
+            string TextSMS = maskedTextBox_GSM_CODE.Text + "*27183#" + textBox_bt_enable.Text;
+            string ICCID = comboBox_tel_select.Text;
+
+            Task<string> Test = Task<string>.Run(() =>
+            {
+                return macros.VodafoneSendSMS(ICCID, TextSMS);
+            });
+
+            var answ = JsonConvert.DeserializeObject<RootObject>(Test.Result);
+            if (answ.submitTransactionalSMSResponse.@return.returnCode.majorReturnCode == "000")
+            {
+                button_create_object.Text = "SMS Sent!";
+                button_create_object.BackColor = Color.Green;
+            }
+            else
+            {
+                button_create_object.Text = "Error Sent SMS! Reason: " + answ.submitTransactionalSMSResponse.@return.failureReason;
+                button_create_object.BackColor = Color.Red;
             }
         }
     }

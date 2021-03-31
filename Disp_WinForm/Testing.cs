@@ -196,7 +196,7 @@ namespace Disp_WinForm
                 checkBox_test_dop_2.Enabled = false;
                 checkBox_test_autostart.Enabled = false;
             }//K_n
-            else if (get_produt_testing_device == "7")
+            else if (get_produt_testing_device == "7" || get_produt_testing_device == "22")
             {
                 checkBox_sensor_gps.Enabled = false;
                 checkBox_sensor_glushenia.Enabled = false;
@@ -237,7 +237,7 @@ namespace Disp_WinForm
                 checkBox_test_autostart.Enabled = false;
             }
             //KB_n
-            else if (get_produt_testing_device == "17")
+            else if (get_produt_testing_device == "17" || get_produt_testing_device == "23")
             {
                 checkBox_sensor_gps.Enabled = false;
                 checkBox_sensor_glushenia.Enabled = false;
@@ -270,7 +270,7 @@ namespace Disp_WinForm
 
             }
             //KP_n
-            else if (get_produt_testing_device == "12")
+            else if (get_produt_testing_device == "12" || get_produt_testing_device == "24")
             {
                 checkBox_sensor_gps.Enabled = false;
                 checkBox_sensor_glushenia.Enabled = false;
@@ -698,12 +698,12 @@ namespace Disp_WinForm
                                                                     "Activation_object_idActivation_object" +
                                                                     ") " +
                                                                     "values (" +
-                                                                    "'" + textBox_vin.Text + "'," +
+                                                                    "'" + MySqlHelper.EscapeString(textBox_vin.Text) + "'," +
                                                                     "'" + comboBox_test_model.SelectedValue + "'," +
                                                                     "'" + comboBox_test_brand.SelectedValue + "'," +
                                                                     "'" + get_produt_testing_device + "'," +
                                                                     "'" + comboBox_test_sto.SelectedValue.ToString() + "'," +
-                                                                    "'" + textBox_licence_plate.Text + "'," +
+                                                                    "'" + MySqlHelper.EscapeString(textBox_licence_plate.Text) + "'," +
                                                                     "'1'," +
                                                                     "'" + comboBox_test_production_date.GetItemText(comboBox_test_production_date.SelectedItem) + "'," +
                                                                     "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
@@ -766,7 +766,7 @@ namespace Disp_WinForm
                                "TS_infocol_place_tk='" + MySqlHelper.EscapeString(wire_tk) + "', " +
                                "TS_infocol_wireless_tk='" + MySqlHelper.EscapeString(wireless_tk) + "', " +
                                "TS_infocol_place_service_button='" + MySqlHelper.EscapeString(comboBox_service_button.Text) + "', " +
-                               "TS_infocol_button_for_pin='" + comboBox_buttons_for_pin.Text + "', " +
+                               "TS_infocol_button_for_pin='" + MySqlHelper.EscapeString(comboBox_buttons_for_pin.Text) + "', " +
                                "TS_infocol_set_pin='" + MySqlHelper.EscapeString(textBox_current_pin.Text) + "', " +
                                "TS_infocol_other_alarm='" + MySqlHelper.EscapeString(textBox_other_alarm.Text) + "', " +
                                "TS_infocol_other_sensor='" + MySqlHelper.EscapeString(other_sensor) + "', " +
@@ -774,15 +774,15 @@ namespace Disp_WinForm
                                "Kuzov_type_idKuzov_type='" + comboBox_kuzov_type.SelectedValue.ToString() + "', " +
                                "Color_idColor='" + comboBox_color.SelectedValue.ToString() + "', " +
                                "Production_date_idProduction_date='" + comboBox_test_production_date.SelectedValue.ToString() + "', " +
-                               "TS_infocol_licence_plate='" + textBox_licence_plate.Text + "', " +
+                               "TS_infocol_licence_plate='" + MySqlHelper.EscapeString(textBox_licence_plate.Text) + "', " +
                                "TS_brand_idTS_brand='" + comboBox_test_brand.SelectedValue.ToString() + "', " +
                                "TS_model_idTS_model='" + comboBox_test_model.SelectedValue.ToString() + "', " +
-                               "TS_infocol_vin='" + textBox_vin.Text.ToString() + "', " +
+                               "TS_infocol_vin='" + MySqlHelper.EscapeString(textBox_vin.Text).ToString() + "', " +
                                "Kontakti_idKontakti='" + comboBox_ustanoshik_poisk.SelectedValue.ToString() + "', " +
                                "Kontragenti_idKontragenti='" + comboBox_test_sto.SelectedValue.ToString() + "', " +
                                "TS_infocol_relay_on_plus='" + (checkBox_test_relay_plus.Checked ? "1" : "0") + "', " +
-                               "TS_infocol_jammer_place='" + textBox_jammer_place.Text + "', " +
-                               "TS_infocol_gps_place='" + textBox_gps_place.Text + "', " +
+                               "TS_infocol_jammer_place='" + MySqlHelper.EscapeString(textBox_jammer_place.Text) + "', " +
+                               "TS_infocol_gps_place='" + MySqlHelper.EscapeString(textBox_gps_place.Text) + "', " +
                                "TS_infocol_new_pin='" + MySqlHelper.EscapeString(textBox_current_pin.Text) + "' " +
                                "where idTS_info=" + id_db_TS_info + ";");
 
@@ -903,7 +903,7 @@ namespace Disp_WinForm
                                                               + "\"id\":\"" + keyvalue.Value.id + "\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.6.1 CAN-реле\","
-                                                              + "\"v\":\"" + ("Місце: " + textBox_CAN_relay_place.Text + ". Ланцюг: " + textBox_CAN_relay_lancug.Text).Replace("\"", "%5C%22") + "\"}");
+                                                              + "\"v\":\"" + ("Місце: " + textBox_CAN_relay_place.Text.Replace("\"", "%5C%22") + ". Ланцюг: " + textBox_CAN_relay_lancug.Text).Replace("\"", "%5C%22") + "\"}");
                             break;
                         //Произвольное поле wire cut
                         case string a when a.Contains("3.6.2 "):
@@ -912,7 +912,7 @@ namespace Disp_WinForm
                                                               + "\"id\":\"" + keyvalue.Value.id + "\","
                                                               + "\"callMode\":\"update\","
                                                               + "\"n\":\"3.6.2 Звичайне реле\","
-                                                              + "\"v\":\"" + ("Місце: " + comboBox_zvich_relay_place.Text + ". Ланцюг: " + textBox_zvich_relay_lancug.Text).Replace("\"", "%5C%22") + "\"}");
+                                                              + "\"v\":\"" + ("Місце: " + comboBox_zvich_relay_place.Text.Replace("\"", "%5C%22") + ". Ланцюг: " + textBox_zvich_relay_lancug.Text).Replace("\"", "%5C%22") + "\"}");
                             break;
                         //Произвольное поле service button
                         case string a when a.Contains("3.7 "):
@@ -1270,7 +1270,7 @@ namespace Disp_WinForm
 
             }//Создаем произвольные поля, меняем имя обекта old CNTP, CNTK, CNTP-SE, C_n
 
-            else if (get_produt_testing_device == "5")//Создаем произвольные поля, меняем имя обекта SLED
+            else if (get_produt_testing_device == "5" )//Создаем произвольные поля, меняем имя обекта SLED
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -1420,7 +1420,7 @@ namespace Disp_WinForm
 
             }//Создаем произвольные поля, меняем имя обекта SLED
 
-            else if (get_produt_testing_device == "12")//Создаем произвольные поля, меняем имя обекта KP_n
+            else if (get_produt_testing_device == "12" || get_produt_testing_device == "24")//Создаем произвольные поля, меняем имя обекта KP_n
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -1596,7 +1596,7 @@ namespace Disp_WinForm
 
             }//Создаем произвольные поля, меняем имя обекта KP_n
 
-            else if (get_produt_testing_device == "17")//Создаем произвольные поля, меняем имя обекта KB_n
+            else if (get_produt_testing_device == "17" || get_produt_testing_device == "23")//Создаем произвольные поля, меняем имя обекта KB_n
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -1749,7 +1749,7 @@ namespace Disp_WinForm
 
             }//Создаем произвольные поля, меняем имя обекта KB_n
 
-            else if (get_produt_testing_device == "7")//Создаем произвольные поля, меняем имя обекта K_n
+            else if (get_produt_testing_device == "7" || get_produt_testing_device == "22")//Создаем произвольные поля, меняем имя обекта K_n
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -1862,7 +1862,7 @@ namespace Disp_WinForm
                     macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"registration_plate\","
-                                                               + "\"v\":\"" + textBox_licence_plate.Text + "\"}");
+                                                               + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
                 }
                 //Характеристики brend
                 string pp14_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
@@ -1929,7 +1929,7 @@ namespace Disp_WinForm
                                        vars_form.id_db_object_for_test + "';");
 
                     string Subject = "505 Неуспішне тестування ! VIN: " + textBox_vin.Text + ", Обєкт: " + name_obj_textBox.Text;
-                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua><e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>,<v.konoval@venbest.com.ua>";
+                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua><e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<o.mychka@venbest.com.ua>,<v.konoval@venbest.com.ua>";
                     DataTable dt = new DataTable();
 
                     dt.Columns.Add("Параметр");
@@ -2017,7 +2017,7 @@ namespace Disp_WinForm
                             var list_get_units_on_group = JsonConvert.DeserializeObject<RootObject>(get_units_on_group);
 
                             //Проверяем если в группе srv_prizrak_910 количество объектов более 1000, то используем группу srv_prizrak_910_2. Если меньше тысящи добовляем тестируемый объект в группе srv_prizrak_910. 
-                            if (list_get_units_on_group.item.u.Count > 1000)
+                            if (list_get_units_on_group.item.u.Count > 999)
                             {
                                 //Запрашиваем объекты из группы srv_prizrak_910_2
                                 get_units_on_group = macros.WialonRequest("&svc=core/search_item&params={"
@@ -2088,7 +2088,7 @@ namespace Disp_WinForm
                         }
 
                         if (get_produt_testing_device == "2" || get_produt_testing_device == "3" || get_produt_testing_device == "4" ||
-                            get_produt_testing_device == "6" || get_produt_testing_device == "12" ||
+                            get_produt_testing_device == "6" || get_produt_testing_device == "12" || get_produt_testing_device == "24" || get_produt_testing_device == "23" || get_produt_testing_device == "22" ||
                             get_produt_testing_device == "17") //Добавляем в группы для Bitrek
                         {
                             //Запрашиваем объекты из группы srv_BI530
@@ -2442,7 +2442,7 @@ namespace Disp_WinForm
                     macros.sql_command("update btk.Object set Objectcol_testing_ok = 'Успішно' where idObject = '" + vars_form.id_db_object_for_test + "';");
 
                     string Subject = "505 Протестовано успішно! VIN: " + textBox_vin.Text + ", Обєкт: " + name_obj_textBox.Text;
-                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua>,<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>";
+                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua>,<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<o.mychka@venbest.com.ua>";
                     DataTable dt = new DataTable();
 
                     dt.Columns.Add("Параметр");
@@ -2649,7 +2649,7 @@ namespace Disp_WinForm
                         }
 
                         if (get_produt_testing_device == "2" || get_produt_testing_device == "3" || get_produt_testing_device == "4" ||
-                            get_produt_testing_device == "6" || get_produt_testing_device == "12" ||
+                            get_produt_testing_device == "6" || get_produt_testing_device == "12" || get_produt_testing_device == "24" || get_produt_testing_device == "22" || get_produt_testing_device == "23" ||
                             get_produt_testing_device == "17") //Добавляем в группы для Bitrek
                         {
                             //Запрашиваем объекты из группы srv_BI530
@@ -3010,7 +3010,7 @@ namespace Disp_WinForm
                     macros.sql_command("update btk.Object set Objectcol_testing_ok = 'Успішно' where idObject = '" + vars_form.id_db_object_for_test + "';");
 
                     string Subject = "505 Протестовано успішно! VIN: " + textBox_vin.Text + ", Обєкт: " + name_obj_textBox.Text;
-                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua>,<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>,<a.oberemchuk@venbest.com.ua>";
+                    string recip = "<" + vars_form.user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua>,<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<o.mychka@venbest.com.ua>,<a.oberemchuk@venbest.com.ua>";
                     DataTable dt = new DataTable();
 
                     dt.Columns.Add("Параметр");
@@ -3382,6 +3382,84 @@ namespace Disp_WinForm
                     label__test_vzlom.BackColor = Color.Empty;
                 }
             }
+            else if (get_produt_testing_device == "24" || get_produt_testing_device == "23" || get_produt_testing_device == "22")
+            {
+                string json = macros.WialonRequest("&svc=core/search_item&params={"
+                                                         + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                         + "\"flags\":\"2098177\"}"); //
+                var test_out = JsonConvert.DeserializeObject<RootObject>(json);
+
+                if (test_out.item.pos != null)
+                {
+                    //Запрашиваем по координатам фактический адрес
+                    string get_adress = "http://navi.venbest.com.ua/gis_geocode?coords="
+                                        + "[{\"lon\":\"" + test_out.item.pos["x"] + "\""
+                                        + ",\"lat\":\"" + test_out.item.pos["y"] + "\"}]&flags=1255211008&uid=" +
+                                        vars_form.wl_user_id + "";
+                    //string json3=macros.WialonRequestSimple(get_adress);
+                    MyWebRequest myRequest = new MyWebRequest(get_adress);
+                    string json44 = myRequest.GetResponse();
+                    var get_adress_out = JsonConvert.DeserializeObject<string[]>(json44);
+                    label_test_address.Text = get_adress_out[0].ToString();
+                }
+
+                if (test_out.item.lmsg is null)
+                {
+                    return;
+                }
+
+                //Статус звязку
+                if (test_out.item.netconn >= 1)
+                {
+                    label_netconn.Text = ":)";
+                    label_netconn.BackColor = Color.Green;
+                    button_block_engine.Enabled = true;
+                    button_unblock_engine.Enabled = true;
+                }
+                else
+                {
+                    label_netconn.Text = ":(";
+                    label_netconn.BackColor = Color.Red;
+                    button_block_engine.Enabled = false;
+                    button_unblock_engine.Enabled = false;
+                }
+
+                //Статус Блокування
+                if (test_out.item.lmsg.p.io_180 == 0)
+                {
+                    label_test_zablocovano.Text = "Розблоковано";
+                    label_test_zablocovano.BackColor = Color.Empty;
+                }
+                else
+                {
+                    label_test_zablocovano.Text = "Заблоковано";
+                    label_test_zablocovano.BackColor = Color.YellowGreen;
+                }
+
+                //Статус TK
+                if (test_out.item.lmsg.p.io_381 == 0)
+                {
+                    label_test_tk.Text = "Вимкнено";
+                    label_test_tk.BackColor = Color.Empty;
+                }
+                else
+                {
+                    label_test_tk.Text = "Ввімкнено";
+                    label_test_tk.BackColor = Color.YellowGreen;
+                }
+                //Статус Запалення
+                if (test_out.item.lmsg.p.io_239 == 1)
+                {
+                    label__test_vzlom.Text = "Ввімкнено";
+                    label__test_vzlom.BackColor = Color.YellowGreen;
+                }
+                else
+                {
+                    label__test_vzlom.Text = "Вимкнено";
+                    label__test_vzlom.BackColor = Color.Empty;
+                }
+            }
+
             else if (get_produt_testing_device == "10" || get_produt_testing_device == "11" || get_produt_testing_device == "13" || get_produt_testing_device == "14" || get_produt_testing_device == "18" || get_produt_testing_device == "19" || get_produt_testing_device == "20" || get_produt_testing_device == "21")
             {
                 string json2 = macros.WialonRequest("&svc=core/search_items&params={" +
@@ -3781,6 +3859,16 @@ namespace Disp_WinForm
                                                             "\"timeout\":\"0\"," +
                                                             "\"flags\":\"0\"}");
             }
+            else if (get_produt_testing_device == "22" || get_produt_testing_device == "23" || get_produt_testing_device == "24")
+            {
+                string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
+                                                            "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
+                                                            "\"commandName\":\"2. СТОП Двигатель\"," +
+                                                            "\"linkType\":\"tcp\"," +
+                                                            "\"param\":\"\"," +
+                                                            "\"timeout\":\"0\"," +
+                                                            "\"flags\":\"0\"}");
+            }
         }
 
         private void button_unblock_engine_Click(object sender, EventArgs e)
@@ -3807,6 +3895,16 @@ namespace Disp_WinForm
                                                             "\"flags\":\"0\"}");
             }
             else if (get_produt_testing_device == "2" || get_produt_testing_device == "3" || get_produt_testing_device == "6" || get_produt_testing_device == "12" || get_produt_testing_device == "17")
+            {
+                string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
+                                                            "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +
+                                                            "\"commandName\":\"1. СТАРТ Двигатель\"," +
+                                                            "\"linkType\":\"tcp\"," +
+                                                            "\"param\":\"\"," +
+                                                            "\"timeout\":\"0\"," +
+                                                            "\"flags\":\"0\"}");
+            }
+            else if (get_produt_testing_device == "22" || get_produt_testing_device == "23" || get_produt_testing_device == "24")
             {
                 string cmd = macros.WialonRequest("&svc=unit/exec_cmd&params={" +
                                                             "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\"," +

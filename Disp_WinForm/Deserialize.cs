@@ -165,6 +165,17 @@ namespace Disp_WinForm
         public int lac { get; set; }
         public int cell_id { get; set; }
         public int rx_level { get; set; }
+        public int io_180 { get; set; }
+        public int io_380 { get; set; }
+        public int io_381 { get; set; }
+        public int io_239 { get; set; }
+        public int io_69 { get; set; }
+        public double io_11 { get; set; }
+        public double io_14 { get; set; }
+        public double pwr_ext { get; set; }
+        public int io_66 { get; set; }
+        public double pwr_int { get; set; }
+        public double iccid { get; set; }
     }
 
 
@@ -181,8 +192,69 @@ namespace Disp_WinForm
         public string p { get; set; }
     }
 
+
+    public class ReturnCode
+    {
+        public string majorReturnCode { get; set; }
+        public string minorReturnCode { get; set; }
+    }
+
+    public class DeviceInformationItem
+    {
+        public string itemName { get; set; }
+        public string itemType { get; set; }
+        public object itemValue { get; set; }
+    }
+
+    public class DeviceInformationList
+    {
+        public List<DeviceInformationItem> deviceInformationItem { get; set; }
+    }
+
+    public class ApnListItem
+    {
+        public string apnName { get; set; }
+        public string staticIpAddress { get; set; }
+    }
+
+    public class ApnList
+    {
+        public ApnListItem apnListItem { get; set; }
+    }
+
+    public class Return
+    {
+        public ReturnCode returnCode { get; set; }
+        public string deviceId { get; set; }
+        public string customerServiceProfile { get; set; }
+        public string state { get; set; }
+        public string imei { get; set; }
+        public string baseCountry { get; set; }
+        public string customAttribute1 { get; set; }
+        public DeviceInformationList deviceInformationList { get; set; }
+        public ApnList apnList { get; set; }
+        public string failureReason { get; set; }
+    }
+
+    public class GetDeviceDetailsv2Response
+    {
+        public Return @return { get; set; }
+    }
+
+
+
+
+    public class SetDeviceDetailsv4Response
+    {
+        public Return @return { get; set; }
+    }
+
+
+
     public class RootObject
     {
+        public SetDeviceDetailsv4Response setDeviceDetailsv4Response { get; set; }
+        public GetDeviceDetailsv2Response getDeviceDetailsv2Response { get; set; }
         public long flags { get; set; }
         public int error { get; set; }
         public List<deserialize_Item> items { get; set; }
@@ -212,19 +284,6 @@ namespace Disp_WinForm
     {
         public string faultstring { get; set; }
         public Detail detail { get; set; }
-    }
-
-    public class ReturnCode
-    {
-        public string majorReturnCode { get; set; }
-        public string minorReturnCode { get; set; }
-    }
-
-    public class Return
-    {
-        public string deviceId { get; set; }
-        public string failureReason { get; set; }
-        public ReturnCode returnCode { get; set; }
     }
 
     public class SubmitTransactionalSMSResponse

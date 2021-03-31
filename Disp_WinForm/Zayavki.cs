@@ -230,7 +230,7 @@ namespace Disp_WinForm
                                             "FROM btk.testing_object, btk.Object, btk.TS_info, btk.Kontragenti, btk.Users " +
                                             "WHERE " +
                                             "testing_object.Users_idUsers=Users.idUsers and " +
-                                            "TS_info.TS_infocol_vin LIKE  '%" + textBox_search_by_vin_testing.Text + "%' and " +
+                                            "TS_info.TS_infocol_vin LIKE  '%" + MySqlHelper.EscapeString(textBox_search_by_vin_testing.Text) + "%' and " +
                                             "testing_object.idtesting_object NOT IN (select testing_object_idtesting_object from btk.Zayavki) and " +
                                             "Kontragenti.idKontragenti=TS_info.Kontragenti_idKontragenti and " +
                                             "Object.TS_info_idTS_info=TS_info.idTS_info and " +
@@ -252,7 +252,7 @@ namespace Disp_WinForm
                                             "FROM btk.testing_object, btk.Object, btk.TS_info, btk.Kontragenti, btk.Users " +
                                             "where " +
                                             "testing_object.Users_idUsers=Users.idUsers and " +
-                                            "TS_info.TS_infocol_vin LIKE  '%" + textBox_search_by_vin_testing.Text + "%' and " +
+                                            "TS_info.TS_infocol_vin LIKE  '%" + MySqlHelper.EscapeString(textBox_search_by_vin_testing.Text) + "%' and " +
                                             "Kontragenti.idKontragenti=TS_info.Kontragenti_idKontragenti and " +
                                             "Object.TS_info_idTS_info=TS_info.idTS_info and " +
                                             "Object.idObject = testing_object.Object_idObject " + searchbydate);
@@ -273,7 +273,7 @@ namespace Disp_WinForm
                                             "FROM btk.testing_object, btk.Object, btk.TS_info, btk.Kontragenti, btk.Users " +
                                             "where " +
                                             "testing_object.Users_idUsers=Users.idUsers and " +
-                                            "TS_info.TS_infocol_vin LIKE  '%" + textBox_search_by_vin_testing.Text + "%' and " +
+                                            "TS_info.TS_infocol_vin LIKE  '%" + MySqlHelper.EscapeString(textBox_search_by_vin_testing.Text) + "%' and " +
                                             "testing_object.idtesting_object IN (select testing_object_idtesting_object from btk.Zayavki) and " +
                                             "Kontragenti.idKontragenti=TS_info.Kontragenti_idKontragenti and " +
                                             "Object.TS_info_idTS_info=TS_info.idTS_info and " +
@@ -443,7 +443,7 @@ namespace Disp_WinForm
                                                         "TS_brand_idTS_brand = '" + comboBox_brand_zayavki.SelectedValue + "'," +
                                                         "products_idproducts = '" + comboBox_product_zayavki.SelectedValue + "'," +
                                                         "Kontragenti_idKontragenti_sto = '" + vars_form.id_kontragent_sto_for_zayavki + "'," +
-                                                        "Zayavkicol_license_plate = '" + textBox_license_plate_zayavki.Text + "'," +
+                                                        "Zayavkicol_license_plate = '" + MySqlHelper.EscapeString(textBox_license_plate_zayavki.Text) + "'," +
                                                         "Kontragenti_idKontragenti_zakazchik = '" + vars_form.id_kontragent_zakazchik_for_zayavki + "'," +
                                                         "Zayavkicol_data_vipuska = '" + comboBox_date_vipuska_zayavki.GetItemText(comboBox_date_vipuska_zayavki.SelectedItem) + "'," +
                                                         "Zayavkicol_comment = '" + MySqlHelper.EscapeString(textBox_Coments.Text) + "'," +
@@ -485,8 +485,20 @@ namespace Disp_WinForm
                                                                    + "\"n\":\"vin\","
                                                                    + "\"v\":\"" + textBox_vin_zayavki.Text.Replace("\"", "%5C%22") + "\"}");
                     //update VIN plate in db
-                    macros.sql_command("update btk.TS_info set TS_infocol_vin = '" + textBox_vin_zayavki.Text + "' where idTS_info = '" + id_ts_info + "';");
+                    macros.sql_command("update btk.TS_info set TS_infocol_vin = '" + MySqlHelper.EscapeString(textBox_vin_zayavki.Text) + "' where idTS_info = '" + id_ts_info + "';");
                 }
+
+                if (textBox_kont_osoba1.Text != "")
+                {
+                    //Произвольное поле Контактна особа з заявки для активації
+                    string answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                    + "\"itemId\":\"" + id_wl_Object + "\","
+                                    + "\"id\":\"0\","
+                                    + "\"callMode\":\"create\","
+                                    + "\"n\":\"Контактна особа з заявки для активації\","
+                                    + "\"v\":\"" + textBox_kont_osoba1.Text + ": " + maskedTextBox_tel1.Text + ", " + textBox_kont_osoba2.Text + ": " + maskedTextBox_tel2.Text + "\"}");
+                }
+
 
             }
             //если если создается новая заявка выполняем этот сценалий
@@ -566,24 +578,24 @@ namespace Disp_WinForm
                                                                         "'" + MySqlHelper.EscapeString(textBox_name_zayavka.Text) + "'," +
                                                                         "'" + Convert.ToDateTime(dateTimePicker_filter_tested_zayavki.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                                                         "'" + comboBox_reason_zayavki.GetItemText(comboBox_reason_zayavki.SelectedItem) + "'," +
-                                                                        "'" + textBox_vin_zayavki.Text + "'," +
+                                                                        "'" + MySqlHelper.EscapeString(textBox_vin_zayavki.Text) + "'," +
                                                                         "'" + comboBox_model_zayavki.SelectedValue + "'," +
                                                                         "'" + comboBox_brand_zayavki.SelectedValue + "'," +
                                                                         "'" + comboBox_product_zayavki.SelectedValue + "'," +
                                                                         "'" + vars_form.id_kontragent_sto_for_zayavki + "'," +
-                                                                        "'" + textBox_license_plate_zayavki.Text + "'," +
+                                                                        "'" + MySqlHelper.EscapeString(textBox_license_plate_zayavki.Text) + "'," +
                                                                         "'" + vars_form.id_kontragent_zakazchik_for_zayavki + "'," +
                                                                         "'" + comboBox_date_vipuska_zayavki.GetItemText(comboBox_date_vipuska_zayavki.SelectedItem) + "'," +
                                                                         "'" + MySqlHelper.EscapeString(textBox_Coments.Text) + "'," +
                                                                         "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                                                         "'" + idtesting_object + "'," +
-                                                                        "'" + textBox_sobstvennik_avto.Text + "'," +
+                                                                        "'" + MySqlHelper.EscapeString(textBox_sobstvennik_avto.Text) + "'," +
                                                                         "'" + MySqlHelper.EscapeString(textBox_kont_osoba1.Text) + "'," +
                                                                         "'" + maskedTextBox_tel1.Text + "'," +
                                                                         "'" + MySqlHelper.EscapeString(textBox_kont_osoba2.Text) + "'," +
                                                                         "'" + maskedTextBox_tel2.Text + "'," +
                                                                         "'" + vars_form.user_login_id + "'," +
-                                                                        "'" + textBox_email.Text + "'," +
+                                                                        "'" + MySqlHelper.EscapeString(textBox_email.Text) + "'," +
                                                                         "'" + id_created_activation + "'" +
                                                                         ");");
 
