@@ -244,8 +244,17 @@ namespace Disp_WinForm
                 + "Emails_idEmails1='" + id_mail2 + "',"
                 + "Kontact_type_idKontact_type = '2',"
                 + "Phonebook_idPhonebook1='" + id_phon2 + "' where idKontakti=" + vars_form.btk_idkontragents + ";");
-                macros.sql_command("update btk.Kontakti_has_Kontragenti set "
-                                   + "Kontragenti_idKontragenti='" + comboBox_work_in.SelectedValue + "' where Kontakti_idKontakti='" + vars_form.btk_idkontragents + "';");
+
+                string CountKontacts = macros.sql_command("SELECT * FROM btk.Kontakti_has_Kontragenti where Kontakti_idKontakti = '" + vars_form.btk_idkontragents + "';");
+                if (CountKontacts == "")
+                {
+                    macros.sql_command("insert into btk.Kontakti_has_Kontragenti (Kontakti_idKontakti, Kontragenti_idKontragenti) values('" + vars_form.btk_idkontragents + "', '" + comboBox_work_in.SelectedValue + "');");
+                }
+                else
+                {
+                    macros.sql_command("update btk.Kontakti_has_Kontragenti set "
+                                       + "Kontragenti_idKontragenti='" + comboBox_work_in.SelectedValue + "' where Kontakti_idKontakti='" + vars_form.btk_idkontragents + "';");
+                }
             }
             this.Close();
         }

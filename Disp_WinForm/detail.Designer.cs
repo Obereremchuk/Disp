@@ -93,6 +93,18 @@
             this.label_geozones = new System.Windows.Forms.Label();
             this.geckoWebBrowser2 = new Gecko.GeckoWebBrowser();
             this.tabPage_Edit_VO = new System.Windows.Forms.TabPage();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.Parking5_textBox = new System.Windows.Forms.TextBox();
+            this.ParkingSave_button = new System.Windows.Forms.Button();
+            this.Parking4_textBox = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.Parking3_textBox = new System.Windows.Forms.TextBox();
+            this.Parking2_textBox = new System.Windows.Forms.TextBox();
+            this.Parking1_textBox = new System.Windows.Forms.TextBox();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.button_add_vo5 = new System.Windows.Forms.Button();
             this.button_add_vo4 = new System.Windows.Forms.Button();
@@ -214,18 +226,6 @@
             this.dateTimePicker_nachalo_dejstvia = new System.Windows.Forms.DateTimePicker();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox_otrabotka_trevogi = new System.Windows.Forms.TextBox();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.Parking5_textBox = new System.Windows.Forms.TextBox();
-            this.Parking4_textBox = new System.Windows.Forms.TextBox();
-            this.ParkingSave_button = new System.Windows.Forms.Button();
-            this.Parking1_textBox = new System.Windows.Forms.TextBox();
-            this.Parking2_textBox = new System.Windows.Forms.TextBox();
-            this.Parking3_textBox = new System.Windows.Forms.TextBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_hronologija_trivog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_group_alarm)).BeginInit();
@@ -239,6 +239,7 @@
             this.Service_groupBox.SuspendLayout();
             this.block_groupBox.SuspendLayout();
             this.tabPage_Edit_VO.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -260,7 +261,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_history)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -880,8 +880,118 @@
             this.tabPage_Edit_VO.Name = "tabPage_Edit_VO";
             this.tabPage_Edit_VO.Size = new System.Drawing.Size(1348, 668);
             this.tabPage_Edit_VO.TabIndex = 8;
-            this.tabPage_Edit_VO.Text = "Редагування картки клієнта";
+            this.tabPage_Edit_VO.Text = "Редагування картки об’єкту";
             this.tabPage_Edit_VO.UseVisualStyleBackColor = true;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.Parking5_textBox);
+            this.groupBox8.Controls.Add(this.ParkingSave_button);
+            this.groupBox8.Controls.Add(this.Parking4_textBox);
+            this.groupBox8.Controls.Add(this.label31);
+            this.groupBox8.Controls.Add(this.label30);
+            this.groupBox8.Controls.Add(this.label29);
+            this.groupBox8.Controls.Add(this.label28);
+            this.groupBox8.Controls.Add(this.label27);
+            this.groupBox8.Controls.Add(this.Parking3_textBox);
+            this.groupBox8.Controls.Add(this.Parking2_textBox);
+            this.groupBox8.Controls.Add(this.Parking1_textBox);
+            this.groupBox8.Location = new System.Drawing.Point(3, 194);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(637, 154);
+            this.groupBox8.TabIndex = 145;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Редагування паркінгів";
+            // 
+            // Parking5_textBox
+            // 
+            this.Parking5_textBox.Location = new System.Drawing.Point(10, 121);
+            this.Parking5_textBox.Name = "Parking5_textBox";
+            this.Parking5_textBox.Size = new System.Drawing.Size(373, 20);
+            this.Parking5_textBox.TabIndex = 163;
+            // 
+            // ParkingSave_button
+            // 
+            this.ParkingSave_button.Location = new System.Drawing.Point(524, 19);
+            this.ParkingSave_button.Name = "ParkingSave_button";
+            this.ParkingSave_button.Size = new System.Drawing.Size(99, 122);
+            this.ParkingSave_button.TabIndex = 161;
+            this.ParkingSave_button.Text = "Зберегти";
+            this.ParkingSave_button.UseVisualStyleBackColor = true;
+            this.ParkingSave_button.Click += new System.EventHandler(this.ParkingSave_button_Click);
+            // 
+            // Parking4_textBox
+            // 
+            this.Parking4_textBox.Location = new System.Drawing.Point(10, 95);
+            this.Parking4_textBox.Name = "Parking4_textBox";
+            this.Parking4_textBox.Size = new System.Drawing.Size(373, 20);
+            this.Parking4_textBox.TabIndex = 162;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(389, 125);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(55, 13);
+            this.label31.TabIndex = 155;
+            this.label31.Text = "Паркінг 5";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(389, 99);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(55, 13);
+            this.label30.TabIndex = 155;
+            this.label30.Text = "Паркінг 4";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(389, 73);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(55, 13);
+            this.label29.TabIndex = 155;
+            this.label29.Text = "Паркінг 3";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(389, 47);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(55, 13);
+            this.label28.TabIndex = 155;
+            this.label28.Text = "Паркінг 2";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(389, 23);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(55, 13);
+            this.label27.TabIndex = 155;
+            this.label27.Text = "Паркінг 1";
+            // 
+            // Parking3_textBox
+            // 
+            this.Parking3_textBox.Location = new System.Drawing.Point(10, 69);
+            this.Parking3_textBox.Name = "Parking3_textBox";
+            this.Parking3_textBox.Size = new System.Drawing.Size(373, 20);
+            this.Parking3_textBox.TabIndex = 158;
+            // 
+            // Parking2_textBox
+            // 
+            this.Parking2_textBox.Location = new System.Drawing.Point(10, 43);
+            this.Parking2_textBox.Name = "Parking2_textBox";
+            this.Parking2_textBox.Size = new System.Drawing.Size(373, 20);
+            this.Parking2_textBox.TabIndex = 159;
+            // 
+            // Parking1_textBox
+            // 
+            this.Parking1_textBox.Location = new System.Drawing.Point(10, 19);
+            this.Parking1_textBox.Name = "Parking1_textBox";
+            this.Parking1_textBox.Size = new System.Drawing.Size(373, 20);
+            this.Parking1_textBox.TabIndex = 160;
             // 
             // groupBox15
             // 
@@ -1379,7 +1489,7 @@
             this.tabPage_edit_client.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage_edit_client.Size = new System.Drawing.Size(1348, 668);
             this.tabPage_edit_client.TabIndex = 5;
-            this.tabPage_edit_client.Text = "Редагування картки кліета";
+            this.tabPage_edit_client.Text = "Облікові записи об’єкту";
             this.tabPage_edit_client.UseVisualStyleBackColor = true;
             // 
             // groupBox12
@@ -1610,6 +1720,7 @@
             this.Test_button.TabIndex = 27;
             this.Test_button.Text = "Test";
             this.Test_button.UseVisualStyleBackColor = true;
+            this.Test_button.Visible = false;
             this.Test_button.Click += new System.EventHandler(this.Test_button_Click);
             // 
             // RoumingZapitStart_dateTimePicker
@@ -2185,116 +2296,6 @@
             this.textBox_otrabotka_trevogi.TabIndex = 0;
             this.textBox_otrabotka_trevogi.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBox_otrabotka_trevogi_MouseDown);
             // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.Parking5_textBox);
-            this.groupBox8.Controls.Add(this.ParkingSave_button);
-            this.groupBox8.Controls.Add(this.Parking4_textBox);
-            this.groupBox8.Controls.Add(this.label31);
-            this.groupBox8.Controls.Add(this.label30);
-            this.groupBox8.Controls.Add(this.label29);
-            this.groupBox8.Controls.Add(this.label28);
-            this.groupBox8.Controls.Add(this.label27);
-            this.groupBox8.Controls.Add(this.Parking3_textBox);
-            this.groupBox8.Controls.Add(this.Parking2_textBox);
-            this.groupBox8.Controls.Add(this.Parking1_textBox);
-            this.groupBox8.Location = new System.Drawing.Point(3, 194);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(637, 154);
-            this.groupBox8.TabIndex = 145;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Редагування паркінгів";
-            // 
-            // Parking5_textBox
-            // 
-            this.Parking5_textBox.Location = new System.Drawing.Point(10, 121);
-            this.Parking5_textBox.Name = "Parking5_textBox";
-            this.Parking5_textBox.Size = new System.Drawing.Size(373, 20);
-            this.Parking5_textBox.TabIndex = 163;
-            // 
-            // Parking4_textBox
-            // 
-            this.Parking4_textBox.Location = new System.Drawing.Point(10, 95);
-            this.Parking4_textBox.Name = "Parking4_textBox";
-            this.Parking4_textBox.Size = new System.Drawing.Size(373, 20);
-            this.Parking4_textBox.TabIndex = 162;
-            // 
-            // ParkingSave_button
-            // 
-            this.ParkingSave_button.Location = new System.Drawing.Point(524, 19);
-            this.ParkingSave_button.Name = "ParkingSave_button";
-            this.ParkingSave_button.Size = new System.Drawing.Size(99, 122);
-            this.ParkingSave_button.TabIndex = 161;
-            this.ParkingSave_button.Text = "Зберегти";
-            this.ParkingSave_button.UseVisualStyleBackColor = true;
-            this.ParkingSave_button.Click += new System.EventHandler(this.ParkingSave_button_Click);
-            // 
-            // Parking1_textBox
-            // 
-            this.Parking1_textBox.Location = new System.Drawing.Point(10, 19);
-            this.Parking1_textBox.Name = "Parking1_textBox";
-            this.Parking1_textBox.Size = new System.Drawing.Size(373, 20);
-            this.Parking1_textBox.TabIndex = 160;
-            // 
-            // Parking2_textBox
-            // 
-            this.Parking2_textBox.Location = new System.Drawing.Point(10, 43);
-            this.Parking2_textBox.Name = "Parking2_textBox";
-            this.Parking2_textBox.Size = new System.Drawing.Size(373, 20);
-            this.Parking2_textBox.TabIndex = 159;
-            // 
-            // Parking3_textBox
-            // 
-            this.Parking3_textBox.Location = new System.Drawing.Point(10, 69);
-            this.Parking3_textBox.Name = "Parking3_textBox";
-            this.Parking3_textBox.Size = new System.Drawing.Size(373, 20);
-            this.Parking3_textBox.TabIndex = 158;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(389, 23);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(55, 13);
-            this.label27.TabIndex = 155;
-            this.label27.Text = "Паркінг 1";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(389, 47);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(55, 13);
-            this.label28.TabIndex = 155;
-            this.label28.Text = "Паркінг 2";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(389, 73);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(55, 13);
-            this.label29.TabIndex = 155;
-            this.label29.Text = "Паркінг 3";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(389, 99);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(55, 13);
-            this.label30.TabIndex = 155;
-            this.label30.Text = "Паркінг 4";
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(389, 125);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(55, 13);
-            this.label31.TabIndex = 155;
-            this.label31.Text = "Паркінг 5";
-            // 
             // detail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2328,6 +2329,8 @@
             this.Service_groupBox.ResumeLayout(false);
             this.block_groupBox.ResumeLayout(false);
             this.tabPage_Edit_VO.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.groupBox15.ResumeLayout(false);
             this.groupBox15.PerformLayout();
             this.tabPage6.ResumeLayout(false);
@@ -2359,8 +2362,6 @@
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
 
         }

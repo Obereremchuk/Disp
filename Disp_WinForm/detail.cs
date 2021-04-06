@@ -393,6 +393,7 @@ namespace Disp_WinForm
 
         private void TreeView_zapolnyaem()//Получаем произвольные поля из Виалона и заполняем дерево
         {
+            treeView_client_info.Nodes.Clear();
 
             TreeNode node1 = new TreeNode("Об'єкт охорони:");
             treeView_client_info.Nodes.Add(node1);
@@ -2115,7 +2116,7 @@ namespace Disp_WinForm
                                     "'" + _id_notif + "'," +
                                     "'" + _user_login_id + "', " +
                                     "'" + Convert.ToDateTime(dateTimePicker_nachalo_dejstvia.Value).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
-                                    " 'Учетки', '" +
+                                    " '"+ comboBox_status_trevogi.SelectedItem.ToString() +"', '" +
                                     "" + police + "', " +
                                     "'" + gmr + "'); UPDATE btk.notification SET Status = '"+ comboBox_status_trevogi.SelectedItem.ToString() + "', time_stamp = now(), Users_idUsers='" + _user_login_id + "' WHERE idnotification = '" + _id_notif + "'OR group_alarm = '" + _id_notif + "'; ");
                 mysql_get_hronologiya_trivog();//Обновляем таблицу хронология обработки тревог
@@ -4670,7 +4671,7 @@ namespace Disp_WinForm
             {
                 //load VO1
                 string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '1' ORDER BY idVO DESC limit 1;");
-                if (VO1 != "")
+                if (VO1 != "" || VO1 != "1")
                 {
                     string VO_phone1 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO1.ToString() + "';");
                     string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO1.ToString() + "';");
@@ -4691,11 +4692,11 @@ namespace Disp_WinForm
             if (e.Node.Text.Contains("ВО2"))
             {
                 //load VO1
-                string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '2' ORDER BY idVO DESC limit 1;");
-                if (VO1 != "")
+                string VO2 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '2' ORDER BY idVO DESC limit 1;");
+                if (VO2 != "" || VO2 != "1")
                 {
-                    string VO_phone1 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO1.ToString() + "';");
-                    string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO1.ToString() + "';");
+                    string VO_phone1 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO2.ToString() + "';");
+                    string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO2.ToString() + "';");
 
 
                     string path = macros.GetProcessPath("microsip");
@@ -4713,11 +4714,11 @@ namespace Disp_WinForm
             if (e.Node.Text.Contains("ВО3"))
             {
                 //load VO1
-                string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '3' ORDER BY idVO DESC limit 1;");
-                if (VO1 != "")
+                string VO3 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '3' ORDER BY idVO DESC limit 1;");
+                if (VO3 != "" || VO3 != "1")
                 {
-                    string VO_phone1 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO1.ToString() + "';");
-                    string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO1.ToString() + "';");
+                    string VO_phone1 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO3.ToString() + "';");
+                    string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO3.ToString() + "';");
 
 
                     string path = macros.GetProcessPath("microsip");
@@ -4735,11 +4736,11 @@ namespace Disp_WinForm
             if (e.Node.Text.Contains("ВО4"))
             {
                 //load VO1
-                string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '4' ORDER BY idVO DESC limit 1;");
-                if (VO1 != "")
+                string VO4 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '4' ORDER BY idVO DESC limit 1;");
+                if (VO4 != "" || VO4 != "1")
                 {
-                    string VO_phone1 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO1.ToString() + "';");
-                    string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO1.ToString() + "';");
+                    string VO_phone1 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO4.ToString() + "';");
+                    string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO4.ToString() + "';");
 
 
                     string path = macros.GetProcessPath("microsip");
@@ -4757,11 +4758,11 @@ namespace Disp_WinForm
             if (e.Node.Text.Contains("ВО5"))
             {
                 //load VO1
-                string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '5' ORDER BY idVO DESC limit 1;");
-                if (VO1 != "")
+                string VO5 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '5' ORDER BY idVO DESC limit 1;");
+                if (VO5 != "" || VO5 != "1")
                 {
-                    string VO_phone1 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO1.ToString() + "';");
-                    string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO1.ToString() + "';");
+                    string VO_phone1 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook and idKontakti = '" + VO5.ToString() + "';");
+                    string VO_phone2 = macros.sql_command("SELECT Phonebook.Phonebookcol_phone FROM btk.Kontakti, btk.Phonebook where  Phonebook.idPhonebook=Kontakti.Phonebook_idPhonebook1 and idKontakti = '" + VO5.ToString() + "';");
 
 
                     string path = macros.GetProcessPath("microsip");
@@ -6274,17 +6275,20 @@ namespace Disp_WinForm
                                     "'0'); ");
 
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
-                                                         + "\"id\":\"" + vars_form.add_alarm_unit_id + "\","
+                                                         + "\"id\":\"" + _search_id + "\","
                                                          + "\"flags\":\"8388873\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
                 string project = "";
-                foreach (var keyvalue in test_out.item.flds)
+                if (test_out.item != null)
                 {
-                    if (keyvalue.Value.n.Contains("Проект"))
+                    foreach (var keyvalue in test_out.item.flds)
                     {
-                        project = keyvalue.Value.v.ToString();
-                        break;
+                        if (keyvalue.Value.n.Contains("Проект"))
+                        {
+                            project = keyvalue.Value.v.ToString();
+                            break;
+                        }
                     }
                 }
 
@@ -6300,7 +6304,7 @@ namespace Disp_WinForm
                     "<p>TO: " + RoumingZapitEnd_dateTimePicker.Value + "</p>";
 
                 //Stroim spisok Komu otpravlayem
-                DataTable GroupRecipient = macros.GetData("SELECT user_mail FROM btk.Users where dept_user = 113;");
+                DataTable GroupRecipient = macros.GetData("SELECT user_mail FROM btk.Users where dept_user = '113' and State = '1';");
                 string Recipient = "";
                 int Count = GroupRecipient.Rows.Count;
                 foreach (DataRow row in GroupRecipient.Rows)
@@ -6321,7 +6325,7 @@ namespace Disp_WinForm
                 }
 
                 if (Recipient != "")
-                { macros.send_mail_auto(email_textBox.Text, "Disp. Активацыя роумінгу. Обєкт: "+ _unit_name + " ID: " + textBox_IMEI.Text, Body); }
+                { macros.send_mail_auto(Recipient, "Disp. Активацыя роумінгу. Обєкт: "+ _unit_name + " ID: " + textBox_IMEI.Text, Body); }
 
             }
             mysql_get_hronologiya_trivog();
@@ -6472,7 +6476,11 @@ namespace Disp_WinForm
                                                          "\"v\":\"" + Parking5_textBox.Text.Replace("\"", "%5C%22") + "\"}");//получаем датчики объекта
             }
 
-
+            
+            // Диалог закрываем заявку или нет при завершении работы с учетными записями
+            on_end_account_job("Внесено зміни:\nПаркінг1:" + Parking1_textBox.Text + "\nПаркінг2: " + Parking2_textBox.Text + "\nПаркінг3: " + Parking3_textBox.Text + "\nПаркінг4: " + Parking4_textBox.Text + "\nПаркінг5: " + Parking5_textBox.Text);
+            TreeView_zapolnyaem();
+            MessageBox.Show("Збережено!");
 
         }
     }

@@ -644,9 +644,6 @@ namespace Disp_WinForm
             commands_fill_anketa();
             commands_add_testing();
             
-
-            MessageBox.Show("Збережено!");
-            this.Close();
         }
 
         private void AddZayavku()
@@ -1971,6 +1968,9 @@ namespace Disp_WinForm
                     string Body = macros.ConvertDataTableToHTML(dt);
 
                     macros.send_mail(recip, Subject, Body);
+
+                    MessageBox.Show("Збережено!");
+                    this.Close();
                 }
                 else // // выполняем если завершается тестирование успехом
                 {
@@ -2496,7 +2496,11 @@ namespace Disp_WinForm
                     string Body = macros.ConvertDataTableToHTML(dt);
 
                     macros.send_mail(recip, Subject, Body);
+
+                    MessageBox.Show("Збережено!");
+                    this.Close();
                 }
+                
             }
             else
             {
@@ -2544,6 +2548,9 @@ namespace Disp_WinForm
                                            ");");
                     macros.sql_command("update btk.Object set Objectcol_testing_ok = 0 where idObject = '" +
                                        vars_form.id_db_object_for_test + "';");
+
+                    MessageBox.Show("Збережено!");
+                    this.Close();
                 }
                 else
                 {
@@ -3053,6 +3060,9 @@ namespace Disp_WinForm
                     string Body = macros.ConvertDataTableToHTML(dt);
 
                     macros.send_mail(recip, Subject, Body);
+
+                    MessageBox.Show("Збережено!");
+                    this.Close();
                 }
             }
         }
