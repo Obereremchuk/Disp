@@ -715,7 +715,7 @@ namespace Disp_WinForm
                             {
                                 treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("Кнопки PIN" + ": " + keyvalue.Value.v.ToString()));
                             }
-                            if (keyvalue.Value.n.Contains("активації"))
+                            if (keyvalue.Value.n.Contains("Дата активації"))
                             {
                                 treeView_client_info.Nodes[0].Nodes.Add(new TreeNode("Дата активації" + ": " + keyvalue.Value.v.ToString()));
                             }

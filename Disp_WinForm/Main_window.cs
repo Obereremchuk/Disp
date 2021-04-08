@@ -14405,7 +14405,7 @@ namespace Disp_WinForm
             /////////////////
             ///
 
-            //Start engine
+            //ШТАТНЫЙ РЕЖИМ
             string cmd_start_answer = macros.WialonRequest(
                 "&svc=unit/update_command_definition&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -14415,9 +14415,9 @@ namespace Disp_WinForm
                 + "\"c\":\"custom_msg\","
                 + "\"l\":\"\","
                 + "\"p\":\"%26setparam 0104 0%26setparam 0204 0%26setparam 0201 0%26saveparams;\","
-                + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
+                + "\"a\":\"83886080\"}");
 
-            //Stop engine
+            //ПОИСКОВЫЙ РЕЖИМ
             string cmd_stop_answer = macros.WialonRequest(
                 "&svc=unit/update_command_definition&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id + "\","
@@ -14427,7 +14427,7 @@ namespace Disp_WinForm
                 + "\"c\":\"custom_msg\","
                 + "\"l\":\"\","
                 + "\"p\":\"%26setparam 0104 1%26setparam 0204 120%26setparam 0201 120%26saveparams\","
-                + "\"a\":\"1\"}");//обновляем в Виалоне группу все объекты + новый
+                + "\"a\":\"83886080\"}");//
 
             string id_sim = "";
 
