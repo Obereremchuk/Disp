@@ -493,43 +493,68 @@ namespace Disp_WinForm
 
                 //Добаляем поля в ВЛ Контактна особа з заявки для активації
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
-                                                         + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
+                                                         + "\"id\":\"" + id_wl_Object + "\","
                                                          + "\"flags\":\"5257\"}"); //
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
+                bool exist = false;
                 foreach (var keyvalue in test_out.item.flds)
                 {
                     if (keyvalue.Value.n.Contains("Контактна особа з заявки для активаці"))
                     {
                         if (textBox_kont_osoba1.Text != "")
                         {
-                            //Произвольное поле Контактна особа з заявки для активації
-                            string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                            + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
-                                                                            + "\"id\":\"" + keyvalue.Value.id + "\","
-                                                                            + "\"callMode\":\"update\","
-                                                                            + "\"n\":\"Контактна особа з заявки для активації\","
-                                                                            + "\"v\":\"" + textBox_kont_osoba1.Text + ": " + maskedTextBox_tel1.Text + ", " + textBox_kont_osoba2.Text + ": " + maskedTextBox_tel2.Text + "\"}");
-                        }
-                    }
-                    else 
-                    {
-                        if (textBox_kont_osoba1.Text != "")
-                        {
-                            //Произвольное поле Контактна особа з заявки для активації
-                            string answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                            + "\"itemId\":\"" + id_wl_Object + "\","
-                                            + "\"id\":\"0\","
-                                            + "\"callMode\":\"create\","
-                                            + "\"n\":\"Контактна особа з заявки для активації\","
-                                            + "\"v\":\"" + textBox_kont_osoba1.Text + ": " + maskedTextBox_tel1.Text + ", " + textBox_kont_osoba2.Text + ": " + maskedTextBox_tel2.Text + "\"}");
+                            if (textBox_kont_osoba2.Text == "")
+                            {
+                                //Произвольное поле Контактна особа з заявки для активації
+                                string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                                + "\"itemId\":\"" + id_wl_Object + "\","
+                                                                                + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                                + "\"callMode\":\"update\","
+                                                                                + "\"n\":\"Контактна особа з заявки для активації\","
+                                                                                + "\"v\":\"" + textBox_kont_osoba1.Text + ": " + maskedTextBox_tel1.Text + "\"}");
+                                exist = true;
+                            }
+                            else
+                            {
+                                //Произвольное поле Контактна особа з заявки для активації
+                                string pp6_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                                + "\"itemId\":\"" + id_wl_Object + "\","
+                                                                                + "\"id\":\"" + keyvalue.Value.id + "\","
+                                                                                + "\"callMode\":\"update\","
+                                                                                + "\"n\":\"Контактна особа з заявки для активації\","
+                                                                                + "\"v\":\"" + textBox_kont_osoba1.Text + ": " + maskedTextBox_tel1.Text + ", " + textBox_kont_osoba2.Text + ": " + maskedTextBox_tel2.Text + "\"}");
+                                exist = true;
+                            }
                         }
                     }
                 }
-
-                
-
-
+                if (exist is false)
+                {
+                    if (textBox_kont_osoba1.Text != "")
+                    {
+                        if (textBox_kont_osoba2.Text == "")
+                        {
+                            //Произвольное поле Контактна особа з заявки для активації
+                            string answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                        + "\"itemId\":\"" + id_wl_Object + "\","
+                                        + "\"id\":\"0\","
+                                        + "\"callMode\":\"create\","
+                                        + "\"n\":\"Контактна особа з заявки для активації\","
+                                        + "\"v\":\"" + textBox_kont_osoba1.Text + ": " + maskedTextBox_tel1.Text + "\"}");
+                        }
+                        else
+                        {
+                            // Произвольное поле Контактна особа з заявки для активації
+                            string answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                        + "\"itemId\":\"" + id_wl_Object + "\","
+                                        + "\"id\":\"0\","
+                                        + "\"callMode\":\"create\","
+                                        + "\"n\":\"Контактна особа з заявки для активації\","
+                                        + "\"v\":\"" + textBox_kont_osoba1.Text + ": " + maskedTextBox_tel1.Text + ", " + textBox_kont_osoba2.Text + ": " + maskedTextBox_tel2.Text + "\"}");
+                        }
+                    }
+                }
             }
             //если если создается новая заявка выполняем этот сценалий
             else
