@@ -1777,9 +1777,9 @@ namespace Disp_WinForm
                 }
             }
             if (vo4_exist == 0)
-            { macros.create_custom_field_wl(Convert.ToInt32(vars_form.id_wl_object_for_activation), "2.4 ІV Відповідальна особа", ""); }
+            { macros.create_custom_field_wl(Convert.ToInt32(wl_id), "2.4 ІV Відповідальна особа", ""); }
             if (vo5_exist == 0)
-            { macros.create_custom_field_wl(Convert.ToInt32(vars_form.id_wl_object_for_activation), "2.5 V Відповідальна особа", ""); }
+            { macros.create_custom_field_wl(Convert.ToInt32(wl_id), "2.5 V Відповідальна особа", ""); }
 
             //Загружаем заново произвольные поля объекта
             json = macros.WialonRequest("&svc=core/search_items&params={" +

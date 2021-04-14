@@ -44,6 +44,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox_coment = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.ComentTel2_textBox = new System.Windows.Forms.TextBox();
+            this.ComentTel1_textBox = new System.Windows.Forms.TextBox();
             this.maskedTextBox_tel1 = new System.Windows.Forms.MaskedTextBox();
             this.maskedTextBox_mail2 = new System.Windows.Forms.MaskedTextBox();
             this.maskedTextBox_mail = new System.Windows.Forms.MaskedTextBox();
@@ -51,8 +53,6 @@
             this.comboBox_work_in = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.ComentTel1_textBox = new System.Windows.Forms.TextBox();
-            this.ComentTel2_textBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -61,7 +61,7 @@
             // 
             // textBox_name
             // 
-            this.textBox_name.Location = new System.Drawing.Point(77, 16);
+            this.textBox_name.Location = new System.Drawing.Point(77, 43);
             this.textBox_name.Name = "textBox_name";
             this.textBox_name.Size = new System.Drawing.Size(341, 20);
             this.textBox_name.TabIndex = 0;
@@ -69,7 +69,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 19);
+            this.label1.Location = new System.Drawing.Point(6, 46);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(24, 13);
             this.label1.TabIndex = 1;
@@ -78,7 +78,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 45);
+            this.label2.Location = new System.Drawing.Point(6, 19);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(56, 13);
             this.label2.TabIndex = 2;
@@ -86,7 +86,7 @@
             // 
             // textBox_familia
             // 
-            this.textBox_familia.Location = new System.Drawing.Point(77, 42);
+            this.textBox_familia.Location = new System.Drawing.Point(77, 16);
             this.textBox_familia.Name = "textBox_familia";
             this.textBox_familia.Size = new System.Drawing.Size(341, 20);
             this.textBox_familia.TabIndex = 3;
@@ -120,7 +120,7 @@
             // 
             // button_create
             // 
-            this.button_create.Location = new System.Drawing.Point(583, 277);
+            this.button_create.Location = new System.Drawing.Point(680, 277);
             this.button_create.Name = "button_create";
             this.button_create.Size = new System.Drawing.Size(75, 23);
             this.button_create.TabIndex = 24;
@@ -183,7 +183,7 @@
             this.groupBox2.Controls.Add(this.textBox_coment);
             this.groupBox2.Location = new System.Drawing.Point(11, 180);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(728, 91);
+            this.groupBox2.Size = new System.Drawing.Size(826, 91);
             this.groupBox2.TabIndex = 33;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Коментар";
@@ -193,7 +193,7 @@
             this.textBox_coment.Location = new System.Drawing.Point(6, 19);
             this.textBox_coment.Multiline = true;
             this.textBox_coment.Name = "textBox_coment";
-            this.textBox_coment.Size = new System.Drawing.Size(716, 50);
+            this.textBox_coment.Size = new System.Drawing.Size(814, 50);
             this.textBox_coment.TabIndex = 0;
             // 
             // groupBox3
@@ -214,6 +214,20 @@
             this.groupBox3.TabIndex = 34;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Контактна інформація";
+            // 
+            // ComentTel2_textBox
+            // 
+            this.ComentTel2_textBox.Location = new System.Drawing.Point(290, 42);
+            this.ComentTel2_textBox.Name = "ComentTel2_textBox";
+            this.ComentTel2_textBox.Size = new System.Drawing.Size(99, 20);
+            this.ComentTel2_textBox.TabIndex = 42;
+            // 
+            // ComentTel1_textBox
+            // 
+            this.ComentTel1_textBox.Location = new System.Drawing.Point(290, 16);
+            this.ComentTel1_textBox.Name = "ComentTel1_textBox";
+            this.ComentTel1_textBox.Size = new System.Drawing.Size(99, 20);
+            this.ComentTel1_textBox.TabIndex = 6;
             // 
             // maskedTextBox_tel1
             // 
@@ -268,7 +282,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(664, 277);
+            this.button2.Location = new System.Drawing.Point(761, 277);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 37;
@@ -276,25 +290,11 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // ComentTel1_textBox
-            // 
-            this.ComentTel1_textBox.Location = new System.Drawing.Point(290, 16);
-            this.ComentTel1_textBox.Name = "ComentTel1_textBox";
-            this.ComentTel1_textBox.Size = new System.Drawing.Size(99, 20);
-            this.ComentTel1_textBox.TabIndex = 6;
-            // 
-            // ComentTel2_textBox
-            // 
-            this.ComentTel2_textBox.Location = new System.Drawing.Point(290, 42);
-            this.ComentTel2_textBox.Name = "ComentTel2_textBox";
-            this.ComentTel2_textBox.Size = new System.Drawing.Size(99, 20);
-            this.ComentTel2_textBox.TabIndex = 42;
-            // 
             // Add_kontakt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(885, 312);
+            this.ClientSize = new System.Drawing.Size(855, 312);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
