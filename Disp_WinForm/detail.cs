@@ -2288,91 +2288,43 @@ namespace Disp_WinForm
                         accounts = accounts + treeView_user_accounts.Nodes[0].Nodes[index1].Text + ", ";
                     }
 
-                    if (product_id == "10" || product_id == "11")//CNTP_910, CNTK_910
-                    {
-                        //update Обліковий запис WL
-                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + wl_id + "\","
-                                                                    + "\"id\":\"25\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
-                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
-                    }
-                    else if (product_id == "14" || product_id == "13" || product_id == "18" || product_id == "19" || product_id == "20" || product_id == "21")//CNTP_910_SE_N, CNTP_910_SE_P
-                    {
-                        //update Обліковий запис WL
-                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + wl_id + "\","
-                                                                    + "\"id\":\"25\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
-                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
-                    }
-                    else if (product_id == "2" || product_id == "3" || product_id == "6")//CNTP, CNTK, CN
-                    {
-                        //update Обліковий запис WL
-                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + wl_id + "\","
-                                                                    + "\"id\":\"27\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
-                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
-                    }
-                    else if (product_id == "5") //SLED
-                    {
-                        //update Обліковий запис WL
-                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + wl_id + "\","
-                                                                    + "\"id\":\"16\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
-                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
-                    }
-                    else if (product_id == "7") //K_n
-                    {
-                        //update Обліковий запис WL
-                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + wl_id + "\","
-                                                                    + "\"id\":\"13\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
-                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
-                    }
-                    else if (product_id == "12") //Kp_n
-                    {
-                        //update Обліковий запис WL
-                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + wl_id + "\","
-                                                                    + "\"id\":\"17\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
-                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
-                    }
-                    else if (product_id == "17") //Kp_n
-                    {
-                        //update Обліковий запис WL
-                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                    + "\"itemId\":\"" + wl_id + "\","
-                                                                    + "\"id\":\"15\","
-                                                                    + "\"callMode\":\"update\","
-                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
-                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
-                    }
-                    else if (product_id == "9") //S
-                    {
-                        //update Обліковий запис WL
-                        //string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                        //                                            + "\"itemId\":\"" + wl_id + "\","
-                        //                                            + "\"id\":\"15\","
-                        //                                            + "\"callMode\":\"update\","
-                        //                                            + "\"n\":\"4.4 Обліковий запис WL\","
-                        //                                            + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
-                    }
-                    else
-                    {
 
-                        MessageBox.Show("Невідомий продукт, інформацію про обліковий запис в картку WL не внесено");
+
+                    // Обновляем произвольное поле 4.4 Обліковий запис WL созданным записом
+                    //Загружаем произвольные поля объекта
+                    string json = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                             "\"spec\":{" +
+                                                             "\"itemsType\":\"avl_unit\"," +
+                                                             "\"propName\":\"sys_id\"," +
+                                                             "\"propValueMask\":\"" + wl_id + "\", " +
+                                                             "\"sortType\":\"sys_name\"," +
+                                                             "\"or_logic\":\"1\"}," +
+                                                             "\"or_logic\":\"1\"," +
+                                                             "\"force\":\"1\"," +
+                                                             "\"flags\":\"15208907\"," +
+                                                             "\"from\":\"0\"," +
+                                                             "\"to\":\"1\"}");//15208907
+
+                    var object_data = JsonConvert.DeserializeObject<RootObject>(json);
+
+
+                    //chek if exist costom feild in WL VO4, VO5
+                    foreach (var keyvalue in object_data.items[0].flds)
+                    {
+                        if (keyvalue.Value.n.Contains("4.4 Обліковий запис WL"))
+                        {
+                            //update Обліковий запис WL
+                            string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                    + "\"itemId\":\"" + wl_id + "\","
+                                                                    + "\"id\":\""+ keyvalue.Key +"\","
+                                                                    + "\"callMode\":\"update\","
+                                                                    + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                    + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                            break;
+                        }
                     }
+
+
                     Clipboard.SetText(textBox_account_pss.Text);
                     // Диалог закрываем заявку или нет при завершении работы с учетными записями
                     on_end_account_job("Створено каінет користувача: "+ email_textBox.Text + " та встановлено пароль: " + textBox_account_pss.Text);
@@ -2471,90 +2423,45 @@ namespace Disp_WinForm
                     accounts = accounts + treeView_user_accounts.Nodes[0].Nodes[index1].Text + ", ";
                 }
 
-                if (product_id == "10" || product_id == "11")//CNTP_910, CNTK_910
+
+
+
+                // Обновляем произвольное поле 4.4 Обліковий запис WL созданным записом
+                //Загружаем произвольные поля объекта
+                string json = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                         "\"spec\":{" +
+                                                         "\"itemsType\":\"avl_unit\"," +
+                                                         "\"propName\":\"sys_id\"," +
+                                                         "\"propValueMask\":\"" + wl_id + "\", " +
+                                                         "\"sortType\":\"sys_name\"," +
+                                                         "\"or_logic\":\"1\"}," +
+                                                         "\"or_logic\":\"1\"," +
+                                                         "\"force\":\"1\"," +
+                                                         "\"flags\":\"15208907\"," +
+                                                         "\"from\":\"0\"," +
+                                                         "\"to\":\"1\"}");//15208907
+
+                var object_data = JsonConvert.DeserializeObject<RootObject>(json);
+
+
+                //4.4 Обліковий запис WL
+                foreach (var keyvalue in object_data.items[0].flds)
                 {
-                    //update Обліковий запис WL
-                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                    if (keyvalue.Value.n.Contains("4.4 Обліковий запис WL"))
+                    {
+                        //update Обліковий запис WL
+                        string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                 + "\"itemId\":\"" + wl_id + "\","
-                                                                + "\"id\":\"25\","
+                                                                + "\"id\":\"" + keyvalue.Key + "\","
                                                                 + "\"callMode\":\"update\","
                                                                 + "\"n\":\"4.4 Обліковий запис WL\","
                                                                 + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                        break;
+                    }
                 }
-                else if (product_id == "14" || product_id == "13" || product_id == "18" || product_id == "19" || product_id == "20" || product_id == "21")//CNTP_910_SE_N, CNTP_910_SE_P
-                {
-                    //update Обліковий запис WL
-                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + wl_id + "\","
-                                                                + "\"id\":\"25\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"4.4 Обліковий запис WL\","
-                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
-                }
-                else if (product_id == "2" || product_id == "3" || product_id == "6")//CNTP, CNTK, CN
-                {
-                    //update Обліковий запис WL
-                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + wl_id + "\","
-                                                                + "\"id\":\"27\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"4.4 Обліковий запис WL\","
-                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
-                }
-                else if (product_id == "5") //SLED
-                {
-                    //update Обліковий запис WL
-                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + wl_id + "\","
-                                                                + "\"id\":\"16\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"4.4 Обліковий запис WL\","
-                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
-                }
-                else if (product_id == "7") //K_n
-                {
-                    //update Обліковий запис WL
-                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + wl_id + "\","
-                                                                + "\"id\":\"13\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"4.4 Обліковий запис WL\","
-                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
-                }
-                else if (product_id == "12") //Kp_n
-                {
-                    //update Обліковий запис WL
-                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + wl_id + "\","
-                                                                + "\"id\":\"17\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"4.4 Обліковий запис WL\","
-                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
-                }
-                else if (product_id == "17") //Kp_n
-                {
-                    //update Обліковий запис WL
-                    string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                                                                + "\"itemId\":\"" + wl_id + "\","
-                                                                + "\"id\":\"15\","
-                                                                + "\"callMode\":\"update\","
-                                                                + "\"n\":\"4.4 Обліковий запис WL\","
-                                                                + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
-                }
-                else if (product_id == "9") //S
-                {
-                    //update Обліковий запис WL
-                    //string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
-                    //                                            + "\"itemId\":\"" + wl_id + "\","
-                    //                                            + "\"id\":\"15\","
-                    //                                            + "\"callMode\":\"update\","
-                    //                                            + "\"n\":\"4.4 Обліковий запис WL\","
-                    //                                            + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
-                }
-                else
-                {
-                    MessageBox.Show("Невідомий продукт, інформацію про обліковий запис в картку WL не внесено");
-                }
+
+
+
 
                 on_end_account_job("Дозволено перегляд для користувача : " + email_textBox.Text);
             }
@@ -4205,7 +4112,7 @@ namespace Disp_WinForm
         {
             if (treeView_user_accounts.SelectedNode is null)
             {
-                MessageBox.Show("Вибери який кабінет відалити!");
+                MessageBox.Show("Вибери який кабінет забрати з доступу!");
             }
             else
             {
@@ -4273,12 +4180,61 @@ namespace Disp_WinForm
                                                                  "\"accessMask\":\"0\"}");
                         var m4 = JsonConvert.DeserializeObject<RootObject>(json4);
 
+
+                        //update treeView_user_accounts after making chenge
+                        build_list_account();
+
+
+                        //через запятую перебираем все аккауты из тривив и добавляем в accounts для записи в виалон
+                        string accounts = "";
+                        for (int index1 = 0; index1 < treeView_user_accounts.Nodes[0].Nodes.Count; index1++)
+                        {
+                            accounts = accounts + treeView_user_accounts.Nodes[0].Nodes[index1].Text + ", ";
+                        }
+
+
+
+                        // Обновляем произвольное поле 4.4 Обліковий запис WL созданным записом
+                        //Загружаем произвольные поля объекта
+                        string json = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                                 "\"spec\":{" +
+                                                                 "\"itemsType\":\"avl_unit\"," +
+                                                                 "\"propName\":\"sys_id\"," +
+                                                                 "\"propValueMask\":\"" + wl_id + "\", " +
+                                                                 "\"sortType\":\"sys_name\"," +
+                                                                 "\"or_logic\":\"1\"}," +
+                                                                 "\"or_logic\":\"1\"," +
+                                                                 "\"force\":\"1\"," +
+                                                                 "\"flags\":\"15208907\"," +
+                                                                 "\"from\":\"0\"," +
+                                                                 "\"to\":\"1\"}");//15208907
+
+                        var object_data = JsonConvert.DeserializeObject<RootObject>(json);
+
+
+                        //chek if exist costom feild in WL VO4, VO5
+                        foreach (var keyvalue in object_data.items[0].flds)
+                        {
+                            if (keyvalue.Value.n.Contains("4.4 Обліковий запис WL"))
+                            {
+                                //update Обліковий запис WL
+                                string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                        + "\"itemId\":\"" + wl_id + "\","
+                                                                        + "\"id\":\"" + keyvalue.Key + "\","
+                                                                        + "\"callMode\":\"update\","
+                                                                        + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                        + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                                break;
+                            }
+                        }
+
+
+
                         //log user action
                         macros.LogUserAction(vars_form.user_login_id, "Прибрати з доступу користувача", saving_selected_account, wl_id, Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
 
 
-                        //update treeView_user_accounts after making chenge
-                        build_list_account();
+                        
 
                         // Диалог закрываем заявку или нет при завершении работы с учетными записями
                         on_end_account_job("Заборонено перегляд авто для користувача : " + saving_selected_account);
@@ -4353,6 +4309,52 @@ namespace Disp_WinForm
                         macros.GetData("insert into btk.Client_accounts (name, pass, date, reason, Object_idObject, Users_idUsers) value ('" + treeView_user_accounts.SelectedNode.Text + "','','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','Delete account','" + id_db_obj + "','" + vars_form.user_login_id + "');");
 
                         build_list_account();//обновляем тривив
+
+
+                        //через запятую перебираем все аккауты из тривив и добавляем в accounts для записи в виалон
+                        string accounts = "";
+                        for (int index1 = 0; index1 < treeView_user_accounts.Nodes[0].Nodes.Count; index1++)
+                        {
+                            accounts = accounts + treeView_user_accounts.Nodes[0].Nodes[index1].Text + ", ";
+                        }
+
+
+
+                        // Обновляем произвольное поле 4.4 Обліковий запис WL созданным записом
+                        //Загружаем произвольные поля объекта
+                        string json = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                                 "\"spec\":{" +
+                                                                 "\"itemsType\":\"avl_unit\"," +
+                                                                 "\"propName\":\"sys_id\"," +
+                                                                 "\"propValueMask\":\"" + wl_id + "\", " +
+                                                                 "\"sortType\":\"sys_name\"," +
+                                                                 "\"or_logic\":\"1\"}," +
+                                                                 "\"or_logic\":\"1\"," +
+                                                                 "\"force\":\"1\"," +
+                                                                 "\"flags\":\"15208907\"," +
+                                                                 "\"from\":\"0\"," +
+                                                                 "\"to\":\"1\"}");//15208907
+
+                        var object_data = JsonConvert.DeserializeObject<RootObject>(json);
+
+
+                        //chek if exist costom feild in WL VO4, VO5
+                        foreach (var keyvalue in object_data.items[0].flds)
+                        {
+                            if (keyvalue.Value.n.Contains("4.4 Обліковий запис WL"))
+                            {
+                                //update Обліковий запис WL
+                                string pp8_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
+                                                                        + "\"itemId\":\"" + wl_id + "\","
+                                                                        + "\"id\":\"" + keyvalue.Key + "\","
+                                                                        + "\"callMode\":\"update\","
+                                                                        + "\"n\":\"4.4 Обліковий запис WL\","
+                                                                        + "\"v\":\"" + accounts.Replace("\"", "%5C%22") + "\"}");
+                                break;
+                            }
+                        }
+
+
 
                         on_end_account_job("Видалено користувача : " + saving_selected_account);
                     }
@@ -6481,6 +6483,15 @@ namespace Disp_WinForm
             on_end_account_job("Внесено зміни:\nПаркінг1:" + Parking1_textBox.Text + "\nПаркінг2: " + Parking2_textBox.Text + "\nПаркінг3: " + Parking3_textBox.Text + "\nПаркінг4: " + Parking4_textBox.Text + "\nПаркінг5: " + Parking5_textBox.Text);
             TreeView_zapolnyaem();
             MessageBox.Show("Збережено!");
+
+        }
+
+        private void listBox_activation_list_search_DoubleClick(object sender, EventArgs e)
+        {
+            if (listBox_activation_list_search.SelectedItem != null)
+            {
+                email_textBox.Text = listBox_activation_list_search.SelectedItem.ToString();
+            }
 
         }
     }
