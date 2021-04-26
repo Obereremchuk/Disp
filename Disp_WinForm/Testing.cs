@@ -22,6 +22,12 @@ namespace Disp_WinForm
         string get_produt_testing_device = "";
         string IdNewTesting;
 
+
+        private DateTime DateOpened = DateTime.Now;
+        private DateTime DateClosed;
+        private string StatusOpened;
+        private string StatusClosed;
+
         public Testing()
         {
             InitializeComponent();
@@ -3891,6 +3897,35 @@ namespace Disp_WinForm
         private void Testing_FormClosing(object sender, FormClosingEventArgs e)
         {
             aTimer3.Enabled = false;
+
+            DateClosed = DateTime.Now;
+            StatusClosed = comboBox_result.Text;
+            TimeSpan timeSpan = DateClosed - DateOpened;
+            //string t = $"{timeSpan.Hours}:{timeSpan.Minutes}:{timeSpan.Seconds}";
+
+            // get id_object DB where id_wl
+            string sql1 = string.Format("" +
+                "insert into btk.TestingProcessTime " +
+                "(" +
+                "DateOpened, " +
+                "DateClosed, " +
+                "testing_object_idtesting_object, " +
+                "StatusOpened, " +
+                "StatusClosed, " +
+                "Delta, " +
+                "Object_idObject," +
+                "Users_idUsers" +
+                ") values (" +
+                "'" + Convert.ToDateTime(DateOpened).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                "'" + Convert.ToDateTime(DateClosed).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                "'" + vars_form.id_db_openning_testing + "'," +
+                "'" + StatusOpened + "'," +
+                "'" + StatusClosed + "'," +
+                "'" + $"{timeSpan.Hours}:{timeSpan.Minutes}:{timeSpan.Seconds}" + "'," +
+                "'" + vars_form.id_db_object_for_test + "'," +
+                "'" + vars_form.user_login_id + "'" +
+                ");");
+            macros.sql_command(sql1);
         }
 
         private void button_block_engine_Click(object sender, EventArgs e)
@@ -4089,6 +4124,11 @@ namespace Disp_WinForm
             if (checkBox_sensor_glushenia.Checked is true)
             { textBox_jammer_place.Enabled = true; }
             else { textBox_jammer_place.Enabled = false; }
+        }
+
+        private void Testing_Load(object sender, EventArgs e)
+        {
+            StatusOpened = comboBox_result.Text;
         }
     }
 }

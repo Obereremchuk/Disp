@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.new_pin_textBox = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.textBox_button_for_PIN = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -90,21 +92,19 @@
             this.maskedTextBox_kont_phone1 = new System.Windows.Forms.MaskedTextBox();
             this.textBox_licence_plate = new System.Windows.Forms.TextBox();
             this.textBox_email = new System.Windows.Forms.TextBox();
+            this.manager_textBox = new System.Windows.Forms.TextBox();
             this.textBox_vlasnik = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.textBox_kont2 = new System.Windows.Forms.TextBox();
             this.textBox_kont1 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.remaynder_checkBox = new System.Windows.Forms.CheckBox();
             this.remaynder_dateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.dataGridView_activation_chenges = new System.Windows.Forms.DataGridView();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.manager_textBox = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.new_pin_textBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -162,6 +162,23 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Інформація про клієнта";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(7, 411);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(25, 13);
+            this.label15.TabIndex = 201;
+            this.label15.Text = "PIN";
+            // 
+            // new_pin_textBox
+            // 
+            this.new_pin_textBox.Location = new System.Drawing.Point(110, 408);
+            this.new_pin_textBox.Name = "new_pin_textBox";
+            this.new_pin_textBox.ReadOnly = true;
+            this.new_pin_textBox.Size = new System.Drawing.Size(408, 20);
+            this.new_pin_textBox.TabIndex = 200;
             // 
             // label14
             // 
@@ -644,6 +661,7 @@
             this.textBox_zayavka_comments.Multiline = true;
             this.textBox_zayavka_comments.Name = "textBox_zayavka_comments";
             this.textBox_zayavka_comments.ReadOnly = true;
+            this.textBox_zayavka_comments.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.textBox_zayavka_comments.Size = new System.Drawing.Size(454, 88);
             this.textBox_zayavka_comments.TabIndex = 198;
             // 
@@ -730,6 +748,14 @@
             this.textBox_email.Size = new System.Drawing.Size(219, 20);
             this.textBox_email.TabIndex = 186;
             // 
+            // manager_textBox
+            // 
+            this.manager_textBox.Location = new System.Drawing.Point(92, 245);
+            this.manager_textBox.Name = "manager_textBox";
+            this.manager_textBox.ReadOnly = true;
+            this.manager_textBox.Size = new System.Drawing.Size(219, 20);
+            this.manager_textBox.TabIndex = 185;
+            // 
             // textBox_vlasnik
             // 
             this.textBox_vlasnik.Location = new System.Drawing.Point(92, 71);
@@ -771,6 +797,15 @@
             this.label11.Size = new System.Drawing.Size(76, 39);
             this.label11.TabIndex = 176;
             this.label11.Text = "Коментар з заявки";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 248);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(60, 13);
+            this.label16.TabIndex = 180;
+            this.label16.Text = "Менеджер";
             // 
             // remaynder_checkBox
             // 
@@ -842,40 +877,6 @@
             this.groupBox2.TabIndex = 199;
             this.groupBox2.TabStop = false;
             // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 248);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(60, 13);
-            this.label16.TabIndex = 180;
-            this.label16.Text = "Менеджер";
-            // 
-            // manager_textBox
-            // 
-            this.manager_textBox.Location = new System.Drawing.Point(92, 245);
-            this.manager_textBox.Name = "manager_textBox";
-            this.manager_textBox.ReadOnly = true;
-            this.manager_textBox.Size = new System.Drawing.Size(219, 20);
-            this.manager_textBox.TabIndex = 185;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(7, 411);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(25, 13);
-            this.label15.TabIndex = 201;
-            this.label15.Text = "PIN";
-            // 
-            // new_pin_textBox
-            // 
-            this.new_pin_textBox.Location = new System.Drawing.Point(110, 408);
-            this.new_pin_textBox.Name = "new_pin_textBox";
-            this.new_pin_textBox.ReadOnly = true;
-            this.new_pin_textBox.Size = new System.Drawing.Size(408, 20);
-            this.new_pin_textBox.TabIndex = 200;
-            // 
             // Activation_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -888,6 +889,7 @@
             this.Name = "Activation_Form";
             this.Text = "Активація об\"єкту";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Activation_Form_FormClosed);
+            this.Load += new System.EventHandler(this.Activation_Form_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);

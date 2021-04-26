@@ -176,6 +176,22 @@ namespace Disp_WinForm
         public int io_66 { get; set; }
         public double pwr_int { get; set; }
         public double iccid { get; set; }
+
+
+        public string color { get; set; }
+        public string email_to { get; set; }
+        public string html { get; set; }
+        public string img_attach { get; set; }
+        public string subj { get; set; }
+        public string flags { get; set; }
+        public string apps { get; set; }
+        public string lower_bound { get; set; }
+        public string merge { get; set; }
+        public string prev_msg_diff { get; set; }
+        public string sensor_name_mask { get; set; }
+        public string sensor_type { get; set; }
+        public string type { get; set; }
+        public string upper_bound { get; set; }
     }
 
 
@@ -273,6 +289,64 @@ namespace Disp_WinForm
         public SubmitTransactionalSMSResponse submitTransactionalSMSResponse { get; set; }
         public Fault fault { get; set; }
 
+
+        public int id { get; set; }
+        public string n { get; set; }
+        public string txt { get; set; }
+        public int ta { get; set; }
+        public int td { get; set; }
+        public int ma { get; set; }
+        public int mmtd { get; set; }
+        public int cdt { get; set; }
+        public int mast { get; set; }
+        public int mpst { get; set; }
+        public int cp { get; set; }
+        public int tz { get; set; }
+        public string la { get; set; }
+        public int ac { get; set; }
+        public Sch sch { get; set; }
+        public CtrlSch ctrl_sch { get; set; }
+        public List<int> un { get; set; }
+        public List<Act> act { get; set; }
+        public Trg trg { get; set; }
+        public int mt { get; set; }
+
+    }
+    public class Sch
+    {
+        public int f1 { get; set; }
+        public int f2 { get; set; }
+        public int t1 { get; set; }
+        public int t2 { get; set; }
+        public int m { get; set; }
+        public int y { get; set; }
+        public int w { get; set; }
+        public int fl { get; set; }
+    }
+
+    public class CtrlSch
+    {
+        public int f1 { get; set; }
+        public int f2 { get; set; }
+        public int t1 { get; set; }
+        public int t2 { get; set; }
+        public int m { get; set; }
+        public int y { get; set; }
+        public int w { get; set; }
+        public int fl { get; set; }
+    }
+
+
+    public class Act
+    {
+        public string t { get; set; }
+        public P p { get; set; }
+    }
+
+    public class Trg
+    {
+        public string t { get; set; }
+        public P p { get; set; }
     }
 
     public class Detail

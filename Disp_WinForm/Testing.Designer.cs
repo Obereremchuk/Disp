@@ -1618,6 +1618,7 @@
             this.Name = "Testing";
             this.Text = "Testing";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Testing_FormClosing);
+            this.Load += new System.EventHandler(this.Testing_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();

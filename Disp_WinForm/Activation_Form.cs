@@ -34,6 +34,11 @@ namespace Disp_WinForm
         private string _user_login_email;
         private string date_activation_in_db;
 
+        private DateTime DateOpened = DateTime.Now;
+        private DateTime DateClosed;
+        private string StatusOpened;
+        private string StatusClosed;
+
 
         public Activation_Form()
         {
@@ -987,7 +992,7 @@ namespace Disp_WinForm
                 if (comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem).Contains("Успішно"))
                 {
                     string Subject = "707 Активовано успішно! VIN: " + textBox_vin_zayavka.Text + ", Обєкт: " + name_obj_new_textBox.Text + ", Проект: " + textBox_zamovnik.Text;
-                    string recip = "<" + _user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua>,<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<y.kravchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>";
+                    string recip = "<" + _user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua>,<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<y.kravchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>";
                     DataTable dt = new DataTable();
 
                     dt.Columns.Add("Параметр");
@@ -1155,7 +1160,7 @@ namespace Disp_WinForm
                 if (comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) == "Успішно" || comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) == "Успішно(PIN)")
                 {
                     string Subject = "707 Активовано успішно! VIN: " + textBox_vin_zayavka.Text + ", Обєкт: " + name_obj_new_textBox.Text + ", Проект: " + textBox_zamovnik.Text;
-                    string recip = "<" + _user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua>,<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<y.kravchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<n.kovalenko@venbest.com.ua>";
+                    string recip = "<" + _user_login_email + ">," + "<o.pustovit@venbest.com.ua>,<d.lenik@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.lozinskiy@venbest.com.ua>,<mc@venbest.com.ua>,<e.remekh@venbest.com.ua>,<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<y.kravchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>";
                     DataTable dt = new DataTable();
 
                     dt.Columns.Add("Параметр");
@@ -1513,6 +1518,38 @@ namespace Disp_WinForm
                                 "WHERE " +
                                 "idActivation_object = '" + _id_db_activation_for_activation + "';");
             aTimer3.Enabled = false;
+
+
+
+            DateClosed = DateTime.Now;
+            StatusClosed = comboBox_activation_result.Text;
+            TimeSpan timeSpan = DateClosed - DateOpened;
+            //string t = $"{timeSpan.Hours}:{timeSpan.Minutes}:{timeSpan.Seconds}";
+
+
+            // get id_object DB where id_wl
+            string sql1 = string.Format("" +
+                "insert into btk.ActivationProcessTime " +
+                "(" +
+                "DateOpened, " +
+                "DateClosed, " +
+                "Activation_object_idActivation_object, " +
+                "StatusOpened, " +
+                "StatusClosed, " +
+                "Delta, " +
+                "Object_idObject," +
+                "Users_idUsers" +
+                ") values (" +
+                "'" + Convert.ToDateTime(DateOpened).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                "'" + Convert.ToDateTime(DateClosed).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                "'" + _id_db_activation_for_activation + "'," +
+                "'" + StatusOpened + "'," +
+                "'" + StatusClosed + "'," +
+                "'" + $"{timeSpan.Hours}:{timeSpan.Minutes}:{timeSpan.Seconds}" + "'," +
+                "'" + _id_db_object_for_activation + "'," +
+                "'" + _user_login_id + "'" +
+                ");");
+            macros.sql_command(sql1);
         }
 
         private void remaynder_checkBox_CheckedChanged(object sender, EventArgs e)
@@ -1520,6 +1557,11 @@ namespace Disp_WinForm
             if (remaynder_checkBox.Checked == true)
             { remaynder_dateTimePicker.Enabled = true; }
             else { remaynder_dateTimePicker.Enabled = false; }
+        }
+
+        private void Activation_Form_Load(object sender, EventArgs e)
+        {
+            StatusOpened = macros.sql_command("SELECT Activation_objectcol_result FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "';");
         }
     }
 }

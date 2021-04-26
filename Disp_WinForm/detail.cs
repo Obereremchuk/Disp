@@ -47,6 +47,15 @@ namespace Disp_WinForm
         private int Parking4ExistInWL = 0;
         private int Parking5ExistInWL = 0;
 
+        private DateTime DateOpened;
+        private DateTime DateClosed;
+        private string StatusOpened;
+        private string StatusClosed;
+
+
+
+
+
         public detail()
         {
 
@@ -110,6 +119,8 @@ namespace Disp_WinForm
 
 
         }
+
+   
 
         private void accsses()
         {
@@ -508,6 +519,9 @@ namespace Disp_WinForm
                               "'34'," +
                               "'1', " +
                               "'1');");
+
+                            id_db_obj = macros.sql_command("SELECT MAX(idObject) FROM btk.Object;");
+
                         }
 
 
@@ -1011,6 +1025,36 @@ namespace Disp_WinForm
 
             macros.sql_command("UPDATE btk.notification SET alarm_locked = '0', alarm_locked_user = null WHERE idnotification = '" + _id_notif + "';");
 
+            DateClosed = DateTime.Now;
+            StatusClosed = comboBox_status_trevogi.Text;
+            TimeSpan timeSpan = DateClosed - DateOpened;
+            string t = $"{timeSpan.Hours}:{timeSpan.Minutes}:{timeSpan.Seconds}";
+
+
+            // get id_object DB where id_wl
+            string sql1 = string.Format("" +
+                "insert into btk.ProcessingTime " +
+                "(" +
+                "DateOpened, " +
+                "DateClosed, " +
+                "notification_idnotification, " +
+                "StatusOpened, " +
+                "StatusClosed, " +
+                "Delta, " +
+                "Object_idObject," +
+                "Users_idUsers" +
+                ") values (" +
+                "'" + Convert.ToDateTime(DateOpened).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                "'" + Convert.ToDateTime(DateClosed).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                "'"+ _id_notif + "'," +
+                "'"+ StatusOpened + "'," +
+                "'"+ StatusClosed + "'," +
+                "'" + $"{timeSpan.Hours}:{timeSpan.Minutes}:{timeSpan.Seconds}" + "'," +
+                "'" + id_db_obj + "'," +
+                "'" + _user_login_id + "'" +
+                ");");
+            string idobject = macros.sql_command(sql1);
+
         }//если форма закрывается оператором - снимаем блокировку одновременного открытия
 
 
@@ -1399,9 +1443,12 @@ namespace Disp_WinForm
 
         private void treeView_client_info_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            var mySelectedNode = treeView_client_info.GetNodeAt(e.X, e.Y);
-            treeView_client_info.LabelEdit = true;
-            mySelectedNode.BeginEdit();
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                var mySelectedNode = treeView_client_info.GetNodeAt(e.X, e.Y);
+                treeView_client_info.LabelEdit = true;
+                mySelectedNode.BeginEdit();
+            }
         }
 
         private void get_close_object_data()
@@ -1508,62 +1555,10 @@ namespace Disp_WinForm
 
         private void detail_Load(object sender, EventArgs e)
         {
-            //get_remaynder();
-            //label10.Text = "1";
+            DateOpened = DateTime.Now;
+            StatusOpened = comboBox_status_trevogi.Text;
 
-            //accsses();
-            //label10.Text = "2";
-
-            //TreeView_zapolnyaem();
-            //label10.Text = "3";
-
-            //mysql_get_hronologiya_trivog();
-            //label10.Text = "4";
-
-            //mysql_get_group_alarm();
-            //label10.Text = "5";
-
-            //get_close_object_data();
-            //label10.Text = "6";
-
-            //get_sensor_value();
-            //label10.Text = "7";
-
-            //GetUserOtvetstvenyi();
-            //label10.Text = "8";
-
-            //await Task.Run(() => Arhiv_object());
-            //Arhiv_object();
-            //new Task(arhiv_object).Start();
-
-
-
-            ////start mini map
-            //try
-            //{
-            //    //geckoWebBrowser1.Navigate("http://10.44.30.32/disp_app/HTMLPage_map.html?foo=" + _search_id);
-
-            //    string json = macros.WialonRequestSimple("&svc=token/update&params={" +
-            //                                        "\"callMode\":\"create\"," +
-            //                                        "\"app\":\"locator\"," +
-            //                                        "\"at\":\"0\"," +
-            //                                        "\"dur\":\"1800\"," +
-            //                                        "\"fl\":\"-1\"," +
-            //                                        "\"p\":\"{" + "\\" + "\"sensorMasks" + "\\" + "\"" + ":[" + "\\" + "\"*" + "\\" + "\"]," + "\\" + "\"note" + "\\" + "\"" + ":" + "\\" + "\""+ vars_form.unit_name + "" + "\\" + "\"," + "\\" + "\"zones" + "\\" + "\"" + ":" + "\\" + "\"1" + "\\" + "\"," + "\\" + "\"tracks" + "\\" + "\"" + ":" + "\\" + "\"1" + "\\" + "\"" + "}\"," +
-            //                                        "\"items\":["+ _search_id +"]" +
-            //                                        "}");
-
-            //    var m = JsonConvert.DeserializeObject<locator>(json);
-
-            //    string locator_url = "https://navi.venbest.com.ua/locator/index.html?t=" + m.h;
-            //    geckoWebBrowser2.Navigate(locator_url);
-
-
-            //}
-            //catch
-            //{
-            //}
-            //label10.Text = "";
+            
 
 
 
@@ -1821,7 +1816,7 @@ namespace Disp_WinForm
                                                          "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                          "\"callMode\":\"update\"," +
                                                          "\"n\":\"" + keyvalue.Value.n + "\"," +
-                                                         "\"v\":\"" + textBox_vo1.Text + "\"}");
+                                                         "\"v\":\"" + textBox_vo1.Text.Replace("\"", "%5C%22") + "\"}");
                         break;
 
                     //Chenge feild ВО2
@@ -1832,7 +1827,7 @@ namespace Disp_WinForm
                                                          "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                          "\"callMode\":\"update\"," +
                                                          "\"n\":\"" + keyvalue.Value.n + "\"," +
-                                                         "\"v\":\"" + textBox_vo2.Text + "\"}");
+                                                         "\"v\":\"" + textBox_vo2.Text.Replace("\"", "%5C%22") + "\"}");
                         break;
 
                     //Chenge feild ВО3
@@ -1843,7 +1838,7 @@ namespace Disp_WinForm
                                                          "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                          "\"callMode\":\"update\"," +
                                                          "\"n\":\"" + keyvalue.Value.n + "\"," +
-                                                         "\"v\":\"" + textBox_vo3.Text + "\"}");
+                                                         "\"v\":\"" + textBox_vo3.Text.Replace("\"", "%5C%22") + "\"}");
                         break;
 
                     //Chenge feild ВО4
@@ -1854,7 +1849,7 @@ namespace Disp_WinForm
                                                          "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                          "\"callMode\":\"update\"," +
                                                          "\"n\":\"" + keyvalue.Value.n + "\"," +
-                                                         "\"v\":\"" + textBox_vo4.Text + "\"}");
+                                                         "\"v\":\"" + textBox_vo4.Text.Replace("\"", "%5C%22") + "\"}");
                         break;
 
                     //Chenge feild ВО5
@@ -1865,10 +1860,11 @@ namespace Disp_WinForm
                                                          "\"id\":\"" + keyvalue.Value.id + "\"," +
                                                          "\"callMode\":\"update\"," +
                                                          "\"n\":\"" + keyvalue.Value.n + "\"," +
-                                                         "\"v\":\"" + textBox_vo5.Text + "\"}");
+                                                         "\"v\":\"" + textBox_vo5.Text.Replace("\"", "%5C%22") + "\"}");
                         break;                   
                 }
             }
+            TreeView_zapolnyaem();
             MessageBox.Show("Збережено");
             // Диалог закрываем заявку или нет при завершении работы с учетными записями
             on_end_account_job("Внесено зміни:\nВО1:" + textBox_vo1.Text + "\nВО2: " + textBox_vo2.Text + "\nВО3: " + textBox_vo3.Text + "\nВО4: " + textBox_vo4.Text + "\nВО5: " + textBox_vo5.Text + "\nКодове слово: " + kodove_slovo_textBox.Text);
@@ -4669,7 +4665,7 @@ namespace Disp_WinForm
 
         private void treeView_client_info_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            if (e.Node.Text.Contains("ВО1") )
+            if (e.Node.Text.Contains("ВО1:") )
             {
                 //load VO1
                 string VO1 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '1' ORDER BY idVO DESC limit 1;");
@@ -4691,7 +4687,7 @@ namespace Disp_WinForm
                     process.Start();
                 }
             }
-            if (e.Node.Text.Contains("ВО2"))
+            if (e.Node.Text.Contains("ВО2:"))
             {
                 //load VO1
                 string VO2 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '2' ORDER BY idVO DESC limit 1;");
@@ -4713,7 +4709,7 @@ namespace Disp_WinForm
                     process.Start();
                 }
             }
-            if (e.Node.Text.Contains("ВО3"))
+            if (e.Node.Text.Contains("ВО3:"))
             {
                 //load VO1
                 string VO3 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '3' ORDER BY idVO DESC limit 1;");
@@ -4735,7 +4731,7 @@ namespace Disp_WinForm
                     process.Start();
                 }
             }
-            if (e.Node.Text.Contains("ВО4"))
+            if (e.Node.Text.Contains("ВО4:"))
             {
                 //load VO1
                 string VO4 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '4' ORDER BY idVO DESC limit 1;");
@@ -4757,7 +4753,7 @@ namespace Disp_WinForm
                     process.Start();
                 }
             }
-            if (e.Node.Text.Contains("ВО5"))
+            if (e.Node.Text.Contains("ВО5:"))
             {
                 //load VO1
                 string VO5 = macros.sql_command("select Kontakti_idKontakti from btk.VO where Object_idObject = '" + id_db_obj + "' and VOcol_num_vo = '5' ORDER BY idVO DESC limit 1;");
@@ -6336,39 +6332,59 @@ namespace Disp_WinForm
 
         private void Test_button_Click(object sender, EventArgs e)
         {
-            string Body = "<p>Добрий день!</p>" +
-                    "<p>Роумінг погоджено!</p>" +
-                    "<p>Project: " + _unit_name + "</p>" +
-                    "<p>Name: " + _unit_name + "</p>" +
-                    "<p>ID: " + textBox_IMEI.Text + "</p>" +
-                    "<p>SIM1: " + textBox_SIM1.Text + "</p>" +
-                    "<p>SIM2: " + textBox_SIM1.Text + "</p>" +
-                    "<p>FROM: " + textBox_SIM1.Text + "</p>" +
-                    "<p>TO: " + textBox_SIM1.Text + "</p>";
+            string ee = macros.WialonRequest("&svc=core/get_hw_types&params={" +
+                                                     "\"filterType\":\"id\"," +
+                                                     "\"filterValue\":\"*250*\"," +
+                                                     "\"includeType\":\"true\"," +
+                                                     "\"ignoreRename\":\"true\"}");// Проверям существует ли данный номер в системе
 
-            //Stroim spisok Komu otpravlayem
-            DataTable GroupRecipient = macros.GetData("SELECT user_mail FROM btk.Users where dept_user = 113;");
-            string Recipient = "";
-            int Count = GroupRecipient.Rows.Count;
-            foreach (DataRow row in GroupRecipient.Rows)
-            {
-                if (Count == 1)
-                {
-                    Recipient += "<" + row["user_mail"].ToString() + ">";
-                }
-                else if (Count > 1)
-                {
-                    Recipient += "<" + row["user_mail"].ToString() + ">,";
-                    Count--;
-                }
-                else if (Count == 0)
-                {
-                    MessageBox.Show("Ups, Net Adresatov, naberi 117");
-                }
-            }
             return;
-            if (Recipient != "")
-            { macros.send_mail_auto(email_textBox.Text, "Disp. Активацыя роумінгу. Обєкт: " + _unit_name + " ", Body); }
+            string json2 = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                     "\"spec\":{" +
+                                                     "\"itemsType\":\"avl_resource\"," +
+                                                     "\"propName\":\"sys_name\"," +
+                                                     "\"propValueMask\":\"wialon\", " +
+                                                     "\"sortType\":\"sys_name\"," +
+                                                     "\"or_logic\":\"1\"}," +
+                                                     "\"force\":\"1\"," +
+                                                     "\"flags\":\"-1\"," +
+                                                     "\"from\":\"0\"," +
+                                                     "\"to\":\"5\"}");//получаем текущее местоположение объекта
+
+            string json3 = macros.WialonRequest("&svc=resource/get_notification_data&params={" +
+                                                     "\"itemId\":\"12\"," +
+                                                     "\"col\":\"13\"}");//получаем текущее местоположение объекта
+
+            var test_out = JsonConvert.DeserializeObject<RootObject>(json3);
+            var t = test_out.act[3].p.apps;
+            List<int> TagIds = t.Split(',').Select(int.Parse).ToList();
+
+            string outt = "";
+            string Err = "";
+            int count = 0;
+            foreach (int elm in TagIds)
+            {
+                string json4 = macros.WialonRequest("&svc=core/search_item&params={" +
+                                                     "\"id\":\"" + elm + "\"," +
+                                                     "\"flags\":\"1\"}");//получаем текущее местоположение объекта
+               
+                
+                if (json4.Contains("error"))
+                { 
+                    Err += elm + ", ";
+                }
+                else
+                {
+                    var test_out1 = JsonConvert.DeserializeObject<RootObject>(json4);
+                    if (test_out1.item.nm.Contains("@"))
+                    {
+                        outt += test_out1.item.nm + ", ";
+                        count++;
+                    }
+                }
+
+            }
+
         }
 
         private void ParkingSave_button_Click(object sender, EventArgs e)

@@ -1119,12 +1119,10 @@
             this.comboBox_reason_zayavki.FormattingEnabled = true;
             this.comboBox_reason_zayavki.Items.AddRange(new object[] {
             "",
-            "Тестування",
-            "Новий клієнт",
-            "Зміна СК",
-            "Зміна власника",
-            "Перехідний клієнт",
-            "Інше"});
+            "Успішно",
+            "Успішно (PIN)",
+            "Не проводилось",
+            "Протестовано"});
             this.comboBox_reason_zayavki.Location = new System.Drawing.Point(6, 71);
             this.comboBox_reason_zayavki.Name = "comboBox_reason_zayavki";
             this.comboBox_reason_zayavki.Size = new System.Drawing.Size(254, 21);

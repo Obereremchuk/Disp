@@ -116,7 +116,7 @@ namespace Disp_WinForm
                 //Создаем имел, в ответ получаем айди созданой записи. Если пусто то присваиваем айди №1 = пусто.
                 if (textBox_mail.Text != "")//если поле не пустое
                 {
-                    macros.sql_command("insert into btk.Emails(Emailscol_email) values('" + textBox_mail.Text + "');");
+                    macros.sql_command("insert into btk.Emails(Emailscol_email) values('" + MySqlHelper.EscapeString(textBox_mail.Text) + "');");
                     id_mail1 = macros.sql_command("SELECT MAX(idEmails) FROM btk.Emails;");
                 }
                 else
@@ -128,7 +128,7 @@ namespace Disp_WinForm
 
                 if (textBox_mail.Text != "")
                 {
-                    macros.sql_command("update btk.Emails set Emailscol_email='" + textBox_mail.Text + "' where idEmails=" + id_mail1 + ";");
+                    macros.sql_command("update btk.Emails set Emailscol_email='" + MySqlHelper.EscapeString(textBox_mail.Text) + "' where idEmails=" + id_mail1 + ";");
                 }
                 else
                 {
@@ -143,7 +143,7 @@ namespace Disp_WinForm
                 //Создаем имел, в ответ получаем айди созданой записи. Если пусто то присваиваем айди №1 = пусто.
                 if (textBox_mail2.Text != "")//если поле не пустое
                 {
-                    macros.sql_command("insert into btk.Emails(Emailscol_email) values('" + textBox_mail2.Text + "');");
+                    macros.sql_command("insert into btk.Emails(Emailscol_email) values('" + MySqlHelper.EscapeString(textBox_mail2.Text) + "');");
                     id_mail2 = macros.sql_command("SELECT MAX(idEmails) FROM btk.Emails;");
                 }
                 else
@@ -155,7 +155,7 @@ namespace Disp_WinForm
 
                 if (textBox_mail2.Text != "")
                 {
-                    macros.sql_command("update btk.Emails set Emailscol_email='" + textBox_mail2.Text + "' where idEmails=" + id_mail2 + ";");
+                    macros.sql_command("update btk.Emails set Emailscol_email='" + MySqlHelper.EscapeString(textBox_mail2.Text) + "' where idEmails=" + id_mail2 + ";");
                 }
                 else
                 {
@@ -168,7 +168,7 @@ namespace Disp_WinForm
                 //Создаем имел, в ответ получаем айди созданой записи. Если пусто то присваиваем айди №1 = пусто.
                 if (maskedTextBox_tel1.Text != "")//если поле не пустое
                 {
-                    macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone, Phonebookcol_messanger) values('" + maskedTextBox_tel1.Text.ToString() + "', '" + ComentTel1_textBox.Text.ToString() + "');");
+                    macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone, Phonebookcol_messanger) values('" + maskedTextBox_tel1.Text.ToString() + "', '" + MySqlHelper.EscapeString(ComentTel1_textBox.Text) + "');");
                     id_phon1 = macros.sql_command("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
                 }
                 else
@@ -180,7 +180,7 @@ namespace Disp_WinForm
 
                 if (maskedTextBox_tel1.Text != "")
                 {
-                    macros.sql_command("update btk.Phonebook set Phonebookcol_phone='" + maskedTextBox_tel1.Text + "', Phonebookcol_messanger='" + ComentTel1_textBox.Text + "' where idPhonebook=" + id_phon1 + ";");
+                    macros.sql_command("update btk.Phonebook set Phonebookcol_phone='" + maskedTextBox_tel1.Text + "', Phonebookcol_messanger='" + MySqlHelper.EscapeString(ComentTel1_textBox.Text) + "' where idPhonebook=" + id_phon1 + ";");
                 }
                 else
                 {
@@ -193,7 +193,7 @@ namespace Disp_WinForm
                 //Создаем имел, в ответ получаем айди созданой записи. Если пусто то присваиваем айди №1 = пусто.
                 if (maskedTextBox_tel2.Text != "")//если поле не пустое
                 {
-                    macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone, Phonebookcol_messanger) values('" + maskedTextBox_tel2.Text.ToString() + "', '" + ComentTel2_textBox.Text.ToString() + "');");
+                    macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone, Phonebookcol_messanger) values('" + maskedTextBox_tel2.Text.ToString() + "', '" + MySqlHelper.EscapeString(ComentTel2_textBox.Text) + "');");
                     id_phon2 = macros.sql_command("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
                 }
                 else
@@ -205,7 +205,7 @@ namespace Disp_WinForm
 
                 if (maskedTextBox_tel2.Text != "")
                 {
-                    macros.sql_command("update btk.Phonebook set Phonebookcol_phone='" + maskedTextBox_tel2.Text + "', Phonebookcol_messanger='" + ComentTel2_textBox.Text + "' where idPhonebook=" + id_phon2 + ";");
+                    macros.sql_command("update btk.Phonebook set Phonebookcol_phone='" + maskedTextBox_tel2.Text + "', Phonebookcol_messanger='" + MySqlHelper.EscapeString(ComentTel2_textBox.Text) + "' where idPhonebook=" + id_phon2 + ";");
                 }
                 else
                 {
@@ -216,10 +216,10 @@ namespace Disp_WinForm
             if (vars_form.kontakts_opened_from >= 1)
             {
                 macros.sql_command("update btk.Kontakti set "
-                + "Kontakti_imya='" + textBox_name.Text + "',"
-                + "Kontakti_familia='" + textBox_familia.Text + "',"
-                + "Kontakti_otchestvo = '"+textBox_otchestvo.Text+"',"
-                + "Kontakti_comment='" + textBox_coment.Text + "',"
+                + "Kontakti_imya='" + MySqlHelper.EscapeString(textBox_name.Text) + "',"
+                + "Kontakti_familia='" + MySqlHelper.EscapeString(textBox_familia.Text) + "',"
+                + "Kontakti_otchestvo = '" + MySqlHelper.EscapeString(textBox_otchestvo.Text)+"',"
+                + "Kontakti_comment='" + MySqlHelper.EscapeString(textBox_coment.Text) + "',"
                 + "Kontakti_user_creator='" + vars_form.user_login_id + "',"
                 + "Kontakti_edit_datetime='" + Convert.ToDateTime(DateTime.Now).ToString("yyyy -MM-dd HH:mm:ss") + "',"
                 + "Emails_idEmails='" + id_mail1 + "',"
@@ -234,9 +234,9 @@ namespace Disp_WinForm
 
                 macros.sql_command("update btk.Kontakti set "
                 + "Kontakti_imya='" + textBox_name.Text + "',"
-                + "Kontakti_familia='" + textBox_familia.Text + "',"
-                + "Kontakti_otchestvo = '" + textBox_otchestvo.Text + "',"
-                + "Kontakti_comment='" + textBox_coment.Text + "',"
+                + "Kontakti_familia='" + MySqlHelper.EscapeString(textBox_familia.Text) + "',"
+                + "Kontakti_otchestvo = '" + MySqlHelper.EscapeString(textBox_otchestvo.Text) + "',"
+                + "Kontakti_comment='" + MySqlHelper.EscapeString(textBox_coment.Text) + "',"
                 + "Kontakti_user_creator='" + vars_form.user_login_id + "',"
                 + "Kontakti_edit_datetime='" + Convert.ToDateTime(DateTime.Now).ToString("yyyy -MM-dd HH:mm:ss") + "',"
                 + "Emails_idEmails='" + id_mail1 + "',"
