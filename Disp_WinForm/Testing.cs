@@ -114,6 +114,7 @@ namespace Disp_WinForm
                 if (table.Rows[0]["testing_objectcol_autostart"].ToString() == "1")
                 { checkBox_test_autostart.Checked = true; }
 
+                IdNewTesting = table.Rows[0]["idtesting_object"].ToString();
 
             }
         }
@@ -1865,7 +1866,7 @@ namespace Disp_WinForm
                     macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"registration_plate\","
-                                                               + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
+                                                               + "\"v\":\"-\"}");
                 }
                 //Характеристики brend
                 string pp14_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
@@ -2609,6 +2610,7 @@ namespace Disp_WinForm
                                            "'" + vars_form.user_login_id + "', " +
                                            "'Не завершено'" +
                                            ");");
+                    IdNewTesting = macros.sql_command("SELECT max(idtesting_object) FROM btk.testing_object;");
                     macros.sql_command("update btk.Object set Objectcol_testing_ok = 0 where idObject = '" +
                                        vars_form.id_db_object_for_test + "';");
 
@@ -3903,6 +3905,7 @@ namespace Disp_WinForm
             TimeSpan timeSpan = DateClosed - DateOpened;
             //string t = $"{timeSpan.Hours}:{timeSpan.Minutes}:{timeSpan.Seconds}";
 
+
             // get id_object DB where id_wl
             string sql1 = string.Format("" +
                 "insert into btk.TestingProcessTime " +
@@ -3918,7 +3921,7 @@ namespace Disp_WinForm
                 ") values (" +
                 "'" + Convert.ToDateTime(DateOpened).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                 "'" + Convert.ToDateTime(DateClosed).ToString("yyyy-MM-dd HH:mm:ss") + "'," +
-                "'" + vars_form.id_db_openning_testing + "'," +
+                "'" + IdNewTesting + "'," +
                 "'" + StatusOpened + "'," +
                 "'" + StatusClosed + "'," +
                 "'" + $"{timeSpan.Hours}:{timeSpan.Minutes}:{timeSpan.Seconds}" + "'," +

@@ -654,7 +654,7 @@ namespace Disp_WinForm
                                             "AND Zayavki.Kontragenti_idKontragenti_sto=Kontragenti.idKontragenti " +
                                             "AND Zayavki.Users_idUsers=Users.idUsers " +
                                             "AND testing_object.Object_idObject=Object.idObject " +
-                                            "AND Zayavkicol_reason like '%" + comboBox_reason_zayavki.Text + "%' " +
+                                            "AND Activation_object.Activation_objectcol_result like '%" + comboBox_reason_zayavki.Text + "%' " +
                                             "AND (Zayavkicol_name like '%" + textBox_search_zayavki.Text + "%' " +
                                             "OR idZayavki like '%" + textBox_search_zayavki.Text + "%' " +
                                             "OR Zayavkicol_VIN like '%" + textBox_search_zayavki.Text + "%' " +
@@ -690,7 +690,7 @@ namespace Disp_WinForm
                                             "AND Zayavki.Kontragenti_idKontragenti_sto=Kontragenti.idKontragenti " +
                                             "AND Zayavki.Users_idUsers=Users.idUsers " +
                                             "AND testing_object.Object_idObject=Object.idObject " +
-                                            "AND Zayavkicol_reason like '%" + comboBox_reason_zayavki.Text + "%' " +
+                                            "AND Activation_object.Activation_objectcol_result like '%" + comboBox_reason_zayavki.Text + "%' " +
                                             "AND (Zayavkicol_edit_timestamp between '" + Convert.ToDateTime(dateTimePicker_from_for_zayavki_na_activation_W2.Value).ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + Convert.ToDateTime(dateTimePicker_for_zayavki_na_activation_W2.Value).ToString("yyyy-MM-dd HH:mm:ss") + "')" +
                                             "AND (Zayavkicol_name like '%" + textBox_search_zayavki.Text + "%' " +
                                             "OR idZayavki like '%" + textBox_search_zayavki.Text + "%' " +

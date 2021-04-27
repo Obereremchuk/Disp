@@ -1122,7 +1122,8 @@
             "Успішно",
             "Успішно (PIN)",
             "Не проводилось",
-            "Протестовано"});
+            "Протестовано",
+            "Інше"});
             this.comboBox_reason_zayavki.Location = new System.Drawing.Point(6, 71);
             this.comboBox_reason_zayavki.Name = "comboBox_reason_zayavki";
             this.comboBox_reason_zayavki.Size = new System.Drawing.Size(254, 21);
