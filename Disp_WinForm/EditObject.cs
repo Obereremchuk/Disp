@@ -16,5 +16,7 @@ namespace Disp_WinForm
         {
             InitializeComponent();
         }
+
+       
     }
 }

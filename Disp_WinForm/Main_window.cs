@@ -16098,20 +16098,7 @@ namespace Disp_WinForm
                 maskedTextBox_sim_no_to_create.BackColor = Color.Red;
                 return;
             }
-            if (maskedTextBox_PUK.Text.Length <= 3)//Если PUK короче 4х символов останавливается и подсвкечиваем желтым
-            {
-                maskedTextBox_sim_no_to_create.BackColor = Color.Yellow;
-                DialogResult result = MessageBox.Show(
-                    "Вопрос",
-                    "PUK Верный?",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question,
-                    MessageBoxDefaultButton.Button2,
-                    MessageBoxOptions.DefaultDesktopOnly);
-                if (result == DialogResult.No)
-                    return;
-                maskedTextBox_PUK.BackColor = Color.White;
-            }
+            
             // Проверям существует ли данный номер в системе
             string unswer = macros.WialonRequest("&svc=core/search_items&params={" +
                                                      "\"spec\":{" +
@@ -16170,7 +16157,7 @@ namespace Disp_WinForm
             string item_id_in =
                 "&svc=unit/update_device_type&params={"
                 + "\"itemId\":\"" + cr_obj_out.item.id
-                + "\",\"deviceTypeId\":\"" + "9"
+                + "\",\"deviceTypeId\":\"" + "10013"
                 + "\",\"uniqueId\":\"" + textBox_id_to_create.Text.ToString() + "\"}";
             string json2 = macros.WialonRequest(item_id_in);
             var item_id_out = JsonConvert.DeserializeObject<RootObject>(json2);
@@ -16196,10 +16183,10 @@ namespace Disp_WinForm
             ///
 
             //1. Тревожная кнопка
-            string alarm_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Тревожная кнопка", "digital", "Вкл/Выкл", "io_236", 1, "1", 0, "");
+            string alarm_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Тревожная кнопка", "alarm trigger", "Вкл/Выкл", "io_236", 1, "1", 0, "");
 
             //2. Заряд батареи
-            string bat_lvl = macros.create_sensor_wl(cr_obj_out.item.id, "Заряд батареи", "custom", "%", "io_113", 2, "1", 0, "");
+            string bat_lvl = macros.create_sensor_wl(cr_obj_out.item.id, "Заряд батареи", "custom", "%25", "io_113", 2, "1", 0, "");
 
             //3. Зарядное устройство
             string Charger = macros.create_sensor_wl(cr_obj_out.item.id, "Зарядное устройство", "digital", "Вкл/Выкл", "io_116", 3, "1", 0, "");
@@ -16208,10 +16195,10 @@ namespace Disp_WinForm
             string Move = macros.create_sensor_wl(cr_obj_out.item.id, "Датчик движения", "digital", "Вкл/Выкл", "io_240", 4, "1", 0, "");
 
             //5. HDOP
-            string HDOP = macros.create_sensor_wl(cr_obj_out.item.id, "HDOP", "custom", "", "io_182", 5, "1", 0, "", false);
+            string HDOP = macros.create_sensor_wl(cr_obj_out.item.id, "HDOP", "custom", "", "io_182", 5, "1", 0, "", 0);
 
             //6. Статус обдорудования
-            string Status = macros.create_sensor_wl(cr_obj_out.item.id, "Статус обдорудования", "digital", "Вкл/Выкл", "io_390", 6, "1", 0, "");
+            string Status = macros.create_sensor_wl(cr_obj_out.item.id, "Статус обдорудования", "digital", "Вимкнено/Вкл", "io_390", 6, "1", 0, "");
 
 
             /////////////////
@@ -17375,6 +17362,58 @@ namespace Disp_WinForm
             {
                 button_create_object.Text = "Error Sent SMS! Reason: " + answ.submitTransactionalSMSResponse.@return.failureReason;
                 button_create_object.BackColor = Color.Red;
+            }
+        }
+
+       
+        private void ServiceObjSearch_textBox_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string json = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                        "\"spec\":{" +
+                                                        "\"itemsType\":\"avl_unit\"," +
+                                                        "\"propName\":\"sys_unique_id|sys_name|rel_customfield_value|rel_profilefield_value\"," +
+                                                        "\"propValueMask\":\"" + "*" + ServiceObjSearch_textBox.Text + "*" + "\", " +
+                                                        "\"sortType\":\"sys_name\"," +
+                                                        "\"or_logic\":\"1\"}," +
+                                                        "\"force\":\"1\"," +
+                                                        "\"flags\":\"1\"," +
+                                                        "\"from\":\"0\"," +
+                                                        "\"to\":\"50\"}");
+                var m = JsonConvert.DeserializeObject<RootObject>(json);
+
+                List<object> list_add_alarm = new List<object>();
+                foreach (var keyvalue in m.items)
+                {
+                    list_add_alarm.Add(new List_add_alarm() { Id = keyvalue.id, Name = keyvalue.nm });
+                }
+                ServiceObj_search_listBox.DataSource = list_add_alarm;
+                ServiceObj_search_listBox.DisplayMember = "Name";
+                ServiceObj_search_listBox.ValueMember = "Id";
+
+                //if (ServiceObj_search_listBox.Text == "")
+                //{
+                //    ServiceObjSearch_comboBox.DataSource = null;
+                //}
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void ServiceObj_search_listBox_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int index = this.ServiceObj_search_listBox.IndexFromPoint(e.Location);
+            if (index != System.Windows.Forms.ListBox.NoMatches)
+            {
+                string Service_WL_id = ServiceObj_search_listBox.SelectedValue.ToString();
+                DataTable ObjectData = macros.GetData("SELECT * FROM btk.Object, btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.products where Object.idObject = object_subscr.Object_idObject and Subscription.idSubscr = object_subscr.Subscription_idSubscr and products_has_Tarif.idproducts_has_Tarif = products_has_Tarif_idproducts_has_Tarif and products.idproducts = products_has_Tarif.products_idproducts and Object.Object_id_wl = '" + Service_WL_id + "';");
+                if (ObjectData.Columns.Count>=1)
+                {
+                    
+                }
             }
         }
     }

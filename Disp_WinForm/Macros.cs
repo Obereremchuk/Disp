@@ -525,7 +525,7 @@ namespace Disp_WinForm
         }
 
         // Создание датчиков объекта, информация по по ссылке: http://sdk.wialon.com/wiki/ru/local/remoteapi1704/apiref/unit/update_sensor
-        public string create_sensor_wl(int id_object, string name_sensor, string type_sensor, string unit, string parametr, int position, string type_validation, int id_sensor_for_validation, string table_calculation, bool act = true, bool appear_in_popup = true)
+        public string create_sensor_wl(int id_object, string name_sensor, string type_sensor, string unit, string parametr, int position, string type_validation, int id_sensor_for_validation, string table_calculation, int act = 1, bool appear_in_popup = true)
         {
             string answer = WialonRequest("&svc=unit/update_sensor&params={"
                                                                                           + "\"itemId\":\"" + id_object + "\","

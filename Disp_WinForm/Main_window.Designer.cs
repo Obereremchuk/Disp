@@ -247,6 +247,43 @@
             this.dataGridView_Rouming = new System.Windows.Forms.DataGridView();
             this.tabPage_CM = new System.Windows.Forms.TabPage();
             this.dataGridView_CM = new System.Windows.Forms.DataGridView();
+            this.tabPage_Service = new System.Windows.Forms.TabPage();
+            this.ServiceObjSearch_textBox = new System.Windows.Forms.TextBox();
+            this.ServiceObj_search_listBox = new System.Windows.Forms.ListBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBox17 = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.textBox19 = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
+            this.textBox13 = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.textBox14 = new System.Windows.Forms.TextBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.textBox15 = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.textBox16 = new System.Windows.Forms.TextBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.textBox18 = new System.Windows.Forms.TextBox();
+            this.label35 = new System.Windows.Forms.Label();
+            this.textBox20 = new System.Windows.Forms.TextBox();
+            this.label36 = new System.Windows.Forms.Label();
+            this.textBox21 = new System.Windows.Forms.TextBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.textBox22 = new System.Windows.Forms.TextBox();
+            this.label38 = new System.Windows.Forms.Label();
+            this.textBox23 = new System.Windows.Forms.TextBox();
+            this.label39 = new System.Windows.Forms.Label();
+            this.textBox24 = new System.Windows.Forms.TextBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.IMEI_textBox = new System.Windows.Forms.TextBox();
+            this.label41 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.tabControl_testing.SuspendLayout();
@@ -305,6 +342,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Rouming)).BeginInit();
             this.tabPage_CM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_CM)).BeginInit();
+            this.tabPage_Service.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox11.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -330,10 +370,11 @@
             this.tabControl_testing.Controls.Add(this.tabPage_work_whith_obj);
             this.tabControl_testing.Controls.Add(this.tabPage_Rouming);
             this.tabControl_testing.Controls.Add(this.tabPage_CM);
+            this.tabControl_testing.Controls.Add(this.tabPage_Service);
             this.tabControl_testing.Location = new System.Drawing.Point(0, 0);
             this.tabControl_testing.Name = "tabControl_testing";
             this.tabControl_testing.SelectedIndex = 0;
-            this.tabControl_testing.Size = new System.Drawing.Size(1370, 684);
+            this.tabControl_testing.Size = new System.Drawing.Size(1385, 684);
             this.tabControl_testing.TabIndex = 0;
             this.tabControl_testing.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl_testing_Selecting);
             // 
@@ -351,7 +392,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage1.Size = new System.Drawing.Size(1377, 658);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Відкриті тривоги";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -404,7 +445,7 @@
             // 
             this.checkBox_hide_groupe_alarm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox_hide_groupe_alarm.AutoSize = true;
-            this.checkBox_hide_groupe_alarm.Location = new System.Drawing.Point(968, 631);
+            this.checkBox_hide_groupe_alarm.Location = new System.Drawing.Point(983, 631);
             this.checkBox_hide_groupe_alarm.Name = "checkBox_hide_groupe_alarm";
             this.checkBox_hide_groupe_alarm.Size = new System.Drawing.Size(67, 17);
             this.checkBox_hide_groupe_alarm.TabIndex = 4;
@@ -417,7 +458,7 @@
             // 
             this.checkBox_sort_order.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox_sort_order.AutoSize = true;
-            this.checkBox_sort_order.Location = new System.Drawing.Point(1067, 631);
+            this.checkBox_sort_order.Location = new System.Drawing.Point(1082, 631);
             this.checkBox_sort_order.Name = "checkBox_sort_order";
             this.checkBox_sort_order.Size = new System.Drawing.Size(70, 17);
             this.checkBox_sort_order.TabIndex = 3;
@@ -443,7 +484,7 @@
             "Звернення",
             "ID обєкту",
             "Згруповано до ID тривоги"});
-            this.comboBox_sort_column.Location = new System.Drawing.Point(1153, 629);
+            this.comboBox_sort_column.Location = new System.Drawing.Point(1168, 629);
             this.comboBox_sort_column.Name = "comboBox_sort_column";
             this.comboBox_sort_column.Size = new System.Drawing.Size(121, 21);
             this.comboBox_sort_column.TabIndex = 2;
@@ -502,7 +543,7 @@
             this.dataGridView_open_alarm.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView_open_alarm.RowHeadersVisible = false;
             this.dataGridView_open_alarm.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_open_alarm.Size = new System.Drawing.Size(1353, 613);
+            this.dataGridView_open_alarm.Size = new System.Drawing.Size(1368, 613);
             this.dataGridView_open_alarm.TabIndex = 0;
             this.dataGridView_open_alarm.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView_open_alarm.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
@@ -515,7 +556,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage2.Size = new System.Drawing.Size(1377, 658);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Пошук по тривогам";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -526,7 +567,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 82);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1356, 573);
+            this.groupBox2.Size = new System.Drawing.Size(1371, 573);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Архів відпрацьованих тривог";
@@ -585,7 +626,7 @@
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView_close_alarm.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView_close_alarm.RowHeadersVisible = false;
-            this.dataGridView_close_alarm.Size = new System.Drawing.Size(1350, 564);
+            this.dataGridView_close_alarm.Size = new System.Drawing.Size(1365, 564);
             this.dataGridView_close_alarm.TabIndex = 1;
             this.dataGridView_close_alarm.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
             this.dataGridView_close_alarm.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView3_CellFormatting);
@@ -720,7 +761,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1356, 79);
+            this.groupBox1.Size = new System.Drawing.Size(1371, 79);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Критерії пошуку";
@@ -852,7 +893,7 @@
             dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            this.dataGridView2.Size = new System.Drawing.Size(1356, 652);
+            this.dataGridView2.Size = new System.Drawing.Size(1371, 652);
             this.dataGridView2.TabIndex = 0;
             // 
             // tabPage_909_n
@@ -861,7 +902,7 @@
             this.tabPage_909_n.Location = new System.Drawing.Point(4, 22);
             this.tabPage_909_n.Name = "tabPage_909_n";
             this.tabPage_909_n.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_909_n.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_909_n.Size = new System.Drawing.Size(1377, 658);
             this.tabPage_909_n.TabIndex = 8;
             this.tabPage_909_n.Text = "909";
             this.tabPage_909_n.UseVisualStyleBackColor = true;
@@ -878,7 +919,7 @@
             this.dataGridView_909_n.ReadOnly = true;
             this.dataGridView_909_n.RowHeadersVisible = false;
             this.dataGridView_909_n.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_909_n.Size = new System.Drawing.Size(1356, 652);
+            this.dataGridView_909_n.Size = new System.Drawing.Size(1371, 652);
             this.dataGridView_909_n.TabIndex = 0;
             this.dataGridView_909_n.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_909_n_CellDoubleClick);
             this.dataGridView_909_n.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_909_n_CellFormatting);
@@ -889,7 +930,7 @@
             this.tabPage_808.Location = new System.Drawing.Point(4, 22);
             this.tabPage_808.Name = "tabPage_808";
             this.tabPage_808.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_808.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_808.Size = new System.Drawing.Size(1377, 658);
             this.tabPage_808.TabIndex = 5;
             this.tabPage_808.Text = "808";
             this.tabPage_808.UseVisualStyleBackColor = true;
@@ -907,7 +948,7 @@
             this.dataGridView_808_n.ReadOnly = true;
             this.dataGridView_808_n.RowHeadersVisible = false;
             this.dataGridView_808_n.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_808_n.Size = new System.Drawing.Size(1356, 652);
+            this.dataGridView_808_n.Size = new System.Drawing.Size(1371, 652);
             this.dataGridView_808_n.TabIndex = 1;
             this.dataGridView_808_n.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_808_n_CellDoubleClick);
             this.dataGridView_808_n.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_808_n_CellFormatting);
@@ -918,7 +959,7 @@
             this.tabPage_lost.Location = new System.Drawing.Point(4, 22);
             this.tabPage_lost.Name = "tabPage_lost";
             this.tabPage_lost.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_lost.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_lost.Size = new System.Drawing.Size(1377, 658);
             this.tabPage_lost.TabIndex = 12;
             this.tabPage_lost.Text = "808_звязок";
             this.tabPage_lost.UseVisualStyleBackColor = true;
@@ -936,7 +977,7 @@
             this.dataGridView_lost.ReadOnly = true;
             this.dataGridView_lost.RowHeadersVisible = false;
             this.dataGridView_lost.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_lost.Size = new System.Drawing.Size(1356, 652);
+            this.dataGridView_lost.Size = new System.Drawing.Size(1371, 652);
             this.dataGridView_lost.TabIndex = 2;
             this.dataGridView_lost.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_lost_CellDoubleClick);
             this.dataGridView_lost.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_lost_CellFormatting);
@@ -947,7 +988,7 @@
             this.tabPage_p.Location = new System.Drawing.Point(4, 22);
             this.tabPage_p.Name = "tabPage_p";
             this.tabPage_p.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_p.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_p.Size = new System.Drawing.Size(1377, 658);
             this.tabPage_p.TabIndex = 6;
             this.tabPage_p.Text = "Дилеры";
             this.tabPage_p.UseVisualStyleBackColor = true;
@@ -1000,7 +1041,7 @@
             this.tabPage_sales.Location = new System.Drawing.Point(4, 22);
             this.tabPage_sales.Name = "tabPage_sales";
             this.tabPage_sales.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_sales.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_sales.Size = new System.Drawing.Size(1377, 658);
             this.tabPage_sales.TabIndex = 7;
             this.tabPage_sales.Text = "Продажи";
             this.tabPage_sales.UseVisualStyleBackColor = true;
@@ -1053,7 +1094,7 @@
             this.tabPage_accounts.Location = new System.Drawing.Point(4, 22);
             this.tabPage_accounts.Name = "tabPage_accounts";
             this.tabPage_accounts.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_accounts.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_accounts.Size = new System.Drawing.Size(1377, 658);
             this.tabPage_accounts.TabIndex = 15;
             this.tabPage_accounts.Text = "Кабінет користувача";
             this.tabPage_accounts.UseVisualStyleBackColor = true;
@@ -1071,7 +1112,7 @@
             this.dataGridView_accounts.ReadOnly = true;
             this.dataGridView_accounts.RowHeadersVisible = false;
             this.dataGridView_accounts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_accounts.Size = new System.Drawing.Size(1356, 652);
+            this.dataGridView_accounts.Size = new System.Drawing.Size(1371, 652);
             this.dataGridView_accounts.TabIndex = 3;
             this.dataGridView_accounts.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_accounts_CellDoubleClick);
             this.dataGridView_accounts.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_accounts_CellFormatting);
@@ -1084,7 +1125,7 @@
             this.tabPage_zayavki_activation.Location = new System.Drawing.Point(4, 22);
             this.tabPage_zayavki_activation.Name = "tabPage_zayavki_activation";
             this.tabPage_zayavki_activation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_zayavki_activation.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_zayavki_activation.Size = new System.Drawing.Size(1377, 658);
             this.tabPage_zayavki_activation.TabIndex = 11;
             this.tabPage_zayavki_activation.Text = "Заявки на установку";
             this.tabPage_zayavki_activation.UseVisualStyleBackColor = true;
@@ -1205,7 +1246,7 @@
             this.tabPage_testing.Location = new System.Drawing.Point(4, 22);
             this.tabPage_testing.Name = "tabPage_testing";
             this.tabPage_testing.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_testing.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_testing.Size = new System.Drawing.Size(1377, 658);
             this.tabPage_testing.TabIndex = 3;
             this.tabPage_testing.Text = "Тестування";
             this.tabPage_testing.UseVisualStyleBackColor = true;
@@ -1380,7 +1421,7 @@
             this.tabPage_activation.Location = new System.Drawing.Point(4, 22);
             this.tabPage_activation.Name = "tabPage_activation";
             this.tabPage_activation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_activation.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_activation.Size = new System.Drawing.Size(1377, 658);
             this.tabPage_activation.TabIndex = 4;
             this.tabPage_activation.Text = "Активація";
             this.tabPage_activation.UseVisualStyleBackColor = true;
@@ -1556,7 +1597,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage3.Size = new System.Drawing.Size(1377, 658);
             this.tabPage3.TabIndex = 9;
             this.tabPage3.Text = "Зупення обслуговування";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1626,7 +1667,7 @@
             this.tabPage_zvit.Location = new System.Drawing.Point(4, 22);
             this.tabPage_zvit.Name = "tabPage_zvit";
             this.tabPage_zvit.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_zvit.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_zvit.Size = new System.Drawing.Size(1377, 658);
             this.tabPage_zvit.TabIndex = 10;
             this.tabPage_zvit.Text = "Звіти";
             this.tabPage_zvit.UseVisualStyleBackColor = true;
@@ -1752,7 +1793,7 @@
             this.tab_create_object.Location = new System.Drawing.Point(4, 22);
             this.tab_create_object.Name = "tab_create_object";
             this.tab_create_object.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_create_object.Size = new System.Drawing.Size(1362, 658);
+            this.tab_create_object.Size = new System.Drawing.Size(1377, 658);
             this.tab_create_object.TabIndex = 13;
             this.tab_create_object.Text = "Створення об’єкту";
             this.tab_create_object.UseVisualStyleBackColor = true;
@@ -2388,7 +2429,7 @@
             this.tabPage_work_whith_obj.Location = new System.Drawing.Point(4, 22);
             this.tabPage_work_whith_obj.Name = "tabPage_work_whith_obj";
             this.tabPage_work_whith_obj.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_work_whith_obj.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_work_whith_obj.Size = new System.Drawing.Size(1377, 658);
             this.tabPage_work_whith_obj.TabIndex = 14;
             this.tabPage_work_whith_obj.Text = "Робота з об\'єктом";
             this.tabPage_work_whith_obj.UseVisualStyleBackColor = true;
@@ -2617,7 +2658,7 @@
             this.tabPage_Rouming.Controls.Add(this.dataGridView_Rouming);
             this.tabPage_Rouming.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Rouming.Name = "tabPage_Rouming";
-            this.tabPage_Rouming.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_Rouming.Size = new System.Drawing.Size(1377, 658);
             this.tabPage_Rouming.TabIndex = 16;
             this.tabPage_Rouming.Text = "Роумінг";
             this.tabPage_Rouming.UseVisualStyleBackColor = true;
@@ -2669,7 +2710,7 @@
             this.tabPage_CM.Controls.Add(this.dataGridView_CM);
             this.tabPage_CM.Location = new System.Drawing.Point(4, 22);
             this.tabPage_CM.Name = "tabPage_CM";
-            this.tabPage_CM.Size = new System.Drawing.Size(1362, 658);
+            this.tabPage_CM.Size = new System.Drawing.Size(1377, 658);
             this.tabPage_CM.TabIndex = 17;
             this.tabPage_CM.Text = "110";
             this.tabPage_CM.UseVisualStyleBackColor = true;
@@ -2716,20 +2757,361 @@
             this.dataGridView_CM.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CM_CellDoubleClick);
             this.dataGridView_CM.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_CM_CellFormatting);
             // 
+            // tabPage_Service
+            // 
+            this.tabPage_Service.Controls.Add(this.ServiceObjSearch_textBox);
+            this.tabPage_Service.Controls.Add(this.ServiceObj_search_listBox);
+            this.tabPage_Service.Controls.Add(this.groupBox7);
+            this.tabPage_Service.Controls.Add(this.groupBox11);
+            this.tabPage_Service.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_Service.Name = "tabPage_Service";
+            this.tabPage_Service.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_Service.Size = new System.Drawing.Size(1377, 658);
+            this.tabPage_Service.TabIndex = 18;
+            this.tabPage_Service.Text = "Service";
+            this.tabPage_Service.UseVisualStyleBackColor = true;
+            // 
+            // ServiceObjSearch_textBox
+            // 
+            this.ServiceObjSearch_textBox.Location = new System.Drawing.Point(8, 12);
+            this.ServiceObjSearch_textBox.Name = "ServiceObjSearch_textBox";
+            this.ServiceObjSearch_textBox.Size = new System.Drawing.Size(266, 20);
+            this.ServiceObjSearch_textBox.TabIndex = 19;
+            this.ServiceObjSearch_textBox.TextChanged += new System.EventHandler(this.ServiceObjSearch_textBox_TextChanged);
+            // 
+            // ServiceObj_search_listBox
+            // 
+            this.ServiceObj_search_listBox.FormattingEnabled = true;
+            this.ServiceObj_search_listBox.Location = new System.Drawing.Point(8, 32);
+            this.ServiceObj_search_listBox.Name = "ServiceObj_search_listBox";
+            this.ServiceObj_search_listBox.Size = new System.Drawing.Size(266, 589);
+            this.ServiceObj_search_listBox.TabIndex = 18;
+            this.ServiceObj_search_listBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ServiceObj_search_listBox_MouseDoubleClick);
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.button5);
+            this.groupBox7.Controls.Add(this.textBox12);
+            this.groupBox7.Controls.Add(this.label11);
+            this.groupBox7.Controls.Add(this.textBox17);
+            this.groupBox7.Controls.Add(this.label28);
+            this.groupBox7.Controls.Add(this.textBox19);
+            this.groupBox7.Controls.Add(this.label29);
+            this.groupBox7.Location = new System.Drawing.Point(756, 41);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(204, 315);
+            this.groupBox7.TabIndex = 17;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "WialonDB";
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(77, 276);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(121, 23);
+            this.button5.TabIndex = 14;
+            this.button5.Text = "Изменить";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // textBox12
+            // 
+            this.textBox12.Location = new System.Drawing.Point(77, 72);
+            this.textBox12.Name = "textBox12";
+            this.textBox12.Size = new System.Drawing.Size(121, 20);
+            this.textBox12.TabIndex = 12;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(26, 76);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(32, 13);
+            this.label11.TabIndex = 11;
+            this.label11.Text = "SIM2";
+            // 
+            // textBox17
+            // 
+            this.textBox17.Location = new System.Drawing.Point(77, 46);
+            this.textBox17.Name = "textBox17";
+            this.textBox17.Size = new System.Drawing.Size(121, 20);
+            this.textBox17.TabIndex = 6;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(26, 50);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(32, 13);
+            this.label28.TabIndex = 5;
+            this.label28.Text = "SIM1";
+            // 
+            // textBox19
+            // 
+            this.textBox19.Location = new System.Drawing.Point(77, 20);
+            this.textBox19.Name = "textBox19";
+            this.textBox19.Size = new System.Drawing.Size(121, 20);
+            this.textBox19.TabIndex = 4;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(26, 24);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(29, 13);
+            this.label29.TabIndex = 0;
+            this.label29.Text = "IMEI";
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.label30);
+            this.groupBox11.Controls.Add(this.button6);
+            this.groupBox11.Controls.Add(this.textBox13);
+            this.groupBox11.Controls.Add(this.label31);
+            this.groupBox11.Controls.Add(this.textBox14);
+            this.groupBox11.Controls.Add(this.comboBox4);
+            this.groupBox11.Controls.Add(this.label32);
+            this.groupBox11.Controls.Add(this.textBox15);
+            this.groupBox11.Controls.Add(this.label33);
+            this.groupBox11.Controls.Add(this.textBox16);
+            this.groupBox11.Controls.Add(this.label34);
+            this.groupBox11.Controls.Add(this.textBox18);
+            this.groupBox11.Controls.Add(this.label35);
+            this.groupBox11.Controls.Add(this.textBox20);
+            this.groupBox11.Controls.Add(this.label36);
+            this.groupBox11.Controls.Add(this.textBox21);
+            this.groupBox11.Controls.Add(this.label37);
+            this.groupBox11.Controls.Add(this.textBox22);
+            this.groupBox11.Controls.Add(this.label38);
+            this.groupBox11.Controls.Add(this.textBox23);
+            this.groupBox11.Controls.Add(this.label39);
+            this.groupBox11.Controls.Add(this.textBox24);
+            this.groupBox11.Controls.Add(this.label40);
+            this.groupBox11.Controls.Add(this.IMEI_textBox);
+            this.groupBox11.Controls.Add(this.label41);
+            this.groupBox11.Location = new System.Drawing.Point(342, 41);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(408, 315);
+            this.groupBox11.TabIndex = 16;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "LocalDB";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(20, 19);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(49, 13);
+            this.label30.TabIndex = 14;
+            this.label30.Text = "Продукт";
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(269, 276);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(121, 23);
+            this.button6.TabIndex = 13;
+            this.button6.Text = "Изменить";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
+            // textBox13
+            // 
+            this.textBox13.Location = new System.Drawing.Point(269, 68);
+            this.textBox13.Name = "textBox13";
+            this.textBox13.Size = new System.Drawing.Size(121, 20);
+            this.textBox13.TabIndex = 12;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(218, 72);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(32, 13);
+            this.label31.TabIndex = 11;
+            this.label31.Text = "SIM2";
+            // 
+            // textBox14
+            // 
+            this.textBox14.Location = new System.Drawing.Point(269, 94);
+            this.textBox14.Name = "textBox14";
+            this.textBox14.Size = new System.Drawing.Size(121, 20);
+            this.textBox14.TabIndex = 10;
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Location = new System.Drawing.Point(71, 15);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(121, 21);
+            this.comboBox4.TabIndex = 0;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(218, 98);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(41, 13);
+            this.label32.TabIndex = 9;
+            this.label32.Text = "ICCID2";
+            // 
+            // textBox15
+            // 
+            this.textBox15.Location = new System.Drawing.Point(269, 42);
+            this.textBox15.Name = "textBox15";
+            this.textBox15.Size = new System.Drawing.Size(121, 20);
+            this.textBox15.TabIndex = 8;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(218, 46);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(41, 13);
+            this.label33.TabIndex = 7;
+            this.label33.Text = "ICCID1";
+            // 
+            // textBox16
+            // 
+            this.textBox16.Location = new System.Drawing.Point(269, 16);
+            this.textBox16.Name = "textBox16";
+            this.textBox16.Size = new System.Drawing.Size(121, 20);
+            this.textBox16.TabIndex = 6;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(218, 20);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(32, 13);
+            this.label34.TabIndex = 5;
+            this.label34.Text = "SIM1";
+            // 
+            // textBox18
+            // 
+            this.textBox18.Location = new System.Drawing.Point(71, 198);
+            this.textBox18.Name = "textBox18";
+            this.textBox18.Size = new System.Drawing.Size(121, 20);
+            this.textBox18.TabIndex = 4;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(20, 202);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(29, 13);
+            this.label35.TabIndex = 0;
+            this.label35.Text = "IMEI";
+            // 
+            // textBox20
+            // 
+            this.textBox20.Location = new System.Drawing.Point(71, 172);
+            this.textBox20.Name = "textBox20";
+            this.textBox20.Size = new System.Drawing.Size(121, 20);
+            this.textBox20.TabIndex = 4;
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(20, 176);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(29, 13);
+            this.label36.TabIndex = 0;
+            this.label36.Text = "IMEI";
+            // 
+            // textBox21
+            // 
+            this.textBox21.Location = new System.Drawing.Point(71, 146);
+            this.textBox21.Name = "textBox21";
+            this.textBox21.Size = new System.Drawing.Size(121, 20);
+            this.textBox21.TabIndex = 4;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(20, 150);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(29, 13);
+            this.label37.TabIndex = 0;
+            this.label37.Text = "IMEI";
+            // 
+            // textBox22
+            // 
+            this.textBox22.Location = new System.Drawing.Point(71, 120);
+            this.textBox22.Name = "textBox22";
+            this.textBox22.Size = new System.Drawing.Size(121, 20);
+            this.textBox22.TabIndex = 4;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(20, 124);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(29, 13);
+            this.label38.TabIndex = 0;
+            this.label38.Text = "IMEI";
+            // 
+            // textBox23
+            // 
+            this.textBox23.Location = new System.Drawing.Point(71, 94);
+            this.textBox23.Name = "textBox23";
+            this.textBox23.Size = new System.Drawing.Size(121, 20);
+            this.textBox23.TabIndex = 4;
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(20, 98);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(29, 13);
+            this.label39.TabIndex = 0;
+            this.label39.Text = "IMEI";
+            // 
+            // textBox24
+            // 
+            this.textBox24.Location = new System.Drawing.Point(71, 68);
+            this.textBox24.Name = "textBox24";
+            this.textBox24.Size = new System.Drawing.Size(121, 20);
+            this.textBox24.TabIndex = 4;
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(20, 72);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(29, 13);
+            this.label40.TabIndex = 0;
+            this.label40.Text = "IMEI";
+            // 
+            // IMEI_textBox
+            // 
+            this.IMEI_textBox.Location = new System.Drawing.Point(71, 42);
+            this.IMEI_textBox.Name = "IMEI_textBox";
+            this.IMEI_textBox.Size = new System.Drawing.Size(121, 20);
+            this.IMEI_textBox.TabIndex = 4;
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(20, 46);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(29, 13);
+            this.label41.TabIndex = 0;
+            this.label41.Text = "IMEI";
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.tabControl_testing);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1370, 684);
+            this.panel1.Size = new System.Drawing.Size(1385, 684);
             this.panel1.TabIndex = 1;
             // 
             // Main_window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1370, 684);
+            this.ClientSize = new System.Drawing.Size(1385, 684);
             this.Controls.Add(this.panel1);
             this.Name = "Main_window";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -2809,6 +3191,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Rouming)).EndInit();
             this.tabPage_CM.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_CM)).EndInit();
+            this.tabPage_Service.ResumeLayout(false);
+            this.tabPage_Service.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -3016,6 +3404,43 @@
         private System.Windows.Forms.ListBox listBox_object_ohrani;
         private System.Windows.Forms.TextBox textBox_filter_object_ohrani;
         private System.Windows.Forms.Button SendSMS_button;
+        private System.Windows.Forms.TabPage tabPage_Service;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.TextBox textBox12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBox17;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.TextBox textBox19;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.TextBox textBox13;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.TextBox textBox14;
+        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.TextBox textBox15;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.TextBox textBox16;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.TextBox textBox18;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.TextBox textBox20;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.TextBox textBox21;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.TextBox textBox22;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.TextBox textBox23;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.TextBox textBox24;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.TextBox IMEI_textBox;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.TextBox ServiceObjSearch_textBox;
+        private System.Windows.Forms.ListBox ServiceObj_search_listBox;
     }
 }
 
