@@ -525,7 +525,7 @@ namespace Disp_WinForm
         }
 
         // Создание датчиков объекта, информация по по ссылке: http://sdk.wialon.com/wiki/ru/local/remoteapi1704/apiref/unit/update_sensor
-        public string create_sensor_wl(int id_object, string name_sensor, string type_sensor, string unit, string parametr, int position, string type_validation, int id_sensor_for_validation, string table_calculation, int act = 1, bool appear_in_popup = true)
+        public string create_sensor_wl(int id_object, string name_sensor, string type_sensor, string unit, string parametr, int position, string type_validation, int id_sensor_for_validation, string table_calculation, string act = "true", string appear_in_popup = "true")
         {
             string answer = WialonRequest("&svc=unit/update_sensor&params={"
                                                                                           + "\"itemId\":\"" + id_object + "\","
@@ -538,7 +538,7 @@ namespace Disp_WinForm
                                                                                           + "\"m\":\"" + unit + "\","
                                                                                           + "\"p\":\"" + parametr + "\","
                                                                                           + "\"f\":\"0\","
-                                                                                          + "\"c\":\"{%5c\"act%5c\":" + act + ",%5c\"appear_in_popup%5c\":" + appear_in_popup + ",%5c\"show_time%5c\":true,%5c\"pos%5c\":" + position + "}\","
+                                                                                          + "\"c\":\"{%5c\"act%5c\":"+act+",%5c\"appear_in_popup%5c\":" + appear_in_popup + ",%5c\"show_time%5c\":true,%5c\"pos%5c\":" + position + "}\","
                                                                                           + "\"vt\":\"" + type_validation + "\","
                                                                                           + "\"vs\":\"" + id_sensor_for_validation + "\","
                                                                                           + "\"tbl\":[" + table_calculation + "]}");

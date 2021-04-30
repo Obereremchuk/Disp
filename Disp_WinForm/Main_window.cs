@@ -6782,7 +6782,7 @@ namespace Disp_WinForm
             string auto_block_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Автоматическая блокировка двигателя", "digital", "Вкл/Выкл", "auto_block", 1, "1", 0, "");
 
             //2. Охрана
-            string protection_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Охрана", "digital", "Вкл/Выкл", "protection", 2, "1", 0, "");
+            string protection_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Охрана", "digital", "Вкл/Выкл", "protection", 2, "1", 0, "", "false");
 
             //3. Принудительная блокировка двигателя
             string man_block_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Принудительная блокировка двигателя", "digital", "Вкл/Выкл", "man_block", 3, "1", 0, "");
@@ -16195,7 +16195,7 @@ namespace Disp_WinForm
             string Move = macros.create_sensor_wl(cr_obj_out.item.id, "Датчик движения", "digital", "Вкл/Выкл", "io_240", 4, "1", 0, "");
 
             //5. HDOP
-            string HDOP = macros.create_sensor_wl(cr_obj_out.item.id, "HDOP", "custom", "", "io_182", 5, "1", 0, "", 0);
+            string HDOP = macros.create_sensor_wl(cr_obj_out.item.id, "HDOP", "custom", "", "io_182", 5, "1", 0, "", "false");
 
             //6. Статус обдорудования
             string Status = macros.create_sensor_wl(cr_obj_out.item.id, "Статус обдорудования", "digital", "Вимкнено/Вкл", "io_390", 6, "1", 0, "");
