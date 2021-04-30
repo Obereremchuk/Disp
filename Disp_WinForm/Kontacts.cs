@@ -167,6 +167,7 @@ namespace Disp_WinForm
             DialogResult dialogResult = MessageBox.Show("Видалити " + name_selectetd_kontackts + " ?", "Видалення контрагенту", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
+                macros.sql_command("DELETE FROM btk.VO WHERE Kontakti_idKontakti = '" + id_selectetd_kontackts + "';");//удаляем связь по ВО 
                 macros.sql_command("DELETE FROM btk.Kontakti_has_Kontragenti WHERE Kontakti_idKontakti=" + id_selectetd_kontackts + ";");//удаляем связи удяляемого контакта с контрагентом
                 macros.sql_command("DELETE FROM btk.Kontakti WHERE idKontakti=" + id_selectetd_kontackts + ";");//удаляем сам контакт
                 Get_kontackts();
