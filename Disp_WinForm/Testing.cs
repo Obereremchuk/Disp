@@ -3905,8 +3905,7 @@ namespace Disp_WinForm
             TimeSpan timeSpan = DateClosed - DateOpened;
             //string t = $"{timeSpan.Hours}:{timeSpan.Minutes}:{timeSpan.Seconds}";
 
-            if (IdNewTesting is null)
-            { return; }
+
             // get id_object DB where id_wl
             string sql1 = string.Format("" +
                 "insert into btk.TestingProcessTime " +

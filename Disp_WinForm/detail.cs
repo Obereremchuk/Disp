@@ -1172,7 +1172,7 @@ namespace Disp_WinForm
                 label_lmst.Text = macros.UnixTimeStampToDateTime(m.items[0].lmsg.t).ToString();
             }
 
-            if (m.items.Count != 0 & m.items[0].pos.ContainsKey("x"))
+            if (m.items.Count != 0)
             {
                 var lat = "";
                 var lon = "";
@@ -1762,7 +1762,7 @@ namespace Disp_WinForm
             int vo5_exist = 0;
             foreach (var keyvalue in object_data.items[0].flds)
             {
-                if (keyvalue.Value.n.Contains("2.4 IV Від"))
+                if (keyvalue.Value.n.Contains("2.4 ІV Від"))
                 {
                     vo4_exist = 1;
                 }
@@ -1772,7 +1772,7 @@ namespace Disp_WinForm
                 }
             }
             if (vo4_exist == 0)
-            { macros.create_custom_field_wl(Convert.ToInt32(wl_id), "2.4 IV Відповідальна особа", ""); }
+            { macros.create_custom_field_wl(Convert.ToInt32(wl_id), "2.4 ІV Відповідальна особа", ""); }
             if (vo5_exist == 0)
             { macros.create_custom_field_wl(Convert.ToInt32(wl_id), "2.5 V Відповідальна особа", ""); }
 
@@ -1798,6 +1798,16 @@ namespace Disp_WinForm
             {
                 switch (keyvalue.Value.n)
                 {
+                    //Chenge feild Кодове слово
+                    case string a when a.Contains("Кодове "):
+                        string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
+                                                                "\"itemId\":\"" + wl_id + "\"," +
+                                                                "\"id\":\"" + keyvalue.Value.id + "\"," +
+                                                                "\"callMode\":\"update\"," +
+                                                                "\"n\":\"" + keyvalue.Value.n + "\"," +
+                                                                "\"v\":\"" + kodove_slovo_textBox.Text + "\"}");
+                        break;
+
                     //Chenge feild ВО1
                     case string a when a.Contains("2.1 І Від") & keyvalue.Value.v != textBox_vo1.Text & textBox_vo1.Text != "1":
                         macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + id_db_obj + "','" + vars_form.transfer_vo1_vo_form + "','1','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
@@ -1832,7 +1842,7 @@ namespace Disp_WinForm
                         break;
 
                     //Chenge feild ВО4
-                    case string a when a.Contains("2.4 IV Від") & keyvalue.Value.v != textBox_vo4.Text & textBox_vo4.Text != "1":
+                    case string a when a.Contains("2.4 ІV Від") & keyvalue.Value.v != textBox_vo4.Text & textBox_vo4.Text != "1":
                         macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + id_db_obj + "','" + vars_form.transfer_vo4_vo_form + "','4','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + vars_form.user_login_id + "');");
                         string json6 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
                                                          "\"itemId\":\"" + wl_id + "\"," +
@@ -1855,9 +1865,9 @@ namespace Disp_WinForm
                 }
             }
             TreeView_zapolnyaem();
-            MessageBox.Show("ВО Збережено");
+            MessageBox.Show("Збережено");
             // Диалог закрываем заявку или нет при завершении работы с учетными записями
-            on_end_account_job("Внесено зміни:\nВО1:" + textBox_vo1.Text + "\nВО2: " + textBox_vo2.Text + "\nВО3: " + textBox_vo3.Text + "\nВО4: " + textBox_vo4.Text + "\nВО5: " + textBox_vo5.Text);
+            on_end_account_job("Внесено зміни:\nВО1:" + textBox_vo1.Text + "\nВО2: " + textBox_vo2.Text + "\nВО3: " + textBox_vo3.Text + "\nВО4: " + textBox_vo4.Text + "\nВО5: " + textBox_vo5.Text + "\nКодове слово: " + kodove_slovo_textBox.Text);
         }
 
 
@@ -1926,189 +1936,129 @@ namespace Disp_WinForm
 
         private void build_list_account()
         {
-            //vars_form.id_object_for_activation = "1098";
+                //vars_form.id_object_for_activation = "1098";
 
 
-            string json = macros.WialonRequest("&svc=core/check_accessors&params={" +
-                                                "\"items\":[\"" + wl_id + "\"]," +
-                                                "\"flags\":\"1\"}");//Получаем айди всех елементов у которых есть доступ к данному объекту            
+                string json = macros.WialonRequest("&svc=core/check_accessors&params={" +
+                                                    "\"items\":[\"" + wl_id + "\"]," +
+                                                    "\"flags\":\"1\"}");//Получаем айди всех елементов у которых есть доступ к данному объекту            
 
-            var wl_accounts = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<int, Dictionary<string, string>>>>(json);
-            string get = "";
-            for (int index = 0; index < wl_accounts[wl_id].Values.Count; index++)
-            {
-                var item = wl_accounts.ElementAt(0);
-                int key_index = item.Value.ElementAt(index).Key;
-                get = get + "," + key_index.ToString();
-                //string json3 = macros.wialon_request_new("&svc=core/search_items&params={" +
-                //                                         "\"spec\":{" +
-                //                                         "\"itemsType\":\"\"," +
-                //                                         "\"propName\":\"sys_id\"," +
-                //                                         "\"propValueMask\":\"" + key_index + "\", " +
-                //                                         "\"sortType\":\"sys_name\"," +
-                //                                         "\"or_logic\":\"1\"}," +
-                //                                         "\"force\":\"1\"," +
-                //                                         "\"flags\":\"1\"," +
-                //                                         "\"from\":\"0\"," +
-                //                                         "\"to\":\"0\"}");
-                //var m2 = JsonConvert.DeserializeObject<RootObject>(json3);
-                //string nm = m2.items[0].nm;
-                //string acl = item.Value[key_index]["acl"].ToString();
-                //string dacl = item.Value[key_index]["dacl"].ToString();
-                //openWith1.Clear();
-                //openWith1.Add("acl",acl);
-                //openWith1.Add("dacl", dacl);
-                //openWith.Add(nm, openWith1);
-            }// стрим список айди в один запрос 
-            string json2 = macros.WialonRequest("&svc=core/search_items&params={" +
-                                                        "\"spec\":{" +
-                                                        "\"itemsType\":\"\"," +
-                                                        "\"propName\":\"sys_id\"," +
-                                                        "\"propValueMask\":\"" + get + "\", " +
-                                                        "\"sortType\":\"sys_name\"," +
-                                                        "\"or_logic\":\"1\"}," +
-                                                        "\"force\":\"1\"," +
-                                                        "\"flags\":\"1\"," +
-                                                        "\"from\":\"0\"," +
-                                                        "\"to\":\"0\"}");// Получаем подробности от елементов для полуяения имени логина
-
-            var m = JsonConvert.DeserializeObject<RootObject>(json2);
-
-            if (treeView_user_accounts.InvokeRequired)
-            {
-                treeView_user_accounts.Invoke(new Action(() => { treeView_user_accounts.Nodes.Clear(); }));
-            }
-            else
-            {
-                treeView_user_accounts.Nodes.Clear();
-            }
-
-            
-            Font boldFont = new Font(treeView_user_accounts.Font, FontStyle.Bold);
-            TreeNode node1 = new TreeNode("Кабінети користувача приєднані до авто");
-
-            if (treeView_user_accounts.InvokeRequired)
-            {
-                treeView_user_accounts.Invoke(new Action(() => { treeView_user_accounts.Nodes.Add(node1); }));
-            }
-            else
-            {
-                treeView_user_accounts.Nodes.Add(node1);
-            }
-
-
-            _unselectableNodes.Add(node1);
-
-            if (treeView_user_accounts.InvokeRequired)
-            {
-                treeView_user_accounts.Invoke(new Action(() => { treeView_user_accounts.BeginUpdate(); }));
-            }
-            else
-            {
-                treeView_user_accounts.BeginUpdate();
-            }
-
-
-            try
-            {
-                int tree_index = 0;
-                for (int index = 0; index < m.items.Count; index++)
+                var wl_accounts = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<int, Dictionary<string, string>>>>(json);
+                string get = "";
+                for (int index = 0; index < wl_accounts[wl_id].Values.Count; index++)
                 {
+                    var item = wl_accounts.ElementAt(0);
+                    int key_index = item.Value.ElementAt(index).Key;
+                    get = get + "," + key_index.ToString();
+                    //string json3 = macros.wialon_request_new("&svc=core/search_items&params={" +
+                    //                                         "\"spec\":{" +
+                    //                                         "\"itemsType\":\"\"," +
+                    //                                         "\"propName\":\"sys_id\"," +
+                    //                                         "\"propValueMask\":\"" + key_index + "\", " +
+                    //                                         "\"sortType\":\"sys_name\"," +
+                    //                                         "\"or_logic\":\"1\"}," +
+                    //                                         "\"force\":\"1\"," +
+                    //                                         "\"flags\":\"1\"," +
+                    //                                         "\"from\":\"0\"," +
+                    //                                         "\"to\":\"0\"}");
+                    //var m2 = JsonConvert.DeserializeObject<RootObject>(json3);
+                    //string nm = m2.items[0].nm;
+                    //string acl = item.Value[key_index]["acl"].ToString();
+                    //string dacl = item.Value[key_index]["dacl"].ToString();
+                    //openWith1.Clear();
+                    //openWith1.Add("acl",acl);
+                    //openWith1.Add("dacl", dacl);
+                    //openWith.Add(nm, openWith1);
+                }// стрим список айди в один запрос 
+                string json2 = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                         "\"spec\":{" +
+                                                         "\"itemsType\":\"\"," +
+                                                         "\"propName\":\"sys_id\"," +
+                                                         "\"propValueMask\":\"" + get + "\", " +
+                                                         "\"sortType\":\"sys_name\"," +
+                                                         "\"or_logic\":\"1\"}," +
+                                                         "\"force\":\"1\"," +
+                                                         "\"flags\":\"1\"," +
+                                                         "\"from\":\"0\"," +
+                                                         "\"to\":\"0\"}");// Получаем подробности от елементов для полуяения имени логина
 
-                    if (m.items[index].nm.Contains("@"))
+                var m = JsonConvert.DeserializeObject<RootObject>(json2);
+
+                treeView_user_accounts.Nodes.Clear();
+                Font boldFont = new Font(treeView_user_accounts.Font, FontStyle.Bold);
+                TreeNode node1 = new TreeNode("Кабінети користувача приєднані до авто");
+                treeView_user_accounts.Nodes.Add(node1);
+                _unselectableNodes.Add(node1);
+                treeView_user_accounts.BeginUpdate();
+
+
+                try
+                {
+                    int tree_index = 0;
+                    for (int index = 0; index < m.items.Count; index++)
                     {
-                        if (treeView_user_accounts.InvokeRequired)
-                        {
-                            treeView_user_accounts.Invoke(new Action(() => {
-                                treeView_user_accounts.Nodes[0].Nodes.Add(new TreeNode(m.items[index].nm)); //выводим в дерево все учетки которые похожи на почту, ищем по @
-                                treeView_user_accounts.Nodes[0].Nodes[tree_index].NodeFont = boldFont;
-                            }));
-                        }
-                        else
+
+                        if (m.items[index].nm.Contains("@"))
                         {
                             treeView_user_accounts.Nodes[0].Nodes.Add(new TreeNode(m.items[index].nm)); //выводим в дерево все учетки которые похожи на почту, ищем по @
                             treeView_user_accounts.Nodes[0].Nodes[tree_index].NodeFont = boldFont;
-                        }
-                        
 
 
-                        string json1 = macros.WialonRequest("&svc=core/search_items&params={" +
-                                                                    "\"spec\":{" +
-                                                                    "\"itemsType\":\"user\"," +
-                                                                    "\"propName\":\"sys_name\"," +
-                                                                    "\"propValueMask\":\"" + m.items[index].nm + "\"," +
-                                                                    "\"sortType\":\"sys_name\"," +
-                                                                    "\"or_logic\":\"1\"}," +
-                                                                    "\"force\":\"1\"," +
-                                                                    "\"flags\":\"1\"," +
-                                                                    "\"from\":\"0\"," +
-                                                                    "\"to\":\"0\"}"); //запрашиваем все елементі с искомім имайлом
-                        var m1 = JsonConvert.DeserializeObject<RootObject>(json1);
-                        string json3 = macros.WialonRequest("&svc=user/get_items_access&params={" +
-                                                                    "\"userId\":\"" + m1.items[0].id + "\"," +
-                                                                    "\"directAccess\":\"true\"," +
-                                                                    "\"itemSuperclass\":\"avl_unit\"," +
-                                                                    "\"flags\":\"1\"}");
-                        var m3 = JsonConvert.DeserializeObject<Dictionary<string, string>>(json3);
-                        string d = "";
-                        foreach (KeyValuePair<string, string> kvp in m3)
-                        {
-                            d = d + "," + kvp.Key;
-                        }
-
-                        string json4 = macros.WialonRequest("&svc=core/search_items&params={" +
-                                                                    "\"spec\":{" +
-                                                                    "\"itemsType\":\"avl_unit\"," +
-                                                                    "\"propName\":\"sys_id\"," +
-                                                                    "\"propValueMask\":\"" + d + "\"," +
-                                                                    "\"sortType\":\"sys_name\"," +
-                                                                    "\"or_logic\":\"1\"}," +
-                                                                    "\"force\":\"1\"," +
-                                                                    "\"flags\":\"1\"," +
-                                                                    "\"from\":\"0\"," +
-                                                                    "\"to\":\"0\"}"); //запрашиваем все елементі с искомім имайлом
-                        var m4 = JsonConvert.DeserializeObject<RootObject>(json4);
-
-                        for (int index1 = 0; index1 < m4.items.Count; index1++)
-                        {
-                            if (treeView_user_accounts.InvokeRequired)
+                            string json1 = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                                     "\"spec\":{" +
+                                                                     "\"itemsType\":\"user\"," +
+                                                                     "\"propName\":\"sys_name\"," +
+                                                                     "\"propValueMask\":\"" + m.items[index].nm + "\"," +
+                                                                     "\"sortType\":\"sys_name\"," +
+                                                                     "\"or_logic\":\"1\"}," +
+                                                                     "\"force\":\"1\"," +
+                                                                     "\"flags\":\"1\"," +
+                                                                     "\"from\":\"0\"," +
+                                                                     "\"to\":\"0\"}"); //запрашиваем все елементі с искомім имайлом
+                            var m1 = JsonConvert.DeserializeObject<RootObject>(json1);
+                            string json3 = macros.WialonRequest("&svc=user/get_items_access&params={" +
+                                                                     "\"userId\":\"" + m1.items[0].id + "\"," +
+                                                                     "\"directAccess\":\"true\"," +
+                                                                     "\"itemSuperclass\":\"avl_unit\"," +
+                                                                     "\"flags\":\"1\"}");
+                            var m3 = JsonConvert.DeserializeObject<Dictionary<string, string>>(json3);
+                            string d = "";
+                            foreach (KeyValuePair<string, string> kvp in m3)
                             {
-                                treeView_user_accounts.Invoke(new Action(() => {
-                                    treeView_user_accounts.Nodes[0].Nodes[tree_index].Nodes.Add(m4.items[index1].nm);
-                                    _unselectableNodes.Add(treeView_user_accounts.Nodes[0].Nodes[tree_index].Nodes[index1]);
-                                }));
+                                d = d + "," + kvp.Key;
                             }
-                            else
+
+                            string json4 = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                                     "\"spec\":{" +
+                                                                     "\"itemsType\":\"avl_unit\"," +
+                                                                     "\"propName\":\"sys_id\"," +
+                                                                     "\"propValueMask\":\"" + d + "\"," +
+                                                                     "\"sortType\":\"sys_name\"," +
+                                                                     "\"or_logic\":\"1\"}," +
+                                                                     "\"force\":\"1\"," +
+                                                                     "\"flags\":\"1\"," +
+                                                                     "\"from\":\"0\"," +
+                                                                     "\"to\":\"0\"}"); //запрашиваем все елементі с искомім имайлом
+                            var m4 = JsonConvert.DeserializeObject<RootObject>(json4);
+
+                            for (int index1 = 0; index1 < m4.items.Count; index1++)
                             {
                                 treeView_user_accounts.Nodes[0].Nodes[tree_index].Nodes.Add(m4.items[index1].nm);
                                 _unselectableNodes.Add(treeView_user_accounts.Nodes[0].Nodes[tree_index].Nodes[index1]);
                             }
-                            
-                        }
-                        tree_index++;
+                            tree_index++;
 
+                        }
                     }
-                }
-                if (treeView_user_accounts.InvokeRequired)
-                {
-                    treeView_user_accounts.Invoke(new Action(() => {
-                        treeView_user_accounts.EndUpdate();
-                        treeView_user_accounts.ExpandAll();
-                    }));
-                }
-                else
-                {
                     treeView_user_accounts.EndUpdate();
                     treeView_user_accounts.ExpandAll();
+
+
                 }
-                
-
-
-            }
-            catch (Exception e)
-            {
-                string er = e.ToString();
-            }
+                catch (Exception e)
+                {
+                    string er = e.ToString();
+                }
 
         }
 
@@ -2460,10 +2410,7 @@ namespace Disp_WinForm
                 macros.LogUserAction(vars_form.user_login_id, "Дозволити користувачу перегляд авто", "", "Надано доступ Account: " + email_textBox.Text + "до обєкту" + wl_id, Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss"));
 
                 //update treeView_user_accounts after making chenge
-
-
                 build_list_account();
-
 
                 //через запятую перебираем все аккауты из тривив и добавляем в accounts для записи в виалон
                 string accounts = "";
@@ -4231,7 +4178,6 @@ namespace Disp_WinForm
 
 
                         //update treeView_user_accounts after making chenge
-
                         build_list_account();
 
 
@@ -4358,8 +4304,7 @@ namespace Disp_WinForm
                         //Save in db client account
                         macros.GetData("insert into btk.Client_accounts (name, pass, date, reason, Object_idObject, Users_idUsers) value ('" + treeView_user_accounts.SelectedNode.Text + "','','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','Delete account','" + id_db_obj + "','" + vars_form.user_login_id + "');");
 
-                        build_list_account();
-
+                        build_list_account();//обновляем тривив
 
 
                         //через запятую перебираем все аккауты из тривив и добавляем в accounts для записи в виалон
@@ -4447,12 +4392,9 @@ namespace Disp_WinForm
             {
                 try
                 {
+                    
 
-
-                    Task.Run(() =>
-                    {
-                        build_list_account();
-                    });
+                    build_list_account();
                     groupBox3.Visible = false;
                     groupBox3.SendToBack();
                 }
@@ -4593,26 +4535,10 @@ namespace Disp_WinForm
                             string ICCID = macros.sql_command("SELECT Simcardcol_imsi FROM btk.Simcard where Simcardcol_number like '" + m.items[0].ph.Remove(0, 1) + "';");
                             if (ICCID != "")
                             {
-                                Task.Run(() =>
-                                {
-                                    string t = macros.VodafoneGetServiceProfile(ICCID);
-                                if (t.Contains("MissingAuthorizationHeader") || t.Contains("Invalid Access Token") || t.Contains("POL0002"))
-                                {
-                                    MessageBox.Show("Не могу загрузить тариф. Передайте 117: " + t);
-                                }
-                                else
-                                {
-                                    var ServiceProfileData = JsonConvert.DeserializeObject<RootObject>(t);
-                                        if (RoumingTarifSIM1_comboBox.InvokeRequired)
-                                        {
-                                            RoumingTarifSIM1_comboBox.Invoke(new Action(() => { RoumingTarifSIM1_comboBox.Text = ServiceProfileData.getDeviceDetailsv2Response.@return.customerServiceProfile; }));
-                                        }
-                                        else
-                                        {
-                                            RoumingTarifSIM1_comboBox.Text = ServiceProfileData.getDeviceDetailsv2Response.@return.customerServiceProfile;
-                                        }
-                                }
-                                });
+                                string t = macros.VodafoneGetServiceProfile(ICCID);
+                                var ServiceProfileData = JsonConvert.DeserializeObject<RootObject>(t);
+                                RoumingTarifSIM1_comboBox.Text = ServiceProfileData.getDeviceDetailsv2Response.@return.customerServiceProfile;
+
                             }
                         }
                     }
@@ -4664,26 +4590,10 @@ namespace Disp_WinForm
                             string ICCID = macros.sql_command("SELECT Simcardcol_imsi FROM btk.Simcard where Simcardcol_number like '" + m.items[0].ph2.Remove(0, 1) + "';");
                             if (ICCID != "")
                             {
-                                Task.Run(() =>
-                                {
-                                    string t = macros.VodafoneGetServiceProfile(ICCID);
-                                    if (t.Contains("MissingAuthorizationHeader") || t.Contains("Invalid Access Token") || t.Contains("POL0002"))
-                                    {
-                                        MessageBox.Show("Не могу загрузить тариф. Передайте 117: " + t);
-                                    }
-                                    else
-                                    {
-                                        var ServiceProfileData = JsonConvert.DeserializeObject<RootObject>(t);
-                                        if (RoumingTarifSIM2_comboBox.InvokeRequired)
-                                        {
-                                            RoumingTarifSIM2_comboBox.Invoke(new Action(() => { RoumingTarifSIM2_comboBox.Text = ServiceProfileData.getDeviceDetailsv2Response.@return.customerServiceProfile; }));
-                                        }
-                                        else
-                                        {
-                                            RoumingTarifSIM2_comboBox.Text = ServiceProfileData.getDeviceDetailsv2Response.@return.customerServiceProfile;
-                                        }
-                                    }
-                                });
+                                string t = macros.VodafoneGetServiceProfile(ICCID);
+                                var ServiceProfileData = JsonConvert.DeserializeObject<RootObject>(t);
+                                RoumingTarifSIM2_comboBox.Text = ServiceProfileData.getDeviceDetailsv2Response.@return.customerServiceProfile;
+
                             }
                         }
                     }
@@ -6599,47 +6509,6 @@ namespace Disp_WinForm
                 email_textBox.Text = listBox_activation_list_search.SelectedItem.ToString();
             }
 
-        }
-
-        private void button_kodove_save_Click(object sender, EventArgs e)
-        {
-            //Загружаем произвольные поля объекта
-            string json = macros.WialonRequest("&svc=core/search_items&params={" +
-                                                     "\"spec\":{" +
-                                                     "\"itemsType\":\"avl_unit\"," +
-                                                     "\"propName\":\"sys_id\"," +
-                                                     "\"propValueMask\":\"" + wl_id + "\", " +
-                                                     "\"sortType\":\"sys_name\"," +
-                                                     "\"or_logic\":\"1\"}," +
-                                                     "\"or_logic\":\"1\"," +
-                                                     "\"force\":\"1\"," +
-                                                     "\"flags\":\"15208907\"," +
-                                                     "\"from\":\"0\"," +
-                                                     "\"to\":\"1\"}");//15208907
-
-            var object_data = JsonConvert.DeserializeObject<RootObject>(json);
-
-
-            //update costom feild in WL, Upatate VO in WL and DB
-            foreach (var keyvalue in object_data.items[0].flds)
-            {
-                switch (keyvalue.Value.n)
-                {
-                    //Chenge feild Кодове слово
-                    case string a when a.Contains("Кодове "):
-                        string json2 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
-                                                                "\"itemId\":\"" + wl_id + "\"," +
-                                                                "\"id\":\"" + keyvalue.Value.id + "\"," +
-                                                                "\"callMode\":\"update\"," +
-                                                                "\"n\":\"" + keyvalue.Value.n + "\"," +
-                                                                "\"v\":\"" + kodove_slovo_textBox.Text + "\"}");
-                        TreeView_zapolnyaem();
-                        MessageBox.Show("Кодове слово Збережено");
-                        // Диалог закрываем заявку или нет при завершении работы с учетными записями
-                        on_end_account_job("Внесено зміни:\nКодове слово: " + kodove_slovo_textBox.Text);
-                        return;
-                }
-            }
         }
     }
     public class ComboboxItem

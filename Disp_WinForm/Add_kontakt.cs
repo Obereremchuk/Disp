@@ -1,5 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -87,7 +86,7 @@ namespace Disp_WinForm
             string phoneID = "";
             if (maskedTextBox_tel1.Text != "   -   -")
             {
-                macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone, Phonebookcol_messanger) values('" + maskedTextBox_tel1.Text.ToString() + "', '" + MySqlHelper.EscapeString(ComentTel1_textBox.Text.ToString()) + "');");
+                macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone, Phonebookcol_messanger) values('" + maskedTextBox_tel1.Text.ToString() + "', '" + ComentTel1_textBox.Text.ToString() + "');");
                 phoneID = macros.sql_command("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
             }
             else
@@ -96,7 +95,7 @@ namespace Disp_WinForm
             string phone2ID = "";
             if (maskedTextBox_tel2.Text != "   -   -")
             {
-                macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone, Phonebookcol_messanger) values('" + maskedTextBox_tel2.Text.ToString() + "', '" + MySqlHelper.EscapeString(ComentTel1_textBox.Text.ToString()) + "');");
+                macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone, Phonebookcol_messanger) values('" + maskedTextBox_tel2.Text.ToString() + "', '" + ComentTel1_textBox.Text.ToString() + "');");
                 phone2ID = macros.sql_command("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
             }
             else

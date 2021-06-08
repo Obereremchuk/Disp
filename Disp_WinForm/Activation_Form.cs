@@ -687,7 +687,7 @@ namespace Disp_WinForm
             int vo5_exist = 0;
             foreach (var keyvalue in object_data.items[0].flds)
             {
-                if (keyvalue.Value.n.Contains("2.4 IV Від"))
+                if (keyvalue.Value.n.Contains("2.4 ІV Від"))
                 {
                     vo4_exist = 1;
                 }
@@ -697,7 +697,7 @@ namespace Disp_WinForm
                 }
             }
             if (vo4_exist == 0)
-            { macros.create_custom_field_wl(Convert.ToInt32(_id_wl_object_for_activation), "2.4 IV Відповідальна особа", ""); }
+            { macros.create_custom_field_wl(Convert.ToInt32(_id_wl_object_for_activation), "2.4 ІV Відповідальна особа", ""); }
             if (vo5_exist == 0)
             { macros.create_custom_field_wl(Convert.ToInt32(_id_wl_object_for_activation), "2.5 V Відповідальна особа", ""); }
 
@@ -777,7 +777,7 @@ namespace Disp_WinForm
                         break;
 
                     //Chenge feild ВО4
-                    case string a when a.Contains("2.4 IV Від") & keyvalue.Value.v != textBox_vo4.Text & textBox_vo4.Text != "1":
+                    case string a when a.Contains("2.4 ІV Від") & keyvalue.Value.v != textBox_vo4.Text & textBox_vo4.Text != "1":
                         macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + _id_db_object_for_activation + "','" + _transfer_vo4_vo_form + "','4','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + _user_login_id + "');");
                         string json6 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
                                                          "\"itemId\":\"" + _id_wl_object_for_activation + "\"," +

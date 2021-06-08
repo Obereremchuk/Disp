@@ -241,8 +241,9 @@ namespace Disp_WinForm
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + vars_form.Vodafone_AccessToken);
                 var result = client.PostAsync(URL_API, content).Result;
                 string contents = result.Content.ReadAsStringAsync().Result;
-                //var answ = JsonConvert.DeserializeObject<RootObject>(contents);
-                if (contents.Contains("MissingAuthorizationHeader") || contents.Contains("Invalid Access Token") || contents.Contains("POL0002"))
+                var answ = JsonConvert.DeserializeObject<RootObject>(contents);
+                answ = JsonConvert.DeserializeObject<RootObject>(contents);
+                if (contents.Contains("MissingAuthorizationHeader") || contents.Contains("Invalid Access Token"))
                 { 
                     Vodafone_GetToken_v2();
                     content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -269,8 +270,9 @@ namespace Disp_WinForm
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + vars_form.Vodafone_AccessToken);
                 var result = client.PutAsync(URL_API, content).Result;
                 string contents = result.Content.ReadAsStringAsync().Result;
-                //var answ = JsonConvert.DeserializeObject<RootObject>(contents);
-                if (contents.Contains("MissingAuthorizationHeader") || contents.Contains("Invalid Access Token") || contents.Contains("POL0002"))
+                var answ = JsonConvert.DeserializeObject<RootObject>(contents);
+                answ = JsonConvert.DeserializeObject<RootObject>(contents);
+                if (contents.Contains("MissingAuthorizationHeader") || contents.Contains("Invalid Access Token"))
                 {
                     Vodafone_GetToken_v2();
                     content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -292,8 +294,10 @@ namespace Disp_WinForm
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + vars_form.Vodafone_AccessToken);
                 var result = client.GetAsync(URL_API).Result;
                 string contents = result.Content.ReadAsStringAsync().Result;
-                //var answ = JsonConvert.DeserializeObject<RootObject>(contents);
-                if (contents.Contains("MissingAuthorizationHeader") || contents.Contains("Invalid Access Token") || contents.Contains("POL0002"))
+                var answ = JsonConvert.DeserializeObject<RootObject>(contents);
+                answ = JsonConvert.DeserializeObject<RootObject>(contents);
+                //var myDeserializedClass = JsonConvert.DeserializeObject<RootObject>(contents);
+                if (contents.Contains("MissingAuthorizationHeader") || contents.Contains("Invalid Access Token"))
                 {
                     Vodafone_GetToken_v2();
                     client.DefaultRequestHeaders.Remove("Authorization");
