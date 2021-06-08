@@ -918,7 +918,7 @@ namespace Disp_WinForm
             }
             if (comboBox_status_trevogi.SelectedItem.ToString() == "Дилеры" & _id_status != "Дилеры")//если изменяем статус с Обробляется на 808  - отправляем меил со всейхронологией обработки тревоги
             {
-                string recipient = "<" + vars_form.user_login_email + ">," + "<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<s.gregul@venbest.com.ua>,<o.mychka@venbest.com.ua>";
+                string recipient = "<" + vars_form.user_login_email + ">," + "<e.danilchenko@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<s.gregul@venbest.com.ua>,<a.sukhan@venbest.com.ua>";
                 send_email(recipient);
             }
 
@@ -930,7 +930,7 @@ namespace Disp_WinForm
 
             if (checkBox_send_email.Checked == true)//если отмечено Надислаты звит - отправляем меил со всейхронологией обработки тревоги
             {
-                string recipient = "<" + vars_form.user_login_email + ">," + "<a.lozinskiy@venbest.com.ua>,<o.pustovit@venbest.com.ua>,<d.yacenko@venbest.com.ua>,<a.oberemchuk@venbest.com.ua>,<e.danilchenko@venbest.com.ua>, <d.lenik@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<mc@venbest.com.ua>";
+                string recipient = "<" + vars_form.user_login_email + ">," + "<a.lozinskiy@venbest.com.ua>,<o.pustovit@venbest.com.ua>,<d.yacenko@venbest.com.ua>,<a.oberemchuk@venbest.com.ua>,<e.danilchenko@venbest.com.ua>, <d.lenik@venbest.com.ua>,<a.andreasyan@venbest.com.ua>,<mc@venbest.com.ua>,<a.sukhan@venbest.com.ua>";
                 send_email(recipient);
             }
 
