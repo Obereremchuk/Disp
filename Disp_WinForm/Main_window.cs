@@ -196,12 +196,15 @@ namespace Disp_WinForm
                     }
                     else if (Convert.ToInt32(user["accsess_lvl"]) >= 6 && Convert.ToInt32(user["accsess_lvl"]) <= 8)
                     {
+                        tabControl_testing.TabPages.Remove(tabPage_Service);
                         tabControl_testing.TabPages.Remove(tabPage3);
                         tabControl_testing.TabPages.Remove(tab_create_object);
                         Delet_Testing_button.Visible = false;
                     }
                     else
                     {
+                        
+                        tabControl_testing.TabPages.Remove(tabPage_Service);
                         tabControl_testing.TabPages.Remove(tabPage3);
                         tabControl_testing.TabPages.Remove(tabPage_zvit);
                         //textBox_activation_search.Enabled = false;
@@ -6782,7 +6785,7 @@ namespace Disp_WinForm
             string auto_block_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Автоматическая блокировка двигателя", "digital", "Вкл/Выкл", "auto_block", 1, "1", 0, "");
 
             //2. Охрана
-            string protection_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Охрана", "digital", "Вкл/Выкл", "protection", 2, "1", 0, "", "false");
+            string protection_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Охрана", "digital", "Вкл/Выкл", "protection", 2, "1", 0, "");
 
             //3. Принудительная блокировка двигателя
             string man_block_sensor = macros.create_sensor_wl(cr_obj_out.item.id, "Принудительная блокировка двигателя", "digital", "Вкл/Выкл", "man_block", 3, "1", 0, "");
@@ -14455,7 +14458,7 @@ namespace Disp_WinForm
                 + "\"n\":\"1 - ШТАТНЫЙ РЕЖИМ\","
                 + "\"c\":\"custom_msg\","
                 + "\"l\":\"\","
-                + "\"p\":\"%26setparam 0104 0%26setparam 0204 0%26setparam 0201 0%26saveparams;\","
+                + "\"p\":\"%26setparam 0104 0%26setparam 0201 0%26setparam 0215 840%26saveparams;\","
                 + "\"a\":\"83886080\"}");
 
             //ПОИСКОВЫЙ РЕЖИМ
@@ -14467,7 +14470,19 @@ namespace Disp_WinForm
                 + "\"n\":\"2 - ПОИСКОВЫЙ РЕЖИМ\","
                 + "\"c\":\"custom_msg\","
                 + "\"l\":\"\","
-                + "\"p\":\"%26setparam 0104 1%26setparam 0204 120%26setparam 0201 120%26saveparams\","
+                + "\"p\":\"%26setparam 0104 1%26setparam 0201 100%26saveparams\","
+                + "\"a\":\"83886080\"}");//
+
+            //ПОИСКОВЫЙ РЕЖИМ
+            string cmd_60_answer = macros.WialonRequest(
+                "&svc=unit/update_command_definition&params={"
+                + "\"itemId\":\"" + cr_obj_out.item.id + "\","
+                + "\"id\":\"0\","
+                + "\"callMode\":\"create\","
+                + "\"n\":\"3 - 60 сек\","
+                + "\"c\":\"custom_msg\","
+                + "\"l\":\"\","
+                + "\"p\":\"%26setparam 0104 1%26setparam 0201 100%26setparam 0215 30%26saveparams\","
                 + "\"a\":\"83886080\"}");//
 
             string id_sim = "";
@@ -15038,15 +15053,23 @@ namespace Disp_WinForm
             string id_sim = "";
 
             DataTable t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + comboBox_tel_select.Text + "';");
-            if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+            if (t.Rows.Count >= 1)
             {
-                //получаем айди SIM-card
-                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "';");
+                if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+                {
+                    //получаем айди SIM-card
+                    id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(1) + "';");
+                }
+                else
+                {
+                    //получаем айди SIM-card
+                    id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+                }
             }
             else
             {
-                //получаем айди SIM-card
-                id_sim = macros.sql_command("SELECT idSimcard FROM btk.Simcard where Simcardcol_number = '" + maskedTextBox_sim_no_to_create.Text.Substring(4) + "';");
+                id_sim = "1";
+                comboBox_tel_select.Text = "";
             }
 
             string sql2 = string.Format("insert into btk.Object(Object_id_wl, Object_imei, Object_name, Object_sim_no, products_idproducts, Simcard_idSimcard, TS_info_idTS_info, TS_info_TS_brend_model_idTS_brend_model, Kontakti_idKontakti_serviceman, Dogovora_idDogovora, Objectcol_edit_date, Users_idUsers) "
@@ -17150,6 +17173,9 @@ namespace Disp_WinForm
                 string activation = macros.sql_command("Select Activation_object_idActivation_object FROM btk.Zayavki where testing_object_idtesting_object = '" + testing + "';");
                 string zayavka = macros.sql_command("Select idZayavki FROM btk.Zayavki where testing_object_idtesting_object = '" + testing + "';");
 
+                macros.sql_command("Delete FROM btk.Activation_chenges where Activation_object_idActivation_object = '" + activation + "';");
+                macros.sql_command("Delete FROM btk.ActivationProcessTime where Activation_object_idActivation_object = '" + activation + "';");
+                macros.sql_command("Delete FROM btk.TestingProcessTime where testing_object_idtesting_object = '" + testing + "';");
                 macros.sql_command("Delete FROM btk.Zayavki_has_Activation_object where Activation_object_idActivation_object = '" + activation + "' and Zayavki_idZayavki = '" + zayavka + "';");
                 macros.sql_command("Delete FROM btk.Zayavki where idZayavki = '" + zayavka + "';");
                 macros.sql_command("Delete FROM btk.testing_object where idtesting_object = '" + testing + "';");
@@ -17409,12 +17435,299 @@ namespace Disp_WinForm
             if (index != System.Windows.Forms.ListBox.NoMatches)
             {
                 string Service_WL_id = ServiceObj_search_listBox.SelectedValue.ToString();
-                DataTable ObjectData = macros.GetData("SELECT * FROM btk.Object, btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.products where Object.idObject = object_subscr.Object_idObject and Subscription.idSubscr = object_subscr.Subscription_idSubscr and products_has_Tarif.idproducts_has_Tarif = products_has_Tarif_idproducts_has_Tarif and products.idproducts = products_has_Tarif.products_idproducts and Object.Object_id_wl = '" + Service_WL_id + "';");
-                if (ObjectData.Columns.Count>=1)
+                DataTable ObjectData = macros.GetData("SELECT " +
+                    "*, " +
+                    "(select Simcardcol_imsi from btk.Simcard where idSimcard = Simcard_idSimcard1) as Simcardcol_imsi2, " +
+                    "(select Simcardcol_number from btk.Simcard where idSimcard = Simcard_idSimcard1) as Simcardcol_number2 " +
+                    "FROM " +
+                    "btk.Object, btk.object_subscr, btk.Subscription, btk.products_has_Tarif, btk.products, btk.Simcard " +
+                    "where " +
+                    "Object.idObject = object_subscr.Object_idObject " +
+                    "and Simcard.idSimcard = Object.idObject " +
+                    "and Subscription.idSubscr = object_subscr.Subscription_idSubscr " +
+                    "and products_has_Tarif.idproducts_has_Tarif = products_has_Tarif_idproducts_has_Tarif " +
+                    "and products.idproducts = products_has_Tarif.products_idproducts " +
+                    "and Object.Object_id_wl = '" + Service_WL_id + "';");
+                if (ObjectData.Rows.Count >= 1)
                 {
-                    
+
+                    //getting product
+                    string sql = string.Format("SELECT idproducts, product_name, productscol_hwid FROM btk.products order by ocherednost;");
+                    var dataSource = macros.GetData(sql);
+                    //Setup data binding
+                    this.Service_product_comboBox.DisplayMember = "product_name";
+                    this.Service_product_comboBox.ValueMember = "idproducts";
+                    this.Service_product_comboBox.DataSource = dataSource;
+
+                    ////get Simcard
+                    //var SimcardNumber = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi FROM btk.Simcard;");
+                    this.ServiceDBSIM1_comboBox.DisplayMember = "Simcardcol_number";
+                    this.ServiceDBSIM1_comboBox.ValueMember = "idSimcard";
+                    //this.ServiceDBSIM1_comboBox.DataSource = SimcardNumber;
+                    this.ServiceDBICCID1_comboBox.DisplayMember = "Simcardcol_imsi";
+                    this.ServiceDBICCID1_comboBox.ValueMember = "idSimcard";
+                    //this.ServiceDBICCID1_comboBox.DataSource = SimcardNumber;
+                    this.ServiceDBSIM2_comboBox.DisplayMember = "Simcardcol_number";
+                    this.ServiceDBSIM2_comboBox.ValueMember = "idSimcard";
+                    //this.ServiceDBSIM2_comboBox.DataSource = SimcardNumber;
+                    this.ServiceDBICCID2_comboBox.DisplayMember = "Simcardcol_imsi";
+                    this.ServiceDBICCID2_comboBox.ValueMember = "idSimcard";
+                    //this.ServiceDBICCID2_comboBox.DataSource = SimcardNumber;
+
+
+
+                    //DB section
+                    this.Service_product_comboBox.SelectedValue = ObjectData.Rows[0]["products_idproducts"].ToString();
+                    ServiceDBIMEI_textBox.Text = ObjectData.Rows[0]["Object_imei"].ToString();
+                    ServiceDBBLECode_textBox.Text = ObjectData.Rows[0]["Objectcol_ble_code"].ToString();
+                    ServiceDBBTEnable_textBox.Text = ObjectData.Rows[0]["Objectcol_bt_enable"].ToString();
+                    ServiceDBGSMCode_textBox.Text = ObjectData.Rows[0]["Objectcol_gsm_code"].ToString();
+                    ServiceDBPUK_textBox.Text = ObjectData.Rows[0]["Objectcol_puk"].ToString();
+                    DataTable SIMData1 = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi FROM btk.Simcard where idSimcard = '" + ObjectData.Rows[0]["Simcard_idSimcard"].ToString() + "';");
+                    DataTable SIMData2 = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi FROM btk.Simcard where idSimcard = '" + ObjectData.Rows[0]["Simcard_idSimcard1"].ToString() + "';");
+                    ServiceDBSIM1_comboBox.Text = SIMData1.Rows[0]["Simcardcol_number"].ToString();
+                    ServiceDBICCID1_comboBox.Text = SIMData1.Rows[0]["Simcardcol_imsi"].ToString();
+                    ServiceDBSIM2_comboBox.Text = SIMData2.Rows[0]["Simcardcol_number"].ToString();
+                    ServiceDBICCID2_comboBox.Text = SIMData2.Rows[0]["Simcardcol_imsi"].ToString();
+
+                    string json = macros.WialonRequest("&svc=core/search_items&params={" +
+                                                        "\"spec\":{" +
+                                                        "\"itemsType\":\"avl_unit\"," +
+                                                        "\"propName\":\"sys_id\"," +
+                                                        "\"propValueMask\":\"" + Service_WL_id + "\", " +
+                                                        "\"sortType\":\"sys_name\"," +
+                                                        "\"or_logic\":\"1\"}," +
+                                                        "\"force\":\"1\"," +
+                                                        "\"flags\":\"-1\"," +
+                                                        "\"from\":\"0\"," +
+                                                        "\"to\":\"50\"}");
+                    var m = JsonConvert.DeserializeObject<RootObject>(json);
+                    ServiceWLIMEI_textBox.Text = m.items[0].uid.ToString();
+                    ServiceWLSIM1_textBox.Text = m.items[0].ph.ToString();
+                    ServiceWLSIM2_textBox.Text = m.items[0].ph2.ToString();
+
+
+                    //update costom feild in WL, Upatate VO in WL and DB
+                    foreach (var keyvalue in m.items[0].aflds)
+                    {
+                        switch (keyvalue.Value.n)
+                        {
+                            //Произвольное поле  name operator
+                            case string a when a.Contains("PUK"):
+                                ServiceWLPUK_textBox.Text = keyvalue.Value.v;
+                                break;
+                            //Произвольное поле 0 УВАГА
+                            case string a when a.Contains("3.9.3 GSM-код"):
+                                ServiceWLGSMCode_textBox.Text = keyvalue.Value.v;
+                                break;
+                            //Произвольное поле device2
+                            case string a when a.Contains("3.9.5 Bluetuth-код"):
+                                ServiceWLBLECode_textBox.Text = keyvalue.Value.v;
+                                break;
+                        }
+                    }
+
+
+
+
+
+                }
+                else 
+                {
+                    //esli object ne naden
                 }
             }
+        }
+
+        private void ServiceDBSIM1_comboBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                if (e.KeyChar == (char)13)
+                {
+                    if (ServiceDBICCID1_comboBox.Text.Contains("F") || ServiceDBICCID1_comboBox.Text.Contains("А"))
+                    { ServiceDBICCID1_comboBox.Text = ServiceDBICCID2_comboBox.Text.Remove(ServiceDBICCID1_comboBox.Text.Length - 1); }
+                    DataTable t = new DataTable();
+                    t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_number ='" + ServiceDBSIM1_comboBox.Text + "';");
+                    if (t != null & t.Rows.Count > 0)
+                    {
+                        if (t.Rows[0][4].ToString() != "1")// if deactivated retorn error
+                        {
+                            if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+                            {
+                                ServiceDBSIM1_comboBox.Text = "+" + t.Rows[0][1].ToString();
+                                ServiceDBICCID1_comboBox.Text = t.Rows[0][2].ToString();
+                                ServiceDBSIM1_comboBox.BackColor = Color.Empty;
+                            }
+                            else
+                            {
+                                ServiceDBSIM1_comboBox.Text = "+380" + t.Rows[0][1].ToString();
+                                ServiceDBICCID1_comboBox.Text = t.Rows[0][2].ToString();
+                                ServiceDBSIM1_comboBox.BackColor = Color.Empty;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Картка деактивована");
+                            ServiceDBSIM1_comboBox.BackColor = Color.Red;
+                            ServiceDBSIM1_comboBox.Text = "+" + t.Rows[0][1].ToString();
+                        }
+
+                    }
+                    else
+                    {
+                        ServiceDBSIM1_comboBox.Text = "Не знайдено";
+                        ServiceDBSIM1_comboBox.Focus();
+                        ServiceDBSIM1_comboBox.BackColor = Color.Red;
+                    }
+                }
+            }
+        }
+
+        private void ServiceDBSIM2_comboBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                if (ServiceDBICCID2_comboBox.Text.Contains("F") || ServiceDBICCID2_comboBox.Text.Contains("А"))
+                { ServiceDBICCID2_comboBox.Text = ServiceDBICCID2_comboBox.Text.Remove(ServiceDBICCID2_comboBox.Text.Length - 1); }
+                DataTable t = new DataTable();
+                t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_number ='" + ServiceDBSIM2_comboBox.Text + "';");
+                if (t != null & t.Rows.Count > 0)
+                {
+                    if (t.Rows[0][4].ToString() != "1")// if deactivated retorn error
+                    {
+                        if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+                        {
+                            ServiceDBSIM2_comboBox.Text = "+" + t.Rows[0][1].ToString();
+                            ServiceDBICCID2_comboBox.Text = t.Rows[0][2].ToString();
+                            ServiceDBSIM2_comboBox.BackColor = Color.Empty;
+                        }
+                        else
+                        {
+                            ServiceDBSIM2_comboBox.Text = "+380" + t.Rows[0][1].ToString();
+                            ServiceDBICCID2_comboBox.Text = t.Rows[0][2].ToString();
+                            ServiceDBSIM2_comboBox.BackColor = Color.Empty;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Картка деактивована");
+                        ServiceDBSIM2_comboBox.BackColor = Color.Red;
+                        ServiceDBSIM2_comboBox.Text = "+" + t.Rows[0][1].ToString();
+                    }
+
+                }
+                else
+                {
+                    ServiceDBSIM2_comboBox.Text = "Не знайдено";
+                    ServiceDBSIM2_comboBox.Focus();
+                    ServiceDBSIM2_comboBox.BackColor = Color.Red;
+                }
+            }
+        }
+
+        private void ServiceDBICCID1_comboBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                if (e.KeyChar == (char)13)
+                {
+                    DataTable t = new DataTable();
+                    t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + ServiceDBICCID1_comboBox.Text + "';");
+                    if (t != null & t.Rows.Count > 0)
+                    {
+                        if (t.Rows[0][4].ToString() != "1")// if deactivated retorn error
+                        {
+                            if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+                            {
+                                ServiceDBSIM1_comboBox.Text = "+" + t.Rows[0][1].ToString();
+                                ServiceDBICCID1_comboBox.Text = t.Rows[0][2].ToString();
+                                ServiceDBSIM1_comboBox.BackColor = Color.Empty;
+                            }
+                            else
+                            {
+                                ServiceDBSIM1_comboBox.Text = "+380" + t.Rows[0][1].ToString();
+                                ServiceDBICCID1_comboBox.Text = t.Rows[0][2].ToString();
+                                ServiceDBSIM1_comboBox.BackColor = Color.Empty;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Картка деактивована");
+                            ServiceDBSIM1_comboBox.BackColor = Color.Red;
+                            ServiceDBSIM1_comboBox.Text = "+" + t.Rows[0][1].ToString();
+                        }
+
+                    }
+                    else
+                    {
+                        ServiceDBSIM1_comboBox.Text = "Не знайдено";
+                        ServiceDBSIM1_comboBox.Focus();
+                        ServiceDBSIM1_comboBox.BackColor = Color.Red;
+                    }
+                }
+            }
+        }
+
+        private void ServiceDBICCID2_comboBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                if (e.KeyChar == (char)13)
+                {
+                    DataTable t = new DataTable();
+                    t = macros.GetData("SELECT idSimcard, Simcardcol_number, Simcardcol_imsi, Simcardcol_international, Simcardcol_deactivated FROM btk.Simcard where Simcardcol_imsi ='" + ServiceDBICCID2_comboBox.Text + "';");
+                    if (t != null & t.Rows.Count > 0)
+                    {
+                        if (t.Rows[0][4].ToString() != "1")// if deactivated retorn error
+                        {
+                            if (t.Rows[0][3].ToString() == "1")//if selected vodafome interalional sim - chenge sim no mask in maskedTextBox_sim_no_to_create
+                            {
+                                ServiceDBSIM2_comboBox.Text = "+" + t.Rows[0][1].ToString();
+                                ServiceDBICCID2_comboBox.Text = t.Rows[0][2].ToString();
+                                ServiceDBSIM2_comboBox.BackColor = Color.Empty;
+                            }
+                            else
+                            {
+                                ServiceDBSIM2_comboBox.Text = "+380" + t.Rows[0][1].ToString();
+                                ServiceDBICCID2_comboBox.Text = t.Rows[0][2].ToString();
+                                ServiceDBSIM2_comboBox.BackColor = Color.Empty;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Картка деактивована");
+                            ServiceDBSIM2_comboBox.BackColor = Color.Red;
+                            ServiceDBSIM2_comboBox.Text = "+" + t.Rows[0][1].ToString();
+                        }
+
+                    }
+                    else
+                    {
+                        ServiceDBSIM2_comboBox.Text = "Не знайдено";
+                        ServiceDBSIM2_comboBox.Focus();
+                        ServiceDBSIM2_comboBox.BackColor = Color.Red;
+                    }
+                }
+            }
+        }
+
+        private void Save_Testing_button_Click(object sender, EventArgs e)
+        {
+            DataTable DT = dataGridView_testing.DataSource as DataTable;
+            DataSet ds = new DataSet();
+            ds.Tables.Add(DT);
+            macros.ExportDataSet(ds);
+            ds.Tables.Remove(DT);
+        }
+
+        private void Save_Activation_button_Click(object sender, EventArgs e)
+        {
+            DataTable DT = dataGridView_for_activation.DataSource as DataTable;
+            DataSet ds = new DataSet();
+            ds.Tables.Add(DT);
+            macros.ExportDataSet(ds);
+            ds.Tables.Remove(DT);
         }
     }
 
