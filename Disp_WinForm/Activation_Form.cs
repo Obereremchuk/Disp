@@ -258,7 +258,7 @@ namespace Disp_WinForm
                 }
             }
 
-            date_activation_in_db = Convert.ToDateTime( macros.sql_command("SELECT Activation_date FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "'")).ToString("yyyy-MM-dd");
+            date_activation_in_db = Convert.ToDateTime(macros.sql_command("SELECT Activation_date FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "'")).ToString("yyyy-MM-dd");
 
             //date_activation_in_db = macros.sql_command("SELECT Activation_date FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "'");
             //Открітие отработаніх активаций. ХЗ ли нужно
@@ -282,7 +282,7 @@ namespace Disp_WinForm
             }
             else
             {
-                textBox_vo1.Text = VO_falilia.ToUpper() + " " + VO_imya_phone + ", " + VO_phone2 +  " (" + VO_phone2_Coment + ")";
+                textBox_vo1.Text = VO_falilia.ToUpper() + " " + VO_imya_phone + ", " + VO_phone2 + " (" + VO_phone2_Coment + ")";
                 _transfer_vo1_vo_form = VO1;
             }
 
@@ -368,14 +368,14 @@ namespace Disp_WinForm
 
             string pin_chenged = macros.sql_command("SELECT pin_chenged FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "'");
             if (pin_chenged == "1")
-            { 
+            {
                 checkBox_pin_chenged.Checked = true;
                 textBox_who_chenge_pin.ReadOnly = true;
                 textBox_who_chenge_pin.Text = macros.sql_command("SELECT Who_chenge_pin FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "'");
                 date_chenge_pin = macros.sql_command("SELECT Date_chenge_pin FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "'");
             }
             else if (pin_chenged == "0" || pin_chenged == "")
-            { 
+            {
                 checkBox_pin_chenged.Checked = false;
                 textBox_who_chenge_pin.ReadOnly = false;
             }
@@ -421,7 +421,7 @@ namespace Disp_WinForm
             textBox_product.Text = table2.Rows[0][6].ToString();
             textBox_zayavka_comments.Text = table2.Rows[0][13].ToString();
             manager_textBox.Text = table2.Rows[0][14].ToString();
-            textBox_svidoctvo_tz.Text= macros.sql_command("SELECT svidoctvo_tz FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "'");
+            textBox_svidoctvo_tz.Text = macros.sql_command("SELECT svidoctvo_tz FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "'");
             // Формируем название проекта в зависимости от типа контрагента и названии контрагента
             if (table2.Rows[0][12].ToString() == "1")
             { textBox_zamovnik.Text = "Дилер (" + table2.Rows[0][7].ToString() + ")"; }
@@ -431,7 +431,7 @@ namespace Disp_WinForm
             { textBox_zamovnik.Text = "Роздріб (" + table2.Rows[0][7].ToString() + ")"; }
             else { textBox_zamovnik.Text = table2.Rows[0][7].ToString(); }
 
-            
+
             // если номер не указан в завке , то смотрим в тестирование, если и там не указан то ставим пусто
             if (table2.Rows[0][10].ToString() == "")
             {
@@ -687,7 +687,7 @@ namespace Disp_WinForm
             int vo5_exist = 0;
             foreach (var keyvalue in object_data.items[0].flds)
             {
-                if (keyvalue.Value.n.Contains("2.4 ІV Від"))
+                if (keyvalue.Value.n.Contains("2.4 IV Від"))
                 {
                     vo4_exist = 1;
                 }
@@ -697,7 +697,7 @@ namespace Disp_WinForm
                 }
             }
             if (vo4_exist == 0)
-            { macros.create_custom_field_wl(Convert.ToInt32(_id_wl_object_for_activation), "2.4 ІV Відповідальна особа", ""); }
+            { macros.create_custom_field_wl(Convert.ToInt32(_id_wl_object_for_activation), "2.4 IV Відповідальна особа", ""); }
             if (vo5_exist == 0)
             { macros.create_custom_field_wl(Convert.ToInt32(_id_wl_object_for_activation), "2.5 V Відповідальна особа", ""); }
 
@@ -777,7 +777,7 @@ namespace Disp_WinForm
                         break;
 
                     //Chenge feild ВО4
-                    case string a when a.Contains("2.4 ІV Від") & keyvalue.Value.v != textBox_vo4.Text & textBox_vo4.Text != "1":
+                    case string a when a.Contains("2.4 IV Від") & keyvalue.Value.v != textBox_vo4.Text & textBox_vo4.Text != "1":
                         macros.sql_command("insert into btk.VO (Object_idObject,Kontakti_idKontakti,VOcol_num_vo,VOcol_date_add,Users_idUsers) values('" + _id_db_object_for_activation + "','" + _transfer_vo4_vo_form + "','4','" + Convert.ToDateTime(DateTime.Now).ToString("yyyy-MM-dd HH:mm:ss") + "','" + _user_login_id + "');");
                         string json6 = macros.WialonRequest("&svc=item/update_custom_field&params={" +
                                                          "\"itemId\":\"" + _id_wl_object_for_activation + "\"," +
@@ -878,7 +878,7 @@ namespace Disp_WinForm
 
 
 
-                } 
+                }
             }
             ReadActivationChenges(_id_db_activation_for_activation);
 
@@ -951,7 +951,7 @@ namespace Disp_WinForm
                                                                    + "\"n\":\"registration_plate\","
                                                                    + "\"v\":\"" + textBox_licence_plate.Text.Replace("\"", "%5C%22") + "\"}");
 
-                    
+
                 }
 
                 if (textBox_vin_zayavka.Text != "")
@@ -965,14 +965,14 @@ namespace Disp_WinForm
                     macros.sql_command("update btk.TS_info set TS_infocol_vin = '" + MySqlHelper.EscapeString(textBox_vin_zayavka.Text) + "' where idTS_info = '" + id_ts_info_fo_object_activation + "';");
                 }
 
-                
 
-                
+
+
 
 
                 //Insert chenges
                 InsertActivationChenges(
-                    _id_db_activation_for_activation, 
+                    _id_db_activation_for_activation,
                     _user_login_id,
                     DateTime.Now.Date,
                     comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem),
@@ -1018,12 +1018,12 @@ namespace Disp_WinForm
                     macros.send_mail(recip, Subject, Body);
 
 
-                    
+
                 }
             }
             else if (_if_open_created_activation == 0)
             {
-                
+
 
                 if (textBox_who_chenge_pin.ReadOnly is true)
                 {
@@ -1063,7 +1063,7 @@ namespace Disp_WinForm
                                                                     ");");
                 }
                 else
-                {                    
+                {
                     macros.sql_command("insert into btk.Activation_object (" +
                                                                     "Activation_date, " +
                                                                     "Users_idUsers, " +
@@ -1102,7 +1102,7 @@ namespace Disp_WinForm
                                                                     "'" + MySqlHelper.EscapeString(textBox_who_chenge_pin.Text) + "'," +
                                                                     "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "'," +
                                                                     "'" + MySqlHelper.EscapeString(textBox_comments.Text) + "', " +
-                                                                    "'" + MySqlHelper.EscapeString(textBox_svidoctvo_tz.Text) + "' "+
+                                                                    "'" + MySqlHelper.EscapeString(textBox_svidoctvo_tz.Text) + "' " +
                                                                     ");");
                 }
 
@@ -1134,7 +1134,7 @@ namespace Disp_WinForm
                                                                    + "\"v\":\"" + textBox_vin_zayavka.Text.Replace("\"", "%5C%22") + "\"}");
                 }
 
-                
+
 
                 //Insert chenges
                 InsertActivationChenges(
@@ -1155,7 +1155,7 @@ namespace Disp_WinForm
                     MySqlHelper.EscapeString(textBox_who_chenge_pin.Text)
                     );
 
-                
+
 
                 if (comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) == "Успішно" || comboBox_activation_result.GetItemText(comboBox_activation_result.SelectedItem) == "Успішно(PIN)")
                 {
@@ -1219,19 +1219,19 @@ namespace Disp_WinForm
                 "pin_chenged, " +
                 "Who_chenge_pin, " +
                 "comment) " +
-                "values('"+ 
-                idActivation_object + "', '"+ 
+                "values('" +
+                idActivation_object + "', '" +
                 idUsers + "', '" +
-                Convert.ToDateTime(date).ToString("yyyy-MM-dd") + "', '" + 
-                Activation_objectcol_result + "', '"+ 
-                new_name_obj + "', '"+
-                MySqlHelper.EscapeString(new_pole_uvaga) + "', '"+ 
-                vo1 + "', '"+ 
-                vo2 + "', '"+ 
-                vo3 + "', '"+ 
-                vo4 + "', '"+ 
-                kodove_slovo + "', '"+ 
-                alarm_button + "', '"+ 
+                Convert.ToDateTime(date).ToString("yyyy-MM-dd") + "', '" +
+                Activation_objectcol_result + "', '" +
+                new_name_obj + "', '" +
+                MySqlHelper.EscapeString(new_pole_uvaga) + "', '" +
+                vo1 + "', '" +
+                vo2 + "', '" +
+                vo3 + "', '" +
+                vo4 + "', '" +
+                kodove_slovo + "', '" +
+                alarm_button + "', '" +
                 pin_chenged + "', '" +
                 _Who_chenge_pin + "', '" +
                 comment + "'); ");

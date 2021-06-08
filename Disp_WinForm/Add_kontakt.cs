@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,7 +20,7 @@ namespace Disp_WinForm
 
             //если форма открівается для добавления контакта как ВО то віключаем параметр работает где
             if (vars_form.kontakts_opened_from != 0)
-            { 
+            {
                 comboBox_work_in.Enabled = false;
                 button_add_kontragent.Enabled = false;
             }
@@ -68,7 +69,7 @@ namespace Disp_WinForm
             if (maskedTextBox_mail.Text != "")
             {
                 macros.sql_command("insert into btk.Emails(Emailscol_email) values('" + maskedTextBox_mail.Text + "');");
-                emailID= macros.sql_command("SELECT MAX(idEmails) FROM btk.Emails;");
+                emailID = macros.sql_command("SELECT MAX(idEmails) FROM btk.Emails;");
             }
             else
             { emailID = "1"; }
@@ -86,7 +87,7 @@ namespace Disp_WinForm
             string phoneID = "";
             if (maskedTextBox_tel1.Text != "   -   -")
             {
-                macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone, Phonebookcol_messanger) values('" + maskedTextBox_tel1.Text.ToString() + "', '" + ComentTel1_textBox.Text.ToString() + "');");
+                macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone, Phonebookcol_messanger) values('" + maskedTextBox_tel1.Text.ToString() + "', '" + MySqlHelper.EscapeString(ComentTel1_textBox.Text.ToString()) + "');");
                 phoneID = macros.sql_command("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
             }
             else
@@ -95,7 +96,7 @@ namespace Disp_WinForm
             string phone2ID = "";
             if (maskedTextBox_tel2.Text != "   -   -")
             {
-                macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone, Phonebookcol_messanger) values('" + maskedTextBox_tel2.Text.ToString() + "', '" + ComentTel1_textBox.Text.ToString() + "');");
+                macros.sql_command("insert into btk.Phonebook(Phonebookcol_phone, Phonebookcol_messanger) values('" + maskedTextBox_tel2.Text.ToString() + "', '" + MySqlHelper.EscapeString(ComentTel1_textBox.Text.ToString()) + "');");
                 phone2ID = macros.sql_command("SELECT MAX(idPhonebook) FROM btk.Phonebook;");
             }
             else
@@ -112,7 +113,7 @@ namespace Disp_WinForm
 
             string contactID = macros.sql_command("SELECT MAX(idKontakti) FROM btk.Kontakti;");
 
-            if (comboBox_work_in.SelectedValue!=null)
+            if (comboBox_work_in.SelectedValue != null)
             {
                 macros.sql_command("insert into btk.Kontakti_has_Kontragenti (Kontakti_idKontakti, Kontragenti_idKontragenti) values ('" + contactID + "','" + comboBox_work_in.SelectedValue + "')");
             }
@@ -137,7 +138,7 @@ namespace Disp_WinForm
         private void comboBox_work_in_TextUpdate(object sender, EventArgs e)
         {
             string from_textbox = comboBox_work_in.Text.ToString();
-            string sql = string.Format("select Kontragenti.idKontragenti, concat(btk.Kontragenti.Kontragenti_short_name, '(',btk.Kontragenti.Kontragenti_full_name, ')') AS full_short  FROM btk.Kontragenti where Kontragenticol_kategory = 'Дилер/СТО' and (Kontragenti_short_name like '%"+comboBox_work_in.Text+"%' or Kontragenti_full_name like '%"+comboBox_work_in.Text+"%')");
+            string sql = string.Format("select Kontragenti.idKontragenti, concat(btk.Kontragenti.Kontragenti_short_name, '(',btk.Kontragenti.Kontragenti_full_name, ')') AS full_short  FROM btk.Kontragenti where Kontragenticol_kategory = 'Дилер/СТО' and (Kontragenti_short_name like '%" + comboBox_work_in.Text + "%' or Kontragenti_full_name like '%" + comboBox_work_in.Text + "%')");
             comboBox_work_in.DataSource = macros.GetData(sql);
             comboBox_work_in.DisplayMember = "full_short";
             comboBox_work_in.ValueMember = "idKontragenti";

@@ -617,7 +617,7 @@ namespace Disp_WinForm
         }
         private void button_write_Click(object sender, EventArgs e)
         {
-            
+
             string jsonq = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
                                                          + "\"flags\":\"8388873\"}"); //
@@ -650,7 +650,7 @@ namespace Disp_WinForm
 
             commands_fill_anketa();
             commands_add_testing();
-            
+
         }
 
         private void AddZayavku()
@@ -681,7 +681,7 @@ namespace Disp_WinForm
                                                                 "'1'," +
                                                                 "'1'," +
                                                                 "'" + Convert.ToDateTime(DateTime.Now.Date).ToString("yyyy-MM-dd") + "', " +
-                                                                "'" + name_obj_textBox.Text +"' " +
+                                                                "'" + name_obj_textBox.Text + "' " +
                                                                 ");");//Добавляем активацию для объекта и прикрепляем ее к заявке
 
             string id_created_activation = macros.sql_command("SELECT max(idActivation_object) FROM btk.Activation_object;");
@@ -731,7 +731,7 @@ namespace Disp_WinForm
 
         private void commands_fill_anketa()
         {
-            
+
 
             string id_db_TS_info = macros.sql_command("SELECT TS_info_idTS_info FROM btk.Object where Object_id_wl = " + vars_form.id_wl_object_for_test + ";");
 
@@ -993,8 +993,8 @@ namespace Disp_WinForm
 
                     }
                 }
-                
-                
+
+
 
                 //Характеристики kuzov type
                 string pp22_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
@@ -1046,7 +1046,7 @@ namespace Disp_WinForm
                                                                    + "\"v\":\"" + textBox_vin.Text.Replace("\"", "%5C%22") + "\"}");
                 }
 
-                
+
 
 
 
@@ -1108,7 +1108,7 @@ namespace Disp_WinForm
                             break;
                         //Произвольное поле wire cut
                         case string a when a.Contains("3.6.2 "):
-                            
+
                             string pp4_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                           + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                           + "\"id\":\"" + keyvalue.Value.id + "\","
@@ -1118,7 +1118,7 @@ namespace Disp_WinForm
                             break;
                         //Произвольное поле place tk
                         case string a when a.Contains("3.8.2"):
-                            
+
                             string pp5_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
                                                                           + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                           + "\"id\":\"" + keyvalue.Value.id + "\","
@@ -1274,7 +1274,7 @@ namespace Disp_WinForm
 
             }//Создаем произвольные поля, меняем имя обекта old CNTP, CNTK, CNTP-SE, C_n
 
-            else if (get_produt_testing_device == "5" )//Создаем произвольные поля, меняем имя обекта SLED
+            else if (get_produt_testing_device == "5")//Создаем произвольные поля, меняем имя обекта SLED
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -1418,7 +1418,7 @@ namespace Disp_WinForm
 
 
 
-                
+
 
 
 
@@ -1506,8 +1506,8 @@ namespace Disp_WinForm
                                                               + "\"n\":\"3.8.1 Дротова тривожна кнопка\","
                                                               + "\"v\":\"" + wire_tk.Replace("\"", "%5C%22") + "\"}");
                             break;
-                        
-                        
+
+
                         //Произвольное поле СТО
                         case string a when a.Contains("3.2.1 "):
                             string pp18_answer = macros.WialonRequest("&svc=item/update_custom_field&params={"
@@ -1547,8 +1547,8 @@ namespace Disp_WinForm
                     }
                 }
 
-                
-                
+
+
                 //Характеристики kuzov type
                 string pp10_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
                                                               + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -1594,7 +1594,7 @@ namespace Disp_WinForm
                                                                + "\"itemId\":\"" + vars_form.id_wl_object_for_test + "\","
                                                                + "\"n\":\"vin\","
                                                                + "\"v\":\"" + textBox_vin.Text.Replace("\"", "%5C%22") + "\"}");
-                
+
 
 
 
@@ -1836,7 +1836,7 @@ namespace Disp_WinForm
                     }
                 }
 
-                
+
 
                 //Характеристики kuzov type
                 string pp10_answer = macros.WialonRequest("&svc=item/update_profile_field&params={"
@@ -2472,11 +2472,11 @@ namespace Disp_WinForm
 
                     string previose_result = macros.sql_command("select testing_objectcol_result from btk.testing_object where idtesting_object = '" + vars_form.id_db_openning_testing + "'");
                     if (previose_result != "Успішно" & comboBox_result.Text == "Успішно")
-                    { 
+                    {
                         IdNewTesting = vars_form.id_db_openning_testing;//id_db_openning_testing
-                        AddZayavku(); 
+                        AddZayavku();
                     }
-                    
+
                     macros.sql_command("update btk.testing_object set " +
                         "testing_objectcol_edit_timestamp = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
                         "testing_objectcol_block = '" + (checkBox_test_zablocovano.Checked ? "1" : "0") + "', " +
@@ -2564,7 +2564,7 @@ namespace Disp_WinForm
                     MessageBox.Show("Збережено!");
                     this.Close();
                 }
-                
+
             }
             else
             {
@@ -2619,8 +2619,8 @@ namespace Disp_WinForm
                 }
                 else
                 {
-                    
-                    
+
+
 
                     if (wl_group_activ_checkBox.Checked is true)
                     {
@@ -3333,7 +3333,7 @@ namespace Disp_WinForm
                     label__test_vzlom.BackColor = Color.Empty;
                 }
             }
-            else if (get_produt_testing_device == "17" )
+            else if (get_produt_testing_device == "17")
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -3383,7 +3383,7 @@ namespace Disp_WinForm
                     label__test_vzlom.BackColor = Color.Empty;
                 }
             }
-            else if (get_produt_testing_device == "12" )
+            else if (get_produt_testing_device == "12")
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + vars_form.id_wl_object_for_test + "\","
@@ -3542,15 +3542,15 @@ namespace Disp_WinForm
                                                           + "\"itemsType\":\"avl_unit\","
                                                           + "\"propName\":\"sys_id\","
                                                           + "\"propValueMask\":\"" + vars_form.id_wl_object_for_test + "\", "
-                                                          + "\"sortType\":\"sys_name\"," 
-                                                          + "\"or_logic\":\"1\"}," 
-                                                          + "\"or_logic\":\"1\"," 
-                                                          + "\"force\":\"1\"," 
+                                                          + "\"sortType\":\"sys_name\","
+                                                          + "\"or_logic\":\"1\"},"
+                                                          + "\"or_logic\":\"1\","
+                                                          + "\"force\":\"1\","
                                                           + "\"flags\":\"4097\","
-                                                          + "\"from\":\"0\"," 
+                                                          + "\"from\":\"0\","
                                                           + "\"to\":\"5\"}");
 
-                
+
 
 
                 string json = macros.WialonRequest("&svc=unit/calc_last_message&params={"
@@ -3590,7 +3590,7 @@ namespace Disp_WinForm
                 if (test_out.item.lmsg is null)
                 {
                     label_test_address.Text = "Нет Координат";
-                        //return;
+                    //return;
                 }
 
                 //Статус звязку
@@ -3606,7 +3606,7 @@ namespace Disp_WinForm
                 }
 
                 //Статус Блокування
-                if (sens_910["1"] == "1"|| sens_910["3"] == "1")
+                if (sens_910["1"] == "1" || sens_910["3"] == "1")
                 {
                     label_test_zablocovano.Text = "Заблоковано";
                     label_test_zablocovano.BackColor = Color.YellowGreen;
@@ -3767,8 +3767,8 @@ namespace Disp_WinForm
 
         private void checkBox_test_zablocovano_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox_test_tk.Checked is true & checkBox_test_zablocovano.Checked is true & 
-                 checkBox_test_du.Checked is true & checkBox__test_vzlom.Checked is true & checkBox_test_koordinati.Checked is true )
+            if (checkBox_test_tk.Checked is true & checkBox_test_zablocovano.Checked is true &
+                 checkBox_test_du.Checked is true & checkBox__test_vzlom.Checked is true & checkBox_test_koordinati.Checked is true)
             {
                 wl_group_activ_checkBox.Checked = true;
                 panel_move_active.BackColor = Color.YellowGreen;
@@ -3782,8 +3782,8 @@ namespace Disp_WinForm
 
         private void checkBox_test_sirene_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox_test_tk.Checked is true & checkBox_test_zablocovano.Checked is true  & 
-                checkBox_test_du.Checked is true & checkBox__test_vzlom.Checked is true & checkBox_test_koordinati.Checked is true )
+            if (checkBox_test_tk.Checked is true & checkBox_test_zablocovano.Checked is true &
+                checkBox_test_du.Checked is true & checkBox__test_vzlom.Checked is true & checkBox_test_koordinati.Checked is true)
             {
                 wl_group_activ_checkBox.Checked = true;
                 panel_move_active.BackColor = Color.YellowGreen;
@@ -3799,7 +3799,7 @@ namespace Disp_WinForm
 
         private void checkBox__test_vzlom_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox_test_tk.Checked is true & checkBox_test_zablocovano.Checked is true  & 
+            if (checkBox_test_tk.Checked is true & checkBox_test_zablocovano.Checked is true &
                  checkBox_test_du.Checked is true & checkBox__test_vzlom.Checked is true & checkBox_test_koordinati.Checked is true)
             {
                 wl_group_activ_checkBox.Checked = true;
@@ -3816,8 +3816,8 @@ namespace Disp_WinForm
 
         private void checkBox_test_tk_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox_test_tk.Checked is true & checkBox_test_zablocovano.Checked is true  & 
-                checkBox_test_du.Checked is true & checkBox__test_vzlom.Checked is true & checkBox_test_koordinati.Checked is true )
+            if (checkBox_test_tk.Checked is true & checkBox_test_zablocovano.Checked is true &
+                checkBox_test_du.Checked is true & checkBox__test_vzlom.Checked is true & checkBox_test_koordinati.Checked is true)
             {
                 wl_group_activ_checkBox.Checked = true;
                 panel_move_active.BackColor = Color.YellowGreen;
@@ -3833,8 +3833,8 @@ namespace Disp_WinForm
 
         private void checkBox_test_koordinati_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox_test_tk.Checked is true & checkBox_test_zablocovano.Checked is true & 
-                 checkBox_test_du.Checked is true & checkBox__test_vzlom.Checked is true & checkBox_test_koordinati.Checked is true )
+            if (checkBox_test_tk.Checked is true & checkBox_test_zablocovano.Checked is true &
+                 checkBox_test_du.Checked is true & checkBox__test_vzlom.Checked is true & checkBox_test_koordinati.Checked is true)
             {
                 wl_group_activ_checkBox.Checked = true;
                 panel_move_active.BackColor = Color.YellowGreen;
@@ -3867,10 +3867,10 @@ namespace Disp_WinForm
             //{
             //    e.Handled = true;
             //}
-            
+
         }
 
-        
+
         private void button_autostart_Click(object sender, EventArgs e)
         {
             ////get product of testing device
@@ -3905,7 +3905,8 @@ namespace Disp_WinForm
             TimeSpan timeSpan = DateClosed - DateOpened;
             //string t = $"{timeSpan.Hours}:{timeSpan.Minutes}:{timeSpan.Seconds}";
 
-
+            if (IdNewTesting is null)
+            { return; }
             // get id_object DB where id_wl
             string sql1 = string.Format("" +
                 "insert into btk.TestingProcessTime " +
@@ -4031,7 +4032,7 @@ namespace Disp_WinForm
                 "and Object.TS_info_idTS_info = TS_info.idTS_info " +
                 "and Object.products_idproducts = products.idproducts " +
                 ";");
-            string model = macros.sql_command("SELECT TS_modelcol_name_short FROM btk.TS_model where idTS_model = '"+ comboBox_test_model.SelectedValue +"';");
+            string model = macros.sql_command("SELECT TS_modelcol_name_short FROM btk.TS_model where idTS_model = '" + comboBox_test_model.SelectedValue + "';");
 
             string brand = macros.sql_command("SELECT TS_brandcol_brand_short FROM btk.TS_brand where idTS_brand = '" + comboBox_test_brand.SelectedValue + "';");
             if (textBox_licence_plate.Text != "")
@@ -4042,7 +4043,7 @@ namespace Disp_WinForm
             {
                 name_obj_textBox.Text = brand + " " + model + " ..." + textBox_vin.Text + " (" + product + ")";
             }
-            
+
         }
 
         private void comboBox_buttons_for_pin_SelectedIndexChanged(object sender, EventArgs e)
@@ -4099,13 +4100,13 @@ namespace Disp_WinForm
         {
             if (comboBox_ustanoshik_poisk.DroppedDown == false)
             { comboBox_ustanoshik_poisk.DroppedDown = true; }
-            
+
         }
 
         private void textBox_vin_TextChanged(object sender, EventArgs e)
         {
             string pattern = @"\p{IsCyrillic}";
-            if (Regex.Matches(textBox_vin.Text, pattern).Count > 0) 
+            if (Regex.Matches(textBox_vin.Text, pattern).Count > 0)
             {
                 textBox_vin.BackColor = Color.LightPink;
             }
@@ -4135,4 +4136,4 @@ namespace Disp_WinForm
         }
     }
 }
-    
+

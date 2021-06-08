@@ -37,7 +37,7 @@ namespace Disp_WinForm
             string json = "";
             try
             {
-                
+
                 MyWebRequest myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid + request);
                 json = myRequest.GetResponse();
                 if (json.Contains("error"))
@@ -128,7 +128,7 @@ namespace Disp_WinForm
                 var address = "http://navi.venbest.com.ua/wialon/ajax.html?sid=" + vars_form.eid;
                 var result = client.PostAsync(address, content).Result;
                 json = result.Content.ReadAsStringAsync().Result;
-                
+
 
                 if (json.Contains("error"))
                 {
@@ -182,7 +182,7 @@ namespace Disp_WinForm
         }
 
         public void Vodafone_GetToken_v2()
-        {       
+        {
             string myClientID = "5er5oCEWoVm3U4RYLh6pqB2Wfjv5eJ1d";
             string myClientSecret = "pzSjfcZbZSf6Ke1w";
 
@@ -220,7 +220,7 @@ namespace Disp_WinForm
             client.DefaultRequestHeaders.Add("Authorization", "Basic " + base64String);
             var result = client.PostAsync(address, content).Result;
             string contents = result.Content.ReadAsStringAsync().Result;
-            
+
             var res = JsonConvert.DeserializeObject<BearerToken>(contents);
 
             vars_form.Vodafone_AccessToken = res.AccessToken;
@@ -241,10 +241,9 @@ namespace Disp_WinForm
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + vars_form.Vodafone_AccessToken);
                 var result = client.PostAsync(URL_API, content).Result;
                 string contents = result.Content.ReadAsStringAsync().Result;
-                var answ = JsonConvert.DeserializeObject<RootObject>(contents);
-                answ = JsonConvert.DeserializeObject<RootObject>(contents);
-                if (contents.Contains("MissingAuthorizationHeader") || contents.Contains("Invalid Access Token"))
-                { 
+                //var answ = JsonConvert.DeserializeObject<RootObject>(contents);
+                if (contents.Contains("MissingAuthorizationHeader") || contents.Contains("Invalid Access Token") || contents.Contains("POL0002"))
+                {
                     Vodafone_GetToken_v2();
                     content = new StringContent(json, Encoding.UTF8, "application/json");
                     client.DefaultRequestHeaders.Remove("Authorization");
@@ -270,9 +269,8 @@ namespace Disp_WinForm
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + vars_form.Vodafone_AccessToken);
                 var result = client.PutAsync(URL_API, content).Result;
                 string contents = result.Content.ReadAsStringAsync().Result;
-                var answ = JsonConvert.DeserializeObject<RootObject>(contents);
-                answ = JsonConvert.DeserializeObject<RootObject>(contents);
-                if (contents.Contains("MissingAuthorizationHeader") || contents.Contains("Invalid Access Token"))
+                //var answ = JsonConvert.DeserializeObject<RootObject>(contents);
+                if (contents.Contains("MissingAuthorizationHeader") || contents.Contains("Invalid Access Token") || contents.Contains("POL0002"))
                 {
                     Vodafone_GetToken_v2();
                     content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -294,10 +292,8 @@ namespace Disp_WinForm
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + vars_form.Vodafone_AccessToken);
                 var result = client.GetAsync(URL_API).Result;
                 string contents = result.Content.ReadAsStringAsync().Result;
-                var answ = JsonConvert.DeserializeObject<RootObject>(contents);
-                answ = JsonConvert.DeserializeObject<RootObject>(contents);
-                //var myDeserializedClass = JsonConvert.DeserializeObject<RootObject>(contents);
-                if (contents.Contains("MissingAuthorizationHeader") || contents.Contains("Invalid Access Token"))
+                //var answ = JsonConvert.DeserializeObject<RootObject>(contents);
+                if (contents.Contains("MissingAuthorizationHeader") || contents.Contains("Invalid Access Token") || contents.Contains("POL0002"))
                 {
                     Vodafone_GetToken_v2();
                     client.DefaultRequestHeaders.Remove("Authorization");
@@ -344,7 +340,7 @@ namespace Disp_WinForm
                     Application.Exit();
                     return;
                 }
-                else 
+                else
                 {
                     vars_form.eid = answer.eid;
                     vars_form.wl_user_id = answer.user.id;
@@ -363,7 +359,7 @@ namespace Disp_WinForm
         //public void get_eid_from_token_()
         //{
         //    MyWebRequest myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?" + "&svc=token/login&params={\"token\":\"" + vars_form.user_token + "\"}");
-            
+
         //    //loginAs
         //    //MyWebRequest myRequest = new MyWebRequest("http://navi.venbest.com.ua/wialon/ajax.html?" + "&svc=token/login&params={\"token\":\"" + vars_form.user_token + "\",\"operateAs\":\"service\"}");
         //    string json = myRequest.GetResponse();
@@ -538,7 +534,7 @@ namespace Disp_WinForm
                                                                                           + "\"m\":\"" + unit + "\","
                                                                                           + "\"p\":\"" + parametr + "\","
                                                                                           + "\"f\":\"0\","
-                                                                                          + "\"c\":\"{%5c\"act%5c\":"+act+",%5c\"appear_in_popup%5c\":" + appear_in_popup + ",%5c\"show_time%5c\":true,%5c\"pos%5c\":" + position + "}\","
+                                                                                          + "\"c\":\"{%5c\"act%5c\":" + act + ",%5c\"appear_in_popup%5c\":" + appear_in_popup + ",%5c\"show_time%5c\":true,%5c\"pos%5c\":" + position + "}\","
                                                                                           + "\"vt\":\"" + type_validation + "\","
                                                                                           + "\"vs\":\"" + id_sensor_for_validation + "\","
                                                                                           + "\"tbl\":[" + table_calculation + "]}");
@@ -602,14 +598,14 @@ namespace Disp_WinForm
                 }
             }
         }
-    
+
 
         public string sql_command2(string sql)
         {
             try
             {
-               
-                
+
+
 
 
                 using (MySqlConnection myConnection = new MySqlConnection("server=10.44.30.32; user id=lozik; password=lozik; database=btk; pooling=true; SslMode=none; Convert Zero Datetime = True; charset=utf8"))
@@ -640,7 +636,7 @@ namespace Disp_WinForm
                                       "database=btk;" +
                                       "pooling=true;" +
                                       "SslMode=none;" +
-                                      "Convert Zero Datetime = True;" + 
+                                      "Convert Zero Datetime = True;" +
                                       "charset=utf8;";
 
             using (MySqlConnection northwindConnection = new MySqlConnection(connectionString))
@@ -672,7 +668,7 @@ namespace Disp_WinForm
                                       "charset=utf8;";
 
             using (MySqlConnection northwindConnection = new MySqlConnection(connectionString))
-            { 
+            {
                 MySqlCommand command = new MySqlCommand(sqlCommand, northwindConnection);
                 MySqlDataAdapter adapter = new MySqlDataAdapter();
                 adapter.SelectCommand = command;
@@ -730,7 +726,7 @@ namespace Disp_WinForm
         {
             string folderPath = "";
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.InitialDirectory = @"C:\";      
+            saveFileDialog1.InitialDirectory = @"C:\";
             saveFileDialog1.Title = "Save text Files";
             saveFileDialog1.CheckFileExists = false;
             saveFileDialog1.CheckPathExists = true;
@@ -745,7 +741,7 @@ namespace Disp_WinForm
                 if (IsFileLocked(folderPath))
                 { MessageBox.Show("Вказанний файл вже відкритий? Закрийте!"); return; }
 
-                
+
 
                 using (var workbook = SpreadsheetDocument.Create(folderPath, DocumentFormat.OpenXml.SpreadsheetDocumentType.Workbook))
                 {
@@ -832,7 +828,7 @@ namespace Disp_WinForm
                 mail.From = new MailAddress("noreply@venbest.com.ua");
                 mail.To.Add(recipient);
                 mail.Subject = subject;
-                
+
 
                 mail.IsBodyHtml = true;
                 mail.Body = body;
@@ -1294,7 +1290,7 @@ namespace Disp_WinForm
         public bool IsActive { get; private set; }
     }
 
-    
+
 
 
     //public class PlaceHolderTextBox : TextBox
