@@ -38,6 +38,7 @@ namespace Disp_WinForm
         private DateTime DateClosed;
         private string StatusOpened;
         private string StatusClosed;
+        private int _object_deleted = 0;
 
 
         public Activation_Form()
@@ -59,6 +60,7 @@ namespace Disp_WinForm
             _num_vo = vars_form.num_vo;
             _user_login_name = vars_form.user_login_name;
             _user_login_email = vars_form.user_login_email;
+            
 
             Read_data();
             get_remaynder();
@@ -240,23 +242,29 @@ namespace Disp_WinForm
                                                     "\"to\":\"1\"}");
             var m = JsonConvert.DeserializeObject<RootObject>(json);
 
-            name_object_current_textBox.Text = m.items[0].nm;
-            imei_object_textBox.Text = m.items[0].uid;
-            name_obj_new_textBox.Text = m.items[0].nm;
-
-            foreach (var keyvalue in m.items[0].flds)
+            if (m.items.Count >= 1)
             {
-                if (keyvalue.Value.n.Contains("УВАГА"))
+
+                name_object_current_textBox.Text = m.items[0].nm;
+                imei_object_textBox.Text = m.items[0].uid;
+                name_obj_new_textBox.Text = m.items[0].nm;
+
+                foreach (var keyvalue in m.items[0].flds)
                 {
-                    //Chenge feild Uvaga
-                    uvaga_textBox.Text = keyvalue.Value.v;
-                }
-                if (keyvalue.Value.n.Contains("Кодове "))
-                {
-                    //Chenge feild Кодове слово
-                    kodove_slovo_textBox.Text = keyvalue.Value.v;
+                    if (keyvalue.Value.n.Contains("УВАГА"))
+                    {
+                        //Chenge feild Uvaga
+                        uvaga_textBox.Text = keyvalue.Value.v;
+                    }
+                    if (keyvalue.Value.n.Contains("Кодове "))
+                    {
+                        //Chenge feild Кодове слово
+                        kodove_slovo_textBox.Text = keyvalue.Value.v;
+                    }
                 }
             }
+            else
+            { MessageBox.Show("Объект удален, информация не полная!"); _object_deleted = 1; }
 
             date_activation_in_db = Convert.ToDateTime(macros.sql_command("SELECT Activation_date FROM btk.Activation_object where idActivation_object = '" + _id_db_activation_for_activation + "'")).ToString("yyyy-MM-dd");
 
@@ -1401,12 +1409,19 @@ namespace Disp_WinForm
 
         private void getobjwl()
         {
+            if (_object_deleted == 1)
+            { aTimer3.Enabled = false; return; }
+
             if (get_produt_testing_device == "2" || get_produt_testing_device == "3")
             {
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + _id_wl_object_for_activation + "\","
                                                          + "\"flags\":\"2098177\"}"); //
+
+                
+
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
+
 
                 if (test_out.item.lmsg is null)
                 {
@@ -1427,6 +1442,7 @@ namespace Disp_WinForm
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + _id_wl_object_for_activation + "\","
                                                          + "\"flags\":\"2098177\"}"); //
+
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
                 if (test_out.item.lmsg is null)
@@ -1452,6 +1468,8 @@ namespace Disp_WinForm
                                                          + "\"sensors\":\"\","
                                                          + "\"flags\":\"1\"}"); //
 
+                
+
                 Dictionary<string, string> sens_910 = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
 
                 //Статус TK
@@ -1469,6 +1487,8 @@ namespace Disp_WinForm
                 string json = macros.WialonRequest("&svc=core/search_item&params={"
                                                          + "\"id\":\"" + _id_wl_object_for_activation + "\","
                                                          + "\"flags\":\"2098177\"}"); //
+
+
                 var test_out = JsonConvert.DeserializeObject<RootObject>(json);
 
                 if (test_out.item.lmsg is null)
@@ -1490,6 +1510,7 @@ namespace Disp_WinForm
 
         private void timer()
         {
+
 
             aTimer3.Interval = 2000;
             aTimer3.Elapsed += new ElapsedEventHandler(OnTimedEvent);

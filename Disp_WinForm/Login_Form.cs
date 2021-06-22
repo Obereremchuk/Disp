@@ -1,15 +1,28 @@
 ﻿using Gecko;
+using System.Text.Encodings.Web;
+using Microsoft.AspNetCore.SignalR.Client;
+//using Microsoft.AspNet.SignalR.Client;
 using System;
 using System.Collections.Specialized;
 using System.Data;
+using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace Disp_WinForm
 {
     public partial class Login_Form : Form
     {
         private Macros macros = new Macros();
+        //Connection to a SignalR server
+        static HubConnection connection;
+        
+        
+        ////Connection to a SignalR server
+        //HubConnection _signalRConnection;
+        ////Proxy object for a hub hosted on the SignalR server
+        //IHubProxy _hubProxy;
 
         public Login_Form()
         {
@@ -19,8 +32,61 @@ namespace Disp_WinForm
             GeckoPreferences.User["dom.max_script_run_time"] = 0;
             CertOverrideService.GetService().ValidityOverride += geckoWebBrowser1_ValidityOverride;
             wialon_login_form();
-            vars_form.version = "0.907";
+            vars_form.version = "0.909";
             label_Version.Text = "v." + vars_form.version;
+            
+        }
+
+        private async void groupBox1_Enter(object sender, EventArgs e)
+        {
+            await SignalrConection();
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                await connection.InvokeAsync("SendMessage",  "TestUser", "TestMassege");
+            }
+            catch (Exception)
+            {
+                await SignalrConection();
+            }
+        }
+
+        public async Task ReceiveMessage(string user, string message)
+        {
+            await connection.InvokeAsync("SendMessage", user, message);
+        }
+
+        static async Task SignalrConection()
+        {
+            connection = null;
+            connection = new HubConnectionBuilder()
+                .WithUrl("http://127.0.0.1:49164/signarhub")
+                .Build();
+
+
+            connection.Closed += async (error) =>
+            {
+                await Task.Delay(new Random().Next(0, 5) * 1000);
+                try
+                { await connection.StartAsync(); }
+                catch (Exception ex)
+                { MessageBox.Show("SignalR: " + ex.Message); }
+            };
+
+            connection.On<string, string>("ReceiveMessage", (user, message) =>
+            {
+                
+            });
+
+            try 
+            { await connection.StartAsync(); }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("SignalR: " + ex.Message); 
+            }
         }
 
         private void geckoWebBrowser1_ValidityOverride(object sender, Gecko.Events.CertOverrideEventArgs e)
@@ -92,5 +158,7 @@ namespace Disp_WinForm
                 }
             }
         }
+
+        
     }
 }

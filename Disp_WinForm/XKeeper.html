@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <style>
+        #map {
+            height: 100%;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+    <script>
+        function initMap() {
+            var _lat = parseFloat(getParameterByName('lat'));//50.4327666;
+            var _lng = parseFloat(getParameterByName('lng'));//30.6714775;
+            const myLatLng = { lat: _lat, lng: _lng };
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 18,
+                center: myLatLng,
+            });
+            new google.maps.Marker({
+                position: myLatLng,
+                map,
+                title: "Hello World!",
+            });
+        }
+        function getParameterByName(name) {
+            if (name !== "" && name !== null && name != undefined) {
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                    results = regex.exec(location.search);
+                return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            } else {
+                var arr = location.href.split("/");
+                return arr[arr.length - 1];
+            }
+
+        }
+    </script>
+    <title>Simple Markers</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <!-- jsFiddle will insert css and js -->
+</head>
+    <body>
+        <div id="map"></div>
+
+        <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABvtrCqSB7TnqDeDvTkdZ5uDD0s-PCEzM&callback=initMap&libraries=&v=weekly"
+                async></script>
+    </body>
+</html>

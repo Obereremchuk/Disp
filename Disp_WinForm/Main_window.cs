@@ -4136,7 +4136,7 @@ namespace Disp_WinForm
                     listBox_test_search_result.DataSource = null;
                     dataGridView_testing.DataSource = null;
                 }
-                else if (textBox_test_search.Text.Length < 2 && textBox_test_search.Text.Length > 1)
+                else if (textBox_test_search.Text.Length <= 2 && textBox_test_search.Text.Length > 1)
                 {
                     checkBox_testing_za_ves_chas_search.Checked = false;
                 }
@@ -4444,7 +4444,7 @@ namespace Disp_WinForm
                 }
                 else { checkBox_activation_za_ves_chas_search.Enabled = true; update_actication_dgv(); }
             }
-            else if (textBox_search_object_name_activation.Text == "")
+            else if (textBox_search_object_name_activation.Text.Length < 3)
             {
                 checkBox_activation_za_ves_chas_search.Enabled = false;
                 checkBox_activation_za_ves_chas_search.Checked = false;

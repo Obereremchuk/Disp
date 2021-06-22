@@ -106,7 +106,12 @@
             this.Parking2_textBox = new System.Windows.Forms.TextBox();
             this.Parking1_textBox = new System.Windows.Forms.TextBox();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
+            this.button_NameObjectCreate = new System.Windows.Forms.Button();
+            this.button_GosNomer_NameObject = new System.Windows.Forms.Button();
+            this.GosNomer_textBox = new System.Windows.Forms.TextBox();
+            this.NameObject_textBox = new System.Windows.Forms.TextBox();
             this.button_kodove_save = new System.Windows.Forms.Button();
+            this.label32 = new System.Windows.Forms.Label();
             this.button_add_vo5 = new System.Windows.Forms.Button();
             this.button_add_vo4 = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
@@ -227,6 +232,11 @@
             this.dateTimePicker_nachalo_dejstvia = new System.Windows.Forms.DateTimePicker();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox_otrabotka_trevogi = new System.Windows.Forms.TextBox();
+            this.OldNameObject_textBox = new System.Windows.Forms.TextBox();
+            this.OldGosNomer_textBox = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.LoadingAccounts = new System.Windows.Forms.Label();
+            this.LoabingArhiveAlarm = new System.Windows.Forms.Label();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_hronologija_trivog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_group_alarm)).BeginInit();
@@ -275,8 +285,8 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.BackColor = System.Drawing.SystemColors.Window;
             this.groupBox4.Controls.Add(this.dataGridView_hronologija_trivog);
@@ -292,8 +302,8 @@
             this.dataGridView_hronologija_trivog.AllowUserToAddRows = false;
             this.dataGridView_hronologija_trivog.AllowUserToDeleteRows = false;
             this.dataGridView_hronologija_trivog.AllowUserToResizeRows = false;
-            this.dataGridView_hronologija_trivog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.dataGridView_hronologija_trivog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView_hronologija_trivog.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -403,8 +413,8 @@
             // 
             this.dataGridView_group_alarm.AllowUserToAddRows = false;
             this.dataGridView_group_alarm.AllowUserToDeleteRows = false;
-            this.dataGridView_group_alarm.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.dataGridView_group_alarm.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView_group_alarm.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -529,8 +539,8 @@
             // 
             // tabControl2
             // 
-            this.tabControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.tabControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl2.Controls.Add(this.tabPage3);
             this.tabControl2.Controls.Add(this.tabPage_locator);
@@ -573,7 +583,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.label_lmst);
             this.groupBox1.Controls.Add(this.treeView_client_info);
@@ -599,8 +609,8 @@
             // 
             // treeView_client_info
             // 
-            this.treeView_client_info.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.treeView_client_info.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeView_client_info.Location = new System.Drawing.Point(6, 16);
             this.treeView_client_info.Name = "treeView_client_info";
@@ -611,7 +621,7 @@
             // 
             // groupBox10
             // 
-            this.groupBox10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.groupBox10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox10.BackColor = System.Drawing.SystemColors.Window;
             this.groupBox10.Controls.Add(this.button_ungroup_alarm);
@@ -898,9 +908,9 @@
             this.groupBox8.Controls.Add(this.Parking3_textBox);
             this.groupBox8.Controls.Add(this.Parking2_textBox);
             this.groupBox8.Controls.Add(this.Parking1_textBox);
-            this.groupBox8.Location = new System.Drawing.Point(3, 235);
+            this.groupBox8.Location = new System.Drawing.Point(3, 318);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(637, 154);
+            this.groupBox8.Size = new System.Drawing.Size(692, 154);
             this.groupBox8.TabIndex = 145;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Редагування паркінгів";
@@ -909,12 +919,12 @@
             // 
             this.Parking5_textBox.Location = new System.Drawing.Point(10, 121);
             this.Parking5_textBox.Name = "Parking5_textBox";
-            this.Parking5_textBox.Size = new System.Drawing.Size(373, 20);
+            this.Parking5_textBox.Size = new System.Drawing.Size(480, 20);
             this.Parking5_textBox.TabIndex = 163;
             // 
             // ParkingSave_button
             // 
-            this.ParkingSave_button.Location = new System.Drawing.Point(524, 19);
+            this.ParkingSave_button.Location = new System.Drawing.Point(581, 19);
             this.ParkingSave_button.Name = "ParkingSave_button";
             this.ParkingSave_button.Size = new System.Drawing.Size(99, 122);
             this.ParkingSave_button.TabIndex = 161;
@@ -926,13 +936,13 @@
             // 
             this.Parking4_textBox.Location = new System.Drawing.Point(10, 95);
             this.Parking4_textBox.Name = "Parking4_textBox";
-            this.Parking4_textBox.Size = new System.Drawing.Size(373, 20);
+            this.Parking4_textBox.Size = new System.Drawing.Size(480, 20);
             this.Parking4_textBox.TabIndex = 162;
             // 
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(389, 125);
+            this.label31.Location = new System.Drawing.Point(496, 124);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(55, 13);
             this.label31.TabIndex = 155;
@@ -941,7 +951,7 @@
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(389, 99);
+            this.label30.Location = new System.Drawing.Point(496, 98);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(55, 13);
             this.label30.TabIndex = 155;
@@ -950,7 +960,7 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(389, 73);
+            this.label29.Location = new System.Drawing.Point(496, 72);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(55, 13);
             this.label29.TabIndex = 155;
@@ -959,7 +969,7 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(389, 47);
+            this.label28.Location = new System.Drawing.Point(496, 46);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(55, 13);
             this.label28.TabIndex = 155;
@@ -968,7 +978,7 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(389, 23);
+            this.label27.Location = new System.Drawing.Point(496, 22);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(55, 13);
             this.label27.TabIndex = 155;
@@ -978,26 +988,34 @@
             // 
             this.Parking3_textBox.Location = new System.Drawing.Point(10, 69);
             this.Parking3_textBox.Name = "Parking3_textBox";
-            this.Parking3_textBox.Size = new System.Drawing.Size(373, 20);
+            this.Parking3_textBox.Size = new System.Drawing.Size(480, 20);
             this.Parking3_textBox.TabIndex = 158;
             // 
             // Parking2_textBox
             // 
             this.Parking2_textBox.Location = new System.Drawing.Point(10, 43);
             this.Parking2_textBox.Name = "Parking2_textBox";
-            this.Parking2_textBox.Size = new System.Drawing.Size(373, 20);
+            this.Parking2_textBox.Size = new System.Drawing.Size(480, 20);
             this.Parking2_textBox.TabIndex = 159;
             // 
             // Parking1_textBox
             // 
             this.Parking1_textBox.Location = new System.Drawing.Point(10, 19);
             this.Parking1_textBox.Name = "Parking1_textBox";
-            this.Parking1_textBox.Size = new System.Drawing.Size(373, 20);
+            this.Parking1_textBox.Size = new System.Drawing.Size(480, 20);
             this.Parking1_textBox.TabIndex = 160;
             // 
             // groupBox15
             // 
+            this.groupBox15.Controls.Add(this.button_NameObjectCreate);
+            this.groupBox15.Controls.Add(this.button_GosNomer_NameObject);
+            this.groupBox15.Controls.Add(this.OldGosNomer_textBox);
+            this.groupBox15.Controls.Add(this.GosNomer_textBox);
+            this.groupBox15.Controls.Add(this.OldNameObject_textBox);
+            this.groupBox15.Controls.Add(this.NameObject_textBox);
             this.groupBox15.Controls.Add(this.button_kodove_save);
+            this.groupBox15.Controls.Add(this.label33);
+            this.groupBox15.Controls.Add(this.label32);
             this.groupBox15.Controls.Add(this.button_add_vo5);
             this.groupBox15.Controls.Add(this.button_add_vo4);
             this.groupBox15.Controls.Add(this.label11);
@@ -1018,24 +1036,67 @@
             this.groupBox15.Controls.Add(this.label6);
             this.groupBox15.Location = new System.Drawing.Point(3, 6);
             this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Size = new System.Drawing.Size(637, 223);
+            this.groupBox15.Size = new System.Drawing.Size(692, 281);
             this.groupBox15.TabIndex = 144;
             this.groupBox15.TabStop = false;
             this.groupBox15.Text = "Редагування ВО, Кодового слова";
             // 
+            // button_NameObjectCreate
+            // 
+            this.button_NameObjectCreate.Location = new System.Drawing.Point(444, 99);
+            this.button_NameObjectCreate.Name = "button_NameObjectCreate";
+            this.button_NameObjectCreate.Size = new System.Drawing.Size(46, 20);
+            this.button_NameObjectCreate.TabIndex = 137;
+            this.button_NameObjectCreate.Text = "Створ";
+            this.button_NameObjectCreate.UseVisualStyleBackColor = true;
+            this.button_NameObjectCreate.Click += new System.EventHandler(this.button_NameObjectCreate_Click);
+            // 
+            // button_GosNomer_NameObject
+            // 
+            this.button_GosNomer_NameObject.Location = new System.Drawing.Point(581, 73);
+            this.button_GosNomer_NameObject.Name = "button_GosNomer_NameObject";
+            this.button_GosNomer_NameObject.Size = new System.Drawing.Size(99, 42);
+            this.button_GosNomer_NameObject.TabIndex = 161;
+            this.button_GosNomer_NameObject.Text = "Зберегти";
+            this.button_GosNomer_NameObject.UseVisualStyleBackColor = true;
+            this.button_GosNomer_NameObject.Click += new System.EventHandler(this.button_GosNomer_NameObject_Click);
+            // 
+            // GosNomer_textBox
+            // 
+            this.GosNomer_textBox.Location = new System.Drawing.Point(10, 99);
+            this.GosNomer_textBox.Name = "GosNomer_textBox";
+            this.GosNomer_textBox.Size = new System.Drawing.Size(88, 20);
+            this.GosNomer_textBox.TabIndex = 159;
+            // 
+            // NameObject_textBox
+            // 
+            this.NameObject_textBox.Location = new System.Drawing.Point(104, 99);
+            this.NameObject_textBox.Name = "NameObject_textBox";
+            this.NameObject_textBox.Size = new System.Drawing.Size(331, 20);
+            this.NameObject_textBox.TabIndex = 159;
+            // 
             // button_kodove_save
             // 
-            this.button_kodove_save.Location = new System.Drawing.Point(524, 23);
+            this.button_kodove_save.Location = new System.Drawing.Point(581, 30);
             this.button_kodove_save.Name = "button_kodove_save";
-            this.button_kodove_save.Size = new System.Drawing.Size(99, 33);
+            this.button_kodove_save.Size = new System.Drawing.Size(99, 20);
             this.button_kodove_save.TabIndex = 158;
             this.button_kodove_save.Text = "Зберегти";
             this.button_kodove_save.UseVisualStyleBackColor = true;
             this.button_kodove_save.Click += new System.EventHandler(this.button_kodove_save_Click);
             // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(496, 102);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(73, 13);
+            this.label32.TabIndex = 160;
+            this.label32.Text = "Держ.Номер";
+            // 
             // button_add_vo5
             // 
-            this.button_add_vo5.Location = new System.Drawing.Point(389, 194);
+            this.button_add_vo5.Location = new System.Drawing.Point(444, 252);
             this.button_add_vo5.Name = "button_add_vo5";
             this.button_add_vo5.Size = new System.Drawing.Size(46, 20);
             this.button_add_vo5.TabIndex = 153;
@@ -1045,7 +1106,7 @@
             // 
             // button_add_vo4
             // 
-            this.button_add_vo4.Location = new System.Drawing.Point(389, 168);
+            this.button_add_vo4.Location = new System.Drawing.Point(444, 226);
             this.button_add_vo4.Name = "button_add_vo4";
             this.button_add_vo4.Size = new System.Drawing.Size(46, 20);
             this.button_add_vo4.TabIndex = 152;
@@ -1056,7 +1117,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(441, 172);
+            this.label11.Location = new System.Drawing.Point(496, 230);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(28, 13);
             this.label11.TabIndex = 154;
@@ -1065,7 +1126,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(441, 198);
+            this.label12.Location = new System.Drawing.Point(496, 256);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(28, 13);
             this.label12.TabIndex = 155;
@@ -1073,19 +1134,19 @@
             // 
             // textBox_vo5
             // 
-            this.textBox_vo5.Location = new System.Drawing.Point(10, 194);
+            this.textBox_vo5.Location = new System.Drawing.Point(10, 252);
             this.textBox_vo5.Name = "textBox_vo5";
             this.textBox_vo5.ReadOnly = true;
-            this.textBox_vo5.Size = new System.Drawing.Size(373, 20);
+            this.textBox_vo5.Size = new System.Drawing.Size(425, 20);
             this.textBox_vo5.TabIndex = 157;
             this.textBox_vo5.DoubleClick += new System.EventHandler(this.textBox_vo5_DoubleClick);
             // 
             // textBox_vo4
             // 
-            this.textBox_vo4.Location = new System.Drawing.Point(10, 168);
+            this.textBox_vo4.Location = new System.Drawing.Point(10, 226);
             this.textBox_vo4.Name = "textBox_vo4";
             this.textBox_vo4.ReadOnly = true;
-            this.textBox_vo4.Size = new System.Drawing.Size(373, 20);
+            this.textBox_vo4.Size = new System.Drawing.Size(425, 20);
             this.textBox_vo4.TabIndex = 156;
             this.textBox_vo4.DoubleClick += new System.EventHandler(this.textBox_vo4_DoubleClick);
             // 
@@ -1093,13 +1154,13 @@
             // 
             this.kodove_slovo_textBox.Location = new System.Drawing.Point(10, 30);
             this.kodove_slovo_textBox.Name = "kodove_slovo_textBox";
-            this.kodove_slovo_textBox.Size = new System.Drawing.Size(425, 20);
+            this.kodove_slovo_textBox.Size = new System.Drawing.Size(480, 20);
             this.kodove_slovo_textBox.TabIndex = 150;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(441, 33);
+            this.label9.Location = new System.Drawing.Point(496, 34);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(77, 13);
             this.label9.TabIndex = 151;
@@ -1107,7 +1168,7 @@
             // 
             // button_vo_save
             // 
-            this.button_vo_save.Location = new System.Drawing.Point(524, 92);
+            this.button_vo_save.Location = new System.Drawing.Point(581, 150);
             this.button_vo_save.Name = "button_vo_save";
             this.button_vo_save.Size = new System.Drawing.Size(99, 122);
             this.button_vo_save.TabIndex = 147;
@@ -1117,7 +1178,7 @@
             // 
             // button_add_vo2
             // 
-            this.button_add_vo2.Location = new System.Drawing.Point(389, 116);
+            this.button_add_vo2.Location = new System.Drawing.Point(444, 174);
             this.button_add_vo2.Name = "button_add_vo2";
             this.button_add_vo2.Size = new System.Drawing.Size(46, 20);
             this.button_add_vo2.TabIndex = 138;
@@ -1127,7 +1188,7 @@
             // 
             // button_add_vo3
             // 
-            this.button_add_vo3.Location = new System.Drawing.Point(389, 142);
+            this.button_add_vo3.Location = new System.Drawing.Point(444, 200);
             this.button_add_vo3.Name = "button_add_vo3";
             this.button_add_vo3.Size = new System.Drawing.Size(46, 20);
             this.button_add_vo3.TabIndex = 139;
@@ -1137,7 +1198,7 @@
             // 
             // button_add_vo1
             // 
-            this.button_add_vo1.Location = new System.Drawing.Point(389, 92);
+            this.button_add_vo1.Location = new System.Drawing.Point(444, 150);
             this.button_add_vo1.Name = "button_add_vo1";
             this.button_add_vo1.Size = new System.Drawing.Size(46, 20);
             this.button_add_vo1.TabIndex = 137;
@@ -1147,35 +1208,35 @@
             // 
             // textBox_vo1
             // 
-            this.textBox_vo1.Location = new System.Drawing.Point(10, 92);
+            this.textBox_vo1.Location = new System.Drawing.Point(10, 150);
             this.textBox_vo1.Name = "textBox_vo1";
             this.textBox_vo1.ReadOnly = true;
-            this.textBox_vo1.Size = new System.Drawing.Size(373, 20);
+            this.textBox_vo1.Size = new System.Drawing.Size(425, 20);
             this.textBox_vo1.TabIndex = 146;
             this.textBox_vo1.DoubleClick += new System.EventHandler(this.textBox_vo1_DoubleClick);
             // 
             // textBox_vo2
             // 
-            this.textBox_vo2.Location = new System.Drawing.Point(10, 116);
+            this.textBox_vo2.Location = new System.Drawing.Point(10, 174);
             this.textBox_vo2.Name = "textBox_vo2";
             this.textBox_vo2.ReadOnly = true;
-            this.textBox_vo2.Size = new System.Drawing.Size(373, 20);
+            this.textBox_vo2.Size = new System.Drawing.Size(425, 20);
             this.textBox_vo2.TabIndex = 145;
             this.textBox_vo2.DoubleClick += new System.EventHandler(this.textBox_vo2_DoubleClick);
             // 
             // textBox_vo3
             // 
-            this.textBox_vo3.Location = new System.Drawing.Point(10, 142);
+            this.textBox_vo3.Location = new System.Drawing.Point(10, 200);
             this.textBox_vo3.Name = "textBox_vo3";
             this.textBox_vo3.ReadOnly = true;
-            this.textBox_vo3.Size = new System.Drawing.Size(373, 20);
+            this.textBox_vo3.Size = new System.Drawing.Size(425, 20);
             this.textBox_vo3.TabIndex = 144;
             this.textBox_vo3.DoubleClick += new System.EventHandler(this.textBox_vo3_DoubleClick);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(441, 146);
+            this.label8.Location = new System.Drawing.Point(496, 204);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(28, 13);
             this.label8.TabIndex = 143;
@@ -1184,7 +1245,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(441, 120);
+            this.label7.Location = new System.Drawing.Point(496, 178);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(28, 13);
             this.label7.TabIndex = 142;
@@ -1193,7 +1254,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(441, 96);
+            this.label6.Location = new System.Drawing.Point(496, 154);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(28, 13);
             this.label6.TabIndex = 141;
@@ -1307,6 +1368,7 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.LoabingArhiveAlarm);
             this.groupBox5.Controls.Add(this.dataGridView_trivogi_objecta);
             this.groupBox5.Location = new System.Drawing.Point(6, 6);
             this.groupBox5.Name = "groupBox5";
@@ -1587,6 +1649,7 @@
             // 
             // groupBox14
             // 
+            this.groupBox14.Controls.Add(this.LoadingAccounts);
             this.groupBox14.Controls.Add(this.checkBox_manual_pass);
             this.groupBox14.Controls.Add(this.textBox_account_pss);
             this.groupBox14.Controls.Add(this.button_user_on);
@@ -2111,8 +2174,8 @@
             // 
             // groupBox16
             // 
-            this.groupBox16.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.groupBox16.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox16.Controls.Add(this.dataGridView_history);
             this.groupBox16.Location = new System.Drawing.Point(3, 345);
@@ -2309,6 +2372,51 @@
             this.textBox_otrabotka_trevogi.TabIndex = 0;
             this.textBox_otrabotka_trevogi.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBox_otrabotka_trevogi_MouseDown);
             // 
+            // OldNameObject_textBox
+            // 
+            this.OldNameObject_textBox.Location = new System.Drawing.Point(104, 73);
+            this.OldNameObject_textBox.Name = "OldNameObject_textBox";
+            this.OldNameObject_textBox.ReadOnly = true;
+            this.OldNameObject_textBox.Size = new System.Drawing.Size(386, 20);
+            this.OldNameObject_textBox.TabIndex = 159;
+            // 
+            // OldGosNomer_textBox
+            // 
+            this.OldGosNomer_textBox.Location = new System.Drawing.Point(10, 73);
+            this.OldGosNomer_textBox.Name = "OldGosNomer_textBox";
+            this.OldGosNomer_textBox.ReadOnly = true;
+            this.OldGosNomer_textBox.Size = new System.Drawing.Size(88, 20);
+            this.OldGosNomer_textBox.TabIndex = 159;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(496, 76);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(73, 13);
+            this.label33.TabIndex = 160;
+            this.label33.Text = "Держ.Номер";
+            // 
+            // LoadingAccounts
+            // 
+            this.LoadingAccounts.AutoSize = true;
+            this.LoadingAccounts.BackColor = System.Drawing.Color.Yellow;
+            this.LoadingAccounts.Location = new System.Drawing.Point(138, 106);
+            this.LoadingAccounts.Name = "LoadingAccounts";
+            this.LoadingAccounts.Size = new System.Drawing.Size(79, 13);
+            this.LoadingAccounts.TabIndex = 133;
+            this.LoadingAccounts.Text = "Завантажую...";
+            // 
+            // LoabingArhiveAlarm
+            // 
+            this.LoabingArhiveAlarm.AutoSize = true;
+            this.LoabingArhiveAlarm.BackColor = System.Drawing.Color.Yellow;
+            this.LoabingArhiveAlarm.Location = new System.Drawing.Point(39, 100);
+            this.LoabingArhiveAlarm.Name = "LoabingArhiveAlarm";
+            this.LoabingArhiveAlarm.Size = new System.Drawing.Size(79, 13);
+            this.LoabingArhiveAlarm.TabIndex = 134;
+            this.LoabingArhiveAlarm.Text = "Завантажую...";
+            // 
             // detail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2350,6 +2458,7 @@
             this.groupBox6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_rezultat_trevog)).EndInit();
             this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_trivogi_objecta)).EndInit();
             this.tabPage_dii_z_obectom.ResumeLayout(false);
             this.groupBox11.ResumeLayout(false);
@@ -2566,5 +2675,15 @@
         private System.Windows.Forms.TextBox Parking2_textBox;
         private System.Windows.Forms.TextBox Parking1_textBox;
         private System.Windows.Forms.Button button_kodove_save;
+        private System.Windows.Forms.Button button_GosNomer_NameObject;
+        private System.Windows.Forms.TextBox GosNomer_textBox;
+        private System.Windows.Forms.TextBox NameObject_textBox;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Button button_NameObjectCreate;
+        private System.Windows.Forms.TextBox OldGosNomer_textBox;
+        private System.Windows.Forms.TextBox OldNameObject_textBox;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label LoadingAccounts;
+        private System.Windows.Forms.Label LoabingArhiveAlarm;
     }
 }

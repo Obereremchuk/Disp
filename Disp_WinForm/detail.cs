@@ -41,6 +41,7 @@ namespace Disp_WinForm
         private string VIN_object;
         private string RoumingAccept;
         private string IMEI_object;
+        private string GosNomer;
         private int Parking1ExistInWL = 0;
         private int Parking2ExistInWL = 0;
         private int Parking3ExistInWL = 0;
@@ -478,6 +479,10 @@ namespace Disp_WinForm
                 this.BackColor = Color.Empty;
                 var m = JsonConvert.DeserializeObject<RootObject>(json);
 
+
+                //имя об
+                
+
                 if (m.error != 1)
                 {
                     if (m.items.Count == 0)
@@ -788,6 +793,7 @@ namespace Disp_WinForm
                             else if (keyvalue.Value.n.Contains("registration_plate"))
                             {
                                 treeView_client_info.Nodes[5].Nodes.Add(new TreeNode("Державний номер: " + keyvalue.Value.v.ToString()));
+                                GosNomer = keyvalue.Value.v.ToString();
                             }
                             else if (keyvalue.Value.n.Contains("brand"))
                             {
@@ -1172,7 +1178,7 @@ namespace Disp_WinForm
                 label_lmst.Text = macros.UnixTimeStampToDateTime(m.items[0].lmsg.t).ToString();
             }
 
-            if (m.items.Count != 0 & m.items[0].pos.ContainsKey("x"))
+            if (m.items.Count != 0 & m.items[0].pos != null)
             {
                 var lat = "";
                 var lon = "";
@@ -1413,12 +1419,34 @@ namespace Disp_WinForm
 
             Task.Run(() =>
             {
+                if (LoabingArhiveAlarm.InvokeRequired)
+                {
+                    treeView_user_accounts.Invoke(new Action(() => {
+                        LoabingArhiveAlarm.Visible = true;
+                    }));
+                }
+                else
+                {
+                    LoabingArhiveAlarm.Visible = true;
+                }
+
                 dataGridView_trivogi_objecta.AutoGenerateColumns = false;
                 DataTable dt = macros.GetData("SELECT idnotification, type_alarm, msg_time, Status, last_location FROM btk.notification where unit_id = " + _search_id + " and group_alarm is null order by idnotification desc");
 
                 if (dataGridView_trivogi_objecta.InvokeRequired)
                     dataGridView_trivogi_objecta.Invoke(new Action(() => { dataGridView_trivogi_objecta.DataSource = dt; }));
                 dataGridView_trivogi_objecta.DataSource = dt;
+
+                if (LoabingArhiveAlarm.InvokeRequired)
+                {
+                    treeView_user_accounts.Invoke(new Action(() => {
+                        LoabingArhiveAlarm.Visible = false;
+                    }));
+                }
+                else
+                {
+                    LoabingArhiveAlarm.Visible = false;
+                }
             });
         }
 
@@ -1929,7 +1957,16 @@ namespace Disp_WinForm
         private void build_list_account()
         {
             //vars_form.id_object_for_activation = "1098";
-
+            if (LoadingAccounts.InvokeRequired)
+            {
+                treeView_user_accounts.Invoke(new Action(() => {
+                    LoadingAccounts.Visible = true;
+                }));
+            }
+            else
+            {
+                LoadingAccounts.Visible = true;
+            }
 
             string json = macros.WialonRequest("&svc=core/check_accessors&params={" +
                                                 "\"items\":[\"" + wl_id + "\"]," +
@@ -2105,11 +2142,22 @@ namespace Disp_WinForm
                 }
 
 
-
+                
             }
             catch (Exception e)
             {
                 string er = e.ToString();
+            }
+
+            if (LoadingAccounts.InvokeRequired)
+            {
+                treeView_user_accounts.Invoke(new Action(() => {
+                    LoadingAccounts.Visible = false;
+                }));
+            }
+            else
+            {
+                LoadingAccounts.Visible = false;
             }
 
         }
@@ -4060,7 +4108,7 @@ namespace Disp_WinForm
                     Clipboard.SetText(textBox_account_pss.Text);
 
                     // Диалог закрываем заявку или нет при завершении работы с учетными записями
-                    on_end_account_job("Відновлено пароль: " + saving_selected_account);
+                        on_end_account_job("Відновлено пароль: " + saving_selected_account);
                 }
                 else if (dialogResult == DialogResult.No)
                 {
@@ -4468,6 +4516,11 @@ namespace Disp_WinForm
                     load_vo();
                     groupBox3.Visible = true;
                     groupBox3.BringToFront();
+                    GosNomer_textBox.Text = GosNomer;
+                    NameObject_textBox.Text = _unit_name;
+                    OldGosNomer_textBox.Text = GosNomer;
+                    OldNameObject_textBox.Text = _unit_name;
+
                 }
                 catch
                 { MessageBox.Show("tabPage_Edit_VO"); }
@@ -6641,6 +6694,99 @@ namespace Disp_WinForm
                         on_end_account_job("Внесено зміни:\nКодове слово: " + kodove_slovo_textBox.Text);
                         return;
                 }
+            }
+        }
+
+        private void button_NameObjectCreate_Click(object sender, EventArgs e)
+        {
+            DataTable name = null;
+            name = macros.GetData("" +
+                "select " +
+                "products.product_name, " +
+                "TS_brand.TS_brandcol_brand_short, " +
+                "TS_model.TS_modelcol_name_short, " +
+                "Kontragenti.Kontragenti_short_name, " +
+                "Kontragenti.kontragent_type_idkontragent_type, " +
+                "Zayavki.Sobstvennik_avto_neme " +
+                "from btk.TS_info, btk.Object, btk.products, btk.TS_model, btk.TS_brand, btk.Zayavki, btk.Kontragenti, btk.Activation_object " +
+                "where Object.Object_id_wl = '"+ wl_id +"' " +
+                "and Zayavki.Activation_object_idActivation_object = Activation_object.idActivation_object " +
+                "and Activation_object.Object_idObject = Object.idObject " +
+                "and Object.TS_info_idTS_info = TS_info.idTS_info " +
+                "and Object.products_idproducts = products.idproducts " +
+                "and TS_model.idTS_model = TS_info.TS_model_idTS_model " +
+                "and TS_brand.idTS_brand = TS_info.TS_brand_idTS_brand " +
+                "and Kontragenti.kontragent_type_idkontragent_type " +
+                "and Zayavki.Kontragenti_idKontragenti_zakazchik = Kontragenti.idKontragenti;");
+
+            if (name.Rows.Count == 0)
+            {
+                name = macros.GetData("" +
+                    "select " +
+                    "products.product_name, " +
+                    "TS_brand.TS_brandcol_brand_short, " +
+                    "TS_model.TS_modelcol_name_short " +
+                    "from btk.TS_info, btk.Object, btk.products, btk.TS_model, btk.TS_brand " +
+                    "where Object.Object_id_wl = '" + wl_id + "' " +
+                    "and Object.TS_info_idTS_info = TS_info.idTS_info " +
+                    "and Object.products_idproducts = products.idproducts " +
+                    "and TS_model.idTS_model = TS_info.TS_model_idTS_model " +
+                    "and TS_brand.idTS_brand = TS_info.TS_brand_idTS_brand;");
+
+                string brand = name.Rows[0][1].ToString();
+                string model = name.Rows[0][2].ToString();
+                string zakazchik = " (???)";
+                string sobstv = " (???)";
+                string product = " (" + name.Rows[0][0].ToString() + ")";
+                NameObject_textBox.Text = brand + " " + model + " " + GosNomer_textBox.Text + sobstv + product + zakazchik;
+            }
+            else
+            {
+                string brand = name.Rows[0][1].ToString();
+                string model = name.Rows[0][2].ToString();
+                string zakazchik = "";
+                if (name.Rows[0][4].ToString() == "2")
+                { zakazchik = " (" + name.Rows[0][3].ToString() + ")"; }
+                string sobstv = " (" + name.Rows[0][5].ToString() + ")";
+                string product = " (" + name.Rows[0][0].ToString() + ")";
+                NameObject_textBox.Text = brand + " " + model + " " + GosNomer_textBox.Text + sobstv + product + zakazchik;
+            }
+        }
+
+        private void button_GosNomer_NameObject_Click(object sender, EventArgs e)
+        {
+            if (GosNomer_textBox.Text != "")
+            {
+                //Характеристики licence plate
+                macros.WialonRequest("&svc=item/update_profile_field&params={"
+                                                           + "\"itemId\":\"" + wl_id + "\","
+                                                           + "\"n\":\"registration_plate\","
+                                                           + "\"v\":\"" + GosNomer_textBox.Text.Replace("\"", "%5C%22") + "\"}");
+
+                //Меняем имя об"екта
+                string name_answer = macros.WialonRequest("&svc=item/update_name&params={"
+                                                                + "\"itemId\":\"" + wl_id + "\","
+                                                                + "\"name\":\"" + NameObject_textBox.Text.Replace("\"", "%5C%22") + "\"}");
+
+                
+                string t = macros.sql_command("SELECT TS_info_idTS_info FROM btk.Object where idObject = '"+ id_db_obj  + "'");
+
+                if (t != "1" || t !="")
+                {
+
+                    macros.sql_command("update btk.TS_info set " +
+                                   "TS_infocol_licence_plate='" + MySqlHelper.EscapeString(GosNomer_textBox.Text) + "' " +
+                                   "where idTS_info=" + t + ";");
+
+                    macros.sql_command("update btk.Object set " +
+                               "Object_name='" + MySqlHelper.EscapeString(NameObject_textBox.Text) + "'" +
+                               "where idObject =" + id_db_obj + ";");
+                }
+
+                MessageBox.Show("Держ. Номер та назва об’єкту змінено");
+                // Диалог закрываем заявку или нет при завершении работы с учетными записями
+                on_end_account_job("Внесено зміни:\nДерж. Номер та назва об’єкту змінено : " + OldNameObject_textBox.Text + "\nСтара назва: " + OldNameObject_textBox.Text);
+
             }
         }
     }
