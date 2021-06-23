@@ -1421,7 +1421,7 @@ namespace Disp_WinForm
             {
                 if (LoabingArhiveAlarm.InvokeRequired)
                 {
-                    treeView_user_accounts.Invoke(new Action(() => {
+                    LoabingArhiveAlarm.Invoke(new Action(() => {
                         LoabingArhiveAlarm.Visible = true;
                     }));
                 }
@@ -1439,7 +1439,7 @@ namespace Disp_WinForm
 
                 if (LoabingArhiveAlarm.InvokeRequired)
                 {
-                    treeView_user_accounts.Invoke(new Action(() => {
+                    LoabingArhiveAlarm.Invoke(new Action(() => {
                         LoabingArhiveAlarm.Visible = false;
                     }));
                 }
